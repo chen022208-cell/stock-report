@@ -16,9 +16,9 @@ import traceback
 from datetime import date, timedelta
 
 from . import db, llm, render
-from .analysis import global_themes, industry, review, screener, technical
+from .analysis import global_themes, industry, review, scoring, screener, technical
 from .config import load_config, today_str, now_tpe
-from .fetchers import international, mops, tpex, twse
+from .fetchers import international, mops, tdcc, tpex, twse
 from .market_calendar import (classify_day, consecutive_closed_days,
                               is_last_day_before_reopen, next_trading_day,
                               refresh_holidays)
@@ -104,6 +104,7 @@ def run_evening() -> None:
     cfg = load_config()
     today = today_str()
     print(f"[evening] 產出台股盤後報告 {today}")
+    watch_codes = {w["code"] for w in cfg["watchlist"]}
 
     market = _safe(twse.fetch_index_summary, {}, "大盤行情")
     inst = _safe(twse.fetch_institutional_net, {}, "三大法人")
@@ -148,8 +149,17 @@ def run_evening() -> None:
     # 上市走 TWSE 歷史，上櫃量能倍數目前抓不到（TPEx 無對應歷史端點），留 None 不影響篩選
     strong = screener.scan_strong_stocks(all_quotes, cfg, twse.fetch_stock_history)
     print(f"[evening] 強勢股 {len(strong)} 檔")
+    holder_codes = {q["code"] for q in strong} | watch_codes
+    holder_concentration = _safe(lambda: tdcc.fetch_holder_concentration(holder_codes),
+                                 {}, "集保股權分散表")
+    holders = sorted(
+        ({"code": c, "name": quotes_by_code_all.get(c, {}).get("name", ""), "pct": p}
+         for c, p in holder_concentration.items()),
+        key=lambda x: x["pct"], reverse=True,
+    )
     if heatmap_rows or margin_top or strong:
-        render.render_chips(inst, margin_top[:10], strong[:10], render.date_label(today))
+        render.render_chips(inst, margin_top[:10], strong[:10], holders,
+                            render.date_label(today))
 
     # 第二層：題材聚類（含孤立訊號分流）
     call_context = "\n".join(f"{c['code']} {c['name']} 法說會：{c['note']}" for c in calls)
@@ -199,7 +209,6 @@ def run_evening() -> None:
     # 技術分析：只對入選個股跑，省算力
     candidates = {s["code"]: s["name"] for t in themes_raw for s in t.get("stocks", [])}
     candidates.update({dh["code"]: dh["name"] for dh in dark_horses})
-    watch_codes = {w["code"] for w in cfg["watchlist"]}
 
     technicals = []
     for code, name in list(candidates.items())[:12]:
@@ -210,12 +219,57 @@ def run_evening() -> None:
         technicals.append(result)
     technicals.sort(key=lambda x: not x["is_watchlist"])
 
+    # 五面向評分（免費四軸）：只對入選候選股算，跟技術分析同一份名單
+    revenue_yoy = _safe(twse.fetch_revenue_yoy, {}, "月營收年增率")
+    theme_conf_by_code = {s.get("code"): t.get("confidence")
+                          for t in themes_raw for s in t.get("stocks", [])}
+    score_rows = []
+    for t in technicals:
+        code = t["code"]
+        margin_change = margin_all.get(code, {}).get("margin_change")
+        s = scoring.score_stock(
+            grade=t.get("grade"),
+            inst_net=inst_by_stock.get(code),
+            margin_change=margin_change,
+            revenue_yoy=revenue_yoy.get(code),
+            theme_confidence=theme_conf_by_code.get(code),
+        )
+        score_rows.append({**s, "code": code, "name": t["name"]})
+    score_rows.sort(key=lambda x: (x["composite"] is None, -(x["composite"] or 0)))
+    if score_rows:
+        render.render_scores(score_rows, render.date_label(today))
+
+    # 處置股預警：官方公布的處置中／接近門檻／今日新注意，直接轉譯不重寫規則引擎
+    disposition = _safe(twse.fetch_disposition_stocks, [], "處置股票")
+    attention_trending = _safe(twse.fetch_attention_trending, [], "注意累計接近門檻")
+    attention_today = _safe(twse.fetch_attention_today, [], "今日新注意股票")
+    if disposition or attention_trending or attention_today:
+        render.render_disposition(disposition, attention_trending, attention_today,
+                                  render.date_label(today))
+
     # 自選股命中，置頂
     hits = screener.watchlist_hits(themes_raw, dark_horses, cfg["watchlist"])
 
+    # 給評論用的補充資料：值得關注的個股（評分前 5）、處置/注意概況、國際題材對照
+    watch_stocks = [
+        {"code": r["code"], "name": r["name"], "composite": r["composite"],
+         "technical": r["technical"], "chip": r["chip"], "fundamental": r["fundamental"],
+         "theme": r["theme"]}
+        for r in score_rows[:5] if r["composite"] is not None
+    ]
+    disposition_summary = {
+        "in_disposition": [f"{d['code']} {d['name']}" for d in disposition],
+        "approaching": [f"{t['code']} {t['name']}：{t['note']}" for t in attention_trending],
+    }
+    intl_themes = [{"name": t["name"], "summary": t.get("summary", "")}
+                  for t in db.list_themes("active") if t.get("scope") == "intl"]
+
     commentary = _safe(
-        lambda: llm.market_commentary({"market": market, "institutional": inst,
-                                       "themes": themes_raw, "type": "evening"}),
+        lambda: llm.market_commentary({
+            "market": market, "institutional": inst, "themes": themes_raw,
+            "watch_stocks": watch_stocks, "disposition_summary": disposition_summary,
+            "intl_themes": intl_themes, "type": "evening",
+        }),
         "", "盤後評論")
 
     ctx = {
@@ -228,6 +282,8 @@ def run_evening() -> None:
         "technicals": technicals,
         "earnings_calls": calls,
         "commentary": commentary,
+        "watch_stocks": watch_stocks,
+        "disposition_count": len(disposition) + len(attention_trending),
     }
 
     path = render.render_daily(ctx, f"{today}-evening")

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}處置股預警 · {{ site_title }}{% endblock %}
+{% block extra_css %}
+  .meta{font-size:13px; color:var(--text-muted); margin:10px 0 20px;}
+  .card{background:var(--surface); border-radius:8px; padding:16px 18px; margin-bottom:12px;
+       border-left:2px solid var(--red);}
+  .card.watch{border-left-color:var(--gold);}
+  .card.today{border-left-color:var(--text-secondary);}
+  .card-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px; margin-bottom:6px;}
+  .card-detail{font-size:13.5px; color:var(--text-secondary); line-height:1.7;}
+  .card-tag{display:inline-block; font-size:11.5px; color:var(--text-muted); margin-bottom:6px;}
+  .section-head{font-family:'Noto Serif TC',serif; font-size:16px;
+                color:var(--text-secondary); margin:28px 0 12px;}
+{% endblock %}
+{% block content %}
+<header><div class="masthead-label">{{ site_title }}</div>
+<h1 class="masthead-date">處置股預警</h1></header>
+<p class="meta">{{ date_label }} · 資料源：TWSE 公布注意／處置交易資訊，官方原文照登</p>
+
+<div class="section-head">處置中（{{ disposition|length }}）</div>
+{% if disposition %}
+{% for d in disposition %}
+<div class="card">
+  <div class="card-tag">處置期間 {{ d.period }} · {{ d.measure }}</div>
+  <div class="card-name">{{ d.code }} {{ d.name }}</div>
+  <div class="card-detail">{{ d.reason }}</div>
+</div>
+{% endfor %}
+{% else %}
+<p class="commentary">目前沒有處置中的股票。</p>
+{% endif %}
+
+<div class="section-head">注意累計次數接近處置門檻（{{ trending|length }}）</div>
+{% if trending %}
+{% for t in trending %}
+<div class="card watch">
+  <div class="card-name">{{ t.code }} {{ t.name }}</div>
+  <div class="card-detail">{{ t.note }}</div>
+</div>
+{% endfor %}
+{% else %}
+<p class="commentary">目前沒有接近門檻的股票。</p>
+{% endif %}
+
+<div class="section-head">今日新公布注意股票（{{ today_list|length }}）</div>
+{% if today_list %}
+{% for t in today_list %}
+<div class="card today">
+  <div class="card-name">{{ t.code }} {{ t.name }}</div>
+  <div class="card-detail">{{ t.info }}</div>
+</div>
+{% endfor %}
+{% else %}
+<p class="commentary">今天沒有新公布的注意股票。</p>
+{% endif %}
+{% endblock %}

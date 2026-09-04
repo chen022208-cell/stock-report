@@ -77,7 +77,23 @@
 </section>
 {% endif %}
 
-{% if not inst and not margin_top and not strong %}
+{% if holders %}
+<section class="block">
+  <h2>大戶持股集中度（千張大戶佔集保庫存比例）</h2>
+  <table class="tech-table">
+    <tr><th>股票</th><th>大戶持股比例</th></tr>
+    {% for h in holders %}
+    <tr>
+      <td>{{ h.code }} {{ h.name }}</td>
+      <td class="mono">{{ "%.1f"|format(h.pct) }}%</td>
+    </tr>
+    {% endfor %}
+  </table>
+</section>
+<hr class="divider">
+{% endif %}
+
+{% if not inst and not margin_top and not strong and not holders %}
 <p class="commentary" style="margin-top:24px">今天還沒有資料，下一次盤後報告產出後這裡會更新。</p>
 {% endif %}
 {% endblock %}

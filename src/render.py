@@ -270,14 +270,38 @@ def render_heatmap(industries: list[dict], date_label_str: str) -> Path:
 
 
 def render_chips(inst: dict, margin_top: list[dict], strong: list[dict],
-                 date_label_str: str) -> Path:
+                 holders: list[dict], date_label_str: str) -> Path:
     cfg = load_config()
     path = DOCS_DIR / "chips.html"
     path.write_text(_env().get_template("chips.html").render(
         site_title=cfg["site"]["title"],
         generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
         rel="", date_label=date_label_str,
-        inst=inst, margin_top=margin_top, strong=strong,
+        inst=inst, margin_top=margin_top, strong=strong, holders=holders,
+    ), encoding="utf-8")
+    return path
+
+
+def render_disposition(disposition: list[dict], trending: list[dict],
+                       today_list: list[dict], date_label_str: str) -> Path:
+    cfg = load_config()
+    path = DOCS_DIR / "disposition.html"
+    path.write_text(_env().get_template("disposition.html").render(
+        site_title=cfg["site"]["title"],
+        generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
+        rel="", date_label=date_label_str,
+        disposition=disposition, trending=trending, today_list=today_list,
+    ), encoding="utf-8")
+    return path
+
+
+def render_scores(rows: list[dict], date_label_str: str) -> Path:
+    cfg = load_config()
+    path = DOCS_DIR / "scores.html"
+    path.write_text(_env().get_template("scores.html").render(
+        site_title=cfg["site"]["title"],
+        generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
+        rel="", date_label=date_label_str, rows=rows,
     ), encoding="utf-8")
     return path
 

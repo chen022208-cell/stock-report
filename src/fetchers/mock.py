@@ -108,6 +108,35 @@ def margin_by_stock() -> dict[str, dict]:
     }
 
 
+def revenue_yoy() -> dict[str, float]:
+    return {"1590": 18.4, "2049": 12.1, "6187": 5.2, "4551": 22.7, "2330": 9.8,
+            "3017": -3.4, "3661": 14.0}
+
+
+def disposition_stocks() -> list[dict]:
+    return [
+        {"code": "3008", "name": "大立光", "period": "115/09/03～115/09/09",
+         "measure": "第一次處置", "reason": "連續三次"},
+    ]
+
+
+def attention_trending() -> list[dict]:
+    return [
+        {"code": "6187", "name": "萬潤", "note": "115年9月2日至115年9月4日連續三次"},
+        {"code": "4551", "name": "智伸科", "note": "115年9月3日至115年9月4日連續二次"},
+    ]
+
+
+def attention_today() -> list[dict]:
+    return [
+        {"code": "3374", "name": "精材", "info": "股價漲跌幅度過高"},
+    ]
+
+
+def holder_concentration() -> dict[str, float]:
+    return {"2330": 84.8, "1590": 62.3, "2049": 58.1, "6187": 41.2, "4551": 37.5}
+
+
 def industry_map() -> dict[str, str]:
     return {
         "1590": "其他電子業", "2049": "其他電子業", "4551": "機械業", "2330": "半導體業",

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}五面向評分 · {{ site_title }}{% endblock %}
+{% block extra_css %}
+  .meta{font-size:13px; color:var(--text-muted); margin:10px 0 20px;}
+  .score-card{background:var(--surface); border-radius:8px; padding:16px 18px; margin-bottom:12px;}
+  .score-head{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px;}
+  .score-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px;}
+  .score-composite{font-family:'JetBrains Mono',monospace; font-size:22px; color:var(--gold);}
+  .axis-row{display:flex; align-items:center; gap:10px; margin-bottom:6px; font-size:13px;}
+  .axis-label{width:56px; color:var(--text-muted); flex-shrink:0;}
+  .axis-track{flex:1; height:6px; background:var(--surface-2); border-radius:3px; overflow:hidden;}
+  .axis-fill{height:100%; background:var(--gold); border-radius:3px;}
+  .axis-value{width:34px; text-align:right; font-family:'JetBrains Mono',monospace; color:var(--text-secondary); flex-shrink:0;}
+  .axis-na{color:var(--text-muted); font-size:12px; width:34px; text-align:right;}
+{% endblock %}
+{% block content %}
+<header><div class="masthead-label">{{ site_title }}</div>
+<h1 class="masthead-date">五面向評分排行</h1></header>
+<p class="meta">{{ date_label }} · 技術／籌碼／基本／題材四軸皆為規則計算；新聞面尚未評分</p>
+{% if rows %}
+{% for r in rows %}
+<div class="score-card">
+  <div class="score-head">
+    <span class="score-name">{{ r.name }}</span>
+    <span class="score-composite">{{ r.composite if r.composite is not none else '—' }}</span>
+  </div>
+  {% for label, key in [('技術面','technical'),('籌碼面','chip'),('基本面','fundamental'),('題材面','theme'),('新聞面','news')] %}
+  <div class="axis-row">
+    <span class="axis-label">{{ label }}</span>
+    {% set v = r[key] %}
+    {% if v is not none %}
+    <div class="axis-track"><div class="axis-fill" style="width:{{ v }}%"></div></div>
+    <span class="axis-value">{{ v }}</span>
+    {% else %}
+    <div class="axis-track"></div>
+    <span class="axis-na">未評分</span>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+{% endfor %}
+{% else %}
+<p class="commentary" style="margin-top:24px">今天還沒有資料，下一次盤後報告產出後這裡會更新。</p>
+{% endif %}
+{% endblock %}

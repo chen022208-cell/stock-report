@@ -223,6 +223,36 @@
 <hr class="divider">
 {% endif %}
 
+{% if watch_stocks %}
+<section class="block">
+  <h2>今日值得關注</h2>
+  <table class="tech-table">
+    <tr><th>股票</th><th>綜合分</th><th>強項</th></tr>
+    {% for w in watch_stocks %}
+    <tr>
+      <td>{{ w.name }}</td>
+      <td class="mono">{{ w.composite }}</td>
+      <td class="t-note">
+        {%- set axes = [('技術', w.technical), ('籌碼', w.chip), ('基本', w.fundamental), ('題材', w.theme)] -%}
+        {%- set top = (axes|selectattr('1', 'ne', none)|list)|sort(attribute='1', reverse=true) -%}
+        {%- for label, v in top[:2] %}{{ label }} {{ v }}{% if not loop.last %}、{% endif %}{% endfor -%}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  <p class="t-note" style="margin-top:10px">完整五面向評分 → <a href="{{ rel }}scores.html" style="color:var(--gold)">scores.html</a></p>
+</section>
+<hr class="divider">
+{% endif %}
+
+{% if disposition_count %}
+<div class="watch-hits" style="border-left-color:var(--red)">
+  <div class="wh-label" style="color:var(--red)">處置／注意提醒</div>
+  <div class="wh-item">今日共 {{ disposition_count }} 檔處置中或接近門檻，完整名單 →
+    <a href="{{ rel }}disposition.html" style="color:var(--gold)">disposition.html</a></div>
+</div>
+{% endif %}
+
 {% if themes %}
 <section class="block">
   <h2>今日題材淘金區</h2>

@@ -254,6 +254,81 @@ def fetch_industry_map() -> dict[str, str]:
     return out
 
 
+def fetch_revenue_yoy() -> dict[str, float]:
+    """上市公司最新月營收年增率（%）。回傳 {代號: YoY%}，給五面向評分的基本面軸用。"""
+    if DRY_RUN:
+        return mock.revenue_yoy()
+    rows = _get("/opendata/t187ap05_L")
+    if not rows:
+        return {}
+    out = {}
+    for row in rows:
+        code = str(row.get("公司代號", "")).strip()
+        yoy = row.get("營業收入-去年同月增減(%)")
+        if code and yoy not in (None, ""):
+            out[code] = _num(yoy)
+    return out
+
+
+def fetch_disposition_stocks() -> list[dict]:
+    """目前公布中的處置股票。"""
+    if DRY_RUN:
+        return mock.disposition_stocks()
+    rows = _get("/announcement/punish")
+    if not rows:
+        return []
+    out = []
+    for row in rows:
+        code = str(row.get("Code", "")).strip()
+        if not code:
+            continue
+        out.append({
+            "code": code, "name": row.get("Name", ""),
+            "period": row.get("DispositionPeriod", ""),
+            "measure": row.get("DispositionMeasures", ""),
+            "reason": row.get("ReasonsOfDisposition", ""),
+        })
+    return out
+
+
+def fetch_attention_trending() -> list[dict]:
+    """注意累計次數可能達處置標準——TWSE 官方直接公布「還差幾次」的文字敘述。"""
+    if DRY_RUN:
+        return mock.attention_trending()
+    rows = _get("/announcement/notetrans")
+    if not rows:
+        return []
+    out = []
+    for row in rows:
+        code = str(row.get("Code", "")).strip()
+        if not code:
+            continue
+        out.append({
+            "code": code, "name": row.get("Name", ""),
+            "note": row.get("RecentlyMetAttentionSecuritiesCriteria", ""),
+        })
+    return out
+
+
+def fetch_attention_today() -> list[dict]:
+    """今日新公布的注意股票。"""
+    if DRY_RUN:
+        return mock.attention_today()
+    rows = _get("/announcement/notice")
+    if not rows:
+        return []
+    out = []
+    for row in rows:
+        code = str(row.get("Code", "")).strip()
+        if not code:
+            continue
+        out.append({
+            "code": code, "name": row.get("Name", ""),
+            "info": row.get("TradingInfoForAttention", ""),
+        })
+    return out
+
+
 def fetch_margin_by_stock() -> dict[str, dict]:
     """個股融資融券餘額與當日增減（股數）。回傳 {代號: {...}}。"""
     if DRY_RUN:
