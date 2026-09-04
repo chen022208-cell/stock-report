@@ -55,5 +55,6 @@ llm:
 
 # ── 通知 ────────────────────────────────────────────
 notify:
-  discord_enabled: false     # 沒設 DISCORD_WEBHOOK_URL 就關著；要用就設 true 並補 Secret
-  telegram_enabled: true     # 使用者走這條路：TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID 已設好
+  discord_enabled: true      # DISCORD_WEBHOOK_URL 走環境變數
+  telegram_enabled: true     # TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID 走環境變數
+  # 兩個都設定好的話兩邊都會收到，互不影響；哪個 Secret 沒填就自動略過那個
