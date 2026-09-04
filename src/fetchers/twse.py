@@ -257,7 +257,7 @@ def fetch_industry_map() -> dict[str, str]:
 def fetch_margin_by_stock() -> dict[str, dict]:
     """個股融資融券餘額與當日增減（股數）。回傳 {代號: {...}}。"""
     if DRY_RUN:
-        return {}
+        return mock.margin_by_stock()
 
     rows = _get("/exchangeReport/MI_MARGN")
     if not rows:

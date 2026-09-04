@@ -53,7 +53,7 @@
     <tr>
       <td>{{ m.code }} {{ m.name }}{% if m.market == 'tpex' %}<span class="market-tag">上櫃</span>{% endif %}</td>
       <td class="mono">{{ "{:,.0f}".format(m.margin_balance) }} 張</td>
-      <td class="mono {{ 'up' if m.margin_change >= 0 else 'down' }}">{{ "%+,.0f"|format(m.margin_change) }}</td>
+      <td class="mono {{ 'up' if m.margin_change >= 0 else 'down' }}">{{ "{:+,.0f}".format(m.margin_change) }}</td>
     </tr>
     {% endfor %}
   </table>

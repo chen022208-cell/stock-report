@@ -97,6 +97,17 @@ def tpex_daily_quotes() -> list[dict]:
     return quotes
 
 
+def margin_by_stock() -> dict[str, dict]:
+    return {
+        "1590": {"margin_balance": 4200.0, "margin_change": 320.0,
+                 "short_balance": 80.0, "short_change": -10.0},
+        "2049": {"margin_balance": 3100.0, "margin_change": -150.0,
+                 "short_balance": 60.0, "short_change": 5.0},
+        "6187": {"margin_balance": 900.0, "margin_change": 210.0,
+                 "short_balance": 40.0, "short_change": 30.0},
+    }
+
+
 def industry_map() -> dict[str, str]:
     return {
         "1590": "其他電子業", "2049": "其他電子業", "4551": "機械業", "2330": "半導體業",
