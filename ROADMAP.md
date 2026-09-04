@@ -15,9 +15,21 @@
   `notetrans`「注意累計次數」公告，沒有重寫整套處置規則引擎）、五面向評分四個免費軸
   （`scores.html`）、大戶持股（集保 `opendata.tdcc.com.tw`，併入 chips.html）、
   盤後評論的輸入補上評分前段個股 + 處置概況 + 國際題材，daily.html 新增「今日值得關注」表格
+- ✅ **Phase 3 完成並部署**：供應鏈結構（`db.supply_chains` 表，跟深度報告同時機由 LLM
+  產出，article.html 顯示上中下游 + 核心/邊緣角色 + 國際同類公司）、新聞面評分
+  （`stock_news.py` 抓個股 Google News 標題、`llm.news_sentiment_batch()` 一次批次判讀，
+  五面向評分終於五軸都有值，正式環境驗證過真的有分數）
+- ✅ **Phase 4 程式就緒，等使用者申請 FRED key**：`fred.py` 已寫好、早報「國際總經」
+  區塊已接上，沒有 `FRED_API_KEY` 就整段不顯示，不影響其他功能；申請免費
+  （https://fred.stlouisfed.org/docs/api/api_key.html）後加同名 Secret 即可啟用
+- ✅ **PWA + JSON 匯出**（隨時可做項目）：`manifest.json` / `sw.js` / 圖示、
+  render 同步輸出 `docs/data/*.json`
+- ✅ **效能修正**：`prices_db.py` 個股日線快取（`data/prices.db`，Actions cache 跨次保留），
+  解決高波動日強勢股掃描逐檔即時抓歷史把單次執行拖到 8 分鐘以上的問題
 - ⏭️ **主動式 ETF 每日持股**：找不到公開 API（TWSE openapi 只有月報表，沒有逐日 PCF），擱置
 - ⏭️ **近期新上市櫃**：`t187ap03_L` 的上市日期欄位查無 2026 年紀錄，資料集可能不適用，擱置
-- ⬜ **Phase 3、4 未開始**：產業鏈結構（供應鏈圖）、新聞面評分、FRED 總經、跨市場產業對照
+- ⏭️ **跨市場同題材對應獨立追蹤**：目前只有供應鏈結構裡的 `peers` 陣列（LLM 附帶產出），
+  沒有像 `global_themes.py` 那樣獨立抓日/韓/美同業資料源，算部分完成
 
 ---
 
