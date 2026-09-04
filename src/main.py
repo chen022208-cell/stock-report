@@ -14,6 +14,7 @@ from __future__ import annotations
 import sys
 import traceback
 from datetime import date, timedelta
+from pathlib import Path
 
 from . import db, llm, prices_db, render
 from .analysis import global_themes, industry, review, scoring, screener, technical
@@ -430,6 +431,42 @@ def run_holiday() -> None:
     print(f"[holiday] 完成：{path}")
 
 
+# ── 題材目錄匯入（THEMES.md → 題材知識庫，status='catalog'） ─────
+def run_import_catalog() -> None:
+    import re as _re
+
+    today = today_str()
+    md_path = Path(__file__).resolve().parent.parent / "THEMES.md"
+    if not md_path.exists():
+        print("[catalog] 找不到 THEMES.md，略過")
+        return
+
+    text = md_path.read_text(encoding="utf-8")
+    sections = _re.split(r"\n## ", text)
+    entries = []
+    for sec in sections[1:]:
+        title_line, _, body = sec.partition("\n")
+        title_line = title_line.strip()
+        if title_line.startswith("待補") or title_line.startswith("待辦") or title_line.startswith("現況"):
+            continue
+        category = title_line
+        for line in body.splitlines():
+            line = line.strip()
+            if not line.startswith("|") or line.startswith("|---") or "一句話論點" in line:
+                continue
+            cells = [c.strip() for c in line.strip("|").split("|")]
+            if len(cells) < 4:
+                continue
+            _, name, thesis, _status = cells[0], cells[1], cells[2], cells[3]
+            if name and name != "題材":
+                entries.append({"name": name, "category": category, "thesis": thesis})
+
+    result = db.import_theme_catalog(entries, today)
+    print(f"[catalog] 匯入完成：新增 {result['added']}、略過（已存在）{result['skipped']}，"
+         f"共解析 {len(entries)} 筆")
+    render.render_site()
+
+
 # ── 自動分支（排程呼叫這個） ───────────────────────────
 def run_auto(slot: str) -> None:
     """slot = morning / evening，由 cron 傳入時段，再由行事曆決定實際跑什麼。"""
@@ -466,6 +503,7 @@ def main() -> None:
         "monthly": run_monthly,
         "holiday": run_holiday,
         "site": lambda: render.render_site(),
+        "catalog": run_import_catalog,
     }
 
     if mode == "auto":

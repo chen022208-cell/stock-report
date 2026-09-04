@@ -27,7 +27,8 @@ CREATE TABLE IF NOT EXISTS themes (
     status            TEXT DEFAULT 'active',   -- active / dormant / archived
     scope             TEXT DEFAULT 'tw',       -- tw / intl
     related_stocks    TEXT,              -- JSON list
-    deep_dive_slug    TEXT               -- 已產出深度報告時的檔名
+    deep_dive_slug    TEXT,              -- 已產出深度報告時的檔名
+    category          TEXT               -- 題材目錄分類（只有 status='catalog' 的種子題材會填）
 );
 
 -- 題材每日更新軌跡：深度報告的時間軸就從這裡長出來
@@ -113,6 +114,12 @@ def get_conn() -> Iterator[sqlite3.Connection]:
 def init_db() -> None:
     with get_conn() as conn:
         conn.executescript(SCHEMA)
+        # 既有 data/market.db（部署後累積的正式資料）不會因為 CREATE TABLE IF NOT EXISTS
+        # 而補到新欄位，額外做一次安全的加欄位遷移；已存在就忽略錯誤。
+        try:
+            conn.execute("ALTER TABLE themes ADD COLUMN category TEXT")
+        except sqlite3.OperationalError:
+            pass
 
 
 # ── 題材知識庫 ─────────────────────────────────────────
@@ -157,6 +164,40 @@ def upsert_theme(
             (theme_id, today, confidence, verdict, note, len(related_stocks), inst_net),
         )
     return theme_id
+
+
+def import_theme_catalog(entries: list[dict], today: str) -> dict:
+    """匯入題材目錄種子清單（THEMES.md）。status='catalog'，跟系統即時偵測到的
+    'active'/'dormant' 題材分開，不會混進每日報告或首頁的「追蹤中題材」。
+
+    entries = [{"name":, "category":, "thesis":}, ...]
+    同名已存在的題材（不管是 catalog 還是系統偵測到的真題材）一律跳過，不覆蓋——
+    真題材的追蹤資料比種子清單珍貴，種子清單只是補「還沒被偵測到」的名字進來。
+    """
+    added, skipped = 0, 0
+    with get_conn() as conn:
+        for e in entries:
+            row = conn.execute("SELECT id FROM themes WHERE name=?", (e["name"],)).fetchone()
+            if row:
+                skipped += 1
+                continue
+            conn.execute(
+                """INSERT INTO themes (name, summary, first_seen, last_signal_date,
+                   confidence, verdict, status, scope, related_stocks, category)
+                   VALUES (?,?,?,?,?,?,?,?,?,?)""",
+                (e["name"], e.get("thesis", ""), today, today, None, None,
+                 "catalog", "tw", "[]", e.get("category", "")),
+            )
+            added += 1
+    return {"added": added, "skipped": skipped}
+
+
+def list_catalog_themes() -> list[dict]:
+    with get_conn() as conn:
+        rows = conn.execute(
+            "SELECT * FROM themes WHERE status='catalog' ORDER BY category, name"
+        ).fetchall()
+        return [dict(r) for r in rows]
 
 
 def get_theme(name: str) -> dict | None:
@@ -350,3 +391,12 @@ def snapshots_between(start: str, end: str) -> list[dict]:
             (start, end),
         ).fetchall()
         return [dict(r) for r in rows]
+
+
+def latest_snapshot() -> dict | None:
+    """最近一筆市場快照，首頁儀表板用。沒資料回 None。"""
+    with get_conn() as conn:
+        row = conn.execute(
+            "SELECT * FROM market_snapshots ORDER BY date DESC LIMIT 1"
+        ).fetchone()
+        return dict(row) if row else None
