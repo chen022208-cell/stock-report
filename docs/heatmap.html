@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>產業熱力圖 · 盤後快訊</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1C1B19; --surface:#242220; --surface-2:#2B2925;
+    --text-primary:#EDE9E1; --text-secondary:#A39C8E; --text-muted:#726C60;
+    --red:#DB544A; --green:#4F9E71; --gold:#D9A441; --hairline:#3A362F;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--bg); color:var(--text-primary);
+       font-family:'Noto Sans TC',sans-serif; line-height:1.7;
+       -webkit-font-smoothing:antialiased;}
+  .page{max-width:640px; margin:0 auto; padding:48px 24px 64px;}
+  a{color:inherit;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  /* 台股慣例：紅漲綠跌。切勿套用美股配色，會讓人看反方向 */
+  .up{color:var(--red);} .down{color:var(--green);}
+  hr.divider{border:none; border-top:1px solid var(--hairline); margin:28px 0;}
+
+  .nav{display:flex; gap:18px; font-size:13px; color:var(--text-muted);
+       margin-bottom:28px; flex-wrap:wrap;}
+  .nav a{text-decoration:none; border-bottom:1px solid transparent; padding-bottom:2px;}
+  .nav a:hover,.nav a:focus-visible{color:var(--gold); border-bottom-color:var(--gold);}
+
+  .masthead-label{font-size:13px; color:var(--text-muted); margin-bottom:6px;}
+  .masthead-date{font-family:'Noto Serif TC',serif; font-weight:600; font-size:26px;}
+
+  .block h2{font-family:'Noto Serif TC',serif; font-weight:600;
+            font-size:20px; margin-bottom:16px;}
+  .commentary{font-size:15px; color:var(--text-secondary); line-height:1.8;}
+
+  .tag{font-size:12px; padding:3px 9px; border-radius:100px; white-space:nowrap;}
+  .tag.confidence-high{background:rgba(217,164,65,.16); color:var(--gold);}
+  .tag.confidence-mid{background:rgba(163,156,142,.16); color:var(--text-secondary);}
+  .tag.confidence-low{background:rgba(114,108,96,.16); color:var(--text-muted);}
+  .tag.verdict-real{background:rgba(79,158,113,.16); color:var(--green);}
+  .tag.verdict-watch{background:rgba(219,84,74,.16); color:var(--red);}
+  .tag.watchlist{background:rgba(217,164,65,.2); color:var(--gold);}
+
+  footer.site-footer{margin-top:44px; padding-top:20px;
+                     border-top:1px solid var(--hairline);}
+  footer.site-footer p{font-size:12.5px; color:var(--text-muted);
+                       margin-bottom:6px; line-height:1.6;}
+
+  @media (max-width:480px){
+    .page{padding:36px 18px 56px;}
+    .masthead-date{font-size:22px;}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
+
+  .meta{font-size:13px; color:var(--text-muted); margin:10px 0 20px;}
+
+  .spark{width:100%; height:60px; display:block;}
+  .dbars{width:100%; height:auto; display:block; margin:6px 0 4px;}
+  .dbars-label{fill:var(--text-secondary); font-size:12px;
+               font-family:&#39;Noto Sans TC&#39;,sans-serif;}
+  .dbars-value{fill:var(--text-muted); font-size:12px;
+               font-family:&#39;JetBrains Mono&#39;,monospace;}
+  .heatgrid{width:100%; height:auto; display:block;}
+  .heatgrid-label{fill:var(--text-primary); font-size:12px; font-weight:600;
+                  font-family:&#39;Noto Sans TC&#39;,sans-serif;}
+  .heatgrid-pct{fill:var(--text-primary); font-size:11px;
+                font-family:&#39;JetBrains Mono&#39;,monospace; opacity:.85;}
+
+
+</style>
+</head>
+<body>
+<div class="page">
+  <nav class="nav">
+    <a href="index.html">最新</a>
+    <a href="archive.html">歷史報告</a>
+    <a href="themes.html">題材知識庫</a>
+    <a href="heatmap.html">產業熱力圖</a>
+    <a href="chips.html">籌碼儀表板</a>
+  </nav>
+
+  
+<header><div class="masthead-label">盤後快訊</div>
+<h1 class="masthead-date">產業熱力圖</h1></header>
+<p class="meta">2026年9月5日．週六 收盤 · 依產業別等權平均漲跌幅，紅漲綠跌，顏色深淺代表強度</p>
+
+<svg viewBox="0 0 400 666" class="heatgrid" role="img" aria-label="熱力圖"><g transform="translate(0,0)"><rect width="98" height="72" rx="4" fill="rgba(219,84,74,0.54)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">金融保險</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">+1.61%</text></g><g transform="translate(100,0)"><rect width="98" height="72" rx="4" fill="rgba(219,84,74,0.35)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">航運業</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">+0.76%</text></g><g transform="translate(200,0)"><rect width="98" height="72" rx="4" fill="rgba(219,84,74,0.21)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">水泥工業</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">+0.15%</text></g><g transform="translate(300,0)"><rect width="98" height="72" rx="4" fill="rgba(219,84,74,0.20)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">建材營造</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">+0.11%</text></g><g transform="translate(0,74)"><rect width="98" height="72" rx="4" fill="rgba(219,84,74,0.20)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">鋼鐵工業</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">+0.07%</text></g><g transform="translate(100,74)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.18)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">油電燃氣業</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-0.01%</text></g><g transform="translate(200,74)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.19)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">造紙工業</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-0.04%</text></g><g transform="translate(300,74)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.21)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">38</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-0.13%</text></g><g transform="translate(0,148)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.25)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">貿易百貨</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-0.31%</text></g><g transform="translate(100,148)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.25)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">食品工業</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-0.32%</text></g><g transform="translate(200,148)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.28)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">觀光事業</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-0.45%</text></g><g transform="translate(300,148)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.32)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">其他業</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-0.61%</text></g><g transform="translate(0,222)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.32)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">存託憑證</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-0.62%</text></g><g transform="translate(100,222)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.33)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">37</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-0.66%</text></g><g transform="translate(200,222)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.34)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">電器電纜</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-0.69%</text></g><g transform="translate(300,222)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.34)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">數位雲端</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-0.72%</text></g><g transform="translate(0,296)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.36)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">紡織纖維</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-0.81%</text></g><g transform="translate(100,296)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.36)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">綠能環保</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-0.81%</text></g><g transform="translate(200,296)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.37)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">汽車工業</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-0.82%</text></g><g transform="translate(300,296)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.38)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">橡膠工業</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-0.89%</text></g><g transform="translate(0,370)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.41)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">資訊服務業</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-1.00%</text></g><g transform="translate(100,370)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.45)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">生技醫療業</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-1.18%</text></g><g transform="translate(200,370)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.46)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">其他電子業</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-1.22%</text></g><g transform="translate(300,370)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.47)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">塑膠工業</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-1.27%</text></g><g transform="translate(0,444)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.57)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">電子通路業</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-1.74%</text></g><g transform="translate(100,444)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.58)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">電機機械</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-1.75%</text></g><g transform="translate(200,444)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.63)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">通信網路業</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-2.00%</text></g><g transform="translate(300,444)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.65)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">玻璃陶瓷</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-2.08%</text></g><g transform="translate(0,518)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.71)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">化學工業</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-2.32%</text></g><g transform="translate(100,518)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.72)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">半導體業</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-2.39%</text></g><g transform="translate(200,518)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.78)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">電腦及週邊…</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-2.67%</text></g><g transform="translate(300,518)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.85)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">電子零組件業</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-2.94%</text></g><g transform="translate(0,592)"><rect width="98" height="72" rx="4" fill="rgba(79,158,113,0.90)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">光電業</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">-3.18%</text></g><g transform="translate(100,592)"><rect width="98" height="72" rx="4" fill="rgba(219,84,74,0.33)"/><text x="49" y="29" text-anchor="middle" class="heatgrid-label">其他</text><text x="49" y="51" text-anchor="middle" class="heatgrid-pct">+0.66%</text></g></svg>
+
+
+
+  <footer class="site-footer">
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 01:54</p>
+    <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
+  </footer>
+</div>
+</body>
+</html>

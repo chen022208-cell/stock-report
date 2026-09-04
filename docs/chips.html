@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>籌碼儀表板 · 盤後快訊</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1C1B19; --surface:#242220; --surface-2:#2B2925;
+    --text-primary:#EDE9E1; --text-secondary:#A39C8E; --text-muted:#726C60;
+    --red:#DB544A; --green:#4F9E71; --gold:#D9A441; --hairline:#3A362F;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--bg); color:var(--text-primary);
+       font-family:'Noto Sans TC',sans-serif; line-height:1.7;
+       -webkit-font-smoothing:antialiased;}
+  .page{max-width:640px; margin:0 auto; padding:48px 24px 64px;}
+  a{color:inherit;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  /* 台股慣例：紅漲綠跌。切勿套用美股配色，會讓人看反方向 */
+  .up{color:var(--red);} .down{color:var(--green);}
+  hr.divider{border:none; border-top:1px solid var(--hairline); margin:28px 0;}
+
+  .nav{display:flex; gap:18px; font-size:13px; color:var(--text-muted);
+       margin-bottom:28px; flex-wrap:wrap;}
+  .nav a{text-decoration:none; border-bottom:1px solid transparent; padding-bottom:2px;}
+  .nav a:hover,.nav a:focus-visible{color:var(--gold); border-bottom-color:var(--gold);}
+
+  .masthead-label{font-size:13px; color:var(--text-muted); margin-bottom:6px;}
+  .masthead-date{font-family:'Noto Serif TC',serif; font-weight:600; font-size:26px;}
+
+  .block h2{font-family:'Noto Serif TC',serif; font-weight:600;
+            font-size:20px; margin-bottom:16px;}
+  .commentary{font-size:15px; color:var(--text-secondary); line-height:1.8;}
+
+  .tag{font-size:12px; padding:3px 9px; border-radius:100px; white-space:nowrap;}
+  .tag.confidence-high{background:rgba(217,164,65,.16); color:var(--gold);}
+  .tag.confidence-mid{background:rgba(163,156,142,.16); color:var(--text-secondary);}
+  .tag.confidence-low{background:rgba(114,108,96,.16); color:var(--text-muted);}
+  .tag.verdict-real{background:rgba(79,158,113,.16); color:var(--green);}
+  .tag.verdict-watch{background:rgba(219,84,74,.16); color:var(--red);}
+  .tag.watchlist{background:rgba(217,164,65,.2); color:var(--gold);}
+
+  footer.site-footer{margin-top:44px; padding-top:20px;
+                     border-top:1px solid var(--hairline);}
+  footer.site-footer p{font-size:12.5px; color:var(--text-muted);
+                       margin-bottom:6px; line-height:1.6;}
+
+  @media (max-width:480px){
+    .page{padding:36px 18px 56px;}
+    .masthead-date{font-size:22px;}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
+
+  .meta{font-size:13px; color:var(--text-muted); margin:10px 0 20px;}
+  .inst-row{display:flex; align-items:center; gap:12px; margin-bottom:10px; font-size:14px;}
+  .inst-row .inst-name{width:56px; color:var(--text-secondary); flex-shrink:0;}
+  .inst-row .bar-track{flex:1; height:6px; background:var(--surface-2);
+                       border-radius:3px; position:relative; overflow:hidden;}
+  .inst-row .bar-fill{position:absolute; top:0; bottom:0; border-radius:3px;}
+  .inst-row .bar-fill.up{background:var(--red); left:50%;}
+  .inst-row .bar-fill.down{background:var(--green); right:50%;}
+  .inst-row .inst-value{width:88px; text-align:right;
+                        font-family:'JetBrains Mono',monospace; flex-shrink:0;}
+  .tech-table{width:100%; border-collapse:collapse; margin-bottom:8px;}
+  .tech-table th{text-align:left; font-size:12.5px; font-weight:400;
+                 color:var(--text-muted); padding-bottom:10px;
+                 border-bottom:1px solid var(--hairline);}
+  .tech-table td{padding:10px 0; border-bottom:1px solid var(--hairline);
+                 font-size:14px; vertical-align:top;}
+  .tech-table tr:last-child td{border-bottom:none;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .up{color:var(--red);} .down{color:var(--green);}
+  .market-tag{font-size:11px; color:var(--text-muted); margin-left:4px;}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <nav class="nav">
+    <a href="index.html">最新</a>
+    <a href="archive.html">歷史報告</a>
+    <a href="themes.html">題材知識庫</a>
+    <a href="heatmap.html">產業熱力圖</a>
+    <a href="chips.html">籌碼儀表板</a>
+  </nav>
+
+  
+<header><div class="masthead-label">盤後快訊</div>
+<h1 class="masthead-date">籌碼儀表板</h1></header>
+<p class="meta">2026年9月5日．週六</p>
+
+
+<section class="block">
+  <h2>三大法人（大盤）</h2>
+  
+  <div class="inst-row">
+    <span class="inst-name">外資</span>
+    <div class="bar-track">
+      <div class="bar-fill up"
+           style="width:50%"></div>
+    </div>
+    <span class="inst-value mono up">+562.1億</span>
+  </div>
+  
+  <div class="inst-row">
+    <span class="inst-name">投信</span>
+    <div class="bar-track">
+      <div class="bar-fill down"
+           style="width:2.3%"></div>
+    </div>
+    <span class="inst-value mono down">-9.1億</span>
+  </div>
+  
+  <div class="inst-row">
+    <span class="inst-name">自營商</span>
+    <div class="bar-track">
+      <div class="bar-fill up"
+           style="width:15.9%"></div>
+    </div>
+    <span class="inst-value mono up">+63.7億</span>
+  </div>
+  
+</section>
+<hr class="divider">
+
+
+
+<section class="block">
+  <h2>融資增減幅前 10</h2>
+  <table class="tech-table">
+    <tr><th>股票</th><th>融資餘額</th><th>今日增減</th></tr>
+    
+    <tr>
+      <td>2303 聯電</td>
+      <td class="mono">167,321 張</td>
+      <td class="mono down">-14,371</td>
+    </tr>
+    
+    <tr>
+      <td>009828 中信台日韓PCB</td>
+      <td class="mono">12,576 張</td>
+      <td class="mono up">+9,257</td>
+    </tr>
+    
+    <tr>
+      <td>00632R 元大台灣50反1</td>
+      <td class="mono">291,604 張</td>
+      <td class="mono up">+6,790</td>
+    </tr>
+    
+    <tr>
+      <td>2409 友達</td>
+      <td class="mono">237,942 張</td>
+      <td class="mono up">+6,392</td>
+    </tr>
+    
+    <tr>
+      <td>00981A 主動統一台股增長</td>
+      <td class="mono">169,411 張</td>
+      <td class="mono up">+5,388</td>
+    </tr>
+    
+    <tr>
+      <td>1303 南亞</td>
+      <td class="mono">41,607 張</td>
+      <td class="mono down">-4,800</td>
+    </tr>
+    
+    <tr>
+      <td>00631L 元大台灣50正2</td>
+      <td class="mono">202,660 張</td>
+      <td class="mono down">-4,313</td>
+    </tr>
+    
+    <tr>
+      <td>3481 群創</td>
+      <td class="mono">321,562 張</td>
+      <td class="mono up">+4,157</td>
+    </tr>
+    
+    <tr>
+      <td>00673R 期元大S&amp;P原油反1</td>
+      <td class="mono">91,429 張</td>
+      <td class="mono up">+3,481</td>
+    </tr>
+    
+    <tr>
+      <td>6147 頎邦<span class="market-tag">上櫃</span></td>
+      <td class="mono">40,006 張</td>
+      <td class="mono up">+3,313</td>
+    </tr>
+    
+  </table>
+</section>
+<hr class="divider">
+
+
+
+<section class="block">
+  <h2>強勢股（今日漲幅前段）</h2>
+  <table class="tech-table">
+    <tr><th>股票</th><th>漲幅</th><th>量能倍數</th></tr>
+    
+    <tr>
+      <td>2884 玉山金</td>
+      <td class="mono up">+6.67%</td>
+      <td class="mono">2.25</td>
+    </tr>
+    
+    <tr>
+      <td>2845 遠東銀</td>
+      <td class="mono up">+5.00%</td>
+      <td class="mono">2.86</td>
+    </tr>
+    
+    <tr>
+      <td>2481 強茂</td>
+      <td class="mono up">+5.41%</td>
+      <td class="mono">2.36</td>
+    </tr>
+    
+    <tr>
+      <td>3324 雙鴻<span class="market-tag">上櫃</span></td>
+      <td class="mono up">+10.00%</td>
+      <td class="mono">—</td>
+    </tr>
+    
+    <tr>
+      <td>3441 聯一光<span class="market-tag">上櫃</span></td>
+      <td class="mono up">+10.00%</td>
+      <td class="mono">—</td>
+    </tr>
+    
+    <tr>
+      <td>6290 良維<span class="market-tag">上櫃</span></td>
+      <td class="mono up">+9.98%</td>
+      <td class="mono">—</td>
+    </tr>
+    
+    <tr>
+      <td>4979 華星光<span class="market-tag">上櫃</span></td>
+      <td class="mono up">+9.97%</td>
+      <td class="mono">—</td>
+    </tr>
+    
+    <tr>
+      <td>7828 創新服務<span class="market-tag">上櫃</span></td>
+      <td class="mono up">+9.97%</td>
+      <td class="mono">—</td>
+    </tr>
+    
+    <tr>
+      <td>8042 金山電<span class="market-tag">上櫃</span></td>
+      <td class="mono up">+9.95%</td>
+      <td class="mono">—</td>
+    </tr>
+    
+    <tr>
+      <td>3624 光頡<span class="market-tag">上櫃</span></td>
+      <td class="mono up">+9.91%</td>
+      <td class="mono">—</td>
+    </tr>
+    
+  </table>
+</section>
+
+
+
+
+
+  <footer class="site-footer">
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 01:57</p>
+    <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
+  </footer>
+</div>
+</body>
+</html>
