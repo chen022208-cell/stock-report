@@ -32,7 +32,7 @@ dark_horse:
 theme_lifecycle:
   dormant_after_days: 7      # 連續 N 個交易日無新訊號 → 休眠
   archive_after_declines: 3  # 信心度連續下滑 N 次且已達低檔 → 退場
-  deep_dive_min_days: 3      # 追蹤滿 N 天且信心度中高以上 → 產出深度報告
+  deep_dive_min_days: 1      # 信心度中高以上即可產出深度報告，不等追蹤天數累積
 
 # ── 事後驗證 ────────────────────────────────────────
 review:

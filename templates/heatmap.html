@@ -2,14 +2,47 @@
 {% block title %}產業熱力圖 · {{ site_title }}{% endblock %}
 {% block extra_css %}
   .meta{font-size:13px; color:var(--text-muted); margin:10px 0 20px;}
-{{ viz_css }}
+  .heat-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px;}
+  @media(max-width:520px){.heat-grid{grid-template-columns:repeat(2,1fr);}}
+  .heat-cell{border-radius:var(--radius-sm); overflow:hidden;}
+  .heat-cell summary{list-style:none; cursor:pointer; padding:12px 10px;
+                     display:flex; flex-direction:column; gap:4px; min-height:52px;
+                     justify-content:center;}
+  .heat-cell summary::-webkit-details-marker{display:none;}
+  .heat-cell .hc-name{font-size:13px; font-weight:600; color:var(--text-primary);}
+  .heat-cell .hc-pct{font-family:'JetBrains Mono',monospace; font-size:15px; font-weight:600;}
+  .heat-cell .hc-count{font-size:11px; color:var(--text-secondary); opacity:.8;}
+  .heat-stocks{background:var(--surface); padding:8px 12px 10px;}
+  .heat-stock-row{display:flex; justify-content:space-between; align-items:center;
+                  padding:6px 0; border-bottom:1px solid var(--hairline); font-size:13px;}
+  .heat-stock-row:last-child{border-bottom:none;}
+  .heat-stock-row .hs-name{color:var(--text-secondary);}
+  .heat-stock-row .hs-pct{font-family:'JetBrains Mono',monospace; font-weight:600;}
 {% endblock %}
 {% block content %}
 <header><div class="masthead-label">{{ site_title }}</div>
 <h1 class="masthead-date">產業熱力圖</h1></header>
-<p class="meta">{{ date_label }} 收盤 · 依產業別等權平均漲跌幅，紅漲綠跌，顏色深淺代表強度</p>
-{% if grid %}
-{{ grid|safe }}
+<p class="meta">{{ date_label }} 收盤 · 依產業別等權平均漲跌幅，紅漲綠跌，顏色深淺代表強度 · 點格子看成分股</p>
+{% if cells %}
+<div class="heat-grid">
+  {% for c in cells %}
+  <details class="heat-cell" style="background:{{ c.bg }}">
+    <summary>
+      <span class="hc-name">{{ c.name }}</span>
+      <span class="hc-pct {{ 'up' if c.avg_change_pct >= 0 else 'down' }}">{{ "%+.2f"|format(c.avg_change_pct) }}%</span>
+      <span class="hc-count">{{ c.count }} 檔</span>
+    </summary>
+    <div class="heat-stocks">
+      {% for s in c.stocks %}
+      <div class="heat-stock-row">
+        <span class="hs-name">{{ s.code }} {{ s.name }}</span>
+        <span class="hs-pct {{ 'up' if s.change_pct >= 0 else 'down' }}">{{ "%+.2f"|format(s.change_pct) }}%</span>
+      </div>
+      {% endfor %}
+    </div>
+  </details>
+  {% endfor %}
+</div>
 {% else %}
 <p class="commentary" style="margin-top:24px">今天還沒有資料，下一次盤後報告產出後這裡會更新。</p>
 {% endif %}

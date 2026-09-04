@@ -283,6 +283,38 @@ def run_evening() -> None:
         )
         score_rows.append({**s, "code": code, "name": t["name"]})
     score_rows.sort(key=lambda x: (x["composite"] is None, -(x["composite"] or 0)))
+
+    # 個股深度分析：評分頁前幾名補上公司介紹＋SWOT＋漲跌原因，不等系統累積足夠訊號才做
+    theme_name_by_code = {s.get("code"): t["name"]
+                          for t in themes_raw for s in t.get("stocks", [])}
+    headlines_by_code = {n["code"]: n["headlines"] for n in news_input}
+    grade_by_code = {t["code"]: t.get("grade", {}) for t in technicals}
+    analysis_input = []
+    for r in score_rows[:8]:
+        code = r["code"]
+        grade = grade_by_code.get(code, {})
+        signals = "、".join(grade.get("notes", [])) or grade.get("label", "")
+        m = margin_all.get(code, {})
+        chip_parts = []
+        net = inst_by_stock.get(code)
+        if net:
+            chip_parts.append(f"三大法人合計{'買超' if net >= 0 else '賣超'}{abs(net) / 1000:.0f}張")
+        if m.get("margin_change"):
+            chip_parts.append(f"融資{'增加' if m['margin_change'] >= 0 else '減少'}"
+                              f"{abs(m['margin_change']) / 1000:.0f}張")
+        analysis_input.append({
+            "code": code, "name": r["name"].split(" ", 1)[-1],
+            "signals": signals,
+            "chip_note": "；".join(chip_parts),
+            "revenue_yoy": revenue_yoy.get(code),
+            "theme": theme_name_by_code.get(code),
+            "headlines": headlines_by_code.get(code, []),
+        })
+    stock_analyses = _safe(lambda: llm.stock_analysis_batch(analysis_input), {}, "個股深度分析")
+    for r in score_rows:
+        if r["code"] in stock_analyses:
+            r["analysis"] = stock_analyses[r["code"]]
+
     if score_rows:
         render.render_scores(score_rows, render.date_label(today))
 

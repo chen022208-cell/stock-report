@@ -12,6 +12,22 @@
   .axis-fill{height:100%; background:var(--gold); border-radius:3px;}
   .axis-value{width:34px; text-align:right; font-family:'JetBrains Mono',monospace; color:var(--text-secondary); flex-shrink:0;}
   .axis-na{color:var(--text-muted); font-size:12px; width:34px; text-align:right;}
+  .analysis-toggle{margin-top:12px; border-top:1px solid var(--hairline); padding-top:10px;}
+  .analysis-toggle summary{cursor:pointer; font-size:12.5px; color:var(--gold); list-style:none;}
+  .analysis-toggle summary::-webkit-details-marker{display:none;}
+  .analysis-body{margin-top:12px; display:flex; flex-direction:column; gap:12px;}
+  .analysis-block-label{font-size:12px; color:var(--text-muted); text-transform:uppercase;
+                        letter-spacing:.03em; margin-bottom:4px;}
+  .analysis-text{font-size:13.5px; color:var(--text-secondary); line-height:1.6;}
+  .swot-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  @media(max-width:480px){.swot-grid{grid-template-columns:1fr;}}
+  .swot-cell{background:var(--surface-2); border-radius:8px; padding:9px 11px;}
+  .swot-cell .sc-label{font-size:11.5px; font-weight:600; margin-bottom:4px;}
+  .swot-cell.s .sc-label{color:var(--c-score);}
+  .swot-cell.w .sc-label{color:var(--c-warn);}
+  .swot-cell.o .sc-label{color:var(--c-market);}
+  .swot-cell.t .sc-label{color:var(--c-chip);}
+  .swot-cell .sc-text{font-size:12.5px; color:var(--text-secondary); line-height:1.5;}
 {% endblock %}
 {% block content %}
 <header><div class="masthead-label">{{ site_title }}</div>
@@ -37,6 +53,27 @@
     {% endif %}
   </div>
   {% endfor %}
+  {% if r.analysis %}
+  <details class="analysis-toggle">
+    <summary>📊 公司介紹／SWOT／漲跌原因 →</summary>
+    <div class="analysis-body">
+      <div>
+        <div class="analysis-block-label">公司介紹</div>
+        <p class="analysis-text">{{ r.analysis.company_desc }}</p>
+      </div>
+      <div class="swot-grid">
+        <div class="swot-cell s"><div class="sc-label">優勢 Strengths</div><div class="sc-text">{{ r.analysis.swot.strengths }}</div></div>
+        <div class="swot-cell w"><div class="sc-label">弱點 Weaknesses</div><div class="sc-text">{{ r.analysis.swot.weaknesses }}</div></div>
+        <div class="swot-cell o"><div class="sc-label">機會 Opportunities</div><div class="sc-text">{{ r.analysis.swot.opportunities }}</div></div>
+        <div class="swot-cell t"><div class="sc-label">威脅 Threats</div><div class="sc-text">{{ r.analysis.swot.threats }}</div></div>
+      </div>
+      <div>
+        <div class="analysis-block-label">為何漲跌</div>
+        <p class="analysis-text">{{ r.analysis.price_reason }}</p>
+      </div>
+    </div>
+  </details>
+  {% endif %}
 </div>
 {% endfor %}
 {% else %}

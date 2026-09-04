@@ -321,15 +321,21 @@ def _write_json(name: str, data) -> None:
 
 
 def render_heatmap(industries: list[dict], date_label_str: str) -> Path:
-    from . import viz
     cfg = load_config()
-    cells = [(row["name"], row["avg_change_pct"]) for row in industries]
+    peak = max((abs(row["avg_change_pct"]) for row in industries), default=1.0) or 1.0
+    cells = []
+    for row in industries:
+        pct = row["avg_change_pct"]
+        intensity = min(abs(pct) / peak, 1.0)
+        base = (219, 84, 74) if pct >= 0 else (79, 158, 113)
+        alpha = 0.18 + intensity * 0.72
+        cells.append({**row, "bg": f"rgba({base[0]},{base[1]},{base[2]},{alpha:.2f})"})
     path = DOCS_DIR / "heatmap.html"
     path.write_text(_env().get_template("heatmap.html").render(
         site_title=cfg["site"]["title"],
         generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
         rel="", nav_current="heatmap", date_label=date_label_str,
-        grid=viz.heat_grid(cells), viz_css=viz.VIZ_CSS,
+        cells=cells,
     ), encoding="utf-8")
     _write_json("heatmap", {"date": date_label_str, "industries": industries})
     return path

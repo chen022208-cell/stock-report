@@ -227,6 +227,70 @@ def news_sentiment_batch(stocks: list[dict]) -> dict[str, float]:
         return {}
 
 
+# ── 個股深度分析（評分頁用：公司介紹＋SWOT＋漲跌原因） ──────
+STOCK_ANALYSIS_SYSTEM = """你是台股個股研究員，針對評分頁上列出的每一檔股票，寫一份簡短但具體的分析。
+
+輸入每檔股票會附上：目前技術面訊號、籌碼面數據（法人買賣超、資券變化）、
+營收年增率、所屬題材（如有）、近期新聞標題。
+
+任務：針對每一檔，輸出：
+1. company_desc：這家公司主要做什麼生意、在產業鏈的角色（1-2 句，具體到產品/客戶，不要空話）
+2. swot：
+   - strengths：具體優勢（技術門檻、市占、客戶結構）
+   - weaknesses：具體弱點（毛利率、集中度風險、規模）
+   - opportunities：機會（新產品/新客戶/產業趨勢，要結合輸入的題材或營收數據）
+   - threats：威脅（競爭、原物料、匯率、客戶集中風險）
+3. price_reason：根據輸入的技術面訊號＋籌碼面數據＋新聞，具體解釋「今天/近期為什麼漲跌」，
+   要點名是哪個因素主導（技術面突破、法人買超、營收超預期、題材帶動、還是純粹跟隨大盤/族群）；
+   如果數據不足以判斷，就老實說「訊號不足，暫無法判斷主要驅動因素」，不要瞎掰
+
+寫作要求：
+- 繁體中文，每個欄位 1-3 句，具體、可驗證，不要用「值得留意」「表現亮眼」這類空話
+- swot 四個欄位都要填，找不到明顯威脅或弱點時也要給出產業常見的合理推論，並註明是推論
+- 不使用投資建議語氣
+
+一次處理輸入裡的所有股票，只輸出 JSON，不要 markdown 標記：
+{
+  "1234": {
+    "company_desc": "...",
+    "swot": {"strengths": "...", "weaknesses": "...", "opportunities": "...", "threats": "..."},
+    "price_reason": "..."
+  }
+}
+key 是股票代號。"""
+
+
+def stock_analysis_batch(stocks: list[dict]) -> dict[str, dict]:
+    """stocks = [{"code":, "name":, "signals":, "chip_note":, "revenue_yoy":,
+    "theme":, "headlines": [...]}, ...]，一次呼叫評完整批，省成本。"""
+    if DRY_RUN:
+        return mock.stock_analysis_batch()
+
+    if not stocks:
+        return {}
+
+    lines = []
+    for s in stocks:
+        lines.append(f"{s['code']} {s['name']}：")
+        if s.get("signals"):
+            lines.append(f"  技術面訊號：{s['signals']}")
+        if s.get("chip_note"):
+            lines.append(f"  籌碼面：{s['chip_note']}")
+        if s.get("revenue_yoy") is not None:
+            lines.append(f"  營收年增率：{s['revenue_yoy']}%")
+        if s.get("theme"):
+            lines.append(f"  所屬題材：{s['theme']}")
+        for h in s.get("headlines", []):
+            lines.append(f"  新聞：{h}")
+    user = "\n".join(lines)
+
+    try:
+        return _parse_json(_call(STOCK_ANALYSIS_SYSTEM, user, 4000))
+    except Exception as exc:
+        print(f"[llm] 個股深度分析失敗：{exc}")
+        return {}
+
+
 # ── 供應鏈結構 ─────────────────────────────────────────
 SUPPLY_CHAIN_SYSTEM = """你是台股產業鏈研究員。輸入一個題材的名稱、摘要與目前追蹤到的相關個股。
 

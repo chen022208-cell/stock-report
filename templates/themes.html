@@ -10,6 +10,9 @@
   .theme-name a:hover{color:var(--gold);}
   .theme-sum{font-size:14.5px; color:var(--text-secondary); margin-bottom:6px;}
   .theme-meta{font-size:13px; color:var(--text-muted);}
+  .theme-detail-link{display:inline-block; margin-top:8px; font-size:12.5px;
+                     color:var(--gold); text-decoration:none;}
+  .theme-detail-link:hover{text-decoration:underline;}
   .section-head{font-family:'Noto Serif TC',serif; font-size:16px;
                 color:var(--text-secondary); margin:32px 0 14px;}
   .catalog-hint{font-size:13px; color:var(--text-muted); margin-bottom:14px;}
@@ -43,6 +46,9 @@
   </div>
   <p class="theme-sum">{{ t.summary }}</p>
   <div class="theme-meta">首見 {{ t.first_seen }} · 更新 {{ t.update_count }} 次 · 最後訊號 {{ t.last_signal_date }}</div>
+  {% if t.deep_dive_slug %}
+  <a href="articles/{{ t.deep_dive_slug }}.html" class="theme-detail-link">📄 完整產業分析（事件背景／訂單驗證／個股比較／風險）→</a>
+  {% endif %}
 </div>
 {% endfor %}
 {% endif %}
