@@ -1,0 +1,125 @@
+{
+  "date": "2026年9月5日．週六",
+  "rows": [
+    {
+      "technical": 55.0,
+      "chip": 72.8,
+      "fundamental": null,
+      "theme": null,
+      "news": 85.0,
+      "composite": 70.9,
+      "code": "4979",
+      "name": "4979 華星光"
+    },
+    {
+      "technical": 85.0,
+      "chip": 66.5,
+      "fundamental": 58.1,
+      "theme": null,
+      "news": 68.0,
+      "composite": 69.4,
+      "code": "2845",
+      "name": "2845 遠東銀"
+    },
+    {
+      "technical": 55.0,
+      "chip": 72.1,
+      "fundamental": null,
+      "theme": null,
+      "news": 75.0,
+      "composite": 67.4,
+      "code": "3324",
+      "name": "3324 雙鴻"
+    },
+    {
+      "technical": 55.0,
+      "chip": 67.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 68.0,
+      "composite": 63.3,
+      "code": "3624",
+      "name": "3624 光頡"
+    },
+    {
+      "technical": 55.0,
+      "chip": 69.9,
+      "fundamental": null,
+      "theme": null,
+      "news": 65.0,
+      "composite": 63.3,
+      "code": "7717",
+      "name": "7717 萊德光電-KY"
+    },
+    {
+      "technical": 30.0,
+      "chip": 78.3,
+      "fundamental": 57.1,
+      "theme": null,
+      "news": 82.0,
+      "composite": 61.9,
+      "code": "2884",
+      "name": "2884 玉山金"
+    },
+    {
+      "technical": 55.0,
+      "chip": 73.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 55.0,
+      "composite": 61.0,
+      "code": "3441",
+      "name": "3441 聯一光"
+    },
+    {
+      "technical": 55.0,
+      "chip": 70.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 58.0,
+      "composite": 61.0,
+      "code": "7828",
+      "name": "7828 創新服務"
+    },
+    {
+      "technical": 55.0,
+      "chip": 69.7,
+      "fundamental": null,
+      "theme": null,
+      "news": 52.0,
+      "composite": 58.9,
+      "code": "8042",
+      "name": "8042 金山電"
+    },
+    {
+      "technical": 55.0,
+      "chip": 71.3,
+      "fundamental": null,
+      "theme": null,
+      "news": 50.0,
+      "composite": 58.8,
+      "code": "6290",
+      "name": "6290 良維"
+    },
+    {
+      "technical": 55.0,
+      "chip": 25.0,
+      "fundamental": 96.5,
+      "theme": null,
+      "news": 50.0,
+      "composite": 56.6,
+      "code": "2481",
+      "name": "2481 強茂"
+    },
+    {
+      "technical": 55.0,
+      "chip": 30.1,
+      "fundamental": null,
+      "theme": null,
+      "news": 55.0,
+      "composite": 46.7,
+      "code": "7751",
+      "name": "7751 竑騰"
+    }
+  ]
+}

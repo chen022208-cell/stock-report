@@ -1,0 +1,377 @@
+{
+  "date": "2026年9月5日．週六",
+  "institutional": {
+    "foreign_net": 562.13,
+    "trust_net": -9.11,
+    "dealer_net": 63.7,
+    "total_net": 616.72
+  },
+  "margin_top": [
+    {
+      "margin_balance": 167321.0,
+      "margin_change": -14371.0,
+      "short_balance": 4015.0,
+      "short_change": -44.0,
+      "code": "2303",
+      "name": "聯電",
+      "market": "twse"
+    },
+    {
+      "margin_balance": 12576.0,
+      "margin_change": 9257.0,
+      "short_balance": 640.0,
+      "short_change": 22.0,
+      "code": "009828",
+      "name": "中信台日韓PCB",
+      "market": "twse"
+    },
+    {
+      "margin_balance": 291604.0,
+      "margin_change": 6790.0,
+      "short_balance": 6223.0,
+      "short_change": 187.0,
+      "code": "00632R",
+      "name": "元大台灣50反1",
+      "market": "twse"
+    },
+    {
+      "margin_balance": 237942.0,
+      "margin_change": 6392.0,
+      "short_balance": 19566.0,
+      "short_change": -1380.0,
+      "code": "2409",
+      "name": "友達",
+      "market": "twse"
+    },
+    {
+      "margin_balance": 169411.0,
+      "margin_change": 5388.0,
+      "short_balance": 3817.0,
+      "short_change": -229.0,
+      "code": "00981A",
+      "name": "主動統一台股增長",
+      "market": "twse"
+    },
+    {
+      "margin_balance": 41607.0,
+      "margin_change": -4800.0,
+      "short_balance": 1884.0,
+      "short_change": -307.0,
+      "code": "1303",
+      "name": "南亞",
+      "market": "twse"
+    },
+    {
+      "margin_balance": 202660.0,
+      "margin_change": -4313.0,
+      "short_balance": 18629.0,
+      "short_change": 369.0,
+      "code": "00631L",
+      "name": "元大台灣50正2",
+      "market": "twse"
+    },
+    {
+      "margin_balance": 321562.0,
+      "margin_change": 4157.0,
+      "short_balance": 5892.0,
+      "short_change": 1138.0,
+      "code": "3481",
+      "name": "群創",
+      "market": "twse"
+    },
+    {
+      "margin_balance": 91429.0,
+      "margin_change": 3481.0,
+      "short_balance": 5180.0,
+      "short_change": -89.0,
+      "code": "00673R",
+      "name": "期元大S&P原油反1",
+      "market": "twse"
+    },
+    {
+      "margin_balance": 40006.0,
+      "margin_change": 3313.0,
+      "short_balance": 471.0,
+      "short_change": -31.0,
+      "code": "6147",
+      "name": "頎邦",
+      "market": "tpex"
+    }
+  ],
+  "strong": [
+    {
+      "code": "2884",
+      "name": "玉山金",
+      "close": 43.2,
+      "change": 2.7,
+      "change_pct": 6.67,
+      "volume": 96702581.0,
+      "turnover": 4118897070.0,
+      "volume_ratio": 2.14
+    },
+    {
+      "code": "2845",
+      "name": "遠東銀",
+      "close": 13.65,
+      "change": 0.65,
+      "change_pct": 5.0,
+      "volume": 42579382.0,
+      "turnover": 575444209.0,
+      "volume_ratio": 2.76
+    },
+    {
+      "code": "2481",
+      "name": "強茂",
+      "close": 156.0,
+      "change": 8.0,
+      "change_pct": 5.41,
+      "volume": 66498096.0,
+      "turnover": 10562901341.0,
+      "volume_ratio": 2.15
+    },
+    {
+      "code": "3324",
+      "name": "雙鴻",
+      "close": 1485.0,
+      "change": 135.0,
+      "change_pct": 10.0,
+      "volume": 3081121.0,
+      "turnover": 4488766510.0,
+      "market": "tpex",
+      "volume_ratio": null
+    },
+    {
+      "code": "3441",
+      "name": "聯一光",
+      "close": 143.0,
+      "change": 13.0,
+      "change_pct": 10.0,
+      "volume": 4835765.0,
+      "turnover": 671436939.0,
+      "market": "tpex",
+      "volume_ratio": null
+    },
+    {
+      "code": "6290",
+      "name": "良維",
+      "close": 270.0,
+      "change": 24.5,
+      "change_pct": 9.98,
+      "volume": 6100525.0,
+      "turnover": 1614110552.0,
+      "market": "tpex",
+      "volume_ratio": null
+    },
+    {
+      "code": "4979",
+      "name": "華星光",
+      "close": 629.0,
+      "change": 57.0,
+      "change_pct": 9.97,
+      "volume": 19025771.0,
+      "turnover": 11756152939.0,
+      "market": "tpex",
+      "volume_ratio": null
+    },
+    {
+      "code": "7828",
+      "name": "創新服務",
+      "close": 1930.0,
+      "change": 175.0,
+      "change_pct": 9.97,
+      "volume": 545115.0,
+      "turnover": 1028108785.0,
+      "market": "tpex",
+      "volume_ratio": null
+    },
+    {
+      "code": "8042",
+      "name": "金山電",
+      "close": 110.5,
+      "change": 10.0,
+      "change_pct": 9.95,
+      "volume": 8987593.0,
+      "turnover": 976506894.0,
+      "market": "tpex",
+      "volume_ratio": null
+    },
+    {
+      "code": "3624",
+      "name": "光頡",
+      "close": 93.2,
+      "change": 8.4,
+      "change_pct": 9.91,
+      "volume": 9178333.0,
+      "turnover": 840973257.0,
+      "market": "tpex",
+      "volume_ratio": null
+    }
+  ],
+  "holders": [
+    {
+      "code": "2330",
+      "name": "台積電",
+      "pct": 84.75
+    },
+    {
+      "code": "2845",
+      "name": "遠東銀",
+      "pct": 70.44
+    },
+    {
+      "code": "2884",
+      "name": "玉山金",
+      "pct": 69.28
+    },
+    {
+      "code": "7734",
+      "name": "印能科技",
+      "pct": 67.31
+    },
+    {
+      "code": "2317",
+      "name": "鴻海",
+      "pct": 66.7
+    },
+    {
+      "code": "2454",
+      "name": "聯發科",
+      "pct": 63.08
+    },
+    {
+      "code": "6617",
+      "name": "共信-KY",
+      "pct": 59.79
+    },
+    {
+      "code": "8042",
+      "name": "金山電",
+      "pct": 58.16
+    },
+    {
+      "code": "6173",
+      "name": "信昌電",
+      "pct": 57.12
+    },
+    {
+      "code": "3374",
+      "name": "精材",
+      "pct": 56.05
+    },
+    {
+      "code": "7828",
+      "name": "創新服務",
+      "pct": 53.7
+    },
+    {
+      "code": "2481",
+      "name": "強茂",
+      "pct": 52.07
+    },
+    {
+      "code": "3362",
+      "name": "先進光",
+      "pct": 49.68
+    },
+    {
+      "code": "3624",
+      "name": "光頡",
+      "pct": 48.38
+    },
+    {
+      "code": "6620",
+      "name": "漢達",
+      "pct": 48.28
+    },
+    {
+      "code": "6667",
+      "name": "信紘科",
+      "pct": 43.57
+    },
+    {
+      "code": "4908",
+      "name": "前鼎",
+      "pct": 42.29
+    },
+    {
+      "code": "8064",
+      "name": "東捷",
+      "pct": 37.62
+    },
+    {
+      "code": "7751",
+      "name": "竑騰",
+      "pct": 36.95
+    },
+    {
+      "code": "7717",
+      "name": "萊德光電-KY",
+      "pct": 35.38
+    },
+    {
+      "code": "4939",
+      "name": "亞電",
+      "pct": 33.61
+    },
+    {
+      "code": "8358",
+      "name": "金居",
+      "pct": 32.33
+    },
+    {
+      "code": "3324",
+      "name": "雙鴻",
+      "pct": 31.45
+    },
+    {
+      "code": "3163",
+      "name": "波若威",
+      "pct": 31.01
+    },
+    {
+      "code": "4979",
+      "name": "華星光",
+      "pct": 28.8
+    },
+    {
+      "code": "6290",
+      "name": "良維",
+      "pct": 26.65
+    },
+    {
+      "code": "3234",
+      "name": "光環",
+      "pct": 25.86
+    },
+    {
+      "code": "6538",
+      "name": "倉和",
+      "pct": 24.16
+    },
+    {
+      "code": "6182",
+      "name": "合晶",
+      "pct": 23.8
+    },
+    {
+      "code": "3491",
+      "name": "昇達科",
+      "pct": 17.62
+    },
+    {
+      "code": "8431",
+      "name": "匯鑽科",
+      "pct": 16.69
+    },
+    {
+      "code": "3441",
+      "name": "聯一光",
+      "pct": 15.36
+    },
+    {
+      "code": "6207",
+      "name": "雷科",
+      "pct": 11.65
+    }
+  ]
+}
