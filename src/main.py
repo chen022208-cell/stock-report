@@ -18,7 +18,7 @@ from datetime import date, timedelta
 from . import db, llm, prices_db, render
 from .analysis import global_themes, industry, review, scoring, screener, technical
 from .config import DRY_RUN, load_config, today_str, now_tpe
-from .fetchers import international, mops, stock_news, tdcc, tpex, twse
+from .fetchers import fred, international, mops, stock_news, tdcc, tpex, twse
 from .market_calendar import (classify_day, consecutive_closed_days,
                               is_last_day_before_reopen, next_trading_day,
                               refresh_holidays)
@@ -72,6 +72,8 @@ def run_morning() -> None:
     intl = _safe(international.fetch_international, {}, "國際盤")
     calls = _safe(lambda: mops.fetch_earnings_calls(), [], "法說會行事曆")
     gt = _safe(global_themes.run, {"macro_note": "", "themes": []}, "國際題材追蹤")
+    # 沒設 FRED_API_KEY 就回空清單，區塊自動不顯示（見 fred.py 開頭說明如何免費申請）
+    macro = _safe(fred.fetch_macro_snapshot, [], "FRED 總經數據")
 
     commentary = _safe(
         lambda: llm.market_commentary({"international": intl,
@@ -87,6 +89,7 @@ def run_morning() -> None:
         "earnings_calls": calls,
         "global_themes": gt.get("themes", []),
         "global_macro_note": gt.get("macro_note", ""),
+        "macro": macro,
     }
 
     # 週一早報併入週報：台股週五收盤但美股週五晚才交易，週五發會漏掉整個美股交易日

@@ -38,6 +38,7 @@ ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "")
 DISCORD_WEBHOOK_URL = os.environ.get("DISCORD_WEBHOOK_URL", "")
+FRED_API_KEY = os.environ.get("FRED_API_KEY", "")
 FINMIND_TOKEN = os.environ.get("FINMIND_TOKEN", "")
 
 # 設為 "1" 時使用內建假資料，不呼叫任何外部 API（本地開發、CI 測試用）

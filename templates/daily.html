@@ -156,6 +156,19 @@
 <hr class="divider">
 {% endif %}
 
+{% if macro %}
+<section class="block">
+  <h2>國際總經</h2>
+  <div class="stat-grid">
+    {% for m in macro %}
+    <div class="stat"><span class="stat-label">{{ m.name }}</span>
+      <span class="stat-value mono {{ '' if m.change is none else ('up' if m.change >= 0 else 'down') }}">{{ m.value }}{% if m.change is not none %}（{{ "%+.2f"|format(m.change) }}）{% endif %}</span></div>
+    {% endfor %}
+  </div>
+</section>
+<hr class="divider">
+{% endif %}
+
 {% if closure_recap and closure_recap.rows %}
 <section class="block">
   <h2>長假期間國際盤</h2>

@@ -108,6 +108,19 @@ def margin_by_stock() -> dict[str, dict]:
     }
 
 
+def fred_series(series_id: str) -> list[dict]:
+    return [{"date": "2026-08-01", "value": 4.2}, {"date": "2026-09-01", "value": 4.1}]
+
+
+def fred_snapshot() -> list[dict]:
+    return [
+        {"name": "美國 CPI（年增率換算另計）", "date": "2026-08-01", "value": 314.2, "change": 0.6},
+        {"name": "美國失業率", "date": "2026-08-01", "value": 4.1, "change": -0.1},
+        {"name": "10年期公債殖利率", "date": "2026-09-01", "value": 4.18, "change": 0.03},
+        {"name": "聯邦資金利率", "date": "2026-09-01", "value": 4.75, "change": 0.0},
+    ]
+
+
 def stock_headlines(code: str) -> list[str]:
     return [f"{code} 公司近期營運概況報導", f"{code} 法人關注訂單能見度"]
 
