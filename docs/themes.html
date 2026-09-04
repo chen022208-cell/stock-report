@@ -13,49 +13,96 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#1C1B19; --surface:#242220; --surface-2:#2B2925;
-    --text-primary:#EDE9E1; --text-secondary:#A39C8E; --text-muted:#726C60;
-    --red:#DB544A; --green:#4F9E71; --gold:#D9A441; --hairline:#3A362F;
+    --bg:#171615; --surface:#221F1D; --surface-2:#2A2725; --surface-3:#332F2B;
+    --text-primary:#F2EEE6; --text-secondary:#ABA398; --text-muted:#786F63;
+    --red:#E15C4F; --green:#4FB07A; --gold:#E3AC4E; --hairline:#38332E;
+    /* 分類色：跟紅漲綠跌語意分開，只用來標「這是哪一種資訊」 */
+    --c-market:#6C93F5; --c-theme:#B48CE8; --c-chip:#EC9A5C; --c-score:#43BFAE;
+    --c-warn:#E15C4F;
+    --radius:14px; --radius-sm:10px;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
+  html{-webkit-tap-highlight-color:transparent;}
   body{background:var(--bg); color:var(--text-primary);
-       font-family:'Noto Sans TC',sans-serif; line-height:1.7;
+       font-family:'Noto Sans TC',sans-serif; line-height:1.65;
        -webkit-font-smoothing:antialiased;}
-  .page{max-width:640px; margin:0 auto; padding:48px 24px 64px;}
+  .page{max-width:720px; margin:0 auto; padding:20px 16px 72px;}
   a{color:inherit;}
   .mono{font-family:'JetBrains Mono',monospace;}
   /* 台股慣例：紅漲綠跌。切勿套用美股配色，會讓人看反方向 */
   .up{color:var(--red);} .down{color:var(--green);}
-  hr.divider{border:none; border-top:1px solid var(--hairline); margin:28px 0;}
+  hr.divider{border:none; border-top:1px solid var(--hairline); margin:22px 0;}
 
-  .nav{display:flex; gap:18px; font-size:13px; color:var(--text-muted);
-       margin-bottom:28px; flex-wrap:wrap;}
-  .nav a{text-decoration:none; border-bottom:1px solid transparent; padding-bottom:2px;}
-  .nav a:hover,.nav a:focus-visible{color:var(--gold); border-bottom-color:var(--gold);}
+  /* 頂部像 App 的水平捲動分類籤條，取代原本會換行的純文字導覽 */
+  .nav{display:flex; gap:8px; margin-bottom:20px; overflow-x:auto;
+       -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:2px;}
+  .nav::-webkit-scrollbar{display:none;}
+  .nav a{flex-shrink:0; text-decoration:none; font-size:13px; font-weight:500;
+        color:var(--text-secondary); background:var(--surface);
+        padding:9px 14px; border-radius:100px; border:1px solid var(--hairline);
+        white-space:nowrap; transition:background .15s,color .15s;}
+  .nav a:hover,.nav a:focus-visible{color:var(--text-primary); background:var(--surface-2);}
+  .nav a.current{color:#171615; background:var(--gold); border-color:var(--gold); font-weight:600;}
 
-  .masthead-label{font-size:13px; color:var(--text-muted); margin-bottom:6px;}
-  .masthead-date{font-family:'Noto Serif TC',serif; font-weight:600; font-size:26px;}
+  .masthead-label{font-size:13px; color:var(--text-muted); margin-bottom:4px;}
+  .masthead-date{font-family:'Noto Serif TC',serif; font-weight:600; font-size:24px;}
 
+  .block{margin-bottom:4px;}
   .block h2{font-family:'Noto Serif TC',serif; font-weight:600;
-            font-size:20px; margin-bottom:16px;}
-  .commentary{font-size:15px; color:var(--text-secondary); line-height:1.8;}
+            font-size:18px; margin-bottom:14px;}
+  .commentary{font-size:14.5px; color:var(--text-secondary); line-height:1.8;}
 
-  .tag{font-size:12px; padding:3px 9px; border-radius:100px; white-space:nowrap;}
-  .tag.confidence-high{background:rgba(217,164,65,.16); color:var(--gold);}
-  .tag.confidence-mid{background:rgba(163,156,142,.16); color:var(--text-secondary);}
-  .tag.confidence-low{background:rgba(114,108,96,.16); color:var(--text-muted);}
-  .tag.verdict-real{background:rgba(79,158,113,.16); color:var(--green);}
-  .tag.verdict-watch{background:rgba(219,84,74,.16); color:var(--red);}
-  .tag.watchlist{background:rgba(217,164,65,.2); color:var(--gold);}
+  .tag{font-size:11.5px; padding:3px 9px; border-radius:100px; white-space:nowrap;
+      font-weight:500;}
+  .tag.confidence-high{background:rgba(227,172,78,.18); color:var(--gold);}
+  .tag.confidence-mid{background:rgba(171,163,152,.16); color:var(--text-secondary);}
+  .tag.confidence-low{background:rgba(120,111,99,.18); color:var(--text-muted);}
+  .tag.verdict-real{background:rgba(79,176,122,.18); color:var(--green);}
+  .tag.verdict-watch{background:rgba(225,92,79,.18); color:var(--red);}
+  .tag.watchlist{background:rgba(227,172,78,.22); color:var(--gold);}
 
-  footer.site-footer{margin-top:44px; padding-top:20px;
+  /* 通用卡片元件：儀表板／格狀資訊都吃這組，密度比原本文章式排版高 */
+  .card{background:var(--surface); border-radius:var(--radius); padding:16px;
+       border:1px solid var(--hairline);}
+  .card-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
+  .card-grid.cols-3{grid-template-columns:repeat(3,1fr);}
+  .stat-tile{background:var(--surface); border-radius:var(--radius-sm);
+            padding:13px 14px; border-left:3px solid var(--hairline);}
+  .stat-tile.c-market{border-left-color:var(--c-market);}
+  .stat-tile.c-theme{border-left-color:var(--c-theme);}
+  .stat-tile.c-chip{border-left-color:var(--c-chip);}
+  .stat-tile.c-score{border-left-color:var(--c-score);}
+  .stat-tile.c-warn{border-left-color:var(--c-warn);}
+  .stat-tile .stat-tile-label{font-size:11.5px; color:var(--text-muted); margin-bottom:5px;
+                              display:flex; align-items:center; gap:5px;}
+  .stat-tile .stat-tile-value{font-family:'JetBrains Mono',monospace; font-size:19px;
+                              font-weight:500; line-height:1.2;}
+  .stat-tile .stat-tile-sub{font-size:12px; color:var(--text-secondary); margin-top:3px;}
+  .dot{width:7px; height:7px; border-radius:50%; flex-shrink:0; display:inline-block;}
+  .dot.c-market{background:var(--c-market);} .dot.c-theme{background:var(--c-theme);}
+  .dot.c-chip{background:var(--c-chip);} .dot.c-score{background:var(--c-score);}
+  .dot.c-warn{background:var(--c-warn);}
+
+  /* 快速連結格：首頁用，取代純文字清單 */
+  .quicklink-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
+  .quicklink{display:block; background:var(--surface); border:1px solid var(--hairline);
+            border-radius:var(--radius-sm); padding:13px 14px; text-decoration:none;
+            transition:background .15s, transform .1s;}
+  .quicklink:active{transform:scale(.98);}
+  .quicklink:hover{background:var(--surface-2);}
+  .quicklink .ql-title{font-size:14px; font-weight:600; color:var(--text-primary);
+                       display:flex; align-items:center; gap:7px; margin-bottom:3px;}
+  .quicklink .ql-desc{font-size:12px; color:var(--text-muted);}
+
+  footer.site-footer{margin-top:36px; padding-top:18px;
                      border-top:1px solid var(--hairline);}
-  footer.site-footer p{font-size:12.5px; color:var(--text-muted);
+  footer.site-footer p{font-size:12px; color:var(--text-muted);
                        margin-bottom:6px; line-height:1.6;}
 
   @media (max-width:480px){
-    .page{padding:36px 18px 56px;}
-    .masthead-date{font-size:22px;}
+    .page{padding:14px 12px 64px;}
+    .masthead-date{font-size:21px;}
+    .card-grid.cols-3{grid-template-columns:repeat(2,1fr);}
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
 
@@ -70,19 +117,35 @@
   .theme-meta{font-size:13px; color:var(--text-muted);}
   .section-head{font-family:'Noto Serif TC',serif; font-size:16px;
                 color:var(--text-secondary); margin:32px 0 14px;}
+  .catalog-hint{font-size:13px; color:var(--text-muted); margin-bottom:14px;}
+  .catalog-group{border:1px solid var(--hairline); border-radius:var(--radius-sm);
+                 margin-bottom:10px; overflow:hidden;}
+  .catalog-group summary{padding:12px 14px; cursor:pointer; font-size:14px; font-weight:600;
+                         color:var(--text-primary); list-style:none; display:flex;
+                         justify-content:space-between; align-items:center;
+                         background:var(--surface);}
+  .catalog-group summary::-webkit-details-marker{display:none;}
+  .catalog-group summary .cg-count{font-size:12px; color:var(--text-muted); font-weight:400;}
+  .catalog-group[open] summary{border-bottom:1px solid var(--hairline);}
+  .catalog-list{padding:4px 14px;}
+  .catalog-item{padding:10px 0; border-bottom:1px solid var(--hairline);}
+  .catalog-item:last-child{border-bottom:none;}
+  .catalog-item .ci-name{font-size:13.5px; font-weight:600; margin-bottom:3px;
+                         display:flex; align-items:center; gap:6px;}
+  .catalog-item .ci-thesis{font-size:12.5px; color:var(--text-muted); line-height:1.5;}
 
 </style>
 </head>
 <body>
 <div class="page">
   <nav class="nav">
-    <a href="index.html">最新</a>
-    <a href="archive.html">歷史報告</a>
-    <a href="themes.html">題材知識庫</a>
-    <a href="heatmap.html">產業熱力圖</a>
-    <a href="chips.html">籌碼儀表板</a>
-    <a href="disposition.html">處置股預警</a>
-    <a href="scores.html">五面向評分</a>
+    <a href="index.html" class="">最新</a>
+    <a href="heatmap.html" class="">🔥 熱力圖</a>
+    <a href="chips.html" class="">💰 籌碼</a>
+    <a href="scores.html" class="">⭐ 評分</a>
+    <a href="disposition.html" class="">⚠️ 處置</a>
+    <a href="themes.html" class="current">題材庫</a>
+    <a href="archive.html" class="">歷史</a>
   </nav>
 
   
@@ -133,8 +196,683 @@
 
 
 
+<div class="section-head">題材目錄</div>
+<p class="catalog-hint">產業題材參考目錄，尚未被系統偵測到即時訊號；一旦出現訊號會轉入「追蹤中」。</p>
+
+<details class="catalog-group">
+  <summary>A. 半導體製造與設備 <span class="cg-count">24 個題材</span></summary>
+  <div class="catalog-list">
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>CMOS 影像感測（CIS）</div>
+      <div class="ci-thesis">車用多鏡頭與機器視覺推升出貨</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>CoWoS / 先進封裝</div>
+      <div class="ci-thesis">AI 晶片對 2.5D/3D 封裝需求爆發，產能持續滿載</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>IC 設計｜HPC 與網通 SoC</div>
+      <div class="ci-thesis">資料中心交換器、AI 加速、5G/WiFi 核心晶片</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>IC 設計｜記憶體控制</div>
+      <div class="ci-thesis">SSD 主控、UFS、車用記憶體控制晶片</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>IC 設計｜類比與功率管理</div>
+      <div class="ci-thesis">電源管理、感測訊號鏈、車規類比含金量提升</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>IC 設計｜驅動 IC（DDIC）</div>
+      <div class="ci-thesis">面板驅動與觸控整合，OLED 佔比上升</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>MEMS 與感測元件</div>
+      <div class="ci-thesis">慣性、壓力、環境感測隨 AIoT 與車用擴散</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>先進製程（3nm/2nm）</div>
+      <div class="ci-thesis">台積電製程領先擴大代工價差，設備與材料供應鏈受惠</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>光罩</div>
+      <div class="ci-thesis">先進製程與特殊製程光罩產能吃緊</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>化合物半導體磊晶</div>
+      <div class="ci-thesis">磷化銦、砷化鎵磊晶隨光通訊與感測需求走強</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>半導體前段設備</div>
+      <div class="ci-thesis">晶圓廠資本支出上行，濕製程、量測、真空設備在地化</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>半導體後段設備｜測試介面</div>
+      <div class="ci-thesis">探針卡、測試座隨先進封裝與 HPC 測試複雜度提升</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>客製 ASIC 設計服務</div>
+      <div class="ci-thesis">CSP「去輝達化」自研晶片，NRE 與量產統包訂單湧入</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>封裝材料｜ABF 載板</div>
+      <div class="ci-thesis">高層數 ABF 載板供不應求，價格與稼動率齊揚</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>封裝材料｜BT 載板</div>
+      <div class="ci-thesis">記憶體與射頻載板需求回溫</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>晶圓代工｜成熟製程</div>
+      <div class="ci-thesis">特殊製程（BCD、RF、CIS）差異化避開殺價</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>矽光子與 CPO</div>
+      <div class="ci-thesis">光引擎與電晶片共封裝，2027 起放量</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>矽晶圓</div>
+      <div class="ci-thesis">12 吋供需再平衡，長約價落底回升</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>矽智財（IP Core）</div>
+      <div class="ci-thesis">AI SoC 設計外包化，IP 授權金與權利金雙成長</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>碳化矽基板</div>
+      <div class="ci-thesis">6→8 吋基板轉換，長晶良率是關鍵瓶頸</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>第三代半導體｜GaN</div>
+      <div class="ci-thesis">快充與資料中心電源滲透率拉升</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>第三代半導體｜SiC</div>
+      <div class="ci-thesis">電動車與工業電源帶動碳化矽長晶、磊晶、元件</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>記憶體｜DRAM 與模組</div>
+      <div class="ci-thesis">HBM 排擠標準型產能，現貨與合約價反轉</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>記憶體｜NAND 與模組</div>
+      <div class="ci-thesis">企業級 SSD 拉貨，原廠減產去化庫存</div>
+    </div>
+    
+  </div>
+</details>
+
+<details class="catalog-group">
+  <summary>B. AI 伺服器與資料中心 <span class="cg-count">15 個題材</span></summary>
+  <div class="catalog-list">
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>AI 伺服器代工</div>
+      <div class="ci-thesis">GB 系列機櫃整櫃出貨，ODM 營收與毛利同步跳升</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>CCL｜銅箔基板（高速料)</div>
+      <div class="ci-thesis">Low-loss 材料世代升級，料號認證綁定</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>PCB｜AI 加速卡與交換器板</div>
+      <div class="ci-thesis">高層數、高階材料 PCB 單價與面積雙升</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>交換器 / 白牌網通</div>
+      <div class="ci-thesis">資料中心網路白牌化，Tomahawk 世代交換器放量</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>伺服器電源</div>
+      <div class="ci-thesis">機櫃功率密度飆升，電源模組單機價值量倍增</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>光通訊零組件</div>
+      <div class="ci-thesis">雷射二極體、光被動元件、連接器</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>快接頭 / 管路（Quick Disconnect）</div>
+      <div class="ci-thesis">液冷系統防漏連接件寡占、認證門檻高</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>機櫃 / 機構件 / 導軌</div>
+      <div class="ci-thesis">整櫃化帶動鈑金、滑軌、Busbar 價值量</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>氣冷散熱｜3D VC / 均熱片</div>
+      <div class="ci-thesis">高瓦數 GPU 對氣冷散熱規格升級</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>液冷散熱｜水冷板 / CDU</div>
+      <div class="ci-thesis">液冷從選配轉標配，冷卻液分配單元需求起量</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>資料中心機電與不斷電</div>
+      <div class="ci-thesis">高壓直流、UPS、柴油發電機、配電盤</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>邊緣 AI 與工業電腦</div>
+      <div class="ci-thesis">推論下沉到端側，IPC 廠切入 AI 邊緣盒</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>高速傳輸｜Retimer / Redriver</div>
+      <div class="ci-thesis">PCIe 5/6、112G SerDes 訊號完整性需求</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>高速光模組（800G/1.6T）</div>
+      <div class="ci-thesis">AI 叢集東西向流量爆炸，光模組升級週期縮短</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>高速銅纜｜AEC / DAC</div>
+      <div class="ci-thesis">機櫃內短距互連以有源電纜取代光模組</div>
+    </div>
+    
+  </div>
+</details>
+
+<details class="catalog-group">
+  <summary>C. 網通、面板與終端裝置 <span class="cg-count">12 個題材</span></summary>
+  <div class="catalog-list">
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>5G / WiFi 7</div>
+      <div class="ci-thesis">路由器與 CPE 換機，WiFi 7 前端模組升級</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>Micro LED</div>
+      <div class="ci-thesis">巨量轉移良率突破帶動穿戴與車用</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>Mini LED 背光</div>
+      <div class="ci-thesis">高階顯示器與車載採用 Mini LED 分區背光</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>PC / NB 供應鏈</div>
+      <div class="ci-thesis">AI PC 換機潮與 Windows 汰換週期</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>PCB｜HDI 與軟板</div>
+      <div class="ci-thesis">手機與穿戴 HDI/軟板規格升級</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>光學鏡頭</div>
+      <div class="ci-thesis">手機多鏡頭規格回升＋車用鏡頭數量成長</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>手機供應鏈</div>
+      <div class="ci-thesis">旗艦機規格升級（潛望鏡、鈦金屬、AI 手機）</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>折疊機 / 鉸鏈</div>
+      <div class="ci-thesis">折疊滲透率提升，軸承與 UTG 玻璃國產化</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>被動元件｜MLCC</div>
+      <div class="ci-thesis">車用與伺服器高容值 MLCC 供需吃緊</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>連接器</div>
+      <div class="ci-thesis">高速、高電流、車用連接器單機用量提升</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>面板｜中小尺寸 OLED</div>
+      <div class="ci-thesis">車用與 IT OLED 滲透，台廠切入模組</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>面板｜大尺寸</div>
+      <div class="ci-thesis">供給收斂＋體育賽事備貨，報價季節性反彈</div>
+    </div>
+    
+  </div>
+</details>
+
+<details class="catalog-group">
+  <summary>D. 電動車與車用 <span class="cg-count">10 個題材</span></summary>
+  <div class="catalog-list">
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>ADAS / 自動駕駛</div>
+      <div class="ci-thesis">感測器融合、車載運算、車用鏡頭</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>充電樁</div>
+      <div class="ci-thesis">快充基礎建設佈建與充電營運</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>車用半導體</div>
+      <div class="ci-thesis">單車矽含量成長，MCU/功率/感測滲透</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>車用連接器與線束</div>
+      <div class="ci-thesis">高壓線束與充電介面</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>電動車熱管理</div>
+      <div class="ci-thesis">電池與座艙熱管理系統</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>電池材料｜正極</div>
+      <div class="ci-thesis">高鎳與磷酸鐵鋰正極材料</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>電池材料｜負極 / 矽碳</div>
+      <div class="ci-thesis">矽基負極提升能量密度</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>電池材料｜電解液 / 隔離膜 / 銅箔</div>
+      <div class="ci-thesis">電池上游耗材國產化</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>電池模組 / BMS</div>
+      <div class="ci-thesis">儲能與電動車模組組裝與電池管理</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>電池芯</div>
+      <div class="ci-thesis">磷酸鐵鋰與固態電池路線競賽</div>
+    </div>
+    
+  </div>
+</details>
+
+<details class="catalog-group">
+  <summary>E. 機器人與自動化 <span class="cg-count">7 個題材</span></summary>
+  <div class="catalog-list">
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>人形機器人</div>
+      <div class="ci-thesis">車廠試產線放量，供應鏈從 0 到 1</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>伺服馬達與驅動器</div>
+      <div class="ci-thesis">高精度伺服系統與編碼器</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>工業電腦（IPC）</div>
+      <div class="ci-thesis">工廠自動化、醫療、交通的邊緣控制</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>機器視覺</div>
+      <div class="ci-thesis">AOI 檢測與 3D 視覺導引</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>滾珠螺桿 / 線性滑軌</div>
+      <div class="ci-thesis">工具機與自動化傳動元件</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>自動化設備整合</div>
+      <div class="ci-thesis">產線自動化統包與智慧工廠</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>諧波減速機 / RV 減速機</div>
+      <div class="ci-thesis">精密傳動元件國產替代</div>
+    </div>
+    
+  </div>
+</details>
+
+<details class="catalog-group">
+  <summary>F. 綠能與電網 <span class="cg-count">6 個題材</span></summary>
+  <div class="catalog-list">
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>儲能系統</div>
+      <div class="ci-thesis">電網輔助服務與光儲合一案場</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>太陽能｜電池與模組</div>
+      <div class="ci-thesis">內需地面型與屋頂型標案</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>氫能</div>
+      <div class="ci-thesis">電解槽與燃料電池早期佈局</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>節能與能源管理</div>
+      <div class="ci-thesis">資料中心與工廠能效改善</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>重電 / 電網升級</div>
+      <div class="ci-thesis">變壓器、開關設備、電線電纜供不應求</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>離岸風電</div>
+      <div class="ci-thesis">水下基礎、機艙組裝、海事工程國產化</div>
+    </div>
+    
+  </div>
+</details>
+
+<details class="catalog-group">
+  <summary>G. 傳產與航運 <span class="cg-count">15 個題材</span></summary>
+  <div class="catalog-list">
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>塑化</div>
+      <div class="ci-thesis">油價與中國需求決定價差循環</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>工具機</div>
+      <div class="ci-thesis">出口接單落底，日圓與關稅是變數</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>手工具</div>
+      <div class="ci-thesis">美國房市與 DIY 需求</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>散裝航運（BDI）</div>
+      <div class="ci-thesis">運價旺季＋船噸供給受限</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>橡膠輪胎</div>
+      <div class="ci-thesis">原物料成本回落改善毛利</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>水泥</div>
+      <div class="ci-thesis">兩岸產能調節與碳權成本轉嫁</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>空運</div>
+      <div class="ci-thesis">電商急件與 AI 伺服器空運需求</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>紡織｜機能布與成衣代工</div>
+      <div class="ci-thesis">品牌客戶拉貨回補與越南產能</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>自行車</div>
+      <div class="ci-thesis">歐洲庫存去化尾聲，電輔車回升</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>螺絲螺帽</div>
+      <div class="ci-thesis">車用與航太扣件認證溢價</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>製鞋代工</div>
+      <div class="ci-thesis">運動品牌庫存去化結束後回補</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>貨櫃航運</div>
+      <div class="ci-thesis">紅海繞道拉長航程消化運力</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>農化 / 肥料</div>
+      <div class="ci-thesis">糧價與地緣事件驅動</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>造紙</div>
+      <div class="ci-thesis">工業用紙與紙漿報價循環</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>鋼鐵</div>
+      <div class="ci-thesis">中國減產與內需基建帶動報價</div>
+    </div>
+    
+  </div>
+</details>
+
+<details class="catalog-group">
+  <summary>H. 生技醫療 <span class="cg-count">9 個題材</span></summary>
+  <div class="catalog-list">
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>CDMO / CRO</div>
+      <div class="ci-thesis">新藥外包產能轉單至非中國供應鏈</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>保健食品</div>
+      <div class="ci-thesis">通路自有品牌與外銷</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>學名藥 / 特殊劑型</div>
+      <div class="ci-thesis">高門檻劑型與美國缺藥缺口</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>新藥研發</div>
+      <div class="ci-thesis">授權金里程碑與臨床數據催化</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>細胞治療 / 再生醫療</div>
+      <div class="ci-thesis">法規開放與特管辦法適應症擴增</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>醫療器材</div>
+      <div class="ci-thesis">微創、骨科、洗腎耗材</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>醫美</div>
+      <div class="ci-thesis">注射填充與能量儀器</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>隱形眼鏡</div>
+      <div class="ci-thesis">日拋滲透與品牌代工訂單</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>體外診斷試劑</div>
+      <div class="ci-thesis">分子檢測與 POCT</div>
+    </div>
+    
+  </div>
+</details>
+
+<details class="catalog-group">
+  <summary>I. 金融 <span class="cg-count">5 個題材</span></summary>
+  <div class="catalog-list">
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>壽險</div>
+      <div class="ci-thesis">利率與匯率牽動避險成本與淨值</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>產險</div>
+      <div class="ci-thesis">費率調升與再保成本轉嫁</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>證券</div>
+      <div class="ci-thesis">成交量與 IPO 熱度連動</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>金融科技 / 純網銀</div>
+      <div class="ci-thesis">開放銀行與嵌入式金融</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>銀行 / 金控</div>
+      <div class="ci-thesis">利差維持＋財富管理手續費回升</div>
+    </div>
+    
+  </div>
+</details>
+
+<details class="catalog-group">
+  <summary>J. 內需與消費 <span class="cg-count">7 個題材</span></summary>
+  <div class="catalog-list">
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>影視內容 / 版權</div>
+      <div class="ci-thesis">串流平台採購與 IP 授權</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>觀光 / 旅遊</div>
+      <div class="ci-thesis">出入境人次回升與陸客變數</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>遊戲 / 電競</div>
+      <div class="ci-thesis">新作遞延與海外營運</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>零售 / 電商</div>
+      <div class="ci-thesis">會員經濟與物流自建</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>電信</div>
+      <div class="ci-thesis">5G 用戶 ARPU 與資本支出高原期後現金流</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>食品</div>
+      <div class="ci-thesis">通路議價與海外布局</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>餐飲</div>
+      <div class="ci-thesis">展店速度與原物料成本</div>
+    </div>
+    
+  </div>
+</details>
+
+<details class="catalog-group">
+  <summary>K. 系統整合、軟體與資安 <span class="cg-count">4 個題材</span></summary>
+  <div class="catalog-list">
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>企業 AI 導入 / 代理</div>
+      <div class="ci-thesis">導入顧問與算力租賃</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>系統整合（SI）</div>
+      <div class="ci-thesis">政府與企業數位轉型專案</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>資安</div>
+      <div class="ci-thesis">關鍵基礎設施法遵與零信任導入</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>雲端服務 / SaaS</div>
+      <div class="ci-thesis">訂閱制與 AI 功能加值</div>
+    </div>
+    
+  </div>
+</details>
+
+<details class="catalog-group">
+  <summary>L. 軍工與國防 <span class="cg-count">3 個題材</span></summary>
+  <div class="catalog-list">
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>無人機 / 反無人機</div>
+      <div class="ci-thesis">國防自主與紅色供應鏈排除</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>航太結構件</div>
+      <div class="ci-thesis">民航機身零件與扣件長約</div>
+    </div>
+    
+    <div class="catalog-item">
+      <div class="ci-name"><span class="dot c-theme"></span>軍用通訊與電子</div>
+      <div class="ci-thesis">國機國造與潛艦國造供應鏈</div>
+    </div>
+    
+  </div>
+</details>
+
+
+
+
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 03:46</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 04:15</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
