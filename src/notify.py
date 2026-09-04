@@ -23,9 +23,12 @@ def send_discord(text: str) -> bool:
             timeout=30,
         )
         resp.raise_for_status()
+        print(f"[notify] Discord 推播成功（status {resp.status_code}）")
         return True
     except Exception as exc:
-        print(f"[notify] Discord 推播失敗：{exc}")
+        body = getattr(getattr(exc, "response", None), "text", "")
+        print(f"[notify] Discord 推播失敗：{exc}"
+              + (f"｜回應內容：{body[:300]}" if body else ""))
         return False
 
 
@@ -45,9 +48,12 @@ def send_telegram(text: str) -> bool:
             timeout=30,
         )
         resp.raise_for_status()
+        print(f"[notify] Telegram 推播成功（status {resp.status_code}）")
         return True
     except Exception as exc:
-        print(f"[notify] Telegram 推播失敗：{exc}")
+        body = getattr(getattr(exc, "response", None), "text", "")
+        print(f"[notify] Telegram 推播失敗：{exc}"
+              + (f"｜回應內容：{body[:300]}" if body else ""))
         return False
 
 
@@ -74,6 +80,10 @@ def send_notification(title: str, body: str = "") -> bool:
         print(build("<b>", "</b>"))
         print("─" * 50)
         return True
+
+    if not cfg.get("discord_enabled", True) and not cfg.get("telegram_enabled", False):
+        print("[notify] Discord 與 Telegram 都在 config.yaml 裡關著，略過推播")
+        return False
 
     sent = False
     if cfg.get("discord_enabled", True):
