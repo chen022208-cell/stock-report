@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>歷史報告 · 盤後快訊</title>
+<title>處置股預警 · 盤後快訊</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -55,15 +55,16 @@
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
 
-  .entry{display:flex; justify-content:space-between; gap:14px; padding:12px 0;
-         border-bottom:1px solid var(--hairline); font-size:14.5px;}
-  .entry:last-child{border-bottom:none;}
-  .entry a{text-decoration:none;}
-  .entry a:hover{color:var(--gold);}
-  .entry .date{font-family:'JetBrains Mono',monospace; color:var(--text-muted);
-               font-size:13px; flex-shrink:0;}
-  .month-head{font-family:'Noto Serif TC',serif; font-size:16px;
-              color:var(--text-secondary); margin:28px 0 8px;}
+  .meta{font-size:13px; color:var(--text-muted); margin:10px 0 20px;}
+  .card{background:var(--surface); border-radius:8px; padding:16px 18px; margin-bottom:12px;
+       border-left:2px solid var(--red);}
+  .card.watch{border-left-color:var(--gold);}
+  .card.today{border-left-color:var(--text-secondary);}
+  .card-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px; margin-bottom:6px;}
+  .card-detail{font-size:13.5px; color:var(--text-secondary); line-height:1.7;}
+  .card-tag{display:inline-block; font-size:11.5px; color:var(--text-muted); margin-bottom:6px;}
+  .section-head{font-family:'Noto Serif TC',serif; font-size:16px;
+                color:var(--text-secondary); margin:28px 0 12px;}
 
 </style>
 </head>
@@ -81,21 +82,88 @@
 
   
 <header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">歷史報告</h1></header>
+<h1 class="masthead-date">處置股預警</h1></header>
+<p class="meta">2026年9月5日．週六 · 資料源：TWSE 公布注意／處置交易資訊，官方原文照登</p>
 
-<div class="month-head">2026-09</div>
+<div class="section-head">處置中（6）</div>
 
-<div class="entry"><a href="reports/2026-09-05-evening.html">2026年9月5日．週六　盤後</a><span class="date">2026-09-05</span></div>
 
-<div class="entry"><a href="reports/2026-09-04-morning.html">2026年9月4日．週五　早報</a><span class="date">2026-09-04</span></div>
+<div class="card">
+  <div class="card-tag">處置期間 115/09/03～115/09/09 · 第一次處置</div>
+  <div class="card-name">3008 大立光</div>
+  <div class="card-detail">連續三次</div>
+</div>
 
-<div class="entry"><a href="reports/2026-09-04-evening.html">2026年9月4日．週五　盤後</a><span class="date">2026-09-04</span></div>
+<div class="card">
+  <div class="card-tag">處置期間 115/09/02～115/09/08 · 第一次處置</div>
+  <div class="card-name">3406 玉晶光</div>
+  <div class="card-detail">連續三次</div>
+</div>
 
+<div class="card">
+  <div class="card-tag">處置期間 115/09/03～115/09/11 · 第二次處置</div>
+  <div class="card-name">3450 聯鈞</div>
+  <div class="card-detail">連續五次及當日沖銷標準</div>
+</div>
+
+<div class="card">
+  <div class="card-tag">處置期間 115/09/01～115/09/07 · 第一次處置</div>
+  <div class="card-name">6226 光鼎</div>
+  <div class="card-detail">連續三次</div>
+</div>
+
+<div class="card">
+  <div class="card-tag">處置期間 115/09/02～115/09/08 · 第一次處置</div>
+  <div class="card-name">6805 富世達</div>
+  <div class="card-detail">連續三次</div>
+</div>
+
+<div class="card">
+  <div class="card-tag">處置期間 115/09/02～115/09/08 · 第一次處置</div>
+  <div class="card-name">6933 AMAX-KY</div>
+  <div class="card-detail">連續三次</div>
+</div>
+
+
+
+<div class="section-head">注意累計次數接近處置門檻（5）</div>
+
+
+<div class="card watch">
+  <div class="card-name">069544 立隆電元大5B購05</div>
+  <div class="card-detail">115年9月2日至115年9月3日連續二次</div>
+</div>
+
+<div class="card watch">
+  <div class="card-name">2426 鼎元</div>
+  <div class="card-detail">115年8月24日至115年9月3日等九個營業日已有五次</div>
+</div>
+
+<div class="card watch">
+  <div class="card-name">2455 全新</div>
+  <div class="card-detail">115年8月31日至115年9月3日連續四次</div>
+</div>
+
+<div class="card watch">
+  <div class="card-name">3406 玉晶光</div>
+  <div class="card-detail">115年9月2日至115年9月3日連續二次</div>
+</div>
+
+<div class="card watch">
+  <div class="card-name">6933 AMAX-KY</div>
+  <div class="card-detail">115年9月2日至115年9月3日連續二次</div>
+</div>
+
+
+
+<div class="section-head">今日新公布注意股票（0）</div>
+
+<p class="commentary">今天沒有新公布的注意股票。</p>
 
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 02:24</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 02:23</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
