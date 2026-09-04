@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}籌碼儀表板 · {{ site_title }}{% endblock %}
+{% block extra_css %}
+  .meta{font-size:13px; color:var(--text-muted); margin:10px 0 20px;}
+  .inst-row{display:flex; align-items:center; gap:12px; margin-bottom:10px; font-size:14px;}
+  .inst-row .inst-name{width:56px; color:var(--text-secondary); flex-shrink:0;}
+  .inst-row .bar-track{flex:1; height:6px; background:var(--surface-2);
+                       border-radius:3px; position:relative; overflow:hidden;}
+  .inst-row .bar-fill{position:absolute; top:0; bottom:0; border-radius:3px;}
+  .inst-row .bar-fill.up{background:var(--red); left:50%;}
+  .inst-row .bar-fill.down{background:var(--green); right:50%;}
+  .inst-row .inst-value{width:88px; text-align:right;
+                        font-family:'JetBrains Mono',monospace; flex-shrink:0;}
+  .tech-table{width:100%; border-collapse:collapse; margin-bottom:8px;}
+  .tech-table th{text-align:left; font-size:12.5px; font-weight:400;
+                 color:var(--text-muted); padding-bottom:10px;
+                 border-bottom:1px solid var(--hairline);}
+  .tech-table td{padding:10px 0; border-bottom:1px solid var(--hairline);
+                 font-size:14px; vertical-align:top;}
+  .tech-table tr:last-child td{border-bottom:none;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .up{color:var(--red);} .down{color:var(--green);}
+  .market-tag{font-size:11px; color:var(--text-muted); margin-left:4px;}
+{% endblock %}
+{% block content %}
+<header><div class="masthead-label">{{ site_title }}</div>
+<h1 class="masthead-date">籌碼儀表板</h1></header>
+<p class="meta">{{ date_label }}</p>
+
+{% if inst %}
+<section class="block">
+  <h2>三大法人（大盤）</h2>
+  {% for row in [('外資', inst.foreign_net), ('投信', inst.trust_net), ('自營商', inst.dealer_net)] %}
+  <div class="inst-row">
+    <span class="inst-name">{{ row[0] }}</span>
+    <div class="bar-track">
+      <div class="bar-fill {{ 'up' if row[1] >= 0 else 'down' }}"
+           style="width:{{ (row[1]|abs / 200 * 50)|round(1) if (row[1]|abs) < 200 else 50 }}%"></div>
+    </div>
+    <span class="inst-value mono {{ 'up' if row[1] >= 0 else 'down' }}">{{ "%+.1f"|format(row[1]) }}億</span>
+  </div>
+  {% endfor %}
+</section>
+<hr class="divider">
+{% endif %}
+
+{% if margin_top %}
+<section class="block">
+  <h2>融資增減幅前 10</h2>
+  <table class="tech-table">
+    <tr><th>股票</th><th>融資餘額</th><th>今日增減</th></tr>
+    {% for m in margin_top %}
+    <tr>
+      <td>{{ m.code }} {{ m.name }}{% if m.market == 'tpex' %}<span class="market-tag">上櫃</span>{% endif %}</td>
+      <td class="mono">{{ "{:,.0f}".format(m.margin_balance) }} 張</td>
+      <td class="mono {{ 'up' if m.margin_change >= 0 else 'down' }}">{{ "%+,.0f"|format(m.margin_change) }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</section>
+<hr class="divider">
+{% endif %}
+
+{% if strong %}
+<section class="block">
+  <h2>強勢股（今日漲幅前段）</h2>
+  <table class="tech-table">
+    <tr><th>股票</th><th>漲幅</th><th>量能倍數</th></tr>
+    {% for s in strong %}
+    <tr>
+      <td>{{ s.code }} {{ s.name }}{% if s.market == 'tpex' %}<span class="market-tag">上櫃</span>{% endif %}</td>
+      <td class="mono up">{{ "%+.2f"|format(s.change_pct) }}%</td>
+      <td class="mono">{{ s.volume_ratio if s.volume_ratio else '—' }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</section>
+{% endif %}
+
+{% if not inst and not margin_top and not strong %}
+<p class="commentary" style="margin-top:24px">今天還沒有資料，下一次盤後報告產出後這裡會更新。</p>
+{% endif %}
+{% endblock %}

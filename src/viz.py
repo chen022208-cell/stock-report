@@ -89,6 +89,40 @@ def diverging_bars(rows: list[tuple[str, float]], width: int = 420,
     return "".join(parts)
 
 
+def heat_grid(cells: list[tuple[str, float]], cols: int = 4, cell_w: int = 100,
+              cell_h: int = 74) -> str:
+    """產業/題材熱力圖：固定欄數的色塊格，顏色深淺代表漲跌幅強度（紅漲綠跌）。
+
+    cells = [(名稱, 漲跌幅%), ...]，依漲跌幅由大到小排列後直接鋪成格子
+    （不是面積比例的真 treemap，比較好讀，跟大多數看盤 App 的熱力圖一致）。
+    """
+    if not cells:
+        return ""
+    rows = (len(cells) + cols - 1) // cols
+    w, h = cols * cell_w, rows * cell_h
+    peak = max((abs(v) for _, v in cells), default=1.0) or 1.0
+    parts = [f'<svg viewBox="0 0 {w} {h}" class="heatgrid" role="img" aria-label="熱力圖">']
+    for i, (name, pct) in enumerate(cells):
+        col, row = i % cols, i // cols
+        x, y = col * cell_w, row * cell_h
+        intensity = min(abs(pct) / peak, 1.0)
+        base = (219, 84, 74) if pct >= 0 else (79, 158, 113)   # --red / --green
+        alpha = 0.18 + intensity * 0.72
+        fill = f"rgba({base[0]},{base[1]},{base[2]},{alpha:.2f})"
+        label = escape(name if len(name) <= 6 else name[:5] + "…")
+        parts.append(
+            f'<g transform="translate({x},{y})">'
+            f'<rect width="{cell_w - 2}" height="{cell_h - 2}" rx="4" fill="{fill}"/>'
+            f'<text x="{(cell_w - 2) / 2:.0f}" y="{cell_h / 2 - 8:.0f}" '
+            f'text-anchor="middle" class="heatgrid-label">{label}</text>'
+            f'<text x="{(cell_w - 2) / 2:.0f}" y="{cell_h / 2 + 14:.0f}" '
+            f'text-anchor="middle" class="heatgrid-pct">{pct:+.2f}%</text>'
+            f'</g>'
+        )
+    parts.append("</svg>")
+    return "".join(parts)
+
+
 VIZ_CSS = """
   .spark{width:100%; height:60px; display:block;}
   .dbars{width:100%; height:auto; display:block; margin:6px 0 4px;}
@@ -96,4 +130,9 @@ VIZ_CSS = """
                font-family:'Noto Sans TC',sans-serif;}
   .dbars-value{fill:var(--text-muted); font-size:12px;
                font-family:'JetBrains Mono',monospace;}
+  .heatgrid{width:100%; height:auto; display:block;}
+  .heatgrid-label{fill:var(--text-primary); font-size:12px; font-weight:600;
+                  font-family:'Noto Sans TC',sans-serif;}
+  .heatgrid-pct{fill:var(--text-primary); font-size:11px;
+                font-family:'JetBrains Mono',monospace; opacity:.85;}
 """

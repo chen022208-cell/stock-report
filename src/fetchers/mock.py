@@ -79,6 +79,32 @@ def stock_history(code: str, days: int = 120) -> list[dict]:
     return rows
 
 
+def tpex_daily_quotes() -> list[dict]:
+    quotes = []
+    for code, name, pct in [("6187", "萬潤", 6.7), ("3374", "精材", 5.2), ("5347", "世界", 2.1)]:
+        close = round(random.uniform(50, 400), 1)
+        quotes.append({
+            "code": code, "name": name, "close": close,
+            "change": round(close * pct / 100, 2), "change_pct": pct,
+            "volume": 3_000_000, "turnover": int(close * 3_000_000), "market": "tpex",
+        })
+    for i in range(20):
+        quotes.append({
+            "code": f"8{i:03d}", "name": f"上櫃測試{i}", "close": 40.0,
+            "change": 0.1, "change_pct": 0.25, "volume": 300_000,
+            "turnover": 12_000_000, "market": "tpex",
+        })
+    return quotes
+
+
+def industry_map() -> dict[str, str]:
+    return {
+        "1590": "其他電子業", "2049": "其他電子業", "4551": "機械業", "2330": "半導體業",
+        "3017": "電子零組件業", "3661": "半導體業", "6187": "半導體業", "2454": "半導體業",
+        "3324": "電子零組件業", "1521": "電機機械業", "1101": "水泥工業", "2891": "金融業",
+    }
+
+
 def international_markets() -> dict:
     return {
         "indices": [

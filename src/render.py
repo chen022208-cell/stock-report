@@ -255,6 +255,33 @@ def render_themes_page() -> Path:
     return path
 
 
+def render_heatmap(industries: list[dict], date_label_str: str) -> Path:
+    from . import viz
+    cfg = load_config()
+    cells = [(row["name"], row["avg_change_pct"]) for row in industries]
+    path = DOCS_DIR / "heatmap.html"
+    path.write_text(_env().get_template("heatmap.html").render(
+        site_title=cfg["site"]["title"],
+        generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
+        rel="", date_label=date_label_str,
+        grid=viz.heat_grid(cells), viz_css=viz.VIZ_CSS,
+    ), encoding="utf-8")
+    return path
+
+
+def render_chips(inst: dict, margin_top: list[dict], strong: list[dict],
+                 date_label_str: str) -> Path:
+    cfg = load_config()
+    path = DOCS_DIR / "chips.html"
+    path.write_text(_env().get_template("chips.html").render(
+        site_title=cfg["site"]["title"],
+        generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
+        rel="", date_label=date_label_str,
+        inst=inst, margin_top=margin_top, strong=strong,
+    ), encoding="utf-8")
+    return path
+
+
 def render_site() -> list[Path]:
     """重建所有索引頁。每次跑完報告都要呼叫，索引才會包含最新內容。"""
     return [render_index(), render_archive(), render_themes_page()]

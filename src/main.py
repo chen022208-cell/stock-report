@@ -16,9 +16,9 @@ import traceback
 from datetime import date, timedelta
 
 from . import db, llm, render
-from .analysis import global_themes, review, screener, technical
+from .analysis import global_themes, industry, review, screener, technical
 from .config import load_config, today_str, now_tpe
-from .fetchers import international, mops, twse
+from .fetchers import international, mops, tpex, twse
 from .market_calendar import (classify_day, consecutive_closed_days,
                               is_last_day_before_reopen, next_trading_day,
                               refresh_holidays)
@@ -108,19 +108,48 @@ def run_evening() -> None:
     market = _safe(twse.fetch_index_summary, {}, "大盤行情")
     inst = _safe(twse.fetch_institutional_net, {}, "三大法人")
     quotes = _safe(twse.fetch_daily_quotes, [], "個股行情")
+    tpex_quotes = _safe(tpex.fetch_daily_quotes, [], "上櫃個股行情")
     calls = _safe(lambda: mops.fetch_earnings_calls(), [], "法說會")
     inst_by_stock = _safe(lambda: twse.fetch_institutional_by_stock(), {}, "個股法人買賣超")
+    tpex_inst_by_stock = _safe(tpex.fetch_institutional_by_stock, {}, "上櫃個股法人買賣超")
+    inst_by_stock = {**inst_by_stock, **tpex_inst_by_stock}
+
+    # 上市 + 上櫃合併成一份全市場清單，後面掃描/熱力圖/籌碼都吃這份
+    all_quotes = quotes + tpex_quotes
+    print(f"[evening] 上市 {len(quotes)} 檔、上櫃 {len(tpex_quotes)} 檔")
 
     # 漲跌家數：openapi 無現成資料集，由全個股行情自行統計
-    if quotes:
-        market = {**market, **twse.compute_breadth(quotes)}
+    if all_quotes:
+        market = {**market, **twse.compute_breadth(all_quotes)}
 
     if market:
         db.save_market_snapshot(today, {**market, **inst})
 
+    # 產業熱力圖：上市公司基本資料的產業別 + 全市場今日漲跌
+    industry_map = _safe(twse.fetch_industry_map, {}, "產業分類")
+    heatmap_rows = industry.aggregate_by_industry(all_quotes, industry_map) if industry_map else []
+    if heatmap_rows:
+        render.render_heatmap(heatmap_rows, render.date_label(today))
+
+    # 籌碼儀表板：法人（大盤）+ 資券增減前 10 + 強勢股
+    margin_twse = _safe(twse.fetch_margin_by_stock, {}, "融資融券（上市）")
+    margin_tpex = _safe(tpex.fetch_margin_by_stock, {}, "融資融券（上櫃）")
+    margin_all = {**margin_twse, **margin_tpex}
+    quotes_by_code_all = {q["code"]: q for q in all_quotes}
+    margin_top = []
+    for code, m in margin_all.items():
+        q = quotes_by_code_all.get(code)
+        if q and m.get("margin_change"):
+            margin_top.append({**m, "code": code, "name": q.get("name", ""),
+                               "market": q.get("market", "twse")})
+    margin_top.sort(key=lambda x: abs(x["margin_change"]), reverse=True)
+
     # 第一層：強勢股掃描（兩段式：先零成本過濾，再對候選抓歷史算量能）
-    strong = screener.scan_strong_stocks(quotes, cfg, twse.fetch_stock_history)
+    # 上市走 TWSE 歷史，上櫃量能倍數目前抓不到（TPEx 無對應歷史端點），留 None 不影響篩選
+    strong = screener.scan_strong_stocks(all_quotes, cfg, twse.fetch_stock_history)
     print(f"[evening] 強勢股 {len(strong)} 檔")
+    if heatmap_rows or margin_top or strong:
+        render.render_chips(inst, margin_top[:10], strong[:10], render.date_label(today))
 
     # 第二層：題材聚類（含孤立訊號分流）
     call_context = "\n".join(f"{c['code']} {c['name']} 法說會：{c['note']}" for c in calls)
@@ -151,14 +180,14 @@ def run_evening() -> None:
 
         # 判斷快照：現在存下來，14/30 天後才能回頭驗證
         for stock in t.get("stocks", []):
-            q = next((x for x in quotes if x["code"] == stock.get("code")), None)
+            q = next((x for x in all_quotes if x["code"] == stock.get("code")), None)
             if q:
                 db.save_judgment(today, stock["code"], stock.get("name", ""),
                                  t["name"], t.get("confidence", "mid"),
                                  "theme_pick", q["close"], market.get("taiex_close", 0))
 
     # 黑馬：不套題材，走獨立風險標記（先補上孤立訊號個股的量能倍數）
-    quotes_by_code = {q["code"]: q for q in quotes}
+    quotes_by_code = {q["code"]: q for q in all_quotes}
     orphan_quotes = [quotes_by_code[o["code"]] for o in orphans
                      if o.get("code") in quotes_by_code]
     screener.attach_volume_ratio(orphan_quotes, twse.fetch_stock_history)

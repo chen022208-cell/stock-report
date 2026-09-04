@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}產業熱力圖 · {{ site_title }}{% endblock %}
+{% block extra_css %}
+  .meta{font-size:13px; color:var(--text-muted); margin:10px 0 20px;}
+{{ viz_css }}
+{% endblock %}
+{% block content %}
+<header><div class="masthead-label">{{ site_title }}</div>
+<h1 class="masthead-date">產業熱力圖</h1></header>
+<p class="meta">{{ date_label }} 收盤 · 依產業別等權平均漲跌幅，紅漲綠跌，顏色深淺代表強度</p>
+{% if grid %}
+{{ grid|safe }}
+{% else %}
+<p class="commentary" style="margin-top:24px">今天還沒有資料，下一次盤後報告產出後這裡會更新。</p>
+{% endif %}
+{% endblock %}

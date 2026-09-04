@@ -222,6 +222,63 @@ def fetch_institutional_by_stock(target: date | None = None) -> dict[str, float]
     return out
 
 
+# TWSE 產業別代碼對照（t187ap03_L 的「產業別」欄位回傳的是代碼不是名稱）
+INDUSTRY_CODE_NAME = {
+    "01": "水泥工業", "02": "食品工業", "03": "塑膠工業", "04": "紡織纖維",
+    "05": "電機機械", "06": "電器電纜", "08": "玻璃陶瓷", "09": "造紙工業",
+    "10": "鋼鐵工業", "11": "橡膠工業", "12": "汽車工業", "13": "電子工業",
+    "14": "建材營造", "15": "航運業", "16": "觀光事業", "17": "金融保險",
+    "18": "貿易百貨", "19": "綜合", "20": "其他業", "21": "化學工業",
+    "22": "生技醫療業", "23": "油電燃氣業", "24": "半導體業", "25": "電腦及週邊設備業",
+    "26": "光電業", "27": "通信網路業", "28": "電子零組件業", "29": "電子通路業",
+    "30": "資訊服務業", "31": "其他電子業", "32": "文化創意業", "33": "農業科技業",
+    "34": "電子商務", "35": "綠能環保", "36": "數位雲端", "80": "管理顧問業",
+    "91": "存託憑證", "97": "閉鎖性公司", "99": "未分類",
+}
+
+
+def fetch_industry_map() -> dict[str, str]:
+    """股票代號 → 產業別。來源：上市公司基本資料，月更新即可，抓不到回空 dict。"""
+    if DRY_RUN:
+        return mock.industry_map()
+
+    rows = _get("/opendata/t187ap03_L")
+    if not rows:
+        return {}
+    out = {}
+    for row in rows:
+        code = str(row.get("公司代號", "")).strip()
+        industry_code = str(row.get("產業別", "")).strip()
+        if code and industry_code:
+            out[code] = INDUSTRY_CODE_NAME.get(industry_code, industry_code)
+    return out
+
+
+def fetch_margin_by_stock() -> dict[str, dict]:
+    """個股融資融券餘額與當日增減（股數）。回傳 {代號: {...}}。"""
+    if DRY_RUN:
+        return {}
+
+    rows = _get("/exchangeReport/MI_MARGN")
+    if not rows:
+        return {}
+
+    out: dict[str, dict] = {}
+    for row in rows:
+        code = str(row.get("股票代號", "")).strip()
+        if not code:
+            continue
+        out[code] = {
+            "margin_balance": _num(row.get("融資今日餘額")),
+            "margin_change": _num(row.get("融資買進")) - _num(row.get("融資賣出"))
+                             - _num(row.get("融資現金償還")),
+            "short_balance": _num(row.get("融券今日餘額")),
+            "short_change": _num(row.get("融券賣出")) - _num(row.get("融券買進"))
+                            - _num(row.get("融券現券償還")),
+        }
+    return out
+
+
 def fetch_stock_history(code: str, days: int = 120) -> list[dict]:
     """個股日 K，技術分析用。TWSE 是按月查，抓最近幾個月再截斷。
 
