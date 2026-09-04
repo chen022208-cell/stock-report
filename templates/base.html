@@ -4,6 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{% block title %}{{ site_title }}{% endblock %}</title>
+<link rel="manifest" href="{{ rel }}manifest.json">
+<link rel="icon" href="{{ rel }}icons/icon-192.png">
+<link rel="apple-touch-icon" href="{{ rel }}icons/icon-192.png">
+<meta name="theme-color" content="#1C1B19">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -76,5 +80,10 @@
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("{{ rel }}sw.js").catch(function () {});
+  }
+</script>
 </body>
 </html>

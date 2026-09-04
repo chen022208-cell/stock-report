@@ -257,6 +257,15 @@ def render_themes_page() -> Path:
     return path
 
 
+def _write_json(name: str, data) -> None:
+    """render 階段同步吐一份 JSON，跟 HTML 同源同資料，給未來的 App/前端直接讀，
+    不用另外架 API——docs/data/*.json 本身也是靜態檔，GitHub Pages 直接served。"""
+    data_dir = DOCS_DIR / "data"
+    data_dir.mkdir(parents=True, exist_ok=True)
+    (data_dir / f"{name}.json").write_text(
+        json.dumps(data, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
+
+
 def render_heatmap(industries: list[dict], date_label_str: str) -> Path:
     from . import viz
     cfg = load_config()
@@ -268,6 +277,7 @@ def render_heatmap(industries: list[dict], date_label_str: str) -> Path:
         rel="", date_label=date_label_str,
         grid=viz.heat_grid(cells), viz_css=viz.VIZ_CSS,
     ), encoding="utf-8")
+    _write_json("heatmap", {"date": date_label_str, "industries": industries})
     return path
 
 
@@ -281,6 +291,8 @@ def render_chips(inst: dict, margin_top: list[dict], strong: list[dict],
         rel="", date_label=date_label_str,
         inst=inst, margin_top=margin_top, strong=strong, holders=holders,
     ), encoding="utf-8")
+    _write_json("chips", {"date": date_label_str, "institutional": inst,
+                          "margin_top": margin_top, "strong": strong, "holders": holders})
     return path
 
 
@@ -294,6 +306,8 @@ def render_disposition(disposition: list[dict], trending: list[dict],
         rel="", date_label=date_label_str,
         disposition=disposition, trending=trending, today_list=today_list,
     ), encoding="utf-8")
+    _write_json("disposition", {"date": date_label_str, "disposition": disposition,
+                                "trending": trending, "today": today_list})
     return path
 
 
@@ -305,6 +319,7 @@ def render_scores(rows: list[dict], date_label_str: str) -> Path:
         generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
         rel="", date_label=date_label_str, rows=rows,
     ), encoding="utf-8")
+    _write_json("scores", {"date": date_label_str, "rows": rows})
     return path
 
 
