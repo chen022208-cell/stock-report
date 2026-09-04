@@ -158,7 +158,8 @@ def render_monthly(month: str, review_summary: dict, extra: dict | None = None) 
 _CONF_RANK = {"low": 1, "mid": 2, "high": 3}
 
 
-def render_article(theme: dict, article: dict, slug: str) -> Path:
+def render_article(theme: dict, article: dict, slug: str,
+                   supply_chain: dict | None = None) -> Path:
     cfg = load_config()
     tpl = _env().get_template("article.html")
 
@@ -176,6 +177,7 @@ def render_article(theme: dict, article: dict, slug: str) -> Path:
         theme=theme,
         article=article,
         stock_count=len(stocks),
+        supply_chain=supply_chain or {},
     ), encoding="utf-8")
     return path
 

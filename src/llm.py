@@ -227,6 +227,39 @@ def news_sentiment_batch(stocks: list[dict]) -> dict[str, float]:
         return {}
 
 
+# ── 供應鏈結構 ─────────────────────────────────────────
+SUPPLY_CHAIN_SYSTEM = """你是台股產業鏈研究員。輸入一個題材的名稱、摘要與目前追蹤到的相關個股。
+
+任務：把這個題材畫成一張簡化的供應鏈結構圖：
+1. 分成上游／中游／下游三段（依這個題材的產業性質命名段落，不要死板套用「原料/製造/銷售」）
+2. 已知的相關個股要分到對的段落，並標角色：
+   - "核心"：該段落裡技術門檻高、對題材直接受惠的公司
+   - "邊緣"：沾到題材但受惠程度不明顯、可能只是蹭
+3. 找不到相關個股的段落可以留空陣列，不要硬塞
+4. 如果你知道這個題材有對應的美股／日股／韓股同類公司，列在 peers 裡（不確定就留空陣列，不要瞎猜代號）
+
+只輸出 JSON，不要 markdown 標記：
+{
+  "upstream": {"label": "段落名稱", "companies": [{"code":"1234","name":"公司","role":"核心"}]},
+  "midstream": {"label": "段落名稱", "companies": []},
+  "downstream": {"label": "段落名稱", "companies": []},
+  "peers": [{"market": "US", "ticker": "NVDA", "name": "公司"}]
+}"""
+
+
+def supply_chain_structure(theme: dict) -> dict:
+    if DRY_RUN:
+        return mock.supply_chain_structure()
+    stocks = theme.get("related_stocks") or theme.get("stocks") or []
+    user = (f"題材：{theme['name']}\n摘要：{theme.get('summary', '')}\n"
+            f"目前追蹤到的相關個股：{json.dumps(stocks, ensure_ascii=False)}")
+    try:
+        return _parse_json(_call(SUPPLY_CHAIN_SYSTEM, user, 1500))
+    except Exception as exc:
+        print(f"[llm] 供應鏈結構產出失敗：{exc}")
+        return {}
+
+
 # ── 深度報告 ───────────────────────────────────────────
 DEEP_DIVE_SYSTEM = """你是有 20 年經驗的產業分析師，撰寫題材深度報告。
 

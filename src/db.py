@@ -88,6 +88,13 @@ CREATE TABLE IF NOT EXISTS market_snapshots (
 CREATE INDEX IF NOT EXISTS idx_theme_updates_date ON theme_updates(date);
 CREATE INDEX IF NOT EXISTS idx_snapshots_date ON judgment_snapshots(date);
 CREATE INDEX IF NOT EXISTS idx_themes_status ON themes(status);
+
+-- 供應鏈結構：題材成熟到值得寫深度報告時，順便請 LLM 產出一次，之後有新訊號再修正
+CREATE TABLE IF NOT EXISTS supply_chains (
+    theme_id      INTEGER PRIMARY KEY REFERENCES themes(id),
+    structure     TEXT NOT NULL,        -- JSON：upstream/midstream/downstream + 公司角色
+    updated_date  TEXT NOT NULL
+);
 """
 
 
@@ -238,6 +245,25 @@ def themes_ready_for_deep_dive(min_days: int) -> list[dict]:
 def set_deep_dive_slug(theme_id: int, slug: str) -> None:
     with get_conn() as conn:
         conn.execute("UPDATE themes SET deep_dive_slug=? WHERE id=?", (slug, theme_id))
+
+
+def save_supply_chain(theme_id: int, structure: dict, today: str) -> None:
+    with get_conn() as conn:
+        conn.execute(
+            """INSERT INTO supply_chains (theme_id, structure, updated_date)
+               VALUES (?,?,?)
+               ON CONFLICT(theme_id) DO UPDATE SET structure=excluded.structure,
+                                                    updated_date=excluded.updated_date""",
+            (theme_id, json.dumps(structure, ensure_ascii=False), today),
+        )
+
+
+def get_supply_chain(theme_id: int) -> dict | None:
+    with get_conn() as conn:
+        row = conn.execute(
+            "SELECT structure FROM supply_chains WHERE theme_id=?", (theme_id,)
+        ).fetchone()
+        return json.loads(row["structure"]) if row else None
 
 
 # ── 判斷快照 / 事後驗證 ────────────────────────────────

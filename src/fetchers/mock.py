@@ -240,6 +240,20 @@ def global_theme_digest() -> dict:
     }
 
 
+def supply_chain_structure() -> dict:
+    return {
+        "upstream": {"label": "關鍵零組件", "companies": [
+            {"code": "1590", "name": "亞德客-KY", "role": "核心"},
+        ]},
+        "midstream": {"label": "系統整合／組裝", "companies": [
+            {"code": "2049", "name": "上銀", "role": "核心"},
+            {"code": "1521", "name": "大銀微系統", "role": "邊緣"},
+        ]},
+        "downstream": {"label": "終端應用", "companies": []},
+        "peers": [{"market": "US", "ticker": "TSLA", "name": "Tesla"}],
+    }
+
+
 def llm_theme_response() -> dict:
     """DRY_RUN 時代替 Claude API 回傳的題材聚類結果。"""
     return {

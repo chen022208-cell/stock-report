@@ -347,7 +347,11 @@ def run_evening() -> None:
                         {}, f"深度報告 {theme['name']}")
         if article:
             slug = render.slugify(theme["name"])
-            render.render_article(theme, article, slug)
+            supply_chain = _safe(lambda t=theme: llm.supply_chain_structure(t),
+                                 {}, f"供應鏈結構 {theme['name']}")
+            if supply_chain:
+                db.save_supply_chain(theme["id"], supply_chain, today)
+            render.render_article(theme, article, slug, supply_chain)
             db.set_deep_dive_slug(theme["id"], slug)
             print(f"[evening] 深度報告已產出：{theme['name']}")
 

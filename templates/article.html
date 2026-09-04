@@ -37,6 +37,20 @@
   .track-item{padding:10px 0; border-bottom:1px solid var(--hairline);
               font-size:14px; color:var(--text-secondary);}
   .track-item:last-child{border-bottom:none;}
+  .chain-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr));
+             gap:12px; margin:16px 0 8px; font-family:'Noto Sans TC',sans-serif;}
+  .chain-segment{background:var(--surface); border-radius:8px; padding:14px 16px;}
+  .chain-label{font-size:12.5px; color:var(--gold); margin-bottom:10px;}
+  .chain-company{font-size:14px; color:var(--text-secondary); padding:6px 0;
+                 border-bottom:1px solid var(--hairline); display:flex;
+                 justify-content:space-between; align-items:center;}
+  .chain-company:last-child{border-bottom:none;}
+  .chain-company.core{color:var(--text-primary);}
+  .chain-role{font-size:11px; padding:2px 7px; border-radius:100px; flex-shrink:0;
+             background:rgba(217,164,65,.16); color:var(--gold);}
+  .chain-company.peripheral .chain-role{background:rgba(114,108,96,.16); color:var(--text-muted);}
+  .chain-peers{font-family:'Noto Sans TC',sans-serif; font-size:13px;
+               color:var(--text-muted); margin-top:10px;}
   @media (max-width:480px){h1.title{font-size:24px;}}
 {% endblock %}
 
@@ -66,6 +80,30 @@
   <h2>{{ section.heading }}</h2>
   <p>{{ section.body }}</p>
   {% endfor %}
+
+  {% if supply_chain and (supply_chain.upstream or supply_chain.midstream or supply_chain.downstream) %}
+  <h2>供應鏈結構</h2>
+  <div class="chain-grid">
+    {% for seg in [supply_chain.get('upstream'), supply_chain.get('midstream'), supply_chain.get('downstream')] %}
+    {% if seg and seg.companies %}
+    <div class="chain-segment">
+      <div class="chain-label">{{ seg.label }}</div>
+      {% for c in seg.companies %}
+      <div class="chain-company {{ 'core' if c.role == '核心' else 'peripheral' }}">
+        {{ c.code }} {{ c.name }}
+        <span class="chain-role">{{ c.role }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+  {% if supply_chain.peers %}
+  <p class="chain-peers">國際同類公司參考：
+    {% for p in supply_chain.peers %}{{ p.market }} {{ p.ticker }} {{ p.name }}{% if not loop.last %}、{% endif %}{% endfor %}
+  </p>
+  {% endif %}
+  {% endif %}
 
   {% if article.risks %}
   <h2>風險與觀察重點</h2>
