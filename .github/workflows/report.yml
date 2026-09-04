@@ -14,7 +14,7 @@ on:
         required: true
         default: 'evening'
         type: choice
-        options: [morning, evening, monthly, holiday, site]
+        options: [morning, evening, monthly, holiday, site, catalog]
 
 permissions:
   contents: write             # 需要寫回 docs/ 與 data/ 才能累積歷史
