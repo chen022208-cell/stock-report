@@ -3,8 +3,7 @@
 
 site:
   title: "盤後快訊"
-  # GitHub Pages 網址，部署後填入，例如 https://yourname.github.io/stock-report
-  base_url: ""
+  base_url: "https://chen022208-cell.github.io/stock-report"
   timezone: "Asia/Taipei"
 
 # ── 你的自選股 ──────────────────────────────────────
