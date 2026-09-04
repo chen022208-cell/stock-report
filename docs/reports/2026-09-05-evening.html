@@ -13,127 +13,168 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#1C1B19; --surface:#242220; --surface-2:#2B2925;
-    --text-primary:#EDE9E1; --text-secondary:#A39C8E; --text-muted:#726C60;
-    --red:#DB544A; --green:#4F9E71; --gold:#D9A441; --hairline:#3A362F;
+    --bg:#171615; --surface:#221F1D; --surface-2:#2A2725; --surface-3:#332F2B;
+    --text-primary:#F2EEE6; --text-secondary:#ABA398; --text-muted:#786F63;
+    --red:#E15C4F; --green:#4FB07A; --gold:#E3AC4E; --hairline:#38332E;
+    /* 分類色：跟紅漲綠跌語意分開，只用來標「這是哪一種資訊」 */
+    --c-market:#6C93F5; --c-theme:#B48CE8; --c-chip:#EC9A5C; --c-score:#43BFAE;
+    --c-warn:#E15C4F;
+    --radius:14px; --radius-sm:10px;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
+  html{-webkit-tap-highlight-color:transparent;}
   body{background:var(--bg); color:var(--text-primary);
-       font-family:'Noto Sans TC',sans-serif; line-height:1.7;
+       font-family:'Noto Sans TC',sans-serif; line-height:1.65;
        -webkit-font-smoothing:antialiased;}
-  .page{max-width:640px; margin:0 auto; padding:48px 24px 64px;}
+  .page{max-width:720px; margin:0 auto; padding:20px 16px 72px;}
   a{color:inherit;}
   .mono{font-family:'JetBrains Mono',monospace;}
   /* 台股慣例：紅漲綠跌。切勿套用美股配色，會讓人看反方向 */
   .up{color:var(--red);} .down{color:var(--green);}
-  hr.divider{border:none; border-top:1px solid var(--hairline); margin:28px 0;}
+  hr.divider{border:none; border-top:1px solid var(--hairline); margin:22px 0;}
 
-  .nav{display:flex; gap:18px; font-size:13px; color:var(--text-muted);
-       margin-bottom:28px; flex-wrap:wrap;}
-  .nav a{text-decoration:none; border-bottom:1px solid transparent; padding-bottom:2px;}
-  .nav a:hover,.nav a:focus-visible{color:var(--gold); border-bottom-color:var(--gold);}
+  /* 頂部像 App 的水平捲動分類籤條，取代原本會換行的純文字導覽 */
+  .nav{display:flex; gap:8px; margin-bottom:20px; overflow-x:auto;
+       -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:2px;}
+  .nav::-webkit-scrollbar{display:none;}
+  .nav a{flex-shrink:0; text-decoration:none; font-size:13px; font-weight:500;
+        color:var(--text-secondary); background:var(--surface);
+        padding:9px 14px; border-radius:100px; border:1px solid var(--hairline);
+        white-space:nowrap; transition:background .15s,color .15s;}
+  .nav a:hover,.nav a:focus-visible{color:var(--text-primary); background:var(--surface-2);}
+  .nav a.current{color:#171615; background:var(--gold); border-color:var(--gold); font-weight:600;}
 
-  .masthead-label{font-size:13px; color:var(--text-muted); margin-bottom:6px;}
-  .masthead-date{font-family:'Noto Serif TC',serif; font-weight:600; font-size:26px;}
+  .masthead-label{font-size:13px; color:var(--text-muted); margin-bottom:4px;}
+  .masthead-date{font-family:'Noto Serif TC',serif; font-weight:600; font-size:24px;}
 
+  .block{margin-bottom:4px;}
   .block h2{font-family:'Noto Serif TC',serif; font-weight:600;
-            font-size:20px; margin-bottom:16px;}
-  .commentary{font-size:15px; color:var(--text-secondary); line-height:1.8;}
+            font-size:18px; margin-bottom:14px;}
+  .commentary{font-size:14.5px; color:var(--text-secondary); line-height:1.8;}
 
-  .tag{font-size:12px; padding:3px 9px; border-radius:100px; white-space:nowrap;}
-  .tag.confidence-high{background:rgba(217,164,65,.16); color:var(--gold);}
-  .tag.confidence-mid{background:rgba(163,156,142,.16); color:var(--text-secondary);}
-  .tag.confidence-low{background:rgba(114,108,96,.16); color:var(--text-muted);}
-  .tag.verdict-real{background:rgba(79,158,113,.16); color:var(--green);}
-  .tag.verdict-watch{background:rgba(219,84,74,.16); color:var(--red);}
-  .tag.watchlist{background:rgba(217,164,65,.2); color:var(--gold);}
+  .tag{font-size:11.5px; padding:3px 9px; border-radius:100px; white-space:nowrap;
+      font-weight:500;}
+  .tag.confidence-high{background:rgba(227,172,78,.18); color:var(--gold);}
+  .tag.confidence-mid{background:rgba(171,163,152,.16); color:var(--text-secondary);}
+  .tag.confidence-low{background:rgba(120,111,99,.18); color:var(--text-muted);}
+  .tag.verdict-real{background:rgba(79,176,122,.18); color:var(--green);}
+  .tag.verdict-watch{background:rgba(225,92,79,.18); color:var(--red);}
+  .tag.watchlist{background:rgba(227,172,78,.22); color:var(--gold);}
 
-  footer.site-footer{margin-top:44px; padding-top:20px;
+  /* 通用卡片元件：儀表板／格狀資訊都吃這組，密度比原本文章式排版高 */
+  .card{background:var(--surface); border-radius:var(--radius); padding:16px;
+       border:1px solid var(--hairline);}
+  .card-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
+  .card-grid.cols-3{grid-template-columns:repeat(3,1fr);}
+  .stat-tile{background:var(--surface); border-radius:var(--radius-sm);
+            padding:13px 14px; border-left:3px solid var(--hairline);}
+  .stat-tile.c-market{border-left-color:var(--c-market);}
+  .stat-tile.c-theme{border-left-color:var(--c-theme);}
+  .stat-tile.c-chip{border-left-color:var(--c-chip);}
+  .stat-tile.c-score{border-left-color:var(--c-score);}
+  .stat-tile.c-warn{border-left-color:var(--c-warn);}
+  .stat-tile .stat-tile-label{font-size:11.5px; color:var(--text-muted); margin-bottom:5px;
+                              display:flex; align-items:center; gap:5px;}
+  .stat-tile .stat-tile-value{font-family:'JetBrains Mono',monospace; font-size:19px;
+                              font-weight:500; line-height:1.2;}
+  .stat-tile .stat-tile-sub{font-size:12px; color:var(--text-secondary); margin-top:3px;}
+  .dot{width:7px; height:7px; border-radius:50%; flex-shrink:0; display:inline-block;}
+  .dot.c-market{background:var(--c-market);} .dot.c-theme{background:var(--c-theme);}
+  .dot.c-chip{background:var(--c-chip);} .dot.c-score{background:var(--c-score);}
+  .dot.c-warn{background:var(--c-warn);}
+
+  /* 快速連結格：首頁用，取代純文字清單 */
+  .quicklink-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
+  .quicklink{display:block; background:var(--surface); border:1px solid var(--hairline);
+            border-radius:var(--radius-sm); padding:13px 14px; text-decoration:none;
+            transition:background .15s, transform .1s;}
+  .quicklink:active{transform:scale(.98);}
+  .quicklink:hover{background:var(--surface-2);}
+  .quicklink .ql-title{font-size:14px; font-weight:600; color:var(--text-primary);
+                       display:flex; align-items:center; gap:7px; margin-bottom:3px;}
+  .quicklink .ql-desc{font-size:12px; color:var(--text-muted);}
+
+  footer.site-footer{margin-top:36px; padding-top:18px;
                      border-top:1px solid var(--hairline);}
-  footer.site-footer p{font-size:12.5px; color:var(--text-muted);
+  footer.site-footer p{font-size:12px; color:var(--text-muted);
                        margin-bottom:6px; line-height:1.6;}
 
   @media (max-width:480px){
-    .page{padding:36px 18px 56px;}
-    .masthead-date{font-size:22px;}
+    .page{padding:14px 12px 64px;}
+    .masthead-date{font-size:21px;}
+    .card-grid.cols-3{grid-template-columns:repeat(2,1fr);}
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
 
-  .hero{margin-top:8px; padding-bottom:28px;}
-  .hero-eyebrow{font-size:14px; color:var(--text-secondary); margin-bottom:8px;}
-  .hero-number{font-family:'JetBrains Mono',monospace; font-size:52px;
+  .hero-eyebrow{font-size:13px; color:var(--text-muted); margin-bottom:6px;
+               display:flex; align-items:center; gap:6px;}
+  .hero-number{font-family:'JetBrains Mono',monospace; font-size:38px;
                font-weight:500; letter-spacing:-.01em;}
-  .hero-change{font-family:'JetBrains Mono',monospace; font-size:18px; margin-left:14px;}
-  .hero-stats{display:flex; gap:32px; margin-top:18px; flex-wrap:wrap;}
-  .hero-stats .stat-item{display:flex; flex-direction:column; gap:4px;}
-  .hero-stats .label{font-size:13px; color:var(--text-muted);}
-  .hero-stats .value{font-family:'JetBrains Mono',monospace; font-size:16px;}
+  .hero-change{font-family:'JetBrains Mono',monospace; font-size:15px; margin-left:10px;}
 
-  .watch-hits{background:rgba(217,164,65,.08); border-left:2px solid var(--gold);
-              border-radius:0 6px 6px 0; padding:14px 18px; margin-bottom:28px;}
-  .watch-hits .wh-label{font-size:12.5px; color:var(--gold); margin-bottom:8px;}
-  .watch-hits .wh-item{font-size:14.5px; color:var(--text-secondary); margin-bottom:4px;}
+  .watch-hits{background:rgba(227,172,78,.09); border-left:3px solid var(--gold);
+              border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:13px 16px; margin-bottom:18px;}
+  .watch-hits .wh-label{font-size:12px; color:var(--gold); margin-bottom:7px; font-weight:600;}
+  .watch-hits .wh-item{font-size:14px; color:var(--text-secondary); margin-bottom:4px;}
   .watch-hits .wh-item strong{color:var(--text-primary); font-weight:500;}
 
-  .stat-grid{display:grid; grid-template-columns:repeat(2,1fr);
-             gap:14px 24px; margin-bottom:18px;}
-  .stat-grid .stat{display:flex; justify-content:space-between; align-items:baseline;
-                   border-bottom:1px solid var(--hairline); padding-bottom:8px;}
-  .stat-label{font-size:14px; color:var(--text-secondary);}
-  .stat-value{font-family:'JetBrains Mono',monospace; font-size:15px;}
-
-  .inst-row{display:flex; align-items:center; gap:12px; margin-bottom:10px; font-size:14px;}
-  .inst-row .inst-name{width:56px; color:var(--text-secondary); flex-shrink:0;}
+  .inst-row{display:flex; align-items:center; gap:10px; margin-bottom:9px; font-size:13.5px;}
+  .inst-row:last-child{margin-bottom:0;}
+  .inst-row .inst-name{width:52px; color:var(--text-secondary); flex-shrink:0;}
   .inst-row .bar-track{flex:1; height:6px; background:var(--surface-2);
                        border-radius:3px; position:relative; overflow:hidden;}
   .inst-row .bar-fill{position:absolute; top:0; bottom:0; border-radius:3px;}
   .inst-row .bar-fill.up{background:var(--red); left:50%;}
   .inst-row .bar-fill.down{background:var(--green); right:50%;}
-  .inst-row .inst-value{width:88px; text-align:right;
+  .inst-row .inst-value{width:80px; text-align:right;
                         font-family:'JetBrains Mono',monospace; flex-shrink:0;}
 
-  .theme-entry{border-left:2px solid var(--gold); padding:4px 0 4px 18px; margin-bottom:22px;}
+  .theme-entry{background:var(--surface); border:1px solid var(--hairline);
+              border-left:3px solid var(--c-theme); border-radius:var(--radius-sm);
+              padding:14px 16px; margin-bottom:12px;}
   .theme-entry:last-child{margin-bottom:0;}
   .theme-header{display:flex; justify-content:space-between; align-items:baseline;
-                gap:12px; margin-bottom:8px; flex-wrap:wrap;}
-  .theme-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:17px;}
-  .theme-desc{font-size:14.5px; color:var(--text-secondary); margin-bottom:8px;}
+                gap:12px; margin-bottom:7px; flex-wrap:wrap;}
+  .theme-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px;}
+  .theme-desc{font-size:14px; color:var(--text-secondary); margin-bottom:7px;}
   .theme-meta{display:flex; justify-content:space-between; align-items:center;
-              font-size:13.5px; color:var(--text-muted); flex-wrap:wrap; gap:8px;}
-  .theme-link{font-size:13px; color:var(--gold); text-decoration:none;
-              display:inline-block; margin-top:8px;}
+              font-size:12.5px; color:var(--text-muted); flex-wrap:wrap; gap:8px;}
+  .theme-link{font-size:12.5px; color:var(--gold); text-decoration:none;
+              display:inline-block; margin-top:7px;}
   .theme-link:hover{text-decoration:underline;}
 
-  .darkhorse-entry{background:var(--surface); border-left:2px solid var(--red);
-                   border-radius:0 6px 6px 0; padding:16px 18px; margin-bottom:14px;}
+  .darkhorse-entry{background:var(--surface); border:1px solid var(--hairline);
+                   border-left:3px solid var(--c-warn); border-radius:var(--radius-sm);
+                   padding:14px 16px; margin-bottom:10px;}
+  .darkhorse-entry:last-child{margin-bottom:0;}
   .darkhorse-name{font-family:'Noto Serif TC',serif; font-weight:600;
-                  font-size:17px; margin-bottom:10px;}
+                  font-size:16px; margin-bottom:9px;}
   .darkhorse-grid{display:grid; grid-template-columns:1fr 1fr;
-                  gap:8px 20px; font-size:13.5px; margin-bottom:12px;}
+                  gap:7px 20px; font-size:13px; margin-bottom:10px;}
   .darkhorse-grid .dh-label{color:var(--text-muted);}
   .darkhorse-grid .dh-value{font-family:'JetBrains Mono',monospace;}
-  .darkhorse-note{font-size:13.5px; color:var(--text-secondary);
-                  border-top:1px solid var(--hairline); padding-top:10px;}
+  .darkhorse-note{font-size:13px; color:var(--text-secondary);
+                  border-top:1px solid var(--hairline); padding-top:9px;}
 
   .tech-table{width:100%; border-collapse:collapse;}
-  .tech-table th{text-align:left; font-size:12.5px; font-weight:400;
-                 color:var(--text-muted); padding-bottom:10px;
+  .tech-table th{text-align:left; font-size:11.5px; font-weight:400;
+                 color:var(--text-muted); padding-bottom:9px;
                  border-bottom:1px solid var(--hairline);}
-  .tech-table td{padding:12px 0; border-bottom:1px solid var(--hairline);
-                 font-size:14.5px; vertical-align:top;}
+  .tech-table td{padding:10px 0; border-bottom:1px solid var(--hairline);
+                 font-size:13.5px; vertical-align:top;}
   .tech-table tr:last-child td{border-bottom:none;}
   .signal-bull{color:var(--red);} .signal-warn{color:var(--gold);}
   .signal-neutral{color:var(--text-secondary);} .signal-bear{color:var(--green);}
-  .t-note{color:var(--text-muted); font-size:13px;}
+  .t-note{color:var(--text-muted); font-size:12.5px;}
 
   .call-item{display:flex; justify-content:space-between; gap:12px;
-             padding:10px 0; border-bottom:1px solid var(--hairline); font-size:14px;}
+             padding:9px 0; border-bottom:1px solid var(--hairline); font-size:13.5px;}
   .call-item:last-child{border-bottom:none;}
-  .call-note{color:var(--text-muted); font-size:13px;}
+  .call-note{color:var(--text-muted); font-size:12.5px;}
 
   @media (max-width:480px){
-    .hero-number{font-size:40px;}
-    .stat-grid,.darkhorse-grid{grid-template-columns:1fr;}
+    .hero-number{font-size:32px;}
+    .darkhorse-grid{grid-template-columns:1fr;}
   }
 
 </style>
@@ -141,42 +182,43 @@
 <body>
 <div class="page">
   <nav class="nav">
-    <a href="../index.html">最新</a>
-    <a href="../archive.html">歷史報告</a>
-    <a href="../themes.html">題材知識庫</a>
-    <a href="../heatmap.html">產業熱力圖</a>
-    <a href="../chips.html">籌碼儀表板</a>
-    <a href="../disposition.html">處置股預警</a>
-    <a href="../scores.html">五面向評分</a>
+    <a href="../index.html" class="">最新</a>
+    <a href="../heatmap.html" class="">🔥 熱力圖</a>
+    <a href="../chips.html" class="">💰 籌碼</a>
+    <a href="../scores.html" class="">⭐ 評分</a>
+    <a href="../disposition.html" class="">⚠️ 處置</a>
+    <a href="../themes.html" class="">題材庫</a>
+    <a href="../archive.html" class="">歷史</a>
   </nav>
 
   
-<header>
+<header style="margin-bottom:14px">
   <div class="masthead-label">盤後快訊 · 盤後 · 每日市場摘要</div>
   <h1 class="masthead-date">2026年9月5日．週六</h1>
 </header>
 
 
-<section class="hero">
-  <div class="hero-eyebrow">加權指數</div>
-  <span class="hero-number mono">45,857.66</span><span
-    class="hero-change mono down">▼ 307.06（-0.67%）</span>
-  <div class="hero-stats">
+<div class="card" style="margin-bottom:16px">
+  <div class="hero-eyebrow"><span class="dot c-market"></span>加權指數</div>
+  <span class="hero-number mono">46,551.13</span><span
+    class="hero-change mono up">▲ 693.47（1.51%）</span>
+  <div class="card-grid cols-3" style="margin-top:14px">
     
-    <div class="stat-item"><span class="label">成交值</span>
-      <span class="value">9,933 億</span></div>
-    
-    
-    <div class="stat-item"><span class="label">三大法人合計</span>
-      <span class="value up">買超 616.7 億</span></div>
+    <div class="stat-tile c-market"><div class="stat-tile-label">成交值</div>
+      <div class="stat-tile-value" style="font-size:15px">8,582億</div></div>
     
     
-    <div class="stat-item"><span class="label">漲跌家數</span>
-      <span class="value">漲 833 / 跌 1174</span></div>
+    <div class="stat-tile c-chip"><div class="stat-tile-label">三大法人</div>
+      <div class="stat-tile-value up" style="font-size:15px">買超616.7億</div></div>
+    
+    
+    <div class="stat-tile c-market"><div class="stat-tile-label">漲跌家數</div>
+      <div class="stat-tile-value" style="font-size:15px">1497/498</div></div>
     
   </div>
-</section>
-<hr class="divider">
+</div>
+
+
 
 
 
@@ -220,7 +262,7 @@
     <span class="inst-value mono up">+63.7億</span>
   </div>
   
-  <p class="commentary" style="margin-top:14px">加權指數收45857.66點，跌307.06點、跌幅0.67%，跌幅雖不大但下跌家數1174檔明顯多於上漲833檔，顯示盤面內部分歧、非權值股撐盤。三大法人合計買超616.72億元、外資更單獨買超562億元，內外資態度出現落差——外資逢低承接、指數卻收黑，反映籌碼集中在少數權值股，中小型股承壓明顯。籌碼面觀察，遠東銀技術面達85分、搭配基本面58分屬相對均衡的標的，值得留意其資金動能是否延續；華星光、雙鴻則是籌碼分數突出（逾70分）但技術面僅55分，屬於籌碼先行、價格尚未反映的類型。處置股名單中大立光、玉晶光等光學族群同時在列，且玉晶光、AMAX-KY等多檔已連續逼近注意股門檻，光學供應鏈近期流動性風險偏高，操作與觀察都需留意成交量能否配合。今日無單一國際事件主導盤勢，法人買超與指數下跌的背離值得持續追蹤，觀察是否為評價修正或資金換股的過渡期。</p>
+  <p class="commentary" style="margin-top:14px">加權指數今天大漲693.47點收46551.13，漲幅1.51%，成交量維持在8582億元的高檔，上漲家數1497檔遠多於下跌498檔，</p>
 </section>
 <hr class="divider">
 
@@ -232,33 +274,33 @@
     <tr><th>股票</th><th>綜合分</th><th>強項</th></tr>
     
     <tr>
-      <td>4979 華星光</td>
-      <td class="mono">70.9</td>
-      <td class="t-note">籌碼 72.8、技術 55.0</td>
+      <td>1597 直得</td>
+      <td class="mono">83.0</td>
+      <td class="t-note">基本 100、技術 85.0</td>
     </tr>
     
     <tr>
-      <td>2845 遠東銀</td>
-      <td class="mono">69.4</td>
-      <td class="t-note">技術 85.0、籌碼 66.5</td>
+      <td>6224 聚鼎</td>
+      <td class="mono">79.9</td>
+      <td class="t-note">基本 100、技術 85.0</td>
     </tr>
     
     <tr>
-      <td>3324 雙鴻</td>
-      <td class="mono">67.4</td>
-      <td class="t-note">籌碼 72.1、技術 55.0</td>
+      <td>3094 聯傑</td>
+      <td class="mono">77.0</td>
+      <td class="t-note">基本 98.2、籌碼 77.9</td>
     </tr>
     
     <tr>
-      <td>3624 光頡</td>
-      <td class="mono">63.3</td>
-      <td class="t-note">籌碼 67.0、技術 55.0</td>
+      <td>2388 威盛</td>
+      <td class="mono">76.5</td>
+      <td class="t-note">基本 100、技術 85.0</td>
     </tr>
     
     <tr>
-      <td>7717 萊德光電-KY</td>
-      <td class="mono">63.3</td>
-      <td class="t-note">籌碼 69.9、技術 55.0</td>
+      <td>3714 富采</td>
+      <td class="mono">71.8</td>
+      <td class="t-note">基本 87.4、技術 85.0</td>
     </tr>
     
   </table>
@@ -270,7 +312,7 @@
 
 <div class="watch-hits" style="border-left-color:var(--red)">
   <div class="wh-label" style="color:var(--red)">處置／注意提醒</div>
-  <div class="wh-item">今日共 11 檔處置中或接近門檻，完整名單 →
+  <div class="wh-item">今日共 9 檔處置中或接近門檻，完整名單 →
     <a href="../disposition.html" style="color:var(--gold)">disposition.html</a></div>
 </div>
 
@@ -286,21 +328,63 @@
     <tr><th>股票</th><th>訊號</th><th>備註</th></tr>
     
     <tr>
-      <td>2884 玉山金</td>
-      <td class="signal-warn">過熱警訊</td>
-      <td class="t-note">均線多頭排列，站上季線，RSI 85.4 進入超買區，KD 高檔鈍化風險</td>
-    </tr>
-    
-    <tr>
-      <td>2845 遠東銀</td>
-      <td class="signal-bull">多頭健康</td>
-      <td class="t-note">均線多頭排列，站上季線</td>
-    </tr>
-    
-    <tr>
-      <td>2481 強茂</td>
+      <td>3591 艾笛森</td>
       <td class="signal-neutral">區間整理</td>
-      <td class="t-note">均線糾結，方向未明，季線之下，量增價漲（量能 2.32 倍）</td>
+      <td class="t-note">均線糾結，方向未明，站上季線，RSI 93.9 進入超買區，量增價漲（量能 6.03 倍）</td>
+    </tr>
+    
+    <tr>
+      <td>2413 環科</td>
+      <td class="signal-neutral">區間整理</td>
+      <td class="t-note">均線空頭排列，站上季線，量增價漲（量能 4.89 倍），MACD 金叉</td>
+    </tr>
+    
+    <tr>
+      <td>3094 聯傑</td>
+      <td class="signal-neutral">區間整理</td>
+      <td class="t-note">均線多頭排列，站上季線，RSI 85.0 進入超買區，量增價漲（量能 4.52 倍）</td>
+    </tr>
+    
+    <tr>
+      <td>2388 威盛</td>
+      <td class="signal-bull">多頭健康</td>
+      <td class="t-note">均線多頭排列，站上季線，量增價漲（量能 3.43 倍）</td>
+    </tr>
+    
+    <tr>
+      <td>6271 同欣電</td>
+      <td class="signal-neutral">區間整理</td>
+      <td class="t-note">均線糾結，方向未明，站上季線，RSI 71.4 進入超買區，量增價漲（量能 3.1 倍）</td>
+    </tr>
+    
+    <tr>
+      <td>00909 國泰數位支付服務</td>
+      <td class="signal-neutral">區間整理</td>
+      <td class="t-note">均線糾結，方向未明，站上季線，量增價漲（量能 3.03 倍）</td>
+    </tr>
+    
+    <tr>
+      <td>3714 富采</td>
+      <td class="signal-bull">多頭健康</td>
+      <td class="t-note">均線多頭排列，站上季線，量增價漲（量能 2.86 倍）</td>
+    </tr>
+    
+    <tr>
+      <td>1597 直得</td>
+      <td class="signal-bull">多頭健康</td>
+      <td class="t-note">均線多頭排列，站上季線，量增價漲（量能 2.55 倍）</td>
+    </tr>
+    
+    <tr>
+      <td>6224 聚鼎</td>
+      <td class="signal-bull">多頭健康</td>
+      <td class="t-note">均線多頭排列，站上季線，量增價漲（量能 2.02 倍）</td>
+    </tr>
+    
+    <tr>
+      <td>6168 宏齊</td>
+      <td class="signal-neutral">區間整理</td>
+      <td class="t-note">均線糾結，方向未明，站上季線，RSI 72.6 進入超買區，量增價漲（量能 2.43 倍）</td>
     </tr>
     
     <tr>
@@ -315,48 +399,6 @@
       <td class="t-note">歷史資料不足以計算指標</td>
     </tr>
     
-    <tr>
-      <td>6290 良維</td>
-      <td class="signal-neutral">資料不足</td>
-      <td class="t-note">歷史資料不足以計算指標</td>
-    </tr>
-    
-    <tr>
-      <td>4979 華星光</td>
-      <td class="signal-neutral">資料不足</td>
-      <td class="t-note">歷史資料不足以計算指標</td>
-    </tr>
-    
-    <tr>
-      <td>7828 創新服務</td>
-      <td class="signal-neutral">資料不足</td>
-      <td class="t-note">歷史資料不足以計算指標</td>
-    </tr>
-    
-    <tr>
-      <td>8042 金山電</td>
-      <td class="signal-neutral">資料不足</td>
-      <td class="t-note">歷史資料不足以計算指標</td>
-    </tr>
-    
-    <tr>
-      <td>3624 光頡</td>
-      <td class="signal-neutral">資料不足</td>
-      <td class="t-note">歷史資料不足以計算指標</td>
-    </tr>
-    
-    <tr>
-      <td>7717 萊德光電-KY</td>
-      <td class="signal-neutral">資料不足</td>
-      <td class="t-note">歷史資料不足以計算指標</td>
-    </tr>
-    
-    <tr>
-      <td>7751 竑騰</td>
-      <td class="signal-neutral">資料不足</td>
-      <td class="t-note">歷史資料不足以計算指標</td>
-    </tr>
-    
   </table>
 </section>
 <hr class="divider">
@@ -366,7 +408,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 03:15</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 07:57</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>

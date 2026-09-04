@@ -13,49 +13,96 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#1C1B19; --surface:#242220; --surface-2:#2B2925;
-    --text-primary:#EDE9E1; --text-secondary:#A39C8E; --text-muted:#726C60;
-    --red:#DB544A; --green:#4F9E71; --gold:#D9A441; --hairline:#3A362F;
+    --bg:#171615; --surface:#221F1D; --surface-2:#2A2725; --surface-3:#332F2B;
+    --text-primary:#F2EEE6; --text-secondary:#ABA398; --text-muted:#786F63;
+    --red:#E15C4F; --green:#4FB07A; --gold:#E3AC4E; --hairline:#38332E;
+    /* 分類色：跟紅漲綠跌語意分開，只用來標「這是哪一種資訊」 */
+    --c-market:#6C93F5; --c-theme:#B48CE8; --c-chip:#EC9A5C; --c-score:#43BFAE;
+    --c-warn:#E15C4F;
+    --radius:14px; --radius-sm:10px;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
+  html{-webkit-tap-highlight-color:transparent;}
   body{background:var(--bg); color:var(--text-primary);
-       font-family:'Noto Sans TC',sans-serif; line-height:1.7;
+       font-family:'Noto Sans TC',sans-serif; line-height:1.65;
        -webkit-font-smoothing:antialiased;}
-  .page{max-width:640px; margin:0 auto; padding:48px 24px 64px;}
+  .page{max-width:720px; margin:0 auto; padding:20px 16px 72px;}
   a{color:inherit;}
   .mono{font-family:'JetBrains Mono',monospace;}
   /* 台股慣例：紅漲綠跌。切勿套用美股配色，會讓人看反方向 */
   .up{color:var(--red);} .down{color:var(--green);}
-  hr.divider{border:none; border-top:1px solid var(--hairline); margin:28px 0;}
+  hr.divider{border:none; border-top:1px solid var(--hairline); margin:22px 0;}
 
-  .nav{display:flex; gap:18px; font-size:13px; color:var(--text-muted);
-       margin-bottom:28px; flex-wrap:wrap;}
-  .nav a{text-decoration:none; border-bottom:1px solid transparent; padding-bottom:2px;}
-  .nav a:hover,.nav a:focus-visible{color:var(--gold); border-bottom-color:var(--gold);}
+  /* 頂部像 App 的水平捲動分類籤條，取代原本會換行的純文字導覽 */
+  .nav{display:flex; gap:8px; margin-bottom:20px; overflow-x:auto;
+       -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:2px;}
+  .nav::-webkit-scrollbar{display:none;}
+  .nav a{flex-shrink:0; text-decoration:none; font-size:13px; font-weight:500;
+        color:var(--text-secondary); background:var(--surface);
+        padding:9px 14px; border-radius:100px; border:1px solid var(--hairline);
+        white-space:nowrap; transition:background .15s,color .15s;}
+  .nav a:hover,.nav a:focus-visible{color:var(--text-primary); background:var(--surface-2);}
+  .nav a.current{color:#171615; background:var(--gold); border-color:var(--gold); font-weight:600;}
 
-  .masthead-label{font-size:13px; color:var(--text-muted); margin-bottom:6px;}
-  .masthead-date{font-family:'Noto Serif TC',serif; font-weight:600; font-size:26px;}
+  .masthead-label{font-size:13px; color:var(--text-muted); margin-bottom:4px;}
+  .masthead-date{font-family:'Noto Serif TC',serif; font-weight:600; font-size:24px;}
 
+  .block{margin-bottom:4px;}
   .block h2{font-family:'Noto Serif TC',serif; font-weight:600;
-            font-size:20px; margin-bottom:16px;}
-  .commentary{font-size:15px; color:var(--text-secondary); line-height:1.8;}
+            font-size:18px; margin-bottom:14px;}
+  .commentary{font-size:14.5px; color:var(--text-secondary); line-height:1.8;}
 
-  .tag{font-size:12px; padding:3px 9px; border-radius:100px; white-space:nowrap;}
-  .tag.confidence-high{background:rgba(217,164,65,.16); color:var(--gold);}
-  .tag.confidence-mid{background:rgba(163,156,142,.16); color:var(--text-secondary);}
-  .tag.confidence-low{background:rgba(114,108,96,.16); color:var(--text-muted);}
-  .tag.verdict-real{background:rgba(79,158,113,.16); color:var(--green);}
-  .tag.verdict-watch{background:rgba(219,84,74,.16); color:var(--red);}
-  .tag.watchlist{background:rgba(217,164,65,.2); color:var(--gold);}
+  .tag{font-size:11.5px; padding:3px 9px; border-radius:100px; white-space:nowrap;
+      font-weight:500;}
+  .tag.confidence-high{background:rgba(227,172,78,.18); color:var(--gold);}
+  .tag.confidence-mid{background:rgba(171,163,152,.16); color:var(--text-secondary);}
+  .tag.confidence-low{background:rgba(120,111,99,.18); color:var(--text-muted);}
+  .tag.verdict-real{background:rgba(79,176,122,.18); color:var(--green);}
+  .tag.verdict-watch{background:rgba(225,92,79,.18); color:var(--red);}
+  .tag.watchlist{background:rgba(227,172,78,.22); color:var(--gold);}
 
-  footer.site-footer{margin-top:44px; padding-top:20px;
+  /* 通用卡片元件：儀表板／格狀資訊都吃這組，密度比原本文章式排版高 */
+  .card{background:var(--surface); border-radius:var(--radius); padding:16px;
+       border:1px solid var(--hairline);}
+  .card-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
+  .card-grid.cols-3{grid-template-columns:repeat(3,1fr);}
+  .stat-tile{background:var(--surface); border-radius:var(--radius-sm);
+            padding:13px 14px; border-left:3px solid var(--hairline);}
+  .stat-tile.c-market{border-left-color:var(--c-market);}
+  .stat-tile.c-theme{border-left-color:var(--c-theme);}
+  .stat-tile.c-chip{border-left-color:var(--c-chip);}
+  .stat-tile.c-score{border-left-color:var(--c-score);}
+  .stat-tile.c-warn{border-left-color:var(--c-warn);}
+  .stat-tile .stat-tile-label{font-size:11.5px; color:var(--text-muted); margin-bottom:5px;
+                              display:flex; align-items:center; gap:5px;}
+  .stat-tile .stat-tile-value{font-family:'JetBrains Mono',monospace; font-size:19px;
+                              font-weight:500; line-height:1.2;}
+  .stat-tile .stat-tile-sub{font-size:12px; color:var(--text-secondary); margin-top:3px;}
+  .dot{width:7px; height:7px; border-radius:50%; flex-shrink:0; display:inline-block;}
+  .dot.c-market{background:var(--c-market);} .dot.c-theme{background:var(--c-theme);}
+  .dot.c-chip{background:var(--c-chip);} .dot.c-score{background:var(--c-score);}
+  .dot.c-warn{background:var(--c-warn);}
+
+  /* 快速連結格：首頁用，取代純文字清單 */
+  .quicklink-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
+  .quicklink{display:block; background:var(--surface); border:1px solid var(--hairline);
+            border-radius:var(--radius-sm); padding:13px 14px; text-decoration:none;
+            transition:background .15s, transform .1s;}
+  .quicklink:active{transform:scale(.98);}
+  .quicklink:hover{background:var(--surface-2);}
+  .quicklink .ql-title{font-size:14px; font-weight:600; color:var(--text-primary);
+                       display:flex; align-items:center; gap:7px; margin-bottom:3px;}
+  .quicklink .ql-desc{font-size:12px; color:var(--text-muted);}
+
+  footer.site-footer{margin-top:36px; padding-top:18px;
                      border-top:1px solid var(--hairline);}
-  footer.site-footer p{font-size:12.5px; color:var(--text-muted);
+  footer.site-footer p{font-size:12px; color:var(--text-muted);
                        margin-bottom:6px; line-height:1.6;}
 
   @media (max-width:480px){
-    .page{padding:36px 18px 56px;}
-    .masthead-date{font-size:22px;}
+    .page{padding:14px 12px 64px;}
+    .masthead-date{font-size:21px;}
+    .card-grid.cols-3{grid-template-columns:repeat(2,1fr);}
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
 
@@ -70,19 +117,35 @@
   .axis-fill{height:100%; background:var(--gold); border-radius:3px;}
   .axis-value{width:34px; text-align:right; font-family:'JetBrains Mono',monospace; color:var(--text-secondary); flex-shrink:0;}
   .axis-na{color:var(--text-muted); font-size:12px; width:34px; text-align:right;}
+  .analysis-toggle{margin-top:12px; border-top:1px solid var(--hairline); padding-top:10px;}
+  .analysis-toggle summary{cursor:pointer; font-size:12.5px; color:var(--gold); list-style:none;}
+  .analysis-toggle summary::-webkit-details-marker{display:none;}
+  .analysis-body{margin-top:12px; display:flex; flex-direction:column; gap:12px;}
+  .analysis-block-label{font-size:12px; color:var(--text-muted); text-transform:uppercase;
+                        letter-spacing:.03em; margin-bottom:4px;}
+  .analysis-text{font-size:13.5px; color:var(--text-secondary); line-height:1.6;}
+  .swot-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  @media(max-width:480px){.swot-grid{grid-template-columns:1fr;}}
+  .swot-cell{background:var(--surface-2); border-radius:8px; padding:9px 11px;}
+  .swot-cell .sc-label{font-size:11.5px; font-weight:600; margin-bottom:4px;}
+  .swot-cell.s .sc-label{color:var(--c-score);}
+  .swot-cell.w .sc-label{color:var(--c-warn);}
+  .swot-cell.o .sc-label{color:var(--c-market);}
+  .swot-cell.t .sc-label{color:var(--c-chip);}
+  .swot-cell .sc-text{font-size:12.5px; color:var(--text-secondary); line-height:1.5;}
 
 </style>
 </head>
 <body>
 <div class="page">
   <nav class="nav">
-    <a href="index.html">最新</a>
-    <a href="archive.html">歷史報告</a>
-    <a href="themes.html">題材知識庫</a>
-    <a href="heatmap.html">產業熱力圖</a>
-    <a href="chips.html">籌碼儀表板</a>
-    <a href="disposition.html">處置股預警</a>
-    <a href="scores.html">五面向評分</a>
+    <a href="index.html" class="">最新</a>
+    <a href="heatmap.html" class="">🔥 熱力圖</a>
+    <a href="chips.html" class="">💰 籌碼</a>
+    <a href="scores.html" class="current">⭐ 評分</a>
+    <a href="disposition.html" class="">⚠️ 處置</a>
+    <a href="themes.html" class="">題材庫</a>
+    <a href="archive.html" class="">歷史</a>
   </nav>
 
   
@@ -93,8 +156,116 @@
 
 <div class="score-card">
   <div class="score-head">
-    <span class="score-name">4979 華星光</span>
-    <span class="score-composite">70.9</span>
+    <span class="score-name">1597 直得</span>
+    <span class="score-composite">83.0</span>
+  </div>
+  
+  <div class="axis-row">
+    <span class="axis-label">技術面</span>
+    
+    
+    <div class="axis-track"><div class="axis-fill" style="width:85.0%"></div></div>
+    <span class="axis-value">85.0</span>
+    
+  </div>
+  
+  <div class="axis-row">
+    <span class="axis-label">籌碼面</span>
+    
+    
+    <div class="axis-track"><div class="axis-fill" style="width:71.8%"></div></div>
+    <span class="axis-value">71.8</span>
+    
+  </div>
+  
+  <div class="axis-row">
+    <span class="axis-label">基本面</span>
+    
+    
+    <div class="axis-track"><div class="axis-fill" style="width:100%"></div></div>
+    <span class="axis-value">100</span>
+    
+  </div>
+  
+  <div class="axis-row">
+    <span class="axis-label">題材面</span>
+    
+    
+    <div class="axis-track"></div>
+    <span class="axis-na">未評分</span>
+    
+  </div>
+  
+  <div class="axis-row">
+    <span class="axis-label">新聞面</span>
+    
+    
+    <div class="axis-track"><div class="axis-fill" style="width:75.0%"></div></div>
+    <span class="axis-value">75.0</span>
+    
+  </div>
+  
+  
+</div>
+
+<div class="score-card">
+  <div class="score-head">
+    <span class="score-name">6224 聚鼎</span>
+    <span class="score-composite">79.9</span>
+  </div>
+  
+  <div class="axis-row">
+    <span class="axis-label">技術面</span>
+    
+    
+    <div class="axis-track"><div class="axis-fill" style="width:85.0%"></div></div>
+    <span class="axis-value">85.0</span>
+    
+  </div>
+  
+  <div class="axis-row">
+    <span class="axis-label">籌碼面</span>
+    
+    
+    <div class="axis-track"><div class="axis-fill" style="width:69.7%"></div></div>
+    <span class="axis-value">69.7</span>
+    
+  </div>
+  
+  <div class="axis-row">
+    <span class="axis-label">基本面</span>
+    
+    
+    <div class="axis-track"><div class="axis-fill" style="width:100%"></div></div>
+    <span class="axis-value">100</span>
+    
+  </div>
+  
+  <div class="axis-row">
+    <span class="axis-label">題材面</span>
+    
+    
+    <div class="axis-track"></div>
+    <span class="axis-na">未評分</span>
+    
+  </div>
+  
+  <div class="axis-row">
+    <span class="axis-label">新聞面</span>
+    
+    
+    <div class="axis-track"><div class="axis-fill" style="width:65.0%"></div></div>
+    <span class="axis-value">65.0</span>
+    
+  </div>
+  
+  
+</div>
+
+<div class="score-card">
+  <div class="score-head">
+    <span class="score-name">3094 聯傑</span>
+    <span class="score-composite">77.0</span>
   </div>
   
   <div class="axis-row">
@@ -110,8 +281,8 @@
     <span class="axis-label">籌碼面</span>
     
     
-    <div class="axis-track"><div class="axis-fill" style="width:72.8%"></div></div>
-    <span class="axis-value">72.8</span>
+    <div class="axis-track"><div class="axis-fill" style="width:77.9%"></div></div>
+    <span class="axis-value">77.9</span>
     
   </div>
   
@@ -119,8 +290,8 @@
     <span class="axis-label">基本面</span>
     
     
-    <div class="axis-track"></div>
-    <span class="axis-na">未評分</span>
+    <div class="axis-track"><div class="axis-fill" style="width:98.2%"></div></div>
+    <span class="axis-value">98.2</span>
     
   </div>
   
@@ -137,17 +308,18 @@
     <span class="axis-label">新聞面</span>
     
     
-    <div class="axis-track"><div class="axis-fill" style="width:85.0%"></div></div>
-    <span class="axis-value">85.0</span>
+    <div class="axis-track"></div>
+    <span class="axis-na">未評分</span>
     
   </div>
+  
   
 </div>
 
 <div class="score-card">
   <div class="score-head">
-    <span class="score-name">2845 遠東銀</span>
-    <span class="score-composite">69.4</span>
+    <span class="score-name">2388 威盛</span>
+    <span class="score-composite">76.5</span>
   </div>
   
   <div class="axis-row">
@@ -163,8 +335,8 @@
     <span class="axis-label">籌碼面</span>
     
     
-    <div class="axis-track"><div class="axis-fill" style="width:66.5%"></div></div>
-    <span class="axis-value">66.5</span>
+    <div class="axis-track"><div class="axis-fill" style="width:71.1%"></div></div>
+    <span class="axis-value">71.1</span>
     
   </div>
   
@@ -172,8 +344,8 @@
     <span class="axis-label">基本面</span>
     
     
-    <div class="axis-track"><div class="axis-fill" style="width:58.1%"></div></div>
-    <span class="axis-value">58.1</span>
+    <div class="axis-track"><div class="axis-fill" style="width:100%"></div></div>
+    <span class="axis-value">100</span>
     
   </div>
   
@@ -190,17 +362,126 @@
     <span class="axis-label">新聞面</span>
     
     
-    <div class="axis-track"><div class="axis-fill" style="width:68.0%"></div></div>
-    <span class="axis-value">68.0</span>
+    <div class="axis-track"><div class="axis-fill" style="width:50.0%"></div></div>
+    <span class="axis-value">50.0</span>
     
   </div>
+  
+  
+</div>
+
+<div class="score-card">
+  <div class="score-head">
+    <span class="score-name">3714 富采</span>
+    <span class="score-composite">71.8</span>
+  </div>
+  
+  <div class="axis-row">
+    <span class="axis-label">技術面</span>
+    
+    
+    <div class="axis-track"><div class="axis-fill" style="width:85.0%"></div></div>
+    <span class="axis-value">85.0</span>
+    
+  </div>
+  
+  <div class="axis-row">
+    <span class="axis-label">籌碼面</span>
+    
+    
+    <div class="axis-track"><div class="axis-fill" style="width:69.9%"></div></div>
+    <span class="axis-value">69.9</span>
+    
+  </div>
+  
+  <div class="axis-row">
+    <span class="axis-label">基本面</span>
+    
+    
+    <div class="axis-track"><div class="axis-fill" style="width:87.4%"></div></div>
+    <span class="axis-value">87.4</span>
+    
+  </div>
+  
+  <div class="axis-row">
+    <span class="axis-label">題材面</span>
+    
+    
+    <div class="axis-track"></div>
+    <span class="axis-na">未評分</span>
+    
+  </div>
+  
+  <div class="axis-row">
+    <span class="axis-label">新聞面</span>
+    
+    
+    <div class="axis-track"><div class="axis-fill" style="width:45.0%"></div></div>
+    <span class="axis-value">45.0</span>
+    
+  </div>
+  
+  
+</div>
+
+<div class="score-card">
+  <div class="score-head">
+    <span class="score-name">3591 艾笛森</span>
+    <span class="score-composite">68.2</span>
+  </div>
+  
+  <div class="axis-row">
+    <span class="axis-label">技術面</span>
+    
+    
+    <div class="axis-track"><div class="axis-fill" style="width:55.0%"></div></div>
+    <span class="axis-value">55.0</span>
+    
+  </div>
+  
+  <div class="axis-row">
+    <span class="axis-label">籌碼面</span>
+    
+    
+    <div class="axis-track"><div class="axis-fill" style="width:67.0%"></div></div>
+    <span class="axis-value">67.0</span>
+    
+  </div>
+  
+  <div class="axis-row">
+    <span class="axis-label">基本面</span>
+    
+    
+    <div class="axis-track"><div class="axis-fill" style="width:92.8%"></div></div>
+    <span class="axis-value">92.8</span>
+    
+  </div>
+  
+  <div class="axis-row">
+    <span class="axis-label">題材面</span>
+    
+    
+    <div class="axis-track"></div>
+    <span class="axis-na">未評分</span>
+    
+  </div>
+  
+  <div class="axis-row">
+    <span class="axis-label">新聞面</span>
+    
+    
+    <div class="axis-track"><div class="axis-fill" style="width:58.0%"></div></div>
+    <span class="axis-value">58.0</span>
+    
+  </div>
+  
   
 </div>
 
 <div class="score-card">
   <div class="score-head">
     <span class="score-name">3324 雙鴻</span>
-    <span class="score-composite">67.4</span>
+    <span class="score-composite">65.7</span>
   </div>
   
   <div class="axis-row">
@@ -243,17 +524,18 @@
     <span class="axis-label">新聞面</span>
     
     
-    <div class="axis-track"><div class="axis-fill" style="width:75.0%"></div></div>
-    <span class="axis-value">75.0</span>
+    <div class="axis-track"><div class="axis-fill" style="width:70.0%"></div></div>
+    <span class="axis-value">70.0</span>
     
   </div>
+  
   
 </div>
 
 <div class="score-card">
   <div class="score-head">
-    <span class="score-name">3624 光頡</span>
-    <span class="score-composite">63.3</span>
+    <span class="score-name">6271 同欣電</span>
+    <span class="score-composite">64.8</span>
   </div>
   
   <div class="axis-row">
@@ -269,8 +551,8 @@
     <span class="axis-label">籌碼面</span>
     
     
-    <div class="axis-track"><div class="axis-fill" style="width:67.0%"></div></div>
-    <span class="axis-value">67.0</span>
+    <div class="axis-track"><div class="axis-fill" style="width:70.8%"></div></div>
+    <span class="axis-value">70.8</span>
     
   </div>
   
@@ -278,8 +560,8 @@
     <span class="axis-label">基本面</span>
     
     
-    <div class="axis-track"></div>
-    <span class="axis-na">未評分</span>
+    <div class="axis-track"><div class="axis-fill" style="width:83.6%"></div></div>
+    <span class="axis-value">83.6</span>
     
   </div>
   
@@ -296,17 +578,18 @@
     <span class="axis-label">新聞面</span>
     
     
-    <div class="axis-track"><div class="axis-fill" style="width:68.0%"></div></div>
-    <span class="axis-value">68.0</span>
+    <div class="axis-track"><div class="axis-fill" style="width:50.0%"></div></div>
+    <span class="axis-value">50.0</span>
     
   </div>
+  
   
 </div>
 
 <div class="score-card">
   <div class="score-head">
-    <span class="score-name">7717 萊德光電-KY</span>
-    <span class="score-composite">63.3</span>
+    <span class="score-name">2413 環科</span>
+    <span class="score-composite">63.7</span>
   </div>
   
   <div class="axis-row">
@@ -322,8 +605,8 @@
     <span class="axis-label">籌碼面</span>
     
     
-    <div class="axis-track"><div class="axis-fill" style="width:69.9%"></div></div>
-    <span class="axis-value">69.9</span>
+    <div class="axis-track"><div class="axis-fill" style="width:70.2%"></div></div>
+    <span class="axis-value">70.2</span>
     
   </div>
   
@@ -331,8 +614,8 @@
     <span class="axis-label">基本面</span>
     
     
-    <div class="axis-track"></div>
-    <span class="axis-na">未評分</span>
+    <div class="axis-track"><div class="axis-fill" style="width:79.7%"></div></div>
+    <span class="axis-value">79.7</span>
     
   </div>
   
@@ -349,70 +632,18 @@
     <span class="axis-label">新聞面</span>
     
     
-    <div class="axis-track"><div class="axis-fill" style="width:65.0%"></div></div>
-    <span class="axis-value">65.0</span>
+    <div class="axis-track"><div class="axis-fill" style="width:50.0%"></div></div>
+    <span class="axis-value">50.0</span>
     
   </div>
   
-</div>
-
-<div class="score-card">
-  <div class="score-head">
-    <span class="score-name">2884 玉山金</span>
-    <span class="score-composite">61.9</span>
-  </div>
-  
-  <div class="axis-row">
-    <span class="axis-label">技術面</span>
-    
-    
-    <div class="axis-track"><div class="axis-fill" style="width:30.0%"></div></div>
-    <span class="axis-value">30.0</span>
-    
-  </div>
-  
-  <div class="axis-row">
-    <span class="axis-label">籌碼面</span>
-    
-    
-    <div class="axis-track"><div class="axis-fill" style="width:78.3%"></div></div>
-    <span class="axis-value">78.3</span>
-    
-  </div>
-  
-  <div class="axis-row">
-    <span class="axis-label">基本面</span>
-    
-    
-    <div class="axis-track"><div class="axis-fill" style="width:57.1%"></div></div>
-    <span class="axis-value">57.1</span>
-    
-  </div>
-  
-  <div class="axis-row">
-    <span class="axis-label">題材面</span>
-    
-    
-    <div class="axis-track"></div>
-    <span class="axis-na">未評分</span>
-    
-  </div>
-  
-  <div class="axis-row">
-    <span class="axis-label">新聞面</span>
-    
-    
-    <div class="axis-track"><div class="axis-fill" style="width:82.0%"></div></div>
-    <span class="axis-value">82.0</span>
-    
-  </div>
   
 </div>
 
 <div class="score-card">
   <div class="score-head">
     <span class="score-name">3441 聯一光</span>
-    <span class="score-composite">61.0</span>
+    <span class="score-composite">62.7</span>
   </div>
   
   <div class="axis-row">
@@ -455,17 +686,18 @@
     <span class="axis-label">新聞面</span>
     
     
-    <div class="axis-track"><div class="axis-fill" style="width:55.0%"></div></div>
-    <span class="axis-value">55.0</span>
+    <div class="axis-track"><div class="axis-fill" style="width:60.0%"></div></div>
+    <span class="axis-value">60.0</span>
     
   </div>
+  
   
 </div>
 
 <div class="score-card">
   <div class="score-head">
-    <span class="score-name">7828 創新服務</span>
-    <span class="score-composite">61.0</span>
+    <span class="score-name">00909 國泰數位支付服務</span>
+    <span class="score-composite">58.2</span>
   </div>
   
   <div class="axis-row">
@@ -481,114 +713,8 @@
     <span class="axis-label">籌碼面</span>
     
     
-    <div class="axis-track"><div class="axis-fill" style="width:70.0%"></div></div>
-    <span class="axis-value">70.0</span>
-    
-  </div>
-  
-  <div class="axis-row">
-    <span class="axis-label">基本面</span>
-    
-    
-    <div class="axis-track"></div>
-    <span class="axis-na">未評分</span>
-    
-  </div>
-  
-  <div class="axis-row">
-    <span class="axis-label">題材面</span>
-    
-    
-    <div class="axis-track"></div>
-    <span class="axis-na">未評分</span>
-    
-  </div>
-  
-  <div class="axis-row">
-    <span class="axis-label">新聞面</span>
-    
-    
-    <div class="axis-track"><div class="axis-fill" style="width:58.0%"></div></div>
-    <span class="axis-value">58.0</span>
-    
-  </div>
-  
-</div>
-
-<div class="score-card">
-  <div class="score-head">
-    <span class="score-name">8042 金山電</span>
-    <span class="score-composite">58.9</span>
-  </div>
-  
-  <div class="axis-row">
-    <span class="axis-label">技術面</span>
-    
-    
-    <div class="axis-track"><div class="axis-fill" style="width:55.0%"></div></div>
-    <span class="axis-value">55.0</span>
-    
-  </div>
-  
-  <div class="axis-row">
-    <span class="axis-label">籌碼面</span>
-    
-    
-    <div class="axis-track"><div class="axis-fill" style="width:69.7%"></div></div>
-    <span class="axis-value">69.7</span>
-    
-  </div>
-  
-  <div class="axis-row">
-    <span class="axis-label">基本面</span>
-    
-    
-    <div class="axis-track"></div>
-    <span class="axis-na">未評分</span>
-    
-  </div>
-  
-  <div class="axis-row">
-    <span class="axis-label">題材面</span>
-    
-    
-    <div class="axis-track"></div>
-    <span class="axis-na">未評分</span>
-    
-  </div>
-  
-  <div class="axis-row">
-    <span class="axis-label">新聞面</span>
-    
-    
-    <div class="axis-track"><div class="axis-fill" style="width:52.0%"></div></div>
-    <span class="axis-value">52.0</span>
-    
-  </div>
-  
-</div>
-
-<div class="score-card">
-  <div class="score-head">
-    <span class="score-name">6290 良維</span>
-    <span class="score-composite">58.8</span>
-  </div>
-  
-  <div class="axis-row">
-    <span class="axis-label">技術面</span>
-    
-    
-    <div class="axis-track"><div class="axis-fill" style="width:55.0%"></div></div>
-    <span class="axis-value">55.0</span>
-    
-  </div>
-  
-  <div class="axis-row">
-    <span class="axis-label">籌碼面</span>
-    
-    
-    <div class="axis-track"><div class="axis-fill" style="width:71.3%"></div></div>
-    <span class="axis-value">71.3</span>
+    <div class="axis-track"><div class="axis-fill" style="width:69.6%"></div></div>
+    <span class="axis-value">69.6</span>
     
   </div>
   
@@ -619,12 +745,13 @@
     
   </div>
   
+  
 </div>
 
 <div class="score-card">
   <div class="score-head">
-    <span class="score-name">2481 強茂</span>
-    <span class="score-composite">56.6</span>
+    <span class="score-name">6168 宏齊</span>
+    <span class="score-composite">54.9</span>
   </div>
   
   <div class="axis-row">
@@ -640,8 +767,8 @@
     <span class="axis-label">籌碼面</span>
     
     
-    <div class="axis-track"><div class="axis-fill" style="width:25.0%"></div></div>
-    <span class="axis-value">25.0</span>
+    <div class="axis-track"><div class="axis-fill" style="width:30.4%"></div></div>
+    <span class="axis-value">30.4</span>
     
   </div>
   
@@ -649,8 +776,8 @@
     <span class="axis-label">基本面</span>
     
     
-    <div class="axis-track"><div class="axis-fill" style="width:96.5%"></div></div>
-    <span class="axis-value">96.5</span>
+    <div class="axis-track"><div class="axis-fill" style="width:69.1%"></div></div>
+    <span class="axis-value">69.1</span>
     
   </div>
   
@@ -667,63 +794,11 @@
     <span class="axis-label">新聞面</span>
     
     
-    <div class="axis-track"><div class="axis-fill" style="width:50.0%"></div></div>
-    <span class="axis-value">50.0</span>
+    <div class="axis-track"><div class="axis-fill" style="width:65.0%"></div></div>
+    <span class="axis-value">65.0</span>
     
   </div>
   
-</div>
-
-<div class="score-card">
-  <div class="score-head">
-    <span class="score-name">7751 竑騰</span>
-    <span class="score-composite">46.7</span>
-  </div>
-  
-  <div class="axis-row">
-    <span class="axis-label">技術面</span>
-    
-    
-    <div class="axis-track"><div class="axis-fill" style="width:55.0%"></div></div>
-    <span class="axis-value">55.0</span>
-    
-  </div>
-  
-  <div class="axis-row">
-    <span class="axis-label">籌碼面</span>
-    
-    
-    <div class="axis-track"><div class="axis-fill" style="width:30.1%"></div></div>
-    <span class="axis-value">30.1</span>
-    
-  </div>
-  
-  <div class="axis-row">
-    <span class="axis-label">基本面</span>
-    
-    
-    <div class="axis-track"></div>
-    <span class="axis-na">未評分</span>
-    
-  </div>
-  
-  <div class="axis-row">
-    <span class="axis-label">題材面</span>
-    
-    
-    <div class="axis-track"></div>
-    <span class="axis-na">未評分</span>
-    
-  </div>
-  
-  <div class="axis-row">
-    <span class="axis-label">新聞面</span>
-    
-    
-    <div class="axis-track"><div class="axis-fill" style="width:55.0%"></div></div>
-    <span class="axis-value">55.0</span>
-    
-  </div>
   
 </div>
 
@@ -731,7 +806,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 03:15</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 07:56</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>

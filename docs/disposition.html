@@ -13,49 +13,96 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#1C1B19; --surface:#242220; --surface-2:#2B2925;
-    --text-primary:#EDE9E1; --text-secondary:#A39C8E; --text-muted:#726C60;
-    --red:#DB544A; --green:#4F9E71; --gold:#D9A441; --hairline:#3A362F;
+    --bg:#171615; --surface:#221F1D; --surface-2:#2A2725; --surface-3:#332F2B;
+    --text-primary:#F2EEE6; --text-secondary:#ABA398; --text-muted:#786F63;
+    --red:#E15C4F; --green:#4FB07A; --gold:#E3AC4E; --hairline:#38332E;
+    /* 分類色：跟紅漲綠跌語意分開，只用來標「這是哪一種資訊」 */
+    --c-market:#6C93F5; --c-theme:#B48CE8; --c-chip:#EC9A5C; --c-score:#43BFAE;
+    --c-warn:#E15C4F;
+    --radius:14px; --radius-sm:10px;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
+  html{-webkit-tap-highlight-color:transparent;}
   body{background:var(--bg); color:var(--text-primary);
-       font-family:'Noto Sans TC',sans-serif; line-height:1.7;
+       font-family:'Noto Sans TC',sans-serif; line-height:1.65;
        -webkit-font-smoothing:antialiased;}
-  .page{max-width:640px; margin:0 auto; padding:48px 24px 64px;}
+  .page{max-width:720px; margin:0 auto; padding:20px 16px 72px;}
   a{color:inherit;}
   .mono{font-family:'JetBrains Mono',monospace;}
   /* 台股慣例：紅漲綠跌。切勿套用美股配色，會讓人看反方向 */
   .up{color:var(--red);} .down{color:var(--green);}
-  hr.divider{border:none; border-top:1px solid var(--hairline); margin:28px 0;}
+  hr.divider{border:none; border-top:1px solid var(--hairline); margin:22px 0;}
 
-  .nav{display:flex; gap:18px; font-size:13px; color:var(--text-muted);
-       margin-bottom:28px; flex-wrap:wrap;}
-  .nav a{text-decoration:none; border-bottom:1px solid transparent; padding-bottom:2px;}
-  .nav a:hover,.nav a:focus-visible{color:var(--gold); border-bottom-color:var(--gold);}
+  /* 頂部像 App 的水平捲動分類籤條，取代原本會換行的純文字導覽 */
+  .nav{display:flex; gap:8px; margin-bottom:20px; overflow-x:auto;
+       -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:2px;}
+  .nav::-webkit-scrollbar{display:none;}
+  .nav a{flex-shrink:0; text-decoration:none; font-size:13px; font-weight:500;
+        color:var(--text-secondary); background:var(--surface);
+        padding:9px 14px; border-radius:100px; border:1px solid var(--hairline);
+        white-space:nowrap; transition:background .15s,color .15s;}
+  .nav a:hover,.nav a:focus-visible{color:var(--text-primary); background:var(--surface-2);}
+  .nav a.current{color:#171615; background:var(--gold); border-color:var(--gold); font-weight:600;}
 
-  .masthead-label{font-size:13px; color:var(--text-muted); margin-bottom:6px;}
-  .masthead-date{font-family:'Noto Serif TC',serif; font-weight:600; font-size:26px;}
+  .masthead-label{font-size:13px; color:var(--text-muted); margin-bottom:4px;}
+  .masthead-date{font-family:'Noto Serif TC',serif; font-weight:600; font-size:24px;}
 
+  .block{margin-bottom:4px;}
   .block h2{font-family:'Noto Serif TC',serif; font-weight:600;
-            font-size:20px; margin-bottom:16px;}
-  .commentary{font-size:15px; color:var(--text-secondary); line-height:1.8;}
+            font-size:18px; margin-bottom:14px;}
+  .commentary{font-size:14.5px; color:var(--text-secondary); line-height:1.8;}
 
-  .tag{font-size:12px; padding:3px 9px; border-radius:100px; white-space:nowrap;}
-  .tag.confidence-high{background:rgba(217,164,65,.16); color:var(--gold);}
-  .tag.confidence-mid{background:rgba(163,156,142,.16); color:var(--text-secondary);}
-  .tag.confidence-low{background:rgba(114,108,96,.16); color:var(--text-muted);}
-  .tag.verdict-real{background:rgba(79,158,113,.16); color:var(--green);}
-  .tag.verdict-watch{background:rgba(219,84,74,.16); color:var(--red);}
-  .tag.watchlist{background:rgba(217,164,65,.2); color:var(--gold);}
+  .tag{font-size:11.5px; padding:3px 9px; border-radius:100px; white-space:nowrap;
+      font-weight:500;}
+  .tag.confidence-high{background:rgba(227,172,78,.18); color:var(--gold);}
+  .tag.confidence-mid{background:rgba(171,163,152,.16); color:var(--text-secondary);}
+  .tag.confidence-low{background:rgba(120,111,99,.18); color:var(--text-muted);}
+  .tag.verdict-real{background:rgba(79,176,122,.18); color:var(--green);}
+  .tag.verdict-watch{background:rgba(225,92,79,.18); color:var(--red);}
+  .tag.watchlist{background:rgba(227,172,78,.22); color:var(--gold);}
 
-  footer.site-footer{margin-top:44px; padding-top:20px;
+  /* 通用卡片元件：儀表板／格狀資訊都吃這組，密度比原本文章式排版高 */
+  .card{background:var(--surface); border-radius:var(--radius); padding:16px;
+       border:1px solid var(--hairline);}
+  .card-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
+  .card-grid.cols-3{grid-template-columns:repeat(3,1fr);}
+  .stat-tile{background:var(--surface); border-radius:var(--radius-sm);
+            padding:13px 14px; border-left:3px solid var(--hairline);}
+  .stat-tile.c-market{border-left-color:var(--c-market);}
+  .stat-tile.c-theme{border-left-color:var(--c-theme);}
+  .stat-tile.c-chip{border-left-color:var(--c-chip);}
+  .stat-tile.c-score{border-left-color:var(--c-score);}
+  .stat-tile.c-warn{border-left-color:var(--c-warn);}
+  .stat-tile .stat-tile-label{font-size:11.5px; color:var(--text-muted); margin-bottom:5px;
+                              display:flex; align-items:center; gap:5px;}
+  .stat-tile .stat-tile-value{font-family:'JetBrains Mono',monospace; font-size:19px;
+                              font-weight:500; line-height:1.2;}
+  .stat-tile .stat-tile-sub{font-size:12px; color:var(--text-secondary); margin-top:3px;}
+  .dot{width:7px; height:7px; border-radius:50%; flex-shrink:0; display:inline-block;}
+  .dot.c-market{background:var(--c-market);} .dot.c-theme{background:var(--c-theme);}
+  .dot.c-chip{background:var(--c-chip);} .dot.c-score{background:var(--c-score);}
+  .dot.c-warn{background:var(--c-warn);}
+
+  /* 快速連結格：首頁用，取代純文字清單 */
+  .quicklink-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
+  .quicklink{display:block; background:var(--surface); border:1px solid var(--hairline);
+            border-radius:var(--radius-sm); padding:13px 14px; text-decoration:none;
+            transition:background .15s, transform .1s;}
+  .quicklink:active{transform:scale(.98);}
+  .quicklink:hover{background:var(--surface-2);}
+  .quicklink .ql-title{font-size:14px; font-weight:600; color:var(--text-primary);
+                       display:flex; align-items:center; gap:7px; margin-bottom:3px;}
+  .quicklink .ql-desc{font-size:12px; color:var(--text-muted);}
+
+  footer.site-footer{margin-top:36px; padding-top:18px;
                      border-top:1px solid var(--hairline);}
-  footer.site-footer p{font-size:12.5px; color:var(--text-muted);
+  footer.site-footer p{font-size:12px; color:var(--text-muted);
                        margin-bottom:6px; line-height:1.6;}
 
   @media (max-width:480px){
-    .page{padding:36px 18px 56px;}
-    .masthead-date{font-size:22px;}
+    .page{padding:14px 12px 64px;}
+    .masthead-date{font-size:21px;}
+    .card-grid.cols-3{grid-template-columns:repeat(2,1fr);}
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
 
@@ -75,13 +122,13 @@
 <body>
 <div class="page">
   <nav class="nav">
-    <a href="index.html">最新</a>
-    <a href="archive.html">歷史報告</a>
-    <a href="themes.html">題材知識庫</a>
-    <a href="heatmap.html">產業熱力圖</a>
-    <a href="chips.html">籌碼儀表板</a>
-    <a href="disposition.html">處置股預警</a>
-    <a href="scores.html">五面向評分</a>
+    <a href="index.html" class="">最新</a>
+    <a href="heatmap.html" class="">🔥 熱力圖</a>
+    <a href="chips.html" class="">💰 籌碼</a>
+    <a href="scores.html" class="">⭐ 評分</a>
+    <a href="disposition.html" class="current">⚠️ 處置</a>
+    <a href="themes.html" class="">題材庫</a>
+    <a href="archive.html" class="">歷史</a>
   </nav>
 
   
@@ -89,8 +136,14 @@
 <h1 class="masthead-date">處置股預警</h1></header>
 <p class="meta">2026年9月5日．週六 · 資料源：TWSE 公布注意／處置交易資訊，官方原文照登</p>
 
-<div class="section-head">處置中（6）</div>
+<div class="section-head">處置中（8）</div>
 
+
+<div class="card">
+  <div class="card-tag">處置期間 115/09/07～115/09/15 · 第二次處置</div>
+  <div class="card-name">2455 全新</div>
+  <div class="card-detail">連續五次及當日沖銷標準</div>
+</div>
 
 <div class="card">
   <div class="card-tag">處置期間 115/09/03～115/09/09 · 第一次處置</div>
@@ -123,6 +176,12 @@
 </div>
 
 <div class="card">
+  <div class="card-tag">處置期間 115/09/07～115/09/11 · 第二次處置</div>
+  <div class="card-name">6933 AMAX-KY</div>
+  <div class="card-detail">連續三次</div>
+</div>
+
+<div class="card">
   <div class="card-tag">處置期間 115/09/02～115/09/08 · 第一次處置</div>
   <div class="card-name">6933 AMAX-KY</div>
   <div class="card-detail">連續三次</div>
@@ -130,32 +189,12 @@
 
 
 
-<div class="section-head">注意累計次數接近處置門檻（5）</div>
+<div class="section-head">注意累計次數接近處置門檻（1）</div>
 
-
-<div class="card watch">
-  <div class="card-name">069544 立隆電元大5B購05</div>
-  <div class="card-detail">115年9月2日至115年9月3日連續二次</div>
-</div>
 
 <div class="card watch">
   <div class="card-name">2426 鼎元</div>
-  <div class="card-detail">115年8月24日至115年9月3日等九個營業日已有五次</div>
-</div>
-
-<div class="card watch">
-  <div class="card-name">2455 全新</div>
-  <div class="card-detail">115年8月31日至115年9月3日連續四次</div>
-</div>
-
-<div class="card watch">
-  <div class="card-name">3406 玉晶光</div>
-  <div class="card-detail">115年9月2日至115年9月3日連續二次</div>
-</div>
-
-<div class="card watch">
-  <div class="card-name">6933 AMAX-KY</div>
-  <div class="card-detail">115年9月2日至115年9月3日連續二次</div>
+  <div class="card-detail">115年8月25日至115年9月4日等九個營業日已有五次</div>
 </div>
 
 
@@ -167,7 +206,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 03:15</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 07:56</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
