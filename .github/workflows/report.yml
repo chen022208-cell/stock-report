@@ -69,10 +69,20 @@ jobs:
           # 沒有變更時 commit 會失敗，用 diff 判斷避免整個 job 標紅
           if git diff --staged --quiet; then
             echo "無變更，略過 commit"
-          else
-            git commit -m "報告更新 $(date -u +'%Y-%m-%d %H:%M UTC')"
-            git push
+            exit 0
           fi
+          git commit -m "報告更新 $(date -u +'%Y-%m-%d %H:%M UTC')"
+          # main 可能在這個 job 執行期間被別的推送更新過（例如手動 push、或另一次排程剛好重疊），
+          # push 前先 pull --rebase，失敗再重試幾次，避免非快轉推送直接把整個 job 標紅
+          for i in 1 2 3; do
+            if git push; then
+              exit 0
+            fi
+            echo "push 被拒絕，pull --rebase 後重試（第 $i 次）"
+            git pull --rebase origin main
+            sleep 3
+          done
+          git push
 
       - name: 失敗時通知
         if: failure()
