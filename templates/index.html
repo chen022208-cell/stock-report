@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}{{ site_title }}{% endblock %}
+{% block extra_css %}
+  .latest-card{background:var(--surface); border-radius:8px; padding:22px 24px; margin-bottom:28px;}
+  .latest-card .lc-label{font-size:12.5px; color:var(--gold); margin-bottom:8px;}
+  .latest-card .lc-title{font-family:'Noto Serif TC',serif; font-size:20px;
+                         font-weight:600; margin-bottom:10px;}
+  .latest-card a{color:var(--gold); text-decoration:none; font-size:14px;}
+  .latest-card a:hover{text-decoration:underline;}
+  .entry{display:flex; justify-content:space-between; gap:14px; padding:12px 0;
+         border-bottom:1px solid var(--hairline); font-size:14.5px;}
+  .entry:last-child{border-bottom:none;}
+  .entry a{text-decoration:none;}
+  .entry a:hover{color:var(--gold);}
+  .entry .date{font-family:'JetBrains Mono',monospace; color:var(--text-muted);
+               font-size:13px; flex-shrink:0;}
+{% endblock %}
+{% block content %}
+<header><div class="masthead-label">{{ site_title }}</div>
+<h1 class="masthead-date">每日市場分析</h1></header>
+{% if latest %}
+<div class="latest-card" style="margin-top:28px">
+  <div class="lc-label">最新報告</div>
+  <div class="lc-title">{{ latest.date_label }}　{{ latest.kind }}</div>
+  <a href="{{ latest.path }}">閱讀完整報告 →</a>
+</div>
+{% endif %}
+{% if recent_reports %}
+<section class="block"><h2>近期報告</h2>
+{% for r in recent_reports %}
+<div class="entry"><a href="{{ r.path }}">{{ r.title }}</a><span class="date">{{ r.date }}</span></div>
+{% endfor %}
+</section><hr class="divider">
+{% endif %}
+{% if active_themes %}
+<section class="block"><h2>追蹤中題材</h2>
+{% for t in active_themes %}
+<div class="entry">
+  {% if t.deep_dive_slug %}<a href="articles/{{ t.deep_dive_slug }}.html">{{ t.name }}</a>
+  {% else %}<span>{{ t.name }}</span>{% endif %}
+  <span class="tag confidence-{{ t.confidence }}">{{ t.confidence_label }}</span>
+</div>
+{% endfor %}
+</section>
+{% endif %}
+{% endblock %}

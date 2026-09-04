@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% block title %}{{ article.title }} · {{ site_title }}{% endblock %}
+
+{% block extra_css %}
+  body{font-family:'Noto Serif TC',serif;}
+  .meta-label{font-family:'Noto Sans TC',sans-serif; font-size:13px;
+              color:var(--gold); margin-bottom:14px;}
+  h1.title{font-size:30px; font-weight:700; line-height:1.4; margin-bottom:16px;}
+  .byline{font-family:'Noto Sans TC',sans-serif; font-size:13px; color:var(--text-muted);
+          padding-bottom:28px; border-bottom:1px solid var(--hairline); margin-bottom:28px;}
+  .summary-box{background:var(--surface); border-radius:8px;
+               padding:22px 24px; margin-bottom:36px;}
+  .summary-box .summary-label{font-family:'Noto Sans TC',sans-serif;
+                              font-size:12.5px; color:var(--gold); margin-bottom:12px;}
+  .summary-box ul{list-style:none;}
+  .summary-box li{font-family:'Noto Sans TC',sans-serif; font-size:14.5px;
+                  color:var(--text-secondary); padding-left:16px; position:relative;
+                  margin-bottom:10px; line-height:1.6;}
+  .summary-box li:last-child{margin-bottom:0;}
+  .summary-box li::before{content:""; position:absolute; left:0; top:8px;
+                          width:5px; height:5px; border-radius:50%; background:var(--gold);}
+  article h2{font-size:19px; font-weight:600; margin:36px 0 14px;}
+  article p{font-size:16px; line-height:1.9; color:var(--text-secondary); margin-bottom:16px;}
+  .pull-stat{display:flex; gap:28px; padding:20px 0; margin:22px 0;
+             border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline);
+             flex-wrap:wrap;}
+  .pull-stat .item{min-width:110px;}
+  .pull-stat .item-value{font-family:'JetBrains Mono',monospace; font-size:24px;}
+  .pull-stat .item-label{font-family:'Noto Sans TC',sans-serif; font-size:12.5px;
+                         color:var(--text-muted); margin-top:4px;}
+  .callout{border-left:2px solid var(--red); padding:16px 20px; background:var(--surface);
+           border-radius:0 6px 6px 0; margin:24px 0;}
+  .callout .callout-label{font-family:'Noto Sans TC',sans-serif; font-size:12.5px;
+                          color:var(--red); margin-bottom:8px;}
+  .callout p{font-size:14.5px; margin-bottom:0;}
+  .tracking-list{font-family:'Noto Sans TC',sans-serif;}
+  .track-item{padding:10px 0; border-bottom:1px solid var(--hairline);
+              font-size:14px; color:var(--text-secondary);}
+  .track-item:last-child{border-bottom:none;}
+  @media (max-width:480px){h1.title{font-size:24px;}}
+{% endblock %}
+
+{% block content %}
+<div class="meta-label">深度報告 · 題材知識庫 #{{ "%03d"|format(theme.id) }}</div>
+<h1 class="title">{{ article.title }}</h1>
+<div class="byline">首次建檔 {{ theme.first_seen }}　·　最後更新 {{ theme.last_signal_date }}　·　第 {{ theme.update_count }} 次更新</div>
+
+{% if article.summary_points %}
+<div class="summary-box">
+  <div class="summary-label">摘要</div>
+  <ul>{% for point in article.summary_points %}<li>{{ point }}</li>{% endfor %}</ul>
+</div>
+{% endif %}
+
+<article>
+  <div class="pull-stat">
+    <div class="item"><div class="item-value">{{ stock_count }}</div>
+      <div class="item-label">相關供應鏈個股</div></div>
+    <div class="item"><div class="item-value">{{ theme.update_count }}</div>
+      <div class="item-label">累積更新次數</div></div>
+    <div class="item"><div class="item-value">{{ theme.confidence_label }}</div>
+      <div class="item-label">目前信心度</div></div>
+  </div>
+
+  {% for section in article.sections %}
+  <h2>{{ section.heading }}</h2>
+  <p>{{ section.body }}</p>
+  {% endfor %}
+
+  {% if article.risks %}
+  <h2>風險與觀察重點</h2>
+  <div class="callout">
+    <div class="callout-label">風險提示</div>
+    <p>{{ article.risks }}</p>
+  </div>
+  {% endif %}
+
+  {% if article.tracking %}
+  <h2>後續追蹤指標</h2>
+  <div class="tracking-list">
+    {% for item in article.tracking %}<div class="track-item">{{ item }}</div>{% endfor %}
+  </div>
+  {% endif %}
+</article>
+{% endblock %}

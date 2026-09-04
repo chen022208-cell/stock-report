@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% block title %}{{ site_title }} · {{ month_label }}月報{% endblock %}
+
+{% block extra_css %}
+  .hero{margin-top:8px; padding-bottom:24px;}
+  .hero-eyebrow{font-size:14px; color:var(--text-secondary); margin-bottom:8px;}
+  .hero-number{font-family:'JetBrains Mono',monospace; font-size:44px; font-weight:500;}
+  .hero-change{font-family:'JetBrains Mono',monospace; font-size:17px; margin-left:12px;}
+  .hero-stats{display:flex; gap:28px; margin-top:16px; flex-wrap:wrap;}
+  .hero-stats .stat-item{display:flex; flex-direction:column; gap:3px;}
+  .hero-stats .label{font-size:12.5px; color:var(--text-muted);}
+  .hero-stats .value{font-family:'JetBrains Mono',monospace; font-size:15px;}
+
+  .mono{font-family:'JetBrains Mono',monospace;}
+  .theme-row{display:flex; align-items:center; gap:14px; padding:12px 0;
+             border-bottom:1px solid var(--hairline);}
+  .theme-row:last-child{border-bottom:none;}
+  .theme-row .tr-main{flex:1; min-width:0;}
+  .theme-row .tr-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:15.5px;}
+  .theme-row .tr-sub{font-size:12.5px; color:var(--text-muted); margin-top:2px;}
+  .theme-row .tr-spark{width:120px; flex-shrink:0;}
+  .theme-row .tr-trend{width:44px; flex-shrink:0; text-align:right; font-size:13px;}
+  .trend-up{color:var(--gold);} .trend-down{color:var(--text-muted);}
+
+  .card-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px 22px; margin:6px 0 4px;}
+  .card-grid .kv{display:flex; justify-content:space-between; border-bottom:1px solid var(--hairline);
+                 padding-bottom:7px; font-size:14px;}
+  .card-grid .kv .k{color:var(--text-secondary);}
+  .card-grid .kv .v{font-family:'JetBrains Mono',monospace;}
+
+  .score-table{width:100%; border-collapse:collapse; margin-top:6px;}
+  .score-table th{text-align:left; font-size:12px; font-weight:400; color:var(--text-muted);
+                  padding-bottom:9px; border-bottom:1px solid var(--hairline);}
+  .score-table td{padding:11px 0; border-bottom:1px solid var(--hairline); font-size:14px;}
+  .score-table tr:last-child td{border-bottom:none;}
+  .score-table .num{font-family:'JetBrains Mono',monospace;}
+  .pos{color:var(--red);} .neg{color:var(--green);}
+  .horizon-head{font-family:'Noto Serif TC',serif; font-size:15px; color:var(--text-secondary);
+                margin:22px 0 6px;}
+  .empty{font-size:13.5px; color:var(--text-muted); padding:8px 0;}
+{{ viz_css }}
+{% endblock %}
+
+{% block content %}
+<header>
+  <div class="masthead-label">{{ site_title }} · {{ report_kind }}</div>
+  <h1 class="masthead-date">{{ month_label }}</h1>
+</header>
+
+{% if market %}
+<section class="hero">
+  <div class="hero-eyebrow">加權指數 · 月度</div>
+  <span class="hero-number mono">{{ "{:,.0f}".format(market.close) }}</span><span
+    class="hero-change mono {{ 'up' if market.change_pct >= 0 else 'down' }}">{{ "%+.2f"|format(market.change_pct) }}%</span>
+  {{ market.taiex_spark|safe }}
+  <div class="hero-stats">
+    <div class="stat-item"><span class="label">交易日</span>
+      <span class="value">{{ market.trading_days }} 天</span></div>
+    <div class="stat-item"><span class="label">外資月累計</span>
+      <span class="value {{ 'up' if market.foreign_sum >= 0 else 'down' }}">{{ "%+.0f"|format(market.foreign_sum) }} 億</span></div>
+    <div class="stat-item"><span class="label">投信月累計</span>
+      <span class="value {{ 'up' if market.trust_sum >= 0 else 'down' }}">{{ "%+.0f"|format(market.trust_sum) }} 億</span></div>
+    <div class="stat-item"><span class="label">日均成交值</span>
+      <span class="value">{{ "{:,.0f}".format(market.avg_turnover) }} 億</span></div>
+  </div>
+  {% if inst_bars %}{{ inst_bars|safe }}{% endif %}
+</section>
+<hr class="divider">
+{% else %}
+<p class="empty">本月尚無市場快照資料，事後驗證與回顧將於累積足夠交易日後產出。</p>
+<hr class="divider">
+{% endif %}
+
+<section class="block">
+  <h2>本月事後驗證</h2>
+  <p class="commentary">回頭檢查 N 天前系統標記「值得留意」的個股，看超額報酬（個股 − 大盤）是否隨信心度分級。</p>
+  {% for h in horizons %}
+  <div class="horizon-head">{{ h.days }} 天回顧 · 本月新驗證 {{ h.reviewed }} 筆</div>
+  {% if h.scorecard %}
+  <table class="score-table">
+    <tr><th>信心度</th><th>樣本</th><th>平均超額</th><th>勝率</th></tr>
+    {% for row in h.scorecard %}
+    <tr>
+      <td>{{ {'high':'高','mid':'中高','low':'低'}.get(row.confidence, row.confidence) }}</td>
+      <td class="num">{{ row.n }}</td>
+      <td class="num {{ 'pos' if (row.avg_excess or 0) >= 0 else 'neg' }}">{{ "%+.2f"|format(row.avg_excess or 0) }}%</td>
+      <td class="num">{{ row.win_rate }}%</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <div class="empty">尚無足夠驗證樣本。</div>
+  {% endif %}
+  {% endfor %}
+</section>
+<hr class="divider">
+
+{% if new_themes %}
+<section class="block">
+  <h2>本月新增題材</h2>
+  {% for t in new_themes %}
+  <div class="theme-row">
+    <div class="tr-main">
+      <div class="tr-name">{{ t.name }}</div>
+      <div class="tr-sub">首見 {{ t.first_seen }} · 更新 {{ t.update_count }} 次 · 信心度 {{ t.confidence_label }} · {{ t.verdict_label }}</div>
+    </div>
+  </div>
+  {% endfor %}
+</section>
+<hr class="divider">
+{% endif %}
+
+{% if scored_themes %}
+<section class="block">
+  <h2>題材信心度變化</h2>
+  {% for t in scored_themes %}
+  <div class="theme-row">
+    <div class="tr-main">
+      <div class="tr-name">{{ t.name }}</div>
+      <div class="tr-sub">{{ t.update_count }} 次更新 · 目前 {{ t.confidence_label }} · 狀態 {{ {'active':'追蹤中','dormant':'休眠','archived':'退場'}.get(t.status, t.status) }}</div>
+    </div>
+    <div class="tr-spark">{{ t.spark|safe }}</div>
+    <div class="tr-trend {{ 'trend-up' if t.trend == '上升' else 'trend-down' }}">{{ t.trend }}</div>
+  </div>
+  {% endfor %}
+</section>
+<hr class="divider">
+{% endif %}
+
+<p class="empty">本頁為系統自動彙整，僅供個人研究參考，不構成投資建議。</p>
+{% endblock %}

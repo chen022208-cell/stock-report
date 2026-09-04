@@ -1,0 +1,204 @@
+"""DRY_RUN 用的假資料。
+
+作用：沒有網路、沒有 API key 時也能把整條流程跑完，用來驗證版面與邏輯。
+上線後設 DRY_RUN=0 就會走真實 API，這個檔案不會被呼叫到。
+"""
+from __future__ import annotations
+
+import random
+from datetime import date, timedelta
+
+random.seed(42)   # 固定亂數，讓每次測試輸出一致
+
+
+def index_summary() -> dict:
+    return {
+        "taiex_close": 24586.12,
+        "taiex_change": 186.42,
+        "taiex_change_pct": 0.76,
+        "turnover": 384_200_000_000,
+        "advancers": 612,
+        "decliners": 398,
+    }
+
+
+def institutional_net() -> dict:
+    return {
+        "foreign_net": 48.2,
+        "trust_net": 18.6,
+        "dealer_net": -4.4,
+        "total_net": 62.4,
+    }
+
+
+_MOCK_STOCKS = [
+    ("1590", "亞德客-KY", 6.8, 4.2), ("2049", "上銀", 5.9, 3.1),
+    ("4551", "智伸科", 8.2, 5.4), ("2330", "台積電", 1.8, 1.2),
+    ("3017", "奇鋐", 6.1, 2.8), ("3661", "世芯-KY", 5.2, 2.4),
+    ("6187", "萬潤", 9.4, 6.7), ("2454", "聯發科", 2.1, 1.4),
+    ("3324", "雙鴻", 5.5, 2.9), ("1521", "大銀微系統", 7.3, 3.8),
+]
+
+
+def daily_quotes() -> list[dict]:
+    quotes = []
+    for code, name, pct, vol_ratio in _MOCK_STOCKS:
+        close = round(random.uniform(80, 900), 1)
+        quotes.append({
+            "code": code, "name": name, "close": close,
+            "change": round(close * pct / 100, 2), "change_pct": pct,
+            "volume": int(vol_ratio * 5_000_000),
+            "turnover": int(close * vol_ratio * 5_000_000),
+            "volume_ratio": vol_ratio,
+        })
+    # 補一些平盤股，讓掃描器的篩選邏輯真的有東西可以濾
+    for i in range(40):
+        quotes.append({
+            "code": f"9{i:03d}", "name": f"測試股{i}", "close": 50.0,
+            "change": 0.2, "change_pct": 0.4, "volume": 500_000,
+            "turnover": 25_000_000, "volume_ratio": 0.9,
+        })
+    return quotes
+
+
+def stock_history(code: str, days: int = 120) -> list[dict]:
+    """生一段有趨勢的假 K 線，讓技術指標算出來的結果有意義。"""
+    rows = []
+    price = 100.0
+    drift = 0.004 if code in ("1590", "2049", "4551") else -0.001
+    today = date.today()
+    for i in range(days, 0, -1):
+        price *= (1 + drift + random.gauss(0, 0.015))
+        price = max(price, 5.0)
+        rows.append({
+            "date": (today - timedelta(days=i)).isoformat(),
+            "open": round(price * 0.995, 2), "high": round(price * 1.012, 2),
+            "low": round(price * 0.988, 2), "close": round(price, 2),
+            "volume": int(random.uniform(3_000, 12_000) * 1000),
+        })
+    return rows
+
+
+def international_markets() -> dict:
+    return {
+        "indices": [
+            {"name": "道瓊", "close": 45218.0, "change_pct": -0.32},
+            {"name": "那斯達克", "close": 19864.0, "change_pct": 0.58},
+            {"name": "S&P 500", "close": 6142.0, "change_pct": 0.21},
+            {"name": "費半 SOX", "close": 5712.0, "change_pct": 1.24},
+        ],
+        "macro": [
+            {"name": "美元指數", "value": "102.4"},
+            {"name": "VIX", "value": "14.2"},
+            {"name": "10年美債殖利率", "value": "4.18%"},
+            {"name": "台積電 ADR", "value": "+1.1%"},
+        ],
+    }
+
+
+def earnings_calls() -> list[dict]:
+    return [
+        {"code": "2049", "name": "上銀", "time": "14:00",
+         "note": "市場關注機器人減速機訂單能見度"},
+        {"code": "3017", "name": "奇鋐", "time": "15:00",
+         "note": "AI 伺服器散熱出貨展望"},
+    ]
+
+
+def closure_recap(days: int = 6) -> dict:
+    names = ["S&P 500", "費半 SOX", "那斯達克", "台積電 ADR"]
+    rows = []
+    base = date.today()
+    for i in range(days, 0, -1):
+        d = (base - timedelta(days=i)).isoformat()
+        rows.append({"date": d, "changes": {
+            n: round(random.uniform(-1.8, 2.2), 2) for n in names
+        }})
+    cumulative = {n: round(sum(r["changes"][n] for r in rows), 2) for n in names}
+    return {"rows": rows, "cumulative": cumulative}
+
+
+def global_headlines() -> list[dict]:
+    return [
+        {"title": "Broadcom raises AI chip forecast as Big Tech capex keeps climbing",
+         "source": "Reuters", "date": "2026-09-03"},
+        {"title": "Fed minutes signal one more cut this year as inflation cools",
+         "source": "Bloomberg", "date": "2026-09-02"},
+        {"title": "Nvidia data-center revenue beats; supply still tight into 2027",
+         "source": "WSJ", "date": "2026-09-02"},
+        {"title": "Humanoid robot orders surge as automakers expand pilot lines",
+         "source": "Nikkei", "date": "2026-09-01"},
+        {"title": "Oil slips on demand worries; OPEC+ holds output steady",
+         "source": "Reuters", "date": "2026-09-01"},
+    ]
+
+
+def sector_performance() -> list[dict]:
+    return [
+        {"name": "半導體", "ticker": "SMH", "ret_5d": 3.4, "rel_strength": 1.9},
+        {"name": "科技", "ticker": "XLK", "ret_5d": 2.1, "rel_strength": 0.6},
+        {"name": "軟體", "ticker": "IGV", "ret_5d": 1.2, "rel_strength": -0.3},
+        {"name": "生技", "ticker": "XBI", "ret_5d": -0.8, "rel_strength": -2.3},
+        {"name": "能源", "ticker": "XLE", "ret_5d": -1.6, "rel_strength": -3.1},
+    ]
+
+
+def global_theme_digest() -> dict:
+    return {
+        "macro_note": "資金續往 AI 供應鏈集中，降息預期支撐風險偏好，能源與防禦類股走弱。",
+        "themes": [
+            {"name": "AI 資本支出續揚", "summary": "雲端大廠上修資本支出，晶片與伺服器供應鏈訂單能見度延長至 2027。",
+             "confidence": "high", "verdict": "real",
+             "drivers": "Broadcom 上修財測、Nvidia 資料中心營收優於預期、雲端 capex 指引全面上調",
+             "us_tickers": ["NVDA", "AVGO", "AMD"],
+             "tw_readthrough": "台積電、伺服器代工（廣達、緯創）、散熱與 ABF 載板族群"},
+            {"name": "降息路徑明朗", "summary": "通膨降溫，市場定價今年再一碼，利率敏感型資產受惠。",
+             "confidence": "mid", "verdict": "real",
+             "drivers": "Fed 會議紀要偏鴿、核心 PCE 連兩月放緩",
+             "us_tickers": ["XLF", "IWM"],
+             "tw_readthrough": "金融股、高殖利率權值股、有匯損疑慮的出口電子偏空"},
+            {"name": "人形機器人放量", "summary": "車廠擴大機器人試產線，減速機與伺服馬達拉貨。",
+             "confidence": "mid", "verdict": "watch",
+             "drivers": "多家車廠公布機器人導入時程，日系機構上修產業預估",
+             "us_tickers": ["TSLA"],
+             "tw_readthrough": "上銀、亞德客-KY、大銀微系統等傳動元件廠"},
+        ],
+    }
+
+
+def llm_theme_response() -> dict:
+    """DRY_RUN 時代替 Claude API 回傳的題材聚類結果。"""
+    return {
+        "themes": [
+            {
+                "name": "機器人減速機",
+                "summary": "日系機器人大廠上修資本支出，帶動台廠訂單能見度轉佳。",
+                "confidence": "high",
+                "verdict": "real",
+                "reasoning": "產業鏈上下游同步表態，外資投信同步買超，月營收年增加速。",
+                "stocks": [
+                    {"code": "1590", "name": "亞德客-KY"},
+                    {"code": "2049", "name": "上銀"},
+                    {"code": "1521", "name": "大銀微系統"},
+                ],
+            },
+            {
+                "name": "AI 伺服器散熱",
+                "summary": "液冷散熱滲透率提升，台廠散熱模組訂單同步走揚。",
+                "confidence": "mid",
+                "verdict": "real",
+                "reasoning": "族群廣度足夠，但部分個股營收尚未同步反映。",
+                "stocks": [
+                    {"code": "3017", "name": "奇鋐"},
+                    {"code": "3324", "name": "雙鴻"},
+                    {"code": "2330", "name": "台積電"},
+                ],
+            },
+        ],
+        "orphans": [
+            {
+                "code": "6187", "name": "萬潤",
+                "reason": "爆量上漲但無同族群呼應，亦無明確題材脈絡。",
+            }
+        ],
+    }

@@ -1,0 +1,86 @@
+name: 市場報告排程
+
+on:
+  schedule:
+    # ⚠️ GitHub Actions 的 cron 一律是 UTC，不是台北時間。
+    # 台北時間 = UTC + 8，所以要往前推 8 小時。
+    - cron: '0 23 * * 0-4'   # UTC 23:00 = 台北隔日 07:00（週一到週五早報）
+    - cron: '0 10 * * 1-5'   # UTC 10:00 = 台北當日 18:00（週一到週五盤後）
+    - cron: '0 10 12 * *'    # 每月 12 日 台北 18:00 月報（等月營收公告完畢）
+  workflow_dispatch:          # 也可以在 GitHub 網頁上手動觸發，方便測試
+    inputs:
+      mode:
+        description: '執行模式'
+        required: true
+        default: 'evening'
+        type: choice
+        options: [morning, evening, monthly, holiday, site]
+
+permissions:
+  contents: write             # 需要寫回 docs/ 與 data/ 才能累積歷史
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 取出程式碼
+        uses: actions/checkout@v4
+
+      - name: 設定 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: 安裝套件
+        run: pip install -r requirements.txt
+
+      - name: 決定執行模式
+        id: mode
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "mode=${{ inputs.mode }}" >> $GITHUB_OUTPUT
+            echo "slot=" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event.schedule }}" = "0 23 * * 0-4" ]; then
+            echo "mode=auto" >> $GITHUB_OUTPUT
+            echo "slot=morning" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event.schedule }}" = "0 10 12 * *" ]; then
+            echo "mode=monthly" >> $GITHUB_OUTPUT
+            echo "slot=" >> $GITHUB_OUTPUT
+          else
+            echo "mode=auto" >> $GITHUB_OUTPUT
+            echo "slot=evening" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 產出報告
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DRY_RUN: '0'
+        run: python -m src.main ${{ steps.mode.outputs.mode }} ${{ steps.mode.outputs.slot }}
+
+      - name: 提交結果
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs data
+          # 沒有變更時 commit 會失敗，用 diff 判斷避免整個 job 標紅
+          if git diff --staged --quiet; then
+            echo "無變更，略過 commit"
+          else
+            git commit -m "報告更新 $(date -u +'%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
+
+      - name: 失敗時通知
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ -n "$TELEGRAM_BOT_TOKEN" ]; then
+            curl -s -X POST "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/sendMessage" \
+              -d chat_id="$TELEGRAM_CHAT_ID" \
+              -d text="⚠️ 報告排程執行失敗，請查看 GitHub Actions log。"
+          fi

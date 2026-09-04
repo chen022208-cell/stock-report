@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>題材知識庫 · 盤後快訊</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#1C1B19; --surface:#242220; --surface-2:#2B2925;
+    --text-primary:#EDE9E1; --text-secondary:#A39C8E; --text-muted:#726C60;
+    --red:#DB544A; --green:#4F9E71; --gold:#D9A441; --hairline:#3A362F;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{background:var(--bg); color:var(--text-primary);
+       font-family:'Noto Sans TC',sans-serif; line-height:1.7;
+       -webkit-font-smoothing:antialiased;}
+  .page{max-width:640px; margin:0 auto; padding:48px 24px 64px;}
+  a{color:inherit;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  /* 台股慣例：紅漲綠跌。切勿套用美股配色，會讓人看反方向 */
+  .up{color:var(--red);} .down{color:var(--green);}
+  hr.divider{border:none; border-top:1px solid var(--hairline); margin:28px 0;}
+
+  .nav{display:flex; gap:18px; font-size:13px; color:var(--text-muted);
+       margin-bottom:28px; flex-wrap:wrap;}
+  .nav a{text-decoration:none; border-bottom:1px solid transparent; padding-bottom:2px;}
+  .nav a:hover,.nav a:focus-visible{color:var(--gold); border-bottom-color:var(--gold);}
+
+  .masthead-label{font-size:13px; color:var(--text-muted); margin-bottom:6px;}
+  .masthead-date{font-family:'Noto Serif TC',serif; font-weight:600; font-size:26px;}
+
+  .block h2{font-family:'Noto Serif TC',serif; font-weight:600;
+            font-size:20px; margin-bottom:16px;}
+  .commentary{font-size:15px; color:var(--text-secondary); line-height:1.8;}
+
+  .tag{font-size:12px; padding:3px 9px; border-radius:100px; white-space:nowrap;}
+  .tag.confidence-high{background:rgba(217,164,65,.16); color:var(--gold);}
+  .tag.confidence-mid{background:rgba(163,156,142,.16); color:var(--text-secondary);}
+  .tag.confidence-low{background:rgba(114,108,96,.16); color:var(--text-muted);}
+  .tag.verdict-real{background:rgba(79,158,113,.16); color:var(--green);}
+  .tag.verdict-watch{background:rgba(219,84,74,.16); color:var(--red);}
+  .tag.watchlist{background:rgba(217,164,65,.2); color:var(--gold);}
+
+  footer.site-footer{margin-top:44px; padding-top:20px;
+                     border-top:1px solid var(--hairline);}
+  footer.site-footer p{font-size:12.5px; color:var(--text-muted);
+                       margin-bottom:6px; line-height:1.6;}
+
+  @media (max-width:480px){
+    .page{padding:36px 18px 56px;}
+    .masthead-date{font-size:22px;}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
+
+  .theme-card{border-left:2px solid var(--gold); padding:4px 0 4px 18px; margin-bottom:22px;}
+  .theme-card.dormant{border-left-color:var(--text-muted); opacity:.75;}
+  .theme-head{display:flex; justify-content:space-between; align-items:baseline;
+              gap:12px; margin-bottom:6px; flex-wrap:wrap;}
+  .theme-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:17px;}
+  .theme-name a{text-decoration:none;}
+  .theme-name a:hover{color:var(--gold);}
+  .theme-sum{font-size:14.5px; color:var(--text-secondary); margin-bottom:6px;}
+  .theme-meta{font-size:13px; color:var(--text-muted);}
+  .section-head{font-family:'Noto Serif TC',serif; font-size:16px;
+                color:var(--text-secondary); margin:32px 0 14px;}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <nav class="nav">
+    <a href="index.html">最新</a>
+    <a href="archive.html">歷史報告</a>
+    <a href="themes.html">題材知識庫</a>
+  </nav>
+
+  
+<header><div class="masthead-label">盤後快訊</div>
+<h1 class="masthead-date">題材知識庫</h1></header>
+<p class="commentary" style="margin-top:14px">每個題材是一份持續累積的檔案，隨每日訊號更新，而不是每天重新生成。</p>
+
+<div class="section-head">追蹤中</div>
+
+<div class="theme-card">
+  <div class="theme-head">
+    <span class="theme-name">機器人減速機</span>
+    <span class="tag confidence-high">信心度：高</span>
+  </div>
+  <p class="theme-sum">日系機器人大廠上修資本支出，帶動台廠訂單能見度轉佳。</p>
+  <div class="theme-meta">首見 2026-09-04 · 更新 1 次 · 最後訊號 2026-09-04</div>
+</div>
+
+<div class="theme-card">
+  <div class="theme-head">
+    <span class="theme-name">AI 伺服器散熱</span>
+    <span class="tag confidence-mid">信心度：中高</span>
+  </div>
+  <p class="theme-sum">液冷散熱滲透率提升，台廠散熱模組訂單同步走揚。</p>
+  <div class="theme-meta">首見 2026-09-04 · 更新 1 次 · 最後訊號 2026-09-04</div>
+</div>
+
+<div class="theme-card">
+  <div class="theme-head">
+    <span class="theme-name">〔國際〕AI 資本支出續揚</span>
+    <span class="tag confidence-high">信心度：高</span>
+  </div>
+  <p class="theme-sum">雲端大廠上修資本支出，晶片與伺服器供應鏈訂單能見度延長至 2027。</p>
+  <div class="theme-meta">首見 2026-09-04 · 更新 1 次 · 最後訊號 2026-09-04</div>
+</div>
+
+<div class="theme-card">
+  <div class="theme-head">
+    <span class="theme-name">〔國際〕降息路徑明朗</span>
+    <span class="tag confidence-mid">信心度：中高</span>
+  </div>
+  <p class="theme-sum">通膨降溫，市場定價今年再一碼，利率敏感型資產受惠。</p>
+  <div class="theme-meta">首見 2026-09-04 · 更新 1 次 · 最後訊號 2026-09-04</div>
+</div>
+
+<div class="theme-card">
+  <div class="theme-head">
+    <span class="theme-name">〔國際〕人形機器人放量</span>
+    <span class="tag confidence-mid">信心度：中高</span>
+  </div>
+  <p class="theme-sum">車廠擴大機器人試產線，減速機與伺服馬達拉貨。</p>
+  <div class="theme-meta">首見 2026-09-04 · 更新 1 次 · 最後訊號 2026-09-04</div>
+</div>
+
+
+
+
+
+
+  <footer class="site-footer">
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-04 17:16</p>
+    <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}題材知識庫 · {{ site_title }}{% endblock %}
+{% block extra_css %}
+  .theme-card{border-left:2px solid var(--gold); padding:4px 0 4px 18px; margin-bottom:22px;}
+  .theme-card.dormant{border-left-color:var(--text-muted); opacity:.75;}
+  .theme-head{display:flex; justify-content:space-between; align-items:baseline;
+              gap:12px; margin-bottom:6px; flex-wrap:wrap;}
+  .theme-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:17px;}
+  .theme-name a{text-decoration:none;}
+  .theme-name a:hover{color:var(--gold);}
+  .theme-sum{font-size:14.5px; color:var(--text-secondary); margin-bottom:6px;}
+  .theme-meta{font-size:13px; color:var(--text-muted);}
+  .section-head{font-family:'Noto Serif TC',serif; font-size:16px;
+                color:var(--text-secondary); margin:32px 0 14px;}
+{% endblock %}
+{% block content %}
+<header><div class="masthead-label">{{ site_title }}</div>
+<h1 class="masthead-date">題材知識庫</h1></header>
+<p class="commentary" style="margin-top:14px">每個題材是一份持續累積的檔案，隨每日訊號更新，而不是每天重新生成。</p>
+{% if active_themes %}
+<div class="section-head">追蹤中</div>
+{% for t in active_themes %}
+<div class="theme-card">
+  <div class="theme-head">
+    <span class="theme-name">{% if t.deep_dive_slug %}<a href="articles/{{ t.deep_dive_slug }}.html">{{ t.name }}</a>{% else %}{{ t.name }}{% endif %}</span>
+    <span class="tag confidence-{{ t.confidence }}">信心度：{{ t.confidence_label }}</span>
+  </div>
+  <p class="theme-sum">{{ t.summary }}</p>
+  <div class="theme-meta">首見 {{ t.first_seen }} · 更新 {{ t.update_count }} 次 · 最後訊號 {{ t.last_signal_date }}</div>
+</div>
+{% endfor %}
+{% endif %}
+{% if dormant_themes %}
+<div class="section-head">休眠中</div>
+{% for t in dormant_themes %}
+<div class="theme-card dormant">
+  <div class="theme-head"><span class="theme-name">{{ t.name }}</span></div>
+  <div class="theme-meta">最後訊號 {{ t.last_signal_date }} · 已無新訊號</div>
+</div>
+{% endfor %}
+{% endif %}
+{% if not active_themes and not dormant_themes %}
+<p class="commentary" style="margin-top:24px">知識庫尚未建立，系統首次執行後會開始累積題材。</p>
+{% endif %}
+{% endblock %}

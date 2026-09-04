@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}歷史報告 · {{ site_title }}{% endblock %}
+{% block extra_css %}
+  .entry{display:flex; justify-content:space-between; gap:14px; padding:12px 0;
+         border-bottom:1px solid var(--hairline); font-size:14.5px;}
+  .entry:last-child{border-bottom:none;}
+  .entry a{text-decoration:none;}
+  .entry a:hover{color:var(--gold);}
+  .entry .date{font-family:'JetBrains Mono',monospace; color:var(--text-muted);
+               font-size:13px; flex-shrink:0;}
+  .month-head{font-family:'Noto Serif TC',serif; font-size:16px;
+              color:var(--text-secondary); margin:28px 0 8px;}
+{% endblock %}
+{% block content %}
+<header><div class="masthead-label">{{ site_title }}</div>
+<h1 class="masthead-date">歷史報告</h1></header>
+{% for month, items in grouped %}
+<div class="month-head">{{ month }}</div>
+{% for r in items %}
+<div class="entry"><a href="{{ r.path }}">{{ r.title }}</a><span class="date">{{ r.date }}</span></div>
+{% endfor %}
+{% else %}
+<p class="commentary" style="margin-top:24px">尚無歷史報告，系統首次執行後會開始累積。</p>
+{% endfor %}
+{% endblock %}
