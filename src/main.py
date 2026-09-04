@@ -18,7 +18,7 @@ from datetime import date, timedelta
 from . import db, llm, prices_db, render
 from .analysis import global_themes, industry, review, scoring, screener, technical
 from .config import DRY_RUN, load_config, today_str, now_tpe
-from .fetchers import international, mops, tdcc, tpex, twse
+from .fetchers import international, mops, stock_news, tdcc, tpex, twse
 from .market_calendar import (classify_day, consecutive_closed_days,
                               is_last_day_before_reopen, next_trading_day,
                               refresh_holidays)
@@ -252,10 +252,19 @@ def run_evening() -> None:
         technicals.append(result)
     technicals.sort(key=lambda x: not x["is_watchlist"])
 
-    # 五面向評分（免費四軸）：只對入選候選股算，跟技術分析同一份名單
+    # 五面向評分：技術/籌碼/基本/題材四軸規則計算；新聞面對同一份候選名單抓標題、
+    # 一次 LLM 呼叫批次判讀（不是逐股呼叫），成本跟著候選股數量线性但可控
     revenue_yoy = _safe(twse.fetch_revenue_yoy, {}, "月營收年增率")
     theme_conf_by_code = {s.get("code"): t.get("confidence")
                           for t in themes_raw for s in t.get("stocks", [])}
+    news_input = [
+        {"code": t["code"], "name": t["name"].split(" ", 1)[-1],
+         "headlines": _safe(lambda c=t["code"], n=t["name"]: stock_news.fetch_stock_headlines(c, n),
+                            [], f"{t['code']} 新聞標題")}
+        for t in technicals
+    ]
+    news_scores = _safe(lambda: llm.news_sentiment_batch(news_input), {}, "新聞面評分")
+
     score_rows = []
     for t in technicals:
         code = t["code"]
@@ -266,6 +275,7 @@ def run_evening() -> None:
             margin_change=margin_change,
             revenue_yoy=revenue_yoy.get(code),
             theme_confidence=theme_conf_by_code.get(code),
+            news=news_scores.get(code),
         )
         score_rows.append({**s, "code": code, "name": t["name"]})
     score_rows.sort(key=lambda x: (x["composite"] is None, -(x["composite"] or 0)))

@@ -108,6 +108,14 @@ def margin_by_stock() -> dict[str, dict]:
     }
 
 
+def stock_headlines(code: str) -> list[str]:
+    return [f"{code} 公司近期營運概況報導", f"{code} 法人關注訂單能見度"]
+
+
+def news_sentiment_batch() -> dict[str, float]:
+    return {"1590": 78, "2049": 62, "6187": 45, "4551": 70, "2330": 66}
+
+
 def revenue_yoy() -> dict[str, float]:
     return {"1590": 18.4, "2049": 12.1, "6187": 5.2, "4551": 22.7, "2330": 9.8,
             "3017": -3.4, "3661": 14.0}

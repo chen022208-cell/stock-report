@@ -1,7 +1,6 @@
-"""AI 五面向評分——目前只做免費、規則型的四軸（技術／籌碼／基本／題材）。
-
-新聞面需要 LLM 逐股判讀，成本會隨股票數線性增加，先不做；
-留 `news` 分數為 None，前端顯示「未評分」而不是硬湊一個假分數。
+"""AI 五面向評分：技術／籌碼／基本／題材四軸是規則計算，新聞面靠 LLM 批次判讀
+（見 llm.news_sentiment_batch，只在 main.py 對候選股跑，不是對全市場，成本可控）。
+輪到某軸真的沒資料時該軸留 None，前端顯示「未評分」，不硬湊一個假分數。
 每一軸都是 0–100，數字本身沒有絕對意義，拿來跟同批候選股比較排序才有意義。
 """
 from __future__ import annotations
@@ -55,12 +54,13 @@ def composite(scores: dict[str, float | None]) -> float | None:
 
 def score_stock(*, grade: dict | None = None, inst_net: float | None = None,
                 margin_change: float | None = None, revenue_yoy: float | None = None,
-                theme_confidence: str | None = None) -> dict:
+                theme_confidence: str | None = None,
+                news: float | None = None) -> dict:
     axes = {
         "technical": technical_score(grade) if grade else None,
         "chip": chip_score(inst_net, margin_change),
         "fundamental": fundamental_score(revenue_yoy),
         "theme": theme_score(theme_confidence),
-        "news": None,
+        "news": round(_clip(news), 1) if news is not None else None,
     }
     return {**axes, "composite": composite(axes)}

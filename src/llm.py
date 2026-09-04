@@ -189,6 +189,44 @@ def global_theme_digest(headlines: list[dict], sectors: list[dict]) -> dict:
         return {"macro_note": "", "themes": []}
 
 
+# ── 新聞面評分 ─────────────────────────────────────────
+NEWS_SENTIMENT_SYSTEM = """你是台股新聞情緒分析師。輸入是多檔個股各自的近期新聞標題。
+
+任務：針對每一檔股票，把該股的新聞標題整體氣氛換算成 0-100 分：
+- 80-100：多則正面新聞（營收創高、大單、法人喊多、產能滿載）
+- 50-70：中性或正負摻雜，沒有明顯偏向
+- 20-40：偏負面（財報不如預期、裁員、訴訟、法人調降）
+- 標題太少（1-2 則）或內容跟營運無關（純股價創新高型態新聞、活動公告）就給 50 分，不要過度解讀
+
+一次處理輸入裡的所有股票，只輸出 JSON，不要 markdown 標記：
+{"1234": 72, "5678": 45}
+key 是股票代號，value 是 0-100 的整數分數。"""
+
+
+def news_sentiment_batch(stocks: list[dict]) -> dict[str, float]:
+    """stocks = [{"code":, "name":, "headlines": [...]}, ...]，一次呼叫評完整批，省成本。"""
+    if DRY_RUN:
+        return mock.news_sentiment_batch()
+
+    usable = [s for s in stocks if s.get("headlines")]
+    if not usable:
+        return {}
+
+    lines = []
+    for s in usable:
+        lines.append(f"{s['code']} {s['name']}：")
+        for h in s["headlines"]:
+            lines.append(f"  - {h}")
+    user = "\n".join(lines)
+
+    try:
+        result = _parse_json(_call(NEWS_SENTIMENT_SYSTEM, user, 800))
+        return {k: float(v) for k, v in result.items() if isinstance(v, (int, float))}
+    except Exception as exc:
+        print(f"[llm] 新聞面評分失敗：{exc}")
+        return {}
+
+
 # ── 深度報告 ───────────────────────────────────────────
 DEEP_DIVE_SYSTEM = """你是有 20 年經驗的產業分析師，撰寫題材深度報告。
 
