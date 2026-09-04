@@ -2,116 +2,109 @@
 {% block title %}{{ site_title }} · {{ date_label }}{% endblock %}
 
 {% block extra_css %}
-  .hero{margin-top:8px; padding-bottom:28px;}
-  .hero-eyebrow{font-size:14px; color:var(--text-secondary); margin-bottom:8px;}
-  .hero-number{font-family:'JetBrains Mono',monospace; font-size:52px;
+  .hero-eyebrow{font-size:13px; color:var(--text-muted); margin-bottom:6px;
+               display:flex; align-items:center; gap:6px;}
+  .hero-number{font-family:'JetBrains Mono',monospace; font-size:38px;
                font-weight:500; letter-spacing:-.01em;}
-  .hero-change{font-family:'JetBrains Mono',monospace; font-size:18px; margin-left:14px;}
-  .hero-stats{display:flex; gap:32px; margin-top:18px; flex-wrap:wrap;}
-  .hero-stats .stat-item{display:flex; flex-direction:column; gap:4px;}
-  .hero-stats .label{font-size:13px; color:var(--text-muted);}
-  .hero-stats .value{font-family:'JetBrains Mono',monospace; font-size:16px;}
+  .hero-change{font-family:'JetBrains Mono',monospace; font-size:15px; margin-left:10px;}
 
-  .watch-hits{background:rgba(217,164,65,.08); border-left:2px solid var(--gold);
-              border-radius:0 6px 6px 0; padding:14px 18px; margin-bottom:28px;}
-  .watch-hits .wh-label{font-size:12.5px; color:var(--gold); margin-bottom:8px;}
-  .watch-hits .wh-item{font-size:14.5px; color:var(--text-secondary); margin-bottom:4px;}
+  .watch-hits{background:rgba(227,172,78,.09); border-left:3px solid var(--gold);
+              border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:13px 16px; margin-bottom:18px;}
+  .watch-hits .wh-label{font-size:12px; color:var(--gold); margin-bottom:7px; font-weight:600;}
+  .watch-hits .wh-item{font-size:14px; color:var(--text-secondary); margin-bottom:4px;}
   .watch-hits .wh-item strong{color:var(--text-primary); font-weight:500;}
 
-  .stat-grid{display:grid; grid-template-columns:repeat(2,1fr);
-             gap:14px 24px; margin-bottom:18px;}
-  .stat-grid .stat{display:flex; justify-content:space-between; align-items:baseline;
-                   border-bottom:1px solid var(--hairline); padding-bottom:8px;}
-  .stat-label{font-size:14px; color:var(--text-secondary);}
-  .stat-value{font-family:'JetBrains Mono',monospace; font-size:15px;}
-
-  .inst-row{display:flex; align-items:center; gap:12px; margin-bottom:10px; font-size:14px;}
-  .inst-row .inst-name{width:56px; color:var(--text-secondary); flex-shrink:0;}
+  .inst-row{display:flex; align-items:center; gap:10px; margin-bottom:9px; font-size:13.5px;}
+  .inst-row:last-child{margin-bottom:0;}
+  .inst-row .inst-name{width:52px; color:var(--text-secondary); flex-shrink:0;}
   .inst-row .bar-track{flex:1; height:6px; background:var(--surface-2);
                        border-radius:3px; position:relative; overflow:hidden;}
   .inst-row .bar-fill{position:absolute; top:0; bottom:0; border-radius:3px;}
   .inst-row .bar-fill.up{background:var(--red); left:50%;}
   .inst-row .bar-fill.down{background:var(--green); right:50%;}
-  .inst-row .inst-value{width:88px; text-align:right;
+  .inst-row .inst-value{width:80px; text-align:right;
                         font-family:'JetBrains Mono',monospace; flex-shrink:0;}
 
-  .theme-entry{border-left:2px solid var(--gold); padding:4px 0 4px 18px; margin-bottom:22px;}
+  .theme-entry{background:var(--surface); border:1px solid var(--hairline);
+              border-left:3px solid var(--c-theme); border-radius:var(--radius-sm);
+              padding:14px 16px; margin-bottom:12px;}
   .theme-entry:last-child{margin-bottom:0;}
   .theme-header{display:flex; justify-content:space-between; align-items:baseline;
-                gap:12px; margin-bottom:8px; flex-wrap:wrap;}
-  .theme-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:17px;}
-  .theme-desc{font-size:14.5px; color:var(--text-secondary); margin-bottom:8px;}
+                gap:12px; margin-bottom:7px; flex-wrap:wrap;}
+  .theme-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px;}
+  .theme-desc{font-size:14px; color:var(--text-secondary); margin-bottom:7px;}
   .theme-meta{display:flex; justify-content:space-between; align-items:center;
-              font-size:13.5px; color:var(--text-muted); flex-wrap:wrap; gap:8px;}
-  .theme-link{font-size:13px; color:var(--gold); text-decoration:none;
-              display:inline-block; margin-top:8px;}
+              font-size:12.5px; color:var(--text-muted); flex-wrap:wrap; gap:8px;}
+  .theme-link{font-size:12.5px; color:var(--gold); text-decoration:none;
+              display:inline-block; margin-top:7px;}
   .theme-link:hover{text-decoration:underline;}
 
-  .darkhorse-entry{background:var(--surface); border-left:2px solid var(--red);
-                   border-radius:0 6px 6px 0; padding:16px 18px; margin-bottom:14px;}
+  .darkhorse-entry{background:var(--surface); border:1px solid var(--hairline);
+                   border-left:3px solid var(--c-warn); border-radius:var(--radius-sm);
+                   padding:14px 16px; margin-bottom:10px;}
+  .darkhorse-entry:last-child{margin-bottom:0;}
   .darkhorse-name{font-family:'Noto Serif TC',serif; font-weight:600;
-                  font-size:17px; margin-bottom:10px;}
+                  font-size:16px; margin-bottom:9px;}
   .darkhorse-grid{display:grid; grid-template-columns:1fr 1fr;
-                  gap:8px 20px; font-size:13.5px; margin-bottom:12px;}
+                  gap:7px 20px; font-size:13px; margin-bottom:10px;}
   .darkhorse-grid .dh-label{color:var(--text-muted);}
   .darkhorse-grid .dh-value{font-family:'JetBrains Mono',monospace;}
-  .darkhorse-note{font-size:13.5px; color:var(--text-secondary);
-                  border-top:1px solid var(--hairline); padding-top:10px;}
+  .darkhorse-note{font-size:13px; color:var(--text-secondary);
+                  border-top:1px solid var(--hairline); padding-top:9px;}
 
   .tech-table{width:100%; border-collapse:collapse;}
-  .tech-table th{text-align:left; font-size:12.5px; font-weight:400;
-                 color:var(--text-muted); padding-bottom:10px;
+  .tech-table th{text-align:left; font-size:11.5px; font-weight:400;
+                 color:var(--text-muted); padding-bottom:9px;
                  border-bottom:1px solid var(--hairline);}
-  .tech-table td{padding:12px 0; border-bottom:1px solid var(--hairline);
-                 font-size:14.5px; vertical-align:top;}
+  .tech-table td{padding:10px 0; border-bottom:1px solid var(--hairline);
+                 font-size:13.5px; vertical-align:top;}
   .tech-table tr:last-child td{border-bottom:none;}
   .signal-bull{color:var(--red);} .signal-warn{color:var(--gold);}
   .signal-neutral{color:var(--text-secondary);} .signal-bear{color:var(--green);}
-  .t-note{color:var(--text-muted); font-size:13px;}
+  .t-note{color:var(--text-muted); font-size:12.5px;}
 
   .call-item{display:flex; justify-content:space-between; gap:12px;
-             padding:10px 0; border-bottom:1px solid var(--hairline); font-size:14px;}
+             padding:9px 0; border-bottom:1px solid var(--hairline); font-size:13.5px;}
   .call-item:last-child{border-bottom:none;}
-  .call-note{color:var(--text-muted); font-size:13px;}
+  .call-note{color:var(--text-muted); font-size:12.5px;}
 
   @media (max-width:480px){
-    .hero-number{font-size:40px;}
-    .stat-grid,.darkhorse-grid{grid-template-columns:1fr;}
+    .hero-number{font-size:32px;}
+    .darkhorse-grid{grid-template-columns:1fr;}
   }
 {% endblock %}
 
 {% block content %}
-<header>
+<header style="margin-bottom:14px">
   <div class="masthead-label">{{ site_title }} · {{ report_kind }}</div>
   <h1 class="masthead-date">{{ date_label }}</h1>
 </header>
 
 {% if market %}
-<section class="hero">
-  <div class="hero-eyebrow">加權指數</div>
+<div class="card" style="margin-bottom:16px">
+  <div class="hero-eyebrow"><span class="dot c-market"></span>加權指數</div>
   <span class="hero-number mono">{{ "{:,.2f}".format(market.taiex_close) }}</span><span
     class="hero-change mono {{ 'up' if market.taiex_change >= 0 else 'down' }}">{{ '▲' if market.taiex_change >= 0 else '▼' }} {{ "{:,.2f}".format(market.taiex_change|abs) }}（{{ market.taiex_change_pct }}%）</span>
-  <div class="hero-stats">
+  <div class="card-grid cols-3" style="margin-top:14px">
     {% if market.turnover %}
-    <div class="stat-item"><span class="label">成交值</span>
-      <span class="value">{{ "{:,.0f}".format(market.turnover / 100000000) }} 億</span></div>
+    <div class="stat-tile c-market"><div class="stat-tile-label">成交值</div>
+      <div class="stat-tile-value" style="font-size:15px">{{ "{:,.0f}".format(market.turnover / 100000000) }}億</div></div>
     {% endif %}
     {% if inst %}
-    <div class="stat-item"><span class="label">三大法人合計</span>
-      <span class="value {{ 'up' if inst.total_net >= 0 else 'down' }}">{{ '買超' if inst.total_net >= 0 else '賣超' }} {{ "%.1f"|format(inst.total_net|abs) }} 億</span></div>
+    <div class="stat-tile c-chip"><div class="stat-tile-label">三大法人</div>
+      <div class="stat-tile-value {{ 'up' if inst.total_net >= 0 else 'down' }}" style="font-size:15px">{{ '買超' if inst.total_net >= 0 else '賣超' }}{{ "%.1f"|format(inst.total_net|abs) }}億</div></div>
     {% endif %}
     {% if market.advancers %}
-    <div class="stat-item"><span class="label">漲跌家數</span>
-      <span class="value">漲 {{ market.advancers }} / 跌 {{ market.decliners }}</span></div>
+    <div class="stat-tile c-market"><div class="stat-tile-label">漲跌家數</div>
+      <div class="stat-tile-value" style="font-size:15px">{{ market.advancers }}/{{ market.decliners }}</div></div>
     {% endif %}
   </div>
-</section>
-<hr class="divider">
+</div>
 {% endif %}
 
 {% if watchlist_hits %}
 <div class="watch-hits">
-  <div class="wh-label">你的自選股今日被掃到</div>
+  <div class="wh-label">⭐ 你的自選股今日被掃到</div>
   {% for hit in watchlist_hits %}
   <div class="wh-item"><strong>{{ hit.code }} {{ hit.name }}</strong> — {{ hit.context }}</div>
   {% endfor %}

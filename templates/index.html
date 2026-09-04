@@ -1,46 +1,142 @@
 {% extends "base.html" %}
 {% block title %}{{ site_title }}{% endblock %}
 {% block extra_css %}
-  .latest-card{background:var(--surface); border-radius:8px; padding:22px 24px; margin-bottom:28px;}
-  .latest-card .lc-label{font-size:12.5px; color:var(--gold); margin-bottom:8px;}
-  .latest-card .lc-title{font-family:'Noto Serif TC',serif; font-size:20px;
-                         font-weight:600; margin-bottom:10px;}
-  .latest-card a{color:var(--gold); text-decoration:none; font-size:14px;}
-  .latest-card a:hover{text-decoration:underline;}
-  .entry{display:flex; justify-content:space-between; gap:14px; padding:12px 0;
-         border-bottom:1px solid var(--hairline); font-size:14.5px;}
-  .entry:last-child{border-bottom:none;}
-  .entry a{text-decoration:none;}
-  .entry a:hover{color:var(--gold);}
-  .entry .date{font-family:'JetBrains Mono',monospace; color:var(--text-muted);
-               font-size:13px; flex-shrink:0;}
+  .hero-num{font-family:'JetBrains Mono',monospace; font-size:34px; font-weight:500;}
+  .hero-chg{font-family:'JetBrains Mono',monospace; font-size:14px; margin-left:8px;}
+  .section-title{font-size:12.5px; color:var(--text-muted); text-transform:uppercase;
+                 letter-spacing:.04em; margin:22px 0 10px; display:flex;
+                 justify-content:space-between; align-items:center;}
+  .section-title a{font-size:12px; color:var(--gold); text-decoration:none;
+                   text-transform:none; letter-spacing:0;}
+  .industry-strip{display:flex; gap:8px; overflow-x:auto; -webkit-overflow-scrolling:touch;
+                  scrollbar-width:none; padding-bottom:2px;}
+  .industry-strip::-webkit-scrollbar{display:none;}
+  .industry-chip{flex-shrink:0; min-width:104px; background:var(--surface);
+                 border-radius:var(--radius-sm); padding:11px 13px; border:1px solid var(--hairline);}
+  .industry-chip .ic-name{font-size:12.5px; color:var(--text-secondary); margin-bottom:5px;}
+  .industry-chip .ic-pct{font-family:'JetBrains Mono',monospace; font-size:16px; font-weight:600;}
+  .theme-row-mini{display:flex; align-items:center; gap:10px; padding:11px 0;
+                  border-bottom:1px solid var(--hairline);}
+  .theme-row-mini:last-child{border-bottom:none;}
+  .theme-row-mini .trm-name{flex:1; font-size:14px; font-weight:500;}
+  .theme-row-mini .trm-sum{font-size:12px; color:var(--text-muted); margin-top:2px;}
+  .top-score-card{display:flex; justify-content:space-between; align-items:center;}
+  .top-score-card .tsc-name{font-size:15px; font-weight:600; margin-bottom:3px;}
+  .top-score-card .tsc-sub{font-size:12px; color:var(--text-muted);}
+  .top-score-card .tsc-num{font-family:'JetBrains Mono',monospace; font-size:26px;
+                           color:var(--c-score); font-weight:600;}
+  .ql-icon{font-size:15px;}
 {% endblock %}
 {% block content %}
-<header><div class="masthead-label">{{ site_title }}</div>
-<h1 class="masthead-date">每日市場分析</h1></header>
-{% if latest %}
-<div class="latest-card" style="margin-top:28px">
-  <div class="lc-label">最新報告</div>
-  <div class="lc-title">{{ latest.date_label }}　{{ latest.kind }}</div>
-  <a href="{{ latest.path }}">閱讀完整報告 →</a>
+
+{% if market %}
+<div class="card">
+  <div class="stat-tile-label"><span class="dot c-market"></span>加權指數</div>
+  <span class="hero-num">{{ "{:,.0f}".format(market.taiex_close) }}</span><span
+    class="hero-chg {{ 'up' if (market.taiex_change or 0) >= 0 else 'down' }}">{{ '▲' if (market.taiex_change or 0) >= 0 else '▼' }} {{ "%.2f"|format((market.taiex_change or 0)|abs) }}（{{ "%.2f"|format(market.taiex_change_pct or 0) }}%）</span>
+  <div class="card-grid cols-3" style="margin-top:14px">
+    {% if market.turnover %}
+    <div class="stat-tile c-market"><div class="stat-tile-label">成交值</div>
+      <div class="stat-tile-value">{{ "{:,.0f}".format(market.turnover / 100000000) }}億</div></div>
+    {% endif %}
+    <div class="stat-tile c-chip"><div class="stat-tile-label">三大法人</div>
+      <div class="stat-tile-value {{ 'up' if (market.foreign_net or 0) + (market.trust_net or 0) + (market.dealer_net or 0) >= 0 else 'down' }}">{{ "%+.0f"|format((market.foreign_net or 0) + (market.trust_net or 0) + (market.dealer_net or 0)) }}億</div></div>
+    {% if market.advancers %}
+    <div class="stat-tile c-market"><div class="stat-tile-label">漲跌家數</div>
+      <div class="stat-tile-value" style="font-size:14px">{{ market.advancers }}/{{ market.decliners }}</div></div>
+    {% endif %}
+  </div>
+</div>
+{% else %}
+<div class="card">
+  <p class="commentary">系統首次執行後，這裡會顯示最新大盤數據。</p>
 </div>
 {% endif %}
+
+{% if top_industries %}
+<div class="section-title">產業熱力 <a href="{{ rel }}heatmap.html">看全部 →</a></div>
+<div class="industry-strip">
+  {% for ind in top_industries %}
+  <div class="industry-chip">
+    <div class="ic-name">{{ ind.name }}</div>
+    <div class="ic-pct {{ 'up' if ind.avg_change_pct >= 0 else 'down' }}">{{ "%+.1f"|format(ind.avg_change_pct) }}%</div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% if top_score %}
+<div class="section-title">今日焦點個股 <a href="{{ rel }}scores.html">看排行 →</a></div>
+<div class="card top-score-card">
+  <div>
+    <div class="tsc-name">{{ top_score.name }}</div>
+    <div class="tsc-sub">綜合分最高 · 五面向評分</div>
+  </div>
+  <div class="tsc-num">{{ top_score.composite }}</div>
+</div>
+{% endif %}
+
+{% if top_themes %}
+<div class="section-title">追蹤中題材 <a href="{{ rel }}themes.html">看全部 →</a></div>
+<div class="card">
+  {% for t in top_themes %}
+  <div class="theme-row-mini">
+    <div style="flex:1">
+      <div class="trm-name">{{ t.name }}</div>
+      <div class="trm-sum">{{ t.summary[:36] }}{% if t.summary|length > 36 %}…{% endif %}</div>
+    </div>
+    <span class="tag confidence-{{ t.confidence }}">{{ t.confidence_label }}</span>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% if disposition_count %}
+<div class="section-title">風險提醒</div>
+<a href="{{ rel }}disposition.html" class="quicklink" style="display:block">
+  <div class="ql-title">⚠️ {{ disposition_count }} 檔處置中或接近門檻</div>
+  <div class="ql-desc">點看完整名單與處置措施</div>
+</a>
+{% endif %}
+
+<div class="section-title">快速前往</div>
+<div class="quicklink-grid">
+  <a href="{{ rel }}heatmap.html" class="quicklink">
+    <div class="ql-title"><span class="ql-icon">🔥</span>產業熱力圖</div>
+    <div class="ql-desc">依產業別當日漲跌</div>
+  </a>
+  <a href="{{ rel }}chips.html" class="quicklink">
+    <div class="ql-title"><span class="ql-icon">💰</span>籌碼儀表板</div>
+    <div class="ql-desc">法人／資券／大戶</div>
+  </a>
+  <a href="{{ rel }}scores.html" class="quicklink">
+    <div class="ql-title"><span class="ql-icon">⭐</span>五面向評分</div>
+    <div class="ql-desc">技術/籌碼/基本/題材/新聞</div>
+  </a>
+  <a href="{{ rel }}disposition.html" class="quicklink">
+    <div class="ql-title"><span class="ql-icon">⚠️</span>處置股預警</div>
+    <div class="ql-desc">處置中／接近門檻</div>
+  </a>
+  <a href="{{ rel }}themes.html" class="quicklink">
+    <div class="ql-title"><span class="ql-icon">📚</span>題材知識庫</div>
+    <div class="ql-desc">追蹤中／休眠題材</div>
+  </a>
+  <a href="{{ rel }}archive.html" class="quicklink">
+    <div class="ql-title"><span class="ql-icon">🗂️</span>歷史報告</div>
+    <div class="ql-desc">每日／週／月報存檔</div>
+  </a>
+</div>
+
 {% if recent_reports %}
-<section class="block"><h2>近期報告</h2>
-{% for r in recent_reports %}
-<div class="entry"><a href="{{ r.path }}">{{ r.title }}</a><span class="date">{{ r.date }}</span></div>
-{% endfor %}
-</section><hr class="divider">
-{% endif %}
-{% if active_themes %}
-<section class="block"><h2>追蹤中題材</h2>
-{% for t in active_themes %}
-<div class="entry">
-  {% if t.deep_dive_slug %}<a href="articles/{{ t.deep_dive_slug }}.html">{{ t.name }}</a>
-  {% else %}<span>{{ t.name }}</span>{% endif %}
-  <span class="tag confidence-{{ t.confidence }}">{{ t.confidence_label }}</span>
+<div class="section-title">近期報告 <a href="{{ rel }}archive.html">看全部 →</a></div>
+<div class="card" style="padding:6px 16px">
+  {% for r in recent_reports %}
+  <div class="theme-row-mini">
+    <a href="{{ r.path }}" style="flex:1; text-decoration:none">{{ r.title }}</a>
+    <span class="mono" style="font-size:12px; color:var(--text-muted)">{{ r.date }}</span>
+  </div>
+  {% endfor %}
 </div>
-{% endfor %}
-</section>
 {% endif %}
+
 {% endblock %}

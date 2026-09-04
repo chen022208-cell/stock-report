@@ -207,20 +207,68 @@ def _collect_reports() -> list[dict]:
     return entries
 
 
+def _read_json(name: str):
+    """讀 render 階段自己吐的 docs/data/*.json，首頁儀表板組合資料用。
+    檔案可能是舊資料（例如今天只跑早報沒跑盤後）或還不存在，一律容錯回 None。"""
+    path = DOCS_DIR / "data" / f"{name}.json"
+    if not path.exists():
+        return None
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return None
+
+
 def render_index() -> Path:
     cfg = load_config()
     reports = _collect_reports()
     themes = [decorate_theme(t) for t in db.list_themes("active")]
+    themes.sort(key=lambda t: {"high": 0, "mid": 1, "low": 2}.get(t.get("confidence"), 3))
+
+    market = db.latest_snapshot()
+    if market and market.get("payload"):
+        # 資料表欄位是固定的幾個，taiex_change_pct 等其餘欄位只存在 payload JSON 裡
+        try:
+            market = {**json.loads(market["payload"]), **market}
+        except (json.JSONDecodeError, TypeError):
+            pass
+    heatmap_data = _read_json("heatmap")
+    chips_data = _read_json("chips")
+    scores_data = _read_json("scores")
+    disposition_data = _read_json("disposition")
+
+    top_industries = []
+    if heatmap_data and heatmap_data.get("industries"):
+        rows = [r for r in heatmap_data["industries"] if r.get("name") != "其他"]
+        top_industries = sorted(rows, key=lambda r: abs(r["avg_change_pct"]), reverse=True)[:4]
+
+    top_score = None
+    if scores_data and scores_data.get("rows"):
+        scored = [r for r in scores_data["rows"] if r.get("composite") is not None]
+        if scored:
+            top_score = max(scored, key=lambda r: r["composite"])
+
+    disposition_count = 0
+    if disposition_data:
+        disposition_count = (len(disposition_data.get("disposition", []))
+                             + len(disposition_data.get("trending", [])))
 
     DOCS_DIR.mkdir(parents=True, exist_ok=True)
     path = DOCS_DIR / "index.html"
     path.write_text(_env().get_template("index.html").render(
         site_title=cfg["site"]["title"],
         generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
-        rel="",
+        rel="", nav_current="index",
         latest=reports[0] if reports else None,
-        recent_reports=reports[:15],
+        recent_reports=reports[:6],
         active_themes=themes[:10],
+        top_themes=themes[:3],
+        market=market,
+        top_industries=top_industries,
+        institutional=(chips_data or {}).get("institutional"),
+        top_strong=((chips_data or {}).get("strong") or [])[:3],
+        top_score=top_score,
+        disposition_count=disposition_count,
     ), encoding="utf-8")
     return path
 
@@ -238,7 +286,7 @@ def render_archive() -> Path:
     path.write_text(_env().get_template("archive.html").render(
         site_title=cfg["site"]["title"],
         generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
-        rel="",
+        rel="", nav_current="archive",
         grouped=grouped,
     ), encoding="utf-8")
     return path
@@ -247,12 +295,18 @@ def render_archive() -> Path:
 def render_themes_page() -> Path:
     cfg = load_config()
     path = DOCS_DIR / "themes.html"
+
+    catalog_by_category = {}
+    for t in db.list_catalog_themes():
+        catalog_by_category.setdefault(t.get("category") or "其他", []).append(t)
+
     path.write_text(_env().get_template("themes.html").render(
         site_title=cfg["site"]["title"],
         generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
-        rel="",
+        rel="", nav_current="themes",
         active_themes=[decorate_theme(t) for t in db.list_themes("active")],
         dormant_themes=[decorate_theme(t) for t in db.list_themes("dormant")],
+        catalog_by_category=catalog_by_category,
     ), encoding="utf-8")
     return path
 
@@ -274,7 +328,7 @@ def render_heatmap(industries: list[dict], date_label_str: str) -> Path:
     path.write_text(_env().get_template("heatmap.html").render(
         site_title=cfg["site"]["title"],
         generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
-        rel="", date_label=date_label_str,
+        rel="", nav_current="heatmap", date_label=date_label_str,
         grid=viz.heat_grid(cells), viz_css=viz.VIZ_CSS,
     ), encoding="utf-8")
     _write_json("heatmap", {"date": date_label_str, "industries": industries})
@@ -288,7 +342,7 @@ def render_chips(inst: dict, margin_top: list[dict], strong: list[dict],
     path.write_text(_env().get_template("chips.html").render(
         site_title=cfg["site"]["title"],
         generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
-        rel="", date_label=date_label_str,
+        rel="", nav_current="chips", date_label=date_label_str,
         inst=inst, margin_top=margin_top, strong=strong, holders=holders,
     ), encoding="utf-8")
     _write_json("chips", {"date": date_label_str, "institutional": inst,
@@ -303,7 +357,7 @@ def render_disposition(disposition: list[dict], trending: list[dict],
     path.write_text(_env().get_template("disposition.html").render(
         site_title=cfg["site"]["title"],
         generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
-        rel="", date_label=date_label_str,
+        rel="", nav_current="disposition", date_label=date_label_str,
         disposition=disposition, trending=trending, today_list=today_list,
     ), encoding="utf-8")
     _write_json("disposition", {"date": date_label_str, "disposition": disposition,
@@ -317,7 +371,7 @@ def render_scores(rows: list[dict], date_label_str: str) -> Path:
     path.write_text(_env().get_template("scores.html").render(
         site_title=cfg["site"]["title"],
         generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
-        rel="", date_label=date_label_str, rows=rows,
+        rel="", nav_current="scores", date_label=date_label_str, rows=rows,
     ), encoding="utf-8")
     _write_json("scores", {"date": date_label_str, "rows": rows})
     return path
