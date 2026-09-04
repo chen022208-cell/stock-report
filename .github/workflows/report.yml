@@ -35,6 +35,18 @@ jobs:
       - name: 安裝套件
         run: pip install -r requirements.txt
 
+      - name: 還原個股日線快取
+        # data/prices.db 不進 git（見 .gitignore），改用 Actions cache 跨次執行保留。
+        # key 用 run_id 保證每次都是新 key（一定 miss），靠 restore-keys 撈「最新一份
+        # 前綴相符」的舊快取；job 結束時 actions/cache 會自動把當次結果存成新的一筆，
+        # 讓快取逐日累積，量能倍數才能少打即時 API（見 src/prices_db.py）。
+        uses: actions/cache@v4
+        with:
+          path: data/prices.db
+          key: prices-db-${{ github.run_id }}
+          restore-keys: |
+            prices-db-
+
       - name: 決定執行模式
         id: mode
         run: |

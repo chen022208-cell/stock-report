@@ -15,9 +15,9 @@ import sys
 import traceback
 from datetime import date, timedelta
 
-from . import db, llm, render
+from . import db, llm, prices_db, render
 from .analysis import global_themes, industry, review, scoring, screener, technical
-from .config import load_config, today_str, now_tpe
+from .config import DRY_RUN, load_config, today_str, now_tpe
 from .fetchers import international, mops, tdcc, tpex, twse
 from .market_calendar import (classify_day, consecutive_closed_days,
                               is_last_day_before_reopen, next_trading_day,
@@ -96,7 +96,16 @@ def run_morning() -> None:
     path = render.render_daily(ctx, f"{today}-morning")
     render.render_site()
     print(f"[morning] 完成：{path}")
-    send_notification(f"早報已產出：{render.date_label(today)}", commentary)
+
+    # 推播內容：評論之外，把「可能影響台股」的國際題材明白列出來，
+    # 不要讓使用者得點進網站才看得到——這是早報推播存在的理由
+    notify_body = commentary
+    themes_for_push = gt.get("themes", [])
+    if themes_for_push:
+        lines = [f"- {t['name']}：{t.get('tw_readthrough', t.get('summary', ''))}"
+                for t in themes_for_push[:3]]
+        notify_body = f"{commentary}\n\n國際題材對台股影響：\n" + "\n".join(lines)
+    send_notification(f"早報已產出：{render.date_label(today)}", notify_body)
 
 
 # ── 盤後：台股完整分析 ─────────────────────────────────
@@ -118,6 +127,26 @@ def run_evening() -> None:
     # 上市 + 上櫃合併成一份全市場清單，後面掃描/熱力圖/籌碼都吃這份
     all_quotes = quotes + tpex_quotes
     print(f"[evening] 上市 {len(quotes)} 檔、上櫃 {len(tpex_quotes)} 檔")
+
+    # 落地當日全市場收盤/成交量（反正已經抓過，零額外成本），餵給下面的量能倍數查詢
+    if not DRY_RUN:
+        prices_db.save_quotes(all_quotes, today)
+
+    def cached_history_fn(code: str, days: int) -> list[dict]:
+        """量能倍數只需要成交量，優先查本地快取；快取天數不足才即時抓 TWSE（並寫回快取）。
+
+        避免每天對幾十~上百檔候選股逐一打歷史 K 線 API——那是高波動日盤後執行
+        拖到 8 分鐘以上的主因。快取每天靠 save_quotes() 多長一天，即時抓的檔數
+        會隨快取累積而遞減。
+        """
+        if not DRY_RUN:
+            cached = prices_db.get_history(code, today, limit=days)
+            if len(cached) >= 11:
+                return cached
+        hist = twse.fetch_stock_history(code, days)
+        if hist and not DRY_RUN:
+            prices_db.save_history(code, hist)
+        return hist
 
     # 漲跌家數：openapi 無現成資料集，由全個股行情自行統計
     if all_quotes:
@@ -146,8 +175,9 @@ def run_evening() -> None:
     margin_top.sort(key=lambda x: abs(x["margin_change"]), reverse=True)
 
     # 第一層：強勢股掃描（兩段式：先零成本過濾，再對候選抓歷史算量能）
-    # 上市走 TWSE 歷史，上櫃量能倍數目前抓不到（TPEx 無對應歷史端點），留 None 不影響篩選
-    strong = screener.scan_strong_stocks(all_quotes, cfg, twse.fetch_stock_history)
+    # 歷史優先查快取（見 cached_history_fn）；上櫃在快取沒累積起來前仍會即時抓，
+    # 但抓不到 TWSE 歷史時 volume_ratio 留 None，不影響篩選
+    strong = screener.scan_strong_stocks(all_quotes, cfg, cached_history_fn)
     print(f"[evening] 強勢股 {len(strong)} 檔")
     holder_codes = {q["code"] for q in strong} | watch_codes
     holder_concentration = _safe(lambda: tdcc.fetch_holder_concentration(holder_codes),
@@ -200,14 +230,17 @@ def run_evening() -> None:
     quotes_by_code = {q["code"]: q for q in all_quotes}
     orphan_quotes = [quotes_by_code[o["code"]] for o in orphans
                      if o.get("code") in quotes_by_code]
-    screener.attach_volume_ratio(orphan_quotes, twse.fetch_stock_history)
+    screener.attach_volume_ratio(orphan_quotes, cached_history_fn)
     dark_horses = screener.identify_dark_horses(orphans, quotes_by_code, cfg)
     for dh in dark_horses:
         db.save_judgment(today, dh["code"], dh["name"], "", "",
                          "dark_horse", dh.get("close", 0), market.get("taiex_close", 0))
 
     # 技術分析：只對入選個股跑，省算力
-    candidates = {s["code"]: s["name"] for t in themes_raw for s in t.get("stocks", [])}
+    # 題材聚類／黑馬都是 LLM 產物，萬一那次呼叫失敗（例如 JSON 解析錯），兩者都會是空的；
+    # 用強勢股清單當底，技術面／評分才不會整個開天窗
+    candidates = {s["code"]: s["name"] for s in strong}
+    candidates.update({s["code"]: s["name"] for t in themes_raw for s in t.get("stocks", [])})
     candidates.update({dh["code"]: dh["name"] for dh in dark_horses})
 
     technicals = []
