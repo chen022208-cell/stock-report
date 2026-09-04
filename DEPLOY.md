@@ -55,9 +55,18 @@ git push -u origin main
 
 ---
 
-## 步驟 3：建立 Telegram Bot
+## 步驟 3：建立推播管道（Discord Webhook，預設）
 
-1. Telegram 搜尋 **@BotFather**，傳送 `/newbot`
+比 Telegram Bot 簡單很多，不用找 @BotFather、不用抓 chat id：
+
+1. 在你的 Discord 伺服器裡，選一個頻道（或新建一個）
+2. 頻道旁的齒輪圖示 → **編輯頻道** → **整合** → **Webhook** → **新增 Webhook**
+3. 取個名字（例如「盤後快訊」），按 **複製 Webhook 網址**（`https://discord.com/api/webhooks/...` 格式）
+4. 存起來，下一步要貼進 GitHub Secrets
+
+**想改用或併用 Telegram？**
+
+1. Telegram 搜尋 **@BotFather**（或直接開 https://t.me/BotFather ），傳送 `/newbot`
 2. 依指示取名，完成後會給你一組 **token**（`123456:ABC-...` 格式）
 3. 對你剛建立的 bot 傳任何一句訊息（重要，不先傳訊息拿不到 chat id）
 4. 瀏覽器打開，把 `<TOKEN>` 換成你的 token：
@@ -65,6 +74,7 @@ git push -u origin main
    https://api.telegram.org/bot<TOKEN>/getUpdates
    ```
 5. 找到 `"chat":{"id":123456789` ——這串數字就是你的 **chat id**
+6. 記得把 `config.yaml` 的 `notify.telegram_enabled` 改成 `true`
 
 ---
 
@@ -72,13 +82,14 @@ git push -u origin main
 
 repo 頁面 → **Settings** → 左側 **Secrets and variables** → **Actions** → **New repository secret**
 
-依序新增三筆：
+依序新增：
 
 | Name | Secret |
 |---|---|
 | `ANTHROPIC_API_KEY` | 步驟 2 的 key |
-| `TELEGRAM_BOT_TOKEN` | 步驟 3 的 token |
-| `TELEGRAM_CHAT_ID` | 步驟 3 的 chat id |
+| `DISCORD_WEBHOOK_URL` | 步驟 3 的 Webhook 網址（用 Discord 才需要） |
+| `TELEGRAM_BOT_TOKEN` | 步驟 3 的 token（用 Telegram 才需要） |
+| `TELEGRAM_CHAT_ID` | 步驟 3 的 chat id（用 Telegram 才需要） |
 
 ⚠️ 一定要用 Secrets，不要把 key 寫進程式碼推上 GitHub。
 公開的 API key 會在幾分鐘內被掃到盜用。
@@ -193,7 +204,9 @@ TWSE 對同一 IP 短時間內大量請求會限流。正常排程（一天兩�
 若 yfinance 之後也不穩，替代方案是 Alpha Vantage（免費 key，每日 25 次額度夠用）。
 
 **想改成別的通知方式**
-`src/notify.py` 換掉 `send_telegram` 即可。Discord Webhook 只要換 URL 和 payload 格式。
+`src/notify.py` 現在同時支援 Discord Webhook（預設）與 Telegram Bot，
+`config.yaml` 的 `notify.discord_enabled` / `telegram_enabled` 各自開關，兩個也可以同時開。
+要換別的管道（例如 Slack）就照 `send_discord()` 的樣子加一個新函式。
 LINE Notify 已於 2025/3/31 終止服務，不要再用。
 
 **API 費用會不會失控**

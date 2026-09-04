@@ -1,6 +1,6 @@
 # 盤後快訊 — 台股／國際盤自動分析系統
 
-每日自動產出市場分析報告，發佈成靜態網站並推播到 Telegram。全部跑在免費額度內。
+每日自動產出市場分析報告，發佈成靜態網站並推播到 Discord（可切換/併用 Telegram）。全部跑在免費額度內。
 
 ## 這套系統做什麼
 
@@ -70,7 +70,7 @@ src/
   db.py                  SQLite：題材知識庫、判斷快照、市場快照
   llm.py                 Claude API：題材聚類、深度報告
   render.py              Jinja2 → docs/ 靜態網頁
-  notify.py              Telegram 推播
+  notify.py              推播（Discord Webhook 預設／Telegram Bot 可選）
   main.py                入口與分支
   viz.py                輕量 SVG 圖表（sparkline、左右橫條），無 JS 相依
   fetchers/
@@ -98,7 +98,7 @@ data/market.db           資料庫（跟著 git 走，等於自動備份）
 - `site.base_url` — 部署後填入，推播訊息會附上連結
 
 機密資訊走環境變數，不要寫進 `config.yaml`：
-`ANTHROPIC_API_KEY`、`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`
+`ANTHROPIC_API_KEY`、`DISCORD_WEBHOOK_URL`、`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`
 
 ## 部署
 

@@ -55,4 +55,5 @@ llm:
 
 # ── 通知 ────────────────────────────────────────────
 notify:
-  telegram_enabled: true     # TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID 走環境變數
+  discord_enabled: true      # DISCORD_WEBHOOK_URL 走環境變數；設 Webhook 比設 Telegram Bot 簡單很多
+  telegram_enabled: false    # 要改用/併用 Telegram 就設 true，並填 TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID
