@@ -1,13 +1,10 @@
 name: 市場報告排程
 
 on:
-  schedule:
-    # ⚠️ GitHub Actions 的 cron 一律是 UTC，不是台北時間。
-    # 台北時間 = UTC + 8，所以要往前推 8 小時。
-    - cron: '0 23 * * 0-4'   # UTC 23:00 = 台北隔日 07:00（週一到週五早報）
-    - cron: '0 10 * * 1-5'   # UTC 10:00 = 台北當日 18:00（週一到週五盤後）
-    - cron: '0 10 12 * *'    # 每月 12 日 台北 18:00 月報（等月營收公告完畢）
-  workflow_dispatch:          # 也可以在 GitHub 網頁上手動觸發，方便測試
+  # 原本的自動排程（早報/盤後/月報）已改由 Claude Code Routine 驅動（LLM_AGENT_MODE=1，
+  # 吃 Pro/Max 額度、不打計量 API），對應 Routine：「台股每日早報」「台股每日盤後」。
+  # 這裡拿掉 schedule，只保留手動觸發，當 Routine 掛掉時的備援。
+  workflow_dispatch:          # 也可以在 GitHub 網頁上手動觸發，方便測試或備援
     inputs:
       mode:
         description: '執行模式'
