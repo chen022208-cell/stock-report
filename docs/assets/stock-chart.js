@@ -187,7 +187,7 @@
     return rsi;
   }
 
-  function gradeStock(hist, ma5, ma20, ma60, rsi) {
+  function gradeStock(hist, ma5, ma20, ma60, rsi5, rsi10) {
     var last = hist.length - 1;
     var notes = [], bull = 0, bear = 0;
     if (ma5[last] != null && ma20[last] != null && ma60[last] != null) {
@@ -199,10 +199,14 @@
     } else {
       notes.push("歷史資料不足以計算均線");
     }
-    var r = rsi[last];
-    if (r != null) {
-      if (r >= 70) { notes.push("RSI " + r.toFixed(1) + " 進入超買區"); bear += 1; }
-      else if (r <= 30) { notes.push("RSI " + r.toFixed(1) + " 進入超賣區"); bull += 1; }
+    var r5 = rsi5[last], r10 = rsi10[last];
+    if (r5 != null) {
+      if (r5 >= 70) { notes.push("RSI5 " + r5.toFixed(1) + " 進入超買區"); bear += 1; }
+      else if (r5 <= 30) { notes.push("RSI5 " + r5.toFixed(1) + " 進入超賣區"); bull += 1; }
+    }
+    if (r5 != null && r10 != null) {
+      if (r5 > r10) { notes.push("RSI5 站上 RSI10，短線動能轉強"); bull += 1; }
+      else if (r5 < r10) { notes.push("RSI5 跌破 RSI10，短線動能轉弱"); bear += 1; }
     }
     var label = "區間整理";
     if (bear >= 2 && bear > bull) label = bull > 0 ? "過熱警訊" : "偏弱";
@@ -210,8 +214,8 @@
     return { label: label, notes: notes };
   }
 
-  // ── 標記：均線黃金/死亡交叉、RSI 超買超賣、價量背離 ──────
-  function buildMarkers(bars, ma5, ma20, rsi) {
+  // ── 標記：均線黃金/死亡交叉、RSI5/RSI10 交叉與超買超賣、價量背離 ──
+  function buildMarkers(bars, ma5, ma20, rsi5, rsi10) {
     var markers = [];
     for (var i = 1; i < bars.length; i++) {
       if (ma5[i] == null || ma20[i] == null || ma5[i - 1] == null || ma20[i - 1] == null) continue;
@@ -224,13 +228,23 @@
       }
     }
     for (var j = 1; j < bars.length; j++) {
-      if (rsi[j] == null) continue;
-      if (rsi[j] >= 70 && (rsi[j - 1] == null || rsi[j - 1] < 70)) {
+      if (rsi5[j] == null) continue;
+      if (rsi5[j] >= 70 && (rsi5[j - 1] == null || rsi5[j - 1] < 70)) {
         markers.push({ time: bars[j].date, position: "aboveBar", color: "#E3AC4E",
-                      shape: "circle", size: 0.6, label: "RSI超買" });
-      } else if (rsi[j] <= 30 && (rsi[j - 1] == null || rsi[j - 1] > 30)) {
+                      shape: "circle", size: 0.6, label: "RSI5超買" });
+      } else if (rsi5[j] <= 30 && (rsi5[j - 1] == null || rsi5[j - 1] > 30)) {
         markers.push({ time: bars[j].date, position: "belowBar", color: "#43BFAE",
-                      shape: "circle", size: 0.6, label: "RSI超賣" });
+                      shape: "circle", size: 0.6, label: "RSI5超賣" });
+      }
+    }
+    for (var m = 1; m < bars.length; m++) {
+      if (rsi5[m] == null || rsi10[m] == null || rsi5[m - 1] == null || rsi10[m - 1] == null) continue;
+      if (rsi5[m - 1] <= rsi10[m - 1] && rsi5[m] > rsi10[m]) {
+        markers.push({ time: bars[m].date, position: "belowBar", color: "#6C93F5",
+                      shape: "arrowUp", size: 0.6, label: "RSI5/10黃金交叉" });
+      } else if (rsi5[m - 1] >= rsi10[m - 1] && rsi5[m] < rsi10[m]) {
+        markers.push({ time: bars[m].date, position: "aboveBar", color: "#B48CE8",
+                      shape: "arrowDown", size: 0.6, label: "RSI5/10死亡交叉" });
       }
     }
     // 價量背離：找近 60 根裡的高點/低點，比較股價與成交量方向是否一致
@@ -288,7 +302,7 @@
     }
     var closes = bars.map(function (r) { return r.close; });
     var ma5 = sma(closes, 5), ma20 = sma(closes, 20), ma60 = sma(closes, 60);
-    var rsi = computeRSI(closes, 14);
+    var rsi5 = computeRSI(closes, 5), rsi10 = computeRSI(closes, 10);
     var barByTime = {};
     bars.forEach(function (r, i) { barByTime[r.date] = i; });
 
@@ -323,7 +337,7 @@
     }
     maLine(ma5, "#6C93F5"); maLine(ma20, "#E3AC4E"); maLine(ma60, "#B48CE8");
 
-    var markers = buildMarkers(bars, ma5, ma20, rsi);
+    var markers = buildMarkers(bars, ma5, ma20, rsi5, rsi10);
     var markerByTime = {};
     markers.forEach(function (mk) {
       (markerByTime[mk.time] = markerByTime[mk.time] || []).push(mk.label);
@@ -346,13 +360,20 @@
     }));
     volume.priceScale().applyOptions({ autoScale: true, scaleMargins: { top: 0.1, bottom: 0 } });
 
-    var rsiSeries = chart.addSeries(LightweightCharts.LineSeries, {
-      color: "#43BFAE", lineWidth: 1.4, priceLineVisible: false, lastValueVisible: true,
+    var rsi5Series = chart.addSeries(LightweightCharts.LineSeries, {
+      color: "#6C93F5", lineWidth: 1.4, priceLineVisible: false, lastValueVisible: true,
     }, 2);
-    rsiSeries.setData(bars.map(function (r, i) {
-      return rsi[i] == null ? null : { time: r.date, value: rsi[i] };
+    rsi5Series.setData(bars.map(function (r, i) {
+      return rsi5[i] == null ? null : { time: r.date, value: rsi5[i] };
     }).filter(Boolean));
-    rsiSeries.priceScale().applyOptions({ autoScale: true });
+    rsi5Series.priceScale().applyOptions({ autoScale: true });
+
+    var rsi10Series = chart.addSeries(LightweightCharts.LineSeries, {
+      color: "#E3AC4E", lineWidth: 1.4, priceLineVisible: false, lastValueVisible: true,
+    }, 2);
+    rsi10Series.setData(bars.map(function (r, i) {
+      return rsi10[i] == null ? null : { time: r.date, value: rsi10[i] };
+    }).filter(Boolean));
 
     try {
       var panes = chart.panes();
@@ -385,17 +406,17 @@
     });
 
     chart.timeScale().fitContent();
-    return { chart: chart, bars: bars, ma5: ma5, ma20: ma20, ma60: ma60, rsi: rsi };
+    return { chart: chart, bars: bars, ma5: ma5, ma20: ma20, ma60: ma60, rsi5: rsi5, rsi10: rsi10 };
   }
 
   function legend() {
     return '<div class="sc-legend">'
       + '<span><i class="sc-dot" style="background:#E15C4F"></i>上漲</span>'
       + '<span><i class="sc-dot" style="background:#4FB07A"></i>下跌</span>'
-      + '<span><i class="sc-line" style="background:#6C93F5"></i>MA5</span>'
-      + '<span><i class="sc-line" style="background:#E3AC4E"></i>MA20</span>'
+      + '<span><i class="sc-line" style="background:#6C93F5"></i>MA5／RSI5</span>'
+      + '<span><i class="sc-line" style="background:#E3AC4E"></i>MA20／RSI10</span>'
       + '<span><i class="sc-line" style="background:#B48CE8"></i>MA60</span>'
-      + '<span>▲/▼ 標記：黃金/死亡交叉、RSI 超買賣、量價背離</span>'
+      + '<span>▲/▼ 標記：均線與 RSI5/10 黃金/死亡交叉、RSI 超買賣、量價背離</span>'
       + '</div>';
   }
 
@@ -470,7 +491,7 @@
 
       function renderGrade(state) {
         if (!state) { gradeEl.innerHTML = ""; return; }
-        var g = gradeStock(state.bars, state.ma5, state.ma20, state.ma60, state.rsi);
+        var g = gradeStock(state.bars, state.ma5, state.ma20, state.ma60, state.rsi5, state.rsi10);
         gradeEl.innerHTML = '<span class="tag sc-grade-tag">' + g.label + '</span>'
           + '<span class="sc-notes">' + g.notes.join('、') + '</span>';
       }
