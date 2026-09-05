@@ -207,6 +207,17 @@ def listing_dates_tpex() -> dict[str, str]:
     return {}
 
 
+def listing_dates_esb() -> dict[str, str]:
+    from datetime import date, timedelta
+    recent = (date.today() - timedelta(days=60)).strftime("%Y%m%d")
+    return {"7811": recent}
+
+
+def esb_quotes() -> dict[str, dict]:
+    return {"7811": {"code": "7811", "name": "測試興櫃股", "close": 55.0, "change": 3.5,
+                     "change_pct": 6.79, "volume": 12000, "turnover": 0.0, "market": "esb"}}
+
+
 def international_markets() -> dict:
     return {
         "indices": [

@@ -94,7 +94,7 @@ def scan_breakout_candidates(quotes: list[dict], cfg: dict, history_fn) -> list[
 
 def find_new_listings(quotes_by_code: dict[str, dict], listing_dates: dict[str, str],
                       days: int = 180) -> list[dict]:
-    """新掛牌觀察：上市/上櫃未滿 N 天的個股，不管今天漲跌，單純因為「夠新」
+    """新掛牌觀察：上市/上櫃/興櫃未滿 N 天的個股，不管今天漲跌，單純因為「夠新」
     值得留意——新股沒有長期籌碼歷史，波動特性跟老牌股不一樣。
     """
     cutoff = (date.today() - timedelta(days=days)).strftime("%Y%m%d")
@@ -113,7 +113,7 @@ def find_new_listings(quotes_by_code: dict[str, dict], listing_dates: dict[str, 
         results.append({
             "code": code, "name": q.get("name", ""), "close": q.get("close", 0),
             "change_pct": q.get("change_pct", 0), "days_listed": days_listed,
-            "listed_date": listed_date.isoformat(),
+            "listed_date": listed_date.isoformat(), "market": q.get("market", "twse"),
         })
     results.sort(key=lambda x: x["days_listed"])
     return results

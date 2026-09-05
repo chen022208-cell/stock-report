@@ -286,13 +286,18 @@ def run_evening() -> None:
         [], "起漲點雷達")
     print(f"[evening] 起漲點雷達 {len(breakout_candidates)} 檔")
 
-    # 新掛牌觀察：上市/上櫃基本資料本來就要抓（產業分類用），多拿一個欄位不用額外成本
+    # 新掛牌觀察：上市/上櫃基本資料本來就要抓（產業分類用），多拿一個欄位不用額外成本；
+    # 興櫃是更早期的階段，資料集跟行情機制都跟上市/上櫃不同，額外抓一份，
+    # 但故意不併進 quotes_by_code_all（興櫃是議價/搓合市場，混進熱力圖／
+    # 強勢股掃描會失真），只用來查這裡要顯示的個股
+    esb_quotes = _safe(tpex.fetch_esb_quotes, {}, "興櫃行情")
     listing_dates = {
         **_safe(twse.fetch_listing_dates, {}, "上市日期"),
         **_safe(tpex.fetch_listing_dates, {}, "上櫃日期"),
+        **_safe(tpex.fetch_esb_listing_dates, {}, "興櫃掛牌日期"),
     }
     new_listings = screener.find_new_listings(
-        quotes_by_code_all, listing_dates, cfg["new_listing"]["days"])
+        {**quotes_by_code_all, **esb_quotes}, listing_dates, cfg["new_listing"]["days"])
     print(f"[evening] 新掛牌觀察 {len(new_listings)} 檔")
 
     # 題材目錄補齊：見 process_catalog_batch() 說明；每天的例行報告只處理一批，

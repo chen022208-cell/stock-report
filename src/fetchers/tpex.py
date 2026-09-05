@@ -133,3 +133,53 @@ def fetch_listing_dates() -> dict[str, str]:
         if _is_stock_code(code) and listed:
             out[code] = listed
     return out
+
+
+def fetch_esb_listing_dates() -> dict[str, str]:
+    """股票代號 → 興櫃掛牌日期（YYYYMMDD）。興櫃是上市/上櫃之前更早期的階段，
+    跟 fetch_listing_dates()（上櫃）是不同的資料集（t187ap03_R vs _O）。"""
+    if DRY_RUN:
+        return mock.listing_dates_esb()
+    rows = _get("mopsfin_t187ap03_R")
+    if not rows:
+        return {}
+    out: dict[str, str] = {}
+    for row in rows:
+        code = str(row.get("SecuritiesCompanyCode", "")).strip()
+        listed = str(row.get("DateOfListing", "")).strip()
+        if _is_stock_code(code) and listed:
+            out[code] = listed
+    return out
+
+
+def fetch_esb_quotes() -> dict[str, dict]:
+    """興櫃個股當日成交行情，格式對齊 fetch_daily_quotes()。興櫃是議價/搓合
+    市場（不是連續競價），用最新成交價對比前一日均價當漲跌幅的近似值。
+    回傳 {代號: quote}，不是 list——興櫃只用來查特定代號，不像上市/上櫃
+    要整批塞進熱力圖/強勢股掃描（交易機制不同，混進去會失真）。"""
+    if DRY_RUN:
+        return mock.esb_quotes()
+    rows = _get("tpex_esb_latest_statistics")
+    if not rows:
+        return {}
+    out: dict[str, dict] = {}
+    for row in rows:
+        code = str(row.get("SecuritiesCompanyCode", "")).strip()
+        if not _is_stock_code(code):
+            continue
+        close = _num(row.get("LatestPrice"))
+        prev = _num(row.get("PreviousAveragePrice"))
+        if close <= 0:
+            continue
+        change = close - prev
+        out[code] = {
+            "code": code,
+            "name": str(row.get("CompanyName", "")).strip(),
+            "close": close,
+            "change": round(change, 2),
+            "change_pct": round(change / prev * 100, 2) if prev > 0 else 0.0,
+            "volume": _num(row.get("TransactionVolume")),
+            "turnover": 0.0,
+            "market": "esb",
+        }
+    return out
