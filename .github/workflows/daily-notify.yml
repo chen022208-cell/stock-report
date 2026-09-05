@@ -1,0 +1,66 @@
+name: 每日報告 Discord／Telegram 通知
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/_notify_payload.json'
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 取出程式碼
+        uses: actions/checkout@v4
+
+      - name: 讀取暫存檔並送出推播
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ ! -f docs/_notify_payload.json ]; then
+            echo "找不到 docs/_notify_payload.json，略過"
+            exit 0
+          fi
+          python3 <<'PYEOF'
+          import json
+          import os
+          import urllib.request
+
+          payload = json.load(open("docs/_notify_payload.json", encoding="utf-8"))
+          title = payload.get("title", "")
+          body = payload.get("body", "")
+          url = payload.get("url", "")
+
+          text = f"**{title}**\n\n{body}"
+          if url:
+              text += f"\n\n完整報告：{url}/"
+
+          webhook = os.environ.get("DISCORD_WEBHOOK_URL")
+          if webhook:
+              try:
+                  data = json.dumps({"content": text[:2000]}).encode("utf-8")
+                  req = urllib.request.Request(
+                      webhook, data=data, headers={"Content-Type": "application/json"})
+                  urllib.request.urlopen(req, timeout=30)
+                  print("Discord 推播成功")
+              except Exception as exc:
+                  print(f"Discord 推播失敗（不影響 workflow 結果）：{exc}")
+
+          bot_token = os.environ.get("TELEGRAM_BOT_TOKEN")
+          chat_id = os.environ.get("TELEGRAM_CHAT_ID")
+          if bot_token and chat_id:
+              try:
+                  data = json.dumps({"chat_id": chat_id, "text": text[:4000]}).encode("utf-8")
+                  tg_url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
+                  req = urllib.request.Request(
+                      tg_url, data=data, headers={"Content-Type": "application/json"})
+                  urllib.request.urlopen(req, timeout=30)
+                  print("Telegram 推播成功")
+              except Exception as exc:
+                  print(f"Telegram 推播失敗（不影響 workflow 結果）：{exc}")
+          PYEOF

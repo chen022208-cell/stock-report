@@ -6,10 +6,15 @@ Discord Webhook 比 Telegram Bot 更好設定：不用找 @BotFather、不用抓
 """
 from __future__ import annotations
 
+import json
+from pathlib import Path
+
 import requests
 
 from .config import (DISCORD_WEBHOOK_URL, DRY_RUN, TELEGRAM_BOT_TOKEN,
                      TELEGRAM_CHAT_ID, load_config)
+
+NOTIFY_PAYLOAD_PATH = Path(__file__).resolve().parent.parent / "docs" / "_notify_payload.json"
 
 
 def send_discord(text: str) -> bool:
@@ -80,6 +85,18 @@ def send_notification(title: str, body: str = "") -> bool:
         print(build("<b>", "</b>"))
         print("─" * 50)
         return True
+
+    # 在雲端 agent（Pro 排程）跑報告時本機沒有 Discord/Telegram 密鑰，
+    # 沒辦法在這裡直接送出去；先把內容寫成一份 JSON 隨 docs/ 一起 commit，
+    # 有密鑰的 GitHub Actions 偵測到這個檔案變動時再幫忙把通知送出去。
+    try:
+        NOTIFY_PAYLOAD_PATH.write_text(
+            json.dumps({"title": title, "body": body[:1500], "url": _site_base_url()},
+                      ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+    except Exception as exc:
+        print(f"[notify] 寫入推播暫存檔失敗：{exc}")
 
     if not cfg.get("discord_enabled", True) and not cfg.get("telegram_enabled", False):
         print("[notify] Discord 與 Telegram 都在 config.yaml 裡關著，略過推播")
