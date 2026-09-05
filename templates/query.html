@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}查個股 · {{ site_title }}{% endblock %}
+{% block extra_css %}
+  .query-box{display:flex; gap:8px; margin-top:16px;}
+  .query-input{flex:1; background:var(--surface); border:1px solid var(--hairline);
+              border-radius:var(--radius-sm); padding:12px 14px; color:var(--text-primary);
+              font-size:16px; font-family:'JetBrains Mono',monospace;}
+  .query-input:focus{outline:none; border-color:var(--gold);}
+  .query-btn{background:var(--gold); color:#171615; border:none; border-radius:var(--radius-sm);
+             padding:0 20px; font-weight:600; font-size:14px; cursor:pointer;}
+  .query-hint{font-size:12.5px; color:var(--text-muted); margin-top:10px;}
+  .query-recent{margin-top:22px;}
+  .query-chip{display:inline-block; background:var(--surface); border:1px solid var(--hairline);
+             border-radius:20px; padding:7px 14px; margin:0 6px 6px 0; font-size:13px; cursor:pointer;}
+  .query-chip:hover{border-color:var(--gold);}
+{% endblock %}
+{% block content %}
+<header><div class="masthead-label">{{ site_title }}</div>
+<h1 class="masthead-date">查個股</h1></header>
+<p class="commentary" style="margin-top:14px">
+  輸入台股代號，即時抓 TWSE 收盤資料畫出 K 線、MA5/20/60 均線、RSI，並自動判讀多空訊號。
+  純瀏覽器端計算，不經過本站伺服器；上櫃（TPEx）個股目前資料源不支援瀏覽器端查詢。
+</p>
+<div class="query-box">
+  <input type="text" id="query-input" class="query-input" placeholder="例如 2330" inputmode="numeric" maxlength="6">
+  <button class="query-btn" id="query-btn">查詢</button>
+</div>
+<p class="query-hint">按 Enter 或點查詢即可看圖，不用先確認是不是上市股票。</p>
+
+<div class="query-recent">
+  <div class="section-head" style="font-size:13px; color:var(--text-muted); margin-bottom:10px;">常見代號快速查詢</div>
+  {% for code, name in quick_codes %}
+  <span class="query-chip" data-stock-code="{{ code }}" data-stock-name="{{ name }}">{{ code }} {{ name }}</span>
+  {% endfor %}
+</div>
+
+<script>
+  (function () {
+    var input = document.getElementById("query-input");
+    var btn = document.getElementById("query-btn");
+    function go() {
+      var code = (input.value || "").trim();
+      if (!code) return;
+      window.StockChart.open(code, "");
+    }
+    btn.addEventListener("click", go);
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") go();
+    });
+  })();
+</script>
+{% endblock %}
