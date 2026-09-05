@@ -411,7 +411,10 @@
   function fmt(n) { return n == null ? "-" : n.toFixed(2); }
 
   // ── 圖表渲染（lightweight-charts v5，三個 pane：價格/成交量/RSI） ──
-  function renderChart(container, infoEl, daily, period) {
+  // avgOnly = true（興櫃）時畫的是「日均價折線＋當日最高最低」，不是 K 棒：
+  // 興櫃是議價／搓合市場，根本沒有開盤價與收盤價，硬畫 K 棒等於自己編一個
+  // 不存在的實體（曾經拿前一日均價當開盤，畫出一根假的大紅 K）。
+  function renderChart(container, infoEl, daily, period, avgOnly) {
     container.innerHTML = "";
     var bars = aggregate(daily, period);
     if (bars.length < 2) {
@@ -434,14 +437,35 @@
       autoSize: true,
     });
 
-    var candle = chart.addSeries(LightweightCharts.CandlestickSeries, {
-      upColor: "#E15C4F", downColor: "#4FB07A",
-      borderUpColor: "#E15C4F", borderDownColor: "#4FB07A",
-      wickUpColor: "#E15C4F", wickDownColor: "#4FB07A",
-    }, 0);
-    candle.setData(bars.map(function (r) {
-      return { time: r.date, open: r.open, high: r.high, low: r.low, close: r.close };
-    }));
+    var candle;
+    if (avgOnly) {
+      // 興櫃：只有日均價是真的，最高／最低另外用兩條細線標出當日成交區間
+      var band = function (key, color) {
+        var s = chart.addSeries(LightweightCharts.LineSeries, {
+          color: color, lineWidth: 1, lineStyle: 2,
+          priceLineVisible: false, lastValueVisible: false,
+        }, 0);
+        s.setData(bars.map(function (r) { return { time: r.date, value: r[key] }; }));
+        return s;
+      };
+      band("high", "rgba(225,92,79,.45)");
+      band("low", "rgba(79,176,122,.45)");
+      candle = chart.addSeries(LightweightCharts.LineSeries, {
+        color: "#E3AC4E", lineWidth: 2, priceLineVisible: true, lastValueVisible: true,
+      }, 0);
+      candle.setData(bars.map(function (r) {
+        return { time: r.date, value: r.close };
+      }));
+    } else {
+      candle = chart.addSeries(LightweightCharts.CandlestickSeries, {
+        upColor: "#E15C4F", downColor: "#4FB07A",
+        borderUpColor: "#E15C4F", borderDownColor: "#4FB07A",
+        wickUpColor: "#E15C4F", wickDownColor: "#4FB07A",
+      }, 0);
+      candle.setData(bars.map(function (r) {
+        return { time: r.date, open: r.open, high: r.high, low: r.low, close: r.close };
+      }));
+    }
     candle.priceScale().applyOptions({ autoScale: true });
 
     function maLine(vals, color) {
@@ -472,9 +496,13 @@
     var volume = chart.addSeries(LightweightCharts.HistogramSeries, {
       priceFormat: { type: "volume" }, priceLineVisible: false, lastValueVisible: false,
     }, 1);
-    volume.setData(bars.map(function (r) {
+    volume.setData(bars.map(function (r, i) {
+      // 興櫃沒有開盤價，量的紅綠改用「均價比前一日高／低」判斷才有意義
+      var up = avgOnly
+        ? (i > 0 ? r.close >= bars[i - 1].close : true)
+        : r.close >= r.open;
       return { time: r.date, value: r.volume || 0,
-              color: r.close >= r.open ? "rgba(225,92,79,.55)" : "rgba(79,176,122,.55)" };
+              color: up ? "rgba(225,92,79,.55)" : "rgba(79,176,122,.55)" };
     }));
     volume.priceScale().applyOptions({ autoScale: true, scaleMargins: { top: 0.1, bottom: 0 } });
 
@@ -509,10 +537,10 @@
       var extra = markerByTime[r.date]
         ? '<span class="sc-info-marker">' + markerByTime[r.date].join('、') + '</span>' : "";
       infoEl.innerHTML = '<span class="sc-info-date">' + r.date + '</span>'
-        + '<span>開 <b class="mono">' + fmt(r.open) + '</b></span>'
+        + (avgOnly ? "" : '<span>開 <b class="mono">' + fmt(r.open) + '</b></span>')
         + '<span>高 <b class="mono">' + fmt(r.high) + '</b></span>'
         + '<span>低 <b class="mono">' + fmt(r.low) + '</b></span>'
-        + '<span>收 <b class="mono ' + cls + '">' + fmt(r.close) + '</b></span>'
+        + '<span>' + (avgOnly ? "均價" : "收") + ' <b class="mono ' + cls + '">' + fmt(r.close) + '</b></span>'
         + '<span>量 <b class="mono">' + Math.round((r.volume || 0) / 1000).toLocaleString() + '張</b></span>'
         + '<span class="mono ' + cls + '">' + (chg >= 0 ? "+" : "") + fmt(chg) + '（' + (pct >= 0 ? "+" : "") + pct.toFixed(2) + '%）</span>'
         + extra;
@@ -527,10 +555,14 @@
     return { chart: chart, bars: bars, ma5: ma5, ma20: ma20, ma60: ma60, rsi5: rsi5, rsi10: rsi10 };
   }
 
-  function legend() {
+  function legend(avgOnly) {
     return '<div class="sc-legend">'
-      + '<span><i class="sc-dot" style="background:#E15C4F"></i>上漲</span>'
-      + '<span><i class="sc-dot" style="background:#4FB07A"></i>下跌</span>'
+      + (avgOnly
+          ? '<span><i class="sc-line" style="background:#E3AC4E"></i>日均價</span>'
+            + '<span><i class="sc-line" style="background:rgba(225,92,79,.45)"></i>日最高</span>'
+            + '<span><i class="sc-line" style="background:rgba(79,176,122,.45)"></i>日最低</span>'
+          : '<span><i class="sc-dot" style="background:#E15C4F"></i>上漲</span>'
+            + '<span><i class="sc-dot" style="background:#4FB07A"></i>下跌</span>')
       + '<span><i class="sc-line" style="background:#6C93F5"></i>MA5／RSI5</span>'
       + '<span><i class="sc-line" style="background:#E3AC4E"></i>MA20／RSI10</span>'
       + '<span><i class="sc-line" style="background:#B48CE8"></i>MA60</span>'
@@ -609,11 +641,12 @@
       + '</div>'
       + '<div class="sc-info-bar" id="sc-info-bar"></div>'
       + '<div id="sc-chart-container" class="sc-chart-container"></div>'
-      + legend()
+      + legend(!!opts.avgPriceNote)
       + '<div class="sc-grade" id="sc-grade"></div>'
       + '<p class="sc-disclaimer">'
       + (opts.source || "資料來源：TWSE 每日收盤行情，即時於瀏覽器端計算技術指標與標記")
-      + '，僅供研究參考，不構成投資建議。點圖上的標記或拖曳游標可看當天開高低收。</p>';
+      + '，僅供研究參考，不構成投資建議。拖曳游標可看當天'
+      + (opts.avgPriceNote ? '均價與最高最低' : '開高低收') + '。</p>';
 
     var container = document.getElementById("sc-chart-container");
     var infoEl = document.getElementById("sc-info-bar");
@@ -626,7 +659,7 @@
         + '<span class="sc-notes">' + g.notes.join('、') + '</span>';
     }
 
-    var state = renderChart(container, infoEl, daily, "day");
+    var state = renderChart(container, infoEl, daily, "day", !!opts.avgPriceNote);
     renderGrade(state);
 
     function zoom(factor) {
@@ -648,7 +681,7 @@
       btn.addEventListener("click", function () {
         body.querySelectorAll(".sc-tf").forEach(function (b) { b.classList.remove("active"); });
         btn.classList.add("active");
-        state = renderChart(container, infoEl, daily, btn.getAttribute("data-tf"));
+        state = renderChart(container, infoEl, daily, btn.getAttribute("data-tf"), !!opts.avgPriceNote);
         renderGrade(state);
       });
     });
