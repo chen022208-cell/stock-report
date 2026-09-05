@@ -123,9 +123,14 @@
   .theme-row-mini{display:flex; align-items:center; gap:10px; padding:11px 0;
                   border-bottom:1px solid var(--hairline);}
   .theme-row-mini:last-child{border-bottom:none;}
+  a.theme-row-mini{text-decoration:none; color:inherit;}
+  a.theme-row-mini:active{opacity:.7;}
   .theme-row-mini .trm-name{flex:1; font-size:14px; font-weight:500;}
   .theme-row-mini .trm-sum{font-size:12px; color:var(--text-muted); margin-top:2px;}
-  .top-score-card{display:flex; justify-content:space-between; align-items:center;}
+  .top-score-card{display:flex; justify-content:space-between; align-items:center;
+                 text-decoration:none; color:inherit; transition:background .15s;}
+  .top-score-card:hover{background:var(--surface-2);}
+  .top-score-card:active{transform:scale(.98);}
   .top-score-card .tsc-name{font-size:15px; font-weight:600; margin-bottom:3px;}
   .top-score-card .tsc-sub{font-size:12px; color:var(--text-muted);}
   .top-score-card .tsc-num{font-family:'JetBrains Mono',monospace; font-size:26px;
@@ -144,6 +149,8 @@
     <a href="disposition.html" class="">⚠️ 處置</a>
     <a href="themes.html" class="">題材庫</a>
     <a href="archive.html" class="">歷史</a>
+    <a href="weekly/index.html" class="">📅 週報</a>
+    <a href="monthly-deep/index.html" class="">🌍 深度月報</a>
   </nav>
 
   
@@ -197,42 +204,42 @@
 
 
 <div class="section-title">今日焦點個股 <a href="scores.html">看排行 →</a></div>
-<div class="card top-score-card">
+<a href="scores.html#score-1597" class="card top-score-card">
   <div>
     <div class="tsc-name">1597 直得</div>
     <div class="tsc-sub">綜合分最高 · 五面向評分</div>
   </div>
   <div class="tsc-num">78.0</div>
-</div>
+</a>
 
 
 
 <div class="section-title">追蹤中題材 <a href="themes.html">看全部 →</a></div>
 <div class="card">
   
-  <div class="theme-row-mini">
+  <a class="theme-row-mini" href="themes.html#theme-3">
     <div style="flex:1">
       <div class="trm-name">〔國際〕地緣風險推升油價與能源類股</div>
       <div class="trm-sum">美伊軍事衝突升溫，原油價格站上92-95美元，帶動能源類股顯著跑贏大盤</div>
     </div>
     <span class="tag confidence-high">高</span>
-  </div>
+  </a>
   
-  <div class="theme-row-mini">
+  <a class="theme-row-mini" href="articles/金融股-銀行-金控-輪動.html">
     <div style="flex:1">
       <div class="trm-name">金融股(銀行/金控)輪動</div>
       <div class="trm-sum">玉山金與遠東銀同屬金融類股，同步放量上漲，顯示資金短線輪動至金融族群</div>
     </div>
     <span class="tag confidence-mid">中高</span>
-  </div>
+  </a>
   
-  <div class="theme-row-mini">
+  <a class="theme-row-mini" href="themes.html#theme-2">
     <div style="flex:1">
       <div class="trm-name">〔國際〕Fed升息路徑拉鋸戰</div>
       <div class="trm-sum">強勁就業數據＋Warsh鷹派發言推升升息押注，但Waller隨後鴿派言論…</div>
     </div>
     <span class="tag confidence-mid">中高</span>
-  </div>
+  </a>
   
 </div>
 
@@ -303,7 +310,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 08:20</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 12:44</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>

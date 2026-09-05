@@ -18,9 +18,14 @@
   .theme-row-mini{display:flex; align-items:center; gap:10px; padding:11px 0;
                   border-bottom:1px solid var(--hairline);}
   .theme-row-mini:last-child{border-bottom:none;}
+  a.theme-row-mini{text-decoration:none; color:inherit;}
+  a.theme-row-mini:active{opacity:.7;}
   .theme-row-mini .trm-name{flex:1; font-size:14px; font-weight:500;}
   .theme-row-mini .trm-sum{font-size:12px; color:var(--text-muted); margin-top:2px;}
-  .top-score-card{display:flex; justify-content:space-between; align-items:center;}
+  .top-score-card{display:flex; justify-content:space-between; align-items:center;
+                 text-decoration:none; color:inherit; transition:background .15s;}
+  .top-score-card:hover{background:var(--surface-2);}
+  .top-score-card:active{transform:scale(.98);}
   .top-score-card .tsc-name{font-size:15px; font-weight:600; margin-bottom:3px;}
   .top-score-card .tsc-sub{font-size:12px; color:var(--text-muted);}
   .top-score-card .tsc-num{font-family:'JetBrains Mono',monospace; font-size:26px;
@@ -67,26 +72,26 @@
 
 {% if top_score %}
 <div class="section-title">今日焦點個股 <a href="{{ rel }}scores.html">看排行 →</a></div>
-<div class="card top-score-card">
+<a href="{{ rel }}scores.html#score-{{ top_score.code }}" class="card top-score-card">
   <div>
     <div class="tsc-name">{{ top_score.name }}</div>
     <div class="tsc-sub">綜合分最高 · 五面向評分</div>
   </div>
   <div class="tsc-num">{{ top_score.composite }}</div>
-</div>
+</a>
 {% endif %}
 
 {% if top_themes %}
 <div class="section-title">追蹤中題材 <a href="{{ rel }}themes.html">看全部 →</a></div>
 <div class="card">
   {% for t in top_themes %}
-  <div class="theme-row-mini">
+  <a class="theme-row-mini" href="{% if t.deep_dive_slug %}{{ rel }}articles/{{ t.deep_dive_slug }}.html{% else %}{{ rel }}themes.html#theme-{{ t.id }}{% endif %}">
     <div style="flex:1">
       <div class="trm-name">{{ t.name }}</div>
       <div class="trm-sum">{{ t.summary[:36] }}{% if t.summary|length > 36 %}…{% endif %}</div>
     </div>
     <span class="tag confidence-{{ t.confidence }}">{{ t.confidence_label }}</span>
-  </div>
+  </a>
   {% endfor %}
 </div>
 {% endif %}

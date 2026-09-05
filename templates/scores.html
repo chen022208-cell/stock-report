@@ -35,7 +35,7 @@
 <p class="meta">{{ date_label }} · 技術／籌碼／基本／題材四軸皆為規則計算；新聞面尚未評分</p>
 {% if rows %}
 {% for r in rows %}
-<div class="score-card">
+<div class="score-card" id="score-{{ r.code }}">
   <div class="score-head">
     <span class="score-name">{{ r.name }}</span>
     <span class="score-composite">{{ r.composite if r.composite is not none else '—' }}</span>

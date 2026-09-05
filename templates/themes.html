@@ -39,7 +39,7 @@
 {% if active_themes %}
 <div class="section-head">追蹤中</div>
 {% for t in active_themes %}
-<div class="theme-card">
+<div class="theme-card" id="theme-{{ t.id }}">
   <div class="theme-head">
     <span class="theme-name">{% if t.deep_dive_slug %}<a href="articles/{{ t.deep_dive_slug }}.html">{{ t.name }}</a>{% else %}{{ t.name }}{% endif %}</span>
     <span class="tag confidence-{{ t.confidence }}">信心度：{{ t.confidence_label }}</span>
