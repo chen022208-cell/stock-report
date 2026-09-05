@@ -8,7 +8,7 @@
   "use strict";
 
   var cache = {};
-  var MONTHS_BACK = 15;
+  var MONTHS_BACK = 24;
 
   function parseNum(s) {
     if (s === undefined || s === null || s === "") return null;
@@ -156,20 +156,20 @@
       if (ma5[i] == null || ma20[i] == null || ma5[i - 1] == null || ma20[i - 1] == null) continue;
       if (ma5[i - 1] <= ma20[i - 1] && ma5[i] > ma20[i]) {
         markers.push({ time: bars[i].date, position: "belowBar", color: "#E15C4F",
-                      shape: "arrowUp", text: "黃金交叉" });
+                      shape: "arrowUp", size: 0.8, label: "黃金交叉" });
       } else if (ma5[i - 1] >= ma20[i - 1] && ma5[i] < ma20[i]) {
         markers.push({ time: bars[i].date, position: "aboveBar", color: "#4FB07A",
-                      shape: "arrowDown", text: "死亡交叉" });
+                      shape: "arrowDown", size: 0.8, label: "死亡交叉" });
       }
     }
     for (var j = 1; j < bars.length; j++) {
       if (rsi[j] == null) continue;
       if (rsi[j] >= 70 && (rsi[j - 1] == null || rsi[j - 1] < 70)) {
         markers.push({ time: bars[j].date, position: "aboveBar", color: "#E3AC4E",
-                      shape: "circle", text: "RSI超買" });
+                      shape: "circle", size: 0.6, label: "RSI超買" });
       } else if (rsi[j] <= 30 && (rsi[j - 1] == null || rsi[j - 1] > 30)) {
         markers.push({ time: bars[j].date, position: "belowBar", color: "#43BFAE",
-                      shape: "circle", text: "RSI超賣" });
+                      shape: "circle", size: 0.6, label: "RSI超賣" });
       }
     }
     // 價量背離：找近 60 根裡的高點/低點，比較股價與成交量方向是否一致
@@ -185,7 +185,7 @@
         if (prevHighIdx != null && bars[k].high > bars[prevHighIdx].high &&
             (bars[k].volume || 0) < (bars[prevHighIdx].volume || 0) * 0.8) {
           markers.push({ time: bars[k].date, position: "aboveBar", color: "#B48CE8",
-                        shape: "arrowDown", text: "頂背離" });
+                        shape: "arrowDown", size: 0.7, label: "頂背離（價創新高但量縮）" });
         }
       }
       if (isLow) {
@@ -193,7 +193,7 @@
         if (prevLowIdx != null && bars[k].low < bars[prevLowIdx].low &&
             (bars[k].volume || 0) < (bars[prevLowIdx].volume || 0) * 0.8) {
           markers.push({ time: bars[k].date, position: "belowBar", color: "#6C93F5",
-                        shape: "arrowUp", text: "底背離" });
+                        shape: "arrowUp", size: 0.7, label: "底背離（價創新低但量縮）" });
         }
       }
     }
@@ -218,7 +218,7 @@
   function fmt(n) { return n == null ? "-" : n.toFixed(2); }
 
   // ── 圖表渲染（lightweight-charts v5，三個 pane：價格/成交量/RSI） ──
-  function renderChart(container, daily, period) {
+  function renderChart(container, infoEl, daily, period) {
     container.innerHTML = "";
     var bars = aggregate(daily, period);
     if (bars.length < 2) {
@@ -228,13 +228,16 @@
     var closes = bars.map(function (r) { return r.close; });
     var ma5 = sma(closes, 5), ma20 = sma(closes, 20), ma60 = sma(closes, 60);
     var rsi = computeRSI(closes, 14);
+    var barByTime = {};
+    bars.forEach(function (r, i) { barByTime[r.date] = i; });
 
     var chart = LightweightCharts.createChart(container, {
-      layout: { background: { color: "transparent" }, textColor: "#ABA398" },
-      grid: { vertLines: { color: "#38332E" }, horzLines: { color: "#38332E" } },
+      layout: { background: { color: "transparent" }, textColor: "#ABA398", fontSize: 11 },
+      grid: { vertLines: { color: "#38332E" }, horzLines: { color: "#2A2725" } },
       timeScale: { timeVisible: false, borderColor: "#38332E" },
       rightPriceScale: { borderColor: "#38332E" },
-      height: 380,
+      crosshair: { mode: LightweightCharts.CrosshairMode.Normal },
+      height: 460,
       autoSize: true,
     });
 
@@ -246,6 +249,7 @@
     candle.setData(bars.map(function (r) {
       return { time: r.date, open: r.open, high: r.high, low: r.low, close: r.close };
     }));
+    candle.priceScale().applyOptions({ autoScale: true });
 
     function maLine(vals, color) {
       var s = chart.addSeries(LightweightCharts.LineSeries, {
@@ -259,8 +263,17 @@
     maLine(ma5, "#6C93F5"); maLine(ma20, "#E3AC4E"); maLine(ma60, "#B48CE8");
 
     var markers = buildMarkers(bars, ma5, ma20, rsi);
+    var markerByTime = {};
+    markers.forEach(function (mk) {
+      (markerByTime[mk.time] = markerByTime[mk.time] || []).push(mk.label);
+    });
     if (markers.length && LightweightCharts.createSeriesMarkers) {
-      LightweightCharts.createSeriesMarkers(candle, markers);
+      // 不放文字，只用形狀+顏色標點，避免密集的日線圖擠成一片看不清楚；
+      // 對應說明改成 hover/點選時在資訊列顯示（見下面 crosshair 訂閱）。
+      LightweightCharts.createSeriesMarkers(candle, markers.map(function (mk) {
+        return { time: mk.time, position: mk.position, color: mk.color,
+                 shape: mk.shape, size: mk.size };
+      }));
     }
 
     var volume = chart.addSeries(LightweightCharts.HistogramSeries, {
@@ -270,6 +283,7 @@
       return { time: r.date, value: r.volume || 0,
               color: r.close >= r.open ? "rgba(225,92,79,.55)" : "rgba(79,176,122,.55)" };
     }));
+    volume.priceScale().applyOptions({ autoScale: true, scaleMargins: { top: 0.1, bottom: 0 } });
 
     var rsiSeries = chart.addSeries(LightweightCharts.LineSeries, {
       color: "#43BFAE", lineWidth: 1.4, priceLineVisible: false, lastValueVisible: true,
@@ -277,13 +291,37 @@
     rsiSeries.setData(bars.map(function (r, i) {
       return rsi[i] == null ? null : { time: r.date, value: rsi[i] };
     }).filter(Boolean));
+    rsiSeries.priceScale().applyOptions({ autoScale: true });
 
     try {
       var panes = chart.panes();
-      if (panes[0] && panes[0].setStretchFactor) panes[0].setStretchFactor(3);
-      if (panes[1] && panes[1].setStretchFactor) panes[1].setStretchFactor(1);
-      if (panes[2] && panes[2].setStretchFactor) panes[2].setStretchFactor(1);
+      if (panes[0] && panes[0].setStretchFactor) panes[0].setStretchFactor(4);
+      if (panes[1] && panes[1].setStretchFactor) panes[1].setStretchFactor(1.3);
+      if (panes[2] && panes[2].setStretchFactor) panes[2].setStretchFactor(1.3);
     } catch (e) { /* 舊版沒有 panes()，忽略即可 */ }
+
+    function showInfo(idx) {
+      if (idx == null || !bars[idx]) { infoEl.innerHTML = ""; return; }
+      var r = bars[idx];
+      var chg = idx > 0 ? r.close - bars[idx - 1].close : 0;
+      var pct = idx > 0 && bars[idx - 1].close ? chg / bars[idx - 1].close * 100 : 0;
+      var cls = chg >= 0 ? "up" : "down";
+      var extra = markerByTime[r.date]
+        ? '<span class="sc-info-marker">' + markerByTime[r.date].join('、') + '</span>' : "";
+      infoEl.innerHTML = '<span class="sc-info-date">' + r.date + '</span>'
+        + '<span>開 <b class="mono">' + fmt(r.open) + '</b></span>'
+        + '<span>高 <b class="mono">' + fmt(r.high) + '</b></span>'
+        + '<span>低 <b class="mono">' + fmt(r.low) + '</b></span>'
+        + '<span>收 <b class="mono ' + cls + '">' + fmt(r.close) + '</b></span>'
+        + '<span>量 <b class="mono">' + Math.round((r.volume || 0) / 1000).toLocaleString() + '張</b></span>'
+        + '<span class="mono ' + cls + '">' + (chg >= 0 ? "+" : "") + fmt(chg) + '（' + (pct >= 0 ? "+" : "") + pct.toFixed(2) + '%）</span>'
+        + extra;
+    }
+    showInfo(bars.length - 1);
+    chart.subscribeCrosshairMove(function (param) {
+      if (!param || !param.time) { showInfo(bars.length - 1); return; }
+      showInfo(barByTime[param.time]);
+    });
 
     chart.timeScale().fitContent();
     return { chart: chart, bars: bars, ma5: ma5, ma20: ma20, ma60: ma60, rsi: rsi };
@@ -353,13 +391,20 @@
         + '<button class="sc-tf active" data-tf="day">日</button>'
         + '<button class="sc-tf" data-tf="week">週</button>'
         + '<button class="sc-tf" data-tf="month">月</button>'
+        + '<span class="sc-zoom-group">'
+        + '<button class="sc-zoom" id="sc-zoom-out" aria-label="縮小" title="縮小">－</button>'
+        + '<button class="sc-zoom" id="sc-zoom-fit" aria-label="還原" title="還原">⤢</button>'
+        + '<button class="sc-zoom" id="sc-zoom-in" aria-label="放大" title="放大">＋</button>'
+        + '</span>'
         + '</div>'
+        + '<div class="sc-info-bar" id="sc-info-bar"></div>'
         + '<div id="sc-chart-container" class="sc-chart-container"></div>'
         + legend()
         + '<div class="sc-grade" id="sc-grade"></div>'
-        + '<p class="sc-disclaimer">資料來源：TWSE 每日收盤行情，即時於瀏覽器端計算技術指標與標記，僅供研究參考，不構成投資建議。</p>';
+        + '<p class="sc-disclaimer">資料來源：TWSE 每日收盤行情，即時於瀏覽器端計算技術指標與標記，僅供研究參考，不構成投資建議。點圖上的標記或拖曳游標可看當天開高低收。</p>';
 
       var container = document.getElementById("sc-chart-container");
+      var infoEl = document.getElementById("sc-info-bar");
       var gradeEl = document.getElementById("sc-grade");
 
       function renderGrade(state) {
@@ -369,14 +414,29 @@
           + '<span class="sc-notes">' + g.notes.join('、') + '</span>';
       }
 
-      var state = renderChart(container, daily, "day");
+      var state = renderChart(container, infoEl, daily, "day");
       renderGrade(state);
+
+      function zoom(factor) {
+        if (!state) return;
+        var ts = state.chart.timeScale();
+        var range = ts.getVisibleLogicalRange();
+        if (!range) return;
+        var center = (range.from + range.to) / 2;
+        var half = (range.to - range.from) / 2 * factor;
+        ts.setVisibleLogicalRange({ from: center - half, to: center + half });
+      }
+      document.getElementById("sc-zoom-in").addEventListener("click", function () { zoom(0.7); });
+      document.getElementById("sc-zoom-out").addEventListener("click", function () { zoom(1 / 0.7); });
+      document.getElementById("sc-zoom-fit").addEventListener("click", function () {
+        if (state) state.chart.timeScale().fitContent();
+      });
 
       body.querySelectorAll(".sc-tf").forEach(function (btn) {
         btn.addEventListener("click", function () {
           body.querySelectorAll(".sc-tf").forEach(function (b) { b.classList.remove("active"); });
           btn.classList.add("active");
-          state = renderChart(container, daily, btn.getAttribute("data-tf"));
+          state = renderChart(container, infoEl, daily, btn.getAttribute("data-tf"));
           renderGrade(state);
         });
       });
