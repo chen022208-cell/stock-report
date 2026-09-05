@@ -185,8 +185,19 @@
   .catalog-item{padding:10px 0; border-bottom:1px solid var(--hairline);}
   .catalog-item:last-child{border-bottom:none;}
   .catalog-item .ci-name{font-size:13.5px; font-weight:600; margin-bottom:3px;
-                         display:flex; align-items:center; gap:6px;}
+                         display:flex; align-items:center; gap:6px; flex-wrap:wrap;}
   .catalog-item .ci-thesis{font-size:12.5px; color:var(--text-muted); line-height:1.5;}
+  .ci-stocks{margin-top:6px; display:flex; flex-wrap:wrap; gap:6px;}
+  .ci-stock-chip{font-size:12px; padding:2px 8px; border-radius:999px; cursor:pointer;
+                 border:1px solid var(--hairline); background:var(--surface);}
+  .ci-stock-chip.up{color:var(--red); border-color:var(--red);}
+  .ci-stock-chip.down{color:var(--green); border-color:var(--green);}
+  .ci-swot{margin-top:8px; padding:10px 12px; background:var(--surface);
+           border-radius:var(--radius-sm); font-size:12.5px; line-height:1.6;}
+  .ci-swot summary{cursor:pointer; font-size:12.5px; color:var(--gold); font-weight:600;}
+  .ci-swot dl{margin:8px 0 0; display:grid; grid-template-columns:auto 1fr; gap:4px 8px;}
+  .ci-swot dt{color:var(--text-muted); white-space:nowrap;}
+  .ci-swot dd{margin:0;}
 
 </style>
 </head>
@@ -267,123 +278,588 @@
   <div class="catalog-list">
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>CMOS 影像感測（CIS）</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>CMOS 影像感測（CIS）
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">車用多鏡頭與機器視覺推升出貨</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6789" data-stock-name="采鈺">
+          6789 采鈺 +0.54%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3530" data-stock-name="晶相光">
+          3530 晶相光 +0.87%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>CoWoS / 先進封裝</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>CoWoS / 先進封裝
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">AI 晶片對 2.5D/3D 封裝需求爆發，產能持續滿載</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2330" data-stock-name="台積電">
+          2330 台積電 +0.84%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3374" data-stock-name="精材">
+          3374 精材 +7.50%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6239" data-stock-name="力成">
+          6239 力成 +0.55%
+        </span>
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="3711" data-stock-name="日月光投控">
+          3711 日月光投控 -0.17%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>IC 設計｜HPC 與網通 SoC</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>IC 設計｜HPC 與網通 SoC
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">資料中心交換器、AI 加速、5G/WiFi 核心晶片</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2454" data-stock-name="聯發科">
+          2454 聯發科 +1.73%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3443" data-stock-name="創意">
+          3443 創意 +0.17%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>IC 設計｜記憶體控制</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>IC 設計｜記憶體控制
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">SSD 主控、UFS、車用記憶體控制晶片</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="8299" data-stock-name="群聯">
+          8299 群聯 +0.75%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>IC 設計｜類比與功率管理</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>IC 設計｜類比與功率管理
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">電源管理、感測訊號鏈、車規類比含金量提升</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="4966" data-stock-name="譜瑞-KY">
+          4966 譜瑞-KY +1.97%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6202" data-stock-name="盛群">
+          6202 盛群 +3.16%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>IC 設計｜驅動 IC（DDIC）</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>IC 設計｜驅動 IC（DDIC）
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">面板驅動與觸控整合，OLED 佔比上升</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="3034" data-stock-name="聯詠">
+          3034 聯詠 -0.57%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3545" data-stock-name="敦泰">
+          3545 敦泰 +0.60%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>MEMS 與感測元件</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>MEMS 與感測元件
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">慣性、壓力、環境感測隨 AIoT 與車用擴散</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3227" data-stock-name="原相">
+          3227 原相 +0.26%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>先進製程（3nm/2nm）</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>先進製程（3nm/2nm）
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">台積電製程領先擴大代工價差，設備與材料供應鏈受惠</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2330" data-stock-name="台積電">
+          2330 台積電 +0.84%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3131" data-stock-name="弘塑">
+          3131 弘塑 +0.85%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>光罩</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>光罩
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">先進製程與特殊製程光罩產能吃緊</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2374" data-stock-name="佳能">
+          2374 佳能 +0.59%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>化合物半導體磊晶</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>化合物半導體磊晶
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">磷化銦、砷化鎵磊晶隨光通訊與感測需求走強</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3105" data-stock-name="穩懋">
+          3105 穩懋 +0.67%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2455" data-stock-name="全新">
+          2455 全新 +0.57%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>半導體前段設備</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>半導體前段設備
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">晶圓廠資本支出上行，濕製程、量測、真空設備在地化</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3680" data-stock-name="家登">
+          3680 家登 +1.17%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>半導體後段設備｜測試介面</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>半導體後段設備｜測試介面
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">探針卡、測試座隨先進封裝與 HPC 測試複雜度提升</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6510" data-stock-name="精測">
+          6510 精測 +0.00%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6223" data-stock-name="旺矽">
+          6223 旺矽 +2.18%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>客製 ASIC 設計服務</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>客製 ASIC 設計服務
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">CSP「去輝達化」自研晶片，NRE 與量產統包訂單湧入</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3443" data-stock-name="創意">
+          3443 創意 +0.17%
+        </span>
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="3035" data-stock-name="智原">
+          3035 智原 -0.28%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>封裝材料｜ABF 載板</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>封裝材料｜ABF 載板
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">高層數 ABF 載板供不應求，價格與稼動率齊揚</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="3037" data-stock-name="欣興">
+          3037 欣興 -2.28%
+        </span>
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="8046" data-stock-name="南電">
+          8046 南電 -2.31%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2313" data-stock-name="華通">
+          2313 華通 +5.72%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>封裝材料｜BT 載板</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>封裝材料｜BT 載板
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">記憶體與射頻載板需求回溫</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="8046" data-stock-name="南電">
+          8046 南電 -2.31%
+        </span>
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="3037" data-stock-name="欣興">
+          3037 欣興 -2.28%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>晶圓代工｜成熟製程</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>晶圓代工｜成熟製程
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">特殊製程（BCD、RF、CIS）差異化避開殺價</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="5347" data-stock-name="世界">
+          5347 世界 +2.04%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6770" data-stock-name="力積電">
+          6770 力積電 +1.03%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>矽光子與 CPO</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>矽光子與 CPO
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">光引擎與電晶片共封裝，2027 起放量</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="4979" data-stock-name="華星光">
+          4979 華星光 +9.97%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="4966" data-stock-name="譜瑞-KY">
+          4966 譜瑞-KY +1.97%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>矽晶圓</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>矽晶圓
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">12 吋供需再平衡，長約價落底回升</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6488" data-stock-name="環球晶">
+          6488 環球晶 +5.83%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>矽智財（IP Core）</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>矽智財（IP Core）
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">AI SoC 設計外包化，IP 授權金與權利金雙成長</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="3035" data-stock-name="智原">
+          3035 智原 -0.28%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6533" data-stock-name="晶心科">
+          6533 晶心科 +0.00%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>碳化矽基板</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>碳化矽基板
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">6→8 吋基板轉換，長晶良率是關鍵瓶頸</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3707" data-stock-name="漢磊">
+          3707 漢磊 +2.48%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>第三代半導體｜GaN</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>第三代半導體｜GaN
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">快充與資料中心電源滲透率拉升</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2455" data-stock-name="全新">
+          2455 全新 +0.57%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3105" data-stock-name="穩懋">
+          3105 穩懋 +0.67%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>第三代半導體｜SiC</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>第三代半導體｜SiC
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">電動車與工業電源帶動碳化矽長晶、磊晶、元件</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3707" data-stock-name="漢磊">
+          3707 漢磊 +2.48%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="5347" data-stock-name="世界">
+          5347 世界 +2.04%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>記憶體｜DRAM 與模組</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>記憶體｜DRAM 與模組
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">HBM 排擠標準型產能，現貨與合約價反轉</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2408" data-stock-name="南亞科">
+          2408 南亞科 +3.87%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3260" data-stock-name="威剛">
+          3260 威剛 +1.39%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>記憶體｜NAND 與模組</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>記憶體｜NAND 與模組
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">企業級 SSD 拉貨，原廠減產去化庫存</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3260" data-stock-name="威剛">
+          3260 威剛 +1.39%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="5289" data-stock-name="宜鼎">
+          5289 宜鼎 +1.12%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
   </div>
@@ -394,78 +870,525 @@
   <div class="catalog-list">
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>AI 伺服器代工</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>AI 伺服器代工
+        <span class="tag confidence-high">🔥 當紅</span>
+      </div>
       <div class="ci-thesis">GB 系列機櫃整櫃出貨，ODM 營收與毛利同步跳升</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2317" data-stock-name="鴻海">
+          2317 鴻海 +3.43%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6669" data-stock-name="緯穎">
+          6669 緯穎 +3.64%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2382" data-stock-name="廣達">
+          2382 廣達 +2.99%
+        </span>
+        
+      </div>
+      
+      
+      
+      
+      <details class="ci-swot">
+        <summary>📋 2317 鴻海 公司介紹／SWOT</summary>
+        <p>全球最大電子代工廠，近年從消費性電子（iPhone代工）積極轉型佈局AI伺服器機櫃組裝與電動車代工，是輝達GB系列伺服器機櫃的主要組裝夥伴之一。</p>
+        <dl>
+          <dt>優勢</dt><dd>全球最大規模的電子代工產能與垂直整合供應鏈能力，客戶涵蓋蘋果、輝達等一線品牌，AI伺服器與雲端基礎設施訂單快速放量。</dd>
+          <dt>弱點</dt><dd>傳統消費性電子代工毛利率偏低，業務組合仍高度依賴少數大客戶（蘋果、輝達），營收結構轉型尚未完全反映在毛利率上。</dd>
+          <dt>機會</dt><dd>AI伺服器機櫃與GB系列出貨持續放量，加上電動車代工布局，長期有望拉高整體毛利率結構。</dd>
+          <dt>威脅</dt><dd>（推論）美中貿易政策與關稅變化可能影響其中國產能布局，同業廣達、緯創在AI伺服器代工市占的競爭也可能壓縮訂單分配。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      <details class="ci-swot">
+        <summary>📋 6669 緯穎 公司介紹／SWOT</summary>
+        <p>雲端伺服器與資料中心解決方案設計代工廠，由緯創分割獨立，主要客戶為美系大型雲端服務商，近年受惠AI伺服器機櫃訂單大幅放量。</p>
+        <dl>
+          <dt>優勢</dt><dd>專注雲端與AI伺服器ODM設計代工，跟主要雲端服務商建立深度共同設計關係，客製化能力是主要進入門檻。</dd>
+          <dt>弱點</dt><dd>客戶集中度高，少數美系雲端服務商占營收大宗，單一客戶資本支出計畫調整會直接反映在營收上。</dd>
+          <dt>機會</dt><dd>AI伺服器與GB系列機櫃需求持續放量，加上液冷散熱與高功率機櫃技術升級，帶動單機櫃價值量與毛利率同步提升。</dd>
+          <dt>威脅</dt><dd>（推論）雲端資本支出若因景氣或AI投資回報疑慮而放緩，訂單能見度可能受影響；同業鴻海、廣達在同一客群的競爭也存在。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      <details class="ci-swot">
+        <summary>📋 2382 廣達 公司介紹／SWOT</summary>
+        <p>全球主要筆記型電腦代工廠之一，近年積極轉型佈局AI伺服器與雲端基礎設施代工，是輝達GB系列伺服器機櫃的主要組裝夥伴之一。</p>
+        <dl>
+          <dt>優勢</dt><dd>具備長期筆電代工累積的大規模製造與供應鏈管理能力，成功切入AI伺服器機櫃組裝，客戶包含輝達與多家雲端服務商。</dd>
+          <dt>弱點</dt><dd>傳統筆電代工業務毛利率偏低且終端需求成長趨緩，業務組合轉型仍在進行中，AI伺服器占營收比重仍待觀察。</dd>
+          <dt>機會</dt><dd>AI伺服器機櫃與液冷散熱系統整機出貨放量，加上雲端服務商資本支出持續增加，有望帶動整體毛利率結構改善。</dd>
+          <dt>威脅</dt><dd>（推論）筆電代工業務面臨同業競爭與終端需求波動；AI伺服器代工訂單集中在少數雲端大客戶，客戶議價能力風險存在。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>CCL｜銅箔基板（高速料)</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>CCL｜銅箔基板（高速料)
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">Low-loss 材料世代升級，料號認證綁定</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6274" data-stock-name="台燿">
+          6274 台燿 +1.49%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6213" data-stock-name="聯茂">
+          6213 聯茂 +0.98%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>PCB｜AI 加速卡與交換器板</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>PCB｜AI 加速卡與交換器板
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">高層數、高階材料 PCB 單價與面積雙升</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="3037" data-stock-name="欣興">
+          3037 欣興 -2.28%
+        </span>
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="8046" data-stock-name="南電">
+          8046 南電 -2.31%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2316" data-stock-name="楠梓電">
+          2316 楠梓電 +1.31%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>交換器 / 白牌網通</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>交換器 / 白牌網通
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">資料中心網路白牌化，Tomahawk 世代交換器放量</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2345" data-stock-name="智邦">
+          2345 智邦 +0.48%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6669" data-stock-name="緯穎">
+          6669 緯穎 +3.64%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>伺服器電源</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>伺服器電源
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">機櫃功率密度飆升，電源模組單機價值量倍增</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2308" data-stock-name="台達電">
+          2308 台達電 +3.69%
+        </span>
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="6409" data-stock-name="旭隼">
+          6409 旭隼 -0.72%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>光通訊零組件</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>光通訊零組件
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">雷射二極體、光被動元件、連接器</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3081" data-stock-name="聯亞">
+          3081 聯亞 +1.60%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>快接頭 / 管路（Quick Disconnect）</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>快接頭 / 管路（Quick Disconnect）
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">液冷系統防漏連接件寡占、認證門檻高</div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>機櫃 / 機構件 / 導軌</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>機櫃 / 機構件 / 導軌
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">整櫃化帶動鈑金、滑軌、Busbar 價值量</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2059" data-stock-name="川湖">
+          2059 川湖 +3.05%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>氣冷散熱｜3D VC / 均熱片</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>氣冷散熱｜3D VC / 均熱片
+        <span class="tag confidence-high">🔥 當紅</span>
+      </div>
       <div class="ci-thesis">高瓦數 GPU 對氣冷散熱規格升級</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3017" data-stock-name="奇鋐">
+          3017 奇鋐 +8.18%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3324" data-stock-name="雙鴻">
+          3324 雙鴻 +10.00%
+        </span>
+        
+      </div>
+      
+      
+      
+      
+      <details class="ci-swot">
+        <summary>📋 3017 奇鋐 公司介紹／SWOT</summary>
+        <p>散熱模組廠，產品線涵蓋筆電與伺服器均熱板、氣冷散熱鰭片與液冷水冷板，是輝達AI伺服器散熱模組的主要供應商之一。</p>
+        <dl>
+          <dt>優勢</dt><dd>均熱板與VC散熱技術長期深耕，是輝達與雲端服務商AI伺服器散熱模組的核心供應商，客戶認證門檻高。</dd>
+          <dt>弱點</dt><dd>業務組合仍含相當比例筆電與消費性電子散熱模組，毛利率不如純AI伺服器散熱業務，且高度仰賴少數大客戶。</dd>
+          <dt>機會</dt><dd>高瓦數GPU推升散熱規格升級、液冷滲透率提升，帶動散熱模組單機價值量與毛利率同步上升。</dd>
+          <dt>威脅</dt><dd>（推論）同業雙鴻在液冷布局的競爭激烈，且散熱模組原材料（銅、鋁）成本波動可能壓縮毛利率。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      <details class="ci-swot">
+        <summary>📋 3324 雙鴻 公司介紹／SWOT</summary>
+        <p>散熱模組廠，產品涵蓋伺服器與資料中心氣冷、液冷散熱解決方案，近年積極擴大AI伺服器液冷水冷板產能。</p>
+        <dl>
+          <dt>優勢</dt><dd>液冷水冷板與CDU技術布局領先，是雲端服務商AI伺服器液冷散熱系統的主要供應商之一。</dd>
+          <dt>弱點</dt><dd>液冷散熱業務仍在放量初期，產能與良率爬坡需要時間，業務組合仍含部分消費性電子散熱、毛利率較低。</dd>
+          <dt>機會</dt><dd>液冷從選配轉標配，加上高功率機櫃液冷系統滲透率提升，帶動單機價值量與毛利率同步上升。</dd>
+          <dt>威脅</dt><dd>（推論）同業奇鋐在氣冷／液冷布局的競爭，以及原材料成本波動可能壓縮毛利率。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>液冷散熱｜水冷板 / CDU</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>液冷散熱｜水冷板 / CDU
+        <span class="tag confidence-high">🔥 當紅</span>
+      </div>
       <div class="ci-thesis">液冷從選配轉標配，冷卻液分配單元需求起量</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3017" data-stock-name="奇鋐">
+          3017 奇鋐 +8.18%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3324" data-stock-name="雙鴻">
+          3324 雙鴻 +10.00%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2308" data-stock-name="台達電">
+          2308 台達電 +3.69%
+        </span>
+        
+      </div>
+      
+      
+      
+      
+      <details class="ci-swot">
+        <summary>📋 3017 奇鋐 公司介紹／SWOT</summary>
+        <p>散熱模組廠，產品線涵蓋筆電與伺服器均熱板、氣冷散熱鰭片與液冷水冷板，是輝達AI伺服器散熱模組的主要供應商之一。</p>
+        <dl>
+          <dt>優勢</dt><dd>均熱板與VC散熱技術長期深耕，是輝達與雲端服務商AI伺服器散熱模組的核心供應商，客戶認證門檻高。</dd>
+          <dt>弱點</dt><dd>業務組合仍含相當比例筆電與消費性電子散熱模組，毛利率不如純AI伺服器散熱業務，且高度仰賴少數大客戶。</dd>
+          <dt>機會</dt><dd>高瓦數GPU推升散熱規格升級、液冷滲透率提升，帶動散熱模組單機價值量與毛利率同步上升。</dd>
+          <dt>威脅</dt><dd>（推論）同業雙鴻在液冷布局的競爭激烈，且散熱模組原材料（銅、鋁）成本波動可能壓縮毛利率。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      <details class="ci-swot">
+        <summary>📋 3324 雙鴻 公司介紹／SWOT</summary>
+        <p>散熱模組廠，產品涵蓋伺服器與資料中心氣冷、液冷散熱解決方案，近年積極擴大AI伺服器液冷水冷板產能。</p>
+        <dl>
+          <dt>優勢</dt><dd>液冷水冷板與CDU技術布局領先，是雲端服務商AI伺服器液冷散熱系統的主要供應商之一。</dd>
+          <dt>弱點</dt><dd>液冷散熱業務仍在放量初期，產能與良率爬坡需要時間，業務組合仍含部分消費性電子散熱、毛利率較低。</dd>
+          <dt>機會</dt><dd>液冷從選配轉標配，加上高功率機櫃液冷系統滲透率提升，帶動單機價值量與毛利率同步上升。</dd>
+          <dt>威脅</dt><dd>（推論）同業奇鋐在氣冷／液冷布局的競爭，以及原材料成本波動可能壓縮毛利率。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      <details class="ci-swot">
+        <summary>📋 2308 台達電 公司介紹／SWOT</summary>
+        <p>全球電源與散熱管理領導廠商，產品線涵蓋伺服器電源、資料中心液冷CDU與工業自動化，是AI伺服器機櫃電源與液冷系統的主要供應商之一。</p>
+        <dl>
+          <dt>優勢</dt><dd>電源轉換效率與散熱系統整合技術長期領先，客戶涵蓋輝達、雲端服務商與工業自動化大廠，產品線多元分散單一客戶風險。</dd>
+          <dt>弱點</dt><dd>業務組合橫跨電源、工業自動化、電動車零組件等多領域，AI伺服器占營收比重相對分散，成長爆發力不如純散熱／電源標的。</dd>
+          <dt>機會</dt><dd>資料中心高壓直流供電與液冷系統需求同步放量，帶動電源與散熱兩大事業群營收同步成長。</dd>
+          <dt>威脅</dt><dd>（推論）電源與散熱領域同業競爭者眾多，原材料成本與匯率波動也可能影響毛利率。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>資料中心機電與不斷電</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>資料中心機電與不斷電
+        <span class="tag confidence-high">🔥 當紅</span>
+      </div>
       <div class="ci-thesis">高壓直流、UPS、柴油發電機、配電盤</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2308" data-stock-name="台達電">
+          2308 台達電 +3.69%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="1519" data-stock-name="華城">
+          1519 華城 +3.32%
+        </span>
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="6409" data-stock-name="旭隼">
+          6409 旭隼 -0.72%
+        </span>
+        
+      </div>
+      
+      
+      
+      
+      <details class="ci-swot">
+        <summary>📋 2308 台達電 公司介紹／SWOT</summary>
+        <p>全球電源與散熱管理領導廠商，產品線涵蓋伺服器電源、資料中心液冷CDU與工業自動化，是AI伺服器機櫃電源與液冷系統的主要供應商之一。</p>
+        <dl>
+          <dt>優勢</dt><dd>電源轉換效率與散熱系統整合技術長期領先，客戶涵蓋輝達、雲端服務商與工業自動化大廠，產品線多元分散單一客戶風險。</dd>
+          <dt>弱點</dt><dd>業務組合橫跨電源、工業自動化、電動車零組件等多領域，AI伺服器占營收比重相對分散，成長爆發力不如純散熱／電源標的。</dd>
+          <dt>機會</dt><dd>資料中心高壓直流供電與液冷系統需求同步放量，帶動電源與散熱兩大事業群營收同步成長。</dd>
+          <dt>威脅</dt><dd>（推論）電源與散熱領域同業競爭者眾多，原材料成本與匯率波動也可能影響毛利率。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      <details class="ci-swot">
+        <summary>📋 1519 華城 公司介紹／SWOT</summary>
+        <p>專營大型電力變壓器與配電設備，是台灣電網升級與資料中心用電基礎設施的主要供應商之一，近年受惠資料中心與再生能源併網需求。</p>
+        <dl>
+          <dt>優勢</dt><dd>大型電力變壓器技術與產能國內領先，是台電與大型資料中心用電升壓／降壓設備的核心供應商，訂單能見度隨基礎建設需求延長。</dd>
+          <dt>弱點</dt><dd>訂單交期長、產能擴充需要時間，營收確認具有一定波動性，原材料（矽鋼片、銅）成本波動也會影響毛利率。</dd>
+          <dt>機會</dt><dd>資料中心用電需求快速成長帶動變壓器與配電設備訂單，加上電網升級與綠能併網長期趨勢，訂單能見度延長。</dd>
+          <dt>威脅</dt><dd>（推論）原材料成本波動與同業競爭可能壓縮毛利率，大型基礎建設專案也受政策與資金排程影響進度。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      <details class="ci-swot">
+        <summary>📋 6409 旭隼 公司介紹／SWOT</summary>
+        <p>不斷電系統（UPS）與電源轉換器製造商，產品應用於資料中心、太陽能逆變器與工業電源，是資料中心備援供電系統的主要供應商之一。</p>
+        <dl>
+          <dt>優勢</dt><dd>不斷電系統與電源轉換技術長期深耕，客戶涵蓋國際品牌與資料中心系統整合商，產品線橫跨UPS與太陽能逆變器分散風險。</dd>
+          <dt>弱點</dt><dd>規模相對電源大廠小，議價能力與規模經濟較弱，部分業務仍受消費性／工業電源景氣影響。</dd>
+          <dt>機會</dt><dd>資料中心與AI伺服器機房備援供電需求同步成長，帶動UPS與電源轉換設備訂單放量。</dd>
+          <dt>威脅</dt><dd>（推論）同業大型電源廠競爭，以及原材料與匯率波動可能影響毛利率。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>邊緣 AI 與工業電腦</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>邊緣 AI 與工業電腦
+        <span class="tag confidence-high">🔥 當紅</span>
+      </div>
       <div class="ci-thesis">推論下沉到端側，IPC 廠切入 AI 邊緣盒</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2395" data-stock-name="研華">
+          2395 研華 +5.49%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3652" data-stock-name="精聯">
+          3652 精聯 +3.93%
+        </span>
+        
+      </div>
+      
+      
+      
+      
+      <details class="ci-swot">
+        <summary>📋 2395 研華 公司介紹／SWOT</summary>
+        <p>工業電腦與物聯網解決方案領導廠商，產品涵蓋工業級主機板、嵌入式系統與邊緣運算平台，近年積極布局AI邊緣運算應用。</p>
+        <dl>
+          <dt>優勢</dt><dd>工業電腦品牌與全球通路布局居業界領先地位，產品線橫跨智慧製造、醫療、零售等多元垂直應用，客戶分散降低單一產業風險。</dd>
+          <dt>弱點</dt><dd>工業電腦屬相對成熟市場，成長性不如純AI伺服器與資料中心設備，部分終端市場（如工廠自動化）景氣循環性較高。</dd>
+          <dt>機會</dt><dd>AI推論下沉到邊緣端，帶動工業電腦搭配邊緣AI加速卡的高階產品需求，物聯網與智慧製造長期趨勢延續成長動能。</dd>
+          <dt>威脅</dt><dd>（推論）同業競爭與客製化程度提升可能壓縮毛利率，全球工業自動化資本支出景氣循環也會影響訂單能見度。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      <details class="ci-swot">
+        <summary>📋 3652 精聯 公司介紹／SWOT</summary>
+        <p>工業電腦與嵌入式系統製造商，隸屬鴻海集團工業電腦版圖，產品應用於網通、工廠自動化與邊緣運算設備。</p>
+        <dl>
+          <dt>優勢</dt><dd>隸屬鴻海集團供應鏈資源，具備工業電腦客製化設計與量產能力，客戶涵蓋網通與工業自動化設備商。</dd>
+          <dt>弱點</dt><dd>相對品牌大廠規模較小，通路布局不如龍頭廠商，議價能力相對有限。</dd>
+          <dt>機會</dt><dd>邊緣AI與工業物聯網需求成長，帶動工業電腦搭配AI加速模組的客製化訂單增加。</dd>
+          <dt>威脅</dt><dd>（推論）同業競爭與客戶集中度風險，工業電腦終端市場景氣循環也可能影響訂單能見度。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>高速傳輸｜Retimer / Redriver</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>高速傳輸｜Retimer / Redriver
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">PCIe 5/6、112G SerDes 訊號完整性需求</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="4966" data-stock-name="譜瑞-KY">
+          4966 譜瑞-KY +1.97%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>高速光模組（800G/1.6T）</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>高速光模組（800G/1.6T）
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">AI 叢集東西向流量爆炸，光模組升級週期縮短</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="4979" data-stock-name="華星光">
+          4979 華星光 +9.97%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>高速銅纜｜AEC / DAC</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>高速銅纜｜AEC / DAC
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">機櫃內短距互連以有源電纜取代光模組</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3023" data-stock-name="信邦">
+          3023 信邦 +4.62%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
   </div>
@@ -476,63 +1399,426 @@
   <div class="catalog-list">
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>5G / WiFi 7</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>5G / WiFi 7
+        <span class="tag confidence-high">🔥 當紅</span>
+      </div>
       <div class="ci-thesis">路由器與 CPE 換機，WiFi 7 前端模組升級</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6285" data-stock-name="啟碁">
+          6285 啟碁 +4.28%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="4906" data-stock-name="正文">
+          4906 正文 +3.94%
+        </span>
+        
+      </div>
+      
+      
+      
+      
+      <details class="ci-swot">
+        <summary>📋 6285 啟碁 公司介紹／SWOT</summary>
+        <p>通訊終端裝置代工廠，產品涵蓋Wi-Fi路由器、衛星通訊天線與車用雷達模組，是Wi-Fi 7與低軌衛星通訊終端的主要供應商之一。</p>
+        <dl>
+          <dt>優勢</dt><dd>無線通訊與RF技術長期深耕，產品線橫跨消費級路由器、衛星通訊與車用雷達，客戶涵蓋電信營運商與國際品牌。</dd>
+          <dt>弱點</dt><dd>消費性網通產品毛利率相對偏低，部分業務仍受終端需求循環影響，規模不如大型ODM廠。</dd>
+          <dt>機會</dt><dd>Wi-Fi 7換機潮與低軌衛星通訊供應鏈需求成長，帶動高階網通產品出貨與毛利率同步提升。</dd>
+          <dt>威脅</dt><dd>（推論）同業競爭與客戶集中度風險，網通晶片供應與匯率波動也可能影響毛利率。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      <details class="ci-swot">
+        <summary>📋 4906 正文 公司介紹／SWOT</summary>
+        <p>網通終端裝置代工廠，產品涵蓋Wi-Fi路由器、電信CPE設備與物聯網通訊模組，主要客戶為電信營運商與國際網通品牌。</p>
+        <dl>
+          <dt>優勢</dt><dd>電信CPE與路由器代工經驗豐富，跟主要電信營運商建立長期供貨關係，產品認證門檻具一定進入壁壘。</dd>
+          <dt>弱點</dt><dd>網通代工業務毛利率相對偏低，客戶集中在少數電信營運商與品牌商，議價能力有限。</dd>
+          <dt>機會</dt><dd>Wi-Fi 7升級與電信寬頻設備換機潮，帶動高階CPE與路由器訂單成長。</dd>
+          <dt>威脅</dt><dd>（推論）同業競爭激烈，網通晶片供應與匯率波動可能壓縮毛利率。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>Micro LED</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>Micro LED
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">巨量轉移良率突破帶動穿戴與車用</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6854" data-stock-name="錼創科技-KY創">
+          6854 錼創科技-KY創 +0.11%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2409" data-stock-name="友達">
+          2409 友達 +0.94%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>Mini LED 背光</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>Mini LED 背光
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">高階顯示器與車載採用 Mini LED 分區背光</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6176" data-stock-name="瑞儀">
+          6176 瑞儀 +1.77%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3527" data-stock-name="聚積">
+          3527 聚積 +0.00%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>PC / NB 供應鏈</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>PC / NB 供應鏈
+        <span class="tag confidence-high">🔥 當紅</span>
+      </div>
       <div class="ci-thesis">AI PC 換機潮與 Windows 汰換週期</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2382" data-stock-name="廣達">
+          2382 廣達 +2.99%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2353" data-stock-name="宏碁">
+          2353 宏碁 +4.64%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2357" data-stock-name="華碩">
+          2357 華碩 +5.56%
+        </span>
+        
+      </div>
+      
+      
+      
+      
+      <details class="ci-swot">
+        <summary>📋 2382 廣達 公司介紹／SWOT</summary>
+        <p>全球主要筆記型電腦代工廠之一，近年積極轉型佈局AI伺服器與雲端基礎設施代工，是輝達GB系列伺服器機櫃的主要組裝夥伴之一。</p>
+        <dl>
+          <dt>優勢</dt><dd>具備長期筆電代工累積的大規模製造與供應鏈管理能力，成功切入AI伺服器機櫃組裝，客戶包含輝達與多家雲端服務商。</dd>
+          <dt>弱點</dt><dd>傳統筆電代工業務毛利率偏低且終端需求成長趨緩，業務組合轉型仍在進行中，AI伺服器占營收比重仍待觀察。</dd>
+          <dt>機會</dt><dd>AI伺服器機櫃與液冷散熱系統整機出貨放量，加上雲端服務商資本支出持續增加，有望帶動整體毛利率結構改善。</dd>
+          <dt>威脅</dt><dd>（推論）筆電代工業務面臨同業競爭與終端需求波動；AI伺服器代工訂單集中在少數雲端大客戶，客戶議價能力風險存在。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      <details class="ci-swot">
+        <summary>📋 2353 宏碁 公司介紹／SWOT</summary>
+        <p>筆記型電腦與桌上型電腦品牌廠，產品線涵蓋消費級與電競筆電，近年也布局AI PC與周邊配件業務。</p>
+        <dl>
+          <dt>優勢</dt><dd>全球PC品牌知名度與通路布局成熟，電競筆電市占具一定優勢，品牌自有業務毛利率優於代工業務。</dd>
+          <dt>弱點</dt><dd>PC品牌市場成熟、成長性有限，面對國際大廠競爭，議價能力受制於面板／晶片成本波動。</dd>
+          <dt>機會</dt><dd>AI PC換機潮與Windows作業系統汰換週期，帶動高階筆電規格升級與換機需求。</dd>
+          <dt>威脅</dt><dd>（推論）PC終端需求循環性明顯，面板、記憶體等關鍵零組件成本上漲可能壓縮毛利率。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      <details class="ci-swot">
+        <summary>📋 2357 華碩 公司介紹／SWOT</summary>
+        <p>筆記型電腦與桌上型電腦品牌廠，產品線涵蓋消費級、電競與商用筆電，同時經營主機板與伺服器業務。</p>
+        <dl>
+          <dt>優勢</dt><dd>品牌與電競市場地位穩固，產品線橫跨PC、主機板、伺服器等多元業務，客戶與通路分散降低單一市場風險。</dd>
+          <dt>弱點</dt><dd>PC品牌業務成熟、成長性有限，關鍵零組件（面板、記憶體、晶片）成本波動影響毛利率。</dd>
+          <dt>機會</dt><dd>AI PC換機潮與伺服器／主機板業務受惠AI伺服器基礎建設需求，帶動整體營收成長動能。</dd>
+          <dt>威脅</dt><dd>（推論）PC終端需求循環性風險，零組件成本與匯率波動可能壓縮毛利率。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>PCB｜HDI 與軟板</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>PCB｜HDI 與軟板
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">手機與穿戴 HDI/軟板規格升級</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2313" data-stock-name="華通">
+          2313 華通 +5.72%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>光學鏡頭</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>光學鏡頭
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">手機多鏡頭規格回升＋車用鏡頭數量成長</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3008" data-stock-name="大立光">
+          3008 大立光 +3.50%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6456" data-stock-name="GIS-KY">
+          6456 GIS-KY +2.08%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>手機供應鏈</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>手機供應鏈
+        <span class="tag confidence-high">🔥 當紅</span>
+      </div>
       <div class="ci-thesis">旗艦機規格升級（潛望鏡、鈦金屬、AI 手機）</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2317" data-stock-name="鴻海">
+          2317 鴻海 +3.43%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="4938" data-stock-name="和碩">
+          4938 和碩 +5.53%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3008" data-stock-name="大立光">
+          3008 大立光 +3.50%
+        </span>
+        
+      </div>
+      
+      
+      
+      
+      <details class="ci-swot">
+        <summary>📋 2317 鴻海 公司介紹／SWOT</summary>
+        <p>全球最大電子代工廠，近年從消費性電子（iPhone代工）積極轉型佈局AI伺服器機櫃組裝與電動車代工，是輝達GB系列伺服器機櫃的主要組裝夥伴之一。</p>
+        <dl>
+          <dt>優勢</dt><dd>全球最大規模的電子代工產能與垂直整合供應鏈能力，客戶涵蓋蘋果、輝達等一線品牌，AI伺服器與雲端基礎設施訂單快速放量。</dd>
+          <dt>弱點</dt><dd>傳統消費性電子代工毛利率偏低，業務組合仍高度依賴少數大客戶（蘋果、輝達），營收結構轉型尚未完全反映在毛利率上。</dd>
+          <dt>機會</dt><dd>AI伺服器機櫃與GB系列出貨持續放量，加上電動車代工布局，長期有望拉高整體毛利率結構。</dd>
+          <dt>威脅</dt><dd>（推論）美中貿易政策與關稅變化可能影響其中國產能布局，同業廣達、緯創在AI伺服器代工市占的競爭也可能壓縮訂單分配。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      <details class="ci-swot">
+        <summary>📋 4938 和碩 公司介紹／SWOT</summary>
+        <p>電子代工廠，主要業務為蘋果iPhone／iPad組裝代工與網通設備製造，近年也切入伺服器與電動車零組件代工。</p>
+        <dl>
+          <dt>優勢</dt><dd>蘋果供應鏈核心組裝夥伴之一，長期累積大規模精密組裝與品質管理能力，客戶關係穩固。</dd>
+          <dt>弱點</dt><dd>業務高度集中於蘋果消費性電子組裝，毛利率偏低，終端需求（如iPhone銷量）循環性影響營收波動大。</dd>
+          <dt>機會</dt><dd>旗艦機規格升級（潛望鏡、鈦金屬、AI手機）帶動組裝單價提升，加上伺服器與電動車代工布局分散業務風險。</dd>
+          <dt>威脅</dt><dd>（推論）蘋果訂單集中度風險，以及同業中國代工廠競爭壓力。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      <details class="ci-swot">
+        <summary>📋 3008 大立光 公司介紹／SWOT</summary>
+        <p>全球手機光學鏡頭龍頭廠商，主要客戶為蘋果、中系安卓品牌，產品線也擴展至車用鏡頭。</p>
+        <dl>
+          <dt>優勢</dt><dd>光學鏡頭設計與製造技術長期領先業界，是蘋果iPhone高階鏡頭主要供應商，技術門檻高、良率優勢明顯。</dd>
+          <dt>弱點</dt><dd>手機鏡頭市場成長趨緩，客戶集中度高（蘋果與少數安卓品牌），中國同業競爭壓力持續。</dd>
+          <dt>機會</dt><dd>手機多鏡頭規格回升與潛望鏡滲透率提升，加上車用鏡頭數量成長，帶動新成長動能。</dd>
+          <dt>威脅</dt><dd>（推論）中國同業低價競爭與客戶議價能力風險，手機終端需求疲軟也可能影響訂單能見度。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>折疊機 / 鉸鏈</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>折疊機 / 鉸鏈
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">折疊滲透率提升，軸承與 UTG 玻璃國產化</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3548" data-stock-name="兆利">
+          3548 兆利 +2.72%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>被動元件｜MLCC</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>被動元件｜MLCC
+        <span class="tag confidence-high">🔥 當紅</span>
+      </div>
       <div class="ci-thesis">車用與伺服器高容值 MLCC 供需吃緊</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2327" data-stock-name="國巨*">
+          2327 國巨* +9.98%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2492" data-stock-name="華新科">
+          2492 華新科 +9.94%
+        </span>
+        
+      </div>
+      
+      
+      
+      
+      <details class="ci-swot">
+        <summary>📋 2327 國巨* 公司介紹／SWOT</summary>
+        <p>全球被動元件（MLCC、電阻）大廠，產品應用於車用、伺服器與消費性電子，是台廠被動元件產業龍頭。</p>
+        <dl>
+          <dt>優勢</dt><dd>全球被動元件市占領先，透過併購擴大高階車用／工業用被動元件產品線，客戶分散度高。</dd>
+          <dt>弱點</dt><dd>被動元件屬相對成熟且產能密集產業，價格循環性明顯，原材料成本波動也會影響毛利率。</dd>
+          <dt>機會</dt><dd>車用與伺服器高容值MLCC供需吃緊，帶動高階產品出貨與均價同步提升。</dd>
+          <dt>威脅</dt><dd>（推論）中系被動元件廠低價競爭，景氣循環轉弱時價格與稼動率同步下滑的風險。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      <details class="ci-swot">
+        <summary>📋 2492 華新科 公司介紹／SWOT</summary>
+        <p>被動元件（MLCC、電阻）製造商，是台廠被動元件產業主要廠商之一，產品應用於消費性電子、車用與工業設備。</p>
+        <dl>
+          <dt>優勢</dt><dd>被動元件生產技術與規模具一定優勢，產品線涵蓋多元應用領域，客戶基礎分散。</dd>
+          <dt>弱點</dt><dd>被動元件市場價格循環性明顯，面對同業與中系廠商競爭，議價能力受市場供需影響。</dd>
+          <dt>機會</dt><dd>車用與伺服器高容值MLCC供需吃緊，帶動高階產品出貨與均價同步提升。</dd>
+          <dt>威脅</dt><dd>（推論）中系被動元件廠低價競爭，景氣循環轉弱時價格與稼動率同步下滑的風險。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>連接器</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>連接器
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">高速、高電流、車用連接器單機用量提升</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2392" data-stock-name="正崴">
+          2392 正崴 +0.55%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6205" data-stock-name="詮欣">
+          6205 詮欣 +0.76%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>面板｜中小尺寸 OLED</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>面板｜中小尺寸 OLED
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">車用與 IT OLED 滲透，台廠切入模組</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3481" data-stock-name="群創">
+          3481 群創 +0.83%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>面板｜大尺寸</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>面板｜大尺寸
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">供給收斂＋體育賽事備貨，報價季節性反彈</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2409" data-stock-name="友達">
+          2409 友達 +0.94%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3481" data-stock-name="群創">
+          3481 群創 +0.83%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
   </div>
@@ -543,53 +1829,177 @@
   <div class="catalog-list">
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>ADAS / 自動駕駛</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>ADAS / 自動駕駛
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">感測器融合、車載運算、車用鏡頭</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6605" data-stock-name="帝寶">
+          6605 帝寶 +1.09%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3552" data-stock-name="同致">
+          3552 同致 +0.12%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>充電樁</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>充電樁
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">快充基礎建設佈建與充電營運</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2457" data-stock-name="飛宏">
+          2457 飛宏 +0.89%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>車用半導體</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>車用半導體
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">單車矽含量成長，MCU/功率/感測滲透</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="8081" data-stock-name="致新">
+          8081 致新 +1.19%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6138" data-stock-name="茂達">
+          6138 茂達 +2.32%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>車用連接器與線束</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>車用連接器與線束
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">高壓線束與充電介面</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3665" data-stock-name="貿聯-KY">
+          3665 貿聯-KY +2.14%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>電動車熱管理</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>電動車熱管理
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">電池與座艙熱管理系統</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2308" data-stock-name="台達電">
+          2308 台達電 +3.69%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>電池材料｜正極</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>電池材料｜正極
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">高鎳與磷酸鐵鋰正極材料</div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>電池材料｜負極 / 矽碳</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>電池材料｜負極 / 矽碳
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">矽基負極提升能量密度</div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>電池材料｜電解液 / 隔離膜 / 銅箔</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>電池材料｜電解液 / 隔離膜 / 銅箔
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">電池上游耗材國產化</div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>電池模組 / BMS</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>電池模組 / BMS
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">儲能與電動車模組組裝與電池管理</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6121" data-stock-name="新普">
+          6121 新普 +0.63%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>電池芯</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>電池芯
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">磷酸鐵鋰與固態電池路線競賽</div>
+      
+      
+      
     </div>
     
   </div>
@@ -600,38 +2010,220 @@
   <div class="catalog-list">
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>人形機器人</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>人形機器人
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">車廠試產線放量，供應鏈從 0 到 1</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2049" data-stock-name="上銀">
+          2049 上銀 +5.37%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="1536" data-stock-name="和大">
+          1536 和大 +1.22%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>伺服馬達與驅動器</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>伺服馬達與驅動器
+        <span class="tag confidence-high">🔥 當紅</span>
+      </div>
       <div class="ci-thesis">高精度伺服系統與編碼器</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2308" data-stock-name="台達電">
+          2308 台達電 +3.69%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2049" data-stock-name="上銀">
+          2049 上銀 +5.37%
+        </span>
+        
+      </div>
+      
+      
+      
+      
+      <details class="ci-swot">
+        <summary>📋 2308 台達電 公司介紹／SWOT</summary>
+        <p>全球電源與散熱管理領導廠商，產品線涵蓋伺服器電源、資料中心液冷CDU與工業自動化，是AI伺服器機櫃電源與液冷系統的主要供應商之一。</p>
+        <dl>
+          <dt>優勢</dt><dd>電源轉換效率與散熱系統整合技術長期領先，客戶涵蓋輝達、雲端服務商與工業自動化大廠，產品線多元分散單一客戶風險。</dd>
+          <dt>弱點</dt><dd>業務組合橫跨電源、工業自動化、電動車零組件等多領域，AI伺服器占營收比重相對分散，成長爆發力不如純散熱／電源標的。</dd>
+          <dt>機會</dt><dd>資料中心高壓直流供電與液冷系統需求同步放量，帶動電源與散熱兩大事業群營收同步成長。</dd>
+          <dt>威脅</dt><dd>（推論）電源與散熱領域同業競爭者眾多，原材料成本與匯率波動也可能影響毛利率。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      <details class="ci-swot">
+        <summary>📋 2049 上銀 公司介紹／SWOT</summary>
+        <p>精密傳動元件廠商，主要產品為滾珠螺桿、線性滑軌與機器人關節減速機，是台廠工業自動化與機器人傳動元件龍頭。</p>
+        <dl>
+          <dt>優勢</dt><dd>滾珠螺桿與線性滑軌技術長期領先，是少數能提供機器人關節精密減速機的廠商，客戶涵蓋工具機與機器人整機廠。</dd>
+          <dt>弱點</dt><dd>業務仍高度依賴工具機與工業自動化景氣循環，訂單能見度隨全球資本支出波動較大。</dd>
+          <dt>機會</dt><dd>人形機器人與工業自動化需求成長，帶動精密傳動元件與伺服系統訂單放量。</dd>
+          <dt>威脅</dt><dd>（推論）同業競爭與原材料（特殊鋼材）成本波動，全球資本支出景氣循環轉弱也可能影響訂單。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>工業電腦（IPC）</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>工業電腦（IPC）
+        <span class="tag confidence-high">🔥 當紅</span>
+      </div>
       <div class="ci-thesis">工廠自動化、醫療、交通的邊緣控制</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2395" data-stock-name="研華">
+          2395 研華 +5.49%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6166" data-stock-name="凌華">
+          6166 凌華 +6.58%
+        </span>
+        
+      </div>
+      
+      
+      
+      
+      <details class="ci-swot">
+        <summary>📋 2395 研華 公司介紹／SWOT</summary>
+        <p>工業電腦與物聯網解決方案領導廠商，產品涵蓋工業級主機板、嵌入式系統與邊緣運算平台，近年積極布局AI邊緣運算應用。</p>
+        <dl>
+          <dt>優勢</dt><dd>工業電腦品牌與全球通路布局居業界領先地位，產品線橫跨智慧製造、醫療、零售等多元垂直應用，客戶分散降低單一產業風險。</dd>
+          <dt>弱點</dt><dd>工業電腦屬相對成熟市場，成長性不如純AI伺服器與資料中心設備，部分終端市場（如工廠自動化）景氣循環性較高。</dd>
+          <dt>機會</dt><dd>AI推論下沉到邊緣端，帶動工業電腦搭配邊緣AI加速卡的高階產品需求，物聯網與智慧製造長期趨勢延續成長動能。</dd>
+          <dt>威脅</dt><dd>（推論）同業競爭與客製化程度提升可能壓縮毛利率，全球工業自動化資本支出景氣循環也會影響訂單能見度。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      <details class="ci-swot">
+        <summary>📋 6166 凌華 公司介紹／SWOT</summary>
+        <p>工業電腦與嵌入式運算平台廠商，產品應用於半導體設備、醫療影像與機器視覺，近年切入邊緣AI運算模組。</p>
+        <dl>
+          <dt>優勢</dt><dd>半導體設備用工業電腦與高階運算模組具技術門檻，客戶涵蓋半導體設備廠與醫療影像設備商，屬利基型市場。</dd>
+          <dt>弱點</dt><dd>規模相對品牌大廠小，客戶集中在特定利基產業，訂單能見度受該產業資本支出影響。</dd>
+          <dt>機會</dt><dd>半導體設備資本支出上行與邊緣AI運算需求成長，帶動高階工業電腦模組訂單放量。</dd>
+          <dt>威脅</dt><dd>（推論）同業競爭與客戶產業集中度風險，半導體設備景氣循環轉弱也可能影響訂單能見度。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>機器視覺</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>機器視覺
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">AOI 檢測與 3D 視覺導引</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="3030" data-stock-name="德律">
+          3030 德律 -3.24%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>滾珠螺桿 / 線性滑軌</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>滾珠螺桿 / 線性滑軌
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">工具機與自動化傳動元件</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2049" data-stock-name="上銀">
+          2049 上銀 +5.37%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="1590" data-stock-name="亞德客-KY">
+          1590 亞德客-KY +1.45%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>自動化設備整合</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>自動化設備整合
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">產線自動化統包與智慧工廠</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="2464" data-stock-name="盟立">
+          2464 盟立 -4.95%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>諧波減速機 / RV 減速機</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>諧波減速機 / RV 減速機
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">精密傳動元件國產替代</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2049" data-stock-name="上銀">
+          2049 上銀 +5.37%
+        </span>
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="1521" data-stock-name="大億">
+          1521 大億 -0.19%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
   </div>
@@ -642,33 +2234,160 @@
   <div class="catalog-list">
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>儲能系統</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>儲能系統
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">電網輔助服務與光儲合一案場</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6733" data-stock-name="博晟生醫">
+          6733 博晟生醫 +0.75%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6121" data-stock-name="新普">
+          6121 新普 +0.63%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>太陽能｜電池與模組</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>太陽能｜電池與模組
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">內需地面型與屋頂型標案</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3576" data-stock-name="聯合再生">
+          3576 聯合再生 +0.59%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6443" data-stock-name="元晶">
+          6443 元晶 +1.63%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>氫能</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>氫能
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">電解槽與燃料電池早期佈局</div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>節能與能源管理</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>節能與能源管理
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">資料中心與工廠能效改善</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2308" data-stock-name="台達電">
+          2308 台達電 +3.69%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>重電 / 電網升級</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>重電 / 電網升級
+        <span class="tag confidence-high">🔥 當紅</span>
+      </div>
       <div class="ci-thesis">變壓器、開關設備、電線電纜供不應求</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="1519" data-stock-name="華城">
+          1519 華城 +3.32%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="1503" data-stock-name="士電">
+          1503 士電 +3.23%
+        </span>
+        
+      </div>
+      
+      
+      
+      
+      <details class="ci-swot">
+        <summary>📋 1519 華城 公司介紹／SWOT</summary>
+        <p>專營大型電力變壓器與配電設備，是台灣電網升級與資料中心用電基礎設施的主要供應商之一，近年受惠資料中心與再生能源併網需求。</p>
+        <dl>
+          <dt>優勢</dt><dd>大型電力變壓器技術與產能國內領先，是台電與大型資料中心用電升壓／降壓設備的核心供應商，訂單能見度隨基礎建設需求延長。</dd>
+          <dt>弱點</dt><dd>訂單交期長、產能擴充需要時間，營收確認具有一定波動性，原材料（矽鋼片、銅）成本波動也會影響毛利率。</dd>
+          <dt>機會</dt><dd>資料中心用電需求快速成長帶動變壓器與配電設備訂單，加上電網升級與綠能併網長期趨勢，訂單能見度延長。</dd>
+          <dt>威脅</dt><dd>（推論）原材料成本波動與同業競爭可能壓縮毛利率，大型基礎建設專案也受政策與資金排程影響進度。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      <details class="ci-swot">
+        <summary>📋 1503 士電 公司介紹／SWOT</summary>
+        <p>重電設備製造商，產品涵蓋變壓器、開關設備、馬達與電力自動化系統，是台灣電網升級與工業用電設備主要供應商之一。</p>
+        <dl>
+          <dt>優勢</dt><dd>重電設備產品線完整，涵蓋變壓器、開關設備至馬達驅動系統，客戶涵蓋台電、工業廠房與資料中心。</dd>
+          <dt>弱點</dt><dd>訂單交期長、產能擴充需要時間，營收確認具波動性，原材料（矽鋼片、銅）成本波動影響毛利率。</dd>
+          <dt>機會</dt><dd>電網升級與資料中心用電需求成長，帶動變壓器與開關設備訂單放量，訂單能見度延長。</dd>
+          <dt>威脅</dt><dd>（推論）原材料成本波動與同業競爭可能壓縮毛利率，大型基礎建設專案受政策與資金排程影響進度。</dd>
+        </dl>
+        <p style="margin-top:6px">訊號不足，暫無法判斷主要驅動因素。</p>
+      </details>
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>離岸風電</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>離岸風電
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">水下基礎、機艙組裝、海事工程國產化</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="9958" data-stock-name="世紀鋼">
+          9958 世紀鋼 -0.34%
+        </span>
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="2208" data-stock-name="台船">
+          2208 台船 -0.27%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
   </div>
@@ -679,78 +2398,355 @@
   <div class="catalog-list">
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>塑化</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>塑化
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">油價與中國需求決定價差循環</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="1301" data-stock-name="台塑">
+          1301 台塑 +0.46%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="1303" data-stock-name="南亞">
+          1303 南亞 +2.04%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="1326" data-stock-name="台化">
+          1326 台化 +0.14%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>工具機</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>工具機
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">出口接單落底，日圓與關稅是變數</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2049" data-stock-name="上銀">
+          2049 上銀 +5.37%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="4510" data-stock-name="高鋒">
+          4510 高鋒 +1.06%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>手工具</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>手工具
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">美國房市與 DIY 需求</div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>散裝航運（BDI）</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>散裝航運（BDI）
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">運價旺季＋船噸供給受限</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2606" data-stock-name="裕民">
+          2606 裕民 +0.00%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2605" data-stock-name="新興">
+          2605 新興 +0.99%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>橡膠輪胎</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>橡膠輪胎
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">原物料成本回落改善毛利</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2105" data-stock-name="正新">
+          2105 正新 +0.81%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2106" data-stock-name="建大">
+          2106 建大 +0.58%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>水泥</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>水泥
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">兩岸產能調節與碳權成本轉嫁</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="1101" data-stock-name="台泥">
+          1101 台泥 +0.61%
+        </span>
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="1102" data-stock-name="亞泥">
+          1102 亞泥 -0.28%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>空運</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>空運
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">電商急件與 AI 伺服器空運需求</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="2618" data-stock-name="長榮航">
+          2618 長榮航 -0.70%
+        </span>
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="2610" data-stock-name="華航">
+          2610 華航 -0.49%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>紡織｜機能布與成衣代工</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>紡織｜機能布與成衣代工
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">品牌客戶拉貨回補與越南產能</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="1476" data-stock-name="儒鴻">
+          1476 儒鴻 -0.16%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="1477" data-stock-name="聚陽">
+          1477 聚陽 +1.29%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>自行車</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>自行車
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">歐洲庫存去化尾聲，電輔車回升</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="9921" data-stock-name="巨大">
+          9921 巨大 -1.59%
+        </span>
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="9914" data-stock-name="美利達">
+          9914 美利達 -0.38%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>螺絲螺帽</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>螺絲螺帽
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">車用與航太扣件認證溢價</div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>製鞋代工</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>製鞋代工
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">運動品牌庫存去化結束後回補</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="9910" data-stock-name="豐泰">
+          9910 豐泰 +1.77%
+        </span>
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="9938" data-stock-name="百和">
+          9938 百和 -0.24%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>貨櫃航運</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>貨櫃航運
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">紅海繞道拉長航程消化運力</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="2603" data-stock-name="長榮">
+          2603 長榮 -2.51%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2609" data-stock-name="陽明">
+          2609 陽明 +0.69%
+        </span>
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="2615" data-stock-name="萬海">
+          2615 萬海 -0.43%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>農化 / 肥料</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>農化 / 肥料
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">糧價與地緣事件驅動</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="1722" data-stock-name="台肥">
+          1722 台肥 +0.34%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>造紙</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>造紙
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">工業用紙與紙漿報價循環</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="1904" data-stock-name="正隆">
+          1904 正隆 -1.20%
+        </span>
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="1909" data-stock-name="榮成">
+          1909 榮成 -1.35%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>鋼鐵</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>鋼鐵
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">中國減產與內需基建帶動報價</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2002" data-stock-name="中鋼">
+          2002 中鋼 +0.53%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2015" data-stock-name="豐興">
+          2015 豐興 +0.78%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
   </div>
@@ -761,48 +2757,199 @@
   <div class="catalog-list">
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>CDMO / CRO</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>CDMO / CRO
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">新藥外包產能轉單至非中國供應鏈</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6472" data-stock-name="保瑞">
+          6472 保瑞 +1.09%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>保健食品</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>保健食品
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">通路自有品牌與外銷</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="8436" data-stock-name="大江">
+          8436 大江 +0.45%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>學名藥 / 特殊劑型</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>學名藥 / 特殊劑型
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">高門檻劑型與美國缺藥缺口</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="4105" data-stock-name="東洋">
+          4105 東洋 -0.39%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3705" data-stock-name="永信">
+          3705 永信 +0.36%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>新藥研發</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>新藥研發
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">授權金里程碑與臨床數據催化</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="6446" data-stock-name="藥華藥">
+          6446 藥華藥 -2.96%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="4147" data-stock-name="中裕">
+          4147 中裕 +0.63%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>細胞治療 / 再生醫療</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>細胞治療 / 再生醫療
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">法規開放與特管辦法適應症擴增</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="3224" data-stock-name="三顧">
+          3224 三顧 -2.77%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6712" data-stock-name="長聖">
+          6712 長聖 +0.32%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>醫療器材</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>醫療器材
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">微創、骨科、洗腎耗材</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="4107" data-stock-name="邦特">
+          4107 邦特 +0.00%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>醫美</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>醫美
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">注射填充與能量儀器</div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>隱形眼鏡</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>隱形眼鏡
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">日拋滲透與品牌代工訂單</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="1565" data-stock-name="精華">
+          1565 精華 -0.90%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6491" data-stock-name="晶碩">
+          6491 晶碩 +1.18%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>體外診斷試劑</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>體外診斷試劑
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">分子檢測與 POCT</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="4736" data-stock-name="泰博">
+          4736 泰博 +0.00%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="1733" data-stock-name="五鼎">
+          1733 五鼎 +0.31%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
   </div>
@@ -813,28 +2960,119 @@
   <div class="catalog-list">
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>壽險</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>壽險
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">利率與匯率牽動避險成本與淨值</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2882" data-stock-name="國泰金">
+          2882 國泰金 +2.22%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2881" data-stock-name="富邦金">
+          2881 富邦金 +2.38%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>產險</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>產險
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">費率調升與再保成本轉嫁</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2881" data-stock-name="富邦金">
+          2881 富邦金 +2.38%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2850" data-stock-name="新產">
+          2850 新產 +0.00%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>證券</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>證券
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">成交量與 IPO 熱度連動</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2885" data-stock-name="元大金">
+          2885 元大金 +1.90%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2855" data-stock-name="統一證">
+          2855 統一證 +0.20%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>金融科技 / 純網銀</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>金融科技 / 純網銀
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">開放銀行與嵌入式金融</div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>銀行 / 金控</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>銀行 / 金控
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">利差維持＋財富管理手續費回升</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2881" data-stock-name="富邦金">
+          2881 富邦金 +2.38%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2882" data-stock-name="國泰金">
+          2882 國泰金 +2.22%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2891" data-stock-name="中信金">
+          2891 中信金 +1.33%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
   </div>
@@ -845,38 +3083,173 @@
   <div class="catalog-list">
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>影視內容 / 版權</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>影視內容 / 版權
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">串流平台採購與 IP 授權</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="8446" data-stock-name="華研">
+          8446 華研 +0.12%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>觀光 / 旅遊</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>觀光 / 旅遊
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">出入境人次回升與陸客變數</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2731" data-stock-name="雄獅">
+          2731 雄獅 +0.70%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>遊戲 / 電競</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>遊戲 / 電競
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">新作遞延與海外營運</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="5478" data-stock-name="智冠">
+          5478 智冠 +0.00%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3293" data-stock-name="鈊象">
+          3293 鈊象 +0.85%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>零售 / 電商</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>零售 / 電商
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">會員經濟與物流自建</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="2912" data-stock-name="統一超">
+          2912 統一超 -0.23%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2903" data-stock-name="遠百">
+          2903 遠百 +0.00%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>電信</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>電信
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">5G 用戶 ARPU 與資本支出高原期後現金流</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip down"
+              data-stock-code="2412" data-stock-name="中華電">
+          2412 中華電 -0.36%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="3045" data-stock-name="台灣大">
+          3045 台灣大 +0.00%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="4904" data-stock-name="遠傳">
+          4904 遠傳 +0.48%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>食品</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>食品
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">通路議價與海外布局</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="1216" data-stock-name="統一">
+          1216 統一 +0.00%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="1210" data-stock-name="大成">
+          1210 大成 +0.77%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>餐飲</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>餐飲
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">展店速度與原物料成本</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2727" data-stock-name="王品">
+          2727 王品 +0.22%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2729" data-stock-name="瓦城">
+          2729 瓦城 +0.32%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
   </div>
@@ -887,23 +3260,88 @@
   <div class="catalog-list">
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>企業 AI 導入 / 代理</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>企業 AI 導入 / 代理
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">導入顧問與算力租賃</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6214" data-stock-name="精誠">
+          6214 精誠 +1.37%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>系統整合（SI）</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>系統整合（SI）
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">政府與企業數位轉型專案</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6214" data-stock-name="精誠">
+          6214 精誠 +1.37%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2480" data-stock-name="敦陽科">
+          2480 敦陽科 +0.32%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>資安</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>資安
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">關鍵基礎設施法遵與零信任導入</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="6690" data-stock-name="安碁資訊">
+          6690 安碁資訊 +0.00%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>雲端服務 / SaaS</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>雲端服務 / SaaS
+        <span class="tag confidence-low">尚無訊號</span>
+      </div>
       <div class="ci-thesis">訂閱制與 AI 功能加值</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="5203" data-stock-name="訊連">
+          5203 訊連 +0.00%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
   </div>
@@ -914,18 +3352,68 @@
   <div class="catalog-list">
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>無人機 / 反無人機</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>無人機 / 反無人機
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">國防自主與紅色供應鏈排除</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="8033" data-stock-name="雷虎">
+          8033 雷虎 +1.73%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>航太結構件</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>航太結構件
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">民航機身零件與扣件長約</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2634" data-stock-name="漢翔">
+          2634 漢翔 +0.93%
+        </span>
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2645" data-stock-name="長榮航太">
+          2645 長榮航太 +1.17%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>軍用通訊與電子</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>軍用通訊與電子
+        <span class="tag confidence-mid">偏溫</span>
+      </div>
       <div class="ci-thesis">國機國造與潛艦國造供應鏈</div>
+      
+      <div class="ci-stocks">
+        
+        <span class="ci-stock-chip up"
+              data-stock-code="2413" data-stock-name="環科">
+          2413 環科 +9.96%
+        </span>
+        
+      </div>
+      
+      
+      
     </div>
     
   </div>
@@ -935,7 +3423,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 15:32</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 16:48</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
