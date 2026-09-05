@@ -285,7 +285,7 @@ def stock_analysis_batch(stocks: list[dict]) -> dict[str, dict]:
     user = "\n".join(lines)
 
     try:
-        return _parse_json(_call(STOCK_ANALYSIS_SYSTEM, user, 4000))
+        return _parse_json(_call(STOCK_ANALYSIS_SYSTEM, user, 8000))
     except Exception as exc:
         print(f"[llm] 個股深度分析失敗：{exc}")
         return {}
@@ -318,7 +318,7 @@ def supply_chain_structure(theme: dict) -> dict:
     user = (f"題材：{theme['name']}\n摘要：{theme.get('summary', '')}\n"
             f"目前追蹤到的相關個股：{json.dumps(stocks, ensure_ascii=False)}")
     try:
-        return _parse_json(_call(SUPPLY_CHAIN_SYSTEM, user, 1500))
+        return _parse_json(_call(SUPPLY_CHAIN_SYSTEM, user, 3000))
     except Exception as exc:
         print(f"[llm] 供應鏈結構產出失敗：{exc}")
         return {}
