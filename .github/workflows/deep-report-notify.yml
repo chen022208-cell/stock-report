@@ -1,0 +1,51 @@
+name: 週報／深度月報 Discord 通知
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/weekly/*.pdf'
+      - 'docs/monthly-deep/*.pdf'
+
+permissions:
+  contents: read
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 取出程式碼（含完整歷史，才能比對這次 push 新增了哪些檔案）
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 找出新增的 PDF 並通知 Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        run: |
+          before="${{ github.event.before }}"
+          after="${{ github.sha }}"
+          if [ -z "$before" ] || [ "$before" = "0000000000000000000000000000000000000000" ]; then
+            before="$after~1"
+          fi
+          files=$(git diff --name-only --diff-filter=A "$before" "$after" -- 'docs/weekly/*.pdf' 'docs/monthly-deep/*.pdf' || true)
+          if [ -z "$files" ]; then
+            echo "沒有新增的 PDF，略過"
+            exit 0
+          fi
+          if [ -z "$DISCORD_WEBHOOK_URL" ]; then
+            echo "未設定 DISCORD_WEBHOOK_URL，略過推播"
+            exit 0
+          fi
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            url="https://chen022208-cell.github.io/stock-report/${f#docs/}"
+            if [[ "$f" == docs/weekly/* ]]; then
+              title="📅 本週深度週報已發布"
+            else
+              title="🌍 本月深度研究已發布"
+            fi
+            curl -s -X POST "$DISCORD_WEBHOOK_URL" \
+              -H "Content-Type: application/json" \
+              -d "{\"content\": \"${title}\n${url}\"}"
+          done <<< "$files"

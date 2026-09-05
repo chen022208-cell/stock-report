@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{% block title %}{{ site_title }}{% endblock %}</title>
-<link rel="manifest" href="{{ rel }}manifest.json">
-<link rel="icon" href="{{ rel }}icons/icon-192.png">
-<link rel="apple-touch-icon" href="{{ rel }}icons/icon-192.png">
+<title>深度月報 · 盤後快訊</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <meta name="theme-color" content="#1C1B19">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -105,34 +105,56 @@
     .card-grid.cols-3{grid-template-columns:repeat(2,1fr);}
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
-{% block extra_css %}{% endblock %}
+
+  .theme-card{border-left:2px solid var(--gold); padding:4px 0 4px 18px; margin-bottom:22px;}
+  .theme-card.dormant{border-left-color:var(--text-muted); opacity:.75;}
+  .theme-head{display:flex; justify-content:space-between; align-items:baseline;
+              gap:12px; margin-bottom:6px; flex-wrap:wrap;}
+  .theme-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:17px;}
+  .theme-name a{text-decoration:none;}
+  .theme-name a:hover{color:var(--gold);}
+  .theme-sum{font-size:14.5px; color:var(--text-secondary); margin-bottom:6px;}
+  .theme-meta{font-size:13px; color:var(--text-muted);}
+  .theme-detail-link{display:inline-block; margin-top:8px; font-size:12.5px;
+                     color:var(--gold); text-decoration:none;}
+  .theme-detail-link:hover{text-decoration:underline;}
+  .section-head{font-family:'Noto Serif TC',serif; font-size:16px;
+                color:var(--text-secondary); margin:32px 0 14px;}
+  .catalog-hint{font-size:13px; color:var(--text-muted); margin-bottom:14px;}
+  .catalog-group{border:1px solid var(--hairline); border-radius:var(--radius-sm);
+                 margin-bottom:10px; overflow:hidden;}
+  .catalog-group summary{padding:12px 14px; cursor:pointer; font-size:14px; font-weight:600;
+                         color:var(--text-primary); list-style:none; display:flex;
+                         justify-content:space-between; align-items:center;
+                         background:var(--surface);}
+  .catalog-group summary::-webkit-details-marker{display:none;}
+  .catalog-group summary .cg-count{font-size:12px; color:var(--text-muted); font-weight:400;}
+  .catalog-group[open] summary{border-bottom:1px solid var(--hairline);}
+  .catalog-list{padding:4px 14px;}
+  .catalog-item{padding:10px 0; border-bottom:1px solid var(--hairline);}
+  .catalog-item:last-child{border-bottom:none;}
+  .catalog-item .ci-name{font-size:13.5px; font-weight:600; margin-bottom:3px;
+                         display:flex; align-items:center; gap:6px;}
+  .catalog-item .ci-thesis{font-size:12.5px; color:var(--text-muted); line-height:1.5;}
+
 </style>
 </head>
 <body>
 <div class="page">
   <nav class="nav">
-    <a href="{{ rel }}index.html" class="{{ 'current' if nav_current == 'index' }}">最新</a>
-    <a href="{{ rel }}heatmap.html" class="{{ 'current' if nav_current == 'heatmap' }}">🔥 熱力圖</a>
-    <a href="{{ rel }}chips.html" class="{{ 'current' if nav_current == 'chips' }}">💰 籌碼</a>
-    <a href="{{ rel }}scores.html" class="{{ 'current' if nav_current == 'scores' }}">⭐ 評分</a>
-    <a href="{{ rel }}disposition.html" class="{{ 'current' if nav_current == 'disposition' }}">⚠️ 處置</a>
-    <a href="{{ rel }}themes.html" class="{{ 'current' if nav_current == 'themes' }}">題材庫</a>
-    <a href="{{ rel }}archive.html" class="{{ 'current' if nav_current == 'archive' }}">歷史</a>
-    <a href="{{ rel }}weekly/index.html" class="{{ 'current' if nav_current == 'weekly' }}">📅 週報</a>
-    <a href="{{ rel }}monthly-deep/index.html" class="{{ 'current' if nav_current == 'monthly-deep' }}">🌍 深度月報</a>
+    <a href="index.html" class="">最新</a>
+    <a href="heatmap.html" class="">🔥 熱力圖</a>
+    <a href="chips.html" class="">💰 籌碼</a>
+    <a href="scores.html" class="">⭐ 評分</a>
+    <a href="disposition.html" class="">⚠️ 處置</a>
+    <a href="themes.html" class="">題材庫</a>
+    <a href="archive.html" class="">歷史</a>
   </nav>
-
-  {% block content %}{% endblock %}
-
-  <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 {{ generated_at }}</p>
-    <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
-  </footer>
-</div>
-<script>
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("{{ rel }}sw.js").catch(function () {});
-  }
-</script>
+<main class="page">
+<header><div class="masthead-label">盤後快訊</div>
+<h1 class="masthead-date">深度月報：全球總經＋台股結構＋焦點個股</h1></header>
+<p class="commentary" style="margin-top:14px">每月 1 號產出，聚焦全球總經趨勢、台股結構性變化，以及當月表現最突出的個股深度分析。跟每月 12 號的事後績效回顧是不同的兩份報告。</p>
+<p class="commentary" style="margin-top:24px">第一份深度月報尚未產出，下個月 1 號會開始更新這裡。</p>
+</main>
 </body>
 </html>
