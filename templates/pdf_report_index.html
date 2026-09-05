@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}{{ page_title }} · {{ site_title }}{% endblock %}
+{% block content %}
+<header><div class="masthead-label">{{ site_title }}</div>
+<h1 class="masthead-date">{{ page_title }}</h1></header>
+<p class="commentary" style="margin-top:14px">{{ description }}</p>
+
+<div class="section-head">{{ section_label }}</div>
+{% if reports %}
+{% for r in reports %}
+<a href="{{ r.filename }}" class="card" style="display:block; text-decoration:none; margin-bottom:14px;">
+  <div style="display:flex; justify-content:space-between; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:8px;">
+    <span class="theme-name">{{ r.title }}</span>
+    <span class="tag confidence-mid">PDF</span>
+  </div>
+  <p class="theme-sum">{{ r.summary }}</p>
+  <div class="theme-meta">{{ r.date_label }}</div>
+</a>
+{% endfor %}
+{% else %}
+<p class="commentary" style="margin-top:24px">{{ empty_message }}</p>
+{% endif %}
+{% endblock %}

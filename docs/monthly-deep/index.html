@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>深度月報 · 盤後快訊</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>深度月報：全球總經＋台股結構＋焦點個股 · 盤後快訊</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 <meta name="theme-color" content="#1C1B19">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,6 +37,8 @@
   .nav{display:flex; gap:8px; margin-bottom:20px; overflow-x:auto;
        -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:2px;}
   .nav::-webkit-scrollbar{display:none;}
+  /* 手機用滑動手勢捲動，隱藏捲軸沒問題；桌機滑鼠沒有對應手勢，捲軸又被隱藏，
+     後面的項目會卡死點不到——桌機寬度夠，直接讓導覽列換行，不用捲動 */
   @media (min-width:700px){
     .nav{flex-wrap:wrap; overflow-x:visible;}
   }
@@ -109,55 +111,99 @@
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
 
-  .theme-card{border-left:2px solid var(--gold); padding:4px 0 4px 18px; margin-bottom:22px;}
-  .theme-card.dormant{border-left-color:var(--text-muted); opacity:.75;}
-  .theme-head{display:flex; justify-content:space-between; align-items:baseline;
-              gap:12px; margin-bottom:6px; flex-wrap:wrap;}
-  .theme-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:17px;}
-  .theme-name a{text-decoration:none;}
-  .theme-name a:hover{color:var(--gold);}
-  .theme-sum{font-size:14.5px; color:var(--text-secondary); margin-bottom:6px;}
-  .theme-meta{font-size:13px; color:var(--text-muted);}
-  .theme-detail-link{display:inline-block; margin-top:8px; font-size:12.5px;
-                     color:var(--gold); text-decoration:none;}
-  .theme-detail-link:hover{text-decoration:underline;}
-  .section-head{font-family:'Noto Serif TC',serif; font-size:16px;
-                color:var(--text-secondary); margin:32px 0 14px;}
-  .catalog-hint{font-size:13px; color:var(--text-muted); margin-bottom:14px;}
-  .catalog-group{border:1px solid var(--hairline); border-radius:var(--radius-sm);
-                 margin-bottom:10px; overflow:hidden;}
-  .catalog-group summary{padding:12px 14px; cursor:pointer; font-size:14px; font-weight:600;
-                         color:var(--text-primary); list-style:none; display:flex;
-                         justify-content:space-between; align-items:center;
-                         background:var(--surface);}
-  .catalog-group summary::-webkit-details-marker{display:none;}
-  .catalog-group summary .cg-count{font-size:12px; color:var(--text-muted); font-weight:400;}
-  .catalog-group[open] summary{border-bottom:1px solid var(--hairline);}
-  .catalog-list{padding:4px 14px;}
-  .catalog-item{padding:10px 0; border-bottom:1px solid var(--hairline);}
-  .catalog-item:last-child{border-bottom:none;}
-  .catalog-item .ci-name{font-size:13.5px; font-weight:600; margin-bottom:3px;
-                         display:flex; align-items:center; gap:6px;}
-  .catalog-item .ci-thesis{font-size:12.5px; color:var(--text-muted); line-height:1.5;}
+  /* 個股點擊變成可互動連結：底下虛線點出「可以點」，不是死文字 */
+  [data-stock-code]{cursor:pointer; text-decoration:underline dotted var(--text-muted);
+                    text-underline-offset:3px;}
+  [data-stock-code]:hover{color:var(--gold);}
+
+  /* 個股 K 線／技術指標彈窗 */
+  .sc-modal{position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:200;
+            display:none; align-items:flex-start; justify-content:center;
+            padding:24px 12px; overflow-y:auto;}
+  .sc-modal.open{display:flex;}
+  .sc-modal-inner{background:var(--surface); border-radius:var(--radius);
+                  max-width:820px; width:100%; padding:20px; position:relative;}
+  .sc-tf-tabs{display:flex; gap:6px; margin-bottom:10px; align-items:center; flex-wrap:wrap;}
+  .sc-tf{background:var(--surface-2); border:1px solid var(--hairline); color:var(--text-secondary);
+        border-radius:var(--radius-sm); padding:6px 16px; font-size:13px; cursor:pointer;}
+  .sc-tf.active{background:var(--gold); color:#171615; border-color:var(--gold); font-weight:600;}
+  .sc-zoom-group{display:flex; gap:4px; margin-left:auto;}
+  .sc-zoom{background:var(--surface-2); border:1px solid var(--hairline); color:var(--text-secondary);
+          border-radius:var(--radius-sm); width:32px; height:32px; font-size:15px;
+          line-height:1; cursor:pointer;}
+  .sc-zoom:hover{border-color:var(--gold); color:var(--gold);}
+  .sc-chart-container{width:100%; height:460px; margin-bottom:8px;}
+  .sc-info-bar{font-size:12px; font-family:'JetBrains Mono',monospace; color:var(--text-secondary);
+              background:var(--surface-2); border-radius:var(--radius-sm); padding:8px 10px;
+              margin-bottom:8px; min-height:20px; display:flex; flex-wrap:wrap;
+              gap:2px 10px; align-items:center;}
+  .sc-info-bar > span, .sc-info-bar > b{white-space:nowrap;}
+  .sc-info-date{font-family:'Noto Sans TC',sans-serif; color:var(--text-muted);}
+  .sc-info-marker{color:var(--gold); font-family:'Noto Sans TC',sans-serif;}
+  .sc-close{position:absolute; top:12px; right:12px; background:var(--surface-2);
+            border:none; color:var(--text-primary); width:32px; height:32px;
+            border-radius:50%; font-size:16px; cursor:pointer;}
+  .sc-title{font-family:'Noto Serif TC',serif; font-size:17px; margin-bottom:10px;}
+  .sc-loading, .sc-empty{color:var(--text-muted); font-size:13.5px; padding:20px 0;}
+  .sc-price-row{display:flex; align-items:baseline; gap:10px; margin-bottom:8px; flex-wrap:wrap;}
+  .sc-price{font-size:24px; font-weight:600;}
+  .sc-chg{font-size:14px;}
+  .sc-date{font-size:12px; color:var(--text-muted); margin-left:auto;}
+  .sc-svg{width:100%; height:auto; display:block; margin:10px 0;}
+  .sc-grid{stroke:var(--hairline); stroke-width:1;}
+  .sc-grid-dash{stroke:var(--hairline); stroke-width:1; stroke-dasharray:3,3;}
+  .sc-axis{fill:var(--text-muted); font-size:9px; font-family:'JetBrains Mono',monospace;}
+  .sc-legend{display:flex; gap:14px; flex-wrap:wrap; font-size:11.5px;
+             color:var(--text-secondary); margin-bottom:12px;}
+  .sc-legend span{display:flex; align-items:center; gap:5px;}
+  .sc-dot{width:8px; height:8px; border-radius:50%; display:inline-block;}
+  .sc-line{width:12px; height:2px; display:inline-block;}
+  .sc-grade{display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap;}
+  .sc-notes{font-size:12.5px; color:var(--text-secondary);}
+  .sc-disclaimer{font-size:11.5px; color:var(--text-muted); line-height:1.5;}
 
 </style>
 </head>
 <body>
 <div class="page">
   <nav class="nav">
-    <a href="index.html" class="">最新</a>
-    <a href="heatmap.html" class="">🔥 熱力圖</a>
-    <a href="chips.html" class="">💰 籌碼</a>
-    <a href="scores.html" class="">⭐ 評分</a>
-    <a href="disposition.html" class="">⚠️ 處置</a>
-    <a href="themes.html" class="">題材庫</a>
-    <a href="archive.html" class="">歷史</a>
+    <a href="../index.html" class="">最新</a>
+    <a href="../heatmap.html" class="">🔥 熱力圖</a>
+    <a href="../chips.html" class="">💰 籌碼</a>
+    <a href="../scores.html" class="">⭐ 評分</a>
+    <a href="../lookup.html" class="">🔍 個股查詢</a>
+    <a href="../disposition.html" class="">⚠️ 處置</a>
+    <a href="../themes.html" class="">題材庫</a>
+    <a href="../archive.html" class="">歷史</a>
+    <a href="../weekly/index.html" class="">📅 週報</a>
+    <a href="../monthly-deep/index.html" class="current">🌍 深度月報</a>
+    <a href="../research.html" class="">📥 研究筆記</a>
+    <a href="../submit.html" class="">📤 提交研究</a>
   </nav>
-<main class="page">
+
+  
 <header><div class="masthead-label">盤後快訊</div>
 <h1 class="masthead-date">深度月報：全球總經＋台股結構＋焦點個股</h1></header>
 <p class="commentary" style="margin-top:14px">每月 1 號產出，聚焦全球總經趨勢、台股結構性變化，以及當月表現最突出的個股深度分析。跟每月 12 號的事後績效回顧是不同的兩份報告。</p>
-<p class="commentary" style="margin-top:24px">第一份深度月報尚未產出，下個月 1 號會開始更新這裡。</p>
-</main>
+
+<div class="section-head">本月報告</div>
+
+<p class="commentary" style="margin-top:24px">尚無深度月報，下個月 1 號會開始更新這裡。</p>
+
+
+
+  <footer class="site-footer">
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 20:46</p>
+    <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
+  </footer>
+</div>
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
+  }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
+<script src="../assets/stock-chart.js?v=7a0c4f23"></script>
+
 </body>
 </html>

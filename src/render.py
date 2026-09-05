@@ -435,7 +435,51 @@ def render_scores(rows: list[dict], date_label_str: str) -> Path:
 def render_site() -> list[Path]:
     """重建所有索引頁。每次跑完報告都要呼叫，索引才會包含最新內容。"""
     return [render_index(), render_archive(), render_themes_page(), render_lookup_page(),
-            render_submit_page(), render_research_notes()]
+            render_submit_page(), render_research_notes(),
+            render_weekly_index(), render_monthly_deep_index()]
+
+
+def _render_pdf_index(subdir: str, json_key: str, nav_key: str, page_title: str,
+                      description: str, empty_message: str) -> Path:
+    """週報／深度月報首頁共用邏輯：兩者都是「一份 PDF 配一段摘要」的清單頁。
+
+    刻意不讓產出 PDF 的 Routine 自己手寫這個 index.html——之前那樣做真的
+    出過 bug（手寫的 nav 連結忘記加 ../，因為這頁在子目錄下，結果點什麼都
+    404）。現在改成 Routine 只需要在 docs/data/<json_key>.json 追加一筆
+    {filename, title, summary, date_label}，這裡統一用 base.html 樣板重繪，
+    nav 的 rel 前綴一定是對的，不會再重蹈覆轍。
+    """
+    cfg = load_config()
+    path = DOCS_DIR / subdir / "index.html"
+    path.parent.mkdir(parents=True, exist_ok=True)
+    reports = _read_json(json_key) or []
+
+    path.write_text(_env().get_template("pdf_report_index.html").render(
+        site_title=cfg["site"]["title"],
+        generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
+        rel="../", nav_current=nav_key,
+        page_title=page_title, description=description,
+        section_label="本" + ("週" if nav_key == "weekly" else "月") + "報告",
+        reports=list(reversed(reports)), empty_message=empty_message,
+    ), encoding="utf-8")
+    return path
+
+
+def render_weekly_index() -> Path:
+    return _render_pdf_index(
+        "weekly", "weekly_reports", "weekly", "週報：全球總經＋台股深度研究",
+        "每週五盤後產出，涵蓋全球總體經濟與台股市場的深度研究，由 Claude 排程 agent 產出。"
+        "分析文章形式，明確區分已驗證事實與推論，不構成投資建議。",
+        "尚無週報，下一個週五盤後會開始更新這裡。")
+
+
+def render_monthly_deep_index() -> Path:
+    return _render_pdf_index(
+        "monthly-deep", "monthly_deep_reports", "monthly-deep",
+        "深度月報：全球總經＋台股結構＋焦點個股",
+        "每月 1 號產出，聚焦全球總經趨勢、台股結構性變化，以及當月表現最突出的個股深度分析。"
+        "跟每月 12 號的事後績效回顧是不同的兩份報告。",
+        "尚無深度月報，下個月 1 號會開始更新這裡。")
 
 
 def render_submit_page() -> Path:

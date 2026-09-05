@@ -27,6 +27,17 @@
 - **每月深度月報**：Routine「台股深度月報：全球總經＋台股結構＋焦點個股」，
   每月 1 號，產出 `docs/monthly-deep/<年-月>.pdf`。同樣不受網路政策影響。
   下次執行：2026-10-01。
+- **重要：`docs/weekly/index.html`／`docs/monthly-deep/index.html` 不要再手寫**。
+  這兩頁本來是 Routine 每次執行時手動編輯 HTML（在檔案裡直接加一段 `.card`），
+  2026-09-05 發現這樣做的版本忘記幫 nav 連結加 `../` 前綴（這兩頁在子目錄下），
+  結果整排導覽列點什麼都 404。已經改成 `render.render_weekly_index()`／
+  `render.render_monthly_deep_index()` 從 `docs/data/weekly_reports.json`／
+  `docs/data/monthly_deep_reports.json` 讀資料、套用 `base.html` 樣板產生，
+  `render_site()` 每次都會重繪。**新產出一份 PDF 時，只需要在對應的 JSON
+  陣列「最後面」新增一筆 `{"filename":, "title":, "summary":, "date_label":}`
+  （陣列是舊到新，render 那邊會自己反轉成新到舊），然後跑一次
+  `python -m src.main site` 讓 index.html 重新產生——不要直接編輯 index.html，
+  不然下次又會跟 nav 樣板的更新脱鉾。
 - Discord／Telegram 通知：`src/notify.py` 會寫一份 `docs/_notify_payload.json`，
   `daily-notify.yml` 偵測到這個檔案變動時用 repo 的密鑰代為送出（發送時記得帶
   瀏覽器樣式 User-Agent，Discord/Cloudflare 會擋掉預設 UA，見 `send_discord()`）；
