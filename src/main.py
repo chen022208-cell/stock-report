@@ -19,6 +19,17 @@ import traceback
 from datetime import date, timedelta
 from pathlib import Path
 
+# Windows 主控台預設用 cp950（Big5），不是每個中文字/emoji 都能編碼，遇到就會
+# 直接把整支腳本炸掉（UnicodeEncodeError），不是排程環境（GitHub Actions／
+# Claude Code Routine 多半是 UTF-8 的 Linux）會遇到的問題，但本機執行 print()
+# 不該因為主控台編碼不支援某個字就讓整個報告開天窗——這裡改成遇到編碼不了的
+# 字元直接替換掉，不拋例外。
+for _stream in (sys.stdout, sys.stderr):
+    try:
+        _stream.reconfigure(errors="replace")
+    except Exception:
+        pass
+
 from . import db, llm, prices_db, render
 from .analysis import global_themes, industry, review, scoring, screener, technical
 from .config import DRY_RUN, load_config, today_str, now_tpe
