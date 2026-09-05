@@ -214,10 +214,41 @@
 
 
 <div class="rs-steps">
-  這個功能還在設定中（需要先設定好 Google 表單才能提供免登入的提交方式）。
-  現在可以先用下面的 GitHub Issue 方式提交。
+  貼上文章全文或連結，按「送出」就完成了——<b>不用登入、不會跳頁</b>。
+  系統會用 LLM 分析內容、嚴格驗證真偽，只有驗證通過的部分才會回寫進題材知識庫；
+  結果會出現在 <a href="research.html">研究筆記</a> 頁面。
 </div>
-<form class="rs-form" id="rs-gh-form" onsubmit="return false;">
+
+<div class="rs-mode-tabs" id="rs-mode-tabs">
+  <button type="button" class="rs-mode-tab active" data-mode="text">貼文字內容</button>
+  <button type="button" class="rs-mode-tab" data-mode="url">貼連結網址</button>
+</div>
+
+<form class="rs-form" id="rs-form" onsubmit="return false;" style="margin-top:14px">
+  <div>
+    <label for="rs-title">標題（可留空）</label>
+    <input id="rs-title" type="text" placeholder="例如：文章來源或主題">
+  </div>
+  <div id="rs-text-field">
+    <label for="rs-body">內容（貼上文章全文或你整理的重點）</label>
+    <textarea id="rs-body" placeholder="貼在這裡..."></textarea>
+    <div class="rs-count" id="rs-count">0 字</div>
+  </div>
+  <div id="rs-url-field" style="display:none">
+    <label for="rs-url">文章網址</label>
+    <input id="rs-url" type="url" placeholder="https://...">
+  </div>
+  <button class="rs-submit" id="rs-submit" type="button" disabled>送出 →</button>
+  <div class="rs-success" id="rs-success">✓ 已送出，系統會盡快分析並更新到研究筆記頁面。</div>
+</form>
+<p class="rs-note">內容太長時建議先貼重點摘要。系統只會把「驗證通過」的內容回寫進真實報告，
+未經驗證或跟既有資料衝突的部分只會留在研究筆記裡，不影響正式資料。</p>
+
+<div class="rs-gh-toggle">
+  比較熟悉 GitHub 的話，也可以 <a id="rs-gh-link">改用 GitHub Issue 提交</a>。
+</div>
+<div class="rs-gh-box" id="rs-gh-box">
+  <form class="rs-form" id="rs-gh-form" onsubmit="return false;">
   <div>
     <label for="rs-gh-title">標題（可留空）</label>
     <input id="rs-gh-title" type="text" placeholder="例如：文章來源或主題">
@@ -258,11 +289,20 @@
   });
 })();
 </script>
+</div>
+
+<!-- 隱藏 iframe + 表單：送出後目標是這個 iframe，頁面本身不會跳轉 -->
+<iframe name="rs-hidden-iframe" id="rs-hidden-iframe" style="display:none"></iframe>
+<form id="rs-gform" action="https://docs.google.com/forms/d/e/1FAIpQLSccgfQ_dQwSCfgXwIjT3rYXw943GU_I-D_bYrRnuybxjkE4tw/formResponse" method="POST" target="rs-hidden-iframe" style="display:none">
+  <input type="text" name="entry.1302450198" id="rs-gform-title">
+  <textarea name="entry.412555711" id="rs-gform-body"></textarea>
+</form>
+
 
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 20:22</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 20:28</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
