@@ -8,7 +8,39 @@
   "use strict";
 
   var cache = {};
-  var MONTHS_BACK = 24;
+  var MONTHS_BACK = 36;
+  var LS_PREFIX = "sc_hist_v1_";
+
+  function todayIso() {
+    // 用瀏覽器本機日期，使用者主要都在台灣時區，不特別處理時區轉換。
+    var d = new Date();
+    return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0")
+         + "-" + String(d.getDate()).padStart(2, "0");
+  }
+
+  function loadPersisted(code) {
+    try {
+      var raw = localStorage.getItem(LS_PREFIX + code);
+      if (!raw) return null;
+      var obj = JSON.parse(raw);
+      return (obj && Array.isArray(obj.bars) && obj.bars.length) ? obj : null;
+    } catch (e) { return null; }
+  }
+
+  function savePersisted(code, bars) {
+    try {
+      localStorage.setItem(LS_PREFIX + code, JSON.stringify({ bars: bars }));
+    } catch (e) { /* 存不下去（例如私密模式擋掉 localStorage）就算了，不影響圖表本身顯示 */ }
+  }
+
+  function mergeBars(oldBars, newBars) {
+    var byDate = {};
+    oldBars.forEach(function (r) { byDate[r.date] = r; });
+    newBars.forEach(function (r) { byDate[r.date] = r; }); // 同一天有新資料就覆蓋（收盤資料事後修正）
+    var merged = Object.keys(byDate).map(function (d) { return byDate[d]; });
+    merged.sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
+    return merged;
+  }
 
   function parseNum(s) {
     if (s === undefined || s === null || s === "") return null;
@@ -40,7 +72,35 @@
 
   function fetchHistory(code) {
     if (cache[code]) return Promise.resolve(cache[code]);
+
     var now = new Date();
+    var persisted = loadPersisted(code);
+
+    if (persisted) {
+      var lastDate = persisted.bars[persisted.bars.length - 1].date;
+      if (lastDate >= todayIso()) {
+        // 今天已經補過了（或還沒開盤/假日沒有新資料），直接用本機存的，不用打網路。
+        cache[code] = persisted.bars;
+        return Promise.resolve(persisted.bars);
+      }
+      // 快取存在但不是今天的——只補抓「這個月」＋「上個月」（涵蓋跨月分界），
+      // 不用重新抓 MONTHS_BACK 個月；平常收盤後只要 2 支 API 就能補到最新一天。
+      // 遇到假日/非交易日，TWSE 本來就不會回傳那天的資料，快取自然不會多長一天，
+      // 不用另外寫台股假日表去判斷。
+      var prevY = now.getFullYear(), prevM = now.getMonth(); // getMonth() 是 0-based，正好是上個月數字
+      if (prevM === 0) { prevM = 12; prevY -= 1; }
+      return Promise.all([
+        fetchMonth(code, now.getFullYear(), now.getMonth() + 1),
+        fetchMonth(code, prevY, prevM),
+      ]).then(function (results) {
+        var merged = mergeBars(persisted.bars, [].concat.apply([], results));
+        cache[code] = merged;
+        savePersisted(code, merged);
+        return merged;
+      });
+    }
+
+    // 完全沒有本機快取（第一次查這檔股票）：抓齊 MONTHS_BACK 個月。
     var calls = [];
     for (var i = 0; i < MONTHS_BACK; i++) {
       var y = now.getFullYear(), m = now.getMonth() + 1 - i;
@@ -57,6 +117,7 @@
       });
       all.sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
       cache[code] = all;
+      savePersisted(code, all);
       return all;
     });
   }
