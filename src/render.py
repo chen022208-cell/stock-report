@@ -515,14 +515,28 @@ def render_submit_page() -> Path:
 
 
 def render_research_notes() -> Path:
-    """已提交研究的處理結果：驗證狀態、摘要、有沒有真的回寫進題材庫。"""
+    """已提交研究的處理結果：驗證狀態、摘要、有沒有真的回寫進題材庫。
+
+    theme 標籤要能點進去看該題材的深度報告，不然只是看得到名字、點不開，
+    使用者會以為壞掉——這裡額外查一次每個題材有沒有 deep_dive_slug，
+    有的話補上連結。"""
     cfg = load_config()
     path = DOCS_DIR / "research.html"
+
+    notes = db.list_research_notes()
+    theme_slug_cache: dict[str, str | None] = {}
+    for n in notes:
+        for t in n.get("affected_themes", []):
+            name = t.get("name", "")
+            if name not in theme_slug_cache:
+                theme_row = db.get_theme(name)
+                theme_slug_cache[name] = (theme_row or {}).get("deep_dive_slug")
+            t["slug"] = theme_slug_cache[name]
 
     path.write_text(_env().get_template("research.html").render(
         site_title=cfg["site"]["title"],
         generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
         rel="", nav_current="research",
-        notes=db.list_research_notes(),
+        notes=notes,
     ), encoding="utf-8")
     return path
