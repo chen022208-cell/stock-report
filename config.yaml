@@ -58,7 +58,7 @@ research_intake:
   google_form_action_url: "https://docs.google.com/forms/d/e/1FAIpQLSccgfQ_dQwSCfgXwIjT3rYXw943GU_I-D_bYrRnuybxjkE4tw/formResponse"
   google_form_entry_title: "entry.1302450198"  # 「標題」欄位
   google_form_entry_body: "entry.412555711"    # 「內容」欄位
-  google_sheet_csv_url: ""     # 回覆試算表「發布到網路→CSV」產生的公開網址（還缺這個）
+  google_sheet_csv_url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTEbTSr1aYuLRJ0kc8Herw0Lx1DLQ7QpP9i3wmqNuO2OJt1F66B_XmontAOUP0Cc2qSu-PT8T98drRC/pub?output=csv"
 
 # ── 題材知識庫退場機制 ──────────────────────────────
 theme_lifecycle:

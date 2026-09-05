@@ -707,20 +707,25 @@ def run_research_intake() -> None:
         _report_result_to_issue(number, result)
 
     # 來源二：Google 表單（給不需要 GitHub 帳號的訪客，見 submit.html）
+    # 用「已處理過幾列」而不是時間戳記字串來判斷新提交——Google 表單的時間戳記
+    # 是「2026/9/5 下午 8:32:07」這種格式，字串比較在日期/時間進位時會比錯
+    # （例如 "9/15" 字串會排在 "9/5" 前面），但表單本來就只會照送出順序把
+    # 新回覆附加在試算表最後一列，所以看列數比看時間字串可靠。
     cfg = load_config()
     csv_url = cfg.get("research_intake", {}).get("google_sheet_csv_url", "")
     if csv_url:
         rows = _safe(lambda: google_sheet.fetch_form_responses(csv_url), [], "讀取使用者研究提交（表單）")
-        last_ts = db.get_state("research_form_last_timestamp", "")
-        new_rows = [r for r in rows if r["timestamp"] > last_ts] if last_ts else rows
+        last_count = int(db.get_state("research_form_row_count", "0"))
+        new_rows = rows[last_count:]
         for row in new_rows:
             print(f"[research] 處理表單提交（{row['timestamp']}）：{row['title']}")
-            _process_research_submission(
+            result = _process_research_submission(
                 f"Google 表單提交（{row['timestamp']}）", row["title"], row["body"], today,
                 known_theme_names, row["timestamp"])
-            processed += 1
+            if result:
+                processed += 1
         if new_rows:
-            db.set_state("research_form_last_timestamp", max(r["timestamp"] for r in new_rows))
+            db.set_state("research_form_row_count", str(len(rows)))
 
     if processed == 0:
         print("[research] 目前沒有待處理的使用者研究提交")
