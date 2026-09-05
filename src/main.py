@@ -6,6 +6,7 @@
     python -m src.main monthly     # 每月 12 日 月報完整版
     python -m src.main holiday     # 假日功課
     python -m src.main research    # 處理使用者提交的研究文章（見 submit.html）
+    python -m src.main news        # 檢查華爾街見聞即時快訊，重要且相關才推播
     python -m src.main auto        # 自動判斷今天該跑什麼（排程用這個）
 
 本地測試：DRY_RUN=1 python -m src.main evening
@@ -33,7 +34,8 @@ for _stream in (sys.stdout, sys.stderr):
 from . import db, llm, prices_db, render
 from .analysis import global_themes, industry, review, scoring, screener, technical
 from .config import DRY_RUN, load_config, today_str, now_tpe
-from .fetchers import fred, google_sheet, international, mops, stock_news, tdcc, tpex, twse
+from .fetchers import (fred, google_sheet, international, mops, stock_news,
+                       tdcc, tpex, twse, wallstreetcn)
 from .market_calendar import (classify_day, consecutive_closed_days,
                               is_last_day_before_reopen, next_trading_day,
                               refresh_holidays)
@@ -763,6 +765,64 @@ def _report_result_to_issue(number: int, result: dict) -> None:
     print(f"[research] Issue #{number} 完成，判定：{verified}")
 
 
+# ── 即時快訊監控（華爾街見聞 live/global）─────────────────
+# 跟使用者研究提交共用同一套「分析＋嚴格驗證」邏輯（_process_research_submission），
+# 差別只是來源換成即時快訊：先用來源自己的重要度分數粗篩一輪（省 LLM 成本，
+# 大多數快訊跟台股完全無關），只有夠重要的才進一步分析跟不跟現有題材/個股有關；
+# 只有「夠重要且真的跟台股題材/個股有關」才推播通知，避免每則國際新聞都推播
+# 造成通知疲勞。目前沒有排程自動跑，要另外設一個跑得比每日報告更頻繁的 Routine。
+def run_news_monitor() -> None:
+    cfg = load_config()
+    nm = cfg.get("news_monitor", {})
+    today = today_str()
+
+    feed = _safe(lambda: wallstreetcn.fetch_live_feed(nm.get("channel", "global-channel"),
+                                                       nm.get("fetch_limit", 30)),
+                [], "即時快訊")
+    if not feed:
+        print("[news] 目前抓不到即時快訊")
+        return
+
+    last_id = int(db.get_state("news_monitor_last_id", "0"))
+    score_min = nm.get("score_min", 2)
+    # feed 是新到舊排列；第一次執行時沒有 last_id，只記錄目前最新一則的 id 當基準，
+    # 不要把過去幾十則舊快訊一次性全部拿去分析（浪費成本，而且都是舊聞）
+    if last_id == 0:
+        db.set_state("news_monitor_last_id", str(max(it["id"] for it in feed)))
+        print(f"[news] 第一次執行，記錄基準 id，下次才開始比對新快訊")
+        return
+
+    candidates = [it for it in feed if it["id"] > last_id and it["score"] >= score_min]
+    if not candidates:
+        db.set_state("news_monitor_last_id", str(max(it["id"] for it in feed)))
+        print("[news] 沒有新的重要快訊")
+        return
+
+    known_theme_names = list(dict.fromkeys(
+        _safe(db.catalog_theme_names, [], "題材目錄名單")
+        + [t["name"] for t in db.list_all_themes()]
+    ))
+    notified = 0
+    for it in sorted(candidates, key=lambda x: x["id"]):
+        text = f"{it['title']}\n{it['text']}" if it["title"] else it["text"]
+        result = _process_research_submission(
+            f"華爾街見聞即時快訊 #{it['id']}", it["title"] or "即時快訊", text, today,
+            known_theme_names, f"news#{it['id']}")
+        if not result:
+            continue
+        affected = result.get("affected_themes", [])
+        if result.get("verified") in ("verified", "conflicting") and affected:
+            names = "、".join(t["name"] for t in affected)
+            send_notification(f"📰 快訊：{it['title'] or text[:30]}",
+                             f"{result.get('summary', '')}\n\n相關題材：{names}")
+            notified += 1
+
+    db.set_state("news_monitor_last_id", str(max(it["id"] for it in feed)))
+    if notified:
+        render.render_site()
+    print(f"[news] 檢查 {len(candidates)} 則重要快訊，推播 {notified} 則")
+
+
 # ── 自動分支（排程呼叫這個） ───────────────────────────
 def run_auto(slot: str) -> None:
     """slot = morning / evening，由 cron 傳入時段，再由行事曆決定實際跑什麼。"""
@@ -801,6 +861,7 @@ def main() -> None:
         "site": lambda: render.render_site(),
         "catalog": run_import_catalog,
         "research": run_research_intake,
+        "news": run_news_monitor,
     }
 
     if mode == "auto":

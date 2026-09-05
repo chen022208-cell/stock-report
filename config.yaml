@@ -60,6 +60,12 @@ research_intake:
   google_form_entry_body: "entry.412555711"    # 「內容」欄位
   google_sheet_csv_url: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTEbTSr1aYuLRJ0kc8Herw0Lx1DLQ7QpP9i3wmqNuO2OJt1F66B_XmontAOUP0Cc2qSu-PT8T98drRC/pub?output=csv"
 
+# ── 即時快訊監控（華爾街見聞 live/global）─────────────────
+news_monitor:
+  channel: "global-channel"
+  fetch_limit: 30      # 每次抓最近幾則
+  score_min: 2         # 華爾街見聞自己的重要度門檻（1 是一般、2 以上算重要）
+
 # ── 題材知識庫退場機制 ──────────────────────────────
 theme_lifecycle:
   dormant_after_days: 7      # 連續 N 個交易日無新訊號 → 休眠

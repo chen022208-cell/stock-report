@@ -43,6 +43,16 @@
   瀏覽器樣式 User-Agent，Discord/Cloudflare 會擋掉預設 UA，見 `send_discord()`）；
   週報/月報的新 PDF 則由 `deep-report-notify.yml` 偵測
   `docs/weekly/*.pdf`、`docs/monthly-deep/*.pdf` 新增直接送 Discord。
+- **即時快訊監控**：`python -m src.main news`（`run_news_monitor()`）打
+  `api.wallstreetcn.com` 的公開 JSON API（不是 wallstreetcn.com 網頁本身，
+  那是前端渲染的 SPA，純 HTTP 抓不到內容）抓即時快訊，先用來源自己的
+  `score`（重要度分數，≥2 算重要）粗篩，再用跟使用者研究提交同一套
+  `_process_research_submission()` 分析＋驗證，只有「夠重要且真的跟現有
+  題材/個股有關」才推播通知，避免每則國際新聞都推播造成通知疲勞。用
+  `app_state` 表的 `news_monitor_last_id` 記錄檢查到哪一則，第一次執行只
+  記錄基準不推播（避免一次性把歷史快訊全部分析一輪）。**目前沒有排程
+  自動跑**，要另外設一個跑得比每日報告更頻繁的 Routine 或 GitHub Actions
+  cron（新聞監控需要比較高頻率，例如每小時，不是每天兩次）。
 
 ## 個股技術圖表／查詢
 

@@ -319,6 +319,17 @@ def supply_chain_structure() -> dict:
     }
 
 
+def wallstreetcn_live_feed() -> list[dict]:
+    return [
+        {"id": 9000002, "title": "輝達傳將擴大CoWoS-L訂單，供應鏈評估明年產能滿載",
+         "text": "市場消息指輝達下一代AI晶片CoWoS-L封裝訂單持續加碼，台積電及封測供應鏈評估明年產能吃緊。",
+         "score": 2, "display_time": 1893456000},
+        {"id": 9000001, "title": "國家數據局赴內蒙古調研數據要素市場化配置",
+         "text": "國家數據局局長一行赴內蒙古自治區調研數據要素市場化配置改革工作推進情況。",
+         "score": 1, "display_time": 1893455000},
+    ]
+
+
 def research_form_responses() -> list[dict]:
     return [
         {"timestamp": "2026/09/06 上午 9:00:00", "title": "測試：機器人減速機訂單消息",
