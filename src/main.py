@@ -506,6 +506,10 @@ def run_evening() -> None:
 
     path = render.render_daily(ctx, f"{today}-evening")
 
+    # 三個選股訊號另外落地成 picks.json，「選股雷達」頁才有固定入口可看
+    _safe(lambda: render.save_picks(breakout_candidates, new_listings, dark_horses,
+                                    render.date_label(today)), None, "選股雷達資料")
+
     # 題材生命週期：退場機制
     lc = cfg["theme_lifecycle"]
     changed = db.apply_theme_lifecycle(today, lc["dormant_after_days"],

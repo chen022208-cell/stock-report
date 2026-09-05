@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}選股雷達 · {{ site_title }}{% endblock %}
+{% block extra_css %}
+  .darkhorse-entry{background:var(--surface); border:1px solid var(--hairline);
+    border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:12px;}
+  .darkhorse-name{font-weight:600; font-size:14.5px; margin-bottom:10px;}
+  .darkhorse-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:8px;}
+  .dh-label{font-size:11px; color:var(--text-muted);}
+  .dh-value{font-size:13.5px; font-weight:600;}
+  .darkhorse-note{font-size:12.5px; color:var(--text-secondary); line-height:1.6;}
+  .tech-table{width:100%; border-collapse:collapse; font-size:13px;}
+  .tech-table th,.tech-table td{text-align:left; padding:8px 10px; border-bottom:1px solid var(--hairline);}
+  .tech-table th{font-size:11.5px; color:var(--text-muted); font-weight:500;}
+  .picks-empty{font-size:13px; color:var(--text-muted); padding:14px 0;}
+  @media (max-width:480px){ .darkhorse-grid{grid-template-columns:repeat(2,1fr);} }
+{% endblock %}
+{% block content %}
+<header><div class="masthead-label">{{ site_title }}</div>
+<h1 class="masthead-date">選股雷達</h1></header>
+<p class="commentary" style="margin-top:14px">起漲點、新掛牌（含興櫃）、黑馬三個選股訊號集中在這裡，
+資料來自最近一次盤後掃描（{{ date_label or "尚未執行" }}）。這些都是客觀訊號整理，不是推薦標的。</p>
+
+<section class="block" style="margin-top:24px">
+  <h2>🐎 起漲點雷達</h2>
+  <p class="commentary" style="margin-bottom:12px">剛站上月線或季線、且量能明顯放大的個股——重點是「剛開始」，
+  近期已經漲多的會被排除，不是看到上漲就抓。</p>
+  {% if breakout %}
+  {% for b in breakout %}
+  <div class="darkhorse-entry">
+    <div class="darkhorse-name" data-stock-code="{{ b.code }}" data-stock-name="{{ b.name }}">{{ b.code }} {{ b.name }} 📈</div>
+    <div class="darkhorse-grid">
+      <div><span class="dh-label">今日漲幅</span><br>
+        <span class="dh-value {{ 'up' if b.change_pct >= 0 else 'down' }}">{{ "%+.2f"|format(b.change_pct) }}%</span></div>
+      <div><span class="dh-label">量能倍數</span><br><span class="dh-value">{{ b.volume_ratio }} 倍</span></div>
+      <div><span class="dh-label">突破天數</span><br>
+        <span class="dh-value">{{ '今天' if b.days_ago == 0 else b.days_ago ~ ' 天前' }}</span></div>
+      <div><span class="dh-label">突破均線</span><br>
+        <span class="dh-value">{{ b.crossed|map(attribute='label')|join('、') }}</span></div>
+    </div>
+    <div class="darkhorse-note">{{ b.reason }}</div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="picks-empty">本日沒有符合「剛突破＋爆量」條件的個股。門檻故意設得嚴，多數交易日會是空的。</p>
+  {% endif %}
+</section>
+<hr class="divider">
+
+<section class="block">
+  <h2>🆕 新掛牌觀察</h2>
+  <p class="commentary" style="margin-bottom:12px">上市／上櫃／興櫃未滿半年的個股，籌碼歷史短、波動特性跟老牌股不同，
+  不管今天漲跌都先列出來留意。興櫃是議價／搓合市場，漲跌幅只是對比前一日均價的近似值。</p>
+  {% if new_listings %}
+  <table class="tech-table">
+    <tr><th>股票</th><th>市場</th><th>掛牌天數</th><th>今日漲跌</th></tr>
+    {% for n in new_listings %}
+    <tr>
+      <td data-stock-code="{{ n.code }}" data-stock-name="{{ n.name }}">{{ n.code }} {{ n.name }} 📈</td>
+      <td>{{ "上市" if n.market == "twse" else "上櫃" if n.market == "tpex" else "興櫃" }}</td>
+      <td class="mono">{{ n.days_listed }} 天</td>
+      <td class="mono {{ 'up' if n.change_pct >= 0 else 'down' }}">{{ "%+.2f"|format(n.change_pct) }}%</td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+  <p class="picks-empty">尚無資料，下一次盤後掃描後會更新這裡。</p>
+  {% endif %}
+</section>
+<hr class="divider">
+
+<section class="block">
+  <h2>黑馬觀察</h2>
+  <p class="commentary" style="margin-bottom:12px">被系統標記為「孤立訊號」的個股——量能異常、但找不到同族群呼應，
+  題材脈絡不明、籌碼未經法人驗證。列為觀察而非追蹤標的。</p>
+  {% if dark_horses %}
+  {% for dh in dark_horses %}
+  <div class="darkhorse-entry">
+    <div class="darkhorse-name" data-stock-code="{{ dh.code }}" data-stock-name="{{ dh.name }}">{{ dh.code }} {{ dh.name }}</div>
+    <div class="darkhorse-grid">
+      <div><span class="dh-label">今日漲幅</span><br>
+        <span class="dh-value up">{{ "%+.2f"|format(dh.change_pct) }}%</span></div>
+      <div><span class="dh-label">量能倍數</span><br><span class="dh-value">{{ dh.volume_ratio }} 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br><span class="dh-value">{{ dh.risk_level }}</span></div>
+      <div><span class="dh-label">法人動向</span><br><span class="dh-value">未經驗證</span></div>
+    </div>
+    <div class="darkhorse-note">{{ dh.reason }}　{{ dh.advice }}。</div>
+  </div>
+  {% endfor %}
+  {% else %}
+  <p class="picks-empty">本日無黑馬訊號（或盤後掃描尚未執行）。</p>
+  {% endif %}
+</section>
+{% endblock %}

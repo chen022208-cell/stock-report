@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>選股雷達 · 盤後快訊</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="theme-color" content="#1C1B19">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#171615; --surface:#221F1D; --surface-2:#2A2725; --surface-3:#332F2B;
+    --text-primary:#F2EEE6; --text-secondary:#ABA398; --text-muted:#786F63;
+    --red:#E15C4F; --green:#4FB07A; --gold:#E3AC4E; --hairline:#38332E;
+    /* 分類色：跟紅漲綠跌語意分開，只用來標「這是哪一種資訊」 */
+    --c-market:#6C93F5; --c-theme:#B48CE8; --c-chip:#EC9A5C; --c-score:#43BFAE;
+    --c-warn:#E15C4F;
+    --radius:14px; --radius-sm:10px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{-webkit-tap-highlight-color:transparent;}
+  body{background:var(--bg); color:var(--text-primary);
+       font-family:'Noto Sans TC',sans-serif; line-height:1.65;
+       -webkit-font-smoothing:antialiased;}
+  .page{max-width:720px; margin:0 auto; padding:20px 16px 72px;}
+  a{color:inherit;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  /* 台股慣例：紅漲綠跌。切勿套用美股配色，會讓人看反方向 */
+  .up{color:var(--red);} .down{color:var(--green);}
+  hr.divider{border:none; border-top:1px solid var(--hairline); margin:22px 0;}
+
+  /* 頂部像 App 的水平捲動分類籤條，取代原本會換行的純文字導覽 */
+  .nav{display:flex; gap:8px; margin-bottom:20px; overflow-x:auto;
+       -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:2px;}
+  .nav::-webkit-scrollbar{display:none;}
+  /* 手機用滑動手勢捲動，隱藏捲軸沒問題；桌機滑鼠沒有對應手勢，捲軸又被隱藏，
+     後面的項目會卡死點不到——桌機寬度夠，直接讓導覽列換行，不用捲動 */
+  @media (min-width:700px){
+    .nav{flex-wrap:wrap; overflow-x:visible;}
+  }
+  .nav a{flex-shrink:0; text-decoration:none; font-size:13px; font-weight:500;
+        color:var(--text-secondary); background:var(--surface);
+        padding:9px 14px; border-radius:100px; border:1px solid var(--hairline);
+        white-space:nowrap; transition:background .15s,color .15s;}
+  .nav a:hover,.nav a:focus-visible{color:var(--text-primary); background:var(--surface-2);}
+  .nav a.current{color:#171615; background:var(--gold); border-color:var(--gold); font-weight:600;}
+
+  .masthead-label{font-size:13px; color:var(--text-muted); margin-bottom:4px;}
+  .masthead-date{font-family:'Noto Serif TC',serif; font-weight:600; font-size:24px;}
+
+  .block{margin-bottom:4px;}
+  .block h2{font-family:'Noto Serif TC',serif; font-weight:600;
+            font-size:18px; margin-bottom:14px;}
+  .commentary{font-size:14.5px; color:var(--text-secondary); line-height:1.8;}
+
+  .tag{font-size:11.5px; padding:3px 9px; border-radius:100px; white-space:nowrap;
+      font-weight:500;}
+  .tag.confidence-high{background:rgba(227,172,78,.18); color:var(--gold);}
+  .tag.confidence-mid{background:rgba(171,163,152,.16); color:var(--text-secondary);}
+  .tag.confidence-low{background:rgba(120,111,99,.18); color:var(--text-muted);}
+  .tag.verdict-real{background:rgba(79,176,122,.18); color:var(--green);}
+  .tag.verdict-watch{background:rgba(225,92,79,.18); color:var(--red);}
+  .tag.watchlist{background:rgba(227,172,78,.22); color:var(--gold);}
+
+  /* 通用卡片元件：儀表板／格狀資訊都吃這組，密度比原本文章式排版高 */
+  .card{background:var(--surface); border-radius:var(--radius); padding:16px;
+       border:1px solid var(--hairline);}
+  .card-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
+  .card-grid.cols-3{grid-template-columns:repeat(3,1fr);}
+  .stat-tile{background:var(--surface); border-radius:var(--radius-sm);
+            padding:13px 14px; border-left:3px solid var(--hairline);}
+  .stat-tile.c-market{border-left-color:var(--c-market);}
+  .stat-tile.c-theme{border-left-color:var(--c-theme);}
+  .stat-tile.c-chip{border-left-color:var(--c-chip);}
+  .stat-tile.c-score{border-left-color:var(--c-score);}
+  .stat-tile.c-warn{border-left-color:var(--c-warn);}
+  .stat-tile .stat-tile-label{font-size:11.5px; color:var(--text-muted); margin-bottom:5px;
+                              display:flex; align-items:center; gap:5px;}
+  .stat-tile .stat-tile-value{font-family:'JetBrains Mono',monospace; font-size:19px;
+                              font-weight:500; line-height:1.2;}
+  .stat-tile .stat-tile-sub{font-size:12px; color:var(--text-secondary); margin-top:3px;}
+  .dot{width:7px; height:7px; border-radius:50%; flex-shrink:0; display:inline-block;}
+  .dot.c-market{background:var(--c-market);} .dot.c-theme{background:var(--c-theme);}
+  .dot.c-chip{background:var(--c-chip);} .dot.c-score{background:var(--c-score);}
+  .dot.c-warn{background:var(--c-warn);}
+
+  /* 快速連結格：首頁用，取代純文字清單 */
+  .quicklink-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
+  .quicklink{display:block; background:var(--surface); border:1px solid var(--hairline);
+            border-radius:var(--radius-sm); padding:13px 14px; text-decoration:none;
+            transition:background .15s, transform .1s;}
+  .quicklink:active{transform:scale(.98);}
+  .quicklink:hover{background:var(--surface-2);}
+  .quicklink .ql-title{font-size:14px; font-weight:600; color:var(--text-primary);
+                       display:flex; align-items:center; gap:7px; margin-bottom:3px;}
+  .quicklink .ql-desc{font-size:12px; color:var(--text-muted);}
+
+  footer.site-footer{margin-top:36px; padding-top:18px;
+                     border-top:1px solid var(--hairline);}
+  footer.site-footer p{font-size:12px; color:var(--text-muted);
+                       margin-bottom:6px; line-height:1.6;}
+
+  @media (max-width:480px){
+    .page{padding:14px 12px 64px;}
+    .masthead-date{font-size:21px;}
+    .card-grid.cols-3{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
+
+  /* 個股點擊變成可互動連結：底下虛線點出「可以點」，不是死文字 */
+  [data-stock-code]{cursor:pointer; text-decoration:underline dotted var(--text-muted);
+                    text-underline-offset:3px;}
+  [data-stock-code]:hover{color:var(--gold);}
+
+  /* 個股 K 線／技術指標彈窗 */
+  .sc-modal{position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:200;
+            display:none; align-items:flex-start; justify-content:center;
+            padding:24px 12px; overflow-y:auto;}
+  .sc-modal.open{display:flex;}
+  .sc-modal-inner{background:var(--surface); border-radius:var(--radius);
+                  max-width:820px; width:100%; padding:20px; position:relative;}
+  .sc-tf-tabs{display:flex; gap:6px; margin-bottom:10px; align-items:center; flex-wrap:wrap;}
+  .sc-tf{background:var(--surface-2); border:1px solid var(--hairline); color:var(--text-secondary);
+        border-radius:var(--radius-sm); padding:6px 16px; font-size:13px; cursor:pointer;}
+  .sc-tf.active{background:var(--gold); color:#171615; border-color:var(--gold); font-weight:600;}
+  .sc-zoom-group{display:flex; gap:4px; margin-left:auto;}
+  .sc-zoom{background:var(--surface-2); border:1px solid var(--hairline); color:var(--text-secondary);
+          border-radius:var(--radius-sm); width:32px; height:32px; font-size:15px;
+          line-height:1; cursor:pointer;}
+  .sc-zoom:hover{border-color:var(--gold); color:var(--gold);}
+  .sc-chart-container{width:100%; height:460px; margin-bottom:8px;}
+  .sc-info-bar{font-size:12px; font-family:'JetBrains Mono',monospace; color:var(--text-secondary);
+              background:var(--surface-2); border-radius:var(--radius-sm); padding:8px 10px;
+              margin-bottom:8px; min-height:20px; display:flex; flex-wrap:wrap;
+              gap:2px 10px; align-items:center;}
+  .sc-info-bar > span, .sc-info-bar > b{white-space:nowrap;}
+  .sc-info-date{font-family:'Noto Sans TC',sans-serif; color:var(--text-muted);}
+  .sc-info-marker{color:var(--gold); font-family:'Noto Sans TC',sans-serif;}
+  .sc-close{position:absolute; top:12px; right:12px; background:var(--surface-2);
+            border:none; color:var(--text-primary); width:32px; height:32px;
+            border-radius:50%; font-size:16px; cursor:pointer;}
+  .sc-title{font-family:'Noto Serif TC',serif; font-size:17px; margin-bottom:10px;}
+  .sc-loading, .sc-empty{color:var(--text-muted); font-size:13.5px; padding:20px 0;}
+  .sc-price-row{display:flex; align-items:baseline; gap:10px; margin-bottom:8px; flex-wrap:wrap;}
+  .sc-price{font-size:24px; font-weight:600;}
+  .sc-chg{font-size:14px;}
+  .sc-date{font-size:12px; color:var(--text-muted); margin-left:auto;}
+  .sc-svg{width:100%; height:auto; display:block; margin:10px 0;}
+  .sc-grid{stroke:var(--hairline); stroke-width:1;}
+  .sc-grid-dash{stroke:var(--hairline); stroke-width:1; stroke-dasharray:3,3;}
+  .sc-axis{fill:var(--text-muted); font-size:9px; font-family:'JetBrains Mono',monospace;}
+  .sc-legend{display:flex; gap:14px; flex-wrap:wrap; font-size:11.5px;
+             color:var(--text-secondary); margin-bottom:12px;}
+  .sc-legend span{display:flex; align-items:center; gap:5px;}
+  .sc-dot{width:8px; height:8px; border-radius:50%; display:inline-block;}
+  .sc-line{width:12px; height:2px; display:inline-block;}
+  .sc-grade{display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap;}
+  .sc-notes{font-size:12.5px; color:var(--text-secondary);}
+  .sc-disclaimer{font-size:11.5px; color:var(--text-muted); line-height:1.5;}
+
+  .darkhorse-entry{background:var(--surface); border:1px solid var(--hairline);
+    border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:12px;}
+  .darkhorse-name{font-weight:600; font-size:14.5px; margin-bottom:10px;}
+  .darkhorse-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:8px;}
+  .dh-label{font-size:11px; color:var(--text-muted);}
+  .dh-value{font-size:13.5px; font-weight:600;}
+  .darkhorse-note{font-size:12.5px; color:var(--text-secondary); line-height:1.6;}
+  .tech-table{width:100%; border-collapse:collapse; font-size:13px;}
+  .tech-table th,.tech-table td{text-align:left; padding:8px 10px; border-bottom:1px solid var(--hairline);}
+  .tech-table th{font-size:11.5px; color:var(--text-muted); font-weight:500;}
+  .picks-empty{font-size:13px; color:var(--text-muted); padding:14px 0;}
+  @media (max-width:480px){ .darkhorse-grid{grid-template-columns:repeat(2,1fr);} }
+
+</style>
+</head>
+<body>
+<div class="page">
+  <nav class="nav">
+    <a href="index.html" class="">最新</a>
+    <a href="heatmap.html" class="">🔥 熱力圖</a>
+    <a href="chips.html" class="">💰 籌碼</a>
+    <a href="scores.html" class="">⭐ 評分</a>
+    <a href="picks.html" class="current">🎯 選股雷達</a>
+    <a href="lookup.html" class="">🔍 個股查詢</a>
+    <a href="disposition.html" class="">⚠️ 處置</a>
+    <a href="themes.html" class="">題材庫</a>
+    <a href="archive.html" class="">歷史</a>
+    <a href="weekly/index.html" class="">📅 週報</a>
+    <a href="monthly-deep/index.html" class="">🌍 深度月報</a>
+    <a href="research.html" class="">📥 研究筆記</a>
+    <a href="submit.html" class="">📤 提交研究</a>
+  </nav>
+
+  
+<header><div class="masthead-label">盤後快訊</div>
+<h1 class="masthead-date">選股雷達</h1></header>
+<p class="commentary" style="margin-top:14px">起漲點、新掛牌（含興櫃）、黑馬三個選股訊號集中在這裡，
+資料來自最近一次盤後掃描（2026年9月5日．週六）。這些都是客觀訊號整理，不是推薦標的。</p>
+
+<section class="block" style="margin-top:24px">
+  <h2>🐎 起漲點雷達</h2>
+  <p class="commentary" style="margin-bottom:12px">剛站上月線或季線、且量能明顯放大的個股——重點是「剛開始」，
+  近期已經漲多的會被排除，不是看到上漲就抓。</p>
+  
+  <p class="picks-empty">本日沒有符合「剛突破＋爆量」條件的個股。門檻故意設得嚴，多數交易日會是空的。</p>
+  
+</section>
+<hr class="divider">
+
+<section class="block">
+  <h2>🆕 新掛牌觀察</h2>
+  <p class="commentary" style="margin-bottom:12px">上市／上櫃／興櫃未滿半年的個股，籌碼歷史短、波動特性跟老牌股不同，
+  不管今天漲跌都先列出來留意。興櫃是議價／搓合市場，漲跌幅只是對比前一日均價的近似值。</p>
+  
+  <table class="tech-table">
+    <tr><th>股票</th><th>市場</th><th>掛牌天數</th><th>今日漲跌</th></tr>
+    
+    <tr>
+      <td data-stock-code="3718" data-stock-name="中光電投控">3718 中光電投控 📈</td>
+      <td>上櫃</td>
+      <td class="mono">2 天</td>
+      <td class="mono down">-3.58%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="6950" data-stock-name="科科科技-KY">6950 科科科技-KY 📈</td>
+      <td>興櫃</td>
+      <td class="mono">5 天</td>
+      <td class="mono up">+1.22%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7686" data-stock-name="捷立康">7686 捷立康 📈</td>
+      <td>興櫃</td>
+      <td class="mono">5 天</td>
+      <td class="mono up">+39.26%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7932" data-stock-name="昱鐳應材">7932 昱鐳應材 📈</td>
+      <td>興櫃</td>
+      <td class="mono">8 天</td>
+      <td class="mono up">+9.45%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7914" data-stock-name="碩明綠能">7914 碩明綠能 📈</td>
+      <td>興櫃</td>
+      <td class="mono">10 天</td>
+      <td class="mono down">-2.79%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7945" data-stock-name="廣盛科技">7945 廣盛科技 📈</td>
+      <td>興櫃</td>
+      <td class="mono">16 天</td>
+      <td class="mono down">-1.84%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7944" data-stock-name="睿禾金碳">7944 睿禾金碳 📈</td>
+      <td>興櫃</td>
+      <td class="mono">17 天</td>
+      <td class="mono down">-3.61%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7855" data-stock-name="和運租車">7855 和運租車 📈</td>
+      <td>上市</td>
+      <td class="mono">25 天</td>
+      <td class="mono down">-0.12%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="2237" data-stock-name="華德動能-創">2237 華德動能-創 📈</td>
+      <td>上市</td>
+      <td class="mono">26 天</td>
+      <td class="mono up">+0.00%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7943" data-stock-name="鴻璟科技">7943 鴻璟科技 📈</td>
+      <td>興櫃</td>
+      <td class="mono">26 天</td>
+      <td class="mono down">-0.80%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7942" data-stock-name="東佑達">7942 東佑達 📈</td>
+      <td>興櫃</td>
+      <td class="mono">30 天</td>
+      <td class="mono down">-1.61%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7925" data-stock-name="健生">7925 健生 📈</td>
+      <td>興櫃</td>
+      <td class="mono">33 天</td>
+      <td class="mono down">-1.66%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="3194" data-stock-name="圓方科技">3194 圓方科技 📈</td>
+      <td>興櫃</td>
+      <td class="mono">37 天</td>
+      <td class="mono up">+1.15%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7917" data-stock-name="源傑科技">7917 源傑科技 📈</td>
+      <td>興櫃</td>
+      <td class="mono">38 天</td>
+      <td class="mono down">-0.84%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7689" data-stock-name="大鵬科CLMX">7689 大鵬科CLMX 📈</td>
+      <td>上市</td>
+      <td class="mono">39 天</td>
+      <td class="mono up">+1.17%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7939" data-stock-name="技宸">7939 技宸 📈</td>
+      <td>興櫃</td>
+      <td class="mono">40 天</td>
+      <td class="mono up">+0.68%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7835" data-stock-name="永悅健康-創">7835 永悅健康-創 📈</td>
+      <td>上市</td>
+      <td class="mono">43 天</td>
+      <td class="mono down">-3.16%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7422" data-stock-name="鴻林堂">7422 鴻林堂 📈</td>
+      <td>興櫃</td>
+      <td class="mono">43 天</td>
+      <td class="mono up">+3.20%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="6947" data-stock-name="台鎔科技">6947 台鎔科技 📈</td>
+      <td>上市</td>
+      <td class="mono">44 天</td>
+      <td class="mono up">+2.05%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7933" data-stock-name="威旭">7933 威旭 📈</td>
+      <td>興櫃</td>
+      <td class="mono">44 天</td>
+      <td class="mono up">+0.00%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="6992" data-stock-name="萬勝發科技">6992 萬勝發科技 📈</td>
+      <td>興櫃</td>
+      <td class="mono">45 天</td>
+      <td class="mono down">-0.03%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7935" data-stock-name="安富">7935 安富 📈</td>
+      <td>興櫃</td>
+      <td class="mono">45 天</td>
+      <td class="mono up">+1.56%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7936" data-stock-name="寰聖">7936 寰聖 📈</td>
+      <td>興櫃</td>
+      <td class="mono">46 天</td>
+      <td class="mono down">-0.77%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="5236" data-stock-name="凌陽創新">5236 凌陽創新 📈</td>
+      <td>上市</td>
+      <td class="mono">51 天</td>
+      <td class="mono up">+1.10%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7814" data-stock-name="海昌生技">7814 海昌生技 📈</td>
+      <td>上櫃</td>
+      <td class="mono">51 天</td>
+      <td class="mono up">+0.00%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7930" data-stock-name="威世波">7930 威世波 📈</td>
+      <td>興櫃</td>
+      <td class="mono">51 天</td>
+      <td class="mono up">+9.59%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7931" data-stock-name="續升綠能">7931 續升綠能 📈</td>
+      <td>興櫃</td>
+      <td class="mono">68 天</td>
+      <td class="mono down">-3.64%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="6986" data-stock-name="和迅">6986 和迅 📈</td>
+      <td>上櫃</td>
+      <td class="mono">71 天</td>
+      <td class="mono up">+0.72%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7418" data-stock-name="香繼光">7418 香繼光 📈</td>
+      <td>興櫃</td>
+      <td class="mono">71 天</td>
+      <td class="mono up">+4.32%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7894" data-stock-name="瀚軒">7894 瀚軒 📈</td>
+      <td>興櫃</td>
+      <td class="mono">71 天</td>
+      <td class="mono up">+2.55%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7924" data-stock-name="TLC-KY">7924 TLC-KY 📈</td>
+      <td>興櫃</td>
+      <td class="mono">71 天</td>
+      <td class="mono down">-1.13%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7928" data-stock-name="合聖科技*">7928 合聖科技* 📈</td>
+      <td>興櫃</td>
+      <td class="mono">71 天</td>
+      <td class="mono up">+0.08%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7929" data-stock-name="碩通">7929 碩通 📈</td>
+      <td>興櫃</td>
+      <td class="mono">71 天</td>
+      <td class="mono up">+1.87%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="1780" data-stock-name="立弘">1780 立弘 📈</td>
+      <td>上櫃</td>
+      <td class="mono">80 天</td>
+      <td class="mono up">+0.41%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7415" data-stock-name="元澄半導體">7415 元澄半導體 📈</td>
+      <td>興櫃</td>
+      <td class="mono">80 天</td>
+      <td class="mono down">-1.35%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7926" data-stock-name="中華立鼎">7926 中華立鼎 📈</td>
+      <td>興櫃</td>
+      <td class="mono">80 天</td>
+      <td class="mono down">-3.38%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7927" data-stock-name="連距電機">7927 連距電機 📈</td>
+      <td>興櫃</td>
+      <td class="mono">80 天</td>
+      <td class="mono up">+2.30%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7839" data-stock-name="達人網">7839 達人網 📈</td>
+      <td>上櫃</td>
+      <td class="mono">82 天</td>
+      <td class="mono down">-0.79%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="3644" data-stock-name="凌嘉科">3644 凌嘉科 📈</td>
+      <td>興櫃</td>
+      <td class="mono">82 天</td>
+      <td class="mono down">-1.13%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="6945" data-stock-name="圓祥生技">6945 圓祥生技 📈</td>
+      <td>上櫃</td>
+      <td class="mono">92 天</td>
+      <td class="mono down">-1.85%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7827" data-stock-name="漢康-KY創">7827 漢康-KY創 📈</td>
+      <td>上市</td>
+      <td class="mono">99 天</td>
+      <td class="mono down">-0.33%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7735" data-stock-name="台智雲">7735 台智雲 📈</td>
+      <td>興櫃</td>
+      <td class="mono">99 天</td>
+      <td class="mono up">+0.22%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7873" data-stock-name="瑞峰">7873 瑞峰 📈</td>
+      <td>興櫃</td>
+      <td class="mono">99 天</td>
+      <td class="mono down">-1.44%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7819" data-stock-name="精誠金融">7819 精誠金融 📈</td>
+      <td>上櫃</td>
+      <td class="mono">101 天</td>
+      <td class="mono down">-3.03%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7898" data-stock-name="乾瞻">7898 乾瞻 📈</td>
+      <td>興櫃</td>
+      <td class="mono">101 天</td>
+      <td class="mono up">+1.90%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7921" data-stock-name="台普威">7921 台普威 📈</td>
+      <td>興櫃</td>
+      <td class="mono">101 天</td>
+      <td class="mono up">+0.19%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="6983" data-stock-name="華洋精機">6983 華洋精機 📈</td>
+      <td>上櫃</td>
+      <td class="mono">103 天</td>
+      <td class="mono down">-0.84%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="4582" data-stock-name="聚恆-創">4582 聚恆-創 📈</td>
+      <td>上市</td>
+      <td class="mono">106 天</td>
+      <td class="mono up">+0.43%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7922" data-stock-name="源點*">7922 源點* 📈</td>
+      <td>興櫃</td>
+      <td class="mono">106 天</td>
+      <td class="mono up">+2.64%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7803" data-stock-name="雲象科技-創">7803 雲象科技-創 📈</td>
+      <td>上市</td>
+      <td class="mono">108 天</td>
+      <td class="mono up">+2.09%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7920" data-stock-name="瀚陽*">7920 瀚陽* 📈</td>
+      <td>興櫃</td>
+      <td class="mono">108 天</td>
+      <td class="mono down">-1.24%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7818" data-stock-name="溢泰實業">7818 溢泰實業 📈</td>
+      <td>上市</td>
+      <td class="mono">110 天</td>
+      <td class="mono down">-0.16%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7913" data-stock-name="通寶半導體">7913 通寶半導體 📈</td>
+      <td>興櫃</td>
+      <td class="mono">113 天</td>
+      <td class="mono up">+1.41%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7919" data-stock-name="禾蒼">7919 禾蒼 📈</td>
+      <td>興櫃</td>
+      <td class="mono">114 天</td>
+      <td class="mono up">+3.69%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="4195" data-stock-name="基米-創">4195 基米-創 📈</td>
+      <td>上市</td>
+      <td class="mono">117 天</td>
+      <td class="mono down">-1.43%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7842" data-stock-name="天能綠電">7842 天能綠電 📈</td>
+      <td>上櫃</td>
+      <td class="mono">117 天</td>
+      <td class="mono down">-0.71%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7918" data-stock-name="創鉅材料">7918 創鉅材料 📈</td>
+      <td>興櫃</td>
+      <td class="mono">117 天</td>
+      <td class="mono up">+5.92%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7772" data-stock-name="耀穎">7772 耀穎 📈</td>
+      <td>上櫃</td>
+      <td class="mono">120 天</td>
+      <td class="mono up">+9.55%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7768" data-stock-name="頌勝科技">7768 頌勝科技 📈</td>
+      <td>上市</td>
+      <td class="mono">121 天</td>
+      <td class="mono up">+1.62%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="3485" data-stock-name="敘豐">3485 敘豐 📈</td>
+      <td>上櫃</td>
+      <td class="mono">122 天</td>
+      <td class="mono up">+0.00%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7784" data-stock-name="安邦生技*">7784 安邦生技* 📈</td>
+      <td>興櫃</td>
+      <td class="mono">123 天</td>
+      <td class="mono up">+4.08%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="4178" data-stock-name="永笙-KY">4178 永笙-KY 📈</td>
+      <td>上市</td>
+      <td class="mono">128 天</td>
+      <td class="mono up">+1.81%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7760" data-stock-name="享溫馨">7760 享溫馨 📈</td>
+      <td>上市</td>
+      <td class="mono">130 天</td>
+      <td class="mono up">+0.00%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7911" data-stock-name="阿波羅電力">7911 阿波羅電力 📈</td>
+      <td>興櫃</td>
+      <td class="mono">130 天</td>
+      <td class="mono up">+0.45%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7915" data-stock-name="廌家">7915 廌家 📈</td>
+      <td>興櫃</td>
+      <td class="mono">130 天</td>
+      <td class="mono up">+3.39%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7820" data-stock-name="立盈">7820 立盈 📈</td>
+      <td>上櫃</td>
+      <td class="mono">131 天</td>
+      <td class="mono up">+0.00%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7828" data-stock-name="創新服務">7828 創新服務 📈</td>
+      <td>上櫃</td>
+      <td class="mono">136 天</td>
+      <td class="mono up">+9.97%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7907" data-stock-name="錸恩帕斯">7907 錸恩帕斯 📈</td>
+      <td>興櫃</td>
+      <td class="mono">136 天</td>
+      <td class="mono down">-4.60%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7912" data-stock-name="新聿科">7912 新聿科 📈</td>
+      <td>興櫃</td>
+      <td class="mono">136 天</td>
+      <td class="mono up">+5.73%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7821" data-stock-name="神數">7821 神數 📈</td>
+      <td>上市</td>
+      <td class="mono">138 天</td>
+      <td class="mono up">+0.38%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7794" data-stock-name="宏碁智新">7794 宏碁智新 📈</td>
+      <td>上櫃</td>
+      <td class="mono">138 天</td>
+      <td class="mono up">+1.41%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="4169" data-stock-name="泰宗">4169 泰宗 📈</td>
+      <td>上市</td>
+      <td class="mono">150 天</td>
+      <td class="mono up">+0.00%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7822" data-stock-name="倍利科">7822 倍利科 📈</td>
+      <td>上市</td>
+      <td class="mono">159 天</td>
+      <td class="mono up">+2.67%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="6028" data-stock-name="公勝保經">6028 公勝保經 📈</td>
+      <td>上櫃</td>
+      <td class="mono">159 天</td>
+      <td class="mono down">-1.02%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7771" data-stock-name="綠基">7771 綠基 📈</td>
+      <td>興櫃</td>
+      <td class="mono">162 天</td>
+      <td class="mono up">+1.96%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="2072" data-stock-name="世紀風電">2072 世紀風電 📈</td>
+      <td>上市</td>
+      <td class="mono">163 天</td>
+      <td class="mono down">-1.45%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="6908" data-stock-name="宏碁遊戲-創">6908 宏碁遊戲-創 📈</td>
+      <td>上市</td>
+      <td class="mono">164 天</td>
+      <td class="mono up">+0.00%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7811" data-stock-name="民盛">7811 民盛 📈</td>
+      <td>上櫃</td>
+      <td class="mono">164 天</td>
+      <td class="mono up">+0.82%</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7909" data-stock-name="鈺祥">7909 鈺祥 📈</td>
+      <td>興櫃</td>
+      <td class="mono">164 天</td>
+      <td class="mono up">+1.83%</td>
+    </tr>
+    
+  </table>
+  
+</section>
+<hr class="divider">
+
+<section class="block">
+  <h2>黑馬觀察</h2>
+  <p class="commentary" style="margin-bottom:12px">被系統標記為「孤立訊號」的個股——量能異常、但找不到同族群呼應，
+  題材脈絡不明、籌碼未經法人驗證。列為觀察而非追蹤標的。</p>
+  
+  <p class="picks-empty">本日無黑馬訊號（或盤後掃描尚未執行）。</p>
+  
+</section>
+
+
+  <footer class="site-footer">
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 21:44</p>
+    <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
+  </footer>
+</div>
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js").catch(function () {});
+  }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
+<script src="assets/stock-chart.js?v=7a0c4f23"></script>
+
+</body>
+</html>

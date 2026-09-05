@@ -436,7 +436,37 @@ def render_site() -> list[Path]:
     """重建所有索引頁。每次跑完報告都要呼叫，索引才會包含最新內容。"""
     return [render_index(), render_archive(), render_themes_page(), render_lookup_page(),
             render_submit_page(), render_research_notes(),
-            render_weekly_index(), render_monthly_deep_index()]
+            render_weekly_index(), render_monthly_deep_index(), render_picks_page()]
+
+
+def save_picks(breakout: list, new_listings: list, dark_horses: list, date_label_str: str) -> None:
+    """盤後把三個選股訊號落地成 docs/data/picks.json，讓 render_picks_page() 有東西讀。
+    這三個訊號本來只在每日報告 HTML 裡出現、沒有獨立頁面，使用者找不到——
+    落地成 JSON 之後就能有一個固定的「選股雷達」頁。"""
+    _write_json("picks", {
+        "date_label": date_label_str,
+        "breakout": breakout,
+        "new_listings": new_listings,
+        "dark_horses": dark_horses,
+    })
+
+
+def render_picks_page() -> Path:
+    """選股雷達：起漲點／新掛牌（含興櫃）／黑馬，讀 docs/data/picks.json。"""
+    cfg = load_config()
+    path = DOCS_DIR / "picks.html"
+    data = _read_json("picks") or {}
+
+    path.write_text(_env().get_template("picks.html").render(
+        site_title=cfg["site"]["title"],
+        generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
+        rel="", nav_current="picks",
+        date_label=data.get("date_label", ""),
+        breakout=data.get("breakout", []),
+        new_listings=data.get("new_listings", []),
+        dark_horses=data.get("dark_horses", []),
+    ), encoding="utf-8")
+    return path
 
 
 def _render_pdf_index(subdir: str, json_key: str, nav_key: str, page_title: str,

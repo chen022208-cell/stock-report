@@ -1,0 +1,718 @@
+{
+  "date_label": "2026年9月5日．週六",
+  "breakout": [],
+  "new_listings": [
+    {
+      "code": "3718",
+      "name": "中光電投控",
+      "close": 75.5,
+      "change_pct": -3.58,
+      "days_listed": 2,
+      "listed_date": "2026-09-03",
+      "market": "tpex"
+    },
+    {
+      "code": "6950",
+      "name": "科科科技-KY",
+      "close": 24.9,
+      "change_pct": 1.22,
+      "days_listed": 5,
+      "listed_date": "2026-08-31",
+      "market": "esb"
+    },
+    {
+      "code": "7686",
+      "name": "捷立康",
+      "close": 802.0,
+      "change_pct": 39.26,
+      "days_listed": 5,
+      "listed_date": "2026-08-31",
+      "market": "esb"
+    },
+    {
+      "code": "7932",
+      "name": "昱鐳應材",
+      "close": 404.5,
+      "change_pct": 9.45,
+      "days_listed": 8,
+      "listed_date": "2026-08-28",
+      "market": "esb"
+    },
+    {
+      "code": "7914",
+      "name": "碩明綠能",
+      "close": 38.0,
+      "change_pct": -2.79,
+      "days_listed": 10,
+      "listed_date": "2026-08-26",
+      "market": "esb"
+    },
+    {
+      "code": "7945",
+      "name": "廣盛科技",
+      "close": 214.0,
+      "change_pct": -1.84,
+      "days_listed": 16,
+      "listed_date": "2026-08-20",
+      "market": "esb"
+    },
+    {
+      "code": "7944",
+      "name": "睿禾金碳",
+      "close": 34.4,
+      "change_pct": -3.61,
+      "days_listed": 17,
+      "listed_date": "2026-08-19",
+      "market": "esb"
+    },
+    {
+      "code": "7855",
+      "name": "和運租車",
+      "close": 42.75,
+      "change_pct": -0.12,
+      "days_listed": 25,
+      "listed_date": "2026-08-11",
+      "market": "twse"
+    },
+    {
+      "code": "2237",
+      "name": "華德動能-創",
+      "close": 27.7,
+      "change_pct": 0.0,
+      "days_listed": 26,
+      "listed_date": "2026-08-10",
+      "market": "twse"
+    },
+    {
+      "code": "7943",
+      "name": "鴻璟科技",
+      "close": 52.0,
+      "change_pct": -0.8,
+      "days_listed": 26,
+      "listed_date": "2026-08-10",
+      "market": "esb"
+    },
+    {
+      "code": "7942",
+      "name": "東佑達",
+      "close": 461.5,
+      "change_pct": -1.61,
+      "days_listed": 30,
+      "listed_date": "2026-08-06",
+      "market": "esb"
+    },
+    {
+      "code": "7925",
+      "name": "健生",
+      "close": 76.0,
+      "change_pct": -1.66,
+      "days_listed": 33,
+      "listed_date": "2026-08-03",
+      "market": "esb"
+    },
+    {
+      "code": "3194",
+      "name": "圓方科技",
+      "close": 30.0,
+      "change_pct": 1.15,
+      "days_listed": 37,
+      "listed_date": "2026-07-30",
+      "market": "esb"
+    },
+    {
+      "code": "7917",
+      "name": "源傑科技",
+      "close": 624.0,
+      "change_pct": -0.84,
+      "days_listed": 38,
+      "listed_date": "2026-07-29",
+      "market": "esb"
+    },
+    {
+      "code": "7689",
+      "name": "大鵬科CLMX",
+      "close": 172.5,
+      "change_pct": 1.17,
+      "days_listed": 39,
+      "listed_date": "2026-07-28",
+      "market": "twse"
+    },
+    {
+      "code": "7939",
+      "name": "技宸",
+      "close": 210.0,
+      "change_pct": 0.68,
+      "days_listed": 40,
+      "listed_date": "2026-07-27",
+      "market": "esb"
+    },
+    {
+      "code": "7835",
+      "name": "永悅健康-創",
+      "close": 23.0,
+      "change_pct": -3.16,
+      "days_listed": 43,
+      "listed_date": "2026-07-24",
+      "market": "twse"
+    },
+    {
+      "code": "7422",
+      "name": "鴻林堂",
+      "close": 32.6,
+      "change_pct": 3.2,
+      "days_listed": 43,
+      "listed_date": "2026-07-24",
+      "market": "esb"
+    },
+    {
+      "code": "6947",
+      "name": "台鎔科技",
+      "close": 69.8,
+      "change_pct": 2.05,
+      "days_listed": 44,
+      "listed_date": "2026-07-23",
+      "market": "twse"
+    },
+    {
+      "code": "7933",
+      "name": "威旭",
+      "close": 30.8,
+      "change_pct": 0.0,
+      "days_listed": 44,
+      "listed_date": "2026-07-23",
+      "market": "esb"
+    },
+    {
+      "code": "6992",
+      "name": "萬勝發科技",
+      "close": 62.9,
+      "change_pct": -0.03,
+      "days_listed": 45,
+      "listed_date": "2026-07-22",
+      "market": "esb"
+    },
+    {
+      "code": "7935",
+      "name": "安富",
+      "close": 40.3,
+      "change_pct": 1.56,
+      "days_listed": 45,
+      "listed_date": "2026-07-22",
+      "market": "esb"
+    },
+    {
+      "code": "7936",
+      "name": "寰聖",
+      "close": 16.8,
+      "change_pct": -0.77,
+      "days_listed": 46,
+      "listed_date": "2026-07-21",
+      "market": "esb"
+    },
+    {
+      "code": "5236",
+      "name": "凌陽創新",
+      "close": 137.5,
+      "change_pct": 1.1,
+      "days_listed": 51,
+      "listed_date": "2026-07-16",
+      "market": "twse"
+    },
+    {
+      "code": "7814",
+      "name": "海昌生技",
+      "close": 29.0,
+      "change_pct": 0.0,
+      "days_listed": 51,
+      "listed_date": "2026-07-16",
+      "market": "tpex"
+    },
+    {
+      "code": "7930",
+      "name": "威世波",
+      "close": 289.0,
+      "change_pct": 9.59,
+      "days_listed": 51,
+      "listed_date": "2026-07-16",
+      "market": "esb"
+    },
+    {
+      "code": "7931",
+      "name": "續升綠能",
+      "close": 122.5,
+      "change_pct": -3.64,
+      "days_listed": 68,
+      "listed_date": "2026-06-29",
+      "market": "esb"
+    },
+    {
+      "code": "6986",
+      "name": "和迅",
+      "close": 41.8,
+      "change_pct": 0.72,
+      "days_listed": 71,
+      "listed_date": "2026-06-26",
+      "market": "tpex"
+    },
+    {
+      "code": "7418",
+      "name": "香繼光",
+      "close": 68.1,
+      "change_pct": 4.32,
+      "days_listed": 71,
+      "listed_date": "2026-06-26",
+      "market": "esb"
+    },
+    {
+      "code": "7894",
+      "name": "瀚軒",
+      "close": 169.5,
+      "change_pct": 2.55,
+      "days_listed": 71,
+      "listed_date": "2026-06-26",
+      "market": "esb"
+    },
+    {
+      "code": "7924",
+      "name": "TLC-KY",
+      "close": 262.0,
+      "change_pct": -1.13,
+      "days_listed": 71,
+      "listed_date": "2026-06-26",
+      "market": "esb"
+    },
+    {
+      "code": "7928",
+      "name": "合聖科技*",
+      "close": 406.5,
+      "change_pct": 0.08,
+      "days_listed": 71,
+      "listed_date": "2026-06-26",
+      "market": "esb"
+    },
+    {
+      "code": "7929",
+      "name": "碩通",
+      "close": 405.0,
+      "change_pct": 1.87,
+      "days_listed": 71,
+      "listed_date": "2026-06-26",
+      "market": "esb"
+    },
+    {
+      "code": "1780",
+      "name": "立弘",
+      "close": 24.4,
+      "change_pct": 0.41,
+      "days_listed": 80,
+      "listed_date": "2026-06-17",
+      "market": "tpex"
+    },
+    {
+      "code": "7415",
+      "name": "元澄半導體",
+      "close": 392.5,
+      "change_pct": -1.35,
+      "days_listed": 80,
+      "listed_date": "2026-06-17",
+      "market": "esb"
+    },
+    {
+      "code": "7926",
+      "name": "中華立鼎",
+      "close": 625.0,
+      "change_pct": -3.38,
+      "days_listed": 80,
+      "listed_date": "2026-06-17",
+      "market": "esb"
+    },
+    {
+      "code": "7927",
+      "name": "連距電機",
+      "close": 201.0,
+      "change_pct": 2.3,
+      "days_listed": 80,
+      "listed_date": "2026-06-17",
+      "market": "esb"
+    },
+    {
+      "code": "7839",
+      "name": "達人網",
+      "close": 43.95,
+      "change_pct": -0.79,
+      "days_listed": 82,
+      "listed_date": "2026-06-15",
+      "market": "tpex"
+    },
+    {
+      "code": "3644",
+      "name": "凌嘉科",
+      "close": 260.5,
+      "change_pct": -1.13,
+      "days_listed": 82,
+      "listed_date": "2026-06-15",
+      "market": "esb"
+    },
+    {
+      "code": "6945",
+      "name": "圓祥生技",
+      "close": 95.6,
+      "change_pct": -1.85,
+      "days_listed": 92,
+      "listed_date": "2026-06-05",
+      "market": "tpex"
+    },
+    {
+      "code": "7827",
+      "name": "漢康-KY創",
+      "close": 151.0,
+      "change_pct": -0.33,
+      "days_listed": 99,
+      "listed_date": "2026-05-29",
+      "market": "twse"
+    },
+    {
+      "code": "7735",
+      "name": "台智雲",
+      "close": 204.0,
+      "change_pct": 0.22,
+      "days_listed": 99,
+      "listed_date": "2026-05-29",
+      "market": "esb"
+    },
+    {
+      "code": "7873",
+      "name": "瑞峰",
+      "close": 156.5,
+      "change_pct": -1.44,
+      "days_listed": 99,
+      "listed_date": "2026-05-29",
+      "market": "esb"
+    },
+    {
+      "code": "7819",
+      "name": "精誠金融",
+      "close": 35.2,
+      "change_pct": -3.03,
+      "days_listed": 101,
+      "listed_date": "2026-05-27",
+      "market": "tpex"
+    },
+    {
+      "code": "7898",
+      "name": "乾瞻",
+      "close": 376.0,
+      "change_pct": 1.9,
+      "days_listed": 101,
+      "listed_date": "2026-05-27",
+      "market": "esb"
+    },
+    {
+      "code": "7921",
+      "name": "台普威",
+      "close": 80.0,
+      "change_pct": 0.19,
+      "days_listed": 101,
+      "listed_date": "2026-05-27",
+      "market": "esb"
+    },
+    {
+      "code": "6983",
+      "name": "華洋精機",
+      "close": 355.0,
+      "change_pct": -0.84,
+      "days_listed": 103,
+      "listed_date": "2026-05-25",
+      "market": "tpex"
+    },
+    {
+      "code": "4582",
+      "name": "聚恆-創",
+      "close": 23.5,
+      "change_pct": 0.43,
+      "days_listed": 106,
+      "listed_date": "2026-05-22",
+      "market": "twse"
+    },
+    {
+      "code": "7922",
+      "name": "源點*",
+      "close": 91.9,
+      "change_pct": 2.64,
+      "days_listed": 106,
+      "listed_date": "2026-05-22",
+      "market": "esb"
+    },
+    {
+      "code": "7803",
+      "name": "雲象科技-創",
+      "close": 19.5,
+      "change_pct": 2.09,
+      "days_listed": 108,
+      "listed_date": "2026-05-20",
+      "market": "twse"
+    },
+    {
+      "code": "7920",
+      "name": "瀚陽*",
+      "close": 7.97,
+      "change_pct": -1.24,
+      "days_listed": 108,
+      "listed_date": "2026-05-20",
+      "market": "esb"
+    },
+    {
+      "code": "7818",
+      "name": "溢泰實業",
+      "close": 60.7,
+      "change_pct": -0.16,
+      "days_listed": 110,
+      "listed_date": "2026-05-18",
+      "market": "twse"
+    },
+    {
+      "code": "7913",
+      "name": "通寶半導體",
+      "close": 288.0,
+      "change_pct": 1.41,
+      "days_listed": 113,
+      "listed_date": "2026-05-15",
+      "market": "esb"
+    },
+    {
+      "code": "7919",
+      "name": "禾蒼",
+      "close": 37.1,
+      "change_pct": 3.69,
+      "days_listed": 114,
+      "listed_date": "2026-05-14",
+      "market": "esb"
+    },
+    {
+      "code": "4195",
+      "name": "基米-創",
+      "close": 13.75,
+      "change_pct": -1.43,
+      "days_listed": 117,
+      "listed_date": "2026-05-11",
+      "market": "twse"
+    },
+    {
+      "code": "7842",
+      "name": "天能綠電",
+      "close": 98.2,
+      "change_pct": -0.71,
+      "days_listed": 117,
+      "listed_date": "2026-05-11",
+      "market": "tpex"
+    },
+    {
+      "code": "7918",
+      "name": "創鉅材料",
+      "close": 799.0,
+      "change_pct": 5.92,
+      "days_listed": 117,
+      "listed_date": "2026-05-11",
+      "market": "esb"
+    },
+    {
+      "code": "7772",
+      "name": "耀穎",
+      "close": 109.0,
+      "change_pct": 9.55,
+      "days_listed": 120,
+      "listed_date": "2026-05-08",
+      "market": "tpex"
+    },
+    {
+      "code": "7768",
+      "name": "頌勝科技",
+      "close": 282.5,
+      "change_pct": 1.62,
+      "days_listed": 121,
+      "listed_date": "2026-05-07",
+      "market": "twse"
+    },
+    {
+      "code": "3485",
+      "name": "敘豐",
+      "close": 210.0,
+      "change_pct": 0.0,
+      "days_listed": 122,
+      "listed_date": "2026-05-06",
+      "market": "tpex"
+    },
+    {
+      "code": "7784",
+      "name": "安邦生技*",
+      "close": 9.19,
+      "change_pct": 4.08,
+      "days_listed": 123,
+      "listed_date": "2026-05-05",
+      "market": "esb"
+    },
+    {
+      "code": "4178",
+      "name": "永笙-KY",
+      "close": 16.9,
+      "change_pct": 1.81,
+      "days_listed": 128,
+      "listed_date": "2026-04-30",
+      "market": "twse"
+    },
+    {
+      "code": "7760",
+      "name": "享溫馨",
+      "close": 33.2,
+      "change_pct": 0.0,
+      "days_listed": 130,
+      "listed_date": "2026-04-28",
+      "market": "twse"
+    },
+    {
+      "code": "7911",
+      "name": "阿波羅電力",
+      "close": 91.5,
+      "change_pct": 0.45,
+      "days_listed": 130,
+      "listed_date": "2026-04-28",
+      "market": "esb"
+    },
+    {
+      "code": "7915",
+      "name": "廌家",
+      "close": 410.0,
+      "change_pct": 3.39,
+      "days_listed": 130,
+      "listed_date": "2026-04-28",
+      "market": "esb"
+    },
+    {
+      "code": "7820",
+      "name": "立盈",
+      "close": 118.0,
+      "change_pct": 0.0,
+      "days_listed": 131,
+      "listed_date": "2026-04-27",
+      "market": "tpex"
+    },
+    {
+      "code": "7828",
+      "name": "創新服務",
+      "close": 1930.0,
+      "change_pct": 9.97,
+      "days_listed": 136,
+      "listed_date": "2026-04-22",
+      "market": "tpex"
+    },
+    {
+      "code": "7907",
+      "name": "錸恩帕斯",
+      "close": 230.0,
+      "change_pct": -4.6,
+      "days_listed": 136,
+      "listed_date": "2026-04-22",
+      "market": "esb"
+    },
+    {
+      "code": "7912",
+      "name": "新聿科",
+      "close": 366.0,
+      "change_pct": 5.73,
+      "days_listed": 136,
+      "listed_date": "2026-04-22",
+      "market": "esb"
+    },
+    {
+      "code": "7821",
+      "name": "神數",
+      "close": 39.55,
+      "change_pct": 0.38,
+      "days_listed": 138,
+      "listed_date": "2026-04-20",
+      "market": "twse"
+    },
+    {
+      "code": "7794",
+      "name": "宏碁智新",
+      "close": 28.8,
+      "change_pct": 1.41,
+      "days_listed": 138,
+      "listed_date": "2026-04-20",
+      "market": "tpex"
+    },
+    {
+      "code": "4169",
+      "name": "泰宗",
+      "close": 150.5,
+      "change_pct": 0.0,
+      "days_listed": 150,
+      "listed_date": "2026-04-08",
+      "market": "twse"
+    },
+    {
+      "code": "7822",
+      "name": "倍利科",
+      "close": 922.0,
+      "change_pct": 2.67,
+      "days_listed": 159,
+      "listed_date": "2026-03-30",
+      "market": "twse"
+    },
+    {
+      "code": "6028",
+      "name": "公勝保經",
+      "close": 96.6,
+      "change_pct": -1.02,
+      "days_listed": 159,
+      "listed_date": "2026-03-30",
+      "market": "tpex"
+    },
+    {
+      "code": "7771",
+      "name": "綠基",
+      "close": 49.45,
+      "change_pct": 1.96,
+      "days_listed": 162,
+      "listed_date": "2026-03-27",
+      "market": "esb"
+    },
+    {
+      "code": "2072",
+      "name": "世紀風電",
+      "close": 136.0,
+      "change_pct": -1.45,
+      "days_listed": 163,
+      "listed_date": "2026-03-26",
+      "market": "twse"
+    },
+    {
+      "code": "6908",
+      "name": "宏碁遊戲-創",
+      "close": 30.1,
+      "change_pct": 0.0,
+      "days_listed": 164,
+      "listed_date": "2026-03-25",
+      "market": "twse"
+    },
+    {
+      "code": "7811",
+      "name": "民盛",
+      "close": 73.7,
+      "change_pct": 0.82,
+      "days_listed": 164,
+      "listed_date": "2026-03-25",
+      "market": "tpex"
+    },
+    {
+      "code": "7909",
+      "name": "鈺祥",
+      "close": 617.0,
+      "change_pct": 1.83,
+      "days_listed": 164,
+      "listed_date": "2026-03-25",
+      "market": "esb"
+    }
+  ],
+  "dark_horses": []
+}
