@@ -97,6 +97,13 @@ CREATE TABLE IF NOT EXISTS supply_chains (
     updated_date  TEXT NOT NULL
 );
 
+-- 小型鍵值狀態表：目前只用來記「Google 表單試算表處理到哪一筆時間戳記」，
+-- 之後有其他需要跨執行記憶一個小狀態的地方也可以共用，不用每個都開一張表
+CREATE TABLE IF NOT EXISTS app_state (
+    key    TEXT PRIMARY KEY,
+    value  TEXT
+);
+
 -- 使用者提交研究（文章／文字）的知識庫：任何人貼進來的內容都先存這裡、
 -- 標記驗證狀態，只有 verified 才會真的回寫進題材／個股資料，
 -- 不驗證就直接套用會汙染整份報告的真實性
@@ -382,6 +389,22 @@ def get_supply_chain(theme_id: int) -> dict | None:
             "SELECT structure FROM supply_chains WHERE theme_id=?", (theme_id,)
         ).fetchone()
         return json.loads(row["structure"]) if row else None
+
+
+# ── 小型狀態值 ───────────────────────────────────────
+def get_state(key: str, default: str | None = None) -> str | None:
+    with get_conn() as conn:
+        row = conn.execute("SELECT value FROM app_state WHERE key=?", (key,)).fetchone()
+        return row["value"] if row else default
+
+
+def set_state(key: str, value: str) -> None:
+    with get_conn() as conn:
+        conn.execute(
+            "INSERT INTO app_state (key, value) VALUES (?,?) "
+            "ON CONFLICT(key) DO UPDATE SET value=excluded.value",
+            (key, value),
+        )
 
 
 # ── 使用者提交研究（文章／文字）知識庫 ──────────────────

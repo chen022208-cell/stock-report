@@ -51,6 +51,15 @@ theme_catalog:
   hot_min_stocks: 2           # 當紅代表股要有幾檔才判定整個題材當紅、值得深度分析
   deep_dive_batch_size: 10    # 每次最多寫幾篇目錄題材的產業分析深度報告（字數較多，批次故意小一點）
 
+# ── 使用者研究提交（submit.html → GitHub Issue 或 Google 表單）──
+research_intake:
+  # Google 表單：讓不需要 GitHub 帳號的訪客也能提交，見 submit.html 的說明。
+  # 三個值都是設定表單時就拿到的公開網址／欄位 ID，不是密鑰，可以直接寫在這裡。
+  google_form_action_url: ""   # 表單的 formResponse 送出網址（把 viewform 換成 formResponse）
+  google_form_entry_title: ""  # 「標題」欄位的 entry ID（例如 entry.123456789）
+  google_form_entry_body: ""   # 「內容」欄位的 entry ID
+  google_sheet_csv_url: ""     # 回覆試算表「發布到網路→CSV」產生的公開網址
+
 # ── 題材知識庫退場機制 ──────────────────────────────
 theme_lifecycle:
   dormant_after_days: 7      # 連續 N 個交易日無新訊號 → 休眠

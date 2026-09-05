@@ -22,7 +22,7 @@ from pathlib import Path
 from . import db, llm, prices_db, render
 from .analysis import global_themes, industry, review, scoring, screener, technical
 from .config import DRY_RUN, load_config, today_str, now_tpe
-from .fetchers import fred, international, mops, stock_news, tdcc, tpex, twse
+from .fetchers import fred, google_sheet, international, mops, stock_news, tdcc, tpex, twse
 from .market_calendar import (classify_day, consecutive_closed_days,
                               is_last_day_before_reopen, next_trading_day,
                               refresh_holidays)
@@ -650,63 +650,96 @@ def _gh_issue_comment_and_close(number: int, comment: str) -> None:
         print(f"[research] 回覆／關閉 Issue #{number} 失敗：{exc}")
 
 
+def _process_research_submission(source: str, title: str, body: str, today: str,
+                                  known_theme_names: list[str], label: str) -> dict | None:
+    """分析一篇提交＋寫進研究筆記表；回傳結果字典給呼叫端決定要不要留言／關閉
+    Issue。抽成共用函式是因為現在有兩個提交來源（GitHub Issue、Google 表單），
+    分析與驗證邏輯不該重複兩份。"""
+    result = _safe(lambda: llm.analyze_research_submission(body, known_theme_names),
+                   {}, f"研究分析 {label}")
+    if not result:
+        return None
+
+    verified = result.get("verified", "unverified")
+    affected_themes = result.get("affected_themes", [])
+    affected_stocks = result.get("affected_stocks", [])
+
+    # 只有明確判定 verified，且真的對應到既有題材，才回寫進題材知識庫；
+    # conflicting／unverified 一律只留在研究筆記裡，不動任何既有資料
+    for t in affected_themes:
+        t["applied"] = db.append_research_to_theme(t["name"], today, t.get("impact", "")) \
+            if verified == "verified" else False
+    for s in affected_stocks:
+        s["applied"] = False  # 目前不直接改個股歷史資料，只記錄關聯供研究筆記頁參考
+
+    note_id = db.create_research_note(
+        submitted_at=today, source=source, title=title, raw_excerpt=body[:500],
+        summary=result.get("summary", ""), verified=verified,
+        verification_note=result.get("verification_note", ""),
+        affected_themes=affected_themes, affected_stocks=affected_stocks,
+    )
+    db.mark_research_note_status(note_id, "applied" if verified == "verified" else "pending",
+                                 affected_themes, affected_stocks)
+    result["affected_themes"] = affected_themes
+    return result
+
+
 def run_research_intake() -> None:
     today = today_str()
-    issues = _safe(_gh_issue_list, [], "讀取使用者研究提交")
-    if not issues:
-        print("[research] 目前沒有待處理的使用者研究提交")
-        return
-
     known_theme_names = list(dict.fromkeys(
         _safe(db.catalog_theme_names, [], "題材目錄名單")
         + [t["name"] for t in db.list_all_themes()]
     ))
+    processed = 0
 
+    # 來源一：GitHub Issue（給熟悉 GitHub 的人，例如你自己）
+    issues = _safe(_gh_issue_list, [], "讀取使用者研究提交（GitHub）")
     for issue in issues:
         title, body, number = issue.get("title", ""), issue.get("body", ""), issue["number"]
         print(f"[research] 處理 Issue #{number}：{title}")
-
-        result = _safe(lambda t=body: llm.analyze_research_submission(t, known_theme_names),
-                       {}, f"研究分析 #{number}")
+        result = _process_research_submission(
+            f"GitHub Issue #{number}（{issue.get('url', '')}）", title, body, today,
+            known_theme_names, f"#{number}")
         if not result:
             _gh_issue_comment_and_close(number, "分析失敗（LLM 呼叫或解析出錯），請確認內容格式或稍後再試。")
             continue
+        processed += 1
+        _report_result_to_issue(number, result)
 
-        verified = result.get("verified", "unverified")
-        affected_themes = result.get("affected_themes", [])
-        affected_stocks = result.get("affected_stocks", [])
+    # 來源二：Google 表單（給不需要 GitHub 帳號的訪客，見 submit.html）
+    cfg = load_config()
+    csv_url = cfg.get("research_intake", {}).get("google_sheet_csv_url", "")
+    if csv_url:
+        rows = _safe(lambda: google_sheet.fetch_form_responses(csv_url), [], "讀取使用者研究提交（表單）")
+        last_ts = db.get_state("research_form_last_timestamp", "")
+        new_rows = [r for r in rows if r["timestamp"] > last_ts] if last_ts else rows
+        for row in new_rows:
+            print(f"[research] 處理表單提交（{row['timestamp']}）：{row['title']}")
+            _process_research_submission(
+                f"Google 表單提交（{row['timestamp']}）", row["title"], row["body"], today,
+                known_theme_names, row["timestamp"])
+            processed += 1
+        if new_rows:
+            db.set_state("research_form_last_timestamp", max(r["timestamp"] for r in new_rows))
 
-        # 只有明確判定 verified，且真的對應到既有題材，才回寫進題材知識庫；
-        # conflicting／unverified 一律只留在研究筆記裡，不動任何既有資料
-        for t in affected_themes:
-            if verified == "verified":
-                t["applied"] = db.append_research_to_theme(t["name"], today, t.get("impact", ""))
-            else:
-                t["applied"] = False
-        for s in affected_stocks:
-            s["applied"] = False  # 目前不直接改個股歷史資料，只記錄關聯供研究筆記頁參考
-
-        note_id = db.create_research_note(
-            submitted_at=today, source=f"GitHub Issue #{number}（{issue.get('url', '')}）",
-            title=title, raw_excerpt=body[:500], summary=result.get("summary", ""),
-            verified=verified, verification_note=result.get("verification_note", ""),
-            affected_themes=affected_themes, affected_stocks=affected_stocks,
-        )
-        db.mark_research_note_status(note_id, "applied" if verified == "verified" else "pending",
-                                     affected_themes, affected_stocks)
-
-        status_label = {"verified": "已驗證並套用", "conflicting": "與既有資料衝突，未套用",
-                        "unverified": "無法獨立驗證，未套用"}[verified]
-        applied_names = [t["name"] for t in affected_themes if t.get("applied")]
-        comment = (f"**分析結果：{status_label}**\n\n{result.get('summary', '')}\n\n"
-                  f"判定理由：{result.get('verification_note', '')}\n\n"
-                  + (f"已回寫題材：{'、'.join(applied_names)}\n\n" if applied_names else "")
-                  + "詳見網站「研究筆記」頁面。")
-        _gh_issue_comment_and_close(number, comment)
-        print(f"[research] Issue #{number} 完成，判定：{verified}")
-
+    if processed == 0:
+        print("[research] 目前沒有待處理的使用者研究提交")
+        return
     render.render_site()
-    print(f"[research] 本批處理 {len(issues)} 篇提交")
+    print(f"[research] 本批處理 {processed} 篇提交")
+
+
+def _report_result_to_issue(number: int, result: dict) -> None:
+    verified = result.get("verified", "unverified")
+    status_label = {"verified": "已驗證並套用", "conflicting": "與既有資料衝突，未套用",
+                    "unverified": "無法獨立驗證，未套用"}[verified]
+    applied_names = [t["name"] for t in result.get("affected_themes", []) if t.get("applied")]
+    comment = (f"**分析結果：{status_label}**\n\n{result.get('summary', '')}\n\n"
+              f"判定理由：{result.get('verification_note', '')}\n\n"
+              + (f"已回寫題材：{'、'.join(applied_names)}\n\n" if applied_names else "")
+              + "詳見網站「研究筆記」頁面。")
+    _gh_issue_comment_and_close(number, comment)
+    print(f"[research] Issue #{number} 完成，判定：{verified}")
 
 
 # ── 自動分支（排程呼叫這個） ───────────────────────────

@@ -308,6 +308,14 @@ def supply_chain_structure() -> dict:
     }
 
 
+def research_form_responses() -> list[dict]:
+    return [
+        {"timestamp": "2026/09/06 上午 9:00:00", "title": "測試：機器人減速機訂單消息",
+         "body": "某產業媒體報導，日系機器人大廠上修今年資本支出計畫，帶動台廠上銀、"
+                "大銀微系統的減速機訂單能見度延長至明年上半年。"},
+    ]
+
+
 def research_analysis() -> dict:
     return {
         "summary": "文章主張機器人減速機供應鏈訂單能見度延長至明年，並點名上銀與大銀微系統受惠。",

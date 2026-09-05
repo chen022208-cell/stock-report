@@ -1,0 +1,41 @@
+<form class="rs-form" id="rs-gh-form" onsubmit="return false;">
+  <div>
+    <label for="rs-gh-title">標題（可留空）</label>
+    <input id="rs-gh-title" type="text" placeholder="例如：文章來源或主題">
+  </div>
+  <div>
+    <label for="rs-gh-body">內容（貼上文章全文、你整理的重點，或一個網址）</label>
+    <textarea id="rs-gh-body" placeholder="貼在這裡..."></textarea>
+    <div class="rs-count" id="rs-gh-count">0 字</div>
+  </div>
+  <button class="rs-submit" id="rs-gh-submit" type="button" disabled>送出到 GitHub Issue →</button>
+</form>
+<p class="rs-note">會開一個新分頁到 GitHub，確認內容後按「Submit new issue」即完成——
+需要你有 GitHub 帳號並登入。</p>
+<script>
+(function () {
+  var titleEl = document.getElementById("rs-gh-title");
+  var bodyEl = document.getElementById("rs-gh-body");
+  var countEl = document.getElementById("rs-gh-count");
+  var btn = document.getElementById("rs-gh-submit");
+  var repo = {{ repo_slug|tojson }};
+
+  function update() {
+    var n = bodyEl.value.length;
+    countEl.textContent = n.toLocaleString() + " 字";
+    countEl.classList.toggle("warn", n > 5000);
+    btn.disabled = n === 0;
+  }
+  bodyEl.addEventListener("input", update);
+  update();
+
+  btn.addEventListener("click", function () {
+    var title = titleEl.value.trim() || "使用者研究提交";
+    var body = bodyEl.value.trim();
+    if (!body || !repo) return;
+    var url = "https://github.com/" + repo + "/issues/new?labels=research-submission"
+      + "&title=" + encodeURIComponent(title) + "&body=" + encodeURIComponent(body);
+    window.open(url, "_blank");
+  });
+})();
+</script>

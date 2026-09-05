@@ -439,21 +439,33 @@ def render_site() -> list[Path]:
 
 
 def render_submit_page() -> Path:
-    """使用者提交研究文章的入口。網站本身是純靜態站沒有後端，所以「上傳」的
-    實際路徑是：使用者在這頁打好標題/內容，按下送出後由瀏覽器端 JS 組出一個
-    預填好的 GitHub「開新 Issue」網址並開新分頁——使用者本來就是這個 repo
-    的擁有者，用 GitHub Issue 當唯一需要的「後端」，不用另外架伺服器或存密鑰。"""
+    """使用者提交研究文章的入口，網站本身是純靜態站沒有後端。提供兩種提交方式：
+    1. Google 表單（推薦給一般訪客）：頁面內用隱藏 iframe 送出表單，不用登入、
+       不會跳轉頁面——真正的「零門檻」路徑，但需要使用者先在自己的 Google
+       帳號設定好表單／試算表發布（見 CLAUDE.md），把三個公開網址填進
+       config.yaml 的 research_intake。
+    2. GitHub Issue（給熟悉 GitHub 的人，例如站長自己）：按下送出後開新分頁到
+       預填好的「開新 Issue」網址，一鍵完成，不用密鑰。
+    表單設定尚未填好時，頁面只顯示 GitHub Issue 這條路徑。"""
     cfg = load_config()
     path = DOCS_DIR / "submit.html"
     base_url = cfg["site"]["base_url"]  # https://<user>.github.io/<repo>
     repo_slug = base_url.split("://", 1)[-1].split(".github.io/", 1)
     repo_slug = f"{repo_slug[0].split('.')[0]}/{repo_slug[1]}" if len(repo_slug) == 2 else ""
 
+    ri = cfg.get("research_intake", {})
+    form_ready = bool(ri.get("google_form_action_url") and ri.get("google_form_entry_title")
+                      and ri.get("google_form_entry_body"))
+
     path.write_text(_env().get_template("submit.html").render(
         site_title=cfg["site"]["title"],
         generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
         rel="", nav_current="submit",
         repo_slug=repo_slug,
+        form_ready=form_ready,
+        form_action_url=ri.get("google_form_action_url", ""),
+        form_entry_title=ri.get("google_form_entry_title", ""),
+        form_entry_body=ri.get("google_form_entry_body", ""),
     ), encoding="utf-8")
     return path
 
