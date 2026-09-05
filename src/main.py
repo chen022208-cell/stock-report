@@ -211,23 +211,45 @@ def process_catalog_deep_dives(cfg: dict, today: str) -> int:
 
 
 def process_stock_swot_batch(cfg: dict, today: str) -> int:
-    """全市場個股公司介紹＋SWOT 逐批補齊。名單來源是 docs/data/stock_index.json
-    （render_lookup_page 產的全市場清單），扣掉已經有分析的，每天補一批。
-    公司介紹／SWOT 是相對穩定的資訊，產一次可重用很久（refresh_days 之後才刷新）。"""
+    """替「系統實際分析過、會出現在網站上」的個股補公司介紹＋SWOT，逐批補齊。
+    名單刻意只取：評分頁 rows、追蹤中題材的相關個股、選股雷達的起漲點／黑馬
+    （不含新掛牌那段——那裡有大量興櫃殼股，LLM 容易憑名字瞎猜出錯）。
+    公司介紹／SWOT 是相對穩定的資訊，產一次可重用很久（refresh_days 之後才刷新）。
+    llm.company_swot_batch 的 prompt 已要求「不確定的公司整檔略過」，寧缺勿錯。"""
     sw = cfg.get("stock_swot", {})
-    idx_path = Path(__file__).resolve().parent.parent / "docs" / "data" / "stock_index.json"
-    if not idx_path.exists():
-        print("[swot] 找不到 stock_index.json，略過（先跑一次盤後產生全市場清單）")
-        return 0
-    try:
-        universe = json.loads(idx_path.read_text(encoding="utf-8")).get("stocks", [])
-    except Exception:
+    docs = Path(__file__).resolve().parent.parent / "docs" / "data"
+
+    def _read(name):
+        p = docs / name
+        try:
+            return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
+        except Exception:
+            return {}
+
+    universe: dict[str, dict] = {}
+
+    def _add(code, name):
+        code = (code or "").strip()
+        if code and code not in universe:
+            universe[code] = {"code": code, "name": name or "", "industry": ""}
+
+    for r in _read("scores.json").get("rows", []):
+        _add(str(r.get("code", "")), r.get("name", ""))
+    picks = _read("picks.json")
+    for key in ("breakout", "dark_horses"):
+        for r in picks.get(key, []):
+            _add(str(r.get("code", "")), r.get("name", ""))
+    for t in _safe(db.active_theme_stocks, [], "題材相關個股"):
+        _add(t.get("code", ""), t.get("name", ""))
+
+    if not universe:
+        print("[swot] 沒有可補的個股名單（評分頁／題材／選股雷達都空），略過")
         return 0
 
     have = db.stock_analysis_codes(today, sw.get("refresh_days", 180))
-    pending = [s for s in universe if s.get("code") and s["code"] not in have]
+    pending = [s for s in universe.values() if s["code"] not in have]
     if not pending:
-        print("[swot] 全市場個股 SWOT 已補齊")
+        print("[swot] 已分析個股的 SWOT 都補齊了")
         return 0
 
     batch = pending[: sw.get("batch_size", 60)]
@@ -242,8 +264,50 @@ def process_stock_swot_batch(cfg: dict, today: str) -> int:
         db.upsert_stock_analysis(s["code"], s.get("name", ""), a["company_desc"],
                                  a.get("swot", {}), today)
         written += 1
-    print(f"[swot] 本批補齊 {written} 檔（全市場尚缺 {len(pending) - written} 檔）")
+    print(f"[swot] 本批補齊 {written} 檔（已分析個股尚缺 {len(pending) - written} 檔，"
+          f"LLM 沒把握的會略過不寫）")
     return written
+
+
+def snapshot_offmarket_history(codes: dict[str, str], cfg: dict) -> int:
+    """把上櫃／興櫃個股的日 K 抓下來存成 docs/data/tpex_hist/<code>.json。
+    瀏覽器對 tpex.org.tw 沒有 CORS，stock-chart.js 只能靠這份快照畫上櫃／興櫃圖。
+    上市（TWSE）代號會查不到、自動跳過（前端本來就能即時抓 TWSE）。
+    2 天內更新過的就不重抓；每次最多抓 sw_cfg['snapshot_limit'] 檔避免拖太久。"""
+    from datetime import datetime, timedelta
+
+    out_dir = Path(__file__).resolve().parent.parent / "docs" / "data" / "tpex_hist"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    limit = int(cfg.get("stock_swot", {}).get("snapshot_limit", 50))
+    fresh_before = datetime.utcnow() - timedelta(days=2)
+
+    done = 0
+    for code, name in list(codes.items()):
+        if done >= limit:
+            break
+        if not (code and code.isdigit() and len(code) == 4):
+            continue
+        fp = out_dir / f"{code}.json"
+        if fp.exists():
+            try:
+                prev = json.loads(fp.read_text(encoding="utf-8"))
+                ts = datetime.fromisoformat(prev.get("updated", "2000-01-01T00:00:00"))
+                if ts > fresh_before and prev.get("bars"):
+                    continue
+            except Exception:
+                pass
+        res = _safe(lambda: tpex.fetch_offmarket_daily_history(code, months=8),
+                    {"bars": [], "market": ""}, f"{code} 上櫃/興櫃歷史")
+        if not res.get("bars"):
+            continue
+        fp.write_text(json.dumps({
+            "code": code, "name": name, "market": res["market"],
+            "updated": datetime.utcnow().isoformat(timespec="seconds"),
+            "bars": res["bars"],
+        }, ensure_ascii=False), encoding="utf-8")
+        done += 1
+    print(f"[otc-hist] 快照 {done} 檔上櫃／興櫃日K（docs/data/tpex_hist/）")
+    return done
 
 
 def run_evening() -> None:
@@ -547,6 +611,14 @@ def run_evening() -> None:
     # 三個選股訊號另外落地成 picks.json，「選股雷達」頁才有固定入口可看
     _safe(lambda: render.save_picks(breakout_candidates, new_listings, dark_horses,
                                     render.date_label(today)), None, "選股雷達資料")
+
+    # 上櫃／興櫃個股的日 K 後端快照：瀏覽器對 tpex.org.tw 沒有 CORS，stock-chart.js
+    # 抓不到即時資料時會退而讀 docs/data/tpex_hist/<code>.json。只快照會出現在
+    # 選股雷達／評分頁的上櫃興櫃代號，數量有限。
+    otc_codes = {n["code"]: n["name"] for n in new_listings}
+    otc_codes.update({dh["code"]: dh["name"] for dh in dark_horses})
+    otc_codes.update({b["code"]: b.get("name", "") for b in breakout_candidates})
+    _safe(lambda: snapshot_offmarket_history(otc_codes, cfg), 0, "上櫃／興櫃歷史K線")
 
     # 題材生命週期：退場機制
     lc = cfg["theme_lifecycle"]

@@ -496,89 +496,120 @@
     if (m) m.classList.remove("open");
   }
 
+  // 把一組日 K（來源可能是 TWSE 即時，或本站對上櫃／興櫃做的每日快照）畫成
+  // 完整彈窗內容。opts.source：資料來源說明；opts.avgPriceNote：興櫃均價提醒。
+  function renderReport(body, code, name, daily, opts) {
+    opts = opts || {};
+    var last = daily[daily.length - 1];
+    var prev = daily.length > 1 ? daily[daily.length - 2] : null;
+    var chg = prev ? last.close - prev.close : 0;
+    var chgPct = prev && prev.close ? (chg / prev.close * 100) : 0;
+    var upCls = chg >= 0 ? "up" : "down";
+
+    body.innerHTML = '<h3 class="sc-title">' + code + ' ' + (name || "") + '</h3>'
+      + '<div class="sc-price-row">'
+      + '<span class="sc-price mono">' + fmt(last.close) + '</span>'
+      + '<span class="sc-chg mono ' + upCls + '">' + (chg >= 0 ? "▲" : "▼") + ' '
+      + fmt(Math.abs(chg)) + '（' + (chgPct >= 0 ? "+" : "") + chgPct.toFixed(2) + '%）</span>'
+      + '<span class="sc-date">' + last.date + '</span>'
+      + '</div>'
+      + (opts.avgPriceNote
+          ? '<p class="sc-snapshot-note">興櫃是議價／搓合市場，沒有開盤收盤價，此圖以每日成交<b>加權平均價</b>當收盤、當日最高最低為影線，僅供趨勢參考。</p>'
+          : "")
+      + '<div class="sc-tf-tabs">'
+      + '<button class="sc-tf active" data-tf="day">日</button>'
+      + '<button class="sc-tf" data-tf="week">週</button>'
+      + '<button class="sc-tf" data-tf="month">月</button>'
+      + '<span class="sc-zoom-group">'
+      + '<button class="sc-zoom" id="sc-zoom-out" aria-label="縮小" title="縮小">－</button>'
+      + '<button class="sc-zoom" id="sc-zoom-fit" aria-label="還原" title="還原">⤢</button>'
+      + '<button class="sc-zoom" id="sc-zoom-in" aria-label="放大" title="放大">＋</button>'
+      + '</span>'
+      + '</div>'
+      + '<div class="sc-info-bar" id="sc-info-bar"></div>'
+      + '<div id="sc-chart-container" class="sc-chart-container"></div>'
+      + legend()
+      + '<div class="sc-grade" id="sc-grade"></div>'
+      + '<p class="sc-disclaimer">'
+      + (opts.source || "資料來源：TWSE 每日收盤行情，即時於瀏覽器端計算技術指標與標記")
+      + '，僅供研究參考，不構成投資建議。點圖上的標記或拖曳游標可看當天開高低收。</p>';
+
+    var container = document.getElementById("sc-chart-container");
+    var infoEl = document.getElementById("sc-info-bar");
+    var gradeEl = document.getElementById("sc-grade");
+
+    function renderGrade(state) {
+      if (!state) { gradeEl.innerHTML = ""; return; }
+      var g = gradeStock(state.bars, state.ma5, state.ma20, state.ma60, state.rsi5, state.rsi10);
+      gradeEl.innerHTML = '<span class="tag sc-grade-tag">' + g.label + '</span>'
+        + '<span class="sc-notes">' + g.notes.join('、') + '</span>';
+    }
+
+    var state = renderChart(container, infoEl, daily, "day");
+    renderGrade(state);
+
+    function zoom(factor) {
+      if (!state) return;
+      var ts = state.chart.timeScale();
+      var range = ts.getVisibleLogicalRange();
+      if (!range) return;
+      var center = (range.from + range.to) / 2;
+      var half = (range.to - range.from) / 2 * factor;
+      ts.setVisibleLogicalRange({ from: center - half, to: center + half });
+    }
+    document.getElementById("sc-zoom-in").addEventListener("click", function () { zoom(0.7); });
+    document.getElementById("sc-zoom-out").addEventListener("click", function () { zoom(1 / 0.7); });
+    document.getElementById("sc-zoom-fit").addEventListener("click", function () {
+      if (state) state.chart.timeScale().fitContent();
+    });
+
+    body.querySelectorAll(".sc-tf").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        body.querySelectorAll(".sc-tf").forEach(function (b) { b.classList.remove("active"); });
+        btn.classList.add("active");
+        state = renderChart(container, infoEl, daily, btn.getAttribute("data-tf"));
+        renderGrade(state);
+      });
+    });
+
+    appendSwot(body, code);
+  }
+
+  function showNoPrice(body, code, name) {
+    body.innerHTML = '<h3 class="sc-title">' + code + ' ' + (name || "") + '</h3>'
+      + '<p class="sc-empty">查無股價資料。這檔可能剛掛牌、或資料源暫時無回應。'
+      + '以下為系統整理的公司介紹與 SWOT：</p>';
+    appendSwot(body, code);
+  }
+
   function open(code, name) {
     var m = ensureModal();
     var body = document.getElementById("sc-modal-body");
     body.innerHTML = '<h3 class="sc-title">' + code + ' ' + (name || "") + '</h3>'
-      + '<p class="sc-loading">讀取即時股價資料中…</p>';
+      + '<p class="sc-loading">讀取股價資料中…</p>';
     m.classList.add("open");
 
     fetchHistory(code).then(function (daily) {
-      if (!daily.length) {
-        body.innerHTML = '<h3 class="sc-title">' + code + ' ' + (name || "") + '</h3>'
-          + '<p class="sc-empty">查無即時股價資料。上櫃（TPEx）與興櫃個股該資料源不支援瀏覽器端即時查詢，'
-          + '暫時只能看本站每日報告裡系統另外算好的技術面資訊。以下為系統整理的公司介紹與 SWOT：</p>';
-        appendSwot(body, code);
+      if (daily.length) {
+        renderReport(body, code, name, daily, {});
         return;
       }
-      var last = daily[daily.length - 1];
-      var prev = daily.length > 1 ? daily[daily.length - 2] : null;
-      var chg = prev ? last.close - prev.close : 0;
-      var chgPct = prev && prev.close ? (chg / prev.close * 100) : 0;
-      var upCls = chg >= 0 ? "up" : "down";
-
-      body.innerHTML = '<h3 class="sc-title">' + code + ' ' + (name || "") + '</h3>'
-        + '<div class="sc-price-row">'
-        + '<span class="sc-price mono">' + fmt(last.close) + '</span>'
-        + '<span class="sc-chg mono ' + upCls + '">' + (chg >= 0 ? "▲" : "▼") + ' '
-        + fmt(Math.abs(chg)) + '（' + (chgPct >= 0 ? "+" : "") + chgPct.toFixed(2) + '%）</span>'
-        + '<span class="sc-date">' + last.date + '</span>'
-        + '</div>'
-        + '<div class="sc-tf-tabs">'
-        + '<button class="sc-tf active" data-tf="day">日</button>'
-        + '<button class="sc-tf" data-tf="week">週</button>'
-        + '<button class="sc-tf" data-tf="month">月</button>'
-        + '<span class="sc-zoom-group">'
-        + '<button class="sc-zoom" id="sc-zoom-out" aria-label="縮小" title="縮小">－</button>'
-        + '<button class="sc-zoom" id="sc-zoom-fit" aria-label="還原" title="還原">⤢</button>'
-        + '<button class="sc-zoom" id="sc-zoom-in" aria-label="放大" title="放大">＋</button>'
-        + '</span>'
-        + '</div>'
-        + '<div class="sc-info-bar" id="sc-info-bar"></div>'
-        + '<div id="sc-chart-container" class="sc-chart-container"></div>'
-        + legend()
-        + '<div class="sc-grade" id="sc-grade"></div>'
-        + '<p class="sc-disclaimer">資料來源：TWSE 每日收盤行情，即時於瀏覽器端計算技術指標與標記，僅供研究參考，不構成投資建議。點圖上的標記或拖曳游標可看當天開高低收。</p>';
-
-      var container = document.getElementById("sc-chart-container");
-      var infoEl = document.getElementById("sc-info-bar");
-      var gradeEl = document.getElementById("sc-grade");
-
-      function renderGrade(state) {
-        if (!state) { gradeEl.innerHTML = ""; return; }
-        var g = gradeStock(state.bars, state.ma5, state.ma20, state.ma60, state.rsi5, state.rsi10);
-        gradeEl.innerHTML = '<span class="tag sc-grade-tag">' + g.label + '</span>'
-          + '<span class="sc-notes">' + g.notes.join('、') + '</span>';
-      }
-
-      var state = renderChart(container, infoEl, daily, "day");
-      renderGrade(state);
-
-      function zoom(factor) {
-        if (!state) return;
-        var ts = state.chart.timeScale();
-        var range = ts.getVisibleLogicalRange();
-        if (!range) return;
-        var center = (range.from + range.to) / 2;
-        var half = (range.to - range.from) / 2 * factor;
-        ts.setVisibleLogicalRange({ from: center - half, to: center + half });
-      }
-      document.getElementById("sc-zoom-in").addEventListener("click", function () { zoom(0.7); });
-      document.getElementById("sc-zoom-out").addEventListener("click", function () { zoom(1 / 0.7); });
-      document.getElementById("sc-zoom-fit").addEventListener("click", function () {
-        if (state) state.chart.timeScale().fitContent();
-      });
-
-      body.querySelectorAll(".sc-tf").forEach(function (btn) {
-        btn.addEventListener("click", function () {
-          body.querySelectorAll(".sc-tf").forEach(function (b) { b.classList.remove("active"); });
-          btn.classList.add("active");
-          state = renderChart(container, infoEl, daily, btn.getAttribute("data-tf"));
-          renderGrade(state);
-        });
-      });
-
-      appendSwot(body, code);
+      // TWSE 端點沒這檔（上櫃／興櫃對瀏覽器沒開 CORS）→ 退而讀本站每日快照
+      fetch(assetBase() + "data/tpex_hist/" + code + ".json")
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (snap) {
+          if (snap && snap.bars && snap.bars.length >= 2) {
+            var esb = snap.market === "esb";
+            renderReport(body, code, name || snap.name, snap.bars, {
+              avgPriceNote: esb,
+              source: (esb ? "資料來源：TPEx 興櫃每日成交統計" : "資料來源：TPEx 上櫃每日成交資訊")
+                + "，本站盤後快照（非即時，更新於 " + String(snap.updated || "").slice(0, 10) + "）",
+            });
+          } else {
+            showNoPrice(body, code, name);
+          }
+        })
+        .catch(function () { showNoPrice(body, code, name); });
     }).catch(function (exc) {
       body.innerHTML = '<h3 class="sc-title">' + code + ' ' + (name || "") + '</h3>'
         + '<p class="sc-empty">讀取失敗：' + String(exc) + '</p>';

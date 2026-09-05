@@ -239,6 +239,25 @@ def list_catalog_themes() -> list[dict]:
         return [dict(r) for r in rows]
 
 
+def active_theme_stocks() -> list[dict]:
+    """追蹤中（status='active'）題材的相關個股，攤平成 {code,name} 清單、去重。
+    給 process_stock_swot_batch 當「值得補公司介紹／SWOT」的個股來源之一。"""
+    seen: dict[str, dict] = {}
+    with get_conn() as conn:
+        rows = conn.execute(
+            "SELECT related_stocks FROM themes WHERE status='active' AND related_stocks IS NOT NULL"
+        ).fetchall()
+    for r in rows:
+        try:
+            for s in json.loads(r["related_stocks"] or "[]"):
+                code = str(s.get("code", "")).strip()
+                if code and code not in seen:
+                    seen[code] = {"code": code, "name": s.get("name", "")}
+        except Exception:
+            continue
+    return list(seen.values())
+
+
 def catalog_theme_names() -> list[str]:
     """給 cluster_themes() 當參考名單，讓即時聚類的 LLM 優先套用目錄裡已有的名稱，
     而不是每次自己發明一個相似但不完全一樣的題材名——這樣目錄題材才有機會被
