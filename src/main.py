@@ -17,7 +17,7 @@ from datetime import date, timedelta
 from pathlib import Path
 
 from . import db, llm, prices_db, render
-from .analysis import charts, global_themes, industry, review, scoring, screener, technical
+from .analysis import global_themes, industry, review, scoring, screener, technical
 from .config import DRY_RUN, load_config, today_str, now_tpe
 from .fetchers import fred, international, mops, stock_news, tdcc, tpex, twse
 from .market_calendar import (classify_day, consecutive_closed_days,
@@ -252,10 +252,7 @@ def run_evening() -> None:
         hist = _safe(lambda c=code: twse.fetch_stock_history(c, cfg["technical"]["lookback_days"]),
                      [], f"{code} 歷史股價")
         result = technical.analyze_stock(code, hist, cfg)
-        chart_path = _safe(lambda c=code, n=name, h=hist: charts.render_stock_chart(c, n, h),
-                           None, f"{code} K線圖")
-        result.update({"name": f"{code} {name}", "is_watchlist": code in watch_codes,
-                      "has_chart": bool(chart_path)})
+        result.update({"name": f"{code} {name}", "is_watchlist": code in watch_codes})
         technicals.append(result)
     technicals.sort(key=lambda x: not x["is_watchlist"])
 
@@ -284,8 +281,7 @@ def run_evening() -> None:
             theme_confidence=theme_conf_by_code.get(code),
             news=news_scores.get(code),
         )
-        score_rows.append({**s, "code": code, "name": t["name"],
-                          "has_chart": t.get("has_chart", False)})
+        score_rows.append({**s, "code": code, "name": t["name"]})
     score_rows.sort(key=lambda x: (x["composite"] is None, -(x["composite"] or 0)))
 
     # 個股深度分析：評分頁前幾名補上公司介紹＋SWOT＋漲跌原因，不等系統累積足夠訊號才做

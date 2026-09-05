@@ -9,8 +9,9 @@
   .lookup-empty{font-size:13.5px; color:var(--text-muted); padding:24px 0; text-align:center;}
   .lookup-result{display:block; background:var(--surface); border:1px solid var(--hairline);
                 border-radius:var(--radius-sm); padding:13px 14px; margin-bottom:8px;
-                text-decoration:none; color:inherit;}
+                text-decoration:none; color:inherit; cursor:pointer;}
   .lookup-result:active{opacity:.7;}
+  .lr-analysis-link{font-size:10.5px; color:var(--gold); text-decoration:none;}
   .lr-head{display:flex; justify-content:space-between; align-items:baseline; gap:10px;}
   .lr-name{font-size:14.5px; font-weight:600;}
   .lr-pct{font-family:'JetBrains Mono',monospace; font-size:14px;}
@@ -52,15 +53,14 @@
       return;
     }
     results.innerHTML = list.map(function (s) {
-      var href = s.has_score
-        ? rel + "scores.html#score-" + s.code
-        : rel + "heatmap.html";
       var pctClass = s.change_pct >= 0 ? "up" : "down";
-      var badge = s.has_score ? '<span class="lr-badge">⭐ 完整分析</span>' : "";
-      return '<a class="lookup-result" href="' + href + '">' +
-        '<div class="lr-head"><span class="lr-name">' + s.code + " " + s.name + '</span>' +
+      var badge = s.has_score
+        ? '<a class="lr-analysis-link" href="' + rel + 'scores.html#score-' + s.code + '" onclick="event.stopPropagation()">⭐ 完整分析 →</a>'
+        : "";
+      return '<div class="lookup-result" data-stock-code="' + s.code + '" data-stock-name="' + s.name + '">' +
+        '<div class="lr-head"><span class="lr-name">' + s.code + " " + s.name + ' 📈</span>' +
         '<span class="lr-pct ' + pctClass + '">' + (s.change_pct >= 0 ? "+" : "") + s.change_pct.toFixed(2) + '%</span></div>' +
-        '<div class="lr-meta"><span>' + s.industry + '</span>' + badge + '</div></a>';
+        '<div class="lr-meta"><span>' + s.industry + '</span>' + badge + '</div></div>';
     }).join("");
   }
 

@@ -12,9 +12,6 @@
   .axis-fill{height:100%; background:var(--gold); border-radius:3px;}
   .axis-value{width:34px; text-align:right; font-family:'JetBrains Mono',monospace; color:var(--text-secondary); flex-shrink:0;}
   .axis-na{color:var(--text-muted); font-size:12px; width:34px; text-align:right;}
-  .chart-block{margin-top:12px; border-top:1px solid var(--hairline); padding-top:12px;}
-  .chart-block img{width:100%; border-radius:8px; display:block;}
-  .chart-missing{font-size:12.5px; color:var(--text-muted); padding:10px 0;}
   .analysis-toggle{margin-top:12px; border-top:1px solid var(--hairline); padding-top:10px;}
   .analysis-toggle summary{cursor:pointer; font-size:12.5px; color:var(--gold); list-style:none;}
   .analysis-toggle summary::-webkit-details-marker{display:none;}
@@ -56,13 +53,6 @@
     {% endif %}
   </div>
   {% endfor %}
-  <div class="chart-block">
-    {% if r.has_chart %}
-    <img src="{{ rel }}charts/{{ r.code }}.png" alt="{{ r.name }} K線圖與RSI" loading="lazy">
-    {% else %}
-    <p class="chart-missing">📈 K 線圖尚未產出（歷史資料不足或本次未擷取到股價資料）</p>
-    {% endif %}
-  </div>
   {% if r.analysis %}
   <details class="analysis-toggle">
     <summary>📊 公司介紹／SWOT／漲跌原因 →</summary>
