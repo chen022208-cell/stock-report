@@ -99,7 +99,7 @@ def cluster_themes(strong_stocks: list[dict], context: str = "") -> dict:
         user += f"\n\n補充資訊：\n{context}"
 
     try:
-        return _parse_json(_call(CLUSTER_SYSTEM, user))
+        return _parse_json(_call(CLUSTER_SYSTEM, user, 6000))
     except Exception as exc:
         print(f"[llm] 題材聚類失敗：{exc}")
         return {"themes": [], "orphans": []}
