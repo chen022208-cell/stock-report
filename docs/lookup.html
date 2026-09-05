@@ -161,6 +161,15 @@
   .sc-grade{display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap;}
   .sc-notes{font-size:12.5px; color:var(--text-secondary);}
   .sc-disclaimer{font-size:11.5px; color:var(--text-muted); line-height:1.5;}
+  .sc-swot{margin:14px 0 4px; border-top:1px solid var(--hairline); padding-top:12px;}
+  .sc-swot-h{font-family:'Noto Serif TC',serif; font-size:14px; margin-bottom:6px; color:var(--text-primary);}
+  .sc-swot-desc{font-size:13px; color:var(--text-secondary); line-height:1.65; margin-bottom:10px;}
+  .sc-swot-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .sc-swot-cell{background:var(--surface-2); border-radius:var(--radius-sm); padding:8px 10px;}
+  .sc-swot-cell h5{font-size:12px; margin:0 0 3px; color:var(--gold);}
+  .sc-swot-cell p{font-size:12px; color:var(--text-secondary); line-height:1.55; margin:0;}
+  .sc-swot-updated{font-size:11px; color:var(--text-muted); margin-top:8px;}
+  @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
   .search-box{width:100%; background:var(--surface); border:1px solid var(--hairline);
              border-radius:var(--radius-sm); padding:13px 14px; font-size:15px;
@@ -179,6 +188,14 @@
   .lr-meta{font-size:12px; color:var(--text-muted); margin-top:4px; display:flex; gap:8px; align-items:center;}
   .lr-badge{font-size:10.5px; padding:1px 7px; border-radius:100px;
            background:rgba(227,172,78,.18); color:var(--gold);}
+  .lr-swot{margin-top:8px; border-top:1px solid var(--hairline); padding-top:8px;}
+  .lr-swot summary{cursor:pointer; font-size:12px; color:var(--gold); list-style:none;}
+  .lr-swot summary::-webkit-details-marker{display:none;}
+  .lr-swot-desc{font-size:12.5px; color:var(--text-secondary); line-height:1.55; margin:8px 0;}
+  .lr-swot-grid{display:grid; grid-template-columns:1fr 1fr; gap:6px; font-size:12px;
+               color:var(--text-secondary); line-height:1.5;}
+  .lr-swot-grid b{display:block; color:var(--text-muted); font-size:11px; margin-bottom:2px;}
+  @media(max-width:480px){.lr-swot-grid{grid-template-columns:1fr;}}
 
 </style>
 </head>
@@ -212,7 +229,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 21:44</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 22:27</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
@@ -222,7 +239,7 @@
   }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=7a0c4f23"></script>
+<script src="assets/stock-chart.js?v=0bc85488"></script>
 
 <script>
 (function () {
@@ -231,6 +248,7 @@
   var countEl = document.getElementById("stock-count");
   var rel = "";
   var stocks = [];
+  var swot = {};
 
   fetch(rel + "data/stock_index.json").then(function (r) { return r.json(); }).then(function (data) {
     stocks = data.stocks || [];
@@ -240,6 +258,28 @@
     countEl.textContent = "0";
     results.innerHTML = '<p class="lookup-empty">個股清單載入失敗，請稍後再試。</p>';
   });
+
+  fetch(rel + "data/stock_analysis.json").then(function (r) { return r.json(); })
+    .then(function (d) { swot = d || {}; if (stocks.length) render(stocks.slice(0, 20)); })
+    .catch(function () {});
+
+  function esc(x) { return String(x == null ? "" : x).replace(/[<>&]/g, function (c) {
+    return { "<": "&lt;", ">": "&gt;", "&": "&amp;" }[c]; }); }
+
+  function analysisBlock(code) {
+    var a = swot[code];
+    if (!a || !a.company_desc) return "";
+    var s = a.swot || {};
+    return '<details class="lr-swot" onclick="event.stopPropagation()">' +
+      '<summary>📊 公司介紹／SWOT →</summary>' +
+      '<p class="lr-swot-desc">' + esc(a.company_desc) + '</p>' +
+      '<div class="lr-swot-grid">' +
+      '<div><b>優勢</b>' + esc(s.strengths) + '</div>' +
+      '<div><b>弱點</b>' + esc(s.weaknesses) + '</div>' +
+      '<div><b>機會</b>' + esc(s.opportunities) + '</div>' +
+      '<div><b>威脅</b>' + esc(s.threats) + '</div>' +
+      '</div></details>';
+  }
 
   function render(list) {
     if (!list.length) {
@@ -254,7 +294,8 @@
       return '<div class="lookup-result" data-stock-code="' + s.code + '" data-stock-name="' + s.name + '">' +
         '<div class="lr-head"><span class="lr-name">' + s.code + " " + s.name + ' 📈</span>' +
         '<span class="lr-pct ' + pctClass + '">' + (s.change_pct >= 0 ? "+" : "") + s.change_pct.toFixed(2) + '%</span></div>' +
-        '<div class="lr-meta"><span>' + s.industry + '</span>' + badge + '</div></div>';
+        '<div class="lr-meta"><span>' + s.industry + '</span>' + badge + '</div>' +
+        analysisBlock(s.code) + '</div>';
     }).join("");
   }
 

@@ -144,6 +144,17 @@ def stock_analysis_batch() -> dict[str, dict]:
     return {code: template for code in ("1590", "3017", "4551", "1521", "6187")}
 
 
+def company_swot_batch() -> dict[str, dict]:
+    tpl = {
+        "company_desc": "（測試）某產業零組件廠，產品供應下游品牌客戶。",
+        "swot": {"strengths": "（測試）技術門檻與客戶認證。",
+                 "weaknesses": "（推論）客戶集中度偏高。",
+                 "opportunities": "（測試）下游需求擴張。",
+                 "threats": "（推論）同業低價競爭。"},
+    }
+    return {c: tpl for c in ("1590", "2049", "6187", "7686", "3718")}
+
+
 def catalog_theme_research_batch(themes: list[dict]) -> dict[str, dict]:
     """DRY_RUN 用：從既有的假股票池輪流配對代表股給每個題材，其中第一個題材
     刻意配到兩檔漲幅都 >=3% 的股票（1590/2049），讓測試能跑到「當紅」判定

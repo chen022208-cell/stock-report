@@ -97,6 +97,17 @@ CREATE TABLE IF NOT EXISTS supply_chains (
     updated_date  TEXT NOT NULL
 );
 
+-- 個股公司介紹＋SWOT：跟每日報告裡「為何漲跌」那種當日性分析不同，
+-- 公司在做什麼、競爭優劣勢是相對穩定的資訊，產一次可以重用很久，
+-- 只是每隔一段時間刷新。目標是全市場每一檔個股都有，逐批補齊。
+CREATE TABLE IF NOT EXISTS stock_analysis (
+    code          TEXT PRIMARY KEY,
+    name          TEXT,
+    company_desc  TEXT,
+    swot          TEXT,               -- JSON：{strengths, weaknesses, opportunities, threats}
+    updated_at    TEXT NOT NULL
+);
+
 -- 小型鍵值狀態表：目前只用來記「Google 表單試算表處理到哪一筆時間戳記」，
 -- 之後有其他需要跨執行記憶一個小狀態的地方也可以共用，不用每個都開一張表
 CREATE TABLE IF NOT EXISTS app_state (
@@ -389,6 +400,56 @@ def get_supply_chain(theme_id: int) -> dict | None:
             "SELECT structure FROM supply_chains WHERE theme_id=?", (theme_id,)
         ).fetchone()
         return json.loads(row["structure"]) if row else None
+
+
+# ── 個股公司介紹＋SWOT（全市場逐批補齊）──────────────
+def upsert_stock_analysis(code: str, name: str, company_desc: str,
+                          swot: dict, today: str) -> None:
+    with get_conn() as conn:
+        conn.execute(
+            """INSERT INTO stock_analysis (code, name, company_desc, swot, updated_at)
+               VALUES (?,?,?,?,?)
+               ON CONFLICT(code) DO UPDATE SET name=excluded.name,
+                   company_desc=excluded.company_desc, swot=excluded.swot,
+                   updated_at=excluded.updated_at""",
+            (code, name, company_desc, json.dumps(swot, ensure_ascii=False), today),
+        )
+
+
+def get_stock_analysis(code: str) -> dict | None:
+    with get_conn() as conn:
+        row = conn.execute("SELECT * FROM stock_analysis WHERE code=?", (code,)).fetchone()
+        if not row:
+            return None
+        d = dict(row)
+        d["swot"] = json.loads(d.get("swot") or "{}")
+        return d
+
+
+def stock_analysis_codes(today: str, refresh_days: int) -> set[str]:
+    """已經有分析、且還不算過期的個股代號——呼叫端拿全市場清單扣掉這一組，
+    剩下的就是這批要補的。"""
+    cutoff = (date.fromisoformat(today) - timedelta(days=refresh_days)).isoformat()
+    with get_conn() as conn:
+        rows = conn.execute(
+            "SELECT code FROM stock_analysis WHERE updated_at >= ?", (cutoff,)
+        ).fetchall()
+        return {r["code"] for r in rows}
+
+
+def all_stock_analysis() -> dict[str, dict]:
+    """code -> {company_desc, swot}，給 render 匯出 docs/data/stock_analysis.json 用。"""
+    with get_conn() as conn:
+        rows = conn.execute(
+            "SELECT code, name, company_desc, swot, updated_at FROM stock_analysis").fetchall()
+        out = {}
+        for r in rows:
+            out[r["code"]] = {
+                "name": r["name"], "company_desc": r["company_desc"],
+                "swot": json.loads(r["swot"] or "{}"),
+                "updated_at": r["updated_at"],
+            }
+        return out
 
 
 # ── 小型狀態值 ───────────────────────────────────────

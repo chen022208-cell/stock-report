@@ -380,6 +380,44 @@ def catalog_theme_research_batch(themes: list[dict]) -> dict[str, dict]:
         return {}
 
 
+# ── 個股公司介紹＋SWOT（全市場逐批補齊，穩定資訊、不含當日漲跌原因）──
+COMPANY_SWOT_SYSTEM = """你是台股個股研究員，替一批股票各寫一份「公司是做什麼的」＋SWOT。
+
+這裡只要穩定、不會每天變的資訊：公司主業、產業鏈角色、結構性優劣勢。
+不要寫「今天為什麼漲跌」這種當日性內容。
+
+針對每一檔輸出：
+1. company_desc：主要做什麼生意、在產業鏈的角色（1-2 句，具體到產品/客戶，不要空話）
+2. swot：strengths / weaknesses / opportunities / threats，各 1-2 句，具體可驗證
+   - 找不到明顯威脅或弱點時，給產業常見的合理推論，並註明「（推論）」
+   - 不使用投資建議語氣
+
+只輸出 JSON，不要 markdown 標記，key 是股票代號：
+{
+  "1234": {
+    "company_desc": "...",
+    "swot": {"strengths": "...", "weaknesses": "...", "opportunities": "...", "threats": "..."}
+  }
+}"""
+
+
+def company_swot_batch(stocks: list[dict]) -> dict[str, dict]:
+    """stocks = [{"code":, "name":, "industry":（可選）}, ...]，一次一批省成本。"""
+    if DRY_RUN:
+        return mock.company_swot_batch()
+    if not stocks:
+        return {}
+    lines = []
+    for s in stocks:
+        ind = f"（{s['industry']}）" if s.get("industry") else ""
+        lines.append(f"{s['code']} {s['name']}{ind}")
+    try:
+        return _parse_json(_call(COMPANY_SWOT_SYSTEM, "\n".join(lines), 16000))
+    except Exception as exc:
+        print(f"[llm] 公司介紹／SWOT 產出失敗：{exc}")
+        return {}
+
+
 # ── 供應鏈結構 ─────────────────────────────────────────
 SUPPLY_CHAIN_SYSTEM = """你是台股產業鏈研究員。輸入一個題材的名稱、摘要與目前追蹤到的相關個股。
 

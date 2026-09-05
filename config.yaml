@@ -51,6 +51,11 @@ theme_catalog:
   hot_min_stocks: 2           # 當紅代表股要有幾檔才判定整個題材當紅、值得深度分析
   deep_dive_batch_size: 10    # 每次最多寫幾篇目錄題材的產業分析深度報告（字數較多，批次故意小一點）
 
+# ── 全市場個股公司介紹＋SWOT（逐批補齊，目標全部個股都有）────
+stock_swot:
+  batch_size: 120            # 每次（每天盤後）最多補幾檔（約 2200 檔全市場，這速度約 3 週補完）
+  refresh_days: 180          # 已產出的分析幾天後才排入重新產出
+
 # ── 使用者研究提交（submit.html → GitHub Issue 或 Google 表單）──
 research_intake:
   # Google 表單：讓不需要 GitHub 帳號的訪客也能提交，見 submit.html 的說明。

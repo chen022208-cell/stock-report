@@ -11,6 +11,60 @@
   var MONTHS_BACK = 36;
   var LS_PREFIX = "sc_hist_v1_";
 
+  // ── 公司介紹＋SWOT（每天盤後逐批補齊，存在 docs/data/stock_analysis.json）──
+  // 這份是後端 LLM 事先算好的靜態資料，跟即時股價圖無關；上櫃／興櫃個股圖表
+  // 抓不到即時 K 線時，至少還能在彈窗裡看到公司在做什麼與結構性優劣勢。
+  var swotPromise = null;
+
+  function assetBase() {
+    var s = document.querySelector('script[src*="stock-chart.js"]');
+    var src = s ? (s.getAttribute("src") || "") : "";
+    var m = src.match(/^(.*?)assets\/stock-chart\.js/);
+    return m ? m[1] : "";
+  }
+
+  function loadSwot() {
+    if (!swotPromise) {
+      swotPromise = fetch(assetBase() + "data/stock_analysis.json")
+        .then(function (r) { return r.ok ? r.json() : {}; })
+        .catch(function () { return {}; });
+    }
+    return swotPromise;
+  }
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+
+  function swotHtml(entry) {
+    if (!entry || !entry.company_desc) return "";
+    var sw = entry.swot || {};
+    function cell(title, val) {
+      if (!val) return "";
+      return '<div class="sc-swot-cell"><h5>' + title + '</h5><p>' + esc(val) + "</p></div>";
+    }
+    var grid = cell("優勢 S", sw.strengths) + cell("劣勢 W", sw.weaknesses)
+             + cell("機會 O", sw.opportunities) + cell("威脅 T", sw.threats);
+    return '<div class="sc-swot">'
+      + '<div class="sc-swot-h">公司介紹與 SWOT</div>'
+      + '<p class="sc-swot-desc">' + esc(entry.company_desc) + "</p>"
+      + (grid ? '<div class="sc-swot-grid">' + grid + "</div>" : "")
+      + (entry.updated_at ? '<p class="sc-swot-updated">分析更新：' + esc(entry.updated_at)
+          + '　·　系統依公開資訊整理，僅供研究參考</p>' : "")
+      + "</div>";
+  }
+
+  function appendSwot(bodyEl, code) {
+    loadSwot().then(function (map) {
+      var html = swotHtml(map && map[code]);
+      if (html && bodyEl && bodyEl.isConnected !== false) {
+        bodyEl.insertAdjacentHTML("beforeend", html);
+      }
+    });
+  }
+
   function todayIso() {
     // 用瀏覽器本機日期，使用者主要都在台灣時區，不特別處理時區轉換。
     var d = new Date();
@@ -452,8 +506,9 @@
     fetchHistory(code).then(function (daily) {
       if (!daily.length) {
         body.innerHTML = '<h3 class="sc-title">' + code + ' ' + (name || "") + '</h3>'
-          + '<p class="sc-empty">查無資料。若為上櫃（TPEx）個股，該資料源目前不支援瀏覽器端即時查詢，'
-          + '暫時只能看本站每日報告裡系統另外算好的技術面資訊。</p>';
+          + '<p class="sc-empty">查無即時股價資料。上櫃（TPEx）與興櫃個股該資料源不支援瀏覽器端即時查詢，'
+          + '暫時只能看本站每日報告裡系統另外算好的技術面資訊。以下為系統整理的公司介紹與 SWOT：</p>';
+        appendSwot(body, code);
         return;
       }
       var last = daily[daily.length - 1];
@@ -522,9 +577,12 @@
           renderGrade(state);
         });
       });
+
+      appendSwot(body, code);
     }).catch(function (exc) {
       body.innerHTML = '<h3 class="sc-title">' + code + ' ' + (name || "") + '</h3>'
         + '<p class="sc-empty">讀取失敗：' + String(exc) + '</p>';
+      appendSwot(body, code);
     });
   }
 

@@ -436,7 +436,15 @@ def render_site() -> list[Path]:
     """重建所有索引頁。每次跑完報告都要呼叫，索引才會包含最新內容。"""
     return [render_index(), render_archive(), render_themes_page(), render_lookup_page(),
             render_submit_page(), render_research_notes(),
-            render_weekly_index(), render_monthly_deep_index(), render_picks_page()]
+            render_weekly_index(), render_monthly_deep_index(), render_picks_page(),
+            render_stock_analysis_json()]
+
+
+def render_stock_analysis_json() -> Path:
+    """把資料庫裡所有個股的公司介紹＋SWOT 匯出成 docs/data/stock_analysis.json，
+    個股查詢頁的前端 JS 直接讀這個，點展開就看得到公司分析，不用後端。"""
+    _write_json("stock_analysis", db.all_stock_analysis())
+    return DOCS_DIR / "data" / "stock_analysis.json"
 
 
 def save_picks(breakout: list, new_listings: list, dark_horses: list, date_label_str: str) -> None:

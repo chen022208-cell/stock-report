@@ -210,6 +210,42 @@ def process_catalog_deep_dives(cfg: dict, today: str) -> int:
     return len(batch)
 
 
+def process_stock_swot_batch(cfg: dict, today: str) -> int:
+    """全市場個股公司介紹＋SWOT 逐批補齊。名單來源是 docs/data/stock_index.json
+    （render_lookup_page 產的全市場清單），扣掉已經有分析的，每天補一批。
+    公司介紹／SWOT 是相對穩定的資訊，產一次可重用很久（refresh_days 之後才刷新）。"""
+    sw = cfg.get("stock_swot", {})
+    idx_path = Path(__file__).resolve().parent.parent / "docs" / "data" / "stock_index.json"
+    if not idx_path.exists():
+        print("[swot] 找不到 stock_index.json，略過（先跑一次盤後產生全市場清單）")
+        return 0
+    try:
+        universe = json.loads(idx_path.read_text(encoding="utf-8")).get("stocks", [])
+    except Exception:
+        return 0
+
+    have = db.stock_analysis_codes(today, sw.get("refresh_days", 180))
+    pending = [s for s in universe if s.get("code") and s["code"] not in have]
+    if not pending:
+        print("[swot] 全市場個股 SWOT 已補齊")
+        return 0
+
+    batch = pending[: sw.get("batch_size", 60)]
+    result = _safe(lambda: llm.company_swot_batch(
+        [{"code": s["code"], "name": s.get("name", ""), "industry": s.get("industry", "")}
+         for s in batch]), {}, "公司介紹／SWOT")
+    written = 0
+    for s in batch:
+        a = result.get(s["code"])
+        if not a or not a.get("company_desc"):
+            continue
+        db.upsert_stock_analysis(s["code"], s.get("name", ""), a["company_desc"],
+                                 a.get("swot", {}), today)
+        written += 1
+    print(f"[swot] 本批補齊 {written} 檔（全市場尚缺 {len(pending) - written} 檔）")
+    return written
+
+
 def run_evening() -> None:
     cfg = load_config()
     today = today_str()
@@ -306,6 +342,8 @@ def run_evening() -> None:
     # 控制 LLM 成本，全部補齊需要好幾天（或用一次性回填腳本跑好幾批）
     process_catalog_batch(cfg, today, quotes_by_code_all)
     process_catalog_deep_dives(cfg, today)
+    # 全市場個股公司介紹＋SWOT，每天補一批直到全部個股都有
+    _safe(lambda: process_stock_swot_batch(cfg, today), 0, "全市場個股 SWOT")
 
     holder_codes = {q["code"] for q in strong} | watch_codes
     holder_concentration = _safe(lambda: tdcc.fetch_holder_concentration(holder_codes),
