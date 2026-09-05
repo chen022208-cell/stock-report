@@ -434,4 +434,39 @@ def render_scores(rows: list[dict], date_label_str: str) -> Path:
 
 def render_site() -> list[Path]:
     """重建所有索引頁。每次跑完報告都要呼叫，索引才會包含最新內容。"""
-    return [render_index(), render_archive(), render_themes_page(), render_lookup_page()]
+    return [render_index(), render_archive(), render_themes_page(), render_lookup_page(),
+            render_submit_page(), render_research_notes()]
+
+
+def render_submit_page() -> Path:
+    """使用者提交研究文章的入口。網站本身是純靜態站沒有後端，所以「上傳」的
+    實際路徑是：使用者在這頁打好標題/內容，按下送出後由瀏覽器端 JS 組出一個
+    預填好的 GitHub「開新 Issue」網址並開新分頁——使用者本來就是這個 repo
+    的擁有者，用 GitHub Issue 當唯一需要的「後端」，不用另外架伺服器或存密鑰。"""
+    cfg = load_config()
+    path = DOCS_DIR / "submit.html"
+    base_url = cfg["site"]["base_url"]  # https://<user>.github.io/<repo>
+    repo_slug = base_url.split("://", 1)[-1].split(".github.io/", 1)
+    repo_slug = f"{repo_slug[0].split('.')[0]}/{repo_slug[1]}" if len(repo_slug) == 2 else ""
+
+    path.write_text(_env().get_template("submit.html").render(
+        site_title=cfg["site"]["title"],
+        generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
+        rel="", nav_current="submit",
+        repo_slug=repo_slug,
+    ), encoding="utf-8")
+    return path
+
+
+def render_research_notes() -> Path:
+    """已提交研究的處理結果：驗證狀態、摘要、有沒有真的回寫進題材庫。"""
+    cfg = load_config()
+    path = DOCS_DIR / "research.html"
+
+    path.write_text(_env().get_template("research.html").render(
+        site_title=cfg["site"]["title"],
+        generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
+        rel="", nav_current="research",
+        notes=db.list_research_notes(),
+    ), encoding="utf-8")
+    return path

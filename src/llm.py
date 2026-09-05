@@ -485,3 +485,55 @@ def write_deep_dive(theme: dict, timeline: list[dict], extra: str = "") -> dict:
     except Exception as exc:
         print(f"[llm] 深度報告產出失敗：{exc}")
         return {}
+
+
+# ── 使用者提交研究（文章／文字）分析 ─────────────────────
+# 這裡的驗證要求是刻意寫得很重的：使用者貼進來的文章可能是網路轉載、
+# 未經證實的傳言，甚至內容有誤。絕對不能把「使用者說的」直接當成
+# 「系統驗證過的事實」寫回題材/個股資料，否則整份報告的可信度會被
+# 一次來源不明的貼文污染。
+RESEARCH_ANALYSIS_SYSTEM = """你是台股研究助理，負責處理使用者提交的文章／文字內容，
+判斷它跟系統既有的題材知識庫、個股資料有沒有關聯，並且嚴格把關資訊真偽。
+
+輸入會附上：使用者提交的原文、系統目前已知的題材名稱清單、（如果有）系統對這些
+題材已知的摘要與代表個股。
+
+任務：
+1. summary：用 2-4 句話整理這篇文章在說什麼（不要照抄原文，是你消化後的重點）
+2. verified：判斷整體可信度，只能是以下三種：
+   - "verified"：內容跟你已知的公開事實、或系統既有題材摘要一致，沒有矛盾，
+     且不是需要即時股價才能驗證的具體數字（那種本來就無法由你獨立驗證）
+   - "conflicting"：內容跟你已知的事實或系統既有題材摘要有明確衝突
+   - "unverified"：內容包含你無法獨立確認的具體宣稱（例如精確財務數字、
+     未公開的傳言、單一消息來源的猜測），既不衝突也不能確認
+   　　－　寧可保守判定 unverified，不要因為內容「聽起來合理」就判定 verified
+3. verification_note：一句話說明為什麼判定成這個狀態（引用具體哪一點衝突/佐證/無法驗證）
+4. affected_themes：這篇文章跟輸入的「已知題材名稱清單」裡，哪些題材有實質關聯
+   （不是關鍵字沾到就算，要真的談的是同一件事）。每個給 {"name": 題材名稱（必須
+   完全match清單裡的名字，不要自己發明新名字）, "impact": "這篇文章對這個題材的
+   具體影響是什麼"}。找不到明確關聯就回傳空陣列。
+5. affected_stocks：文章裡明確點名、且你確定股票代號正確的台股個股，每個給
+   {"code": "1234", "name": "公司名", "impact": "具體影響"}。不確定代號正確性
+   時寧可不列，不要瞎猜。
+
+只輸出 JSON，不要 markdown 標記：
+{
+  "summary": "...",
+  "verified": "verified｜conflicting｜unverified",
+  "verification_note": "...",
+  "affected_themes": [{"name": "...", "impact": "..."}],
+  "affected_stocks": [{"code": "...", "name": "...", "impact": "..."}]
+}"""
+
+
+def analyze_research_submission(text: str, known_themes: list[str]) -> dict:
+    if DRY_RUN:
+        return mock.research_analysis()
+
+    user = ("使用者提交的原文：\n" + text[:8000]
+            + "\n\n系統目前已知的題材名稱清單：\n" + "、".join(known_themes))
+    try:
+        return _parse_json(_call(RESEARCH_ANALYSIS_SYSTEM, user, 3000))
+    except Exception as exc:
+        print(f"[llm] 使用者研究分析失敗：{exc}")
+        return {}

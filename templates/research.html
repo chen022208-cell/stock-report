@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}研究筆記 · {{ site_title }}{% endblock %}
+{% block extra_css %}
+  .rn-card{border-left:2px solid var(--hairline); padding:4px 0 4px 18px; margin-bottom:22px;}
+  .rn-card.v-verified{border-left-color:var(--red);}
+  .rn-card.v-conflicting{border-left-color:var(--green);}
+  .rn-card.v-unverified{border-left-color:var(--text-muted);}
+  .rn-head{display:flex; justify-content:space-between; align-items:baseline;
+            gap:12px; margin-bottom:6px; flex-wrap:wrap;}
+  .rn-title{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px;}
+  .rn-badge{font-size:12px; padding:2px 10px; border-radius:999px;}
+  .rn-badge.v-verified{background:rgba(225,92,79,.16); color:var(--red);}
+  .rn-badge.v-conflicting{background:rgba(79,176,122,.16); color:var(--green);}
+  .rn-badge.v-unverified{background:rgba(114,108,96,.16); color:var(--text-muted);}
+  .rn-summary{font-size:14px; color:var(--text-secondary); margin-bottom:6px; line-height:1.6;}
+  .rn-vnote{font-size:12.5px; color:var(--text-muted); margin-bottom:8px;}
+  .rn-tags{display:flex; flex-wrap:wrap; gap:6px; margin-bottom:6px;}
+  .rn-tag{font-size:11.5px; padding:2px 8px; border-radius:999px; border:1px solid var(--hairline);
+          color:var(--text-secondary);}
+  .rn-tag.applied{border-color:var(--gold); color:var(--gold);}
+  .rn-meta{font-size:12px; color:var(--text-muted);}
+{% endblock %}
+{% block content %}
+<header><div class="masthead-label">{{ site_title }}</div>
+<h1 class="masthead-date">研究筆記</h1></header>
+<p class="commentary" style="margin-top:14px">每篇來自 <a href="{{ rel }}submit.html">提交研究</a>
+頁面的文章／文字，經過 LLM 分析與驗證後的結果。只有標記「已驗證」的部分才會真的回寫進
+題材知識庫；未驗證或跟既有資料衝突的內容只留在這裡，不影響正式報告的真實性。</p>
+
+{% if notes %}
+{% for n in notes %}
+<div class="rn-card v-{{ n.verified }}">
+  <div class="rn-head">
+    <span class="rn-title">{{ n.title or "（未命名提交）" }}</span>
+    <span class="rn-badge v-{{ n.verified }}">
+      {{ "✅ 已驗證" if n.verified == "verified" else "⚠️ 與既有資料衝突" if n.verified == "conflicting" else "❓ 無法驗證" }}
+    </span>
+  </div>
+  <p class="rn-summary">{{ n.summary }}</p>
+  <p class="rn-vnote">判定理由：{{ n.verification_note }}</p>
+  {% if n.affected_themes %}
+  <div class="rn-tags">
+    {% for t in n.affected_themes %}
+    <span class="rn-tag {{ 'applied' if t.applied }}">{{ '✓ ' if t.applied }}{{ t.name }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+  {% if n.affected_stocks %}
+  <div class="rn-tags">
+    {% for s in n.affected_stocks %}
+    <span class="rn-tag" data-stock-code="{{ s.code }}" data-stock-name="{{ s.name }}"
+          style="cursor:pointer">{{ s.code }} {{ s.name }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+  <div class="rn-meta">{{ n.submitted_at }} · 來源：{{ n.source }}</div>
+</div>
+{% endfor %}
+{% else %}
+<p class="commentary" style="margin-top:24px">目前還沒有使用者提交的研究筆記。</p>
+{% endif %}
+{% endblock %}

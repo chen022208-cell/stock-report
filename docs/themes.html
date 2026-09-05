@@ -37,6 +37,11 @@
   .nav{display:flex; gap:8px; margin-bottom:20px; overflow-x:auto;
        -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:2px;}
   .nav::-webkit-scrollbar{display:none;}
+  /* 手機用滑動手勢捲動，隱藏捲軸沒問題；桌機滑鼠沒有對應手勢，捲軸又被隱藏，
+     後面的項目會卡死點不到——桌機寬度夠，直接讓導覽列換行，不用捲動 */
+  @media (min-width:700px){
+    .nav{flex-wrap:wrap; overflow-x:visible;}
+  }
   .nav a{flex-shrink:0; text-decoration:none; font-size:13px; font-weight:500;
         color:var(--text-secondary); background:var(--surface);
         padding:9px 14px; border-radius:100px; border:1px solid var(--hairline);
@@ -216,6 +221,8 @@
     <a href="archive.html" class="">歷史</a>
     <a href="weekly/index.html" class="">📅 週報</a>
     <a href="monthly-deep/index.html" class="">🌍 深度月報</a>
+    <a href="research.html" class="">📥 研究筆記</a>
+    <a href="submit.html" class="">📤 提交研究</a>
   </nav>
 
   
@@ -3542,7 +3549,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 19:51</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 20:03</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>

@@ -96,6 +96,23 @@ CREATE TABLE IF NOT EXISTS supply_chains (
     structure     TEXT NOT NULL,        -- JSON：upstream/midstream/downstream + 公司角色
     updated_date  TEXT NOT NULL
 );
+
+-- 使用者提交研究（文章／文字）的知識庫：任何人貼進來的內容都先存這裡、
+-- 標記驗證狀態，只有 verified 才會真的回寫進題材／個股資料，
+-- 不驗證就直接套用會汙染整份報告的真實性
+CREATE TABLE IF NOT EXISTS research_notes (
+    id                 INTEGER PRIMARY KEY AUTOINCREMENT,
+    submitted_at       TEXT NOT NULL,
+    source             TEXT,               -- 例如 "GitHub Issue #12"
+    title              TEXT,
+    raw_excerpt        TEXT,               -- 原文前幾百字，避免整份長文占用資料庫
+    summary            TEXT,               -- LLM 整理後的重點摘要
+    verified           TEXT DEFAULT 'unverified',  -- verified / unverified / conflicting
+    verification_note  TEXT,               -- 為什麼判定成這個狀態（引用哪裡衝突/佐證）
+    affected_themes    TEXT,               -- JSON：[{"name":, "impact":, "applied": bool}]
+    affected_stocks    TEXT,               -- JSON：[{"code":, "name":, "impact":, "applied": bool}]
+    status             TEXT DEFAULT 'pending'  -- pending / applied / rejected
+);
 """
 
 
@@ -365,6 +382,76 @@ def get_supply_chain(theme_id: int) -> dict | None:
             "SELECT structure FROM supply_chains WHERE theme_id=?", (theme_id,)
         ).fetchone()
         return json.loads(row["structure"]) if row else None
+
+
+# ── 使用者提交研究（文章／文字）知識庫 ──────────────────
+def create_research_note(
+    submitted_at: str, source: str, title: str, raw_excerpt: str, summary: str,
+    verified: str, verification_note: str,
+    affected_themes: list[dict], affected_stocks: list[dict],
+) -> int:
+    with get_conn() as conn:
+        cur = conn.execute(
+            """INSERT INTO research_notes
+               (submitted_at, source, title, raw_excerpt, summary, verified,
+                verification_note, affected_themes, affected_stocks, status)
+               VALUES (?,?,?,?,?,?,?,?,?, 'pending')""",
+            (submitted_at, source, title, raw_excerpt, summary, verified, verification_note,
+             json.dumps(affected_themes, ensure_ascii=False),
+             json.dumps(affected_stocks, ensure_ascii=False)),
+        )
+        return cur.lastrowid
+
+
+def mark_research_note_status(note_id: int, status: str,
+                              affected_themes: list[dict] | None = None,
+                              affected_stocks: list[dict] | None = None) -> None:
+    """套用完（或決定不套用）之後回填最終狀態，affected_* 裡的每一項會標記
+    applied=True/False，讓研究筆記頁能誠實顯示哪些真的寫回了題材/個股資料，
+    哪些因為驗證不過只留在筆記裡。"""
+    with get_conn() as conn:
+        if affected_themes is not None:
+            conn.execute("UPDATE research_notes SET affected_themes=? WHERE id=?",
+                        (json.dumps(affected_themes, ensure_ascii=False), note_id))
+        if affected_stocks is not None:
+            conn.execute("UPDATE research_notes SET affected_stocks=? WHERE id=?",
+                        (json.dumps(affected_stocks, ensure_ascii=False), note_id))
+        conn.execute("UPDATE research_notes SET status=? WHERE id=?", (status, note_id))
+
+
+def append_research_to_theme(theme_name: str, today: str, note: str) -> bool:
+    """把「已驗證」的使用者研究引用進題材的時間軸（theme_updates），不直接改
+    themes 主表的 summary/confidence——用累加式的更新歷史，之後寫深度報告時
+    (get_theme_timeline) 自然會讀到這筆，比直接覆寫欄位安全，也不會讓一次
+    使用者提交的內容就永久蓋掉系統既有的判斷。找不到同名題材就回傳 False，
+    呼叫端據此判斷這筆研究是不是真的有對應到現有題材。"""
+    with get_conn() as conn:
+        row = conn.execute("SELECT id, update_count FROM themes WHERE name=?", (theme_name,)).fetchone()
+        if not row:
+            return False
+        conn.execute(
+            """INSERT INTO theme_updates (theme_id, date, note, stock_count)
+               VALUES (?,?,?,0)
+               ON CONFLICT(theme_id, date) DO UPDATE SET note = note || ' ／ ' || excluded.note""",
+            (row["id"], today, f"📩 使用者研究：{note}"),
+        )
+        conn.execute("UPDATE themes SET last_signal_date=? WHERE id=? AND last_signal_date<?",
+                    (today, row["id"], today))
+        return True
+
+
+def list_research_notes(limit: int = 50) -> list[dict]:
+    with get_conn() as conn:
+        rows = conn.execute(
+            "SELECT * FROM research_notes ORDER BY id DESC LIMIT ?", (limit,)
+        ).fetchall()
+        out = []
+        for r in rows:
+            d = dict(r)
+            d["affected_themes"] = json.loads(d.get("affected_themes") or "[]")
+            d["affected_stocks"] = json.loads(d.get("affected_stocks") or "[]")
+            out.append(d)
+        return out
 
 
 # ── 判斷快照 / 事後驗證 ────────────────────────────────

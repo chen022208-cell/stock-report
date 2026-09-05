@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}提交研究 · {{ site_title }}{% endblock %}
+{% block extra_css %}
+  .rs-form{display:flex; flex-direction:column; gap:12px; max-width:640px;}
+  .rs-form label{font-size:13px; color:var(--text-muted);}
+  .rs-form input, .rs-form textarea{width:100%; background:var(--surface); color:var(--text-primary);
+    border:1px solid var(--hairline); border-radius:var(--radius-sm); padding:10px 12px;
+    font-family:inherit; font-size:14px; resize:vertical;}
+  .rs-form textarea{min-height:220px;}
+  .rs-count{font-size:12px; color:var(--text-muted); text-align:right;}
+  .rs-count.warn{color:var(--gold);}
+  .rs-submit{align-self:flex-start; background:var(--gold); color:#1a1512; border:none;
+    border-radius:var(--radius-sm); padding:10px 22px; font-size:14px; font-weight:600; cursor:pointer;}
+  .rs-submit:disabled{opacity:.5; cursor:not-allowed;}
+  .rs-steps{font-size:13px; color:var(--text-secondary); line-height:1.8; margin:16px 0 24px;
+    padding:14px 16px; background:var(--surface); border-radius:var(--radius-sm);}
+  .rs-steps b{color:var(--gold);}
+  .rs-note{font-size:12.5px; color:var(--text-muted); margin-top:20px;}
+{% endblock %}
+{% block content %}
+<header><div class="masthead-label">{{ site_title }}</div>
+<h1 class="masthead-date">提交研究文章</h1></header>
+<div class="rs-steps">
+  貼上文章或你的筆記後按「送出」，會幫你開一個 GitHub Issue（這個網站本身是純靜態頁面，
+  沒有後端伺服器，所以用 <b>你自己 repo 的 GitHub Issue</b> 當唯一的「上傳信箱」）。<br>
+  流程：<b>1.</b> 這裡填好內容 → <b>2.</b> 開新分頁後確認並按 GitHub 上的「Submit new issue」→
+  <b>3.</b> 系統會抓到這篇提交，用 LLM 分析、嚴格驗證內容真偽，只有驗證通過的部分才會
+  回寫進題材知識庫 → <b>4.</b> 結果會留言在你的 Issue 裡，也會出現在
+  <a href="{{ rel }}research.html">研究筆記</a> 頁面。
+</div>
+<form class="rs-form" id="rs-form" onsubmit="return false;">
+  <div>
+    <label for="rs-title">標題（例如：文章來源或主題，可留空）</label>
+    <input id="rs-title" type="text" placeholder="例如：某新聞網站報導 XX 產業展望">
+  </div>
+  <div>
+    <label for="rs-body">內容（貼上文章全文或你整理的重點）</label>
+    <textarea id="rs-body" placeholder="貼在這裡..."></textarea>
+    <div class="rs-count" id="rs-count">0 字</div>
+  </div>
+  <button class="rs-submit" id="rs-submit" type="button" disabled>送出到 GitHub Issue →</button>
+</form>
+<p class="rs-note">內容太長（超過約 5,000 字）時，GitHub 的網址長度可能塞不下，
+建議先貼重點摘要，或分成幾次提交。系統只會把「驗證通過」的內容回寫進真實報告，
+未經驗證或跟既有資料衝突的部分只會留在研究筆記裡不會影響正式資料。</p>
+{% endblock %}
+{% block extra_js %}
+<script>
+(function () {
+  var titleEl = document.getElementById("rs-title");
+  var bodyEl = document.getElementById("rs-body");
+  var countEl = document.getElementById("rs-count");
+  var btn = document.getElementById("rs-submit");
+  var repo = {{ repo_slug|tojson }};
+
+  function update() {
+    var n = bodyEl.value.length;
+    countEl.textContent = n.toLocaleString() + " 字";
+    countEl.classList.toggle("warn", n > 5000);
+    btn.disabled = n === 0;
+  }
+  bodyEl.addEventListener("input", update);
+  update();
+
+  btn.addEventListener("click", function () {
+    var title = titleEl.value.trim() || "使用者研究提交";
+    var body = bodyEl.value.trim();
+    if (!body || !repo) return;
+    var url = "https://github.com/" + repo + "/issues/new?labels=research-submission"
+      + "&title=" + encodeURIComponent(title) + "&body=" + encodeURIComponent(body);
+    window.open(url, "_blank");
+  });
+})();
+</script>
+{% endblock %}

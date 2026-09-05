@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>車用半導體：單車矽含量成長，MCU/功率/感測滲透 · 盤後快訊</title>
-<link rel="manifest" href="../manifest.json">
-<link rel="icon" href="../icons/icon-192.png">
-<link rel="apple-touch-icon" href="../icons/icon-192.png">
+<title>提交研究 · 盤後快訊</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <meta name="theme-color" content="#1C1B19">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,6 +37,8 @@
   .nav{display:flex; gap:8px; margin-bottom:20px; overflow-x:auto;
        -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:2px;}
   .nav::-webkit-scrollbar{display:none;}
+  /* 手機用滑動手勢捲動，隱藏捲軸沒問題；桌機滑鼠沒有對應手勢，捲軸又被隱藏，
+     後面的項目會卡死點不到——桌機寬度夠，直接讓導覽列換行，不用捲動 */
   @media (min-width:700px){
     .nav{flex-wrap:wrap; overflow-x:visible;}
   }
@@ -160,138 +162,109 @@
   .sc-notes{font-size:12.5px; color:var(--text-secondary);}
   .sc-disclaimer{font-size:11.5px; color:var(--text-muted); line-height:1.5;}
 
-  body{font-family:'Noto Serif TC',serif;}
-  .meta-label{font-family:'Noto Sans TC',sans-serif; font-size:13px;
-              color:var(--gold); margin-bottom:14px;}
-  h1.title{font-size:30px; font-weight:700; line-height:1.4; margin-bottom:16px;}
-  .byline{font-family:'Noto Sans TC',sans-serif; font-size:13px; color:var(--text-muted);
-          padding-bottom:28px; border-bottom:1px solid var(--hairline); margin-bottom:28px;}
-  .summary-box{background:var(--surface); border-radius:8px;
-               padding:22px 24px; margin-bottom:36px;}
-  .summary-box .summary-label{font-family:'Noto Sans TC',sans-serif;
-                              font-size:12.5px; color:var(--gold); margin-bottom:12px;}
-  .summary-box ul{list-style:none;}
-  .summary-box li{font-family:'Noto Sans TC',sans-serif; font-size:14.5px;
-                  color:var(--text-secondary); padding-left:16px; position:relative;
-                  margin-bottom:10px; line-height:1.6;}
-  .summary-box li:last-child{margin-bottom:0;}
-  .summary-box li::before{content:""; position:absolute; left:0; top:8px;
-                          width:5px; height:5px; border-radius:50%; background:var(--gold);}
-  article h2{font-size:19px; font-weight:600; margin:36px 0 14px;}
-  article p{font-size:16px; line-height:1.9; color:var(--text-secondary); margin-bottom:16px;}
-  .pull-stat{display:flex; gap:28px; padding:20px 0; margin:22px 0;
-             border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline);
-             flex-wrap:wrap;}
-  .pull-stat .item{min-width:110px;}
-  .pull-stat .item-value{font-family:'JetBrains Mono',monospace; font-size:24px;}
-  .pull-stat .item-label{font-family:'Noto Sans TC',sans-serif; font-size:12.5px;
-                         color:var(--text-muted); margin-top:4px;}
-  .callout{border-left:2px solid var(--red); padding:16px 20px; background:var(--surface);
-           border-radius:0 6px 6px 0; margin:24px 0;}
-  .callout .callout-label{font-family:'Noto Sans TC',sans-serif; font-size:12.5px;
-                          color:var(--red); margin-bottom:8px;}
-  .callout p{font-size:14.5px; margin-bottom:0;}
-  .tracking-list{font-family:'Noto Sans TC',sans-serif;}
-  .track-item{padding:10px 0; border-bottom:1px solid var(--hairline);
-              font-size:14px; color:var(--text-secondary);}
-  .track-item:last-child{border-bottom:none;}
-  .chain-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr));
-             gap:12px; margin:16px 0 8px; font-family:'Noto Sans TC',sans-serif;}
-  .chain-segment{background:var(--surface); border-radius:8px; padding:14px 16px;}
-  .chain-label{font-size:12.5px; color:var(--gold); margin-bottom:10px;}
-  .chain-company{font-size:14px; color:var(--text-secondary); padding:6px 0;
-                 border-bottom:1px solid var(--hairline); display:flex;
-                 justify-content:space-between; align-items:center;}
-  .chain-company:last-child{border-bottom:none;}
-  .chain-company.core{color:var(--text-primary);}
-  .chain-role{font-size:11px; padding:2px 7px; border-radius:100px; flex-shrink:0;
-             background:rgba(217,164,65,.16); color:var(--gold);}
-  .chain-company.peripheral .chain-role{background:rgba(114,108,96,.16); color:var(--text-muted);}
-  .chain-peers{font-family:'Noto Sans TC',sans-serif; font-size:13px;
-               color:var(--text-muted); margin-top:10px;}
-  @media (max-width:480px){h1.title{font-size:24px;}}
+  .rs-form{display:flex; flex-direction:column; gap:12px; max-width:640px;}
+  .rs-form label{font-size:13px; color:var(--text-muted);}
+  .rs-form input, .rs-form textarea{width:100%; background:var(--surface); color:var(--text-primary);
+    border:1px solid var(--hairline); border-radius:var(--radius-sm); padding:10px 12px;
+    font-family:inherit; font-size:14px; resize:vertical;}
+  .rs-form textarea{min-height:220px;}
+  .rs-count{font-size:12px; color:var(--text-muted); text-align:right;}
+  .rs-count.warn{color:var(--gold);}
+  .rs-submit{align-self:flex-start; background:var(--gold); color:#1a1512; border:none;
+    border-radius:var(--radius-sm); padding:10px 22px; font-size:14px; font-weight:600; cursor:pointer;}
+  .rs-submit:disabled{opacity:.5; cursor:not-allowed;}
+  .rs-steps{font-size:13px; color:var(--text-secondary); line-height:1.8; margin:16px 0 24px;
+    padding:14px 16px; background:var(--surface); border-radius:var(--radius-sm);}
+  .rs-steps b{color:var(--gold);}
+  .rs-note{font-size:12.5px; color:var(--text-muted); margin-top:20px;}
 
 </style>
 </head>
 <body>
 <div class="page">
   <nav class="nav">
-    <a href="../index.html" class="">最新</a>
-    <a href="../heatmap.html" class="">🔥 熱力圖</a>
-    <a href="../chips.html" class="">💰 籌碼</a>
-    <a href="../scores.html" class="">⭐ 評分</a>
-    <a href="../lookup.html" class="">🔍 個股查詢</a>
-    <a href="../disposition.html" class="">⚠️ 處置</a>
-    <a href="../themes.html" class="">題材庫</a>
-    <a href="../archive.html" class="">歷史</a>
-    <a href="../weekly/index.html" class="">📅 週報</a>
-    <a href="../monthly-deep/index.html" class="">🌍 深度月報</a>
+    <a href="index.html" class="">最新</a>
+    <a href="heatmap.html" class="">🔥 熱力圖</a>
+    <a href="chips.html" class="">💰 籌碼</a>
+    <a href="scores.html" class="">⭐ 評分</a>
+    <a href="lookup.html" class="">🔍 個股查詢</a>
+    <a href="disposition.html" class="">⚠️ 處置</a>
+    <a href="themes.html" class="">題材庫</a>
+    <a href="archive.html" class="">歷史</a>
+    <a href="weekly/index.html" class="">📅 週報</a>
+    <a href="monthly-deep/index.html" class="">🌍 深度月報</a>
+    <a href="research.html" class="">📥 研究筆記</a>
+    <a href="submit.html" class="current">📤 提交研究</a>
   </nav>
 
   
-<div class="meta-label">深度報告 · 題材知識庫 #056</div>
-<h1 class="title">車用半導體：單車矽含量成長，MCU/功率/感測滲透</h1>
-<div class="byline">首次建檔 2026-09-05　·　最後更新 2026-09-05　·　第 1 次更新</div>
-
-
-<div class="summary-box">
-  <div class="summary-label">摘要</div>
-  <ul><li>題材論點：單車矽含量成長，MCU/功率/感測滲透。</li><li>代表個股：8081 致新（+1.19%）、6138 茂達（+2.32%）。</li><li>目前狀態：偏溫（依 2026-09-05 的即時行情判斷，非長期定論）。</li></ul>
+<header><div class="masthead-label">盤後快訊</div>
+<h1 class="masthead-date">提交研究文章</h1></header>
+<div class="rs-steps">
+  貼上文章或你的筆記後按「送出」，會幫你開一個 GitHub Issue（這個網站本身是純靜態頁面，
+  沒有後端伺服器，所以用 <b>你自己 repo 的 GitHub Issue</b> 當唯一的「上傳信箱」）。<br>
+  流程：<b>1.</b> 這裡填好內容 → <b>2.</b> 開新分頁後確認並按 GitHub 上的「Submit new issue」→
+  <b>3.</b> 系統會抓到這篇提交，用 LLM 分析、嚴格驗證內容真偽，只有驗證通過的部分才會
+  回寫進題材知識庫 → <b>4.</b> 結果會留言在你的 Issue 裡，也會出現在
+  <a href="research.html">研究筆記</a> 頁面。
 </div>
-
-
-<article>
-  <div class="pull-stat">
-    <div class="item"><div class="item-value">2</div>
-      <div class="item-label">相關供應鏈個股</div></div>
-    <div class="item"><div class="item-value">1</div>
-      <div class="item-label">累積更新次數</div></div>
-    <div class="item"><div class="item-value">中高</div>
-      <div class="item-label">目前信心度</div></div>
+<form class="rs-form" id="rs-form" onsubmit="return false;">
+  <div>
+    <label for="rs-title">標題（例如：文章來源或主題，可留空）</label>
+    <input id="rs-title" type="text" placeholder="例如：某新聞網站報導 XX 產業展望">
   </div>
-
-  
-  <h2>產業背景</h2>
-  <p>「車用半導體」的核心邏輯是：單車矽含量成長，MCU/功率/感測滲透。這是「電動車與車用」供應鏈裡的一個子題材，屬於題材目錄的種子清單——代表這個敘事在產業上有明確的邏輯基礎，但還需要搭配代表個股實際的營收與籌碼動態，才能判斷究竟是短線消息面反應，還是真正的產業結構性轉單。</p>
-  
-  <h2>代表個股與現況</h2>
-  <p>目前對照到的代表個股共 2 檔：8081 致新（+1.19%）、6138 茂達（+2.32%）。當中部分個股今日有正向表態，但同步性尚不足以判定為全面性當紅訊號，屬於偏溫、值得繼續觀察的階段。</p>
-  
-  <h2>如何判斷這個題材是否成真</h2>
-  <p>單看今天漲跌無法判斷題材真偽。建議搭配：主要電動車廠交付量與資本支出計畫、相關個股月營收年增率，以及代表個股的月營收年增率是否出現方向一致的驗證——訊號一致且持續多個月，才比較接近真題材而非單日消息面反應。</p>
-  
-
-  
-
-  
-  <h2>風險與觀察重點</h2>
-  <div class="callout">
-    <div class="callout-label">風險提示</div>
-    <p>電動車終端銷售成長若不如預期，或主要車廠資本支出計畫調整，可能影響車用零組件與電池供應鏈訂單能見度；電池材料領域也面臨中系廠商規模與成本優勢的競爭壓力。</p>
+  <div>
+    <label for="rs-body">內容（貼上文章全文或你整理的重點）</label>
+    <textarea id="rs-body" placeholder="貼在這裡..."></textarea>
+    <div class="rs-count" id="rs-count">0 字</div>
   </div>
-  
-
-  
-  <h2>後續追蹤指標</h2>
-  <div class="tracking-list">
-    <div class="track-item">主要電動車廠交付量與資本支出計畫</div><div class="track-item">相關個股月營收年增率</div>
-  </div>
-  
-</article>
+  <button class="rs-submit" id="rs-submit" type="button" disabled>送出到 GitHub Issue →</button>
+</form>
+<p class="rs-note">內容太長（超過約 5,000 字）時，GitHub 的網址長度可能塞不下，
+建議先貼重點摘要，或分成幾次提交。系統只會把「驗證通過」的內容回寫進真實報告，
+未經驗證或跟既有資料衝突的部分只會留在研究筆記裡不會影響正式資料。</p>
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 18:45</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 20:03</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("../sw.js").catch(function () {});
+    navigator.serviceWorker.register("sw.js").catch(function () {});
   }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="../assets/stock-chart.js?v=7a0c4f23"></script>
+<script src="assets/stock-chart.js?v=7a0c4f23"></script>
+
+<script>
+(function () {
+  var titleEl = document.getElementById("rs-title");
+  var bodyEl = document.getElementById("rs-body");
+  var countEl = document.getElementById("rs-count");
+  var btn = document.getElementById("rs-submit");
+  var repo = "chen022208-cell/stock-report";
+
+  function update() {
+    var n = bodyEl.value.length;
+    countEl.textContent = n.toLocaleString() + " 字";
+    countEl.classList.toggle("warn", n > 5000);
+    btn.disabled = n === 0;
+  }
+  bodyEl.addEventListener("input", update);
+  update();
+
+  btn.addEventListener("click", function () {
+    var title = titleEl.value.trim() || "使用者研究提交";
+    var body = bodyEl.value.trim();
+    if (!body || !repo) return;
+    var url = "https://github.com/" + repo + "/issues/new?labels=research-submission"
+      + "&title=" + encodeURIComponent(title) + "&body=" + encodeURIComponent(body);
+    window.open(url, "_blank");
+  });
+})();
+</script>
 
 </body>
 </html>

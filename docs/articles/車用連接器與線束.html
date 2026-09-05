@@ -37,6 +37,9 @@
   .nav{display:flex; gap:8px; margin-bottom:20px; overflow-x:auto;
        -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:2px;}
   .nav::-webkit-scrollbar{display:none;}
+  @media (min-width:700px){
+    .nav{flex-wrap:wrap; overflow-x:visible;}
+  }
   .nav a{flex-shrink:0; text-decoration:none; font-size:13px; font-weight:500;
         color:var(--text-secondary); background:var(--surface);
         padding:9px 14px; border-radius:100px; border:1px solid var(--hairline);

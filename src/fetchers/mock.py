@@ -308,6 +308,16 @@ def supply_chain_structure() -> dict:
     }
 
 
+def research_analysis() -> dict:
+    return {
+        "summary": "文章主張機器人減速機供應鏈訂單能見度延長至明年，並點名上銀與大銀微系統受惠。",
+        "verified": "unverified",
+        "verification_note": "文章引用單一產業消息來源的訂單預估，屬於無法獨立驗證的具體數字。",
+        "affected_themes": [{"name": "機器人減速機", "impact": "文章佐證題材延續性，但訂單數字本身無法驗證"}],
+        "affected_stocks": [{"code": "2049", "name": "上銀", "impact": "文章點名為主要受惠廠商之一"}],
+    }
+
+
 def llm_theme_response() -> dict:
     """DRY_RUN 時代替 Claude API 回傳的題材聚類結果。"""
     return {

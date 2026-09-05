@@ -5,12 +5,15 @@
     python -m src.main evening     # 18:00 台股盤後
     python -m src.main monthly     # 每月 12 日 月報完整版
     python -m src.main holiday     # 假日功課
+    python -m src.main research    # 處理使用者提交的研究文章（見 submit.html）
     python -m src.main auto        # 自動判斷今天該跑什麼（排程用這個）
 
 本地測試：DRY_RUN=1 python -m src.main evening
 """
 from __future__ import annotations
 
+import json
+import subprocess
 import sys
 import traceback
 from datetime import date, timedelta
@@ -617,6 +620,95 @@ def run_import_catalog() -> None:
     render.render_site()
 
 
+# ── 使用者研究提交（GitHub Issue → 分析 → 回寫題材庫）─────────
+# 靜態網站沒有後端，「從網頁上傳」的路是：submit.html 引導使用者建立一個
+# 貼標籤 research-submission 的 GitHub Issue（他們本來就是 repo owner，
+# 不用額外帳號系統）。這裡定期（人工或排程）掃還沒處理的 issue，逐篇分析、
+# 嚴格驗證後才回寫題材庫，最後留言告知結果並關閉 issue。
+RESEARCH_LABEL = "research-submission"
+
+
+def _gh_issue_list() -> list[dict]:
+    try:
+        out = subprocess.run(
+            ["gh", "issue", "list", "--label", RESEARCH_LABEL, "--state", "open",
+             "--json", "number,title,body,url"],
+            capture_output=True, text=True, check=True, timeout=30,
+        )
+        return json.loads(out.stdout or "[]")
+    except Exception as exc:
+        print(f"[research] 讀取 GitHub Issue 失敗（可能沒裝 gh 或未登入）：{exc}")
+        return []
+
+
+def _gh_issue_comment_and_close(number: int, comment: str) -> None:
+    try:
+        subprocess.run(["gh", "issue", "comment", str(number), "--body", comment],
+                       check=True, timeout=30)
+        subprocess.run(["gh", "issue", "close", str(number)], check=True, timeout=30)
+    except Exception as exc:
+        print(f"[research] 回覆／關閉 Issue #{number} 失敗：{exc}")
+
+
+def run_research_intake() -> None:
+    today = today_str()
+    issues = _safe(_gh_issue_list, [], "讀取使用者研究提交")
+    if not issues:
+        print("[research] 目前沒有待處理的使用者研究提交")
+        return
+
+    known_theme_names = list(dict.fromkeys(
+        _safe(db.catalog_theme_names, [], "題材目錄名單")
+        + [t["name"] for t in db.list_all_themes()]
+    ))
+
+    for issue in issues:
+        title, body, number = issue.get("title", ""), issue.get("body", ""), issue["number"]
+        print(f"[research] 處理 Issue #{number}：{title}")
+
+        result = _safe(lambda t=body: llm.analyze_research_submission(t, known_theme_names),
+                       {}, f"研究分析 #{number}")
+        if not result:
+            _gh_issue_comment_and_close(number, "分析失敗（LLM 呼叫或解析出錯），請確認內容格式或稍後再試。")
+            continue
+
+        verified = result.get("verified", "unverified")
+        affected_themes = result.get("affected_themes", [])
+        affected_stocks = result.get("affected_stocks", [])
+
+        # 只有明確判定 verified，且真的對應到既有題材，才回寫進題材知識庫；
+        # conflicting／unverified 一律只留在研究筆記裡，不動任何既有資料
+        for t in affected_themes:
+            if verified == "verified":
+                t["applied"] = db.append_research_to_theme(t["name"], today, t.get("impact", ""))
+            else:
+                t["applied"] = False
+        for s in affected_stocks:
+            s["applied"] = False  # 目前不直接改個股歷史資料，只記錄關聯供研究筆記頁參考
+
+        note_id = db.create_research_note(
+            submitted_at=today, source=f"GitHub Issue #{number}（{issue.get('url', '')}）",
+            title=title, raw_excerpt=body[:500], summary=result.get("summary", ""),
+            verified=verified, verification_note=result.get("verification_note", ""),
+            affected_themes=affected_themes, affected_stocks=affected_stocks,
+        )
+        db.mark_research_note_status(note_id, "applied" if verified == "verified" else "pending",
+                                     affected_themes, affected_stocks)
+
+        status_label = {"verified": "已驗證並套用", "conflicting": "與既有資料衝突，未套用",
+                        "unverified": "無法獨立驗證，未套用"}[verified]
+        applied_names = [t["name"] for t in affected_themes if t.get("applied")]
+        comment = (f"**分析結果：{status_label}**\n\n{result.get('summary', '')}\n\n"
+                  f"判定理由：{result.get('verification_note', '')}\n\n"
+                  + (f"已回寫題材：{'、'.join(applied_names)}\n\n" if applied_names else "")
+                  + "詳見網站「研究筆記」頁面。")
+        _gh_issue_comment_and_close(number, comment)
+        print(f"[research] Issue #{number} 完成，判定：{verified}")
+
+    render.render_site()
+    print(f"[research] 本批處理 {len(issues)} 篇提交")
+
+
 # ── 自動分支（排程呼叫這個） ───────────────────────────
 def run_auto(slot: str) -> None:
     """slot = morning / evening，由 cron 傳入時段，再由行事曆決定實際跑什麼。"""
@@ -654,6 +746,7 @@ def main() -> None:
         "holiday": run_holiday,
         "site": lambda: render.render_site(),
         "catalog": run_import_catalog,
+        "research": run_research_intake,
     }
 
     if mode == "auto":

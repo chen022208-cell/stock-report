@@ -37,6 +37,11 @@
   .nav{display:flex; gap:8px; margin-bottom:20px; overflow-x:auto;
        -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:2px;}
   .nav::-webkit-scrollbar{display:none;}
+  /* 手機用滑動手勢捲動，隱藏捲軸沒問題；桌機滑鼠沒有對應手勢，捲軸又被隱藏，
+     後面的項目會卡死點不到——桌機寬度夠，直接讓導覽列換行，不用捲動 */
+  @media (min-width:700px){
+    .nav{flex-wrap:wrap; overflow-x:visible;}
+  }
   .nav a{flex-shrink:0; text-decoration:none; font-size:13px; font-weight:500;
         color:var(--text-secondary); background:var(--surface);
         padding:9px 14px; border-radius:100px; border:1px solid var(--hairline);
@@ -172,6 +177,8 @@
     <a href="{{ rel }}archive.html" class="{{ 'current' if nav_current == 'archive' }}">歷史</a>
     <a href="{{ rel }}weekly/index.html" class="{{ 'current' if nav_current == 'weekly' }}">📅 週報</a>
     <a href="{{ rel }}monthly-deep/index.html" class="{{ 'current' if nav_current == 'monthly-deep' }}">🌍 深度月報</a>
+    <a href="{{ rel }}research.html" class="{{ 'current' if nav_current == 'research' }}">📥 研究筆記</a>
+    <a href="{{ rel }}submit.html" class="{{ 'current' if nav_current == 'submit' }}">📤 提交研究</a>
   </nav>
 
   {% block content %}{% endblock %}
