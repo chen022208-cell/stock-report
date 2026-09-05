@@ -50,9 +50,11 @@
   `_process_research_submission()` 分析＋驗證，只有「夠重要且真的跟現有
   題材/個股有關」才推播通知，避免每則國際新聞都推播造成通知疲勞。用
   `app_state` 表的 `news_monitor_last_id` 記錄檢查到哪一則，第一次執行只
-  記錄基準不推播（避免一次性把歷史快訊全部分析一輪）。**目前沒有排程
-  自動跑**，要另外設一個跑得比每日報告更頻繁的 Routine 或 GitHub Actions
-  cron（新聞監控需要比較高頻率，例如每小時，不是每天兩次）。
+  記錄基準不推播（避免一次性把歷史快訊全部分析一輪）。**排程：Routine
+  「台股即時快訊監控」（trig_01HTffRTdsBaegyH5EiyRryw），cron `33 * * * *`
+  每小時跑一次**，跟每日早報／盤後一樣是 CCR session 自己 clone repo、
+  自己扮演 LLM 服務 `agent_llm_queue/`、只有真的產生變更才 commit push，
+  失敗才 PushNotification。
 
 ## 個股技術圖表／查詢
 
@@ -88,9 +90,11 @@ GitHub 新增 Issue 分頁，使用者自己按「Submit new issue」即完成�
 避免未經證實的來源污染整份報告的真實性。結果會留言在對應 Issue 上並關閉，
 `research.html` 列出所有提交與其驗證狀態、有沒有真的套用。
 
-目前**沒有排程自動跑** `research` 這個模式——想要自動處理新提交，需要另外建一個
-Routine（或在既有的「台股每日盤後」Routine 裡多跑一次 `python -m src.main
-research`），還沒做這一步。
+**排程：Routine「台股使用者研究提交處理」（trig_01WCoQ9PpAkkwE6PgAWEzR9H），
+cron `0 11 * * 1-5`（平日 11:00 UTC＝台灣 19:00，接在盤後報告之後）**。同樣是
+CCR session 自己 clone repo、自己扮演 LLM 服務 `agent_llm_queue/`、沒有新提交
+就安靜結束、只有失敗才 PushNotification。雲端環境不一定有 `gh` 登入，程式會
+自動改走 Google 表單 CSV 那條路（不需要 gh），這不算失敗。
 
 ## 重要：一般對話中的股票分析也要同步存回網站
 
