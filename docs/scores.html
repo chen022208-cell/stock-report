@@ -117,6 +117,9 @@
   .axis-fill{height:100%; background:var(--gold); border-radius:3px;}
   .axis-value{width:34px; text-align:right; font-family:'JetBrains Mono',monospace; color:var(--text-secondary); flex-shrink:0;}
   .axis-na{color:var(--text-muted); font-size:12px; width:34px; text-align:right;}
+  .chart-block{margin-top:12px; border-top:1px solid var(--hairline); padding-top:12px;}
+  .chart-block img{width:100%; border-radius:8px; display:block;}
+  .chart-missing{font-size:12.5px; color:var(--text-muted); padding:10px 0;}
   .analysis-toggle{margin-top:12px; border-top:1px solid var(--hairline); padding-top:10px;}
   .analysis-toggle summary{cursor:pointer; font-size:12.5px; color:var(--gold); list-style:none;}
   .analysis-toggle summary::-webkit-details-marker{display:none;}
@@ -143,6 +146,7 @@
     <a href="heatmap.html" class="">🔥 熱力圖</a>
     <a href="chips.html" class="">💰 籌碼</a>
     <a href="scores.html" class="current">⭐ 評分</a>
+    <a href="lookup.html" class="">🔍 個股查詢</a>
     <a href="disposition.html" class="">⚠️ 處置</a>
     <a href="themes.html" class="">題材庫</a>
     <a href="archive.html" class="">歷史</a>
@@ -207,6 +211,11 @@
     
   </div>
   
+  <div class="chart-block">
+    
+    <p class="chart-missing">📈 K 線圖尚未產出（歷史資料不足或本次未擷取到股價資料）</p>
+    
+  </div>
   
   <details class="analysis-toggle">
     <summary>📊 公司介紹／SWOT／漲跌原因 →</summary>
@@ -281,6 +290,11 @@
     
   </div>
   
+  <div class="chart-block">
+    
+    <p class="chart-missing">📈 K 線圖尚未產出（歷史資料不足或本次未擷取到股價資料）</p>
+    
+  </div>
   
   <details class="analysis-toggle">
     <summary>📊 公司介紹／SWOT／漲跌原因 →</summary>
@@ -355,6 +369,11 @@
     
   </div>
   
+  <div class="chart-block">
+    
+    <p class="chart-missing">📈 K 線圖尚未產出（歷史資料不足或本次未擷取到股價資料）</p>
+    
+  </div>
   
   <details class="analysis-toggle">
     <summary>📊 公司介紹／SWOT／漲跌原因 →</summary>
@@ -429,6 +448,11 @@
     
   </div>
   
+  <div class="chart-block">
+    
+    <p class="chart-missing">📈 K 線圖尚未產出（歷史資料不足或本次未擷取到股價資料）</p>
+    
+  </div>
   
   <details class="analysis-toggle">
     <summary>📊 公司介紹／SWOT／漲跌原因 →</summary>
@@ -503,6 +527,11 @@
     
   </div>
   
+  <div class="chart-block">
+    
+    <p class="chart-missing">📈 K 線圖尚未產出（歷史資料不足或本次未擷取到股價資料）</p>
+    
+  </div>
   
   <details class="analysis-toggle">
     <summary>📊 公司介紹／SWOT／漲跌原因 →</summary>
@@ -577,6 +606,11 @@
     
   </div>
   
+  <div class="chart-block">
+    
+    <p class="chart-missing">📈 K 線圖尚未產出（歷史資料不足或本次未擷取到股價資料）</p>
+    
+  </div>
   
   <details class="analysis-toggle">
     <summary>📊 公司介紹／SWOT／漲跌原因 →</summary>
@@ -651,6 +685,11 @@
     
   </div>
   
+  <div class="chart-block">
+    
+    <p class="chart-missing">📈 K 線圖尚未產出（歷史資料不足或本次未擷取到股價資料）</p>
+    
+  </div>
   
   <details class="analysis-toggle">
     <summary>📊 公司介紹／SWOT／漲跌原因 →</summary>
@@ -725,6 +764,11 @@
     
   </div>
   
+  <div class="chart-block">
+    
+    <p class="chart-missing">📈 K 線圖尚未產出（歷史資料不足或本次未擷取到股價資料）</p>
+    
+  </div>
   
   <details class="analysis-toggle">
     <summary>📊 公司介紹／SWOT／漲跌原因 →</summary>
@@ -799,6 +843,11 @@
     
   </div>
   
+  <div class="chart-block">
+    
+    <p class="chart-missing">📈 K 線圖尚未產出（歷史資料不足或本次未擷取到股價資料）</p>
+    
+  </div>
   
 </div>
 
@@ -853,6 +902,11 @@
     
   </div>
   
+  <div class="chart-block">
+    
+    <p class="chart-missing">📈 K 線圖尚未產出（歷史資料不足或本次未擷取到股價資料）</p>
+    
+  </div>
   
 </div>
 
@@ -907,6 +961,11 @@
     
   </div>
   
+  <div class="chart-block">
+    
+    <p class="chart-missing">📈 K 線圖尚未產出（歷史資料不足或本次未擷取到股價資料）</p>
+    
+  </div>
   
 </div>
 
@@ -961,6 +1020,11 @@
     
   </div>
   
+  <div class="chart-block">
+    
+    <p class="chart-missing">📈 K 線圖尚未產出（歷史資料不足或本次未擷取到股價資料）</p>
+    
+  </div>
   
 </div>
 
@@ -968,7 +1032,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 12:45</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 13:21</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
@@ -977,5 +1041,6 @@
     navigator.serviceWorker.register("sw.js").catch(function () {});
   }
 </script>
+
 </body>
 </html>

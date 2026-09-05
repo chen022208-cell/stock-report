@@ -311,6 +311,41 @@ def render_themes_page() -> Path:
     return path
 
 
+def render_lookup_page() -> Path:
+    """個股查詢頁：合併熱力圖（全市場漲跌幅）與評分頁（有完整分析的個股），
+    產出 docs/data/stock_index.json 給前端 JS 做純前端搜尋，不需要後端。"""
+    cfg = load_config()
+    path = DOCS_DIR / "lookup.html"
+
+    heatmap_data = _read_json("heatmap")
+    scores_data = _read_json("scores")
+    scored_codes = {r["code"] for r in (scores_data or {}).get("rows", [])}
+
+    stocks = []
+    seen = set()
+    if heatmap_data:
+        for industry in heatmap_data.get("industries", []):
+            for s in industry.get("stocks", []):
+                if s["code"] in seen:
+                    continue
+                seen.add(s["code"])
+                stocks.append({
+                    "code": s["code"], "name": s["name"],
+                    "industry": industry.get("name", ""),
+                    "change_pct": s.get("change_pct", 0),
+                    "has_score": s["code"] in scored_codes,
+                })
+    stocks.sort(key=lambda s: (not s["has_score"], s["code"]))
+    _write_json("stock_index", {"stocks": stocks})
+
+    path.write_text(_env().get_template("lookup.html").render(
+        site_title=cfg["site"]["title"],
+        generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
+        rel="", nav_current="lookup",
+    ), encoding="utf-8")
+    return path
+
+
 def _write_json(name: str, data) -> None:
     """render 階段同步吐一份 JSON，跟 HTML 同源同資料，給未來的 App/前端直接讀，
     不用另外架 API——docs/data/*.json 本身也是靜態檔，GitHub Pages 直接served。"""
@@ -385,4 +420,4 @@ def render_scores(rows: list[dict], date_label_str: str) -> Path:
 
 def render_site() -> list[Path]:
     """重建所有索引頁。每次跑完報告都要呼叫，索引才會包含最新內容。"""
-    return [render_index(), render_archive(), render_themes_page()]
+    return [render_index(), render_archive(), render_themes_page(), render_lookup_page()]
