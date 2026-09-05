@@ -190,6 +190,9 @@ def fetch_company_profile(code: str) -> dict:
 REVENUE_SOURCES = [
     ("twse", "https://openapi.twse.com.tw/v1/opendata/t187ap05_L"),
     ("tpex", "https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap05_O"),
+    # 興櫃月營收：欄位名稱跟上市／上櫃那份一致，同一個 parser 就能吃。
+    # （少了這條，之前興櫃約 360 檔的「基本面」區塊全部是空的。）
+    ("esb", "https://www.tpex.org.tw/openapi/v1/t187ap05_R"),
 ]
 
 
@@ -206,7 +209,7 @@ def _rev_num(value) -> float | None:
 
 
 def fetch_monthly_revenue() -> dict[str, dict]:
-    """全上市＋上櫃公司最新一期月營收。回傳 {代號: {period, revenue, yoy, mom, ...}}。
+    """全上市＋上櫃＋興櫃公司最新一期月營收。回傳 {代號: {period, revenue, yoy, mom, ...}}。
     金額單位為千元，直接來自公開資訊觀測站申報值。"""
     if DRY_RUN:
         return {}

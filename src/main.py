@@ -215,8 +215,23 @@ def _all_market_codes() -> list[dict]:
 
     刻意不用 stock_index.json：那是從熱力圖行情建出來的，混了 ETF／權證，
     而且沒有市場別欄位（一律當成上市會讓上櫃／興櫃被誤判）。
+
+    另外補一層保險：t187ap03 三個資料集偶爾跟月營收資料集對不齊（例如
+    2867 三商美邦人壽、4150 優你康、5371 中強光電、7834 來毅這種會有月營收
+    申報、卻沒出現在 t187ap03 名單裡的個股）。把月營收資料集裡多出來的代號
+    也一起納進來，後面 sync_company_profiles 會再逐檔去 MOPS t05st03 補
+    「主要經營業務」，不會因為名單缺漏就永遠少一頁。
     """
-    return list(_safe(mops.fetch_listed_companies, {}, "全市場公司清單").values())
+    codes = dict(_safe(mops.fetch_listed_companies, {}, "全市場公司清單"))
+    for code, rev in _safe(mops.fetch_monthly_revenue, {}, "全市場月營收").items():
+        if code not in codes:
+            codes[code] = {
+                "code": code,
+                "name": rev.get("name", ""),
+                "market": rev.get("market", ""),
+                "industry": rev.get("industry", ""),
+            }
+    return list(codes.values())
 
 
 def sync_company_profiles(today: str, limit: int = 300) -> int:

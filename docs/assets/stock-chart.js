@@ -73,7 +73,19 @@
 
   function revenueHtml(info) {
     var r = info.rev || {};
-    if (!r.period || r.revenue == null) return "";
+    if (!r.period || r.revenue == null) {
+      // 每一檔都要有「基本面」區塊：沒有月營收申報資料時也明講，
+      // 不要整段消失讓人以為漏了。金控／壽險／存託憑證是合併申報或
+      // 境外發行、沒有單獨月營收，剛登錄的興櫃則是還沒到第一次申報。
+      var mkt = (info.profile || {}).market;
+      var why = mkt === "" || mkt == null
+        ? "本站尚未取得此檔的月營收申報資料。"
+        : "此類公司（金控／保險／存託憑證，或剛登錄興櫃者）沒有單獨的每月營收申報，"
+          + "基本面請參閱其財報。";
+      return '<div class="sc-sec">'
+        + '<div class="sc-sec-h">基本面 · 月營收 <span class="sc-src">公開資訊觀測站申報值</span></div>'
+        + '<p class="sc-biz">' + why + "</p></div>";
+    }
     function cell(label, val, cls) {
       return '<div class="sc-fund-cell"><h5>' + label + '</h5><p class="' + (cls || "")
         + '">' + val + "</p></div>";
@@ -95,7 +107,13 @@
 
   function themesHtml(info) {
     var t = info.themes || [];
-    if (!t.length) return "";
+    // 每一檔都要有「題材」區塊：沒被本站題材知識庫歸類時也明講，
+    // 不要硬把個股塞進題材（那正是先前資料出錯的原因）。
+    if (!t.length) {
+      return '<div class="sc-sec">'
+        + '<div class="sc-sec-h">相關題材 <span class="sc-src">本站題材知識庫歸類</span></div>'
+        + '<p class="sc-biz">本站題材知識庫尚未將此檔歸入任何題材。</p></div>';
+    }
     return '<div class="sc-sec">'
       + '<div class="sc-sec-h">相關題材 <span class="sc-src">本站題材知識庫歸類</span></div>'
       + '<div class="sc-theme-tags">'

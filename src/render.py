@@ -488,7 +488,17 @@ def render_stock_info() -> Path:
         except Exception:
             continue
 
-    codes = set(profiles) | set(revenue) | set(analysis) | set(themes_by_code) | set(snap_market)
+    # 個股資料頁的範圍＝有申報基本資料的公司（申報營業項目 t187ap03 全市場 2341 檔）
+    # ＋有後端盤後快照的上櫃／興櫃。題材成員「只用來標註既有個股頁」，不會憑
+    # 題材歸類就多生一頁——否則〔國際〕總經題材裡的 SPY／NVDA／MSFT 這些
+    # 美股 ETF 也會被生成一份空的個股頁（沒有 profile／月營收／SWOT），
+    # 那些標的是週報總經段落在講的，不屬於這裡的「全台股個股」範圍。
+    codes = set(profiles) | set(revenue) | set(analysis) | set(snap_market)
+    # 清掉不再屬於範圍的舊檔（例如曾經因題材歸類生成的美股 ETF 頁），
+    # 避免 stock_info_index 與實體檔案對不上、彈窗載到殘檔。
+    for stale in out_dir.glob("*.json"):
+        if stale.stem not in codes:
+            stale.unlink()
     index = []
     for code in sorted(codes):
         prof = dict(profiles.get(code, {}))
