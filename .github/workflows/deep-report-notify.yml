@@ -45,7 +45,10 @@ jobs:
             else
               title="🌍 本月深度研究已發布"
             fi
+            # curl 預設 User-Agent（curl/x.x）常被 Discord/Cloudflare 的機器人防護
+            # 擋掉、回 403，換成瀏覽器樣式的 UA 才送得出去。
             curl -s -X POST "$DISCORD_WEBHOOK_URL" \
               -H "Content-Type: application/json" \
+              -H "User-Agent: Mozilla/5.0 (compatible; stock-report-notify/1.0)" \
               -d "{\"content\": \"${title}\n${url}\"}"
           done <<< "$files"

@@ -25,6 +25,9 @@ def send_discord(text: str) -> bool:
         resp = requests.post(
             DISCORD_WEBHOOK_URL,
             json={"content": text[:2000]},   # Discord 單則上限 2000 字元
+            # requests 預設 User-Agent（python-requests/x.x）常被 Discord/Cloudflare
+            # 的機器人防護擋掉、回 403，換成瀏覽器樣式的 UA 才送得出去。
+            headers={"User-Agent": "Mozilla/5.0 (compatible; stock-report-notify/1.0)"},
             timeout=30,
         )
         resp.raise_for_status()
