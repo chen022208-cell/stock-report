@@ -1,18 +1,11 @@
 name: 市場報告排程
 
 on:
-  # 曾經想把這個排程整個搬去 Claude Code Routine（LLM_AGENT_MODE=1，吃 Pro/Max
-  # 額度、不打計量 API），對應 Routine「台股每日早報」「台股每日盤後」已經建好，
-  # 但那個雲端環境的網路政策會擋掉 www.twse.com.tw 等外部資料源（EGRESS_BLOCKED），
-  # 導致抓不到大盤/個股即時資料，報告會產出空殼內容。在使用者調整好那個環境的網路
-  # 白名單、且兩個 Routine 已經 disable 之前，schedule 先保留在這裡當唯一正式來源，
-  # 避免早報/盤後開天窗。
-  schedule:
-    # ⚠️ GitHub Actions 的 cron 一律是 UTC，不是台北時間。
-    # 台北時間 = UTC + 8，所以要往前推 8 小時。
-    - cron: '0 23 * * 0-4'   # UTC 23:00 = 台北隔日 07:00（週一到週五早報）
-    - cron: '0 10 * * 1-5'   # UTC 10:00 = 台北當日 18:00（週一到週五盤後）
-    - cron: '0 10 12 * *'    # 每月 12 日 台北 18:00 月報（等月營收公告完畢）
+  # 早報/盤後/月報已改由 Claude Code Routine 驅動（LLM_AGENT_MODE=1，吃 Pro/Max
+  # 額度、不打計量 API），對應 Routine「台股每日早報」「台股每日盤後」。2026-09-05
+  # 已確認該雲端環境的網路政策（Default environment → Network access）調整後可以
+  # 正常連線 www.twse.com.tw 等資料源，兩個 Routine 已重新啟用。這裡拿掉 schedule，
+  # 只保留手動觸發，當 Routine 掛掉或環境網路政策又跳回限制時的備援。
   workflow_dispatch:          # 也可以在 GitHub 網頁上手動觸發，方便測試或備援
     inputs:
       mode:

@@ -4,18 +4,22 @@
 
 ## 自動化架構
 
-- **每日早報／盤後／每月12號績效回顧月報**：走 `.github/workflows/report.yml` 的
-  GitHub Actions `schedule`（`ANTHROPIC_API_KEY` 計量 API）。**曾經試過改成用
-  Claude Code Routine（LLM_AGENT_MODE=1，吃 Pro/Max 額度）取代，Routine 也建好了
-  （「台股每日早報」「台股每日盤後」），但那個雲端環境（env_014xwk8aXGAakucHHKt3G6hW）
-  的網路政策會擋掉 `www.twse.com.tw`、`tpex.org.tw`、`finance.yahoo.com`、
-  `discord.com` 等外部網域（回 `EGRESS_BLOCKED`），導致抓不到大盤/個股即時資料，
-  報告會產出空殼內容——這兩個 Routine 目前是 disabled 狀態，report.yml 的
-  schedule 已經恢復。** 如果之後使用者把該 Claude Code 環境的網路白名單開放給
-  這些網域，可以重新 enable 那兩個 Routine 並拿掉 report.yml 的 schedule；在那之前
-  不要再關掉 report.yml 的 schedule。
-  `src/llm.py` 的 `LLM_AGENT_MODE=1` 機制本身沒問題（本機測試過完整跑通），卡點
-  純粹是那個雲端環境的網路政策，不是程式邏輯。
+- **每日早報／盤後**：Claude Code Routine「台股每日早報」「台股每日盤後」驅動，
+  `LLM_AGENT_MODE=1 python -m src.main auto morning|evening`，吃 Pro/Max 額度、
+  不打計量 API。每月 12 號的績效回顧月報併在「台股每日盤後」裡多跑一次
+  `python -m src.main monthly`。
+  這兩個 Routine 用的雲端環境（"Default"，env_014xwk8aXGAakucHHKt3G6hW）一度因為
+  Network access 設為「Trusted」（只放行套件來源，不含一般網站）擋掉
+  `www.twse.com.tw` 等資料源（EGRESS_BLOCKED），2026-09-05 使用者把該環境的
+  Network access 改掉之後已確認 `www.twse.com.tw`／`tpex.org.tw`／`discord.com`
+  都連得到，兩個 Routine 已重新啟用，`report.yml` 的 `schedule` 已再次拿掉
+  （只留 `workflow_dispatch` 當手動備援）。如果之後這兩個 Routine 又開始失敗、
+  或看到 `EGRESS_BLOCKED`/`403`/`Tunnel connection failed` 這類錯誤，先去
+  claude.ai → Settings → Claude Code → Cloud → Default 環境 → 齒輪設定 → Network
+  access 檢查目前是不是又跳回 Trusted，不要一發現問題就急著恢復 GitHub Actions
+  排程——先確認是不是網路設定被改回去。
+  兩個 Routine 目前的 job_config 沒有預先掛載 git source，每次執行都是自己手動
+  `git clone`，能動但每次多花幾秒，不算 bug。
 - **每週深度週報**：Routine「台股週報：全球總經＋台股深度研究」，每週五，
   產出 `docs/weekly/<日期>.pdf`。不受網路政策影響（主要用 WebSearch/WebFetch
   做研究，讀本地 repo 檔案，不需要直連 twse.com.tw）。
