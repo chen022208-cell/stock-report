@@ -22,11 +22,24 @@ VERDICT_LABEL = {"real": "偏真實", "watch": "待觀察", "unknown": "未判�
 WEEKDAY = ["一", "二", "三", "四", "五", "六", "日"]
 
 
+def _asset_version() -> str:
+    """靠檔案內容雜湊做 cache-busting，而不是每天都變的日期字串——
+    stock-chart.js 這種靜態資源被瀏覽器／GitHub Pages CDN 快取後，改了程式碼
+    使用者卻看不到更新，就是靠這個 query string 逼瀏覽器重新抓最新版本。"""
+    import hashlib
+    js_path = DOCS_DIR / "assets" / "stock-chart.js"
+    if not js_path.exists():
+        return "0"
+    return hashlib.md5(js_path.read_bytes()).hexdigest()[:8]
+
+
 def _env() -> Environment:
-    return Environment(
+    env = Environment(
         loader=FileSystemLoader(TEMPLATE_DIR),
         autoescape=select_autoescape(["html"]),
     )
+    env.globals["asset_v"] = _asset_version()
+    return env
 
 
 def slugify(text: str) -> str:
