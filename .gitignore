@@ -5,3 +5,4 @@ __pycache__/
 venv/
 .DS_Store
 data/prices.db
+agent_llm_queue/
