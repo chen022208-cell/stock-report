@@ -239,3 +239,46 @@ def fetch_monthly_revenue() -> dict[str, dict]:
             }
     print(f"[mops] 月營收 {len(out)} 檔")
     return out
+
+
+# ── 全市場公司清單（上市／上櫃／興櫃）──────────────────────────
+# 用申報基本資料 t187ap03 的三個資料集當權威名單：只有「真的是公司」的代號，
+# 不含 ETF／權證／債券，而且市場別是確定的（stock_index.json 沒有市場別欄位，
+# 之前一律當成上市，導致上櫃／興櫃被誤判、前端白打 TWSE 端點）。
+COMPANY_LIST_SOURCES = [
+    ("twse", "https://openapi.twse.com.tw/v1/opendata/t187ap03_L",
+     "公司代號", "公司簡稱", "產業別"),
+    ("tpex", "https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap03_O",
+     "SecuritiesCompanyCode", "CompanyAbbreviation", "SecuritiesIndustryCode"),
+    ("esb", "https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap03_R",
+     "SecuritiesCompanyCode", "CompanyAbbreviation", "SecuritiesIndustryCode"),
+]
+
+
+def fetch_listed_companies() -> dict[str, dict]:
+    """回傳 {代號: {code, name, market, industry}}，market 為 twse/tpex/esb。"""
+    if DRY_RUN:
+        return {}
+    out: dict[str, dict] = {}
+    for market, url, k_code, k_name, k_ind in COMPANY_LIST_SOURCES:
+        try:
+            rows = requests.get(url, headers=HEADERS, timeout=60).json()
+        except Exception as exc:
+            print(f"[mops] {market} 公司清單擷取失敗：{exc}")
+            continue
+        if not isinstance(rows, list):
+            continue
+        got = 0
+        for row in rows:
+            code = str(row.get(k_code, "")).strip()
+            if not (code.isdigit() and len(code) == 4):
+                continue
+            # 同一家公司可能同時出現在興櫃與上櫃名單（轉板中），以先出現的為準：
+            # 順序是 上市 > 上櫃 > 興櫃，剛好就是我們要的優先序。
+            if code in out:
+                continue
+            out[code] = {"code": code, "name": str(row.get(k_name, "")).strip(),
+                         "market": market, "industry": str(row.get(k_ind, "")).strip()}
+            got += 1
+        print(f"[mops] {market} 公司 {got} 檔")
+    return out

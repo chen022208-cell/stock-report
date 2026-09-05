@@ -55,8 +55,10 @@ theme_catalog:
 #    名單＝評分頁 rows＋追蹤中題材相關個股＋選股雷達起漲點/黑馬（不含興櫃新掛牌）。
 #    不確定的公司 LLM 會整檔略過，寧缺勿錯，不追求全市場覆蓋。
 stock_swot:
-  batch_size: 40            # 每次（每天盤後）最多送幾檔給 LLM
+  batch_size: 100           # 每次（每天盤後）最多送幾檔給 LLM（全市場約 2300 檔）
   refresh_days: 180         # 已產出的分析幾天後才排入重新產出
+  snapshot_limit: 120       # 每次最多新抓幾檔上櫃／興櫃日K（興櫃最新報價每次都全更新）
+  profile_limit: 200        # 每次最多抓幾檔公司基本資料（抓過就不再抓）
 
 # ── 使用者研究提交（submit.html → GitHub Issue 或 Google 表單）──
 research_intake:

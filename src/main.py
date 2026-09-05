@@ -211,22 +211,12 @@ def process_catalog_deep_dives(cfg: dict, today: str) -> int:
 
 
 def _all_market_codes() -> list[dict]:
-    """全市場個股清單（上市＋上櫃＋興櫃），來自 render_lookup_page 產的
-    stock_index.json，加上興櫃基本資料。回傳 [{code, name, market}, ...]。"""
-    docs = Path(__file__).resolve().parent.parent / "docs" / "data"
-    out: dict[str, dict] = {}
-    try:
-        idx = json.loads((docs / "stock_index.json").read_text(encoding="utf-8"))
-        for s in idx.get("stocks", []):
-            code = str(s.get("code", "")).strip()
-            if code.isdigit() and len(code) == 4:
-                out[code] = {"code": code, "name": s.get("name", ""),
-                             "market": s.get("market", "twse")}
-    except Exception:
-        pass
-    for code, dt in _safe(tpex.fetch_esb_listing_dates, {}, "興櫃基本資料").items():
-        out.setdefault(code, {"code": code, "name": "", "market": "esb"})
-    return list(out.values())
+    """全市場公司清單（上市＋上櫃＋興櫃），用申報基本資料 t187ap03 三個資料集。
+
+    刻意不用 stock_index.json：那是從熱力圖行情建出來的，混了 ETF／權證，
+    而且沒有市場別欄位（一律當成上市會讓上櫃／興櫃被誤判）。
+    """
+    return list(_safe(mops.fetch_listed_companies, {}, "全市場公司清單").values())
 
 
 def sync_company_profiles(today: str, limit: int = 300) -> int:
@@ -336,6 +326,23 @@ def snapshot_offmarket_history(codes: dict[str, str], cfg: dict) -> int:
     # 要另外從當日行情表補，否則彈窗顯示的價格會跟 TPEx 網站對不起來。
     esb_pricing = _safe(tpex.fetch_esb_pricing, {}, "興櫃當日行情")
 
+    # 興櫃當日行情是一支 bulk API，成本很低，所以「最新成交價」每次都全部更新，
+    # 只有 K 棒歷史（每檔要打 8 次）才受 limit 與 2 天新鮮度限制、輪流補。
+    refreshed = 0
+    for fp in out_dir.glob("*.json"):
+        q = esb_pricing.get(fp.stem)
+        if not q:
+            continue
+        try:
+            snap = json.loads(fp.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        if snap.get("market") != "esb":
+            continue
+        snap["latest"] = q
+        fp.write_text(json.dumps(snap, ensure_ascii=False), encoding="utf-8")
+        refreshed += 1
+
     done = 0
     for code, name in list(codes.items()):
         if done >= limit:
@@ -364,7 +371,7 @@ def snapshot_offmarket_history(codes: dict[str, str], cfg: dict) -> int:
             payload["latest"] = esb_pricing[code]
         fp.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
         done += 1
-    print(f"[otc-hist] 快照 {done} 檔上櫃／興櫃日K（docs/data/tpex_hist/）")
+    print(f"[otc-hist] 新抓 {done} 檔上櫃／興櫃日K、更新 {refreshed} 檔興櫃最新報價")
     return done
 
 
@@ -465,6 +472,10 @@ def run_evening() -> None:
     process_catalog_batch(cfg, today, quotes_by_code_all)
     process_catalog_deep_dives(cfg, today)
     # 全市場個股公司介紹＋SWOT，每天補一批直到全部個股都有
+    # 個股資料三層：先補事實（公司基本資料、月營收），再讓 LLM 在事實上做判讀
+    _safe(lambda: sync_company_profiles(
+        today, cfg.get("stock_swot", {}).get("profile_limit", 200)), 0, "公司基本資料")
+    _safe(lambda: sync_monthly_revenue(today), 0, "全市場月營收")
     _safe(lambda: process_stock_swot_batch(cfg, today), 0, "全市場個股 SWOT")
 
     holder_codes = {q["code"] for q in strong} | watch_codes
@@ -673,9 +684,14 @@ def run_evening() -> None:
     # 上櫃／興櫃個股的日 K 後端快照：瀏覽器對 tpex.org.tw 沒有 CORS，stock-chart.js
     # 抓不到即時資料時會退而讀 docs/data/tpex_hist/<code>.json。只快照會出現在
     # 選股雷達／評分頁的上櫃興櫃代號，數量有限。
+    # 先排今天出現在網站上的（新掛牌／黑馬／起漲點），再輪其餘全市場上櫃興櫃，
+    # 每次補一批，久了每檔上櫃興櫃個股都會有 K 線可看。
     otc_codes = {n["code"]: n["name"] for n in new_listings}
     otc_codes.update({dh["code"]: dh["name"] for dh in dark_horses})
     otc_codes.update({b["code"]: b.get("name", "") for b in breakout_candidates})
+    for c in _all_market_codes():
+        if c["market"] in ("tpex", "esb"):
+            otc_codes.setdefault(c["code"], c["name"])
     _safe(lambda: snapshot_offmarket_history(otc_codes, cfg), 0, "上櫃／興櫃歷史K線")
 
     # 題材生命週期：退場機制

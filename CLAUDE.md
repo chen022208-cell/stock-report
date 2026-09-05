@@ -63,24 +63,47 @@
   `docs/assets/stock-chart.js` 用事件委派監聽全站點擊，跳出彈窗即時抓
   TWSE STOCK_DAY 資料、純前端算 K 線/MA5/20/60/RSI 並畫圖——**這是瀏覽器直接對
   twse.com.tw 發 fetch，不經過任何後端或雲端 agent 環境，完全不受上面那個網路
-  政策問題影響，永遠是即時真實資料**。上櫃（TPEx）個股目前測過該端點不支援
-  瀏覽器端 CORS，圖表會誠實顯示查無資料，不會生成假圖。
+  政策問題影響，永遠是即時真實資料**。
+- **上櫃／興櫃沒有即時圖，走後端快照**：`tpex.org.tw` 完全沒送
+  `Access-Control-Allow-Origin`、OPTIONS preflight 直接 403，瀏覽器端不可能
+  直接抓。改由盤後 `snapshot_offmarket_history()` 抓好存成
+  `docs/data/tpex_hist/<code>.json`，前端在 `stock_info` 的 `profile.market`
+  是 tpex／esb 時直接讀快照（不要再打 TWSE，那是 36 次必定失敗的請求）。
+  - 上櫃：`tradingStock` 端點，有真正的開高低收。
+  - 興櫃：`emerging/historical` 只給得到**日均價**（議價／搓合市場沒有開收盤），
+    K 棒是均價走勢；**但看盤講的股價是當日行情表的「成交」欄**，要另外用
+    `tpex.fetch_esb_pricing()`（一支 bulk API）補進快照的 `latest` 欄位，
+    彈窗標題價格用它。2026-09-05 曾經拿日均價 686.33 當 7686 的股價顯示，
+    跟 TPEx 網站的成交價 802 對不起來被使用者抓到，不要再犯。
 - 全市場個股查詢頁 `lookup.html`（`render.render_lookup_page()` 產出，讀
   `docs/data/heatmap.json` 建出 `docs/data/stock_index.json`，涵蓋當天全市場
-  約 2000+ 檔個股）：純前端搜尋代號/名稱，點結果一樣跳出上面那個即時圖表；
-  已經在評分頁被系統選中、有完整 SWOT 分析的個股額外標記「⭐ 完整分析」連結。
-- **個股公司介紹＋SWOT（`stock_analysis` 表 → `docs/data/stock_analysis.json`，
-  `stock-chart.js` 彈窗與 `lookup.html` 都會讀）**：`process_stock_swot_batch()`
-  每天盤後補一批，名單刻意只取「系統實際分析過、會出現在網站上」的個股
-  ——評分頁 rows＋追蹤中題材相關個股（`db.active_theme_stocks()`）＋選股雷達
-  起漲點／黑馬，**不含選股雷達的新掛牌那段（那裡有大量興櫃殼股）**。
-  `llm.company_swot_batch` 的 prompt 已明確要求「不確定的公司整檔略過、
-  禁止用股票名稱或產業分類推測公司主業」，寧缺勿錯，不追求全市場覆蓋。
-  ⚠️ 歷史教訓（2026-09-05）：曾經想「全市場每檔都補」，用 LLM_AGENT_MODE 一次
-  灌 262 檔，結果對興櫃／小型股全部憑名字瞎猜（例：把做乳房重建軟組織的
-  7686 捷立康寫成 PCB 廠）。已整批清掉、改成上述保守做法。**要新增／補
-  SWOT 一定要逐檔用 WebSearch 對過公開來源（鉅亨、Goodinfo、財報狗、公司官網）
-  再寫，不要相信自己對冷門股的印象。**
+  約 2000+ 檔個股）：純前端搜尋代號/名稱，點結果一樣跳出上面那個即時圖表。
+  ⚠️ `stock_index.json` 混了 ETF／權證而且**沒有市場別欄位**，不要拿它當
+  「全市場公司清單」用——那是 `main._all_market_codes()`（讀申報基本資料
+  t187ap03 三個資料集）的工作，那份才有正確的 twse／tpex／esb 市場別。
+
+### 個股資料三層（`docs/data/stock_info/<code>.json`，每檔一個小檔案）
+
+`render.render_stock_info()` 產出，`stock-chart.js` 彈窗按需載入，畫面上**每一區都
+標示資料來源**，重點是不要把「判讀」講得像「事實」：
+
+1. **`profile` — 公司基本資料（事實）**：`company_profile` 表，來自
+   `mops.fetch_company_profile()`（公開資訊觀測站 t05st03）。其中
+   **`business`（主要經營業務）是「這家公司到底在做什麼」的唯一權威依據**。
+2. **`rev` — 基本面（事實）**：`monthly_revenue` 表，來自
+   `mops.fetch_monthly_revenue()`（政府開放資料，上市＋上櫃約 1974 檔月營收／
+   YoY／MoM／累計），完全不經 LLM。
+3. **`themes` / `desc` / `swot` — 判讀**：題材是本站題材知識庫的歸類；
+   `desc`／`swot` 由 `llm.company_swot_batch()` 產出，**輸入一定要帶上第 1 層的
+   `business`**，prompt 明令 `company_desc` 只能是營業項目的白話改寫、
+   禁止用股票名稱或產業分類推測、沒有 `business` 的個股整檔不送也不寫。
+
+⚠️ 歷史教訓（2026-09-05）：原本想「全市場每檔都補 SWOT」，用 LLM_AGENT_MODE
+一次灌 262 檔，結果對興櫃／小型股全部憑股票名稱瞎猜——把做**乳房重建軟組織
+填補**的 7686 捷立康寫成「PCB 廠」，把做**光學玻璃／稜鏡**的 3441 聯一光寫成
+「LED 封裝廠」。那批已整批清空。**現在的規則：任何「公司在做什麼」的敘述，
+一律以 `company_profile.business` 為準；要另外補充細節就得逐檔查證
+（WebSearch 對鉅亨／Goodinfo／財報狗／公司官網），不要相信自己對冷門股的印象。**
 
 ## 使用者研究提交（提交研究／研究筆記頁）
 
