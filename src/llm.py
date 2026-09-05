@@ -54,7 +54,7 @@ def _parse_json(text: str) -> dict:
                 return json.loads(match.group())
             except json.JSONDecodeError:
                 pass
-    print("[llm] JSON 解析失敗，回傳空結果")
+    print(f"[llm] JSON 解析失敗，回傳空結果（長度 {len(text)}，結尾：{text[-200:]!r}）")
     return {}
 
 
