@@ -107,7 +107,7 @@
       "change_pct": 9.69,
       "volume": 5265540.0,
       "turnover": 128962392.0,
-      "volume_ratio": 8.11
+      "volume_ratio": 6.03
     },
     {
       "code": "2413",
@@ -117,7 +117,7 @@
       "change_pct": 9.96,
       "volume": 4428068.0,
       "turnover": 199808945.0,
-      "volume_ratio": 6.0
+      "volume_ratio": 4.89
     },
     {
       "code": "3094",
@@ -127,17 +127,7 @@
       "change_pct": 9.93,
       "volume": 17920641.0,
       "turnover": 825572807.0,
-      "volume_ratio": 5.77
-    },
-    {
-      "code": "2388",
-      "name": "威盛",
-      "close": 81.4,
-      "change": 6.4,
-      "change_pct": 8.53,
-      "volume": 14272565.0,
-      "turnover": 1151365614.0,
-      "volume_ratio": 3.88
+      "volume_ratio": 4.52
     },
     {
       "code": "6271",
@@ -147,7 +137,17 @@
       "change_pct": 9.98,
       "volume": 15374517.0,
       "turnover": 3622880650.0,
-      "volume_ratio": 3.22
+      "volume_ratio": 3.1
+    },
+    {
+      "code": "2388",
+      "name": "威盛",
+      "close": 81.4,
+      "change": 6.4,
+      "change_pct": 8.53,
+      "volume": 14272565.0,
+      "turnover": 1151365614.0,
+      "volume_ratio": 3.43
     },
     {
       "code": "00909",
@@ -157,7 +157,7 @@
       "change_pct": 8.47,
       "volume": 4206663.0,
       "turnover": 203916999.0,
-      "volume_ratio": 3.44
+      "volume_ratio": 3.03
     },
     {
       "code": "3714",
@@ -167,7 +167,7 @@
       "change_pct": 8.62,
       "volume": 35248872.0,
       "turnover": 2325415795.0,
-      "volume_ratio": 3.18
+      "volume_ratio": 2.86
     },
     {
       "code": "1597",
@@ -177,7 +177,7 @@
       "change_pct": 7.27,
       "volume": 7090442.0,
       "turnover": 1078318662.0,
-      "volume_ratio": 2.61
+      "volume_ratio": 2.55
     },
     {
       "code": "6224",
@@ -187,7 +187,7 @@
       "change_pct": 6.53,
       "volume": 3448628.0,
       "turnover": 292599011.0,
-      "volume_ratio": 2.23
+      "volume_ratio": 2.02
     },
     {
       "code": "6168",
@@ -197,7 +197,7 @@
       "change_pct": 5.25,
       "volume": 9647758.0,
       "turnover": 280146134.0,
-      "volume_ratio": 2.73
+      "volume_ratio": 2.43
     }
   ],
   "holders": [
