@@ -181,6 +181,20 @@ def industry_map() -> dict[str, str]:
     }
 
 
+def listing_dates_twse() -> dict[str, str]:
+    # 大部分是老牌股（上市日期很久以前），6187 假設是近期新掛牌，測試「新掛牌觀察」用
+    from datetime import date, timedelta
+    recent = (date.today() - timedelta(days=45)).strftime("%Y%m%d")
+    return {"1590": "20140103", "2049": "19900101", "4551": "19960101",
+            "2330": "19940905", "3017": "20000101", "3661": "20120101",
+            "6187": recent, "2454": "20010101", "3324": "20110101",
+            "1521": "19970101", "1101": "19620209", "2891": "19900101"}
+
+
+def listing_dates_tpex() -> dict[str, str]:
+    return {}
+
+
 def international_markets() -> dict:
     return {
         "indices": [

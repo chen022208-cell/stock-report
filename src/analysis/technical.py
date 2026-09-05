@@ -143,6 +143,77 @@ def grade(ind: dict, cfg: dict) -> dict:
     }
 
 
+def detect_fresh_breakout(history: list[dict], cfg: dict) -> dict:
+    """判斷是不是「剛突破＋爆量」的起漲點，而不是已經漲多、追高風險高的階段。
+
+    刻意跟 grade() 分開算：grade() 回答「現在健康嗎」，這裡回答「現在是不是
+    剛開始的那一天」——兩者常常不是同一天，均線多頭排列可能已經走了一個月，
+    但「剛站上月線」通常只有 1~3 天內才算數。
+    """
+    b = cfg.get("breakout", {})
+    fresh_days = b.get("fresh_days", 3)
+    vol_min = b.get("volume_ratio_min", 2.5)
+    ext_pct = b.get("extended_pct", 15.0)
+    ext_days = b.get("extended_lookback_days", 10)
+
+    df = _to_df(history)
+    if df.empty or len(df) < 65:
+        return {"is_breakout": False, "reason": "歷史資料不足"}
+
+    close, vol = df["close"], df["volume"]
+    ma20 = close.rolling(20).mean()
+    ma60 = close.rolling(60).mean()
+    vol_ma20 = vol.rolling(20).mean()
+
+    crossed = []
+    for period, ma, label in ((20, ma20, "月線"), (60, ma60, "季線")):
+        series = (close > ma)
+        if series.isna().any():
+            continue
+        # 從「收盤 <= 均線」轉成「收盤 > 均線」的最近一次，往前找 fresh_days 天內
+        days_ago = None
+        for back in range(0, fresh_days + 1):
+            idx = len(df) - 1 - back
+            if idx < 1:
+                break
+            if bool(series.iloc[idx]) and not bool(series.iloc[idx - 1]):
+                days_ago = back
+                break
+        if days_ago is not None:
+            crossed.append({"period": period, "label": label, "days_ago": days_ago})
+
+    if not crossed:
+        return {"is_breakout": False, "reason": "近日沒有站上月線或季線的突破訊號"}
+
+    vr = round(float(vol.iloc[-1] / vol_ma20.iloc[-1]), 2) if vol_ma20.iloc[-1] > 0 else 0
+    if vr < vol_min:
+        return {"is_breakout": False, "reason": f"雖有突破但量能只有 {vr} 倍，未達爆量門檻",
+                "volume_ratio": vr, "crossed": crossed}
+
+    extended = False
+    if len(close) > ext_days:
+        chg = (close.iloc[-1] / close.iloc[-1 - ext_days] - 1) * 100
+        if chg >= ext_pct:
+            extended = True
+
+    if extended:
+        return {"is_breakout": False,
+                "reason": f"近 {ext_days} 日已漲逾 {ext_pct:.0f}%，非起漲點，屬於追高風險階段",
+                "volume_ratio": vr, "crossed": crossed, "already_extended": True}
+
+    freshest = min(crossed, key=lambda c: c["days_ago"])
+    when = "今天剛" if freshest["days_ago"] == 0 else f"{freshest['days_ago']} 天前"
+    labels = "、".join(c["label"] for c in crossed)
+    return {
+        "is_breakout": True,
+        "reason": f"{when}站上{labels}，量能達 20 日均量 {vr} 倍",
+        "volume_ratio": vr,
+        "crossed": crossed,
+        "days_ago": freshest["days_ago"],
+        "already_extended": False,
+    }
+
+
 def analyze_stock(code: str, history: list[dict], cfg: dict) -> dict:
     ind = compute_indicators(history, cfg)
     return {"code": code, "indicators": ind, "grade": grade(ind, cfg)}

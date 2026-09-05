@@ -5,7 +5,10 @@
 """
 from __future__ import annotations
 
+from datetime import date, timedelta
 from typing import Any
+
+from . import technical
 
 
 def scan_strong_stocks(quotes: list[dict], cfg: dict, history_fn=None) -> list[dict]:
@@ -57,6 +60,63 @@ def attach_volume_ratio(quotes: list[dict], history_fn) -> list[dict]:
         avg = sum(vols) / len(vols) if vols else 0
         q["volume_ratio"] = round(q["volume"] / avg, 2) if avg > 0 else None
     return quotes
+
+
+def scan_breakout_candidates(quotes: list[dict], cfg: dict, history_fn) -> list[dict]:
+    """起漲點雷達：找「剛站上月線/季線＋爆量」的個股，刻意跟 scan_strong_stocks
+    分開——那支只抓「今天已經漲很多」的，這支要抓「可能才剛開始」的，門檻
+    故意放低（漲幅門檻遠低於 scan_strong_stocks），漲太多的會在
+    technical.detect_fresh_breakout() 裡被判定為「已延伸」而排除。
+    """
+    b = cfg.get("breakout", {})
+    pre = [
+        q for q in quotes
+        if q.get("change_pct", 0) >= b.get("min_change_pct", 1.5)
+        and q.get("turnover", 0) >= b.get("min_turnover", 30000000)
+    ]
+    pre.sort(key=lambda x: x.get("turnover", 0), reverse=True)
+    pre = pre[: b.get("pre_filter_top_n", 80)]
+
+    picked = []
+    for q in pre:
+        try:
+            hist = history_fn(q["code"], 90)
+        except Exception:
+            hist = []
+        result = technical.detect_fresh_breakout(hist, cfg)
+        if result.get("is_breakout"):
+            picked.append({**result, "code": q["code"], "name": q.get("name", ""),
+                          "close": q.get("close", 0), "change_pct": q.get("change_pct", 0)})
+
+    picked.sort(key=lambda x: (x["days_ago"], -x["volume_ratio"]))
+    return picked[: b.get("top_n", 10)]
+
+
+def find_new_listings(quotes_by_code: dict[str, dict], listing_dates: dict[str, str],
+                      days: int = 180) -> list[dict]:
+    """新掛牌觀察：上市/上櫃未滿 N 天的個股，不管今天漲跌，單純因為「夠新」
+    值得留意——新股沒有長期籌碼歷史，波動特性跟老牌股不一樣。
+    """
+    cutoff = (date.today() - timedelta(days=days)).strftime("%Y%m%d")
+    results = []
+    for code, listed in listing_dates.items():
+        if not listed or listed < cutoff:
+            continue
+        q = quotes_by_code.get(code)
+        if not q:
+            continue
+        try:
+            listed_date = date(int(listed[:4]), int(listed[4:6]), int(listed[6:8]))
+            days_listed = (date.today() - listed_date).days
+        except (ValueError, IndexError):
+            continue
+        results.append({
+            "code": code, "name": q.get("name", ""), "close": q.get("close", 0),
+            "change_pct": q.get("change_pct", 0), "days_listed": days_listed,
+            "listed_date": listed_date.isoformat(),
+        })
+    results.sort(key=lambda x: x["days_listed"])
+    return results
 
 
 def identify_dark_horses(

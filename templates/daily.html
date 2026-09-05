@@ -287,6 +287,50 @@
 <hr class="divider">
 {% endif %}
 
+{% if breakout_candidates %}
+<section class="block">
+  <h2>🐎 起漲點雷達</h2>
+  <p class="commentary" style="margin-bottom:12px">剛站上月線或季線、且量能明顯放大的個股——重點是「剛開始」，
+  近期已經漲多的會被排除，不是看到上漲就抓。</p>
+  {% for b in breakout_candidates %}
+  <div class="darkhorse-entry">
+    <div class="darkhorse-name" data-stock-code="{{ b.code }}" data-stock-name="{{ b.name }}">{{ b.code }} {{ b.name }} 📈</div>
+    <div class="darkhorse-grid">
+      <div><span class="dh-label">今日漲幅</span><br>
+        <span class="dh-value {{ 'up' if b.change_pct >= 0 else 'down' }}">{{ "%+.2f"|format(b.change_pct) }}%</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">{{ b.volume_ratio }} 倍</span></div>
+      <div><span class="dh-label">突破天數</span><br>
+        <span class="dh-value">{{ '今天' if b.days_ago == 0 else b.days_ago ~ ' 天前' }}</span></div>
+      <div><span class="dh-label">突破均線</span><br>
+        <span class="dh-value">{{ b.crossed|map(attribute='label')|join('、') }}</span></div>
+    </div>
+    <div class="darkhorse-note">{{ b.reason }}</div>
+  </div>
+  {% endfor %}
+</section>
+<hr class="divider">
+{% endif %}
+
+{% if new_listings %}
+<section class="block">
+  <h2>🆕 新掛牌觀察</h2>
+  <p class="commentary" style="margin-bottom:12px">上市／上櫃未滿半年的個股，籌碼歷史短、波動特性跟老牌股不同，
+  不管今天漲跌都先列出來留意。</p>
+  <table class="tech-table">
+    <tr><th>股票</th><th>掛牌天數</th><th>今日漲跌</th></tr>
+    {% for n in new_listings %}
+    <tr>
+      <td data-stock-code="{{ n.code }}" data-stock-name="{{ n.name }}">{{ n.code }} {{ n.name }} 📈</td>
+      <td class="mono">{{ n.days_listed }} 天</td>
+      <td class="mono {{ 'up' if n.change_pct >= 0 else 'down' }}">{{ "%+.2f"|format(n.change_pct) }}%</td>
+    </tr>
+    {% endfor %}
+  </table>
+</section>
+<hr class="divider">
+{% endif %}
+
 {% if dark_horses %}
 <section class="block">
   <h2>黑馬觀察</h2>

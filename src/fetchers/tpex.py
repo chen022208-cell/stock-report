@@ -117,3 +117,19 @@ def fetch_margin_by_stock() -> dict[str, dict]:
             "short_change": _num(row.get("ShortSale")) - _num(row.get("ShortConvering")),
         }
     return out
+
+
+def fetch_listing_dates() -> dict[str, str]:
+    """股票代號 → 上櫃日期（YYYYMMDD）。給「新掛牌觀察」判斷掛牌天數用。"""
+    if DRY_RUN:
+        return mock.listing_dates_tpex()
+    rows = _get("mopsfin_t187ap03_O")
+    if not rows:
+        return {}
+    out: dict[str, str] = {}
+    for row in rows:
+        code = str(row.get("SecuritiesCompanyCode", "")).strip()
+        listed = str(row.get("DateOfListing", "")).strip()
+        if _is_stock_code(code) and listed:
+            out[code] = listed
+    return out

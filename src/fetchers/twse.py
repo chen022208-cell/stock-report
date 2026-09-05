@@ -254,6 +254,23 @@ def fetch_industry_map() -> dict[str, str]:
     return out
 
 
+def fetch_listing_dates() -> dict[str, str]:
+    """股票代號 → 上市日期（YYYYMMDD）。跟 fetch_industry_map 同一份基本資料，
+    只是多抓一個欄位，給「新掛牌觀察」用來判斷掛牌天數。"""
+    if DRY_RUN:
+        return mock.listing_dates_twse()
+    rows = _get("/opendata/t187ap03_L")
+    if not rows:
+        return {}
+    out = {}
+    for row in rows:
+        code = str(row.get("公司代號", "")).strip()
+        listed = str(row.get("上市日期", "")).strip()
+        if code and listed:
+            out[code] = listed
+    return out
+
+
 def fetch_revenue_yoy() -> dict[str, float]:
     """上市公司最新月營收年增率（%）。回傳 {代號: YoY%}，給五面向評分的基本面軸用。"""
     if DRY_RUN:

@@ -183,6 +183,23 @@ def run_evening() -> None:
     # 但抓不到 TWSE 歷史時 volume_ratio 留 None，不影響篩選
     strong = screener.scan_strong_stocks(all_quotes, cfg, cached_history_fn)
     print(f"[evening] 強勢股 {len(strong)} 檔")
+
+    # 起漲點雷達：跟強勢股掃描分開跑，門檻故意放低，抓「剛突破＋爆量」
+    # 而不是「已經漲很多」——同樣靠 cached_history_fn 省 API
+    breakout_candidates = _safe(
+        lambda: screener.scan_breakout_candidates(all_quotes, cfg, cached_history_fn),
+        [], "起漲點雷達")
+    print(f"[evening] 起漲點雷達 {len(breakout_candidates)} 檔")
+
+    # 新掛牌觀察：上市/上櫃基本資料本來就要抓（產業分類用），多拿一個欄位不用額外成本
+    listing_dates = {
+        **_safe(twse.fetch_listing_dates, {}, "上市日期"),
+        **_safe(tpex.fetch_listing_dates, {}, "上櫃日期"),
+    }
+    new_listings = screener.find_new_listings(
+        quotes_by_code_all, listing_dates, cfg["new_listing"]["days"])
+    print(f"[evening] 新掛牌觀察 {len(new_listings)} 檔")
+
     holder_codes = {q["code"] for q in strong} | watch_codes
     holder_concentration = _safe(lambda: tdcc.fetch_holder_concentration(holder_codes),
                                  {}, "集保股權分散表")
@@ -247,8 +264,15 @@ def run_evening() -> None:
     candidates.update({s["code"]: s["name"] for t in themes_raw for s in t.get("stocks", [])})
     candidates.update({dh["code"]: dh["name"] for dh in dark_horses})
 
+    # 起漲點雷達／新掛牌股一定要有技術面＋後面的公司介紹／SWOT，不能因為候選股
+    # 數量上限（見下面 [:12]）被排擠掉——這兩份名單本身就故意抓得少，全部保留
+    priority_codes = {b["code"]: b["name"] for b in breakout_candidates}
+    priority_codes.update({n["code"]: n["name"] for n in new_listings})
+
     technicals = []
-    for code, name in list(candidates.items())[:12]:
+    ranked_codes = [c for c in candidates if c not in priority_codes][:12]
+    for code in list(priority_codes) + ranked_codes:
+        name = priority_codes.get(code) or candidates[code]
         hist = _safe(lambda c=code: twse.fetch_stock_history(c, cfg["technical"]["lookback_days"]),
                      [], f"{code} 歷史股價")
         result = technical.analyze_stock(code, hist, cfg)
@@ -289,8 +313,11 @@ def run_evening() -> None:
                           for t in themes_raw for s in t.get("stocks", [])}
     headlines_by_code = {n["code"]: n["headlines"] for n in news_input}
     grade_by_code = {t["code"]: t.get("grade", {}) for t in technicals}
+    # 起漲點雷達／新掛牌股一定要有公司介紹＋SWOT，不受排名前 8 名這個上限限制
+    must_analyze = [r for r in score_rows if r["code"] in priority_codes]
+    ranked_analysis = [r for r in score_rows if r["code"] not in priority_codes][:8]
     analysis_input = []
-    for r in score_rows[:8]:
+    for r in must_analyze + ranked_analysis:
         code = r["code"]
         grade = grade_by_code.get(code, {})
         signals = "、".join(grade.get("notes", [])) or grade.get("label", "")
@@ -363,6 +390,8 @@ def run_evening() -> None:
         "commentary": commentary,
         "watch_stocks": watch_stocks,
         "disposition_count": len(disposition) + len(attention_trending),
+        "breakout_candidates": breakout_candidates,
+        "new_listings": new_listings,
     }
 
     path = render.render_daily(ctx, f"{today}-evening")

@@ -28,6 +28,21 @@ dark_horse:
   volume_ratio: 3.0          # 量能倍數超過此值視為異常
   max_peers: 1               # 同題材呼應個股數 <= 此值視為孤立訊號
 
+# ── 起漲點雷達（剛突破月線/季線＋爆量，跟 screener 分開，門檻故意放低）──
+breakout:
+  min_change_pct: 1.5        # 漲幅門檻遠低於 screener，不用已經噴才抓得到
+  min_turnover: 30000000     # 最低成交金額（元）
+  pre_filter_top_n: 80       # 零成本篩完後，最多對幾檔抓歷史算突破訊號
+  fresh_days: 3              # 站上月線/季線幾天內算「剛突破」
+  volume_ratio_min: 2.5      # 爆量門檻（20 日均量的幾倍），比 screener 更嚴格
+  extended_pct: 15.0         # 近 N 日已漲超過這個百分比 → 判定已延伸、非起漲點
+  extended_lookback_days: 10
+  top_n: 10                  # 最多列幾檔進報告
+
+# ── 新掛牌觀察 ──────────────────────────────────────
+new_listing:
+  days: 180                  # 上市/上櫃未滿幾天算「新股」
+
 # ── 題材知識庫退場機制 ──────────────────────────────
 theme_lifecycle:
   dormant_after_days: 7      # 連續 N 個交易日無新訊號 → 休眠
