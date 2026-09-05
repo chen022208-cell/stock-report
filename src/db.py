@@ -120,6 +120,10 @@ def init_db() -> None:
             conn.execute("ALTER TABLE themes ADD COLUMN category TEXT")
         except sqlite3.OperationalError:
             pass
+        try:
+            conn.execute("ALTER TABLE themes ADD COLUMN last_analyzed TEXT")
+        except sqlite3.OperationalError:
+            pass
 
 
 # ── 題材知識庫 ─────────────────────────────────────────
@@ -198,6 +202,48 @@ def list_catalog_themes() -> list[dict]:
             "SELECT * FROM themes WHERE status='catalog' ORDER BY category, name"
         ).fetchall()
         return [dict(r) for r in rows]
+
+
+def catalog_theme_names() -> list[str]:
+    """給 cluster_themes() 當參考名單，讓即時聚類的 LLM 優先套用目錄裡已有的名稱，
+    而不是每次自己發明一個相似但不完全一樣的題材名——這樣目錄題材才有機會被
+    真的偵測到訊號時直接轉入「追蹤中」，而不是永遠卡在目錄裡。"""
+    with get_conn() as conn:
+        rows = conn.execute("SELECT name FROM themes WHERE status='catalog'").fetchall()
+        return [r["name"] for r in rows]
+
+
+def catalog_themes_for_analysis(limit: int, today: str, refresh_days: int) -> list[dict]:
+    """挑一批「還沒研究過」或「研究太久沒更新」的目錄題材，補齊 117 個題材的分析覆蓋率。
+    優先處理從沒分析過的（last_analyzed IS NULL），全部補齊一輪之後才開始按時間
+    輪流刷新，不會每天重打全部 117 個的 LLM 成本。
+    """
+    cutoff = (date.fromisoformat(today) - timedelta(days=refresh_days)).isoformat()
+    with get_conn() as conn:
+        rows = conn.execute(
+            """SELECT * FROM themes WHERE status='catalog'
+               AND (last_analyzed IS NULL OR last_analyzed < ?)
+               ORDER BY (last_analyzed IS NOT NULL), last_analyzed ASC
+               LIMIT ?""",
+            (cutoff, limit),
+        ).fetchall()
+        return [dict(r) for r in rows]
+
+
+def update_catalog_analysis(
+    theme_id: int, summary: str, confidence: str, verdict: str,
+    related_stocks: list[dict], today: str,
+) -> None:
+    """把目錄題材的研究結果寫回去——刻意不改 status（維持 'catalog'），
+    跟系統即時偵測到、真的轉入「追蹤中」的題材保持視覺區隔，但補上摘要／
+    信心度／代表股，不再是只有名字跟論點的空殼。"""
+    with get_conn() as conn:
+        conn.execute(
+            """UPDATE themes SET summary=?, confidence=?, verdict=?,
+               related_stocks=?, last_analyzed=? WHERE id=?""",
+            (summary, confidence, verdict,
+             json.dumps(related_stocks, ensure_ascii=False), today, theme_id),
+        )
 
 
 def get_theme(name: str) -> dict | None:

@@ -200,6 +200,48 @@ def run_evening() -> None:
         quotes_by_code_all, listing_dates, cfg["new_listing"]["days"])
     print(f"[evening] 新掛牌觀察 {len(new_listings)} 檔")
 
+    # 題材目錄補齊：117 個種子題材不能永遠只有名字跟一句話論點，每天處理一批
+    # （優先處理從沒研究過的），用 LLM 既有知識補上代表股，再對照今天真實行情
+    # 判斷現在算不算當紅；當紅且抓到多檔代表股時，全部代表股都做公司介紹＋SWOT，
+    # 不因為原本評分頁前 8～12 檔的上限而漏掉——這是題材目錄專屬的覆蓋率保證，
+    # 跟評分頁那邊「起漲點/新掛牌一定要有分析」是同一個精神、不同的名單來源
+    tc_cfg = cfg["theme_catalog"]
+    catalog_batch = _safe(
+        lambda: db.catalog_themes_for_analysis(tc_cfg["batch_size"], today, tc_cfg["refresh_days"]),
+        [], "題材目錄待研究名單")
+    if catalog_batch:
+        research = _safe(lambda: llm.catalog_theme_research_batch(catalog_batch),
+                         {}, "題材目錄研究")
+        for theme in catalog_batch:
+            r = research.get(theme["name"], {})
+            matched = []
+            for ref in r.get("stocks", []):
+                q = quotes_by_code_all.get(ref.get("code"))
+                if q:
+                    matched.append({"code": ref["code"], "name": q.get("name") or ref.get("name", ""),
+                                    "change_pct": q.get("change_pct", 0)})
+
+            hot_stocks = [m for m in matched if m["change_pct"] >= tc_cfg["hot_change_pct"]]
+            if len(hot_stocks) >= tc_cfg["hot_min_stocks"]:
+                verdict, confidence = "hot", "high"
+            elif hot_stocks or any(m["change_pct"] > 0 for m in matched):
+                verdict, confidence = "warm", "mid"
+            else:
+                verdict, confidence = "cold", "low"
+
+            if verdict == "hot" and matched:
+                deep_input = [{"code": m["code"], "name": m["name"]} for m in matched]
+                deep = _safe(lambda d=deep_input: llm.stock_analysis_batch(d),
+                            {}, f"題材個股深度分析 {theme['name']}")
+                for m in matched:
+                    if m["code"] in deep:
+                        m["analysis"] = deep[m["code"]]
+
+            db.update_catalog_analysis(
+                theme["id"], r.get("summary") or theme.get("summary", ""),
+                confidence, verdict, matched, today)
+        print(f"[evening] 題材目錄本批補齊 {len(catalog_batch)} 個")
+
     holder_codes = {q["code"] for q in strong} | watch_codes
     holder_concentration = _safe(lambda: tdcc.fetch_holder_concentration(holder_codes),
                                  {}, "集保股權分散表")
@@ -213,8 +255,11 @@ def run_evening() -> None:
                             render.date_label(today))
 
     # 第二層：題材聚類（含孤立訊號分流）
+    # 帶上題材目錄的既有名稱，讓 LLM 優先套用目錄裡的名字而不是自己發明相似的新名，
+    # 這樣目錄題材才有機會在真的被偵測到訊號時直接轉入「追蹤中」
     call_context = "\n".join(f"{c['code']} {c['name']} 法說會：{c['note']}" for c in calls)
-    clustered = _safe(lambda: llm.cluster_themes(strong, call_context),
+    known_theme_names = _safe(db.catalog_theme_names, [], "題材目錄名單")
+    clustered = _safe(lambda: llm.cluster_themes(strong, call_context, known_theme_names),
                       {"themes": [], "orphans": []}, "題材聚類")
 
     themes_raw = clustered.get("themes", [])

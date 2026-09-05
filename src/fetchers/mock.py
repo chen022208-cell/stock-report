@@ -144,6 +144,18 @@ def stock_analysis_batch() -> dict[str, dict]:
     return {code: template for code in ("1590", "3017", "4551", "1521", "6187")}
 
 
+def catalog_theme_research_batch(themes: list[dict]) -> dict[str, dict]:
+    """DRY_RUN 用：從既有的假股票池輪流配對代表股給每個題材，其中第一個題材
+    刻意配到兩檔漲幅都 >=3% 的股票（1590/2049），讓測試能跑到「當紅」判定
+    跟後續深度分析的完整路徑，不用真的懂題材内容。"""
+    pool = [{"code": c, "name": n} for c, n, _, _ in _MOCK_STOCKS]
+    out = {}
+    for i, t in enumerate(themes):
+        picks = [pool[i % len(pool)], pool[(i + 1) % len(pool)]]
+        out[t["name"]] = {"summary": t.get("summary", ""), "stocks": picks}
+    return out
+
+
 def revenue_yoy() -> dict[str, float]:
     return {"1590": 18.4, "2049": 12.1, "6187": 5.2, "4551": 22.7, "2330": 9.8,
             "3017": -3.4, "3661": 14.0}

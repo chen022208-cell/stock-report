@@ -16,7 +16,8 @@ from . import db
 from .config import DOCS_DIR, TEMPLATE_DIR, load_config, now_tpe
 
 CONF_LABEL = {"high": "高", "mid": "中高", "low": "低"}
-VERDICT_LABEL = {"real": "偏真實", "watch": "待觀察", "unknown": "未判定"}
+VERDICT_LABEL = {"real": "偏真實", "watch": "待觀察", "unknown": "未判定",
+                 "hot": "🔥 當紅", "warm": "偏溫", "cold": "尚無訊號"}
 
 WEEKDAY = ["一", "二", "三", "四", "五", "六", "日"]
 
@@ -298,7 +299,7 @@ def render_themes_page() -> Path:
 
     catalog_by_category = {}
     for t in db.list_catalog_themes():
-        catalog_by_category.setdefault(t.get("category") or "其他", []).append(t)
+        catalog_by_category.setdefault(t.get("category") or "其他", []).append(decorate_theme(t))
 
     path.write_text(_env().get_template("themes.html").render(
         site_title=cfg["site"]["title"],

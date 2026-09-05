@@ -29,8 +29,19 @@
   .catalog-item{padding:10px 0; border-bottom:1px solid var(--hairline);}
   .catalog-item:last-child{border-bottom:none;}
   .catalog-item .ci-name{font-size:13.5px; font-weight:600; margin-bottom:3px;
-                         display:flex; align-items:center; gap:6px;}
+                         display:flex; align-items:center; gap:6px; flex-wrap:wrap;}
   .catalog-item .ci-thesis{font-size:12.5px; color:var(--text-muted); line-height:1.5;}
+  .ci-stocks{margin-top:6px; display:flex; flex-wrap:wrap; gap:6px;}
+  .ci-stock-chip{font-size:12px; padding:2px 8px; border-radius:999px; cursor:pointer;
+                 border:1px solid var(--hairline); background:var(--surface);}
+  .ci-stock-chip.up{color:var(--red); border-color:var(--red);}
+  .ci-stock-chip.down{color:var(--green); border-color:var(--green);}
+  .ci-swot{margin-top:8px; padding:10px 12px; background:var(--surface);
+           border-radius:var(--radius-sm); font-size:12.5px; line-height:1.6;}
+  .ci-swot summary{cursor:pointer; font-size:12.5px; color:var(--gold); font-weight:600;}
+  .ci-swot dl{margin:8px 0 0; display:grid; grid-template-columns:auto 1fr; gap:4px 8px;}
+  .ci-swot dt{color:var(--text-muted); white-space:nowrap;}
+  .ci-swot dd{margin:0;}
 {% endblock %}
 {% block content %}
 <header><div class="masthead-label">{{ site_title }}</div>
@@ -74,8 +85,37 @@
   <div class="catalog-list">
     {% for t in items %}
     <div class="catalog-item">
-      <div class="ci-name"><span class="dot c-theme"></span>{{ t.name }}</div>
+      <div class="ci-name">
+        <span class="dot c-theme"></span>{{ t.name }}
+        {% if t.confidence %}<span class="tag confidence-{{ t.confidence }}">{{ t.verdict_label }}</span>{% endif %}
+      </div>
       {% if t.summary %}<div class="ci-thesis">{{ t.summary }}</div>{% endif %}
+      {% if t.stocks %}
+      <div class="ci-stocks">
+        {% for s in t.stocks %}
+        <span class="ci-stock-chip {{ 'up' if s.change_pct is defined and s.change_pct >= 0 else 'down' if s.change_pct is defined else '' }}"
+              data-stock-code="{{ s.code }}" data-stock-name="{{ s.name }}">
+          {{ s.code }} {{ s.name }}{% if s.change_pct is defined %} {{ "%+.2f"|format(s.change_pct) }}%{% endif %}
+        </span>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% set swot_stocks = t.stocks|selectattr("analysis", "defined")|list if t.stocks else [] %}
+      {% if swot_stocks %}
+      {% for s in swot_stocks %}
+      <details class="ci-swot">
+        <summary>📋 {{ s.code }} {{ s.name }} 公司介紹／SWOT</summary>
+        <p>{{ s.analysis.company_desc }}</p>
+        <dl>
+          <dt>優勢</dt><dd>{{ s.analysis.swot.strengths }}</dd>
+          <dt>弱點</dt><dd>{{ s.analysis.swot.weaknesses }}</dd>
+          <dt>機會</dt><dd>{{ s.analysis.swot.opportunities }}</dd>
+          <dt>威脅</dt><dd>{{ s.analysis.swot.threats }}</dd>
+        </dl>
+        <p style="margin-top:6px">{{ s.analysis.price_reason }}</p>
+      </details>
+      {% endfor %}
+      {% endif %}
     </div>
     {% endfor %}
   </div>

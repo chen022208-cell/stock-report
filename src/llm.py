@@ -113,6 +113,11 @@ CLUSTER_SYSTEM = """你是一位有 20 年經驗的台股產業分析師。
 若某檔個股找不到同族群呼應（少於 2 檔相關個股），不要硬套題材敘事給它。
 硬套會產出牽強甚至誤導的分析。請把它放進 orphans，說明為何無法歸類。
 
+命名規則（重要）：
+如果輸入附上「已知題材目錄」，且你歸納出的題材確實對應目錄裡的某一個，
+一定要用目錄裡完全相同的名稱，不要自己另外發明一個相似但不同的名字——
+只有目錄裡真的找不到對應題材時，才自訂新名稱。
+
 信心度：high / mid / low
 真假判定：real / watch
 
@@ -127,7 +132,7 @@ CLUSTER_SYSTEM = """你是一位有 20 年經驗的台股產業分析師。
 }"""
 
 
-def cluster_themes(strong_stocks: list[dict], context: str = "") -> dict:
+def cluster_themes(strong_stocks: list[dict], context: str = "", known_themes: list[str] | None = None) -> dict:
     if DRY_RUN:
         return mock.llm_theme_response()
 
@@ -137,6 +142,8 @@ def cluster_themes(strong_stocks: list[dict], context: str = "") -> dict:
         for s in strong_stocks
     ]
     user = "今日強勢股清單：\n" + "\n".join(lines)
+    if known_themes:
+        user += "\n\n已知題材目錄（命名規則見上）：\n" + "、".join(known_themes)
     if context:
         user += f"\n\n補充資訊：\n{context}"
 
@@ -330,6 +337,46 @@ def stock_analysis_batch(stocks: list[dict]) -> dict[str, dict]:
         return _parse_json(_call(STOCK_ANALYSIS_SYSTEM, user, 8000))
     except Exception as exc:
         print(f"[llm] 個股深度分析失敗：{exc}")
+        return {}
+
+
+# ── 題材目錄補齊（117 個種子題材，自上而下找代表股）────────
+CATALOG_RESEARCH_SYSTEM = """你是台股產業研究員，負責把「題材目錄」裡只有名稱跟一句話論點的種子題材，
+補上你已知的代表個股，讓系統之後可以對照即時行情判斷這個題材現在是不是當紅。
+
+輸入是一批題材，每個附上名稱、所屬分類、一句話論點。這不是要你看今天的盤面，
+是憑你對台股產業鏈的既有知識，回答「這個題材如果真的成立，通常會由哪些台股
+上市/上櫃公司代表」。
+
+任務：針對每一檔題材，輸出：
+1. stocks：2-6 檔最具代表性的台股個股（code 是 4 位數股票代號，不確定代號正確性
+   時寧可少列，不要瞎猜代號；找不到明確代表股就給空陣列，不要硬湊）
+2. summary：用一句話重新確認或微調這個題材的論點（可以跟輸入的論點一樣，
+   如果你有更精確的說法也可以微調，但不要憑空編造沒有根據的細節）
+
+只輸出 JSON，不要 markdown 標記，key 是題材名稱：
+{
+  "題材名稱": {"stocks": [{"code": "1234", "name": "公司名"}], "summary": "..."}
+}"""
+
+
+def catalog_theme_research_batch(themes: list[dict]) -> dict[str, dict]:
+    """themes = [{"name":, "category":, "summary":(=論點)}, ...]"""
+    if DRY_RUN:
+        return mock.catalog_theme_research_batch(themes)
+
+    if not themes:
+        return {}
+
+    lines = []
+    for t in themes:
+        lines.append(f"{t['name']}（{t.get('category', '')}）：{t.get('summary', '')}")
+    user = "\n".join(lines)
+
+    try:
+        return _parse_json(_call(CATALOG_RESEARCH_SYSTEM, user, 6000))
+    except Exception as exc:
+        print(f"[llm] 題材目錄研究失敗：{exc}")
         return {}
 
 
