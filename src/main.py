@@ -210,52 +210,104 @@ def process_catalog_deep_dives(cfg: dict, today: str) -> int:
     return len(batch)
 
 
+def _all_market_codes() -> list[dict]:
+    """全市場個股清單（上市＋上櫃＋興櫃），來自 render_lookup_page 產的
+    stock_index.json，加上興櫃基本資料。回傳 [{code, name, market}, ...]。"""
+    docs = Path(__file__).resolve().parent.parent / "docs" / "data"
+    out: dict[str, dict] = {}
+    try:
+        idx = json.loads((docs / "stock_index.json").read_text(encoding="utf-8"))
+        for s in idx.get("stocks", []):
+            code = str(s.get("code", "")).strip()
+            if code.isdigit() and len(code) == 4:
+                out[code] = {"code": code, "name": s.get("name", ""),
+                             "market": s.get("market", "twse")}
+    except Exception:
+        pass
+    for code, dt in _safe(tpex.fetch_esb_listing_dates, {}, "興櫃基本資料").items():
+        out.setdefault(code, {"code": code, "name": "", "market": "esb"})
+    return list(out.values())
+
+
+def sync_company_profiles(today: str, limit: int = 300) -> int:
+    """把公司基本資料（主要經營業務等申報值）抓進 company_profile 表。
+    這是 company_desc／SWOT 唯一可以依據的事實來源——絕對不要用股票名稱或
+    產業分類去推測公司在做什麼。營業項目幾乎不變，抓過的就跳過。"""
+    import time
+
+    universe = _all_market_codes()
+    if not universe:
+        print("[profile] 沒有全市場清單（先跑一次盤後產生 stock_index.json）")
+        return 0
+    have = db.company_profile_codes()
+    pending = [s for s in universe if s["code"] not in have]
+    if not pending:
+        print(f"[profile] 全市場 {len(universe)} 檔公司基本資料都齊了")
+        return 0
+
+    written = 0
+    for s in pending[:limit]:
+        prof = _safe(lambda: mops.fetch_company_profile(s["code"]), {},
+                     f"{s['code']} 公司基本資料")
+        if prof.get("business"):
+            db.upsert_company_profile(s["code"], prof, s.get("market", ""), today)
+            written += 1
+        time.sleep(0.4)
+    print(f"[profile] 本批抓到 {written} 檔（全市場尚缺 {len(pending) - written} 檔）")
+    return written
+
+
+def sync_monthly_revenue(today: str) -> int:
+    """全市場月營收（政府開放資料）寫進 monthly_revenue 表，當基本面事實依據。"""
+    rows = _safe(mops.fetch_monthly_revenue, {}, "全市場月營收")
+    for code, rev in rows.items():
+        db.upsert_monthly_revenue(code, rev["period"], rev, today)
+    print(f"[fundamental] 月營收寫入 {len(rows)} 檔")
+    return len(rows)
+
+
 def process_stock_swot_batch(cfg: dict, today: str) -> int:
     """替「系統實際分析過、會出現在網站上」的個股補公司介紹＋SWOT，逐批補齊。
-    名單刻意只取：評分頁 rows、追蹤中題材的相關個股、選股雷達的起漲點／黑馬
-    （不含新掛牌那段——那裡有大量興櫃殼股，LLM 容易憑名字瞎猜出錯）。
-    公司介紹／SWOT 是相對穩定的資訊，產一次可重用很久（refresh_days 之後才刷新）。
-    llm.company_swot_batch 的 prompt 已要求「不確定的公司整檔略過」，寧缺勿錯。"""
+    名單＝所有已經抓到「主要經營業務」（company_profile.business）的個股，
+    也就是全市場都會輪到——因為 company_desc 是從申報的營業項目改寫，不是
+    憑股票名稱猜，所以擴大到全市場也不會再出現寫錯公司在做什麼的問題。
+    沒有營業項目的個股一律跳過（llm 那邊也會再擋一次）。
+    公司介紹／SWOT 是相對穩定的資訊，產一次可重用很久（refresh_days 之後才刷新）。"""
     sw = cfg.get("stock_swot", {})
-    docs = Path(__file__).resolve().parent.parent / "docs" / "data"
 
-    def _read(name):
-        p = docs / name
-        try:
-            return json.loads(p.read_text(encoding="utf-8")) if p.exists() else {}
-        except Exception:
-            return {}
-
-    universe: dict[str, dict] = {}
-
-    def _add(code, name):
-        code = (code or "").strip()
-        if code and code not in universe:
-            universe[code] = {"code": code, "name": name or "", "industry": ""}
-
-    for r in _read("scores.json").get("rows", []):
-        _add(str(r.get("code", "")), r.get("name", ""))
-    picks = _read("picks.json")
-    for key in ("breakout", "dark_horses"):
-        for r in picks.get(key, []):
-            _add(str(r.get("code", "")), r.get("name", ""))
-    for t in _safe(db.active_theme_stocks, [], "題材相關個股"):
-        _add(t.get("code", ""), t.get("name", ""))
-
-    if not universe:
-        print("[swot] 沒有可補的個股名單（評分頁／題材／選股雷達都空），略過")
+    profiles = db.all_company_profiles()
+    if not profiles:
+        print("[swot] 還沒有公司基本資料，先跑 sync_company_profiles 再產 SWOT")
         return 0
 
+    revenue = db.latest_monthly_revenue()
+    themes_by_code: dict[str, list[str]] = {}
+    for t in _safe(db.list_themes_with_stocks, [], "題材相關個股"):
+        for s in t.get("stocks", []):
+            code = str(s.get("code", "")).strip()
+            if code:
+                themes_by_code.setdefault(code, []).append(t["name"])
+
+    names = {c: r.get("name", "") for c, r in revenue.items()}
     have = db.stock_analysis_codes(today, sw.get("refresh_days", 180))
-    pending = [s for s in universe.values() if s["code"] not in have]
+    pending = [c for c in sorted(profiles) if c not in have]
     if not pending:
-        print("[swot] 已分析個股的 SWOT 都補齊了")
+        print(f"[swot] 全市場 {len(profiles)} 檔（有營業項目的）SWOT 都補齊了")
         return 0
 
-    batch = pending[: sw.get("batch_size", 60)]
-    result = _safe(lambda: llm.company_swot_batch(
-        [{"code": s["code"], "name": s.get("name", ""), "industry": s.get("industry", "")}
-         for s in batch]), {}, "公司介紹／SWOT")
+    batch_codes = pending[: sw.get("batch_size", 60)]
+    batch = []
+    for code in batch_codes:
+        p = profiles[code]
+        batch.append({
+            "code": code,
+            "name": names.get(code) or p.get("full_name", ""),
+            "industry": p.get("industry", ""),
+            "business": p.get("business", ""),
+            "rev": revenue.get(code, {}),
+            "themes": themes_by_code.get(code, []),
+        })
+    result = _safe(lambda: llm.company_swot_batch(batch), {}, "公司介紹／SWOT")
     written = 0
     for s in batch:
         a = result.get(s["code"])
@@ -280,6 +332,9 @@ def snapshot_offmarket_history(codes: dict[str, str], cfg: dict) -> int:
     out_dir.mkdir(parents=True, exist_ok=True)
     limit = int(cfg.get("stock_swot", {}).get("snapshot_limit", 50))
     fresh_before = datetime.utcnow() - timedelta(days=2)
+    # 興櫃歷史端點只有「日均價」，看盤說的股價是「成交（最後成交價）」，
+    # 要另外從當日行情表補，否則彈窗顯示的價格會跟 TPEx 網站對不起來。
+    esb_pricing = _safe(tpex.fetch_esb_pricing, {}, "興櫃當日行情")
 
     done = 0
     for code, name in list(codes.items()):
@@ -300,11 +355,14 @@ def snapshot_offmarket_history(codes: dict[str, str], cfg: dict) -> int:
                     {"bars": [], "market": ""}, f"{code} 上櫃/興櫃歷史")
         if not res.get("bars"):
             continue
-        fp.write_text(json.dumps({
+        payload = {
             "code": code, "name": name, "market": res["market"],
             "updated": datetime.utcnow().isoformat(timespec="seconds"),
             "bars": res["bars"],
-        }, ensure_ascii=False), encoding="utf-8")
+        }
+        if res["market"] == "esb" and code in esb_pricing:
+            payload["latest"] = esb_pricing[code]
+        fp.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
         done += 1
     print(f"[otc-hist] 快照 {done} 檔上櫃／興櫃日K（docs/data/tpex_hist/）")
     return done

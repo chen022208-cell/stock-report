@@ -108,6 +108,37 @@ CREATE TABLE IF NOT EXISTS stock_analysis (
     updated_at    TEXT NOT NULL
 );
 
+-- 公司基本資料：公開資訊觀測站 t05st03 的申報值，是「公司在做什麼」的事實依據。
+-- company_desc／SWOT 一律要以 business 這欄為基礎產出，不可以用股票名稱或
+-- 產業分類去推測（2026-09 曾因此把做乳房重建的 7686 捷立康寫成 PCB 廠）。
+CREATE TABLE IF NOT EXISTS company_profile (
+    code        TEXT PRIMARY KEY,
+    full_name   TEXT,
+    industry    TEXT,               -- 產業類別（申報值）
+    business    TEXT,               -- 主要經營業務（申報值，權威來源）
+    capital     TEXT,               -- 實收資本額
+    founded     TEXT,               -- 公司成立日期（民國）
+    listed      TEXT,               -- 上市/上櫃/興櫃日期（民國，取最早有值的）
+    market      TEXT,               -- twse / tpex / esb
+    chairman    TEXT,
+    gm          TEXT,
+    website     TEXT,
+    updated_at  TEXT NOT NULL
+);
+
+-- 每月營收：基本面的事實資料（政府開放資料，不經 LLM）
+CREATE TABLE IF NOT EXISTS monthly_revenue (
+    code        TEXT NOT NULL,
+    period      TEXT NOT NULL,      -- YYYY-MM
+    revenue     REAL,               -- 當月營收（千元）
+    yoy         REAL,               -- 去年同月增減(%)
+    mom         REAL,               -- 上月比較增減(%)
+    cum_revenue REAL,               -- 當年累計營收（千元）
+    cum_yoy     REAL,               -- 前期比較增減(%)
+    updated_at  TEXT NOT NULL,
+    PRIMARY KEY (code, period)
+);
+
 -- 小型鍵值狀態表：目前只用來記「Google 表單試算表處理到哪一筆時間戳記」，
 -- 之後有其他需要跨執行記憶一個小狀態的地方也可以共用，不用每個都開一張表
 CREATE TABLE IF NOT EXISTS app_state (
@@ -237,6 +268,23 @@ def list_catalog_themes() -> list[dict]:
             "SELECT * FROM themes WHERE status='catalog' ORDER BY category, name"
         ).fetchall()
         return [dict(r) for r in rows]
+
+
+def list_themes_with_stocks() -> list[dict]:
+    """所有還在追蹤／有分析的題材及其相關個股，給個股頁反查「這檔屬於哪些題材」。"""
+    out = []
+    with get_conn() as conn:
+        rows = conn.execute(
+            """SELECT name, status, related_stocks FROM themes
+               WHERE related_stocks IS NOT NULL AND related_stocks != ''""").fetchall()
+    for r in rows:
+        try:
+            stocks = json.loads(r["related_stocks"] or "[]")
+        except Exception:
+            continue
+        if stocks:
+            out.append({"name": r["name"], "status": r["status"], "stocks": stocks})
+    return out
 
 
 def active_theme_stocks() -> list[dict]:
@@ -422,6 +470,76 @@ def get_supply_chain(theme_id: int) -> dict | None:
 
 
 # ── 個股公司介紹＋SWOT（全市場逐批補齊）──────────────
+def upsert_company_profile(code: str, prof: dict, market: str, today: str) -> None:
+    with get_conn() as conn:
+        conn.execute(
+            """INSERT INTO company_profile
+                 (code, full_name, industry, business, capital, founded, listed,
+                  market, chairman, gm, website, updated_at)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
+               ON CONFLICT(code) DO UPDATE SET
+                 full_name=excluded.full_name, industry=excluded.industry,
+                 business=excluded.business, capital=excluded.capital,
+                 founded=excluded.founded, listed=excluded.listed,
+                 market=excluded.market, chairman=excluded.chairman,
+                 gm=excluded.gm, website=excluded.website,
+                 updated_at=excluded.updated_at""",
+            (code, prof.get("full_name", ""), prof.get("industry", ""),
+             prof.get("business", ""), prof.get("capital", ""),
+             prof.get("founded", ""),
+             prof.get("listed_twse") or prof.get("listed_tpex") or prof.get("listed_esb") or "",
+             market, prof.get("chairman", ""), prof.get("gm", ""),
+             prof.get("website", ""), today),
+        )
+
+
+def get_company_profile(code: str) -> dict | None:
+    with get_conn() as conn:
+        row = conn.execute("SELECT * FROM company_profile WHERE code=?", (code,)).fetchone()
+        return dict(row) if row else None
+
+
+def company_profile_codes() -> set[str]:
+    """已經抓過公司基本資料的代號。營業項目是幾乎不變的資料，抓過就不用重抓。"""
+    with get_conn() as conn:
+        return {r["code"] for r in conn.execute(
+            "SELECT code FROM company_profile WHERE business != ''").fetchall()}
+
+
+def all_company_profiles() -> dict[str, dict]:
+    with get_conn() as conn:
+        rows = conn.execute(
+            """SELECT code, full_name, industry, business, capital, founded,
+                      listed, market, website FROM company_profile
+               WHERE business != ''""").fetchall()
+    return {r["code"]: dict(r) for r in rows}
+
+
+def upsert_monthly_revenue(code: str, period: str, rev: dict, today: str) -> None:
+    with get_conn() as conn:
+        conn.execute(
+            """INSERT INTO monthly_revenue
+                 (code, period, revenue, yoy, mom, cum_revenue, cum_yoy, updated_at)
+               VALUES (?,?,?,?,?,?,?,?)
+               ON CONFLICT(code, period) DO UPDATE SET
+                 revenue=excluded.revenue, yoy=excluded.yoy, mom=excluded.mom,
+                 cum_revenue=excluded.cum_revenue, cum_yoy=excluded.cum_yoy,
+                 updated_at=excluded.updated_at""",
+            (code, period, rev.get("revenue"), rev.get("yoy"), rev.get("mom"),
+             rev.get("cum_revenue"), rev.get("cum_yoy"), today),
+        )
+
+
+def latest_monthly_revenue() -> dict[str, dict]:
+    """每檔最新一期的月營收。給前端基本面區塊與 SWOT 產出當事實依據。"""
+    with get_conn() as conn:
+        rows = conn.execute(
+            """SELECT m.* FROM monthly_revenue m
+               JOIN (SELECT code, MAX(period) AS p FROM monthly_revenue GROUP BY code) x
+                 ON m.code = x.code AND m.period = x.p""").fetchall()
+    return {r["code"]: dict(r) for r in rows}
+
+
 def upsert_stock_analysis(code: str, name: str, company_desc: str,
                           swot: dict, today: str) -> None:
     with get_conn() as conn:

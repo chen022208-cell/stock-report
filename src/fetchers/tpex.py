@@ -305,3 +305,45 @@ def fetch_offmarket_daily_history(code: str, months: int = 8) -> dict:
     if bars:
         return {"bars": bars, "market": "esb"}
     return {"bars": [], "market": ""}
+
+
+def fetch_esb_pricing() -> dict[str, dict]:
+    """興櫃「當日行情表」完整欄位，對齊 tpex.org.tw/zh-tw/esb/trading/info/pricing.html
+    那張表：前日均價／報買價／報賣價／日最高／日最低／日均價／成交／成交量。
+
+    重點：一般看盤說的「股價」是 LatestPrice（該表的「成交」欄），不是 Average
+    （「日均價」）。興櫃歷史行情端點只給得到日均價，所以最新報價要靠這支補。
+    """
+    if DRY_RUN:
+        return {}
+    rows = _get("tpex_esb_latest_statistics")
+    if not rows:
+        return {}
+    out: dict[str, dict] = {}
+    for row in rows:
+        code = str(row.get("SecuritiesCompanyCode", "")).strip()
+        if not _is_stock_code(code):
+            continue
+        price = _num(row.get("LatestPrice"))
+        prev = _num(row.get("PreviousAveragePrice"))
+        if price <= 0:
+            continue
+        raw_date = str(row.get("Date", "")).strip()      # 民國 1150904
+        iso = ""
+        if len(raw_date) == 7 and raw_date.isdigit():
+            iso = f"{int(raw_date[:3]) + 1911}-{raw_date[3:5]}-{raw_date[5:]}"
+        out[code] = {
+            "date": iso,
+            "name": str(row.get("CompanyName", "")).strip(),
+            "price": price,                              # 成交（最後成交價）
+            "prev_avg": prev,                            # 前日均價
+            "change": round(price - prev, 2) if prev > 0 else 0.0,
+            "change_pct": round((price - prev) / prev * 100, 2) if prev > 0 else 0.0,
+            "high": _num(row.get("Highest")),
+            "low": _num(row.get("Lowest")),
+            "avg": _num(row.get("Average")),             # 日均價
+            "bid": _num(row.get("BuyingPrice")),
+            "ask": _num(row.get("SellingPrice")),
+            "volume": _num(row.get("TransactionVolume")),
+        }
+    return out

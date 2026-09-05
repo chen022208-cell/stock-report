@@ -437,7 +437,7 @@ def render_site() -> list[Path]:
     return [render_index(), render_archive(), render_themes_page(), render_lookup_page(),
             render_submit_page(), render_research_notes(),
             render_weekly_index(), render_monthly_deep_index(), render_picks_page(),
-            render_stock_analysis_json()]
+            render_stock_analysis_json(), render_stock_info()]
 
 
 def render_stock_analysis_json() -> Path:
@@ -445,6 +445,77 @@ def render_stock_analysis_json() -> Path:
     個股查詢頁的前端 JS 直接讀這個，點展開就看得到公司分析，不用後端。"""
     _write_json("stock_analysis", db.all_stock_analysis())
     return DOCS_DIR / "data" / "stock_analysis.json"
+
+
+def render_stock_info() -> Path:
+    """每檔個股一份 docs/data/stock_info/<code>.json，內容分成三層：
+
+    1. profile：公司基本資料（公開資訊觀測站申報值，事實）
+    2. rev：最新月營收＋YoY/MoM（政府開放資料，事實）
+    3. themes / desc / swot：本站題材歸類與 LLM 產出的判讀（明確標示為判讀）
+
+    做成一檔一個小檔案而不是一份大 JSON，是因為全市場有 2300 檔，
+    彈窗只需要當下那一檔，不用讓每個頁面都載入幾 MB。
+    """
+    profiles = db.all_company_profiles()
+    revenue = db.latest_monthly_revenue()
+    analysis = db.all_stock_analysis()
+    themes_by_code: dict[str, list[str]] = {}
+    for t in db.list_themes_with_stocks():
+        for s in t.get("stocks", []):
+            code = str(s.get("code", "")).strip()
+            if code:
+                themes_by_code.setdefault(code, [])
+                if t["name"] not in themes_by_code[code]:
+                    themes_by_code[code].append(t["name"])
+
+    names = {}
+    try:
+        idx = json.loads((DOCS_DIR / "data" / "stock_index.json").read_text(encoding="utf-8"))
+        names = {s["code"]: s.get("name", "") for s in idx.get("stocks", []) if s.get("code")}
+    except Exception:
+        pass
+
+    out_dir = DOCS_DIR / "data" / "stock_info"
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    # 有後端快照的上櫃／興櫃也要有檔案：前端靠 profile.market 決定要不要
+    # 直接走快照，沒有這個標記就會先白打 36 次必定失敗的 TWSE 請求。
+    snap_market = {}
+    for p in (DOCS_DIR / "data" / "tpex_hist").glob("*.json"):
+        try:
+            snap_market[p.stem] = json.loads(p.read_text(encoding="utf-8")).get("market", "")
+        except Exception:
+            continue
+
+    codes = set(profiles) | set(revenue) | set(analysis) | set(themes_by_code) | set(snap_market)
+    index = []
+    for code in sorted(codes):
+        prof = dict(profiles.get(code, {}))
+        if not prof.get("market") and snap_market.get(code):
+            prof["market"] = snap_market[code]
+        rev = revenue.get(code, {})
+        ana = analysis.get(code, {})
+        payload = {
+            "code": code,
+            "name": ana.get("name") or rev.get("name") or names.get(code, ""),
+            "profile": {k: prof.get(k, "") for k in
+                        ("full_name", "industry", "business", "capital",
+                         "founded", "listed", "market", "website")} if prof else {},
+            "rev": {k: rev.get(k) for k in
+                    ("period", "revenue", "yoy", "mom", "cum_revenue", "cum_yoy")} if rev else {},
+            "themes": themes_by_code.get(code, []),
+            "desc": ana.get("company_desc", ""),
+            "swot": ana.get("swot", {}),
+            "updated": ana.get("updated_at", ""),
+        }
+        (out_dir / f"{code}.json").write_text(
+            json.dumps(payload, ensure_ascii=False), encoding="utf-8")
+        index.append(code)
+
+    _write_json("stock_info_index", {"codes": index})
+    print(f"[render] 個股資料頁 {len(index)} 檔（docs/data/stock_info/）")
+    return DOCS_DIR / "data" / "stock_info_index.json"
 
 
 def save_picks(breakout: list, new_listings: list, dark_horses: list, date_label_str: str) -> None:

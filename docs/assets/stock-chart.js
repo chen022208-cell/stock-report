@@ -11,10 +11,12 @@
   var MONTHS_BACK = 36;
   var LS_PREFIX = "sc_hist_v1_";
 
-  // ── 公司介紹＋SWOT（每天盤後逐批補齊，存在 docs/data/stock_analysis.json）──
-  // 這份是後端 LLM 事先算好的靜態資料，跟即時股價圖無關；上櫃／興櫃個股圖表
-  // 抓不到即時 K 線時，至少還能在彈窗裡看到公司在做什麼與結構性優劣勢。
-  var swotPromise = null;
+  // ── 個股資料（docs/data/stock_info/<code>.json，每檔一個小檔案）──
+  // 內容刻意分三層並在畫面上標示來源，避免把「判讀」講得像「事實」：
+  //   profile → 公開資訊觀測站申報值（公司到底在做什麼，事實）
+  //   rev     → 政府開放資料的月營收（事實）
+  //   themes / desc / swot → 本站題材歸類與 LLM 判讀（明確標為判讀）
+  var infoCache = {};
 
   function assetBase() {
     var s = document.querySelector('script[src*="stock-chart.js"]');
@@ -23,13 +25,13 @@
     return m ? m[1] : "";
   }
 
-  function loadSwot() {
-    if (!swotPromise) {
-      swotPromise = fetch(assetBase() + "data/stock_analysis.json")
-        .then(function (r) { return r.ok ? r.json() : {}; })
-        .catch(function () { return {}; });
+  function loadInfo(code) {
+    if (!infoCache[code]) {
+      infoCache[code] = fetch(assetBase() + "data/stock_info/" + code + ".json")
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .catch(function () { return null; });
     }
-    return swotPromise;
+    return infoCache[code];
   }
 
   function esc(s) {
@@ -38,30 +40,92 @@
     });
   }
 
-  function swotHtml(entry) {
-    if (!entry || !entry.company_desc) return "";
-    var sw = entry.swot || {};
+  function fmtMoney(thousands) {
+    if (thousands == null) return "-";
+    var yi = thousands / 100000;           // 千元 → 億元
+    if (Math.abs(yi) >= 1) return yi.toFixed(2) + " 億";
+    return (thousands / 10000).toFixed(2) + " 千萬";
+  }
+
+  function pct(v) {
+    if (v == null) return "-";
+    return (v >= 0 ? "+" : "") + v.toFixed(2) + "%";
+  }
+
+  function profileHtml(info) {
+    var p = info.profile || {};
+    if (!p.business && !p.industry) return "";
+    function row(label, val) {
+      return val ? '<div class="sc-kv"><span>' + label + '</span><b>' + esc(val) + "</b></div>" : "";
+    }
+    var site = p.website
+      ? '<div class="sc-kv"><span>公司網站</span><b><a href="' + esc(p.website)
+        + '" target="_blank" rel="noopener">' + esc(p.website) + "</a></b></div>" : "";
+    return '<div class="sc-sec">'
+      + '<div class="sc-sec-h">公司基本資料 <span class="sc-src">公開資訊觀測站申報值</span></div>'
+      + (p.business ? '<p class="sc-biz"><b>主要經營業務：</b>' + esc(p.business) + "</p>" : "")
+      + '<div class="sc-kv-grid">'
+      + row("公司全名", p.full_name) + row("產業類別", p.industry)
+      + row("實收資本額", p.capital) + row("成立日期", p.founded)
+      + row("掛牌日期", p.listed) + site
+      + "</div></div>";
+  }
+
+  function revenueHtml(info) {
+    var r = info.rev || {};
+    if (!r.period || r.revenue == null) return "";
+    function cell(label, val, cls) {
+      return '<div class="sc-fund-cell"><h5>' + label + '</h5><p class="' + (cls || "")
+        + '">' + val + "</p></div>";
+    }
+    var yoyCls = r.yoy == null ? "" : (r.yoy >= 0 ? "up" : "down");
+    var momCls = r.mom == null ? "" : (r.mom >= 0 ? "up" : "down");
+    var cumCls = r.cum_yoy == null ? "" : (r.cum_yoy >= 0 ? "up" : "down");
+    return '<div class="sc-sec">'
+      + '<div class="sc-sec-h">基本面 · ' + esc(r.period) + ' 月營收 '
+      + '<span class="sc-src">公開資訊觀測站申報值</span></div>'
+      + '<div class="sc-fund-grid">'
+      + cell("當月營收", fmtMoney(r.revenue))
+      + cell("年增 YoY", pct(r.yoy), yoyCls)
+      + cell("月增 MoM", pct(r.mom), momCls)
+      + cell("今年累計", fmtMoney(r.cum_revenue))
+      + cell("累計年增", pct(r.cum_yoy), cumCls)
+      + "</div></div>";
+  }
+
+  function themesHtml(info) {
+    var t = info.themes || [];
+    if (!t.length) return "";
+    return '<div class="sc-sec">'
+      + '<div class="sc-sec-h">相關題材 <span class="sc-src">本站題材知識庫歸類</span></div>'
+      + '<div class="sc-theme-tags">'
+      + t.map(function (n) { return '<span class="sc-theme-tag">' + esc(n) + "</span>"; }).join("")
+      + "</div></div>";
+  }
+
+  function swotHtml(info) {
+    if (!info.desc) return "";
+    var sw = info.swot || {};
     function cell(title, val) {
       if (!val) return "";
       return '<div class="sc-swot-cell"><h5>' + title + '</h5><p>' + esc(val) + "</p></div>";
     }
     var grid = cell("優勢 S", sw.strengths) + cell("劣勢 W", sw.weaknesses)
              + cell("機會 O", sw.opportunities) + cell("威脅 T", sw.threats);
-    return '<div class="sc-swot">'
-      + '<div class="sc-swot-h">公司介紹與 SWOT</div>'
-      + '<p class="sc-swot-desc">' + esc(entry.company_desc) + "</p>"
+    return '<div class="sc-sec sc-swot">'
+      + '<div class="sc-sec-h">公司介紹與 SWOT <span class="sc-src sc-src-warn">系統判讀，非官方說法</span></div>'
+      + '<p class="sc-swot-desc">' + esc(info.desc) + "</p>"
       + (grid ? '<div class="sc-swot-grid">' + grid + "</div>" : "")
-      + (entry.updated_at ? '<p class="sc-swot-updated">分析更新：' + esc(entry.updated_at)
-          + '　·　系統依公開資訊整理，僅供研究參考</p>' : "")
+      + (info.updated ? '<p class="sc-swot-updated">判讀更新：' + esc(info.updated)
+          + '　·　依上方申報的營業項目與營收數據推導，僅供研究參考</p>' : "")
       + "</div>";
   }
 
   function appendSwot(bodyEl, code) {
-    loadSwot().then(function (map) {
-      var html = swotHtml(map && map[code]);
-      if (html && bodyEl && bodyEl.isConnected !== false) {
-        bodyEl.insertAdjacentHTML("beforeend", html);
-      }
+    loadInfo(code).then(function (info) {
+      if (!info || !bodyEl || bodyEl.isConnected === false) return;
+      var html = profileHtml(info) + revenueHtml(info) + themesHtml(info) + swotHtml(info);
+      if (html) bodyEl.insertAdjacentHTML("beforeend", html);
     });
   }
 
@@ -504,17 +568,34 @@
     var prev = daily.length > 1 ? daily[daily.length - 2] : null;
     var chg = prev ? last.close - prev.close : 0;
     var chgPct = prev && prev.close ? (chg / prev.close * 100) : 0;
+    var headPrice = last.close, headDate = last.date;
+    // 興櫃：看盤說的股價是「成交（最後成交價）」，不是歷史端點只給得到的日均價。
+    // 有當日行情表資料時，標題價格一律用「成交」，跟 TPEx 網站對得起來。
+    var q = opts.latest;
+    if (q && q.price) {
+      headPrice = q.price; headDate = q.date || headDate;
+      chg = q.change; chgPct = q.change_pct;
+    }
     var upCls = chg >= 0 ? "up" : "down";
 
     body.innerHTML = '<h3 class="sc-title">' + code + ' ' + (name || "") + '</h3>'
       + '<div class="sc-price-row">'
-      + '<span class="sc-price mono">' + fmt(last.close) + '</span>'
+      + '<span class="sc-price mono">' + fmt(headPrice) + '</span>'
       + '<span class="sc-chg mono ' + upCls + '">' + (chg >= 0 ? "▲" : "▼") + ' '
       + fmt(Math.abs(chg)) + '（' + (chgPct >= 0 ? "+" : "") + chgPct.toFixed(2) + '%）</span>'
-      + '<span class="sc-date">' + last.date + '</span>'
+      + '<span class="sc-date">' + headDate + '</span>'
       + '</div>'
+      + (q ? '<div class="sc-quote-row">'
+          + '<span>成交 <b class="mono">' + fmt(q.price) + '</b></span>'
+          + '<span>日均價 <b class="mono">' + fmt(q.avg) + '</b></span>'
+          + '<span>日最高 <b class="mono">' + fmt(q.high) + '</b></span>'
+          + '<span>日最低 <b class="mono">' + fmt(q.low) + '</b></span>'
+          + '<span>報買 <b class="mono">' + fmt(q.bid) + '</b></span>'
+          + '<span>報賣 <b class="mono">' + fmt(q.ask) + '</b></span>'
+          + '<span>前日均價 <b class="mono">' + fmt(q.prev_avg) + '</b></span>'
+          + '</div>' : "")
       + (opts.avgPriceNote
-          ? '<p class="sc-snapshot-note">興櫃是議價／搓合市場，沒有開盤收盤價，此圖以每日成交<b>加權平均價</b>當收盤、當日最高最低為影線，僅供趨勢參考。</p>'
+          ? '<p class="sc-snapshot-note">興櫃是議價／搓合市場，沒有開盤收盤價。上方<b>成交</b>是最後成交價（跟 TPEx 當日行情表同一欄）；下方 K 線因為歷史資料只提供<b>日均價</b>，是以日均價當收盤、日最高最低為影線的均價走勢，兩者本來就會有落差。</p>'
           : "")
       + '<div class="sc-tf-tabs">'
       + '<button class="sc-tf active" data-tf="day">日</button>'
@@ -582,6 +663,26 @@
     appendSwot(body, code);
   }
 
+  // 上櫃／興櫃走本站快照（TWSE 端點沒有這些代號，硬打會是 36 個必定失敗的請求）
+  function openFromSnapshot(body, code, name) {
+    return fetch(assetBase() + "data/tpex_hist/" + code + ".json")
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (snap) {
+        if (snap && snap.bars && snap.bars.length >= 2) {
+          var esb = snap.market === "esb";
+          renderReport(body, code, name || snap.name, snap.bars, {
+            avgPriceNote: esb,
+            latest: snap.latest,
+            source: (esb ? "資料來源：TPEx 興櫃當日行情表＋歷史行情" : "資料來源：TPEx 上櫃每日成交資訊")
+              + "，本站盤後快照（非即時，更新於 " + String(snap.updated || "").slice(0, 10) + "）",
+          });
+        } else {
+          showNoPrice(body, code, name);
+        }
+      })
+      .catch(function () { showNoPrice(body, code, name); });
+  }
+
   function open(code, name) {
     var m = ensureModal();
     var body = document.getElementById("sc-modal-body");
@@ -589,27 +690,18 @@
       + '<p class="sc-loading">讀取股價資料中…</p>';
     m.classList.add("open");
 
-    fetchHistory(code).then(function (daily) {
-      if (daily.length) {
-        renderReport(body, code, name, daily, {});
-        return;
+    loadInfo(code).then(function (info) {
+      var market = info && info.profile ? info.profile.market : "";
+      if (market === "tpex" || market === "esb") {
+        return openFromSnapshot(body, code, name);
       }
-      // TWSE 端點沒這檔（上櫃／興櫃對瀏覽器沒開 CORS）→ 退而讀本站每日快照
-      fetch(assetBase() + "data/tpex_hist/" + code + ".json")
-        .then(function (r) { return r.ok ? r.json() : null; })
-        .then(function (snap) {
-          if (snap && snap.bars && snap.bars.length >= 2) {
-            var esb = snap.market === "esb";
-            renderReport(body, code, name || snap.name, snap.bars, {
-              avgPriceNote: esb,
-              source: (esb ? "資料來源：TPEx 興櫃每日成交統計" : "資料來源：TPEx 上櫃每日成交資訊")
-                + "，本站盤後快照（非即時，更新於 " + String(snap.updated || "").slice(0, 10) + "）",
-            });
-          } else {
-            showNoPrice(body, code, name);
-          }
-        })
-        .catch(function () { showNoPrice(body, code, name); });
+      return fetchHistory(code).then(function (daily) {
+        if (daily.length) {
+          renderReport(body, code, name, daily, {});
+          return;
+        }
+        return openFromSnapshot(body, code, name);
+      });
     }).catch(function (exc) {
       body.innerHTML = '<h3 class="sc-title">' + code + ' ' + (name || "") + '</h3>'
         + '<p class="sc-empty">讀取失敗：' + String(exc) + '</p>';

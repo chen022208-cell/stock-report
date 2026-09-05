@@ -381,25 +381,27 @@ def catalog_theme_research_batch(themes: list[dict]) -> dict[str, dict]:
 
 
 # ── 個股公司介紹＋SWOT（全市場逐批補齊，穩定資訊、不含當日漲跌原因）──
-COMPANY_SWOT_SYSTEM = """你是台股個股研究員，替一批股票各寫一份「公司是做什麼的」＋SWOT。
+COMPANY_SWOT_SYSTEM = """你是台股個股研究員。輸入是一批股票，每檔都附上「公開資訊觀測站申報的
+主要經營業務」、產業類別、最新月營收與年增率，以及本站歸類到的題材。
 
-【最重要：不確定就不要寫】
-- 只有當你「確實知道」這間公司實際在做什麼生意時才輸出該檔。
-- 絕對不要用股票名稱或產業分類去「推測」公司在做什麼——寧可整檔略過，也不要寫錯。
-  例如看到名字有「電」就猜電子、有「生技」就猜新藥，這種都不行。
-- 分類代號（半導體業、其他、電子零組件業…）只是粗略歸類，常常跟公司實際主業不符，不可當依據。
-- 興櫃、小型股、你沒把握的公司，直接不要放進輸出的 JSON。少寫沒關係，寫錯不行。
+【鐵則：公司在做什麼，只能根據附上的「主要經營業務」】
+- company_desc 必須是「主要經營業務」的白話改寫／濃縮，不可以加入那裡沒有的產品或客戶。
+- 絕對不可以用股票名稱或產業分類去推測公司在做什麼。看到名字有「電」就寫電子、
+  有「生技」就寫新藥——這種是嚴重錯誤（曾經把做乳房重建軟組織的公司寫成 PCB 廠）。
+- 如果附上的主要經營業務是空的或看不出在做什麼，該檔直接不要出現在輸出 JSON 裡。
+  少寫沒關係，寫錯不行。
+- 你自己另外知道的公司細節（具體客戶、產品代號、市占）除非非常確定，否則不要寫。
 
-對於你有把握的個股，輸出穩定、不會每天變的資訊：公司主業、產業鏈角色、結構性優劣勢。
-不要寫「今天為什麼漲跌」這種當日性內容。
+【SWOT 怎麼寫】
+- 依據只有兩個：上面那段營業項目，以及附上的營收數字與題材。
+- strengths / weaknesses / opportunities / threats 各 1-2 句。
+- 營收年增率可以拿來當成長性的佐證（例如「最新月營收年增 X%」），但不要把單月數字
+  當成長期趨勢的定論。
+- 沒有明確依據的判斷要標「（推論）」。「（推論）」只能用在優劣勢判讀，
+  不能用在「公司在做什麼」——主業一定要是申報事實。
+- 不使用投資建議語氣，不寫買賣點、不寫目標價。
 
-針對每一檔（你有把握的）輸出：
-1. company_desc：主要做什麼生意、在產業鏈的角色（1-2 句，具體到產品/客戶）
-2. swot：strengths / weaknesses / opportunities / threats，各 1-2 句
-   - 這裡的「（推論）」只能用在「優劣勢的判讀」，不能用在「公司在做什麼」——主業一定要是事實
-   - 不使用投資建議語氣
-
-只輸出 JSON，不要 markdown 標記，key 是股票代號；沒把握的個股直接不要出現在 JSON 裡：
+只輸出 JSON，不要 markdown 標記，key 是股票代號；沒把握的個股直接不要出現：
 {
   "1234": {
     "company_desc": "...",
@@ -409,17 +411,37 @@ COMPANY_SWOT_SYSTEM = """你是台股個股研究員，替一批股票各寫一�
 
 
 def company_swot_batch(stocks: list[dict]) -> dict[str, dict]:
-    """stocks = [{"code":, "name":, "industry":（可選）}, ...]，一次一批省成本。"""
+    """stocks = [{code, name, industry, business, rev, themes}, ...]。
+
+    business（公開資訊觀測站申報的主要經營業務）是必要欄位——沒有它就不送給
+    LLM，因為那正是 2026-09 憑股票名稱瞎猜而寫錯公司的根因。
+    """
     if DRY_RUN:
         return mock.company_swot_batch()
-    if not stocks:
+    grounded = [s for s in stocks if (s.get("business") or "").strip()]
+    if not grounded:
         return {}
-    lines = []
-    for s in stocks:
-        ind = f"（{s['industry']}）" if s.get("industry") else ""
-        lines.append(f"{s['code']} {s['name']}{ind}")
+
+    blocks = []
+    for s in grounded:
+        parts = [f"股票代號：{s['code']}　名稱：{s.get('name', '')}"]
+        if s.get("industry"):
+            parts.append(f"產業類別：{s['industry']}")
+        parts.append(f"主要經營業務（申報值）：{s['business']}")
+        rev = s.get("rev") or {}
+        if rev.get("revenue") is not None:
+            parts.append(
+                f"最新月營收（{rev.get('period', '')}）：{rev['revenue']:,.0f} 千元"
+                + (f"，年增 {rev['yoy']:.1f}%" if rev.get("yoy") is not None else "")
+                + (f"，月增 {rev['mom']:.1f}%" if rev.get("mom") is not None else "")
+                + (f"，累計年增 {rev['cum_yoy']:.1f}%" if rev.get("cum_yoy") is not None else "")
+            )
+        if s.get("themes"):
+            parts.append("本站歸類題材：" + "、".join(s["themes"]))
+        blocks.append("\n".join(parts))
+
     try:
-        return _parse_json(_call(COMPANY_SWOT_SYSTEM, "\n".join(lines), 16000))
+        return _parse_json(_call(COMPANY_SWOT_SYSTEM, "\n\n".join(blocks), 16000))
     except Exception as exc:
         print(f"[llm] 公司介紹／SWOT 產出失敗：{exc}")
         return {}

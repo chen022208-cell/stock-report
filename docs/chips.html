@@ -161,6 +161,30 @@
   .sc-grade{display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap;}
   .sc-notes{font-size:12.5px; color:var(--text-secondary);}
   .sc-disclaimer{font-size:11.5px; color:var(--text-muted); line-height:1.5;}
+  .sc-sec{margin:14px 0 4px; border-top:1px solid var(--hairline); padding-top:12px;}
+  .sc-sec-h{font-family:'Noto Serif TC',serif; font-size:14px; margin-bottom:8px;
+            color:var(--text-primary); display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .sc-src{font-family:'Noto Sans TC',sans-serif; font-size:10.5px; font-weight:400;
+          color:var(--text-muted); border:1px solid var(--hairline);
+          border-radius:999px; padding:1px 8px;}
+  .sc-src-warn{color:var(--gold); border-color:var(--gold);}
+  .sc-biz{font-size:13px; color:var(--text-secondary); line-height:1.7; margin-bottom:10px;}
+  .sc-kv-grid{display:grid; grid-template-columns:1fr 1fr; gap:4px 14px;}
+  .sc-kv{display:flex; gap:8px; font-size:12px; line-height:1.7;}
+  .sc-kv span{color:var(--text-muted); white-space:nowrap;}
+  .sc-kv b{color:var(--text-secondary); font-weight:400; word-break:break-all;}
+  .sc-kv a{color:var(--gold);}
+  .sc-fund-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:8px;}
+  .sc-fund-cell{background:var(--surface-2); border-radius:var(--radius-sm); padding:8px 6px; text-align:center;}
+  .sc-fund-cell h5{font-size:11px; margin:0 0 4px; color:var(--text-muted); font-weight:400;}
+  .sc-fund-cell p{font-size:13px; margin:0; font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
+  .sc-theme-tags{display:flex; flex-wrap:wrap; gap:6px;}
+  .sc-theme-tag{font-size:12px; background:var(--surface-2); border:1px solid var(--hairline);
+                border-radius:999px; padding:3px 10px; color:var(--text-secondary);}
+  @media (max-width:560px){
+    .sc-kv-grid{grid-template-columns:1fr;}
+    .sc-fund-grid{grid-template-columns:repeat(2,1fr);}
+  }
   .sc-swot{margin:14px 0 4px; border-top:1px solid var(--hairline); padding-top:12px;}
   .sc-swot-h{font-family:'Noto Serif TC',serif; font-size:14px; margin-bottom:6px; color:var(--text-primary);}
   .sc-swot-desc{font-size:13px; color:var(--text-secondary); line-height:1.65; margin-bottom:10px;}
@@ -169,6 +193,10 @@
   .sc-swot-cell h5{font-size:12px; margin:0 0 3px; color:var(--gold);}
   .sc-swot-cell p{font-size:12px; color:var(--text-secondary); line-height:1.55; margin:0;}
   .sc-swot-updated{font-size:11px; color:var(--text-muted); margin-top:8px;}
+  .sc-quote-row{display:flex; flex-wrap:wrap; gap:4px 14px; font-size:12px;
+                color:var(--text-secondary); background:var(--surface-2);
+                border-radius:var(--radius-sm); padding:8px 10px; margin-bottom:8px;}
+  .sc-quote-row b{font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
   .sc-snapshot-note{font-size:12px; color:var(--text-secondary); background:var(--surface-2);
                     border-left:3px solid var(--gold); border-radius:var(--radius-sm);
                     padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
@@ -577,7 +605,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 22:57</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 23:37</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
@@ -587,7 +615,7 @@
   }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=50ebc200"></script>
+<script src="assets/stock-chart.js?v=ca00fbd0"></script>
 
 </body>
 </html>

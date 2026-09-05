@@ -127,3 +127,115 @@ def fetch_upcoming_calls(days_ahead: int = 7) -> list[dict]:
         if today.isoformat() < c["date"] <= end.isoformat():
             upcoming.append(c)
     return upcoming
+
+
+# ── 公司基本資料（公開資訊觀測站 t05st03）────────────────────────
+# 這支是「公司到底在做什麼」的權威來源：回傳的「主要經營業務」是公司自己
+# 向主管機關申報的營業項目，比用股票名稱或產業分類去猜可靠得多。
+# 2026-09 曾經因為憑名字猜而把做乳房重建的 7686 捷立康寫成 PCB 廠，
+# 之後所有公司介紹／SWOT 一律要以這支回來的事實為基礎。
+PROFILE_URL = "https://mopsov.twse.com.tw/mops/web/ajax_t05st03"
+
+_PROFILE_LABELS = {
+    "主要經營業務": "business",
+    "產業類別": "industry",
+    "公司成立日期": "founded",
+    "上市日期": "listed_twse",
+    "上櫃日期": "listed_tpex",
+    "興櫃日期": "listed_esb",
+    "實收資本額": "capital",
+    "董事長": "chairman",
+    "總經理": "gm",
+    "公司網址": "website",
+    "英文簡稱": "eng_abbr",
+    "公司簡稱": "abbr",
+    "公司名稱": "full_name",
+}
+
+
+def fetch_company_profile(code: str) -> dict:
+    """單一個股的公司基本資料。回傳 {business, industry, capital, website, ...}，
+    抓不到就回空 dict（呼叫端要能接受沒有資料，不要自己編）。"""
+    if DRY_RUN:
+        return {}
+    import re
+
+    payload = {
+        "encodeURIComponent": "1", "step": "1", "firstin": "1", "off": "1",
+        "keyword4": "", "code1": "", "TYPEK2": "", "checkbtn": "",
+        "queryName": "co_id", "inpuType": "co_id", "TYPEK": "all", "co_id": code,
+    }
+    try:
+        resp = requests.post(PROFILE_URL, data=payload, headers=HEADERS, timeout=30)
+        resp.encoding = "utf-8"
+        html = resp.text
+    except Exception as exc:
+        print(f"[mops] {code} 公司基本資料擷取失敗：{exc}")
+        return {}
+
+    # 表格是 <td>標籤</td><td>值</td>，把標籤後面第一段文字抓出來
+    cells = [re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", c)).strip()
+             for c in re.split(r"</t[dh]>", html)]
+    out: dict = {}
+    for i, cell in enumerate(cells[:-1]):
+        key = _PROFILE_LABELS.get(cell.replace(" ", ""))
+        if key and key not in out:
+            value = cells[i + 1].replace("&nbsp", "").strip(" ;　").strip()
+            if value and value not in ("-", "--"):
+                out[key] = value
+    return out
+
+
+# ── 每月營收（政府開放資料，基本面的事實來源，不經 LLM）────────────
+REVENUE_SOURCES = [
+    ("twse", "https://openapi.twse.com.tw/v1/opendata/t187ap05_L"),
+    ("tpex", "https://www.tpex.org.tw/openapi/v1/mopsfin_t187ap05_O"),
+]
+
+
+def _rev_num(value) -> float | None:
+    if value is None:
+        return None
+    text = str(value).replace(",", "").strip()
+    if text in ("", "-", "--", "N/A"):
+        return None
+    try:
+        return float(text)
+    except ValueError:
+        return None
+
+
+def fetch_monthly_revenue() -> dict[str, dict]:
+    """全上市＋上櫃公司最新一期月營收。回傳 {代號: {period, revenue, yoy, mom, ...}}。
+    金額單位為千元，直接來自公開資訊觀測站申報值。"""
+    if DRY_RUN:
+        return {}
+
+    out: dict[str, dict] = {}
+    for market, url in REVENUE_SOURCES:
+        try:
+            rows = requests.get(url, headers=HEADERS, timeout=60).json()
+        except Exception as exc:
+            print(f"[mops] {market} 月營收擷取失敗：{exc}")
+            continue
+        if not isinstance(rows, list):
+            continue
+        for row in rows:
+            code = str(row.get("公司代號", "")).strip()
+            ym = str(row.get("資料年月", "")).strip()      # 民國 11507
+            if not (code.isdigit() and len(code) == 4 and len(ym) == 5):
+                continue
+            period = f"{int(ym[:3]) + 1911}-{ym[3:]}"
+            out[code] = {
+                "period": period,
+                "name": str(row.get("公司名稱", "")).strip(),
+                "industry": str(row.get("產業別", "")).strip(),
+                "market": market,
+                "revenue": _rev_num(row.get("營業收入-當月營收")),
+                "mom": _rev_num(row.get("營業收入-上月比較增減(%)")),
+                "yoy": _rev_num(row.get("營業收入-去年同月增減(%)")),
+                "cum_revenue": _rev_num(row.get("累計營業收入-當月累計營收")),
+                "cum_yoy": _rev_num(row.get("累計營業收入-前期比較增減(%)")),
+            }
+    print(f"[mops] 月營收 {len(out)} 檔")
+    return out
