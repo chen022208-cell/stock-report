@@ -50,6 +50,27 @@
   前 8～12 檔熱門股才有，若要擴大到全市場需要額外的計量 API 費用，尚未實作、
   待使用者決定要不要做。
 
+## 使用者研究提交（提交研究／研究筆記頁）
+
+靜態站沒有後端，「上傳文章」的路是 GitHub Issue：`submit.html` 讓使用者填標題/
+內容後，前端 JS 開一個帶 `research-submission` 標籤（已在 repo 建立）的預填
+GitHub 新增 Issue 分頁，使用者自己按「Submit new issue」即完成上傳（不用密鑰、
+不用另外的帳號系統，因為使用者本來就是 repo owner）。
+
+`python -m src.main research`（`run_research_intake()`）用 `gh issue list` 讀取
+待處理的 Issue，交給 `llm.analyze_research_submission()` 分析。**驗證是這個功能
+最重要的部分**：LLM 一定要標記 `verified`／`conflicting`／`unverified` 三種狀態，
+只有明確 `verified` 且真的對應到既有題材，才用 `db.append_research_to_theme()`
+累加寫進題材的 `theme_updates` 時間軸（不直接覆寫 `themes` 主表，之後寫深度報告
+會自然讀到這筆）；`conflicting`／`unverified` 一律只存進 `research_notes` 表，
+絕不動任何既有資料——寧可保守判定 unverified，不要因為內容「聽起來合理」就套用，
+避免未經證實的來源污染整份報告的真實性。結果會留言在對應 Issue 上並關閉，
+`research.html` 列出所有提交與其驗證狀態、有沒有真的套用。
+
+目前**沒有排程自動跑** `research` 這個模式——想要自動處理新提交，需要另外建一個
+Routine（或在既有的「台股每日盤後」Routine 裡多跑一次 `python -m src.main
+research`），還沒做這一步。
+
 ## 重要：一般對話中的股票分析也要同步存回網站
 
 如果使用者在跟你的對話（不是上面那幾個排程 Routine）裡問股票分析、要你查某檔股票
