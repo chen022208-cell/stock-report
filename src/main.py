@@ -165,6 +165,35 @@ def process_catalog_batch(cfg: dict, today: str, quotes_by_code_all: dict[str, d
     return len(catalog_batch)
 
 
+def process_catalog_deep_dives(cfg: dict, today: str) -> int:
+    """題材目錄的標題要能點進去看產業分析深度報告，不能只是純文字名稱。
+    每次處理一批「已經有代表股研究、但還沒產出深度報告」的目錄題材（見
+    db.catalog_themes_needing_deep_dive()），跟 write_deep_dive() 產「追蹤中」
+    真題材深度報告用的是同一套 LLM 提示與 render_article() 樣板，只是 timeline
+    留空（目錄題材沒有逐日追蹤軌跡）。批次大小控制在較小值，因為深度報告
+    字數遠多於代表股研究，LLM 成本較高。
+    """
+    batch = _safe(
+        lambda: db.catalog_themes_needing_deep_dive(cfg["theme_catalog"]["deep_dive_batch_size"]),
+        [], "題材目錄待寫深度報告名單")
+    if not batch:
+        return 0
+
+    for theme in batch:
+        article = _safe(lambda t=theme: llm.write_deep_dive(t, []), {}, f"目錄深度報告 {theme['name']}")
+        if not article:
+            continue
+        slug = render.slugify(theme["name"])
+        supply_chain = _safe(lambda t=theme: llm.supply_chain_structure(t),
+                             {}, f"目錄供應鏈結構 {theme['name']}")
+        if supply_chain:
+            db.save_supply_chain(theme["id"], supply_chain, today)
+        render.render_article(theme, article, slug, supply_chain)
+        db.set_deep_dive_slug(theme["id"], slug)
+    print(f"[catalog] 本批寫出深度報告 {len(batch)} 篇")
+    return len(batch)
+
+
 def run_evening() -> None:
     cfg = load_config()
     today = today_str()
@@ -255,6 +284,7 @@ def run_evening() -> None:
     # 題材目錄補齊：見 process_catalog_batch() 說明；每天的例行報告只處理一批，
     # 控制 LLM 成本，全部補齊需要好幾天（或用一次性回填腳本跑好幾批）
     process_catalog_batch(cfg, today, quotes_by_code_all)
+    process_catalog_deep_dives(cfg, today)
 
     holder_codes = {q["code"] for q in strong} | watch_codes
     holder_concentration = _safe(lambda: tdcc.fetch_holder_concentration(holder_codes),

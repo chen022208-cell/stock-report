@@ -30,6 +30,8 @@
   .catalog-item:last-child{border-bottom:none;}
   .catalog-item .ci-name{font-size:13.5px; font-weight:600; margin-bottom:3px;
                          display:flex; align-items:center; gap:6px; flex-wrap:wrap;}
+  .catalog-item .ci-name a{color:var(--text-primary); text-decoration:none;}
+  .catalog-item .ci-name a:hover{color:var(--gold); text-decoration:underline;}
   .catalog-item .ci-thesis{font-size:12.5px; color:var(--text-muted); line-height:1.5;}
   .ci-stocks{margin-top:6px; display:flex; flex-wrap:wrap; gap:6px;}
   .ci-stock-chip{font-size:12px; padding:2px 8px; border-radius:999px; cursor:pointer;
@@ -86,7 +88,8 @@
     {% for t in items %}
     <div class="catalog-item">
       <div class="ci-name">
-        <span class="dot c-theme"></span>{{ t.name }}
+        <span class="dot c-theme"></span>
+        {% if t.deep_dive_slug %}<a href="articles/{{ t.deep_dive_slug }}.html">{{ t.name }}</a>{% else %}{{ t.name }}{% endif %}
         {% if t.confidence %}<span class="tag confidence-{{ t.confidence }}">{{ t.verdict_label }}</span>{% endif %}
       </div>
       {% if t.summary %}<div class="ci-thesis">{{ t.summary }}</div>{% endif %}

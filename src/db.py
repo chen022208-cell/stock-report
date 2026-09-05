@@ -329,6 +329,20 @@ def themes_ready_for_deep_dive(min_days: int) -> list[dict]:
         return [dict(r) for r in rows]
 
 
+def catalog_themes_needing_deep_dive(limit: int) -> list[dict]:
+    """挑一批「已經有代表股研究、但還沒產出深度報告」的目錄題材——
+    深度報告要靠 related_stocks 才能寫得具體，所以只處理 last_analyzed 已填的。
+    """
+    with get_conn() as conn:
+        rows = conn.execute(
+            """SELECT * FROM themes WHERE status='catalog'
+               AND last_analyzed IS NOT NULL AND deep_dive_slug IS NULL
+               ORDER BY id LIMIT ?""",
+            (limit,),
+        ).fetchall()
+        return [dict(r) for r in rows]
+
+
 def set_deep_dive_slug(theme_id: int, slug: str) -> None:
     with get_conn() as conn:
         conn.execute("UPDATE themes SET deep_dive_slug=? WHERE id=?", (slug, theme_id))
