@@ -40,7 +40,7 @@
 {% for r in rows %}
 <div class="score-card" id="score-{{ r.code }}">
   <div class="score-head">
-    <span class="score-name">{{ r.name }}</span>
+    <span class="score-name" data-stock-code="{{ r.code }}" data-stock-name="{{ r.name.split(' ', 1)[-1] }}">{{ r.name }} 📈</span>
     <span class="score-composite">{{ r.composite if r.composite is not none else '—' }}</span>
   </div>
   {% for label, key in [('技術面','technical'),('籌碼面','chip'),('基本面','fundamental'),('題材面','theme'),('新聞面','news')] %}

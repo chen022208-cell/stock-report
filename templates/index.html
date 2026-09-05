@@ -74,7 +74,7 @@
 <div class="section-title">今日焦點個股 <a href="{{ rel }}scores.html">看排行 →</a></div>
 <a href="{{ rel }}scores.html#score-{{ top_score.code }}" class="card top-score-card">
   <div>
-    <div class="tsc-name">{{ top_score.name }}</div>
+    <div class="tsc-name" data-stock-code="{{ top_score.code }}" data-stock-name="{{ top_score.name.split(' ', 1)[-1] }}">{{ top_score.name }}</div>
     <div class="tsc-sub">綜合分最高 · 五面向評分</div>
   </div>
   <div class="tsc-num">{{ top_score.composite }}</div>

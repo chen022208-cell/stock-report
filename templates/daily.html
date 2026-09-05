@@ -106,7 +106,7 @@
 <div class="watch-hits">
   <div class="wh-label">⭐ 你的自選股今日被掃到</div>
   {% for hit in watchlist_hits %}
-  <div class="wh-item"><strong>{{ hit.code }} {{ hit.name }}</strong> — {{ hit.context }}</div>
+  <div class="wh-item"><strong data-stock-code="{{ hit.code }}" data-stock-name="{{ hit.name }}">{{ hit.code }} {{ hit.name }}</strong> — {{ hit.context }}</div>
   {% endfor %}
 </div>
 {% endif %}
@@ -236,7 +236,7 @@
     <tr><th>股票</th><th>綜合分</th><th>強項</th></tr>
     {% for w in watch_stocks %}
     <tr>
-      <td>{{ w.name }}</td>
+      <td data-stock-code="{{ w.code }}" data-stock-name="{{ w.name.split(' ', 1)[-1] }}">{{ w.name }}</td>
       <td class="mono">{{ w.composite }}</td>
       <td class="t-note">
         {%- set axes = [('技術', w.technical), ('籌碼', w.chip), ('基本', w.fundamental), ('題材', w.theme)] -%}
@@ -270,7 +270,7 @@
     </div>
     <p class="theme-desc">{{ theme.summary }}</p>
     <div class="theme-meta">
-      <span>相關個股：{% for s in theme.stocks %}{{ s.name }}{% if not loop.last %}、{% endif %}{% endfor %}</span>
+      <span>相關個股：{% for s in theme.stocks %}<span data-stock-code="{{ s.code }}" data-stock-name="{{ s.name }}">{{ s.name }}</span>{% if not loop.last %}、{% endif %}{% endfor %}</span>
       <span class="tag verdict-{{ theme.verdict }}">{{ theme.verdict_label }}</span>
     </div>
     {% if theme.tracked_days %}
@@ -292,7 +292,7 @@
   <h2>黑馬觀察</h2>
   {% for dh in dark_horses %}
   <div class="darkhorse-entry">
-    <div class="darkhorse-name">{{ dh.code }} {{ dh.name }}</div>
+    <div class="darkhorse-name" data-stock-code="{{ dh.code }}" data-stock-name="{{ dh.name }}">{{ dh.code }} {{ dh.name }}</div>
     <div class="darkhorse-grid">
       <div><span class="dh-label">今日漲幅</span><br>
         <span class="dh-value up">{{ "%+.2f"|format(dh.change_pct) }}%</span></div>
@@ -317,7 +317,7 @@
     <tr><th>股票</th><th>訊號</th><th>備註</th></tr>
     {% for t in technicals %}
     <tr>
-      <td>{{ t.name }}{% if t.is_watchlist %} <span class="tag watchlist">自選</span>{% endif %}</td>
+      <td data-stock-code="{{ t.code }}" data-stock-name="{{ t.name.split(' ', 1)[-1] }}">{{ t.name }}{% if t.is_watchlist %} <span class="tag watchlist">自選</span>{% endif %}</td>
       <td class="signal-{{ t.grade.tone }}">{{ t.grade.label }}</td>
       <td class="t-note">{{ t.grade.notes|join('，') }}</td>
     </tr>

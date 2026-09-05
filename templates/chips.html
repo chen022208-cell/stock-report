@@ -51,7 +51,7 @@
     <tr><th>股票</th><th>融資餘額</th><th>今日增減</th></tr>
     {% for m in margin_top %}
     <tr>
-      <td>{{ m.code }} {{ m.name }}{% if m.market == 'tpex' %}<span class="market-tag">上櫃</span>{% endif %}</td>
+      <td data-stock-code="{{ m.code }}" data-stock-name="{{ m.name }}">{{ m.code }} {{ m.name }}{% if m.market == 'tpex' %}<span class="market-tag">上櫃</span>{% endif %}</td>
       <td class="mono">{{ "{:,.0f}".format(m.margin_balance) }} 張</td>
       <td class="mono {{ 'up' if m.margin_change >= 0 else 'down' }}">{{ "{:+,.0f}".format(m.margin_change) }}</td>
     </tr>
@@ -68,7 +68,7 @@
     <tr><th>股票</th><th>漲幅</th><th>量能倍數</th></tr>
     {% for s in strong %}
     <tr>
-      <td>{{ s.code }} {{ s.name }}{% if s.market == 'tpex' %}<span class="market-tag">上櫃</span>{% endif %}</td>
+      <td data-stock-code="{{ s.code }}" data-stock-name="{{ s.name }}">{{ s.code }} {{ s.name }}{% if s.market == 'tpex' %}<span class="market-tag">上櫃</span>{% endif %}</td>
       <td class="mono up">{{ "%+.2f"|format(s.change_pct) }}%</td>
       <td class="mono">{{ s.volume_ratio if s.volume_ratio else '—' }}</td>
     </tr>
@@ -84,7 +84,7 @@
     <tr><th>股票</th><th>大戶持股比例</th></tr>
     {% for h in holders %}
     <tr>
-      <td>{{ h.code }} {{ h.name }}</td>
+      <td data-stock-code="{{ h.code }}" data-stock-name="{{ h.name }}">{{ h.code }} {{ h.name }}</td>
       <td class="mono">{{ "%.1f"|format(h.pct) }}%</td>
     </tr>
     {% endfor %}

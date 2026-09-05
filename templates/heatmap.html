@@ -35,7 +35,7 @@
     <div class="heat-stocks">
       {% for s in c.stocks %}
       <div class="heat-stock-row">
-        <span class="hs-name">{{ s.code }} {{ s.name }}</span>
+        <span class="hs-name" data-stock-code="{{ s.code }}" data-stock-name="{{ s.name }}">{{ s.code }} {{ s.name }}</span>
         <span class="hs-pct {{ 'up' if s.change_pct >= 0 else 'down' }}">{{ "%+.2f"|format(s.change_pct) }}%</span>
       </div>
       {% endfor %}

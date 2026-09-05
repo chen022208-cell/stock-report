@@ -105,6 +105,40 @@
     .card-grid.cols-3{grid-template-columns:repeat(2,1fr);}
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
+
+  /* 個股點擊變成可互動連結：底下虛線點出「可以點」，不是死文字 */
+  [data-stock-code]{cursor:pointer; text-decoration:underline dotted var(--text-muted);
+                    text-underline-offset:3px;}
+  [data-stock-code]:hover{color:var(--gold);}
+
+  /* 個股 K 線／技術指標彈窗 */
+  .sc-modal{position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:200;
+            display:none; align-items:flex-start; justify-content:center;
+            padding:24px 12px; overflow-y:auto;}
+  .sc-modal.open{display:flex;}
+  .sc-modal-inner{background:var(--surface); border-radius:var(--radius);
+                  max-width:800px; width:100%; padding:20px; position:relative;}
+  .sc-close{position:absolute; top:12px; right:12px; background:var(--surface-2);
+            border:none; color:var(--text-primary); width:32px; height:32px;
+            border-radius:50%; font-size:16px; cursor:pointer;}
+  .sc-title{font-family:'Noto Serif TC',serif; font-size:17px; margin-bottom:10px;}
+  .sc-loading, .sc-empty{color:var(--text-muted); font-size:13.5px; padding:20px 0;}
+  .sc-price-row{display:flex; align-items:baseline; gap:10px; margin-bottom:8px; flex-wrap:wrap;}
+  .sc-price{font-size:24px; font-weight:600;}
+  .sc-chg{font-size:14px;}
+  .sc-date{font-size:12px; color:var(--text-muted); margin-left:auto;}
+  .sc-svg{width:100%; height:auto; display:block; margin:10px 0;}
+  .sc-grid{stroke:var(--hairline); stroke-width:1;}
+  .sc-grid-dash{stroke:var(--hairline); stroke-width:1; stroke-dasharray:3,3;}
+  .sc-axis{fill:var(--text-muted); font-size:9px; font-family:'JetBrains Mono',monospace;}
+  .sc-legend{display:flex; gap:14px; flex-wrap:wrap; font-size:11.5px;
+             color:var(--text-secondary); margin-bottom:12px;}
+  .sc-legend span{display:flex; align-items:center; gap:5px;}
+  .sc-dot{width:8px; height:8px; border-radius:50%; display:inline-block;}
+  .sc-line{width:12px; height:2px; display:inline-block;}
+  .sc-grade{display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap;}
+  .sc-notes{font-size:12.5px; color:var(--text-secondary);}
+  .sc-disclaimer{font-size:11.5px; color:var(--text-muted); line-height:1.5;}
 {% block extra_css %}{% endblock %}
 </style>
 </head>
@@ -135,6 +169,7 @@
     navigator.serviceWorker.register("{{ rel }}sw.js").catch(function () {});
   }
 </script>
+<script src="{{ rel }}assets/stock-chart.js"></script>
 {% block extra_js %}{% endblock %}
 </body>
 </html>
