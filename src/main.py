@@ -113,6 +113,58 @@ def run_morning() -> None:
 
 
 # ── 盤後：台股完整分析 ─────────────────────────────────
+def process_catalog_batch(cfg: dict, today: str, quotes_by_code_all: dict[str, dict]) -> int:
+    """題材目錄補齊：117 個種子題材不能永遠只有名字跟一句話論點，每次處理一批
+    （優先處理從沒研究過的），用 LLM 既有知識補上代表股，再對照今天真實行情
+    判斷現在算不算當紅；當紅且抓到多檔代表股時，全部代表股都做公司介紹＋SWOT，
+    不因為原本評分頁前 8～12 檔的上限而漏掉——這是題材目錄專屬的覆蓋率保證，
+    跟評分頁那邊「起漲點/新掛牌一定要有分析」是同一個精神、不同的名單來源。
+
+    抽成獨立函式是因為日常 run_evening() 每天只處理一批（控制 LLM 成本），
+    但補齊 117 個全部需要跑好幾批，一次性回填時可以在迴圈裡重複呼叫這個函式。
+    回傳這批實際處理的題材數，方便呼叫端判斷是否已經補齊完畢（回傳 0）。
+    """
+    tc_cfg = cfg["theme_catalog"]
+    catalog_batch = _safe(
+        lambda: db.catalog_themes_for_analysis(tc_cfg["batch_size"], today, tc_cfg["refresh_days"]),
+        [], "題材目錄待研究名單")
+    if not catalog_batch:
+        return 0
+
+    research = _safe(lambda: llm.catalog_theme_research_batch(catalog_batch),
+                     {}, "題材目錄研究")
+    for theme in catalog_batch:
+        r = research.get(theme["name"], {})
+        matched = []
+        for ref in r.get("stocks", []):
+            q = quotes_by_code_all.get(ref.get("code"))
+            if q:
+                matched.append({"code": ref["code"], "name": q.get("name") or ref.get("name", ""),
+                                "change_pct": q.get("change_pct", 0)})
+
+        hot_stocks = [m for m in matched if m["change_pct"] >= tc_cfg["hot_change_pct"]]
+        if len(hot_stocks) >= tc_cfg["hot_min_stocks"]:
+            verdict, confidence = "hot", "high"
+        elif hot_stocks or any(m["change_pct"] > 0 for m in matched):
+            verdict, confidence = "warm", "mid"
+        else:
+            verdict, confidence = "cold", "low"
+
+        if verdict == "hot" and matched:
+            deep_input = [{"code": m["code"], "name": m["name"]} for m in matched]
+            deep = _safe(lambda d=deep_input: llm.stock_analysis_batch(d),
+                        {}, f"題材個股深度分析 {theme['name']}")
+            for m in matched:
+                if m["code"] in deep:
+                    m["analysis"] = deep[m["code"]]
+
+        db.update_catalog_analysis(
+            theme["id"], r.get("summary") or theme.get("summary", ""),
+            confidence, verdict, matched, today)
+    print(f"[catalog] 本批補齊 {len(catalog_batch)} 個")
+    return len(catalog_batch)
+
+
 def run_evening() -> None:
     cfg = load_config()
     today = today_str()
@@ -200,47 +252,9 @@ def run_evening() -> None:
         quotes_by_code_all, listing_dates, cfg["new_listing"]["days"])
     print(f"[evening] 新掛牌觀察 {len(new_listings)} 檔")
 
-    # 題材目錄補齊：117 個種子題材不能永遠只有名字跟一句話論點，每天處理一批
-    # （優先處理從沒研究過的），用 LLM 既有知識補上代表股，再對照今天真實行情
-    # 判斷現在算不算當紅；當紅且抓到多檔代表股時，全部代表股都做公司介紹＋SWOT，
-    # 不因為原本評分頁前 8～12 檔的上限而漏掉——這是題材目錄專屬的覆蓋率保證，
-    # 跟評分頁那邊「起漲點/新掛牌一定要有分析」是同一個精神、不同的名單來源
-    tc_cfg = cfg["theme_catalog"]
-    catalog_batch = _safe(
-        lambda: db.catalog_themes_for_analysis(tc_cfg["batch_size"], today, tc_cfg["refresh_days"]),
-        [], "題材目錄待研究名單")
-    if catalog_batch:
-        research = _safe(lambda: llm.catalog_theme_research_batch(catalog_batch),
-                         {}, "題材目錄研究")
-        for theme in catalog_batch:
-            r = research.get(theme["name"], {})
-            matched = []
-            for ref in r.get("stocks", []):
-                q = quotes_by_code_all.get(ref.get("code"))
-                if q:
-                    matched.append({"code": ref["code"], "name": q.get("name") or ref.get("name", ""),
-                                    "change_pct": q.get("change_pct", 0)})
-
-            hot_stocks = [m for m in matched if m["change_pct"] >= tc_cfg["hot_change_pct"]]
-            if len(hot_stocks) >= tc_cfg["hot_min_stocks"]:
-                verdict, confidence = "hot", "high"
-            elif hot_stocks or any(m["change_pct"] > 0 for m in matched):
-                verdict, confidence = "warm", "mid"
-            else:
-                verdict, confidence = "cold", "low"
-
-            if verdict == "hot" and matched:
-                deep_input = [{"code": m["code"], "name": m["name"]} for m in matched]
-                deep = _safe(lambda d=deep_input: llm.stock_analysis_batch(d),
-                            {}, f"題材個股深度分析 {theme['name']}")
-                for m in matched:
-                    if m["code"] in deep:
-                        m["analysis"] = deep[m["code"]]
-
-            db.update_catalog_analysis(
-                theme["id"], r.get("summary") or theme.get("summary", ""),
-                confidence, verdict, matched, today)
-        print(f"[evening] 題材目錄本批補齊 {len(catalog_batch)} 個")
+    # 題材目錄補齊：見 process_catalog_batch() 說明；每天的例行報告只處理一批，
+    # 控制 LLM 成本，全部補齊需要好幾天（或用一次性回填腳本跑好幾批）
+    process_catalog_batch(cfg, today, quotes_by_code_all)
 
     holder_codes = {q["code"] for q in strong} | watch_codes
     holder_concentration = _safe(lambda: tdcc.fetch_holder_concentration(holder_codes),
