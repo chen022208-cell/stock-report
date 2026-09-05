@@ -106,6 +106,40 @@
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
 
+  /* 個股點擊變成可互動連結：底下虛線點出「可以點」，不是死文字 */
+  [data-stock-code]{cursor:pointer; text-decoration:underline dotted var(--text-muted);
+                    text-underline-offset:3px;}
+  [data-stock-code]:hover{color:var(--gold);}
+
+  /* 個股 K 線／技術指標彈窗 */
+  .sc-modal{position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:200;
+            display:none; align-items:flex-start; justify-content:center;
+            padding:24px 12px; overflow-y:auto;}
+  .sc-modal.open{display:flex;}
+  .sc-modal-inner{background:var(--surface); border-radius:var(--radius);
+                  max-width:800px; width:100%; padding:20px; position:relative;}
+  .sc-close{position:absolute; top:12px; right:12px; background:var(--surface-2);
+            border:none; color:var(--text-primary); width:32px; height:32px;
+            border-radius:50%; font-size:16px; cursor:pointer;}
+  .sc-title{font-family:'Noto Serif TC',serif; font-size:17px; margin-bottom:10px;}
+  .sc-loading, .sc-empty{color:var(--text-muted); font-size:13.5px; padding:20px 0;}
+  .sc-price-row{display:flex; align-items:baseline; gap:10px; margin-bottom:8px; flex-wrap:wrap;}
+  .sc-price{font-size:24px; font-weight:600;}
+  .sc-chg{font-size:14px;}
+  .sc-date{font-size:12px; color:var(--text-muted); margin-left:auto;}
+  .sc-svg{width:100%; height:auto; display:block; margin:10px 0;}
+  .sc-grid{stroke:var(--hairline); stroke-width:1;}
+  .sc-grid-dash{stroke:var(--hairline); stroke-width:1; stroke-dasharray:3,3;}
+  .sc-axis{fill:var(--text-muted); font-size:9px; font-family:'JetBrains Mono',monospace;}
+  .sc-legend{display:flex; gap:14px; flex-wrap:wrap; font-size:11.5px;
+             color:var(--text-secondary); margin-bottom:12px;}
+  .sc-legend span{display:flex; align-items:center; gap:5px;}
+  .sc-dot{width:8px; height:8px; border-radius:50%; display:inline-block;}
+  .sc-line{width:12px; height:2px; display:inline-block;}
+  .sc-grade{display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap;}
+  .sc-notes{font-size:12.5px; color:var(--text-secondary);}
+  .sc-disclaimer{font-size:11.5px; color:var(--text-muted); line-height:1.5;}
+
   .meta{font-size:13px; color:var(--text-muted); margin:10px 0 20px;}
   .inst-row{display:flex; align-items:center; gap:12px; margin-bottom:10px; font-size:14px;}
   .inst-row .inst-name{width:56px; color:var(--text-secondary); flex-shrink:0;}
@@ -191,61 +225,61 @@
     <tr><th>股票</th><th>融資餘額</th><th>今日增減</th></tr>
     
     <tr>
-      <td>00673R 期元大S&amp;P原油反1</td>
+      <td data-stock-code="00673R" data-stock-name="期元大S&amp;P原油反1">00673R 期元大S&amp;P原油反1</td>
       <td class="mono">113,589 張</td>
       <td class="mono up">+22,160</td>
     </tr>
     
     <tr>
-      <td>00631L 元大台灣50正2</td>
+      <td data-stock-code="00631L" data-stock-name="元大台灣50正2">00631L 元大台灣50正2</td>
       <td class="mono">194,043 張</td>
       <td class="mono down">-8,617</td>
     </tr>
     
     <tr>
-      <td>00981A 主動統一台股增長</td>
+      <td data-stock-code="00981A" data-stock-name="主動統一台股增長">00981A 主動統一台股增長</td>
       <td class="mono">175,619 張</td>
       <td class="mono up">+6,208</td>
     </tr>
     
     <tr>
-      <td>009828 中信台日韓PCB</td>
+      <td data-stock-code="009828" data-stock-name="中信台日韓PCB">009828 中信台日韓PCB</td>
       <td class="mono">18,093 張</td>
       <td class="mono up">+5,517</td>
     </tr>
     
     <tr>
-      <td>6147 頎邦<span class="market-tag">上櫃</span></td>
+      <td data-stock-code="6147" data-stock-name="頎邦">6147 頎邦<span class="market-tag">上櫃</span></td>
       <td class="mono">40,006 張</td>
       <td class="mono up">+3,313</td>
     </tr>
     
     <tr>
-      <td>2324 仁寶</td>
+      <td data-stock-code="2324" data-stock-name="仁寶">2324 仁寶</td>
       <td class="mono">51,295 張</td>
       <td class="mono down">-3,080</td>
     </tr>
     
     <tr>
-      <td>2303 聯電</td>
+      <td data-stock-code="2303" data-stock-name="聯電">2303 聯電</td>
       <td class="mono">170,213 張</td>
       <td class="mono up">+2,892</td>
     </tr>
     
     <tr>
-      <td>00632R 元大台灣50反1</td>
+      <td data-stock-code="00632R" data-stock-name="元大台灣50反1">00632R 元大台灣50反1</td>
       <td class="mono">288,879 張</td>
       <td class="mono down">-2,725</td>
     </tr>
     
     <tr>
-      <td>2464 盟立</td>
+      <td data-stock-code="2464" data-stock-name="盟立">2464 盟立</td>
       <td class="mono">18,777 張</td>
       <td class="mono up">+2,565</td>
     </tr>
     
     <tr>
-      <td>3094 聯傑</td>
+      <td data-stock-code="3094" data-stock-name="聯傑">3094 聯傑</td>
       <td class="mono">5,806 張</td>
       <td class="mono up">+2,369</td>
     </tr>
@@ -262,61 +296,61 @@
     <tr><th>股票</th><th>漲幅</th><th>量能倍數</th></tr>
     
     <tr>
-      <td>3591 艾笛森</td>
+      <td data-stock-code="3591" data-stock-name="艾笛森">3591 艾笛森</td>
       <td class="mono up">+9.69%</td>
       <td class="mono">6.03</td>
     </tr>
     
     <tr>
-      <td>2413 環科</td>
+      <td data-stock-code="2413" data-stock-name="環科">2413 環科</td>
       <td class="mono up">+9.96%</td>
       <td class="mono">4.89</td>
     </tr>
     
     <tr>
-      <td>3094 聯傑</td>
+      <td data-stock-code="3094" data-stock-name="聯傑">3094 聯傑</td>
       <td class="mono up">+9.93%</td>
       <td class="mono">4.52</td>
     </tr>
     
     <tr>
-      <td>6271 同欣電</td>
+      <td data-stock-code="6271" data-stock-name="同欣電">6271 同欣電</td>
       <td class="mono up">+9.98%</td>
       <td class="mono">3.1</td>
     </tr>
     
     <tr>
-      <td>2388 威盛</td>
+      <td data-stock-code="2388" data-stock-name="威盛">2388 威盛</td>
       <td class="mono up">+8.53%</td>
       <td class="mono">3.43</td>
     </tr>
     
     <tr>
-      <td>00909 國泰數位支付服務</td>
+      <td data-stock-code="00909" data-stock-name="國泰數位支付服務">00909 國泰數位支付服務</td>
       <td class="mono up">+8.47%</td>
       <td class="mono">3.03</td>
     </tr>
     
     <tr>
-      <td>3714 富采</td>
+      <td data-stock-code="3714" data-stock-name="富采">3714 富采</td>
       <td class="mono up">+8.62%</td>
       <td class="mono">2.86</td>
     </tr>
     
     <tr>
-      <td>1597 直得</td>
+      <td data-stock-code="1597" data-stock-name="直得">1597 直得</td>
       <td class="mono up">+7.27%</td>
       <td class="mono">2.55</td>
     </tr>
     
     <tr>
-      <td>6224 聚鼎</td>
+      <td data-stock-code="6224" data-stock-name="聚鼎">6224 聚鼎</td>
       <td class="mono up">+6.53%</td>
       <td class="mono">2.02</td>
     </tr>
     
     <tr>
-      <td>6168 宏齊</td>
+      <td data-stock-code="6168" data-stock-name="宏齊">6168 宏齊</td>
       <td class="mono up">+5.25%</td>
       <td class="mono">2.43</td>
     </tr>
@@ -332,167 +366,167 @@
     <tr><th>股票</th><th>大戶持股比例</th></tr>
     
     <tr>
-      <td>2330 台積電</td>
+      <td data-stock-code="2330" data-stock-name="台積電">2330 台積電</td>
       <td class="mono">84.7%</td>
     </tr>
     
     <tr>
-      <td>2388 威盛</td>
+      <td data-stock-code="2388" data-stock-name="威盛">2388 威盛</td>
       <td class="mono">67.8%</td>
     </tr>
     
     <tr>
-      <td>2317 鴻海</td>
+      <td data-stock-code="2317" data-stock-name="鴻海">2317 鴻海</td>
       <td class="mono">66.7%</td>
     </tr>
     
     <tr>
-      <td>2454 聯發科</td>
+      <td data-stock-code="2454" data-stock-name="聯發科">2454 聯發科</td>
       <td class="mono">63.2%</td>
     </tr>
     
     <tr>
-      <td>3374 精材</td>
+      <td data-stock-code="3374" data-stock-name="精材">3374 精材</td>
       <td class="mono">62.2%</td>
     </tr>
     
     <tr>
-      <td>6617 共信-KY</td>
+      <td data-stock-code="6617" data-stock-name="共信-KY">6617 共信-KY</td>
       <td class="mono">59.8%</td>
     </tr>
     
     <tr>
-      <td>8042 金山電</td>
+      <td data-stock-code="8042" data-stock-name="金山電">8042 金山電</td>
       <td class="mono">58.2%</td>
     </tr>
     
     <tr>
-      <td>6173 信昌電</td>
+      <td data-stock-code="6173" data-stock-name="信昌電">6173 信昌電</td>
       <td class="mono">56.3%</td>
     </tr>
     
     <tr>
-      <td>7828 創新服務</td>
+      <td data-stock-code="7828" data-stock-name="創新服務">7828 創新服務</td>
       <td class="mono">53.7%</td>
     </tr>
     
     <tr>
-      <td>2413 環科</td>
+      <td data-stock-code="2413" data-stock-name="環科">2413 環科</td>
       <td class="mono">52.8%</td>
     </tr>
     
     <tr>
-      <td>6620 漢達</td>
+      <td data-stock-code="6620" data-stock-name="漢達">6620 漢達</td>
       <td class="mono">49.7%</td>
     </tr>
     
     <tr>
-      <td>3591 艾笛森</td>
+      <td data-stock-code="3591" data-stock-name="艾笛森">3591 艾笛森</td>
       <td class="mono">47.8%</td>
     </tr>
     
     <tr>
-      <td>3624 光頡</td>
+      <td data-stock-code="3624" data-stock-name="光頡">3624 光頡</td>
       <td class="mono">46.8%</td>
     </tr>
     
     <tr>
-      <td>6667 信紘科</td>
+      <td data-stock-code="6667" data-stock-name="信紘科">6667 信紘科</td>
       <td class="mono">46.2%</td>
     </tr>
     
     <tr>
-      <td>6168 宏齊</td>
+      <td data-stock-code="6168" data-stock-name="宏齊">6168 宏齊</td>
       <td class="mono">43.6%</td>
     </tr>
     
     <tr>
-      <td>4908 前鼎</td>
+      <td data-stock-code="4908" data-stock-name="前鼎">4908 前鼎</td>
       <td class="mono">43.6%</td>
     </tr>
     
     <tr>
-      <td>6271 同欣電</td>
+      <td data-stock-code="6271" data-stock-name="同欣電">6271 同欣電</td>
       <td class="mono">40.4%</td>
     </tr>
     
     <tr>
-      <td>3714 富采</td>
+      <td data-stock-code="3714" data-stock-name="富采">3714 富采</td>
       <td class="mono">37.7%</td>
     </tr>
     
     <tr>
-      <td>3324 雙鴻</td>
+      <td data-stock-code="3324" data-stock-name="雙鴻">3324 雙鴻</td>
       <td class="mono">37.0%</td>
     </tr>
     
     <tr>
-      <td>7751 竑騰</td>
+      <td data-stock-code="7751" data-stock-name="竑騰">7751 竑騰</td>
       <td class="mono">37.0%</td>
     </tr>
     
     <tr>
-      <td>1597 直得</td>
+      <td data-stock-code="1597" data-stock-name="直得">1597 直得</td>
       <td class="mono">36.8%</td>
     </tr>
     
     <tr>
-      <td>8064 東捷</td>
+      <td data-stock-code="8064" data-stock-name="東捷">8064 東捷</td>
       <td class="mono">36.8%</td>
     </tr>
     
     <tr>
-      <td>7717 萊德光電-KY</td>
+      <td data-stock-code="7717" data-stock-name="萊德光電-KY">7717 萊德光電-KY</td>
       <td class="mono">35.4%</td>
     </tr>
     
     <tr>
-      <td>4939 亞電</td>
+      <td data-stock-code="4939" data-stock-name="亞電">4939 亞電</td>
       <td class="mono">33.8%</td>
     </tr>
     
     <tr>
-      <td>4979 華星光</td>
+      <td data-stock-code="4979" data-stock-name="華星光">4979 華星光</td>
       <td class="mono">26.0%</td>
     </tr>
     
     <tr>
-      <td>6224 聚鼎</td>
+      <td data-stock-code="6224" data-stock-name="聚鼎">6224 聚鼎</td>
       <td class="mono">25.8%</td>
     </tr>
     
     <tr>
-      <td>6290 良維</td>
+      <td data-stock-code="6290" data-stock-name="良維">6290 良維</td>
       <td class="mono">25.6%</td>
     </tr>
     
     <tr>
-      <td>6538 倉和</td>
+      <td data-stock-code="6538" data-stock-name="倉和">6538 倉和</td>
       <td class="mono">23.7%</td>
     </tr>
     
     <tr>
-      <td>3163 波若威</td>
+      <td data-stock-code="3163" data-stock-name="波若威">3163 波若威</td>
       <td class="mono">18.9%</td>
     </tr>
     
     <tr>
-      <td>8431 匯鑽科</td>
+      <td data-stock-code="8431" data-stock-name="匯鑽科">8431 匯鑽科</td>
       <td class="mono">16.1%</td>
     </tr>
     
     <tr>
-      <td>3441 聯一光</td>
+      <td data-stock-code="3441" data-stock-name="聯一光">3441 聯一光</td>
       <td class="mono">14.3%</td>
     </tr>
     
     <tr>
-      <td>3094 聯傑</td>
+      <td data-stock-code="3094" data-stock-name="聯傑">3094 聯傑</td>
       <td class="mono">13.0%</td>
     </tr>
     
     <tr>
-      <td>00909 國泰數位支付服務</td>
+      <td data-stock-code="00909" data-stock-name="國泰數位支付服務">00909 國泰數位支付服務</td>
       <td class="mono">8.4%</td>
     </tr>
     
@@ -505,7 +539,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 13:21</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 13:49</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
@@ -514,6 +548,7 @@
     navigator.serviceWorker.register("sw.js").catch(function () {});
   }
 </script>
+<script src="assets/stock-chart.js"></script>
 
 </body>
 </html>

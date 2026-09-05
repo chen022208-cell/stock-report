@@ -106,6 +106,40 @@
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
 
+  /* 個股點擊變成可互動連結：底下虛線點出「可以點」，不是死文字 */
+  [data-stock-code]{cursor:pointer; text-decoration:underline dotted var(--text-muted);
+                    text-underline-offset:3px;}
+  [data-stock-code]:hover{color:var(--gold);}
+
+  /* 個股 K 線／技術指標彈窗 */
+  .sc-modal{position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:200;
+            display:none; align-items:flex-start; justify-content:center;
+            padding:24px 12px; overflow-y:auto;}
+  .sc-modal.open{display:flex;}
+  .sc-modal-inner{background:var(--surface); border-radius:var(--radius);
+                  max-width:800px; width:100%; padding:20px; position:relative;}
+  .sc-close{position:absolute; top:12px; right:12px; background:var(--surface-2);
+            border:none; color:var(--text-primary); width:32px; height:32px;
+            border-radius:50%; font-size:16px; cursor:pointer;}
+  .sc-title{font-family:'Noto Serif TC',serif; font-size:17px; margin-bottom:10px;}
+  .sc-loading, .sc-empty{color:var(--text-muted); font-size:13.5px; padding:20px 0;}
+  .sc-price-row{display:flex; align-items:baseline; gap:10px; margin-bottom:8px; flex-wrap:wrap;}
+  .sc-price{font-size:24px; font-weight:600;}
+  .sc-chg{font-size:14px;}
+  .sc-date{font-size:12px; color:var(--text-muted); margin-left:auto;}
+  .sc-svg{width:100%; height:auto; display:block; margin:10px 0;}
+  .sc-grid{stroke:var(--hairline); stroke-width:1;}
+  .sc-grid-dash{stroke:var(--hairline); stroke-width:1; stroke-dasharray:3,3;}
+  .sc-axis{fill:var(--text-muted); font-size:9px; font-family:'JetBrains Mono',monospace;}
+  .sc-legend{display:flex; gap:14px; flex-wrap:wrap; font-size:11.5px;
+             color:var(--text-secondary); margin-bottom:12px;}
+  .sc-legend span{display:flex; align-items:center; gap:5px;}
+  .sc-dot{width:8px; height:8px; border-radius:50%; display:inline-block;}
+  .sc-line{width:12px; height:2px; display:inline-block;}
+  .sc-grade{display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap;}
+  .sc-notes{font-size:12.5px; color:var(--text-secondary);}
+  .sc-disclaimer{font-size:11.5px; color:var(--text-muted); line-height:1.5;}
+
   .hero-eyebrow{font-size:13px; color:var(--text-muted); margin-bottom:6px;
                display:flex; align-items:center; gap:6px;}
   .hero-number{font-family:'JetBrains Mono',monospace; font-size:38px;
@@ -186,9 +220,12 @@
     <a href="../heatmap.html" class="">🔥 熱力圖</a>
     <a href="../chips.html" class="">💰 籌碼</a>
     <a href="../scores.html" class="">⭐ 評分</a>
+    <a href="../lookup.html" class="">🔍 個股查詢</a>
     <a href="../disposition.html" class="">⚠️ 處置</a>
     <a href="../themes.html" class="">題材庫</a>
     <a href="../archive.html" class="">歷史</a>
+    <a href="../weekly/index.html" class="">📅 週報</a>
+    <a href="../monthly-deep/index.html" class="">🌍 深度月報</a>
   </nav>
 
   
@@ -262,7 +299,7 @@
     <span class="inst-value mono up">+63.7億</span>
   </div>
   
-  <p class="commentary" style="margin-top:14px">台股今日收46551.13點、大漲693.47點（+1.51%），上漲家數1497檔遠勝下跌498檔，寬度健康，三大法人合計買超616.72億元，其中外資買超562億元是主力，投信小幅賣超顯示內資態度較為保守，內外資買盤方向出現微幅分歧。觀察榜上多檔個股呈現技術面與基本面雙強格局，例如1597直得、2388威盛技術面均達85分且基本面滿分100，顯示這類股籌碼與獲利動能同步共振，值得留意其後續表現是否延續。國際上本週AI相關股呈現硬體、軟體分歧——半導體（SMH）逆勢走強、軟體股（IGV）重挫，台股今日電子權值股同步走高、法人買超集中，方向上與國際半導體強勢呼應，並未出現背離。處置股名單中大立光、玉晶光、聯鈞等光學族群仍在處置中，流動性受限、成交量萎縮，操作上須留意這類股的價量失真風險；鼎元則已接近處置門檻，後續交易須留意。整體而言，今日盤面在法人買盤挹注下呈現普漲格局，但投信保守與部分強勢股處置狀態，顯示資金集中度與流動性風險仍需並行關注。</p>
+  <p class="commentary" style="margin-top:14px">台股今天收在46551點，大漲693點（1.51%），成交量放大到858億元，外資狂買562億、自營商同步加碼63.7億，僅投信小幅站在賣方，內資態度轉為一致偏多，量價齊揚訊號明確。國際面上美股半導體（SMH）在AI利率敏感度爭議中逆勢走強、軟體股（IGV）重挫，台股今天的強勢上漲與這個「硬體優於軟體」的資金邏輯相呼應，顯示外資買盤仍集中在半導體供應鏈，而非泛AI軟體或應用端。留意1597直得與2388威盛，兩者技術面同樣衝上85分，且基本面雙雙滿分100，代表這波上攻有實質營運數字支撐，非單純籌碼作價；富采技術面同步走強但籌碼分數僅49.9，顯示大額資金尚未全面進場卡位，波動風險相對高。另一方面，處置名單中大立光、玉晶光、聯鈞、富世達等光學／連接器族群持續掛牌交易受限，流動性打折，2426鼎元近九個交易日已觸及五次注意標準，逼近處置門檻，這類股票即使大盤走強，籌碼面仍需留意成交量能否正常反映。整體來看，今天是外資回補主導的普漲格局，但族群強弱分化已透露資金仍在半導體與高獲利成長股間做選擇，而非無差別式全面追高。</p>
 </section>
 <hr class="divider">
 
@@ -274,31 +311,31 @@
     <tr><th>股票</th><th>綜合分</th><th>強項</th></tr>
     
     <tr>
-      <td>1597 直得</td>
+      <td data-stock-code="1597" data-stock-name="直得">1597 直得</td>
       <td class="mono">78.0</td>
       <td class="t-note">基本 100、技術 85.0</td>
     </tr>
     
     <tr>
-      <td>6224 聚鼎</td>
-      <td class="mono">74.9</td>
-      <td class="t-note">基本 100、技術 85.0</td>
-    </tr>
-    
-    <tr>
-      <td>3714 富采</td>
-      <td class="mono">72.6</td>
+      <td data-stock-code="3714" data-stock-name="富采">3714 富采</td>
+      <td class="mono">73.1</td>
       <td class="t-note">基本 87.4、技術 85.0</td>
     </tr>
     
     <tr>
-      <td>2388 威盛</td>
+      <td data-stock-code="2388" data-stock-name="威盛">2388 威盛</td>
       <td class="mono">71.5</td>
       <td class="t-note">基本 100、技術 85.0</td>
     </tr>
     
     <tr>
-      <td>3094 聯傑</td>
+      <td data-stock-code="6224" data-stock-name="聚鼎">6224 聚鼎</td>
+      <td class="mono">71.2</td>
+      <td class="t-note">基本 100、技術 85.0</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="3094" data-stock-name="聯傑">3094 聯傑</td>
       <td class="mono">70.4</td>
       <td class="t-note">基本 98.2、籌碼 57.9</td>
     </tr>
@@ -328,73 +365,73 @@
     <tr><th>股票</th><th>訊號</th><th>備註</th></tr>
     
     <tr>
-      <td>3591 艾笛森</td>
+      <td data-stock-code="3591" data-stock-name="艾笛森">3591 艾笛森</td>
       <td class="signal-neutral">區間整理</td>
       <td class="t-note">均線糾結，方向未明，站上季線，RSI 93.9 進入超買區，量增價漲（量能 6.03 倍）</td>
     </tr>
     
     <tr>
-      <td>2413 環科</td>
+      <td data-stock-code="2413" data-stock-name="環科">2413 環科</td>
       <td class="signal-neutral">區間整理</td>
       <td class="t-note">均線空頭排列，站上季線，量增價漲（量能 4.89 倍），MACD 金叉</td>
     </tr>
     
     <tr>
-      <td>3094 聯傑</td>
+      <td data-stock-code="3094" data-stock-name="聯傑">3094 聯傑</td>
       <td class="signal-neutral">區間整理</td>
       <td class="t-note">均線多頭排列，站上季線，RSI 85.0 進入超買區，量增價漲（量能 4.52 倍）</td>
     </tr>
     
     <tr>
-      <td>6271 同欣電</td>
+      <td data-stock-code="6271" data-stock-name="同欣電">6271 同欣電</td>
       <td class="signal-neutral">區間整理</td>
       <td class="t-note">均線糾結，方向未明，站上季線，RSI 71.4 進入超買區，量增價漲（量能 3.1 倍）</td>
     </tr>
     
     <tr>
-      <td>2388 威盛</td>
+      <td data-stock-code="2388" data-stock-name="威盛">2388 威盛</td>
       <td class="signal-bull">多頭健康</td>
       <td class="t-note">均線多頭排列，站上季線，量增價漲（量能 3.43 倍）</td>
     </tr>
     
     <tr>
-      <td>00909 國泰數位支付服務</td>
+      <td data-stock-code="00909" data-stock-name="國泰數位支付服務">00909 國泰數位支付服務</td>
       <td class="signal-neutral">區間整理</td>
       <td class="t-note">均線糾結，方向未明，站上季線，量增價漲（量能 3.03 倍）</td>
     </tr>
     
     <tr>
-      <td>3714 富采</td>
+      <td data-stock-code="3714" data-stock-name="富采">3714 富采</td>
       <td class="signal-bull">多頭健康</td>
       <td class="t-note">均線多頭排列，站上季線，量增價漲（量能 2.86 倍）</td>
     </tr>
     
     <tr>
-      <td>1597 直得</td>
+      <td data-stock-code="1597" data-stock-name="直得">1597 直得</td>
       <td class="signal-bull">多頭健康</td>
       <td class="t-note">均線多頭排列，站上季線，量增價漲（量能 2.55 倍）</td>
     </tr>
     
     <tr>
-      <td>6224 聚鼎</td>
+      <td data-stock-code="6224" data-stock-name="聚鼎">6224 聚鼎</td>
       <td class="signal-bull">多頭健康</td>
       <td class="t-note">均線多頭排列，站上季線，量增價漲（量能 2.02 倍）</td>
     </tr>
     
     <tr>
-      <td>6168 宏齊</td>
+      <td data-stock-code="6168" data-stock-name="宏齊">6168 宏齊</td>
       <td class="signal-neutral">區間整理</td>
       <td class="t-note">均線糾結，方向未明，站上季線，RSI 72.6 進入超買區，量增價漲（量能 2.43 倍）</td>
     </tr>
     
     <tr>
-      <td>3324 雙鴻</td>
+      <td data-stock-code="3324" data-stock-name="雙鴻">3324 雙鴻</td>
       <td class="signal-neutral">資料不足</td>
       <td class="t-note">歷史資料不足以計算指標</td>
     </tr>
     
     <tr>
-      <td>3441 聯一光</td>
+      <td data-stock-code="3441" data-stock-name="聯一光">3441 聯一光</td>
       <td class="signal-neutral">資料不足</td>
       <td class="t-note">歷史資料不足以計算指標</td>
     </tr>
@@ -408,7 +445,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 08:20</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 13:54</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
@@ -417,5 +454,7 @@
     navigator.serviceWorker.register("../sw.js").catch(function () {});
   }
 </script>
+<script src="../assets/stock-chart.js"></script>
+
 </body>
 </html>
