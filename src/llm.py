@@ -7,7 +7,11 @@
 from __future__ import annotations
 
 import json
+import os
 import re
+import time
+import uuid
+from pathlib import Path
 
 import requests
 
@@ -16,8 +20,46 @@ from .fetchers import mock
 
 API_URL = "https://api.anthropic.com/v1/messages"
 
+# ── Agent 佇列模式 ───────────────────────────────────────
+# LLM_AGENT_MODE=1 時，_call() 不打計量 API，改成把 (system, user) 寫成請求檔，
+# 交給正在跑這支腳本的 Claude Code 雲端 routine（吃 Pro/Max 額度）親自產生回覆，
+# 寫回對應的回覆檔——本質上是把「這一步該問 LLM 什麼」原封不動交給 agent 自己回答，
+# 不需要另外複製一份 prompt 邏輯給 agent，agent 收到的 system/user 跟真的打 API 時完全一樣。
+AGENT_QUEUE_DIR = Path("agent_llm_queue")
+AGENT_POLL_SECONDS = 3
+AGENT_TIMEOUT_SECONDS = 20 * 60
+
+
+def _call_via_agent_queue(system: str, user: str, max_tokens: int | None) -> str:
+    AGENT_QUEUE_DIR.mkdir(exist_ok=True)
+    req_id = uuid.uuid4().hex
+    req_path = AGENT_QUEUE_DIR / f"{req_id}.request.json"
+    resp_path = AGENT_QUEUE_DIR / f"{req_id}.response.txt"
+    req_path.write_text(
+        json.dumps({"system": system, "user": user, "max_tokens": max_tokens},
+                   ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    print(f"[agent-queue] 等待 agent 回覆：{req_path}", flush=True)
+
+    waited = 0
+    while not resp_path.exists():
+        time.sleep(AGENT_POLL_SECONDS)
+        waited += AGENT_POLL_SECONDS
+        if waited >= AGENT_TIMEOUT_SECONDS:
+            req_path.unlink(missing_ok=True)
+            raise TimeoutError(f"agent 逾時未回覆：{req_path}")
+
+    text = resp_path.read_text(encoding="utf-8")
+    resp_path.unlink(missing_ok=True)
+    req_path.unlink(missing_ok=True)
+    return text
+
 
 def _call(system: str, user: str, max_tokens: int | None = None) -> str:
+    if os.environ.get("LLM_AGENT_MODE") == "1":
+        return _call_via_agent_queue(system, user, max_tokens)
+
     cfg = load_config()["llm"]
     if not ANTHROPIC_API_KEY:
         raise RuntimeError("缺少 ANTHROPIC_API_KEY 環境變數")
