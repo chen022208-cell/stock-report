@@ -81,7 +81,7 @@
         {% for x in r.buy %}
         <tr>
           <td data-stock-code="{{ x.code }}" data-stock-name="{{ x.name }}">{{ x.code }} {{ x.name }}</td>
-          <td class="mono up" style="text-align:right">{{ "{:,.0f}"|format(x.lots) }}</td>
+          <td class="mono up" style="text-align:right">{{ "{:,.0f}".format(x.lots) }}</td>
         </tr>
         {% endfor %}
       </table>
@@ -92,7 +92,7 @@
         {% for x in r.sell %}
         <tr>
           <td data-stock-code="{{ x.code }}" data-stock-name="{{ x.name }}">{{ x.code }} {{ x.name }}</td>
-          <td class="mono down" style="text-align:right">{{ "{:,.0f}"|format(x.lots) }}</td>
+          <td class="mono down" style="text-align:right">{{ "{:,.0f}".format(x.lots) }}</td>
         </tr>
         {% endfor %}
       </table>

@@ -179,6 +179,9 @@
   .sc-fund-cell h5{font-size:11px; margin:0 0 4px; color:var(--text-muted); font-weight:400;}
   .sc-fund-cell p{font-size:13px; margin:0; font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
   .sc-theme-tags{display:flex; flex-wrap:wrap; gap:6px;}
+  /* 同產業個股：可點，跟不可點的題材標籤要看得出差別 */
+  .sc-peer{cursor:pointer; font-family:'JetBrains Mono',monospace;}
+  .sc-peer:hover{border-color:var(--gold); color:var(--gold);}
   .sc-theme-tag{font-size:12px; background:var(--surface-2); border:1px solid var(--hairline);
                 border-radius:999px; padding:3px 10px; color:var(--text-secondary);}
   @media (max-width:560px){
@@ -222,6 +225,9 @@
   .mono{font-family:'JetBrains Mono',monospace;}
   .up{color:var(--red);} .down{color:var(--green);}
   .market-tag{font-size:11px; color:var(--text-muted); margin-left:4px;}
+  .inst-rank-h{font-size:14px; color:var(--gold); margin:18px 0 6px; font-weight:600;}
+  .inst-rank-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  @media (max-width:640px){ .inst-rank-grid{grid-template-columns:1fr; gap:0;} }
 
 </style>
 </head>
@@ -233,6 +239,7 @@
     <a href="chips.html" class="current">💰 籌碼</a>
     <a href="scores.html" class="">⭐ 評分</a>
     <a href="picks.html" class="">🎯 選股雷達</a>
+    <a href="intraday.html" class="">⚡ 盤中強勢</a>
     <a href="lookup.html" class="">🔍 個股查詢</a>
     <a href="disposition.html" class="">⚠️ 處置</a>
     <a href="themes.html" class="">題材庫</a>
@@ -350,6 +357,374 @@
     </tr>
     
   </table>
+</section>
+<hr class="divider">
+
+
+
+<section class="block">
+  <h2>三大法人當日買賣超個股排行</h2>
+  <p class="commentary" style="font-size:13px; margin-bottom:14px">
+    資料來源：TWSE T86 個股三大法人買賣超（上市）。外資已含外資自營商，
+    自營商含自行買賣與避險。單位：張。點個股看 K 線與公司資料。</p>
+  
+  
+  
+  <h3 class="inst-rank-h">外資</h3>
+  <div class="inst-rank-grid">
+    <div>
+      <table class="tech-table">
+        <tr><th>買超前 10</th><th style="text-align:right">張</th></tr>
+        
+        <tr>
+          <td data-stock-code="2324" data-stock-name="仁寶">2324 仁寶</td>
+          <td class="mono up" style="text-align:right">69,366</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="00403A" data-stock-name="主動統一升級50">00403A 主動統一升級50</td>
+          <td class="mono up" style="text-align:right">33,974</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="2303" data-stock-name="聯電">2303 聯電</td>
+          <td class="mono up" style="text-align:right">26,551</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="2317" data-stock-name="鴻海">2317 鴻海</td>
+          <td class="mono up" style="text-align:right">26,408</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="3231" data-stock-name="緯創">3231 緯創</td>
+          <td class="mono up" style="text-align:right">23,925</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="00631L" data-stock-name="元大台灣50正2">00631L 元大台灣50正2</td>
+          <td class="mono up" style="text-align:right">18,820</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="2327" data-stock-name="國巨*">2327 國巨*</td>
+          <td class="mono up" style="text-align:right">18,526</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="00878" data-stock-name="國泰永續高股息">00878 國泰永續高股息</td>
+          <td class="mono up" style="text-align:right">16,022</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="00685L" data-stock-name="群益臺灣加權正2">00685L 群益臺灣加權正2</td>
+          <td class="mono up" style="text-align:right">15,145</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="2892" data-stock-name="第一金">2892 第一金</td>
+          <td class="mono up" style="text-align:right">14,324</td>
+        </tr>
+        
+      </table>
+    </div>
+    <div>
+      <table class="tech-table">
+        <tr><th>賣超前 10</th><th style="text-align:right">張</th></tr>
+        
+        <tr>
+          <td data-stock-code="2834" data-stock-name="臺企銀">2834 臺企銀</td>
+          <td class="mono down" style="text-align:right">-19,378</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="3481" data-stock-name="群創">3481 群創</td>
+          <td class="mono down" style="text-align:right">-16,945</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="6770" data-stock-name="力積電">6770 力積電</td>
+          <td class="mono down" style="text-align:right">-16,246</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="2409" data-stock-name="友達">2409 友達</td>
+          <td class="mono down" style="text-align:right">-14,773</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="2481" data-stock-name="強茂">2481 強茂</td>
+          <td class="mono down" style="text-align:right">-14,570</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="2603" data-stock-name="長榮">2603 長榮</td>
+          <td class="mono down" style="text-align:right">-8,089</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="4958" data-stock-name="臻鼎-KY">4958 臻鼎-KY</td>
+          <td class="mono down" style="text-align:right">-7,534</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="2801" data-stock-name="彰銀">2801 彰銀</td>
+          <td class="mono down" style="text-align:right">-6,872</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="1303" data-stock-name="南亞">1303 南亞</td>
+          <td class="mono down" style="text-align:right">-5,625</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="1101" data-stock-name="台泥">1101 台泥</td>
+          <td class="mono down" style="text-align:right">-5,210</td>
+        </tr>
+        
+      </table>
+    </div>
+  </div>
+  
+  
+  
+  
+  <h3 class="inst-rank-h">投信</h3>
+  <div class="inst-rank-grid">
+    <div>
+      <table class="tech-table">
+        <tr><th>買超前 10</th><th style="text-align:right">張</th></tr>
+        
+        <tr>
+          <td data-stock-code="2884" data-stock-name="玉山金">2884 玉山金</td>
+          <td class="mono up" style="text-align:right">5,238</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="2801" data-stock-name="彰銀">2801 彰銀</td>
+          <td class="mono up" style="text-align:right">4,205</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="2886" data-stock-name="兆豐金">2886 兆豐金</td>
+          <td class="mono up" style="text-align:right">3,457</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="3231" data-stock-name="緯創">3231 緯創</td>
+          <td class="mono up" style="text-align:right">3,435</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="2542" data-stock-name="興富發">2542 興富發</td>
+          <td class="mono up" style="text-align:right">3,334</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="2887" data-stock-name="台新新光金">2887 台新新光金</td>
+          <td class="mono up" style="text-align:right">2,957</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="2890" data-stock-name="永豐金">2890 永豐金</td>
+          <td class="mono up" style="text-align:right">2,641</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="2027" data-stock-name="大成鋼">2027 大成鋼</td>
+          <td class="mono up" style="text-align:right">2,590</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="2303" data-stock-name="聯電">2303 聯電</td>
+          <td class="mono up" style="text-align:right">2,474</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="2891" data-stock-name="中信金">2891 中信金</td>
+          <td class="mono up" style="text-align:right">2,060</td>
+        </tr>
+        
+      </table>
+    </div>
+    <div>
+      <table class="tech-table">
+        <tr><th>賣超前 10</th><th style="text-align:right">張</th></tr>
+        
+        <tr>
+          <td data-stock-code="2344" data-stock-name="華邦電">2344 華邦電</td>
+          <td class="mono down" style="text-align:right">-6,914</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="3037" data-stock-name="欣興">3037 欣興</td>
+          <td class="mono down" style="text-align:right">-4,448</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="1717" data-stock-name="長興">1717 長興</td>
+          <td class="mono down" style="text-align:right">-1,995</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="2408" data-stock-name="南亞科">2408 南亞科</td>
+          <td class="mono down" style="text-align:right">-1,954</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="8046" data-stock-name="南電">8046 南電</td>
+          <td class="mono down" style="text-align:right">-1,163</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="2337" data-stock-name="旺宏">2337 旺宏</td>
+          <td class="mono down" style="text-align:right">-1,008</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="2376" data-stock-name="技嘉">2376 技嘉</td>
+          <td class="mono down" style="text-align:right">-558</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="2834" data-stock-name="臺企銀">2834 臺企銀</td>
+          <td class="mono down" style="text-align:right">-388</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="8021" data-stock-name="尖點">8021 尖點</td>
+          <td class="mono down" style="text-align:right">-373</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="4551" data-stock-name="智伸科">4551 智伸科</td>
+          <td class="mono down" style="text-align:right">-350</td>
+        </tr>
+        
+      </table>
+    </div>
+  </div>
+  
+  
+  
+  
+  <h3 class="inst-rank-h">自營商</h3>
+  <div class="inst-rank-grid">
+    <div>
+      <table class="tech-table">
+        <tr><th>買超前 10</th><th style="text-align:right">張</th></tr>
+        
+        <tr>
+          <td data-stock-code="00685L" data-stock-name="群益臺灣加權正2">00685L 群益臺灣加權正2</td>
+          <td class="mono up" style="text-align:right">55,538</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="00631L" data-stock-name="元大台灣50正2">00631L 元大台灣50正2</td>
+          <td class="mono up" style="text-align:right">42,001</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="009816" data-stock-name="凱基台灣TOP50">009816 凱基台灣TOP50</td>
+          <td class="mono up" style="text-align:right">31,197</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="00403A" data-stock-name="主動統一升級50">00403A 主動統一升級50</td>
+          <td class="mono up" style="text-align:right">27,978</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="00878" data-stock-name="國泰永續高股息">00878 國泰永續高股息</td>
+          <td class="mono up" style="text-align:right">24,854</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="00940" data-stock-name="元大台灣價值高息">00940 元大台灣價值高息</td>
+          <td class="mono up" style="text-align:right">14,456</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="009829" data-stock-name="大華韓國KOSPI50">009829 大華韓國KOSPI50</td>
+          <td class="mono up" style="text-align:right">10,473</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="0050" data-stock-name="元大台灣50">0050 元大台灣50</td>
+          <td class="mono up" style="text-align:right">9,364</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="00407A" data-stock-name="主動凱基台灣">00407A 主動凱基台灣</td>
+          <td class="mono up" style="text-align:right">8,617</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="00665L" data-stock-name="富邦恒生國企正2">00665L 富邦恒生國企正2</td>
+          <td class="mono up" style="text-align:right">8,401</td>
+        </tr>
+        
+      </table>
+    </div>
+    <div>
+      <table class="tech-table">
+        <tr><th>賣超前 10</th><th style="text-align:right">張</th></tr>
+        
+        <tr>
+          <td data-stock-code="00406A" data-stock-name="主動中信台灣收益">00406A 主動中信台灣收益</td>
+          <td class="mono down" style="text-align:right">-69,903</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="00673R" data-stock-name="期元大S&amp;P原油反1">00673R 期元大S&amp;P原油反1</td>
+          <td class="mono down" style="text-align:right">-61,150</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="009828" data-stock-name="中信台日韓PCB">009828 中信台日韓PCB</td>
+          <td class="mono down" style="text-align:right">-47,119</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="00632R" data-stock-name="元大台灣50反1">00632R 元大台灣50反1</td>
+          <td class="mono down" style="text-align:right">-33,377</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="00918" data-stock-name="大華優利高填息30">00918 大華優利高填息30</td>
+          <td class="mono down" style="text-align:right">-27,535</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="00919" data-stock-name="群益台灣精選高息">00919 群益台灣精選高息</td>
+          <td class="mono down" style="text-align:right">-13,988</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="00409A" data-stock-name="主動復華全球50">00409A 主動復華全球50</td>
+          <td class="mono down" style="text-align:right">-13,508</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="00712" data-stock-name="復華富時不動產">00712 復華富時不動產</td>
+          <td class="mono down" style="text-align:right">-12,787</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="00400A" data-stock-name="主動國泰動能高息">00400A 主動國泰動能高息</td>
+          <td class="mono down" style="text-align:right">-10,081</td>
+        </tr>
+        
+        <tr>
+          <td data-stock-code="00961" data-stock-name="FT臺灣永續高息">00961 FT臺灣永續高息</td>
+          <td class="mono down" style="text-align:right">-6,203</td>
+        </tr>
+        
+      </table>
+    </div>
+  </div>
+  
+  
 </section>
 <hr class="divider">
 
@@ -605,7 +980,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 23:59</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-06 20:37</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
@@ -615,7 +990,7 @@
   }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=419a16fa"></script>
+<script src="assets/stock-chart.js?v=f0bdda6b"></script>
 
 </body>
 </html>

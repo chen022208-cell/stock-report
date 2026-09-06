@@ -817,8 +817,13 @@ def run_evening() -> None:
         key=lambda x: x["pct"], reverse=True,
     )
     if heatmap_rows or margin_top or strong:
+        # 三大法人「個股」買賣超排行：T86 的分項欄位（外資／投信／自營商各自
+        # 的買超前 10、賣超前 10）。大盤合計本來就有，但看不出是誰在買哪一檔。
+        inst_detail = _safe(twse.fetch_institutional_detail_by_stock, {},
+                            "個股三大法人買賣超明細")
+        inst_rank = render.build_inst_rank(inst_detail) if inst_detail else {}
         render.render_chips(inst, margin_top[:10], strong[:10], holders,
-                            render.date_label(today))
+                            render.date_label(today), inst_rank=inst_rank)
 
     # 第二層：題材聚類（含孤立訊號分流）
     # 帶上題材目錄的既有名稱，讓 LLM 優先套用目錄裡的名字而不是自己發明相似的新名，
@@ -1016,12 +1021,14 @@ def run_evening() -> None:
     # 選股雷達／評分頁的上櫃興櫃代號，數量有限。
     # 先排今天出現在網站上的（新掛牌／黑馬／起漲點），再輪其餘全市場上櫃興櫃，
     # 每次補一批，久了每檔上櫃興櫃個股都會有 K 線可看。
+    # 全市場那一輪已經交給 .github/workflows/chart-data.yml（每天 17:30 推到
+    # chart-data 分支）——快照檔在 main 是 gitignore 的，盤後在這裡重抓一次
+    # 只是白花 3 分鐘、結果也不會被 commit。這裡只補「今天真的出現在網站上」
+    # 的少數上櫃／興櫃（新掛牌／黑馬／起漲點），讓盤後當下就看得到圖，
+    # 不必等晚上那支 workflow。
     otc_codes = {n["code"]: n["name"] for n in new_listings}
     otc_codes.update({dh["code"]: dh["name"] for dh in dark_horses})
     otc_codes.update({b["code"]: b.get("name", "") for b in breakout_candidates})
-    for c in _all_market_codes():
-        if c["market"] in ("tpex", "esb"):
-            otc_codes.setdefault(c["code"], c["name"])
     _safe(lambda: snapshot_offmarket_history(otc_codes, cfg), 0, "上櫃／興櫃歷史K線")
 
     # 題材生命週期：退場機制
