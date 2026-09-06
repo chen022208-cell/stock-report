@@ -100,10 +100,15 @@ Claude 帳號」下、吃該帳號訂閱額度，跟你在哪台電腦開發無�
   題材/個股有關」才推播通知，避免每則國際新聞都推播造成通知疲勞。用
   `app_state` 表的 `news_monitor_last_id` 記錄檢查到哪一則，第一次執行只
   記錄基準不推播（避免一次性把歷史快訊全部分析一輪）。**排程：Routine
-  「台股即時快訊監控」（trig_01HTffRTdsBaegyH5EiyRryw），cron `33 * * * *`
-  每小時跑一次**，跟每日早報／盤後一樣是 CCR session 自己 clone repo、
-  自己扮演 LLM 服務 `agent_llm_queue/`、只有真的產生變更才 commit push，
-  失敗才 PushNotification。
+  「台股即時快訊監控」（trig_01HTffRTdsBaegyH5EiyRryw），cron `*/10 * * * *`
+  每 10 分鐘跑一次**（2026-09-07 由每小時改成 10 分鐘：快訊的價值在即時，
+  抓到跟推播中間隔最多 60 分鐘等於失去意義），跟每日早報／盤後一樣是 CCR
+  session 自己 clone repo、自己扮演 LLM 服務 `agent_llm_queue/`、只有真的
+  產生變更才 commit push，失敗才 PushNotification。
+  推播走**獨立的 `docs/_notify_news.json`（陣列）**，不要再用
+  `send_notification()`——那支寫的是早報／盤後共用的 `_notify_payload.json`，
+  以前放在迴圈裡等於一輪抓到 N 則就互相覆蓋 N-1 次，只有最後一則會送到
+  Discord，其餘靜靜消失。
 - **盤中強勢股篩選（波段用）**：GitHub Actions 迴圈式（方案①），
   `.github/workflows/intraday.yml`。平日 08:45（Asia/Taipei）由外部 cron-job.org
   POST `repository_dispatch`（`event_type: intraday-loop`）觸發，一支長 job 內部

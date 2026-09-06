@@ -7,6 +7,7 @@ on:
       - 'docs/_notify_payload.json'
       - 'docs/_notify_intraday.json'
       - 'docs/_notify_topic.json'
+      - 'docs/_notify_news.json'
 
 permissions:
   contents: read
@@ -64,7 +65,7 @@ jobs:
           # 它是「陣列」，一次跑出多篇會逐篇送出。
           any_sent = False
           for fname in ("docs/_notify_payload.json", "docs/_notify_intraday.json",
-                        "docs/_notify_topic.json"):
+                        "docs/_notify_topic.json", "docs/_notify_news.json"):
               if not os.path.exists(fname):
                   continue
               payload = json.load(open(fname, encoding="utf-8"))

@@ -1836,6 +1836,7 @@ def run_news_monitor() -> None:
         + [t["name"] for t in db.list_all_themes()]
     ))
     notified = 0
+    news_notify: list[dict] = []      # 這一輪要推的快訊，最後一次寫檔（避免互相覆蓋）
     for it in sorted(candidates, key=lambda x: x["id"]):
         text = f"{it['title']}\n{it['text']}" if it["title"] else it["text"]
         result = _process_research_submission(
@@ -1846,9 +1847,25 @@ def run_news_monitor() -> None:
         affected = result.get("affected_themes", [])
         if result.get("verified") in ("verified", "conflicting") and affected:
             names = "、".join(t["name"] for t in affected)
-            send_notification(f"📰 快訊：{it['title'] or text[:30]}",
-                             f"{result.get('summary', '')}\n\n相關題材：{names}")
+            verdict = {"verified": "已驗證", "conflicting": "與既有資料衝突"}.get(
+                result.get("verified"), result.get("verified"))
+            # 以前這裡直接呼叫 send_notification()，而那支寫的是
+            # `_notify_payload.json`——早報／盤後共用的那一個檔。寫在迴圈裡等於
+            # 一輪抓到 N 則就互相覆蓋 N-1 次，**只有最後一則會送到 Discord**，
+            # 其餘靜靜消失；還可能被當天的例行報告蓋掉。改成收集起來，最後一次
+            # 寫進獨立的 `_notify_news.json`（陣列，逐則送出）。
+            news_notify.append({
+                "title": f"📰 快訊：{it['title'] or text[:30]}",
+                "body": f"{result.get('summary', '')}\n\n"
+                        f"相關題材：{names}\n判定：{verdict}",
+                "url": f"{load_config()['site']['base_url']}/research.html",
+            })
             notified += 1
+
+    if news_notify:
+        (render.DOCS_DIR / "_notify_news.json").write_text(
+            json.dumps(news_notify, ensure_ascii=False, indent=2), encoding="utf-8")
+        print(f"[news] 已寫入推播內容 _notify_news.json（{len(news_notify)} 則）")
 
     db.set_state("news_monitor_last_id", str(max(it["id"] for it in feed)))
     if notified:
