@@ -135,17 +135,29 @@ def compute_breadth(quotes: list[dict]) -> dict:
     return {"advancers": adv, "decliners": dec} if (adv or dec) else {}
 
 
-def fetch_institutional_net() -> dict:
+def fetch_institutional_net(target: date | None = None) -> dict:
     """三大法人買賣超（單位：億元）。18:00 才抓的主因就是等這份資料落地。
 
     openapi /v1/fund/BFI82U 已失效，改走 RWD。回傳 data 為陣列：
       [單位名稱, 買進金額, 賣出金額, 買賣差額]
     列包含：自營商(自行買賣)、自營商(避險)、投信、外資及陸資(不含外資自營商)、外資自營商、合計
+
+    ⚠️ **一定要帶日期，而且要檢查回傳的 date**。這支端點不帶 dayDate 時會回
+    「最新一個有資料的交易日」，不管你以為今天是哪一天。實際踩到的後果：
+    2026-09-05 那天 TWSE 還沒有當日資料，盤後把 09-04 的數字原封不動存進
+    09-05 的 market_snapshots，兩天的外資／投信／自營商完全一樣（562.13／
+    -9.11／63.7），週報與月報把區間內的法人買賣超一加就變成兩倍。
+
+    回傳值多一個 "date"（YYYY-MM-DD，資料實際所屬日期），呼叫端必須自己比對
+    是不是自己要的那一天，不符就不要當成當日資料存起來。
     """
     if DRY_RUN:
         return mock.institutional_net()
 
-    data = _get_rwd("/fund/BFI82U", {"type": "day"})
+    params = {"type": "day"}
+    if target:
+        params["dayDate"] = target.strftime("%Y%m%d")
+    data = _get_rwd("/fund/BFI82U", params)
     if not data:
         return {}
 
@@ -165,6 +177,9 @@ def fetch_institutional_net() -> dict:
             out["dealer_net"] += net
     out = {k: round(v, 2) for k, v in out.items()}
     out["total_net"] = round(sum(out.values()), 2)
+    raw = str(data.get("date", "")).strip()          # 西元 20260904
+    out["date"] = (f"{raw[:4]}-{raw[4:6]}-{raw[6:]}"
+                   if len(raw) == 8 and raw.isdigit() else "")
     return out
 
 

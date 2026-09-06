@@ -629,6 +629,71 @@ def snapshot_offmarket_history(codes: dict[str, str], cfg: dict) -> int:
     return done
 
 
+def run_period_facts(days: int = 7) -> None:
+    """把「本期間站內已落地、且每一筆都帶日期」的事實列出來，給週報／月報
+    Routine 當寫作錨點。
+
+    為什麼需要這個：週報是雲端 Routine 用 WebSearch 寫的，搜尋結果不一定帶
+    正確日期，實際踩過的坑是「大立光重新站回 5,000 元大關」被當成本週事件寫
+    進報告，但那是好幾週前的事。站內 market_snapshots／themes／daily 這些
+    資料每一筆本來就有日期，先把區間內的事實攤出來，Routine 就能拿它對照，
+    而不是只靠搜尋結果的語氣判斷新舊。
+
+    輸出到 stdout（Routine 直接讀），不寫檔、不進 git。
+    """
+    end = now_tpe().date()
+    start = end - timedelta(days=days)
+    snaps = db.snapshots_between(start.isoformat(), end.isoformat())
+
+    print(f"=== 站內已落地事實：{start} ~ {end}（{days} 天）===")
+    if not snaps:
+        print("（這個區間沒有市場快照，可能是連假或系統還沒跑過盤後）")
+    else:
+        first, last = snaps[0], snaps[-1]
+        o = first.get("taiex_close") or 0
+        c = last.get("taiex_close") or 0
+        print(f"\n[加權指數] 交易日 {len(snaps)} 天，{first['date']} 收 {o} → "
+              f"{last['date']} 收 {c}"
+              + (f"（{(c / o - 1) * 100:+.2f}%）" if o else ""))
+        print("[逐日收盤]（每一筆都是站內當日盤後抓的，可以直接引用）")
+        def _amt(v):
+            # None ＝ 那天的法人資料還沒落地（TWSE 尚未公布），跟「0 億」完全
+            # 是兩回事，要分開講，不要讓 Routine 把「沒資料」寫成「沒買賣超」。
+            return f"{v:+.1f} 億" if v is not None else "（尚無資料）"
+
+        for sn in snaps:
+            print(f"  {sn['date']}  收 {sn.get('taiex_close')}  "
+                  f"外資 {_amt(sn.get('foreign_net'))}  投信 {_amt(sn.get('trust_net'))}")
+        have = [s for s in snaps if s.get("foreign_net") is not None]
+        print(f"[法人合計]（只加總有資料的 {len(have)}/{len(snaps)} 天）"
+              f" 外資 {sum(s.get('foreign_net') or 0 for s in have):+.1f} 億　"
+              f"投信 {sum(s.get('trust_net') or 0 for s in have):+.1f} 億")
+
+    print("\n[題材訊號]（last_signal_date 在區間內才算本期的事）")
+    hit = False
+    for t in db.list_themes("active") + db.list_themes("dormant"):
+        lsd = t.get("last_signal_date") or ""
+        if lsd >= start.isoformat():
+            hit = True
+            print(f"  {lsd}  {t['name']}（信心度 {t.get('confidence')}／"
+                  f"判定 {t.get('verdict')}／累積更新 {t.get('update_count')} 次）")
+    if not hit:
+        print("  （區間內沒有新的題材訊號）")
+
+    print("\n[逐檔查證過的個股]（有 sources 才列，其餘個股站內沒有查證過的公司分析）")
+    ana = db.all_stock_analysis()
+    verified = [(c, v) for c, v in ana.items() if v.get("sources")]
+    if verified:
+        for code, v in sorted(verified, key=lambda kv: kv[1].get("updated_at", ""), reverse=True)[:20]:
+            print(f"  {v.get('updated_at', '')}  {code} {v.get('name', '')}")
+    else:
+        print("  （目前沒有帶查證來源的個股分析）")
+
+    print("\n⚠️ 寫報告時：上面每一筆都有日期，凡是要寫成「本期發生」的事，"
+          "都要能對應到區間內的日期；WebSearch 查到但無法確認發生日期的事件，"
+          "要嘛標明日期、要嘛不要寫成本期新聞。")
+
+
 def run_chart_snapshot() -> None:
     """全市場上櫃＋興櫃日K快照 → docs/data/tpex_hist/<code>.json。
 
@@ -712,7 +777,15 @@ def run_evening() -> None:
     watch_codes = {w["code"] for w in cfg["watchlist"]}
 
     market = _safe(twse.fetch_index_summary, {}, "大盤行情")
-    inst = _safe(twse.fetch_institutional_net, {}, "三大法人")
+    # 一定要帶今天的日期：不帶的話 TWSE 會回「最新一個有資料的交易日」，
+    # 於是收盤資料還沒落地時，昨天的法人數字會被當成今天的存進去（實際踩過：
+    # 09-04 與 09-05 兩天的外資／投信／自營商完全一樣，週報一加就變兩倍）。
+    inst = _safe(lambda: twse.fetch_institutional_net(date.fromisoformat(today)),
+                 {}, "三大法人")
+    if inst and inst.get("date") and inst["date"] != today:
+        print(f"[evening] 三大法人資料日期是 {inst['date']}、不是今天 {today}，"
+              f"不寫進今日快照（避免重複計算）")
+        inst = {}
     quotes = _safe(twse.fetch_daily_quotes, [], "個股行情")
     tpex_quotes = _safe(tpex.fetch_daily_quotes, [], "上櫃個股行情")
     calls = _safe(lambda: mops.fetch_earnings_calls(), [], "法說會")
@@ -1491,6 +1564,8 @@ def main() -> None:
         "intraday-report": run_intraday_deep_report,
         "topic-requests": run_topic_requests,
         "chart-snapshot": run_chart_snapshot,
+        "weekly-facts": lambda: run_period_facts(7),
+        "monthly-facts": lambda: run_period_facts(31),
     }
 
     if mode == "auto":
