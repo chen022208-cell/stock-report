@@ -768,6 +768,25 @@ def render_intraday_report(row: dict) -> Path:
     return path
 
 
+def render_topic_report(slug: str, row: dict) -> Path:
+    """使用者點播的主題報告 → docs/analysis/<date>-<slug>.html。
+
+    沿用 CLAUDE.md 指定的 docs/analysis/ 資料夾（那裡本來就規劃成
+    「<日期>-<股票代號或主題slug>.html」），跟盤中個股快報放在一起，
+    由同一個清單頁列出。
+    """
+    cfg = load_config()
+    out_dir = DOCS_DIR / "analysis"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    path = out_dir / f"{row['date']}-{slug}.html"
+    path.write_text(_env().get_template("topic_report.html").render(
+        site_title=cfg["site"]["title"],
+        generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
+        rel="../", nav_current="", r=row,
+    ), encoding="utf-8")
+    return path
+
+
 def render_intraday_report_index() -> Path:
     """盤中快報清單 → docs/analysis/index.html。"""
     cfg = load_config()
@@ -780,6 +799,7 @@ def render_intraday_report_index() -> Path:
         rel="../", nav_current="",
         cap=cfg.get("intraday", {}).get("deep_report_daily_cap", 5),
         reports=db.all_intraday_reports(300),
+        topic_reports=db.all_topic_reports(300),
     ), encoding="utf-8")
     return path
 

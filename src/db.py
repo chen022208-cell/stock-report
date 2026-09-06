@@ -167,6 +167,23 @@ CREATE TABLE IF NOT EXISTS research_notes (
 
 -- 盤中焦點股深度快報：盤中篩選器抓到 A 級 → webhook 觸發雲端 Routine 逐檔查證後產出。
 -- 一檔一天最多一篇（PK code+date）。跟 stock_analysis（長期維護的公司判讀）分開存。
+-- 使用者「點播」的深度主題報告（提交研究頁的第三種模式）。
+-- 跟 intraday_reports 分開：那張是「某一檔股票今天在動什麼」的盤中快報，
+-- 這張是「使用者指定一個主題，系統做完整研究」的產出，沒有股票代號當主鍵。
+CREATE TABLE IF NOT EXISTS topic_reports (
+    slug         TEXT PRIMARY KEY,          -- 檔名用；同一天同主題只留一份
+    date         TEXT NOT NULL,             -- 台北日期 YYYY-MM-DD
+    reported_at  TEXT NOT NULL,
+    topic        TEXT NOT NULL,             -- 使用者原始輸入的主題
+    title        TEXT,
+    summary      TEXT,
+    sections     TEXT,                      -- JSON：[{heading, body}]
+    stocks       TEXT,                      -- JSON：[{code, name, note}]
+    risks        TEXT,
+    sources      TEXT,                      -- JSON 陣列：實際查證看過的來源
+    issue_no     INTEGER                    -- 對應的 GitHub Issue 編號（有的話）
+);
+
 CREATE TABLE IF NOT EXISTS intraday_reports (
     code          TEXT NOT NULL,
     date          TEXT NOT NULL,            -- 台北日期 YYYY-MM-DD
@@ -477,6 +494,53 @@ def catalog_themes_needing_deep_dive(limit: int) -> list[dict]:
             (limit,),
         ).fetchall()
         return [dict(r) for r in rows]
+
+
+def upsert_topic_report(slug: str, row: dict) -> None:
+    """寫入／覆寫一份主題點播報告。"""
+    with get_conn() as conn:
+        conn.execute(
+            """INSERT INTO topic_reports
+                 (slug, date, reported_at, topic, title, summary, sections,
+                  stocks, risks, sources, issue_no)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?)
+               ON CONFLICT(slug) DO UPDATE SET
+                 date=excluded.date, reported_at=excluded.reported_at,
+                 topic=excluded.topic, title=excluded.title,
+                 summary=excluded.summary, sections=excluded.sections,
+                 stocks=excluded.stocks, risks=excluded.risks,
+                 sources=excluded.sources, issue_no=excluded.issue_no""",
+            (slug, row.get("date", ""), row.get("reported_at", ""),
+             row.get("topic", ""), row.get("title", ""), row.get("summary", ""),
+             json.dumps(row.get("sections") or [], ensure_ascii=False),
+             json.dumps(row.get("stocks") or [], ensure_ascii=False),
+             row.get("risks", ""),
+             json.dumps(row.get("sources") or [], ensure_ascii=False),
+             row.get("issue_no")),
+        )
+
+
+def topic_report_exists(slug: str) -> bool:
+    with get_conn() as conn:
+        return conn.execute("SELECT 1 FROM topic_reports WHERE slug=?",
+                            (slug,)).fetchone() is not None
+
+
+def all_topic_reports(limit: int = 300) -> list[dict]:
+    with get_conn() as conn:
+        rows = conn.execute(
+            "SELECT * FROM topic_reports ORDER BY date DESC, reported_at DESC LIMIT ?",
+            (limit,)).fetchall()
+    out = []
+    for r in rows:
+        d = dict(r)
+        for k in ("sections", "stocks", "sources"):
+            try:
+                d[k] = json.loads(d.get(k) or "[]")
+            except (json.JSONDecodeError, TypeError):
+                d[k] = []
+        out.append(d)
+    return out
 
 
 def set_deep_dive_slug(theme_id: int, slug: str) -> None:

@@ -11,7 +11,9 @@
   <button class="rs-submit" id="rs-gh-submit" type="button" disabled>送出到 GitHub Issue →</button>
 </form>
 <p class="rs-note">會開一個新分頁到 GitHub，確認內容後按「Submit new issue」即完成——
-需要你有 GitHub 帳號並登入。</p>
+需要你有 GitHub 帳號並登入。<br>
+標題以 <code>[主題點播]</code> 開頭的話，會改走「點播深度主題」流程：
+系統自己上網查證後產出一份報告，而不是驗證你貼的內容。</p>
 <script>
 (function () {
   var titleEl = document.getElementById("rs-gh-title");
@@ -33,7 +35,12 @@
     var title = titleEl.value.trim() || "使用者研究提交";
     var body = bodyEl.value.trim();
     if (!body || !repo) return;
-    var url = "https://github.com/" + repo + "/issues/new?labels=research-submission"
+    // 標題以「[主題點播]」開頭 → 掛 topic-request 標籤，交給 run_topic_requests
+    // 處理（系統自己查證後寫報告）；否則照舊走 research-submission（驗證使用者
+    // 貼的內容）。兩條流程的產出位置與規則都不一樣，不能混。
+    var isTopic = /^\s*\[主題點播\]/.test(title);
+    var label = isTopic ? "topic-request" : "research-submission";
+    var url = "https://github.com/" + repo + "/issues/new?labels=" + label
       + "&title=" + encodeURIComponent(title) + "&body=" + encodeURIComponent(body);
     window.open(url, "_blank");
   });

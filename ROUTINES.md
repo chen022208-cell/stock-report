@@ -2,7 +2,7 @@
 
 這份文件記錄 `chen022208-cell/stock-report` 目前掛在 **Claude 帳號** 下的所有雲端 Routine（Claude Code Cloud / CCR），以及要把它們搬到「另一個 Claude 帳號」時的完整步驟。
 
-最後更新：2026-09-06
+最後更新：2026-09-06（新增 3.5b 主題點播深度報告，共 9 支）
 
 ---
 
@@ -10,7 +10,7 @@
 
 | 元件 | 跑在哪 | 吃 Claude 額度？ | 搬帳號要動？ |
 |---|---|---|---|
-| **8 支雲端 Routine**（下面列表） | Anthropic 雲端 CCR session | **是**（Pro/Max 訂閱額度） | **要全部重建** |
+| **9 支雲端 Routine**（下面列表） | Anthropic 雲端 CCR session | **是**（Pro/Max 訂閱額度） | **要全部重建** |
 | GitHub Actions workflows（`report.yml`、`intraday.yml`、`daily-notify.yml`、`deep-report-notify.yml`、`pages-build-deployment`…） | GitHub 自己的 runner | 否 | 不用動 |
 | cron-job.org「stock-report 盤中迴圈啟動」 | cron-job.org | 否 | 不用動 |
 | GitHub Pages、GitHub Secrets（`DISCORD_WEBHOOK_URL`、`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`、`ANTHROPIC_API_KEY`）、repo 本身 | GitHub | 否 | 不用動 |
@@ -246,6 +246,65 @@
 
 ---
 
+### 3.5b 台股主題點播深度報告
+
+> 提交研究頁的第三種模式（🎯 點播深度主題）。使用者只給一個題目、不貼文章，
+> 系統自己上網查證後寫一份報告。跟 3.4「使用者研究提交處理」是**兩條不同的
+> 流程**：3.4 是驗證使用者貼進來的內容（保守、寧可判 unverified），這一支是
+> 系統自己產出內容（查證責任全在產出端，沒有外部來源就不產出）。
+
+- **cron**：`30 11 * * 1-5` （UTC 平日 11:30 ＝ **台灣平日 19:30**，接在 3.4 之後）
+- **model**：`claude-sonnet-5`
+- **allowed_tools**：`Bash, BashOutput, KillBash, Read, Write, Edit, Glob, Grep, WebSearch, WebFetch, TodoWrite`
+- **prompt**：
+
+```
+你正在為「盤後快訊」台股報告網站（chen022208-cell/stock-report）跑「主題點播深度報告」。
+使用者在提交研究頁點播一個主題（GitHub Issue，標籤 topic-request，標題以「[主題點播]」開頭），
+你要實際上網查證後產出一份深度研究報告存回網站。沒有待處理的點播就安靜結束、不要通知使用者。
+
+【鐵則】
+個股「在做什麼」只能根據你這次實際 WebSearch 查到的資料，絕對不可以用股票名稱或產業分類
+推測（歷史事故：把做乳房重建軟組織填補的 7686 捷立康寫成 PCB 廠）。sources 必填，至少 2 個
+外部來源；查不到可靠來源的主題就不要寫，程式會自動在 Issue 上說明並關閉，這是正常行為。
+明確區分「已查證的事實」與「推論」，推論一律標「（推論）」。不要用投資建議語氣。
+
+【執行步驟】
+1. 工作目錄若還沒有 repo 就 `git clone https://github.com/chen022208-cell/stock-report` 再 `cd stock-report`；
+   已存在就 `cd` 進去 `git fetch origin && git checkout main && git pull --rebase origin main`。
+2. `pip install -r requirements.txt`（裝過會很快跳過）。
+3. 確認 `gh auth status` 可用（這一支一定要 gh：點播是靠 GitHub Issue 傳進來的）。
+4. 用 Bash 背景執行（run_in_background: true）：`LLM_AGENT_MODE=1 python -m src.main topic-requests`
+   - 程式（run_topic_requests）會用 `gh issue list --label topic-request` 讀待處理的點播，
+     對每一則把要問 LLM 的內容寫成 `agent_llm_queue/<uuid>.request.json`，然後卡住等回覆。
+5. 在背景程序執行期間，輪詢（每 5-10 秒 `ls agent_llm_queue/*.request.json`）偵測 request 檔：
+   - 讀出 `system`（角色與輸出格式規定）與 `user`（使用者點播的主題＋站內既有題材清單）。
+   - 針對這個主題用 WebSearch／WebFetch 實際查證：鉅亨網 cnyes.com、Goodinfo、財報狗
+     statementdog.com、公司官網、公開資訊觀測站、經濟日報 money.udn.com、工商時報 ctee.com.tw。
+     確認：這個題材是不是真的在發生、有哪些台廠實際參與、有沒有營收或訂單佐證。
+   - 依 `system` 要求輸出純 JSON（不要 markdown fence）：
+     {title, summary, sections:[{heading, body}], stocks:[{code,name,note}], risks, sources:[...]}
+     · stocks 只放你查證過、確定跟這個主題有關的台股，查不到就給空陣列，不要湊。
+     · sources 必填，至少 2 個你實際看過的外部來源。
+     · 如果查證後認為證據不足、或這根本不是一個成立的題材，就誠實寫出來，不要硬湊一篇。
+   - 寫進 `agent_llm_queue/<同一個 uuid>.response.txt`。用 BashOutput 確認程序已結束、
+     沒有殘留未回覆的 request。單一請求 20 分鐘逾時。
+6. 程式會：寫進 topic_reports 表 ＋ 產出 docs/analysis/<日期>-<主題slug>.html ＋ 更新
+   docs/analysis/index.html ＋ 在對應 Issue 留言附上網址並關閉。終端會印
+   `[topic] 產出 N 篇主題報告`。
+7. `git status -sb`。若 `data/market.db`、`docs/analysis/` 有變動：
+   `git add -A && git commit -m "主題點播報告 $(date -u +%Y-%m-%d)（N 篇）"` →
+   `git pull --rebase origin main` → `git push`。被拒就重新 rebase 再推，最多 3 次。
+8. 若「沒有待處理的主題點播」或 git 沒有任何變動：安靜結束，不要 commit、不要通知使用者。
+9. 只有失敗時（程式逾時、git push 連 3 次失敗、程式報錯）才 PushNotification。
+```
+
+**前置設定（一次性）**：GitHub repo 要有 `topic-request` 這個 Issue 標籤
+（Issues → Labels → New label），否則前端帶 `labels=topic-request` 開新 Issue 時
+標籤會被忽略，程式就撈不到。
+
+---
+
 ### 3.6 台股週報：全球總經＋台股深度研究
 
 - **cron**：`0 12 * * 5` （UTC 週五 12:00 ＝ **台灣週五 20:00**）
@@ -410,6 +469,7 @@ RemoteTrigger action=create_webhook_trigger body={
 | 每日盤後 | `0 10 * * 1-5` | 平日 18:00 |
 | 即時快訊監控 | `33 * * * *` | 每小時 :33 |
 | 使用者研究提交處理 | `0 11 * * 1-5` | 平日 19:00 |
+| 主題點播深度報告 | `30 11 * * 1-5` | 平日 19:30 |
 | 個股逐檔查證 | `0 3 * * *` | 每天 11:00 |
 | 週報 | `0 12 * * 5` | 週五 20:00 |
 | 深度月報 | `0 0 1 * *` | 每月 1 號 08:00 |

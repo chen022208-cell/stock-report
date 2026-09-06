@@ -1188,6 +1188,101 @@ def _gh_issue_list() -> list[dict]:
         return []
 
 
+TOPIC_LABEL = "topic-request"
+
+
+def _gh_topic_issue_list() -> list[dict]:
+    """讀「點播深度主題」的 Issue（提交研究頁的第三種模式）。"""
+    try:
+        out = subprocess.run(
+            ["gh", "issue", "list", "--label", TOPIC_LABEL, "--state", "open",
+             "--json", "number,title,body,url"],
+            capture_output=True, text=True, check=True, timeout=30,
+        )
+        return json.loads(out.stdout or "[]")
+    except Exception as exc:
+        print(f"[topic] 讀取 GitHub Issue 失敗（可能沒裝 gh 或未登入）：{exc}")
+        return []
+
+
+def run_topic_requests() -> None:
+    """使用者點播主題 → 系統做完整研究 → 產出報告頁存回網站。
+
+    這是提交研究頁的第三種模式：前兩種是使用者「貼文章／貼連結」讓系統驗證，
+    這一種是使用者只給一個主題，由系統自己上網查證後寫一份深度報告。
+
+    因為沒有原文可以比對，查證責任全在產出端——llm.write_topic_report() 的
+    system 提示要求 sources 至少 2 個外部來源，這裡再擋一次：沒有來源的報告
+    直接不寫，並在 Issue 上說明原因，不留一篇沒有查證的文章在網站上。
+
+    產出位置沿用 CLAUDE.md 講的 docs/analysis/<日期>-<主題slug>.html。
+    """
+    today = today_str()
+    issues = _safe(_gh_topic_issue_list, [], "讀取主題點播")
+    if not issues:
+        print("[topic] 沒有待處理的主題點播")
+        return
+
+    known = list(dict.fromkeys(
+        _safe(db.catalog_theme_names, [], "題材目錄名單")
+        + [t["name"] for t in db.list_all_themes()]
+    ))
+
+    made = 0
+    for issue in issues:
+        number = issue["number"]
+        topic = (issue.get("title") or "").strip()
+        detail = (issue.get("body") or "").strip()
+        if detail and detail != topic:
+            topic = f"{topic}\n補充說明：{detail}"
+        if not topic:
+            _gh_issue_comment_and_close(number, "沒有讀到主題內容，已關閉。")
+            continue
+
+        print(f"[topic] 處理 Issue #{number}：{topic[:40]}")
+        report = _safe(lambda t=topic: llm.write_topic_report(t, known), {},
+                       f"主題報告 #{number}")
+        if not report or not report.get("sections"):
+            _gh_issue_comment_and_close(
+                number, "產出失敗（LLM 呼叫或解析出錯），請稍後再試或換個講法描述主題。")
+            continue
+
+        sources = [x for x in (report.get("sources") or []) if str(x).strip()]
+        if len(sources) < 1:
+            # 沒有任何查證來源就不留檔——寧可不生，也不要放一篇沒查證的報告
+            _gh_issue_comment_and_close(
+                number, "這個主題查不到可靠的外部來源，依站內規則不產出報告"
+                        "（寧可不寫，也不放未經查證的內容）。")
+            print(f"[topic] #{number} 無來源，略過不寫")
+            continue
+
+        slug = render.slugify((issue.get("title") or "topic").strip())[:40]
+        row = {
+            "date": today,
+            "reported_at": now_tpe().strftime("%Y-%m-%d %H:%M:%S"),
+            "topic": (issue.get("title") or "").strip(),
+            "title": report.get("title") or issue.get("title") or "主題研究",
+            "summary": report.get("summary", ""),
+            "sections": report.get("sections") or [],
+            "stocks": report.get("stocks") or [],
+            "risks": report.get("risks", ""),
+            "sources": sources,
+            "issue_no": number,
+        }
+        db.upsert_topic_report(slug, row)
+        path = render.render_topic_report(slug, row)
+        made += 1
+        url = f"{load_config()['site']['base_url']}/analysis/{today}-{slug}.html"
+        _gh_issue_comment_and_close(
+            number, f"已產出主題報告：{row['title']}\n\n{url}\n\n"
+                    f"查證來源 {len(sources)} 個。報告同時列在研究／分析清單頁。")
+        print(f"[topic] 已產出 {path.name}")
+
+    if made:
+        render.render_intraday_report_index()
+        print(f"[topic] 產出 {made} 篇主題報告")
+
+
 def _gh_issue_comment_and_close(number: int, comment: str) -> None:
     try:
         subprocess.run(["gh", "issue", "comment", str(number), "--body", comment],
@@ -1394,6 +1489,7 @@ def main() -> None:
         "verify-stocks": run_verify_stocks,
         "intraday-ref": _run_intraday_ref,
         "intraday-report": run_intraday_deep_report,
+        "topic-requests": run_topic_requests,
         "chart-snapshot": run_chart_snapshot,
     }
 

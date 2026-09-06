@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block title %}盤中快報清單 · {{ site_title }}{% endblock %}
 {% block extra_css %}
+  .ar-sec-h{font-size:17px; margin:34px 0 0; padding-top:22px;
+            border-top:1px solid var(--hairline);}
   .ar-row{display:block; background:var(--surface); border:1px solid var(--hairline);
     border-radius:var(--radius-sm); padding:12px 14px; margin-bottom:9px; text-decoration:none; color:inherit;}
   .ar-row:hover{border-color:var(--text-muted);}
@@ -14,11 +16,11 @@
 <h1 class="masthead-date">盤中快報</h1></header>
 <p class="commentary" style="margin-top:14px">盤中強勢股篩選抓到 A 級標的時，系統即時上網查證後產出的快報（每日上限
 {{ cap }} 篇）。<b>快報形式、非深度查證</b>，僅供研究參考，不構成投資建議。深度、逐檔查證過的公司分析在
-<a href="lookup.html">個股查詢</a>。</p>
+<a href="{{ rel }}lookup.html">個股查詢</a>。</p>
 
 {% if reports %}
 {% for r in reports %}
-<a class="ar-row" href="analysis/{{ r.date }}-{{ r.code }}.html">
+<a class="ar-row" href="{{ r.date }}-{{ r.code }}.html">
   <div class="ar-top">
     <span class="ar-name">{{ r.code }} {{ r.name }}
       {%- if r.signals and r.signals.change_pct is not none %} <span style="color:var(--c-chip)">{{ '%+.2f'|format(r.signals.change_pct) }}%</span>{% endif %}</span>
@@ -29,5 +31,26 @@
 {% endfor %}
 {% else %}
 <p class="commentary" style="color:var(--text-muted); margin-top:16px">尚未有盤中快報。</p>
+{% endif %}
+
+{# 使用者點播的主題報告：跟盤中個股快報放同一個資料夾，但性質不同，分開列 #}
+<h2 class="ar-sec-h">🎯 點播主題報告</h2>
+<p class="commentary" style="margin-top:6px">
+  由使用者在 <a href="{{ rel }}submit.html">提交研究</a> 頁點播主題，系統實際上網查證後產出。
+  <b>沒有外部查證來源就不產出</b>，不會放未經查證的內容。</p>
+{% if topic_reports %}
+{% for t in topic_reports %}
+<a class="ar-row" href="{{ t.date }}-{{ t.slug }}.html">
+  <div class="ar-top">
+    <span class="ar-name">{{ t.title }}</span>
+    <span class="ar-when">{{ t.date }} · 來源 {{ t.sources|length }} 個</span>
+  </div>
+  {% if t.summary %}<div class="ar-head">{{ t.summary[:110] }}{% if t.summary|length > 110 %}…{% endif %}</div>{% endif %}
+</a>
+{% endfor %}
+{% else %}
+<p class="commentary" style="color:var(--text-muted); margin-top:16px">
+  還沒有人點播主題。到 <a href="{{ rel }}submit.html" style="color:var(--gold)">提交研究</a>
+  頁的「點播深度主題」就可以指定一個題目讓系統做研究。</p>
 {% endif %}
 {% endblock %}

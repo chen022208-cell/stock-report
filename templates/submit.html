@@ -17,6 +17,9 @@
   .rs-steps b{color:var(--gold);}
   .rs-note{font-size:12.5px; color:var(--text-muted); margin-top:20px;}
   .rs-mode-tabs{display:flex; gap:6px;}
+  .rs-mode-tabs{flex-wrap:wrap;}
+  .rs-topic-hint{font-size:12.5px; color:var(--text-muted); line-height:1.8; margin-top:8px;}
+  .rs-topic-hint a{color:var(--gold);}
   .rs-mode-tab{background:var(--surface); border:1px solid var(--hairline); color:var(--text-secondary);
     border-radius:var(--radius-sm); padding:8px 16px; font-size:13px; cursor:pointer;}
   .rs-mode-tab.active{background:var(--gold); color:#1a1512; border-color:var(--gold); font-weight:600;}
@@ -42,6 +45,7 @@
 <div class="rs-mode-tabs" id="rs-mode-tabs">
   <button type="button" class="rs-mode-tab active" data-mode="text">貼文字內容</button>
   <button type="button" class="rs-mode-tab" data-mode="url">貼連結網址</button>
+  <button type="button" class="rs-mode-tab" data-mode="topic">🎯 點播深度主題</button>
 </div>
 
 <form class="rs-form" id="rs-form" onsubmit="return false;" style="margin-top:14px">
@@ -57,6 +61,18 @@
   <div id="rs-url-field" style="display:none">
     <label for="rs-url">文章網址</label>
     <input id="rs-url" type="url" placeholder="https://...">
+  </div>
+  <div id="rs-topic-field" style="display:none">
+    <label for="rs-topic">想研究的主題</label>
+    <input id="rs-topic" type="text" placeholder="例如：矽光子 CPO 在台廠的實際進度">
+    <div class="rs-topic-hint">
+      這個模式不用貼文章——你只要給題目，系統會自己上網查證後寫一份深度報告，
+      產出後會列在 <a href="{{ rel }}analysis/">分析清單</a> 頁。
+      <b>查不到可靠外部來源的主題不會產出報告</b>（寧可不寫，也不放沒查證的內容）。
+    </div>
+    <label for="rs-topic-note" style="margin-top:10px">補充說明（可留空）</label>
+    <textarea id="rs-topic-note" style="min-height:90px"
+              placeholder="想特別看哪個角度？例如：只想看上游材料端、或想知道有沒有實際出貨"></textarea>
   </div>
   <button class="rs-submit" id="rs-submit" type="button" disabled>送出 →</button>
   <div class="rs-success" id="rs-success">✓ 已送出，系統會盡快分析並更新到研究筆記頁面。</div>
@@ -90,13 +106,20 @@
 <script>
 (function () {
   var mode = "text";
-  document.querySelectorAll(".rs-mode-tab").forEach(function (btn) {
-    btn.addEventListener("click", function () {
+  // 參數名不要叫 btn——下面那個 btn 是「送出」按鈕，同名會被這裡的分頁按鈕遮蔽，
+  // 結果是點分頁時把分頁自己的字改成「送出點播 →」。
+  document.querySelectorAll(".rs-mode-tab").forEach(function (tab) {
+    tab.addEventListener("click", function () {
       document.querySelectorAll(".rs-mode-tab").forEach(function (b) { b.classList.remove("active"); });
-      btn.classList.add("active");
-      mode = btn.getAttribute("data-mode");
+      tab.classList.add("active");
+      mode = tab.getAttribute("data-mode");
       document.getElementById("rs-text-field").style.display = mode === "text" ? "" : "none";
       document.getElementById("rs-url-field").style.display = mode === "url" ? "" : "none";
+      document.getElementById("rs-topic-field").style.display = mode === "topic" ? "" : "none";
+      // 三種模式送出的東西不一樣，按鈕文案也跟著換，免得使用者以為只是換欄位
+      btn.textContent = mode === "topic" ? "送出點播 →" : "送出 →";
+      document.getElementById("rs-title").parentNode.style.display =
+        mode === "topic" ? "none" : "";
       updateBtn();
     });
   });
@@ -104,12 +127,16 @@
   var titleEl = document.getElementById("rs-title");
   var bodyEl = document.getElementById("rs-body");
   var urlEl = document.getElementById("rs-url");
+  var topicEl = document.getElementById("rs-topic");
+  var topicNoteEl = document.getElementById("rs-topic-note");
   var countEl = document.getElementById("rs-count");
   var btn = document.getElementById("rs-submit");
   var successEl = document.getElementById("rs-success");
 
   function currentContent() {
-    return mode === "url" ? urlEl.value.trim() : bodyEl.value.trim();
+    if (mode === "url") return urlEl.value.trim();
+    if (mode === "topic") return topicEl.value.trim();
+    return bodyEl.value.trim();
   }
   function updateBtn() {
     var n = bodyEl.value.length;
@@ -119,18 +146,35 @@
   }
   bodyEl.addEventListener("input", updateBtn);
   urlEl.addEventListener("input", updateBtn);
+  topicEl.addEventListener("input", updateBtn);
   updateBtn();
 
   btn.addEventListener("click", function () {
     var content = currentContent();
     if (!content) return;
-    document.getElementById("rs-gform-title").value = titleEl.value.trim() || "使用者研究提交";
-    document.getElementById("rs-gform-body").value = content;
+    // 主題點播走的是不同的處理流程（run_topic_requests），後端靠標題前綴分流：
+    // Google 表單那條路沒有 label 可用，所以用「[主題點播]」當標記。
+    var title, body;
+    if (mode === "topic") {
+      title = "[主題點播] " + content;
+      body = topicNoteEl.value.trim() || content;
+    } else {
+      title = titleEl.value.trim() || "使用者研究提交";
+      body = content;
+    }
+    document.getElementById("rs-gform-title").value = title;
+    document.getElementById("rs-gform-body").value = body;
     document.getElementById("rs-gform").submit();
 
     btn.disabled = true;
+    successEl.textContent = mode === "topic"
+      ? "✓ 已送出點播，系統查證後會把報告放到分析清單頁。"
+      : "✓ 已送出，系統會盡快分析並更新到研究筆記頁面。";
     successEl.classList.add("show");
-    titleEl.value = ""; bodyEl.value = ""; if (urlEl) urlEl.value = "";
+    titleEl.value = ""; bodyEl.value = "";
+    if (urlEl) urlEl.value = "";
+    if (topicEl) topicEl.value = "";
+    if (topicNoteEl) topicNoteEl.value = "";
     updateBtn();
     setTimeout(function () { successEl.classList.remove("show"); }, 6000);
   });

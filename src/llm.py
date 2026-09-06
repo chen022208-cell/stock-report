@@ -705,6 +705,58 @@ def write_deep_dive(theme: dict, timeline: list[dict], extra: str = "") -> dict:
         return {}
 
 
+# ── 使用者點播的深度主題報告 ─────────────────────────────
+# 跟「使用者提交文章」不同：那邊是驗證別人寫的東西，這邊是使用者只給一個
+# 主題、由系統自己做研究。既然沒有原文可以比對，查證責任全在產出端——
+# 所以 sources 是必填，而且要求把「查到的事實」跟「推論」分開寫。
+TOPIC_REPORT_SYSTEM = """你是台股研究分析師，使用者點播一個主題，你要產出一份深度研究報告。
+
+【最重要的鐵則】
+你必須實際查證後才能下筆。個股「在做什麼」只能根據你這次實際查到的資料，
+絕對不可以用股票名稱或產業分類推測（歷史事故：把做乳房重建軟組織填補的
+7686 捷立康寫成 PCB 廠）。查不到可靠來源的個股就不要放進 stocks。
+sources 必填，列出你實際看過並用來下筆的來源（網址或明確出處），至少 2 個。
+查證來源建議：鉅亨網 cnyes.com、Goodinfo、財報狗 statementdog.com、公司官網、
+公開資訊觀測站、經濟日報 money.udn.com、工商時報 ctee.com.tw。
+
+【寫作要求】
+- 分析文章形式、有論述脈絡，不是條列摘要
+- 明確區分「已查證的事實」與「你的推論」，推論一律標「（推論）」
+- 完全不用投資建議語氣（不推薦買賣，是資訊整理）
+- 重要數據附來源
+- 如果這個主題你查證後認為證據不足、或根本不是一個成立的題材，就誠實寫出來，
+  不要為了交差硬湊一篇看起來完整的報告
+
+只輸出 JSON，不要 markdown 標記：
+{
+  "title": "報告標題",
+  "summary": "2-4 句話的總結",
+  "sections": [{"heading": "段落標題", "body": "段落內容"}],
+  "stocks": [{"code": "台股代號", "name": "名稱", "note": "跟這個主題的關聯（查證過的）"}],
+  "risks": "風險與觀察重點",
+  "sources": ["實際看過的來源1", "來源2"]
+}"""
+
+
+def write_topic_report(topic: str, known_themes: list[str] | None = None) -> dict:
+    """使用者點播一個主題 → 一份查證過的深度研究報告。"""
+    if DRY_RUN:
+        return {"title": f"{topic}：主題研究", "summary": "（DRY_RUN 假資料）",
+                "sections": [{"heading": "概述", "body": "DRY_RUN 模式不呼叫 LLM。"}],
+                "stocks": [], "risks": "", "sources": ["DRY_RUN"]}
+
+    user = f"使用者點播的主題：{topic}\n"
+    if known_themes:
+        user += ("\n本站題材知識庫目前追蹤中的題材（如果這個主題跟其中某個是同一件事，"
+                 "請在報告中point out，用同樣的名字）：\n"
+                 + "\n".join(f"- {n}" for n in known_themes))
+    try:
+        return _parse_json(_call(TOPIC_REPORT_SYSTEM, user, 6000))
+    except Exception as exc:
+        print(f"[llm] 主題報告產出失敗：{exc}")
+        return {}
+
+
 # ── 使用者提交研究（文章／文字）分析 ─────────────────────
 # 這裡的驗證要求是刻意寫得很重的：使用者貼進來的文章可能是網路轉載、
 # 未經證實的傳言，甚至內容有誤。絕對不能把「使用者說的」直接當成

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}{{ r.title }} · {{ site_title }}{% endblock %}
+{% block extra_css %}
+  .tr-meta{font-size:12.5px; color:var(--text-muted); margin:8px 0 20px;}
+  .tr-badge{display:inline-block; font-size:11.5px; background:var(--surface-2);
+            border:1px solid var(--hairline); border-radius:999px; padding:2px 9px;
+            color:var(--c-theme); margin-right:8px;}
+  .tr-summary{font-size:15px; line-height:1.85; color:var(--text-primary);
+              background:var(--surface); border-left:3px solid var(--gold);
+              border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:24px;}
+  .tr-sec{margin-bottom:26px;}
+  .tr-sec h2{font-size:17px; margin:0 0 10px;}
+  .tr-sec p{font-size:14.5px; line-height:1.9; color:var(--text-secondary); margin:0;}
+  .tr-stocks{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;}
+  .tr-stock{cursor:pointer; background:var(--surface); border:1px solid var(--hairline);
+            border-radius:var(--radius-sm); padding:8px 12px; font-size:13px; max-width:340px;}
+  .tr-stock:hover{border-color:var(--gold);}
+  .tr-stock b{font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
+  .tr-stock span{display:block; color:var(--text-muted); font-size:12px; margin-top:3px;}
+  .tr-risk{background:var(--surface); border-left:3px solid var(--c-warn);
+           border-radius:var(--radius-sm); padding:12px 15px; font-size:14px;
+           line-height:1.85; color:var(--text-secondary);}
+  .tr-src{font-size:12.5px; color:var(--text-muted); line-height:1.9;
+          border-top:1px solid var(--hairline); padding-top:14px; margin-top:26px;}
+  .tr-src a{color:var(--gold); word-break:break-all;}
+{% endblock %}
+{% block content %}
+<header>
+  <div class="masthead-label">{{ site_title }}</div>
+  <h1 class="masthead-date">{{ r.title }}</h1>
+</header>
+<p class="tr-meta">
+  <span class="tr-badge">🎯 使用者點播主題</span>
+  {{ r.date }} 產出　·　原始點播：{{ r.topic }}
+</p>
+
+{% if r.summary %}<div class="tr-summary">{{ r.summary }}</div>{% endif %}
+
+{% for sec in r.sections %}
+<section class="tr-sec">
+  <h2>{{ sec.heading }}</h2>
+  <p>{{ sec.body }}</p>
+</section>
+{% endfor %}
+
+{% if r.stocks %}
+<section class="tr-sec">
+  <h2>相關個股</h2>
+  <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:8px">
+    只列出查證過、確定與本主題相關的個股。點任一檔看 K 線與公司資料。</p>
+  <div class="tr-stocks">
+    {% for st in r.stocks %}
+    <div class="tr-stock" data-stock-code="{{ st.code }}" data-stock-name="{{ st.name }}">
+      <b>{{ st.code }} {{ st.name }}</b>
+      {% if st.note %}<span>{{ st.note }}</span>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if r.risks %}
+<section class="tr-sec">
+  <h2>風險與觀察重點</h2>
+  <div class="tr-risk">{{ r.risks }}</div>
+</section>
+{% endif %}
+
+<div class="tr-src">
+  <b>查證來源</b>（本報告依站內規則，沒有外部來源就不產出）：<br>
+  {% for src in r.sources %}
+    {%- if src.startswith('http') %}<a href="{{ src }}" target="_blank" rel="noopener">{{ src }}</a>
+    {%- else %}{{ src }}{% endif %}{% if not loop.last %}　·　{% endif %}
+  {% endfor %}
+  <p style="margin-top:10px">本頁為系統依使用者點播主題自動整理之資訊，明確標示「（推論）」者為推論而非查證事實；
+  僅供研究參考，不構成投資建議。</p>
+</div>
+<p style="margin-top:20px; font-size:13px">
+  ← 回 <a href="index.html" style="color:var(--gold)">分析清單</a>　·
+  <a href="{{ rel }}submit.html" style="color:var(--gold)">再點播一個主題</a></p>
+{% endblock %}
