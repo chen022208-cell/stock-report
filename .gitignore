@@ -5,4 +5,10 @@ __pycache__/
 venv/
 .DS_Store
 data/prices.db
+data/intraday_hist.db
+# 盤中篩選的即時/暫存輸出只活在 intraday-data 分支，main 不追蹤
+# （intraday.json 保留一份當前端 fallback，見 templates/intraday.html）
+docs/data/intraday_ref.json
+docs/data/intraday_signals.json
+docs/data/intraday_new_signal.json
 agent_llm_queue/

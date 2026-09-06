@@ -67,6 +67,30 @@ stock_verify:
   daily_count: 10           # 每天逐檔查證幾檔
   refresh_days: 180         # 已查證的分析幾天後排入重新查證
 
+# ── 盤中強勢股篩選（方案①：GitHub Actions 迴圈式，python -m src.main intraday）──
+# 資料走 mis.twse.com.tw 即時報價；結果寫到 intraday-data 分支，前端每 45 秒重讀。
+# 門檻先給保守值，之後拿實際盤中資料回測再調（架構書一再強調不要直接套他人參數）。
+intraday:
+  min_price: 10                    # Layer 0：排除低價股
+  rs_market_threshold: 1.0         # Layer 1：對大盤相對強度 ≥ 幾 %（個股漲幅 − 大盤漲幅）
+  rs_full_pct: 5.0                 # 評分用：領先大盤/同業 5% 給滿分
+  volume_ratio_threshold: 1.5      # Layer 2：昨量比（時間校正）≥ 幾倍才算量增
+  vol_full_ratio: 3.0             # 評分用：昨量比達 (1+3)=4 倍給滿分
+  min_confidence_fraction: 0.05    # 已過盤比例低於此值 → 標記 low_confidence（開盤初期）
+  tier_a: 80
+  tier_b: 60
+  list_cap: 40                     # A／B 名單各最多顯示幾檔（JSON 大小與畫面長度）
+  display_delay_min: 15            # 公開頁面顯示的資料延遲（分鐘），避開即時報價轉發爭議
+  deep_report_min_score: 82        # A 級且分數 ≥ 此值才進深度快報候選
+  deep_report_daily_cap: 5         # 每日深度快報上限（雲端 Routine 那邊會再擋一次）
+  deep_report_cooldown_hours: 6    # 同一檔幾小時內不重複發快報
+  weights:                         # 綜合評分權重（架構書第五節；委買賣力道那 5% 資料源不支援，略）
+    rs_market: 25
+    rs_sector: 20
+    volume: 25
+    pattern: 15
+    long_term_high: 10
+
 # ── 使用者研究提交（submit.html → GitHub Issue 或 Google 表單）──
 research_intake:
   # Google 表單：讓不需要 GitHub 帳號的訪客也能提交，見 submit.html 的說明。

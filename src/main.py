@@ -330,6 +330,12 @@ def process_stock_swot_batch(cfg: dict, today: str) -> int:
     return written
 
 
+def _run_intraday_ref() -> None:
+    """盤中篩選器每日盤前的參考值更新（新高、昨量），intraday-data 分支用。"""
+    from . import intraday
+    intraday.sync_ref()
+
+
 def run_verify_stocks() -> None:
     """每天逐檔查證少量個股的公司介紹＋SWOT，寫進 stock_analysis（帶 sources）。
 
@@ -1146,10 +1152,23 @@ def main() -> None:
         "research": run_research_intake,
         "news": run_news_monitor,
         "verify-stocks": run_verify_stocks,
+        "intraday-ref": _run_intraday_ref,
     }
 
     if mode == "auto":
         run_auto(sys.argv[2] if len(sys.argv) > 2 else "evening")
+    elif mode == "intraday":
+        from . import intraday as _iv
+        args = sys.argv[2:]
+        loop = "--loop" in args
+        until = None
+        interval = 60
+        for i, a in enumerate(args):
+            if a == "--until" and i + 1 < len(args):
+                until = args[i + 1]
+            if a == "--interval" and i + 1 < len(args):
+                interval = int(args[i + 1])
+        _iv.run(loop=loop, until=until, interval=interval)
     elif mode in dispatch:
         dispatch[mode]()
     else:

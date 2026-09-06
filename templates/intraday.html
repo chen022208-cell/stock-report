@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+{% block title %}盤中強勢股 · {{ site_title }}{% endblock %}
+{% block extra_css %}
+  .iv-bar{display:flex; flex-wrap:wrap; gap:14px; align-items:baseline; margin:14px 0 6px;
+    font-size:13px; color:var(--text-secondary);}
+  .iv-bar b{color:var(--text);}
+  .iv-status{font-size:12px; padding:2px 8px; border-radius:10px; background:var(--surface-2);}
+  .iv-status.open{color:var(--c-score); background:rgba(46,160,67,.12);}
+  .iv-delay{font-size:11.5px; color:var(--text-muted);}
+  .iv-sec{margin-top:24px;}
+  .iv-sec h2{font-size:15px; margin-bottom:4px;}
+  .iv-sec .hint{font-size:12px; color:var(--text-muted); margin-bottom:10px;}
+  .iv-card{background:var(--surface); border:1px solid var(--hairline); border-radius:var(--radius-sm);
+    padding:11px 13px; margin-bottom:9px; cursor:pointer;}
+  .iv-card:hover{border-color:var(--text-muted);}
+  .iv-card .row1{display:flex; justify-content:space-between; align-items:baseline; gap:10px;}
+  .iv-name{font-weight:600; font-size:14px;}
+  .iv-score{font-size:12px; color:var(--text-muted);}
+  .iv-chg{font-weight:600;}
+  .iv-chg.up{color:var(--c-chip);} .iv-chg.down{color:var(--c-score);}
+  .iv-tags{margin-top:6px; display:flex; flex-wrap:wrap; gap:5px;}
+  .iv-tag{font-size:11px; padding:1px 7px; border-radius:9px; background:var(--surface-2); color:var(--text-secondary);}
+  .iv-tag.hot{background:rgba(219,109,40,.14); color:var(--c-market);}
+  .iv-lowconf{font-size:11px; color:var(--c-market); margin-left:6px;}
+  .iv-tabs{display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap;}
+  .iv-tabs button{font:inherit; font-size:12.5px; padding:4px 11px; border:1px solid var(--hairline);
+    border-radius:14px; background:var(--surface); color:var(--text-secondary); cursor:pointer;}
+  .iv-tabs button.on{background:var(--text); color:var(--bg); border-color:var(--text);}
+  .iv-table{width:100%; border-collapse:collapse; font-size:13px;}
+  .iv-table th,.iv-table td{text-align:left; padding:7px 9px; border-bottom:1px solid var(--hairline);}
+  .iv-table th{font-size:11px; color:var(--text-muted); font-weight:500;}
+  .iv-table td.num{text-align:right; font-variant-numeric:tabular-nums;}
+  .iv-table tr{cursor:pointer;}
+  .iv-empty{font-size:13px; color:var(--text-muted); padding:12px 0;}
+  .iv-collapse{margin-top:8px;}
+  .iv-collapse summary{font-size:12.5px; color:var(--text-secondary); cursor:pointer;}
+{% endblock %}
+{% block content %}
+<header><div class="masthead-label">{{ site_title }}</div>
+<h1 class="masthead-date">盤中強勢股</h1></header>
+
+<p class="commentary" style="margin-top:14px">
+盤中每分鐘用量價條件從全市場篩「當下最有動能」的一小群股票——多層漏斗（相對強度→量能→突破）＋加權評分，
+分 A／B 級。<b>這是客觀訊號整理，不是推薦標的</b>，追高風險高，務必自己搭配停損與部位控管。
+資料來自證交所即時報價，公開頁面延遲顯示。</p>
+
+<div class="iv-bar" id="ivBar">
+  <span>載入中…</span>
+</div>
+<div class="iv-delay" id="ivDelay"></div>
+
+<section class="iv-sec">
+  <h2>🅰️ A 級（<span id="ivACount">–</span>）</h2>
+  <div class="hint">分數 ≥ 80，動能最集中的一群。點任一檔看 K 線與公司資料。</div>
+  <div id="ivA"><div class="iv-empty">—</div></div>
+</section>
+
+<section class="iv-sec">
+  <details class="iv-collapse" id="ivBWrap">
+    <summary>🅱️ B 級（<span id="ivBCount">–</span>）— 展開</summary>
+    <div id="ivB" style="margin-top:10px"></div>
+  </details>
+</section>
+
+<section class="iv-sec">
+  <h2>📊 排行</h2>
+  <div class="iv-tabs" id="ivRankTabs">
+    <button data-k="gainers" class="on">漲幅</button>
+    <button data-k="volume_ratio">量比</button>
+    <button data-k="turnover">成交值</button>
+    <button data-k="new_high_1y">創年新高</button>
+  </div>
+  <div id="ivRank"></div>
+</section>
+
+<section class="iv-sec">
+  <h2>🔄 類股輪動</h2>
+  <div class="hint">各產業當下漲幅中位數與「漲逾 3%」家數，看資金流向哪個族群。</div>
+  <div id="ivSectors"></div>
+</section>
+
+<p class="commentary" style="margin-top:26px; font-size:12px; color:var(--text-muted)">
+資料來源：證交所基本市況報導（即時報價，公開頁面延遲顯示）。技術指標於瀏覽器端計算，僅供研究參考，不構成投資建議。
+</p>
+
+<script>
+(function () {
+  var SRC = "https://raw.githubusercontent.com/chen022208-cell/stock-report/intraday-data/docs/data/intraday.json";
+  var REFRESH_MS = 45000;
+  var rankKey = "gainers";
+
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function pct(v) { return (v == null) ? "–" : (v > 0 ? "+" : "") + v.toFixed(2) + "%"; }
+  function fmt(v) { return (v == null) ? "–" : Number(v).toLocaleString("en-US"); }
+
+  function card(r) {
+    var tags = [];
+    if (r.breakout_252d) tags.push('<span class="iv-tag hot">創年新高</span>');
+    else if (r.breakout_120d) tags.push('<span class="iv-tag hot">創半年新高</span>');
+    else if (r.breakout_20d) tags.push('<span class="iv-tag">創20日高</span>');
+    if (r.volume_ratio != null) tags.push('<span class="iv-tag">量比 ' + r.volume_ratio.toFixed(1) + '×</span>');
+    tags.push('<span class="iv-tag">領先大盤 ' + pct(r.rs_market) + '</span>');
+    if (r.rs_sector != null) tags.push('<span class="iv-tag">領先同業 ' + pct(r.rs_sector) + '</span>');
+    if (r.industry) tags.push('<span class="iv-tag">' + esc(r.industry) + '</span>');
+    return '<div class="iv-card" data-stock-code="' + esc(r.code) + '" data-stock-name="' + esc(r.name) + '">'
+      + '<div class="row1"><span class="iv-name">' + esc(r.code) + ' ' + esc(r.name)
+      + (r.low_confidence ? '<span class="iv-lowconf">開盤初期，數據波動大</span>' : '')
+      + '</span>'
+      + '<span><span class="iv-chg ' + (r.change_pct >= 0 ? "up" : "down") + '">' + pct(r.change_pct)
+      + '</span> <span class="iv-score">分 ' + r.score + '</span></span></div>'
+      + '<div class="iv-tags">' + tags.join("") + '</div></div>';
+  }
+
+  function rankTable(rows) {
+    if (!rows || !rows.length) return '<div class="iv-empty">—</div>';
+    var body = rows.map(function (r) {
+      return '<tr data-stock-code="' + esc(r.code) + '" data-stock-name="' + esc(r.name) + '">'
+        + '<td>' + esc(r.code) + ' ' + esc(r.name) + '</td>'
+        + '<td class="num">' + (r.price == null ? "–" : r.price) + '</td>'
+        + '<td class="num">' + pct(r.change_pct) + '</td>'
+        + '<td class="num">' + fmt(r.volume) + '</td>'
+        + '<td class="num">' + (r.volume_ratio == null ? "–" : r.volume_ratio.toFixed(1) + "×") + '</td></tr>';
+    }).join("");
+    return '<table class="iv-table"><thead><tr><th>個股</th><th class="num">價</th>'
+      + '<th class="num">漲跌幅</th><th class="num">量(張)</th><th class="num">量比</th></tr></thead><tbody>'
+      + body + '</tbody></table>';
+  }
+
+  function sectorTable(rows) {
+    if (!rows || !rows.length) return '<div class="iv-empty">—</div>';
+    var body = rows.map(function (s) {
+      return '<tr><td>' + esc(s.industry) + '</td>'
+        + '<td class="num ' + (s.median_change_pct >= 0 ? "" : "") + '">' + pct(s.median_change_pct) + '</td>'
+        + '<td class="num">' + s.strong_count + " / " + s.count + '</td></tr>';
+    }).join("");
+    return '<table class="iv-table"><thead><tr><th>產業</th><th class="num">漲幅中位數</th>'
+      + '<th class="num">漲逾3% / 家數</th></tr></thead><tbody>' + body + '</tbody></table>';
+  }
+
+  function render(d) {
+    var st = d.market_status;
+    var stLabel = { open: "盤中", pre_open: "開盤前", closing: "尾盤", closed: "已收盤" }[st] || st;
+    document.getElementById("ivBar").innerHTML =
+      '<span class="iv-status ' + (st === "open" ? "open" : "") + '">' + stLabel + '</span>'
+      + '<span>資料時間 <b>' + esc(d.as_of) + '</b></span>'
+      + (d.taiex && d.taiex.change_pct != null
+          ? '<span>加權指數 <b>' + (d.taiex.value ? d.taiex.value.toLocaleString() : "–")
+            + '</b> (' + pct(d.taiex.change_pct) + ')</span>' : "")
+      + '<span>掃描 <b>' + (d.counts ? d.counts.scanned : "–") + '</b> 檔</span>';
+    document.getElementById("ivDelay").textContent =
+      "公開頁面資料延遲顯示約 " + (d.display_delay_min || 15) + " 分鐘；盤中每分鐘更新一次。";
+
+    var A = (d.tiers && d.tiers.A) || [], B = (d.tiers && d.tiers.B) || [];
+    document.getElementById("ivACount").textContent = A.length;
+    document.getElementById("ivBCount").textContent = B.length;
+    document.getElementById("ivA").innerHTML = A.length
+      ? A.map(card).join("") : '<div class="iv-empty">目前沒有 A 級標的。</div>';
+    document.getElementById("ivB").innerHTML = B.length
+      ? B.map(card).join("") : '<div class="iv-empty">目前沒有 B 級標的。</div>';
+
+    document.getElementById("ivRank").innerHTML = rankTable((d.rankings || {})[rankKey]);
+    document.getElementById("ivSectors").innerHTML = sectorTable(d.sectors);
+  }
+
+  function fetchJson(u) {
+    return fetch(u + "?_=" + Date.now(), { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
+  }
+  function load() {
+    // 先抓 intraday-data 分支的即時檔；抓不到就退回站上建置時附的那份（可能較舊）
+    fetchJson(SRC).catch(function () { return fetchJson("data/intraday.json"); })
+      .then(render)
+      .catch(function (e) {
+        document.getElementById("ivBar").innerHTML =
+          '<span>盤中資料尚未產生或載入失敗（' + esc(e.message) + '）。非交易時段這是正常的。</span>';
+      });
+  }
+
+  document.getElementById("ivRankTabs").addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    rankKey = b.dataset.k;
+    [].forEach.call(this.querySelectorAll("button"), function (x) { x.classList.toggle("on", x === b); });
+    load();
+  });
+
+  load();
+  setInterval(load, REFRESH_MS);
+})();
+</script>
+{% endblock %}

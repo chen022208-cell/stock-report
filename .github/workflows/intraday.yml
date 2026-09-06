@@ -1,0 +1,85 @@
+name: 盤中強勢股篩選（迴圈式）
+
+# 方案①：一天一支長時間 job，內部每分鐘一輪，把結果推到 intraday-data 分支。
+# GitHub 自己的 schedule 會飄 10~20 分、尖峰會跳過，所以主要靠外部免費 cron
+# （cron-job.org）在台灣時間 08:45 準時 POST repository_dispatch 觸發；schedule 只當備援。
+#
+# 外部 cron 設定（一次性）：
+#   URL   : https://api.github.com/repos/chen022208-cell/stock-report/dispatches
+#   Method: POST
+#   Header: Authorization: Bearer <一組有 repo 權限的 PAT>
+#           Accept: application/vnd.github+json
+#   Body  : {"event_type":"intraday-loop"}
+#   排程  : 平日 08:45（Asia/Taipei）
+on:
+  repository_dispatch:
+    types: [intraday-loop]
+  workflow_dispatch:
+  schedule:
+    - cron: '35 0 * * 1-5'   # 08:35 台灣時間，備援（實際常延遲，準時觸發靠外部 cron）
+
+permissions:
+  contents: write
+
+concurrency:
+  group: intraday-loop
+  cancel-in-progress: false
+
+jobs:
+  loop:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350       # 5h50m，留在 GitHub 免費版單一 job 6 小時上限內
+    steps:
+      - name: 取出程式碼（main）
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 設定 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: 安裝套件
+        run: pip install -r requirements.txt
+
+      - name: 還原每日收盤滾動快取
+        # data/intraday_hist.db 不進 git，用 Actions cache 跨天保留（比照 report.yml 的 prices.db）
+        uses: actions/cache@v4
+        with:
+          path: data/intraday_hist.db
+          key: intraday-hist-${{ github.run_id }}
+          restore-keys: |
+            intraday-hist-
+
+      - name: 盤前更新參考值（新高、昨量）
+        run: python -m src.main intraday-ref
+
+      - name: 盤中迴圈
+        env:
+          TZ: Asia/Taipei
+        run: |
+          git config user.name "stock-report-intraday"
+          git config user.email "noreply@github.com"
+
+          HARD_STOP=$(( $(date +%s) + 350*60 ))
+          # 收盤後再多跑 5 分鐘收尾（13:35 台灣時間）
+          SESSION_END="13:35"
+
+          while :; do
+            NOW=$(date +%s)
+            if [ "$NOW" -ge "$HARD_STOP" ]; then echo "到硬上限，收工"; break; fi
+            if [ "$(date +%H:%M)" \> "$SESSION_END" ]; then echo "過 $SESSION_END，收工"; break; fi
+
+            python -m src.main intraday || echo "本輪篩選失敗，續跑"
+
+            git add -f docs/data/intraday.json docs/data/intraday_signals.json \
+                       docs/data/intraday_new_signal.json docs/data/intraday_ref.json 2>/dev/null || true
+            if ! git diff --cached --quiet; then
+              git commit -q -m "盤中 $(date +%H:%M) [skip ci]"
+              # intraday-data 只由這支 workflow 寫，直接 force 推最新一版，不留長歷史負擔
+              git push -q --force origin HEAD:intraday-data || echo "推送失敗，下一輪再試"
+            fi
+            sleep 55
+          done

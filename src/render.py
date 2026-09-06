@@ -437,6 +437,7 @@ def render_site() -> list[Path]:
     return [render_index(), render_archive(), render_themes_page(), render_lookup_page(),
             render_submit_page(), render_research_notes(),
             render_weekly_index(), render_monthly_deep_index(), render_picks_page(),
+            render_intraday_page(),
             render_stock_analysis_json(), render_stock_info()]
 
 
@@ -539,6 +540,19 @@ def save_picks(breakout: list, new_listings: list, dark_horses: list, date_label
         "new_listings": new_listings,
         "dark_horses": dark_horses,
     })
+
+
+def render_intraday_page() -> Path:
+    """盤中強勢股：只是一層殼，實際資料由前端 JS 每 45 秒去 intraday-data 分支抓
+    docs/data/intraday.json 重繪（盤中每分鐘更新、不觸發 Pages 重建）。"""
+    cfg = load_config()
+    path = DOCS_DIR / "intraday.html"
+    path.write_text(_env().get_template("intraday.html").render(
+        site_title=cfg["site"]["title"],
+        generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
+        rel="", nav_current="intraday",
+    ), encoding="utf-8")
+    return path
 
 
 def render_picks_page() -> Path:
