@@ -317,12 +317,20 @@ def render_themes_page() -> Path:
     for t in db.list_catalog_themes():
         catalog_by_category.setdefault(t.get("category") or "其他", []).append(decorate_theme(t))
 
+    # 還沒產出深度報告的題材，至少要看得到累積的追蹤軌跡，不然那張卡片
+    # 除了一句摘要什麼都沒有，跟旁邊有「完整產業分析」連結的卡片一比就像壞掉。
+    def with_timeline(t: dict) -> dict:
+        view = decorate_theme(t)
+        if not view.get("deep_dive_slug"):
+            view["timeline"] = db.get_theme_timeline(t["id"])[-6:]
+        return view
+
     path.write_text(_env().get_template("themes.html").render(
         site_title=cfg["site"]["title"],
         generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
         rel="", nav_current="themes",
-        active_themes=[decorate_theme(t) for t in db.list_themes("active")],
-        dormant_themes=[decorate_theme(t) for t in db.list_themes("dormant")],
+        active_themes=[with_timeline(t) for t in db.list_themes("active")],
+        dormant_themes=[with_timeline(t) for t in db.list_themes("dormant")],
         catalog_by_category=catalog_by_category,
     ), encoding="utf-8")
     return path

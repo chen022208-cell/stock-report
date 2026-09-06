@@ -1,6 +1,18 @@
 {% extends "base.html" %}
 {% block title %}題材知識庫 · {{ site_title }}{% endblock %}
 {% block extra_css %}
+  .theme-track{margin-top:10px; border-top:1px solid var(--hairline); padding-top:8px;}
+  .theme-track summary{cursor:pointer; font-size:12.5px; color:var(--text-secondary);
+                       list-style:none;}
+  .theme-track summary::-webkit-details-marker{display:none;}
+  .theme-track summary:hover{color:var(--gold);}
+  .tt-list{list-style:none; padding:8px 0 0; margin:0;}
+  .tt-list li{display:flex; gap:8px; align-items:baseline; flex-wrap:wrap;
+              font-size:12.5px; padding:5px 0; border-bottom:1px solid var(--hairline);}
+  .tt-list li:last-child{border-bottom:none;}
+  .tt-date{font-family:'JetBrains Mono',monospace; color:var(--text-muted); flex-shrink:0;}
+  .tt-note{color:var(--text-secondary); flex:1; min-width:200px;}
+  .tt-hint{font-size:11.5px; color:var(--text-muted); margin:8px 0 0;}
   .theme-card{border-left:2px solid var(--gold); padding:4px 0 4px 18px; margin-bottom:22px;}
   .theme-card.dormant{border-left-color:var(--text-muted); opacity:.75;}
   .theme-head{display:flex; justify-content:space-between; align-items:baseline;
@@ -61,6 +73,22 @@
   <div class="theme-meta">首見 {{ t.first_seen }} · 更新 {{ t.update_count }} 次 · 最後訊號 {{ t.last_signal_date }}</div>
   {% if t.deep_dive_slug %}
   <a href="articles/{{ t.deep_dive_slug }}.html" class="theme-detail-link">📄 完整產業分析（事件背景／訂單驗證／個股比較／風險）→</a>
+  {% elif t.timeline %}
+  {# 還沒產出深度報告的題材，把累積下來的追蹤軌跡直接攤開。以前這裡什麼都沒有，
+     跟旁邊有「完整產業分析」連結的卡片一比，看起來就像壞掉／漏資料。 #}
+  <details class="theme-track">
+    <summary>🕒 追蹤軌跡（{{ t.timeline|length }} 筆）——深度報告尚未產出</summary>
+    <ul class="tt-list">
+      {% for u in t.timeline|reverse %}
+      <li>
+        <span class="tt-date">{{ u.date }}</span>
+        <span class="tag confidence-{{ u.confidence }}">{{ u.confidence }}</span>
+        <span class="tt-note">{{ u.note }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+    <p class="tt-hint">深度報告會在題材累積足夠訊號後，由每日盤後流程自動產出。</p>
+  </details>
   {% endif %}
 </div>
 {% endfor %}

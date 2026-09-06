@@ -687,6 +687,14 @@ def write_deep_dive(theme: dict, timeline: list[dict], extra: str = "") -> dict:
             f"目前信心度：{theme.get('confidence')}／判定：{theme.get('verdict')}\n"
             f"相關個股：{theme.get('related_stocks')}\n\n"
             f"追蹤軌跡：\n{json.dumps(timeline, ensure_ascii=False, indent=2)}")
+    # 國際總經題材沒有「台廠訂單」可以驗證，硬套產業分析的結構會逼出空話。
+    # 改成講傳導路徑：這件事透過什麼機制影響到台股與科技供應鏈。
+    if theme.get("scope") and theme["scope"] != "tw":
+        user += ("\n\n【這是國際／總經題材，不是台股產業題材】"
+                 "請把第 2 段「訂單與財務驗證」換成『市場數據驗證』（利率、匯率、"
+                 "原物料、指數與類股表現等可查證的數據），第 3 段「個股比較」換成"
+                 "『對台股與科技供應鏈的傳導路徑』（哪一類台廠受影響、透過什麼機制）。"
+                 "沒有把握的傳導關係要明講是推論，不要為了湊結構硬指名個股。")
     if extra:
         user += f"\n\n補充：\n{extra}"
 

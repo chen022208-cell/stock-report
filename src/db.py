@@ -441,13 +441,19 @@ def apply_theme_lifecycle(today: str, dormant_after_days: int, archive_after_dec
 
 
 def themes_ready_for_deep_dive(min_days: int) -> list[dict]:
-    """追蹤夠久且信心度夠高 → 值得動用重量級的產業分析。"""
+    """追蹤夠久且信心度夠高 → 值得動用重量級的分析。
+
+    以前這裡有 `scope = 'tw'` 的限制，結果題材知識庫上只有台股題材看得到
+    「完整產業分析」連結，〔國際〕題材永遠是死路一條（使用者回報「只有第一個
+    有完整報告，其餘都沒有」）。國際總經題材一樣值得一份報告，只是寫法不同
+    （總經傳導路徑，而不是台廠訂單驗證）——scope 會傳給 llm.write_deep_dive()
+    讓它換一套結構，這裡不再擋。
+    """
     with get_conn() as conn:
         rows = conn.execute(
             """SELECT * FROM themes
                WHERE status='active' AND update_count >= ?
                  AND confidence IN ('high','mid')
-                 AND scope = 'tw'
                ORDER BY update_count DESC""",
             (min_days,),
         ).fetchall()
