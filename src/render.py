@@ -858,6 +858,35 @@ def render_topic_report(slug: str, row: dict) -> Path:
     return path
 
 
+def render_topic_pdf(slug: str, row: dict) -> Path | None:
+    """主題點播報告的 PDF 版 → docs/analysis/<date>-<slug>.pdf。
+
+    用 weasyprint 從獨立的列印版樣板（topic_report_pdf.html，不含站台導覽列）
+    產出。weasyprint 只在雲端 Routine 沙箱裝得起來（需要 pango／cairo），
+    本機沒有就回 None——`_with_pdf_flag()` 之後看檔案在不在決定要不要顯示
+    「下載 PDF」連結，所以少了 PDF 不會壞頁面，只是連結不出現。
+    """
+    try:
+        from weasyprint import HTML  # noqa: PLC0415 — 故意延後匯入
+    except Exception as exc:
+        print(f"[topic] 略過 PDF（weasyprint 不可用）：{exc}")
+        return None
+    cfg = load_config()
+    out_dir = DOCS_DIR / "analysis"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    pdf_path = out_dir / f"{row['date']}-{slug}.pdf"
+    html = _env().get_template("topic_report_pdf.html").render(
+        site_title=cfg["site"]["title"], r={**row, "slug": slug},
+    )
+    try:
+        HTML(string=html).write_pdf(str(pdf_path))
+    except Exception as exc:
+        print(f"[topic] PDF 產出失敗（{slug}）：{exc}")
+        return None
+    print(f"[topic] 已產出 PDF {pdf_path.name}")
+    return pdf_path
+
+
 def render_intraday_report_index() -> Path:
     """盤中快報清單 → docs/analysis/index.html。"""
     cfg = load_config()

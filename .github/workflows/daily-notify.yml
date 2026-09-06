@@ -73,8 +73,8 @@ jobs:
                   text = f"**{p.get('title','')}**\n\n{p.get('body','')}"
                   url = p.get("url", "")
                   if url and url not in text:
-                      # 點播的 url 是那份報告本身的網址，不要再補斜線
-                      tail = "" if url.endswith(".html") else "/"
+                      # 點播的 url 是那份報告本身的網址（.html 或 .pdf），不要再補斜線
+                      tail = "" if url.endswith((".html", ".pdf")) else "/"
                       text += f"\n\n完整報告：{url}{tail}"
                   send(text)
                   any_sent = True

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>{{ r.title }}</title>
+<style>
+  @page { size: A4; margin: 20mm 18mm; }
+  * { box-sizing: border-box; }
+  body { font-family: "Noto Sans CJK TC", "Noto Sans TC", "Microsoft JhengHei",
+         "PingFang TC", "Heiti TC", sans-serif;
+         color: #1a1a1a; line-height: 1.75; font-size: 11pt; margin: 0; }
+  h1 { font-size: 19pt; margin: 0 0 4px; line-height: 1.3; }
+  .meta { color: #666; font-size: 9pt; margin-bottom: 18px; }
+  .summary { background: #f5f2ea; border-left: 3px solid #b8963f;
+             padding: 10px 14px; margin-bottom: 20px; }
+  h2 { font-size: 13pt; margin: 20px 0 6px; border-bottom: 1px solid #ddd;
+       padding-bottom: 3px; }
+  section p { margin: 0 0 8px; }
+  ul.stocks { margin: 4px 0; padding-left: 20px; }
+  ul.stocks li { margin-bottom: 4px; }
+  .risk { background: #fbf3f0; border-left: 3px solid #c25a3a; padding: 10px 14px; }
+  .src { margin-top: 24px; padding-top: 12px; border-top: 1px solid #ddd;
+         font-size: 8.5pt; color: #666; word-break: break-all; }
+  .disclaimer { margin-top: 10px; font-size: 8.5pt; color: #888; }
+</style>
+</head>
+<body>
+<h1>{{ r.title }}</h1>
+<div class="meta">🎯 使用者點播主題　·　{{ r.date }} 產出　·　原始點播：{{ r.topic }}</div>
+
+{% if r.summary %}<div class="summary">{{ r.summary }}</div>{% endif %}
+
+{% for sec in r.sections %}
+<section><h2>{{ sec.heading }}</h2><p>{{ sec.body }}</p></section>
+{% endfor %}
+
+{% if r.stocks %}
+<section><h2>相關個股</h2>
+<ul class="stocks">
+{% for st in r.stocks %}<li><b>{{ st.code }} {{ st.name }}</b>{% if st.note %} — {{ st.note }}{% endif %}</li>{% endfor %}
+</ul></section>
+{% endif %}
+
+{% if r.risks %}
+<section><h2>風險與觀察重點</h2><div class="risk">{{ r.risks }}</div></section>
+{% endif %}
+
+<div class="src"><b>查證來源</b>（本報告依站內規則，沒有外部來源就不產出）：
+{% for src in r.sources %}{{ src }}{% if not loop.last %}　·　{% endif %}{% endfor %}
+<div class="disclaimer">本報告為系統依使用者點播主題自動整理之資訊，明確標示「（推論）」者為推論而非查證事實；僅供研究參考，不構成投資建議。</div>
+</div>
+</body>
+</html>

@@ -1444,29 +1444,22 @@ TOPIC_NOTIFY_PATH = "docs/_notify_topic.json"
 
 
 def _topic_notify_text(r: dict) -> str:
-    """把一份點播報告攤成可以直接讀的通知內容。
+    """點播報告的通知內容：主題 ＋ 一句總結 ＋ 相關個股。
 
-    使用者點播是「自己要的東西」，不像早報是每天都會來的例行摘要——所以這裡
-    直接把報告內容送出去（總結＋各段重點＋相關個股＋來源），而不是只丟一個
-    連結叫人自己去網站看。Discord 單則上限 2000 字，所以逐段截斷。
+    以前這裡把整份報告（各段重點）都塞進 Discord，太長。改成只放摘要＋個股，
+    完整內容看 PDF——`_write_topic_notify()` 會把 `url` 設成 PDF，daily-notify.yml
+    會在結尾補「完整報告：<PDF 連結>」。
     """
     row = r["row"]
-    parts = [f"🎯 **{r['title']}**", ""]
+    parts = [f"🎯 **{r['title']}**"]
     if row.get("summary"):
-        parts += [row["summary"][:400], ""]
-    for sec in (row.get("sections") or [])[:4]:
-        body = " ".join(str(sec.get("body", "")).split())
-        parts.append(f"**{sec.get('heading', '')}**")
-        parts.append(body[:260] + ("…" if len(body) > 260 else ""))
-        parts.append("")
+        parts += ["", " ".join(str(row["summary"]).split())[:300]]
     stocks = row.get("stocks") or []
     if stocks:
-        parts.append("**相關個股**：" + "、".join(
-            f"{x.get('code','')} {x.get('name','')}" for x in stocks[:8]))
-    if row.get("risks"):
-        parts.append("**風險**：" + " ".join(str(row["risks"]).split())[:200])
-    parts.append(f"\n查證來源 {len(r['sources'])} 個")
-    parts.append(r["url"])
+        parts += ["", "**相關個股**：" + "、".join(
+            f"{x.get('code','')} {x.get('name','')}" for x in stocks[:8])]
+    if r.get("sources"):
+        parts.append(f"\n查證來源 {len(r['sources'])} 個")
     return "\n".join(parts)
 
 
@@ -1481,8 +1474,11 @@ def _write_topic_notify(entries: list[dict]) -> None:
     if not entries:
         return
     path = render.DOCS_DIR / "_notify_topic.json"
+    # url 優先用 PDF：daily-notify.yml 會接「完整報告：<url>」。PDF 產不出來
+    # （weasyprint 不可用）就退回 HTML 頁。
     payload = [{"title": f"點播主題報告：{e['title']}",
-                "body": _topic_notify_text(e), "url": e["url"]} for e in entries]
+                "body": _topic_notify_text(e),
+                "url": e.get("pdf_url") or e.get("url", "")} for e in entries]
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     print(f"[topic] 已寫入推播內容 {path.name}（{len(entries)} 篇）")
 
@@ -1529,6 +1525,9 @@ def _make_topic_report(topic_title: str, detail: str, source_desc: str,
 
     db.upsert_topic_report(slug, row)
     path = render.render_topic_report(slug, row)
+    pdf = _safe(lambda: render.render_topic_pdf(slug, row), None, f"主題報告 PDF {slug}")
+    if pdf:
+        render.render_topic_report(slug, row)   # 重繪，讓「下載 PDF」連結出現在頁面上
     _safe(lambda: db.create_research_note(
         submitted_at=today, source=source_desc, title=row["title"],
         raw_excerpt=topic, summary=row["summary"], verified="verified",
@@ -1538,9 +1537,11 @@ def _make_topic_report(topic_title: str, detail: str, source_desc: str,
         link=f"analysis/{today}-{slug}.html",
     ), None, "研究筆記（主題點播）")
 
-    url = f"{load_config()['site']['base_url']}/analysis/{today}-{slug}.html"
-    return {"slug": slug, "path": path, "sources": sources,
-            "title": row["title"], "url": url, "row": row}
+    base = load_config()['site']['base_url']
+    url = f"{base}/analysis/{today}-{slug}.html"
+    pdf_url = f"{base}/analysis/{today}-{slug}.pdf" if pdf else ""
+    return {"slug": slug, "path": path, "sources": sources, "title": row["title"],
+            "url": url, "pdf_url": pdf_url, "row": row}
 
 
 def run_topic_requests() -> None:
