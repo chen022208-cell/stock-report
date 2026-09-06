@@ -272,12 +272,16 @@ def sync_monthly_revenue(today: str) -> int:
 
 
 def process_stock_swot_batch(cfg: dict, today: str) -> int:
-    """替「系統實際分析過、會出現在網站上」的個股補公司介紹＋SWOT，逐批補齊。
-    名單＝所有已經抓到「主要經營業務」（company_profile.business）的個股，
-    也就是全市場都會輪到——因為 company_desc 是從申報的營業項目改寫，不是
-    憑股票名稱猜，所以擴大到全市場也不會再出現寫錯公司在做什麼的問題。
-    沒有營業項目的個股一律跳過（llm 那邊也會再擋一次）。
-    公司介紹／SWOT 是相對穩定的資訊，產一次可重用很久（refresh_days 之後才刷新）。"""
+    """【已停用，不要重新接回 run_evening】全市場個股公司介紹＋SWOT 批次回填。
+
+    2026-09-06 移除：這條路是 `llm.company_swot_batch`（以申報營業項目為底＋
+    推論），對冷門興櫃／小型股仍可能寫錯公司在做什麼，不是逐檔查證過的事實。
+    使用者明確要求「沒有證實的判讀就不要放上站」。個股的公司介紹／SWOT 現在
+    只在：(1) 評分頁焦點股（`llm.stock_analysis_batch`，帶技術／籌碼／營收／
+    新聞脈絡）(2) 逐檔人工查證過的個股 上出現。其餘個股彈窗只顯示
+    基本資料（申報值）＋月營收（政府開放資料）＋題材（本站知識庫）。
+
+    函式保留是為了可能的一次性、逐檔查證後的回填用途；平常不呼叫。"""
     sw = cfg.get("stock_swot", {})
 
     profiles = db.all_company_profiles()
@@ -486,12 +490,16 @@ def run_evening() -> None:
     # 控制 LLM 成本，全部補齊需要好幾天（或用一次性回填腳本跑好幾批）
     process_catalog_batch(cfg, today, quotes_by_code_all)
     process_catalog_deep_dives(cfg, today)
-    # 全市場個股公司介紹＋SWOT，每天補一批直到全部個股都有
-    # 個股資料三層：先補事實（公司基本資料、月營收），再讓 LLM 在事實上做判讀
+    # 個股資料頁只放「事實」：公司基本資料（公開資訊觀測站 t05st03 申報值）
+    # 與月營收（政府開放資料），兩者都不經 LLM，全市場照抓沒問題。
     _safe(lambda: sync_company_profiles(
         today, cfg.get("stock_swot", {}).get("profile_limit", 200)), 0, "公司基本資料")
     _safe(lambda: sync_monthly_revenue(today), 0, "全市場月營收")
-    _safe(lambda: process_stock_swot_batch(cfg, today), 0, "全市場個股 SWOT")
+    # ⚠️ 不再做「全市場個股 SWOT」批次回填。2026-09-06 使用者要求：沒有逐檔
+    #    查證的判讀就不要放上站。company_swot_batch 那條路是「以申報營業項目
+    #    為底＋推論」，對冷門股仍可能寫錯，不是查證過的事實。個股的公司介紹
+    #    ／SWOT 只在評分頁焦點股（stock_analysis_batch，有訊號脈絡）與逐檔
+    #    人工查證過的個股上出現，其餘個股彈窗只顯示基本資料＋月營收＋題材。
 
     holder_codes = {q["code"] for q in strong} | watch_codes
     holder_concentration = _safe(lambda: tdcc.fetch_holder_concentration(holder_codes),
