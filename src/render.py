@@ -887,6 +887,31 @@ def render_topic_pdf(slug: str, row: dict) -> Path | None:
     return pdf_path
 
 
+def render_submission_pdf(slug: str, row: dict) -> Path | None:
+    """使用者提交連結／文章 → 分析記錄的 PDF 版（docs/analysis/<date>-sub-<slug>.pdf）。
+
+    跟 render_topic_pdf 一樣靠 weasyprint（雲端 Routine 才有），本機沒有就回 None。
+    `row` 是攤平的 {title, date, source, verified, summary, verification_note,
+    themes, stocks}。
+    """
+    try:
+        from weasyprint import HTML  # noqa: PLC0415
+    except Exception as exc:
+        print(f"[submission] 略過 PDF（weasyprint 不可用）：{exc}")
+        return None
+    out_dir = DOCS_DIR / "analysis"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    pdf_path = out_dir / f"{row['date']}-sub-{slug}.pdf"
+    html = _env().get_template("submission_pdf.html").render(r=row)
+    try:
+        HTML(string=html).write_pdf(str(pdf_path))
+    except Exception as exc:
+        print(f"[submission] PDF 產出失敗（{slug}）：{exc}")
+        return None
+    print(f"[submission] 已產出 PDF {pdf_path.name}")
+    return pdf_path
+
+
 def render_intraday_report_index() -> Path:
     """盤中快報清單 → docs/analysis/index.html。"""
     cfg = load_config()

@@ -13,6 +13,7 @@
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import subprocess
 import sys
@@ -1450,17 +1451,19 @@ def _topic_notify_text(r: dict) -> str:
     完整內容看 PDF——`_write_topic_notify()` 會把 `url` 設成 PDF，daily-notify.yml
     會在結尾補「完整報告：<PDF 連結>」。
     """
+    # 標題由 daily-notify.yml 以 **粗體** 顯示（來自 notify payload 的 title），
+    # 這裡不再重複，只放摘要＋個股＋來源數。
     row = r["row"]
-    parts = [f"🎯 **{r['title']}**"]
+    parts = []
     if row.get("summary"):
-        parts += ["", " ".join(str(row["summary"]).split())[:300]]
+        parts.append(" ".join(str(row["summary"]).split())[:320])
     stocks = row.get("stocks") or []
     if stocks:
         parts += ["", "**相關個股**：" + "、".join(
             f"{x.get('code','')} {x.get('name','')}" for x in stocks[:8])]
     if r.get("sources"):
-        parts.append(f"\n查證來源 {len(r['sources'])} 個")
-    return "\n".join(parts)
+        parts.append(f"\n查證來源／出處 {len(r['sources'])} 個")
+    return "\n".join(parts).strip()
 
 
 def _write_topic_notify(entries: list[dict]) -> None:
@@ -1475,8 +1478,9 @@ def _write_topic_notify(entries: list[dict]) -> None:
         return
     path = render.DOCS_DIR / "_notify_topic.json"
     # url 優先用 PDF：daily-notify.yml 會接「完整報告：<url>」。PDF 產不出來
-    # （weasyprint 不可用）就退回 HTML 頁。
-    payload = [{"title": f"點播主題報告：{e['title']}",
+    # （weasyprint 不可用）就退回 HTML 頁。notify_title 讓「貼連結／貼文章分析」
+    # 這種也走同一個通道但標題不一樣。
+    payload = [{"title": e.get("notify_title") or f"點播主題報告：{e['title']}",
                 "body": _topic_notify_text(e),
                 "url": e.get("pdf_url") or e.get("url", "")} for e in entries]
     path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
@@ -1670,15 +1674,41 @@ def _process_research_submission(source: str, title: str, body: str, today: str,
     for s in affected_stocks:
         s["applied"] = False  # 目前不直接改個股歷史資料，只記錄關聯供研究筆記頁參考
 
+    # 分析記錄也產一份 PDF＋（透過研究筆記的「看完整報告」連結）掛上去，
+    # 讓貼連結／貼文章跟主題點播一樣有可下載的東西、也能發 Discord。
+    disp_title = title or result.get("summary", "")[:24] or "研究提交分析"
+    slug = (render.slugify(disp_title)[:32]
+            + "-" + hashlib.md5(source.encode("utf-8")).hexdigest()[:6])
+    sub_row = {
+        "title": disp_title, "date": today, "source": source, "verified": verified,
+        "summary": result.get("summary", ""),
+        "verification_note": result.get("verification_note", ""),
+        "themes": affected_themes, "stocks": affected_stocks,
+    }
+    pdf = _safe(lambda: render.render_submission_pdf(slug, sub_row), None,
+                f"提交分析 PDF {label}")
+    link = f"analysis/{today}-sub-{slug}.pdf" if pdf else ""
+
     note_id = db.create_research_note(
         submitted_at=today, source=source, title=title, raw_excerpt=body[:500],
         summary=result.get("summary", ""), verified=verified,
         verification_note=result.get("verification_note", ""),
         affected_themes=affected_themes, affected_stocks=affected_stocks,
+        link=link,
     )
     db.mark_research_note_status(note_id, "applied" if verified == "verified" else "pending",
                                  affected_themes, affected_stocks)
     result["affected_themes"] = affected_themes
+    if pdf:
+        base = load_config()["site"]["base_url"]
+        result["report"] = {
+            "title": disp_title,
+            "pdf_url": f"{base}/{link}",
+            "row": {"summary": result.get("summary", ""), "stocks": affected_stocks,
+                    "sections": []},
+            "sources": [source] if source.startswith("http") else [],
+            "verified": verified,
+        }
     return result
 
 
@@ -1692,6 +1722,7 @@ def run_research_intake() -> None:
     topic_made: list[dict] = []      # 點播成功的，最後統一寫進獨立的推播檔
     topic_failed: list[str] = []
     topic_seen: set[str] = set()     # 本輪已處理的主題（大小寫無關），用來去重
+    submission_reports: list[dict] = []   # 貼連結／貼文章分析出來、有產 PDF 的，也發 Discord
 
     # 來源一：GitHub Issue（給熟悉 GitHub 的人，例如你自己）
     issues = _safe(_gh_issue_list, [], "讀取使用者研究提交（GitHub）")
@@ -1706,6 +1737,8 @@ def run_research_intake() -> None:
             continue
         processed += 1
         _report_result_to_issue(number, result)
+        if result.get("report"):
+            submission_reports.append(result["report"])
 
     # 來源二：Google 表單（給不需要 GitHub 帳號的訪客，見 submit.html）
     # 用「已處理過幾列」而不是時間戳記字串來判斷新提交——Google 表單的時間戳記
@@ -1765,6 +1798,8 @@ def run_research_intake() -> None:
                 known_theme_names, row["timestamp"])
             if result:
                 processed += 1
+                if result.get("report"):
+                    submission_reports.append(result["report"])
         if new_rows:
             db.set_state("research_form_row_count", str(len(rows)))
 
@@ -1805,7 +1840,14 @@ def run_research_intake() -> None:
     # ⚠️ _write_topic_notify() 每次都會「重寫整個檔案」，所以成功與失敗的通知
     # 一定要先合成同一個 list、只呼叫一次。之前分開呼叫的版本，失敗那則會把
     # 前面成功的整批蓋掉（實際發生過：2 篇成功被 1 則失敗覆蓋）。
+    _verdict_label = {"verified": "已驗證", "conflicting": "與既有資料衝突",
+                      "unverified": "無法獨立驗證"}
     entries = list(topic_made) + [{
+        **rep,
+        "notify_title": f"研究提交分析（{_verdict_label.get(rep.get('verified'), '')}）："
+                        f"{rep['title']}",
+        "url": rep.get("pdf_url", ""),
+    } for rep in submission_reports] + [{
         "title": f"「{t}」查不到足夠外部來源", "url": "", "sources": [],
         "row": {"summary": "依站內規則不產出報告（寧可不寫，也不放未經查證的"
                            "內容）。可以換個更具體的講法再點播一次；"
@@ -1813,10 +1855,11 @@ def run_research_intake() -> None:
     } for t in topic_failed]
     _safe(lambda: _write_topic_notify(entries), None, "點播推播")
 
-    # 一般研究提交（貼文章／貼連結）維持走既有的每日通道
-    if processed > len(topic_made) + len(topic_failed):
+    # 沒產出獨立報告的一般提交（例如連結抓取失敗）仍走既有的每日彙總通道
+    plain = processed - len(topic_made) - len(topic_failed) - len(submission_reports)
+    if plain > 0:
         _safe(lambda: send_notification(
-            f"📝 已處理 {processed - len(topic_made) - len(topic_failed)} 筆研究提交",
+            f"📝 已處理 {plain} 筆研究提交",
             f"驗證結果與是否回寫題材，見研究筆記頁：\n"
             f"{load_config()['site']['base_url']}/research.html"),
             None, "研究提交通知")

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<title>{{ r.title }}</title>
+<style>
+  @page { size: A4; margin: 20mm 18mm; }
+  * { box-sizing: border-box; }
+  body { font-family: "Noto Sans CJK TC", "Noto Sans TC", "Microsoft JhengHei",
+         "PingFang TC", "Heiti TC", sans-serif;
+         color: #1a1a1a; line-height: 1.75; font-size: 11pt; margin: 0; }
+  h1 { font-size: 18pt; margin: 0 0 4px; line-height: 1.3; }
+  .meta { color: #666; font-size: 9pt; margin-bottom: 16px; word-break: break-all; }
+  .verdict { display: inline-block; font-size: 10pt; font-weight: bold;
+             padding: 3px 12px; border-radius: 4px; margin-bottom: 16px; }
+  .v-verified { background: #e7f4ea; color: #1c6b34; }
+  .v-conflicting { background: #fdece7; color: #a8321a; }
+  .v-unverified { background: #f0f0f0; color: #555; }
+  h2 { font-size: 12.5pt; margin: 18px 0 6px; border-bottom: 1px solid #ddd;
+       padding-bottom: 3px; }
+  p { margin: 0 0 8px; }
+  ul { margin: 4px 0; padding-left: 20px; }
+  ul li { margin-bottom: 4px; }
+  .disclaimer { margin-top: 22px; padding-top: 12px; border-top: 1px solid #ddd;
+                font-size: 8.5pt; color: #888; }
+</style>
+</head>
+<body>
+<h1>{{ r.title }}</h1>
+<div class="meta">{{ r.date }} 分析　·　來源：{{ r.source }}</div>
+
+<div class="verdict v-{{ r.verified }}">
+  {%- if r.verified == "verified" %}✅ 已驗證
+  {%- elif r.verified == "conflicting" %}⚠️ 與既有資料衝突
+  {%- else %}❓ 無法獨立驗證{% endif -%}
+</div>
+
+<h2>分析摘要</h2>
+<p>{{ r.summary }}</p>
+
+{% if r.verification_note %}
+<h2>驗證判定理由</h2>
+<p>{{ r.verification_note }}</p>
+{% endif %}
+
+{% if r.themes %}
+<h2>相關題材</h2>
+<ul>{% for t in r.themes %}<li><b>{{ t.name }}</b>{% if t.impact %} — {{ t.impact }}{% endif %}{% if t.applied %}（已回寫題材知識庫）{% endif %}</li>{% endfor %}</ul>
+{% endif %}
+
+{% if r.stocks %}
+<h2>相關個股</h2>
+<ul>{% for s in r.stocks %}<li><b>{{ s.code }} {{ s.name }}</b>{% if s.impact %} — {{ s.impact }}{% endif %}</li>{% endfor %}</ul>
+{% endif %}
+
+<div class="disclaimer">本頁為系統對使用者提交之連結／文章所做的分析與真偽把關記錄。判定為「無法獨立驗證」或「與既有資料衝突」者，系統未將其內容回寫進任何既有資料；僅供研究參考，不構成投資建議。</div>
+</body>
+</html>
