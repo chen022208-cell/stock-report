@@ -418,6 +418,29 @@ def _snapshot_meta() -> dict[str, dict]:
     return out
 
 
+def _industry_peers(code: str, prof: dict, by_industry: dict, profiles: dict,
+                    revenue: dict, analysis: dict, names: dict, snap: dict,
+                    limit: int = 12) -> dict:
+    """同一個申報產業別的其他個股（依最新月營收由大到小）。純申報值，不含推論。"""
+    ind = (prof or {}).get("industry", "").strip()
+    if not ind:
+        return {}
+    peers = []
+    for c in by_industry.get(ind, []):
+        if c == code or len(peers) >= limit:
+            continue
+        peers.append({"code": c, "name": _display_name(
+            c, profiles.get(c, {}), analysis.get(c, {}), revenue.get(c, {}), names, snap)})
+    return {"industry": ind, "peers": peers, "total": len(by_industry.get(ind, []))}
+
+
+def _display_name(code: str, prof: dict, ana: dict, rev: dict,
+                  names: dict, snap: dict) -> str:
+    """個股顯示名。市場通用短名（台積電）優先於申報全名（台灣積體電路製造…）。"""
+    return (names.get(code, "") or snap.get(code, {}).get("name")
+            or ana.get("name", "") or rev.get("name", "") or _short_name(prof))
+
+
 def _short_name(prof: dict) -> str:
     """申報全名 → 顯示用短名（「健生實業股份有限公司」→「健生實業」）。"""
     full = (prof or {}).get("full_name", "") or ""
@@ -460,18 +483,41 @@ def render_heatmap(industries: list[dict], date_label_str: str) -> Path:
 
 
 def render_chips(inst: dict, margin_top: list[dict], strong: list[dict],
-                 holders: list[dict], date_label_str: str) -> Path:
+                 holders: list[dict], date_label_str: str,
+                 inst_rank: dict | None = None) -> Path:
     cfg = load_config()
     path = DOCS_DIR / "chips.html"
+    inst_rank = inst_rank or {}
     path.write_text(_env().get_template("chips.html").render(
         site_title=cfg["site"]["title"],
         generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
         rel="", nav_current="chips", date_label=date_label_str,
         inst=inst, margin_top=margin_top, strong=strong, holders=holders,
+        inst_rank=inst_rank,
     ), encoding="utf-8")
     _write_json("chips", {"date": date_label_str, "institutional": inst,
-                          "margin_top": margin_top, "strong": strong, "holders": holders})
+                          "margin_top": margin_top, "strong": strong,
+                          "holders": holders, "inst_rank": inst_rank})
     return path
+
+
+def build_inst_rank(detail: dict[str, dict], top_n: int = 10) -> dict:
+    """個股法人買賣超 → 外資／投信／自營商各自的買超前 N ／賣超前 N。
+
+    T86 的分項欄位本來就有，之前只用了「三大法人合計」，籌碼頁因此看不出
+    是哪一個法人在買。單位由股換成張（1 張 = 1000 股），跟頁面其他地方一致。
+    ETF／權證不濾掉——法人買賣超本來就會集中在 ETF，硬濾反而失真。
+    """
+    out: dict[str, dict] = {}
+    for key in ("foreign", "trust", "dealer"):
+        rows = [{"code": c, "name": v.get("name", ""), "lots": v.get(key, 0.0) / 1000.0}
+                for c, v in detail.items() if v.get(key)]
+        rows.sort(key=lambda r: r["lots"], reverse=True)
+        out[key] = {
+            "buy": [r for r in rows[:top_n] if r["lots"] > 0],
+            "sell": [r for r in reversed(rows[-top_n:]) if r["lots"] < 0],
+        }
+    return out
 
 
 def render_disposition(disposition: list[dict], trending: list[dict],
@@ -546,6 +592,20 @@ def render_stock_info() -> Path:
     except Exception:
         pass
 
+    # 「同產業個股」：用申報產業別（t187ap03）分組，純事實、不做任何推論。
+    # 全市場 2345 檔裡只有 167 檔被題材知識庫歸過類，其餘 2189 檔的「相關題材」
+    # 區塊永遠是一句「尚未歸入任何題材」，等於整區沒東西可看。題材歸類本身
+    # 需要逐檔查證、不能硬塞（那正是先前寫出假資料的原因），但「同一個申報
+    # 產業別還有哪些公司」是申報值直接推出來的事實，可以每一檔都有。
+    # 排序用最新月營收由大到小，讓使用者先看到該產業的主要公司。
+    by_industry: dict[str, list[str]] = {}
+    for code, prof in profiles.items():
+        ind = (prof.get("industry") or "").strip()
+        if ind:
+            by_industry.setdefault(ind, []).append(code)
+    for ind, members in by_industry.items():
+        members.sort(key=lambda c: -(revenue.get(c, {}).get("revenue") or 0))
+
     out_dir = DOCS_DIR / "data" / "stock_info"
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -574,17 +634,19 @@ def render_stock_info() -> Path:
         ana = analysis.get(code, {})
         payload = {
             "code": code,
-            # 名稱優先序：分析 → 月營收 → 搜尋索引 → 盤後快照 → 申報全名縮寫。
-            # 少了後兩層時，剛掛牌的興櫃（7925 健生、7686 捷立康）彈窗標題
-            # 只會顯示代號、名字整個空白。
-            "name": (ana.get("name") or rev.get("name") or names.get(code, "")
-                     or snap.get(code, {}).get("name") or _short_name(prof)),
+            # 名稱優先序刻意讓「市場通用短名」排最前面：月營收資料集帶的是
+            # 申報全名，之前排在前面，彈窗標題就會出現「2330 台灣積體電路製造
+            # 股份有限公司」而不是「2330 台積電」。後面兩層是給剛掛牌的興櫃
+            # （7925 健生、7686 捷立康）用的，否則會變成有代號沒名字。
+            "name": _display_name(code, prof, ana, rev, names, snap),
             "profile": {k: prof.get(k, "") for k in
                         ("full_name", "industry", "business", "capital",
                          "founded", "listed", "market", "website")} if prof else {},
             "rev": {k: rev.get(k) for k in
                     ("period", "revenue", "yoy", "mom", "cum_revenue", "cum_yoy")} if rev else {},
             "themes": themes_by_code.get(code, []),
+            "industry_peers": _industry_peers(code, prof, by_industry, profiles,
+                                              revenue, analysis, names, snap),
             "desc": ana.get("company_desc", ""),
             "swot": ana.get("swot", {}),
             "sources": ana.get("sources", []),

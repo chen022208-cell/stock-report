@@ -522,6 +522,22 @@ def run_verify_stocks() -> None:
           f"（尚待查證約 {remaining} 檔，每天 {limit} 檔）")
 
 
+def _compact_bars(bars: list[dict]) -> list[list]:
+    """[{"date","open","high","low","close","volume"}, ...] → [[d,o,h,l,c,v], ...]
+
+    每根 K 棒從約 95 bytes 降到約 37 bytes（-61%）。全市場一輪從 57MB 降到約 22MB，
+    使用者點開彈窗要下載的單檔也從 ~48KB 降到 ~19KB。stock-chart.js 讀到陣列型
+    bars 會自己展開回物件（見該檔 expandBars）。
+    """
+    out = []
+    for b in bars:
+        try:
+            out.append([b["date"], b["open"], b["high"], b["low"], b["close"], b.get("volume", 0)])
+        except KeyError:
+            continue
+    return out
+
+
 def snapshot_offmarket_history(codes: dict[str, str], cfg: dict) -> int:
     """把上櫃／興櫃個股的日 K 抓下來存成 docs/data/tpex_hist/<code>.json。
     瀏覽器對 tpex.org.tw 與 Yahoo 都沒有 CORS，stock-chart.js 只能靠這份快照
@@ -567,7 +583,8 @@ def snapshot_offmarket_history(codes: dict[str, str], cfg: dict) -> int:
                 ts = datetime.fromisoformat(prev.get("updated", "2000-01-01T00:00:00"))
                 # 已經是今天抓的真 OHLC 就跳過；舊的 TPEx 均價快照一律重抓，
                 # 才會被 Yahoo 的真開高低收換掉。
-                if ts > fresh_before and prev.get("bars") and prev.get("source") == "yahoo":
+                if (ts > fresh_before and prev.get("bars")
+                        and prev.get("source") == "yahoo" and prev.get("cols")):
                     skipped += 1
                     continue
             except Exception:
@@ -594,7 +611,8 @@ def snapshot_offmarket_history(codes: dict[str, str], cfg: dict) -> int:
             "code": code, "name": name or (res.get("meta") or {}).get("name", ""),
             "market": market, "source": source,
             "updated": datetime.utcnow().isoformat(timespec="seconds"),
-            "bars": bars,
+            "cols": ["d", "o", "h", "l", "c", "v"],
+            "bars": _compact_bars(bars),
         }
         # source=="yahoo" 時 bars 已經是真的開高低收，前端不需要再走「均價走勢」
         # 那條退路；latest 只當補充欄位（報買／報賣／日均價）。
@@ -605,6 +623,82 @@ def snapshot_offmarket_history(codes: dict[str, str], cfg: dict) -> int:
 
     print(f"[otc-hist] 上櫃／興櫃日K：新抓/更新 {done} 檔、沿用 {skipped} 檔、查無 {fails} 檔")
     return done
+
+
+def run_chart_snapshot() -> None:
+    """全市場上櫃＋興櫃日K快照 → docs/data/tpex_hist/<code>.json。
+
+    為什麼是獨立的命令、而且**不進 main 分支**：
+    上櫃約 880 檔＋興櫃約 366 檔，每檔兩年日 K 約 48KB，全市場一輪就是 ~60MB，
+    而且每個交易日都要重寫一次。放進 git 歷史一年會長到好幾百 MB。所以比照
+    盤中資料的做法（`intraday.yml` → `intraday-data` 分支），這份快照推到
+    **`chart-data` 分支並 force push、不留歷史**，`docs/data/tpex_hist/` 在
+    main 分支是 gitignore 的。前端 stock-chart.js 直接從 raw.githubusercontent
+    讀 chart-data 分支。
+
+    上市股票不在這裡：前端能直接打 TWSE STOCK_DAY（那支有 CORS），是真即時資料。
+    """
+    cfg = load_config()
+    codes: dict[str, str] = {}
+    for c in _all_market_codes():
+        if c.get("market") in ("tpex", "esb") and c.get("code"):
+            codes[c["code"]] = c.get("name", "")
+    if not codes:
+        print("[chart] 取不到全市場清單，略過")
+        return
+    print(f"[chart] 全市場上櫃／興櫃 {len(codes)} 檔，開始抓 Yahoo 日K…")
+    snapshot_offmarket_history(codes, cfg)
+    _safe(snapshot_index_history, 0, "大盤／櫃買指數日K")
+
+
+def snapshot_index_history() -> int:
+    """加權指數與櫃買指數的日K → docs/data/tpex_hist/_index_<代號>.json。
+
+    加權指數用 Yahoo ^TWII（實測序列完整）。**櫃買指數不能用 Yahoo ^TWOII**：
+    實測最近一個多月的 open/high/low/close 全是 null，而且 meta 的
+    regularMarketPrice(269.45) 跟 chartPreviousClose(440.1) 自相矛盾，是壞掉的
+    序列。改用 TPEx 自己的 openapi `tpex_index`（權威值，但只回最近幾個交易日），
+    逐日累加進快照，歷史會自己長出來——寧可一開始資料短，也不要顯示錯的指數。
+    """
+    out_dir = Path(__file__).resolve().parent.parent / "docs" / "data" / "tpex_hist"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    from datetime import datetime
+    written = 0
+
+    tw = _safe(lambda: yahoo.fetch_index_history(yahoo.TAIEX), {"bars": []}, "加權指數")
+    if tw.get("bars"):
+        (out_dir / "_index_TWII.json").write_text(json.dumps({
+            "code": "TWII", "name": "加權指數", "market": "index", "source": "yahoo",
+            "updated": datetime.utcnow().isoformat(timespec="seconds"),
+            "cols": ["d", "o", "h", "l", "c", "v"],
+            "bars": _compact_bars(tw["bars"]),
+        }, ensure_ascii=False), encoding="utf-8")
+        written += 1
+
+    otc = _safe(tpex.fetch_index_daily, [], "櫃買指數")
+    if otc:
+        fp = out_dir / "_index_TPEX.json"
+        bars: dict[str, dict] = {}
+        if fp.exists():                      # 累加：openapi 一次只回最近幾天
+            try:
+                for b in json.loads(fp.read_text(encoding="utf-8")).get("bars", []):
+                    if isinstance(b, list) and len(b) >= 6:   # 壓縮格式
+                        b = {"date": b[0], "open": b[1], "high": b[2],
+                             "low": b[3], "close": b[4], "volume": b[5]}
+                    bars[b["date"]] = b
+            except Exception:
+                pass
+        for b in otc:
+            bars[b["date"]] = b
+        fp.write_text(json.dumps({
+            "code": "TPEX", "name": "櫃買指數", "market": "index", "source": "tpex",
+            "updated": datetime.utcnow().isoformat(timespec="seconds"),
+            "cols": ["d", "o", "h", "l", "c", "v"],
+            "bars": _compact_bars([bars[k] for k in sorted(bars)]),
+        }, ensure_ascii=False), encoding="utf-8")
+        written += 1
+        print(f"[chart] 櫃買指數累積 {len(bars)} 個交易日")
+    return written
 
 
 def run_evening() -> None:
@@ -1289,6 +1383,7 @@ def main() -> None:
         "verify-stocks": run_verify_stocks,
         "intraday-ref": _run_intraday_ref,
         "intraday-report": run_intraday_deep_report,
+        "chart-snapshot": run_chart_snapshot,
     }
 
     if mode == "auto":

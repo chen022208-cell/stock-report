@@ -121,6 +121,25 @@
       + "</div></div>";
   }
 
+  // 「同產業個股」：申報產業別分組，純事實。全市場只有一小部分個股被題材
+  // 知識庫歸過類，沒歸類的個股在「相關題材」那區只會看到一句「尚未歸入」，
+  // 這一區至少讓每一檔都有真的、可點的關聯個股，而且不需要任何推論。
+  function peersHtml(info) {
+    var p = info.industry_peers || {};
+    if (!p.industry || !p.peers || !p.peers.length) return "";
+    return '<div class="sc-sec">'
+      + '<div class="sc-sec-h">同產業個股 · ' + esc(p.industry)
+      + ' <span class="sc-src">公開資訊觀測站申報產業別</span></div>'
+      + '<p class="sc-biz">同一申報產業別共 ' + p.total + ' 檔，依最新月營收由大到小列出前 '
+      + p.peers.length + ' 檔（點任一檔看該股 K 線與公司資料）：</p>'
+      + '<div class="sc-theme-tags">'
+      + p.peers.map(function (x) {
+          return '<span class="sc-theme-tag sc-peer" data-stock-code="' + esc(x.code)
+               + '" data-stock-name="' + esc(x.name) + '">' + esc(x.code) + ' ' + esc(x.name) + "</span>";
+        }).join("")
+      + "</div></div>";
+  }
+
   function swotHtml(info) {
     if (!info.desc) return "";
     var sw = info.swot || {};
@@ -154,7 +173,8 @@
   function appendSwot(bodyEl, code) {
     loadInfo(code).then(function (info) {
       if (!info || !bodyEl || bodyEl.isConnected === false) return;
-      var html = profileHtml(info) + revenueHtml(info) + themesHtml(info) + swotHtml(info);
+      var html = profileHtml(info) + revenueHtml(info) + themesHtml(info)
+               + peersHtml(info) + swotHtml(info);
       if (html) bodyEl.insertAdjacentHTML("beforeend", html);
     });
   }
@@ -733,10 +753,40 @@
     appendSwot(body, code);
   }
 
+  // 上櫃／興櫃日K快照的位置。全市場 1200+ 檔、每檔兩年約 48KB，一輪就 ~60MB
+  // 而且每個交易日重寫，放進 main 的 git 歷史一年會長到好幾百 MB——所以比照
+  // 盤中資料的做法推到 chart-data 分支（force push、不留歷史），這裡直接讀
+  // raw.githubusercontent。讀不到時退回站內路徑，讓舊快照仍能顯示。
+  var SNAP_CDN = "https://raw.githubusercontent.com/chen022208-cell/stock-report/"
+               + "chart-data/docs/data/tpex_hist/";
+
+  // 快照的 bars 為了縮小體積存成陣列 [d,o,h,l,c,v]（見 main._compact_bars），
+  // 這裡展開回圖表用的物件。舊的物件格式照樣支援，換格式期間不會空窗。
+  function expandBars(snap) {
+    if (!snap || !Array.isArray(snap.bars)) return snap;
+    snap.bars = snap.bars.map(function (b) {
+      if (!Array.isArray(b)) return b;
+      return { date: b[0], open: b[1], high: b[2], low: b[3], close: b[4], volume: b[5] };
+    });
+    return snap;
+  }
+
+  function fetchSnapshot(code) {
+    return fetch(SNAP_CDN + code + ".json")
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .catch(function () { return null; })
+      .then(function (snap) {
+        if (snap && snap.bars && snap.bars.length) return expandBars(snap);
+        return fetch(assetBase() + "data/tpex_hist/" + code + ".json")
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .catch(function () { return null; })
+          .then(expandBars);
+      });
+  }
+
   // 上櫃／興櫃走本站快照（TWSE 端點沒有這些代號，硬打會是 36 個必定失敗的請求）
   function openFromSnapshot(body, code, name) {
-    return fetch(assetBase() + "data/tpex_hist/" + code + ".json")
-      .then(function (r) { return r.ok ? r.json() : null; })
+    return fetchSnapshot(code)
       .then(function (snap) {
         // 只有 1 根也照畫（剛掛牌的個股）：圖表本身會顯示「資料不足」，
         // 但價格、公司基本資料與題材照樣看得到，比整頁「查無股價資料」有用。

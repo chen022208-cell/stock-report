@@ -222,6 +222,61 @@ def fetch_institutional_by_stock(target: date | None = None) -> dict[str, float]
     return out
 
 
+def fetch_institutional_detail_by_stock(target: date | None = None) -> dict[str, dict]:
+    """個股三大法人買賣超，**外資／投信／自營商分開**（單位：股）。
+
+    `fetch_institutional_by_stock()` 只回三者合計，籌碼頁想分別列出各法人的
+    買超／賣超排行就不夠用了。T86 本來就有分項欄位，這裡直接拆開：
+      外資 = 外陸資買賣超（不含外資自營商）＋ 外資自營商買賣超
+      投信 = 投信買賣超
+      自營 = 自營商買賣超（自行買賣＋避險，T86 已有合計欄）
+
+    回傳 {代號: {"name":, "foreign":, "trust":, "dealer":, "total":}}。
+    """
+    if DRY_RUN:
+        return {}
+    target = target or date.today()
+    data = _get_rwd("/fund/T86", {"date": target.strftime("%Y%m%d"),
+                                  "selectType": "ALLBUT0999"})
+    if not data:
+        return {}
+    fields = data.get("fields", [])
+
+    def idx(name: str) -> int | None:
+        try:
+            return fields.index(name)
+        except ValueError:
+            return None
+
+    i_code, i_name = idx("證券代號"), idx("證券名稱")
+    i_fgn = idx("外陸資買賣超股數(不含外資自營商)")
+    i_fgn_d = idx("外資自營商買賣超股數")
+    i_trust = idx("投信買賣超股數")
+    i_dealer = idx("自營商買賣超股數")
+    i_total = idx("三大法人買賣超股數")
+    if i_code is None or i_total is None:
+        return {}
+
+    def cell(row, i):
+        return _parse_signed(row[i]) if i is not None and i < len(row) else 0.0
+
+    out: dict[str, dict] = {}
+    for row in data.get("data", []):
+        if len(row) <= i_code:
+            continue
+        code = str(row[i_code]).strip()
+        if not code:
+            continue
+        out[code] = {
+            "name": str(row[i_name]).strip() if i_name is not None and i_name < len(row) else "",
+            "foreign": cell(row, i_fgn) + cell(row, i_fgn_d),
+            "trust": cell(row, i_trust),
+            "dealer": cell(row, i_dealer),
+            "total": cell(row, i_total),
+        }
+    return out
+
+
 # TWSE 產業別代碼對照（t187ap03_L 的「產業別」欄位回傳的是代碼不是名稱）
 INDUSTRY_CODE_NAME = {
     "01": "水泥工業", "02": "食品工業", "03": "塑膠工業", "04": "紡織纖維",

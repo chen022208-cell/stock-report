@@ -12,3 +12,9 @@ docs/data/intraday_ref.json
 docs/data/intraday_signals.json
 docs/data/intraday_new_signal.json
 agent_llm_queue/
+
+# 上櫃／興櫃＋指數的日K快照：全市場一輪 ~60MB、每個交易日重寫，放進 main 的
+# git 歷史一年會長到好幾百 MB。改推到 chart-data 分支（force push、不留歷史），
+# 由 .github/workflows/chart-data.yml 每天更新，前端從 raw.githubusercontent 讀。
+docs/data/tpex_hist/
+chart_snap.log

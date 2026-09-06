@@ -347,3 +347,47 @@ def fetch_esb_pricing() -> dict[str, dict]:
             "volume": _num(row.get("TransactionVolume")),
         }
     return out
+
+
+def fetch_index_daily() -> list[dict]:
+    """櫃買指數（OTC 指數）近幾個交易日的開高低收。
+
+    Yahoo 的 ^TWOII 實測是壞的（最近一個多月 OHLC 全為 null，meta 的
+    regularMarketPrice 269.45 跟 chartPreviousClose 440.1 自相矛盾），所以指數
+    一律以 TPEx 自己的 openapi 為準。缺點是這支只回最近幾個交易日，歷史要靠
+    呼叫端逐日累加。
+
+    tpex_index 欄位：{"Date":"20260904","Open":"398.83","High":"405.64",
+                     "Low":"394.59","Close":"402.48","Change":"7.23"}
+    成交量另外在 tpex_daily_trading_index（TradeVolume），一併補上。
+    """
+    if DRY_RUN:
+        return []
+    rows = _get("tpex_index")
+    if not rows:
+        return []
+
+    volumes: dict[str, float] = {}
+    for row in _get("tpex_daily_trading_index") or []:
+        roc = str(row.get("Date", "")).strip()          # 民國 1150904
+        if len(roc) == 7 and roc.isdigit():
+            volumes[f"{int(roc[:3]) + 1911}-{roc[3:5]}-{roc[5:]}"] = _num(row.get("TradeVolume"))
+
+    out = []
+    for row in rows:
+        raw = str(row.get("Date", "")).strip()          # 西元 20260904
+        if len(raw) != 8 or not raw.isdigit():
+            continue
+        iso = f"{raw[:4]}-{raw[4:6]}-{raw[6:]}"
+        close = _num(row.get("Close"))
+        if close <= 0:
+            continue
+        out.append({
+            "date": iso,
+            "open": _num(row.get("Open")) or close,
+            "high": _num(row.get("High")) or close,
+            "low": _num(row.get("Low")) or close,
+            "close": close,
+            "volume": int(volumes.get(iso, 0)),
+        })
+    return sorted(out, key=lambda r: r["date"])

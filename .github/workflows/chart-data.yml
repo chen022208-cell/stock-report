@@ -1,0 +1,70 @@
+name: 個股技術圖資料（全市場日K快照）
+
+# 全市場上櫃約 880 檔＋興櫃約 366 檔的日K快照，來源是 Yahoo chart API
+# （興櫃在這裡才有真正的開高低收；TPEx 的 emerging/historical 只給日均價）。
+# 上市股票不在這裡——前端能直接打 TWSE STOCK_DAY（那支有 CORS），是真即時資料。
+#
+# 為什麼推到獨立分支：每檔兩年日K約 48KB，全市場一輪 ~60MB，而且每個交易日
+# 都要重寫一次。放進 main 的 git 歷史一年會長到好幾百 MB。比照 intraday.yml
+# 的做法推到 chart-data 分支並 force push、不留歷史，main 分支則把
+# docs/data/tpex_hist/ 設成 gitignore。前端 stock-chart.js 從
+# raw.githubusercontent 讀 chart-data 分支，讀不到才退回站內舊快照。
+#
+# 這支完全不吃 Claude 額度（純資料抓取，沒有 LLM），所以放 GitHub Actions
+# 排程沒問題，不受雲端 Routine 的帳號／額度影響。
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 9 * * 1-5'   # UTC 09:30 = 台灣 17:30，收盤後、盤後報告之前
+
+permissions:
+  contents: write
+
+concurrency:
+  group: chart-data
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: 取出程式碼（main）
+        uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+
+      - name: 安裝套件
+        run: pip install -r requirements.txt
+
+      - name: 取出上一版 chart-data 當基底
+        # 櫃買指數是逐日累加的（TPEx openapi 一次只回最近幾天），一定要接續
+        # 上一版，不然每天都只剩 4 根 K 棒、永遠長不出歷史。
+        run: |
+          git fetch origin chart-data --depth=1 || true
+          if git rev-parse --verify origin/chart-data >/dev/null 2>&1; then
+            git checkout origin/chart-data -- docs/data/tpex_hist/ 2>/dev/null || true
+            echo "已接續上一版快照：$(ls docs/data/tpex_hist | wc -l) 檔"
+          else
+            echo "chart-data 分支還不存在，這次會建立"
+          fi
+
+      - name: 抓全市場日K
+        run: python -m src.main chart-snapshot
+
+      - name: 推到 chart-data 分支
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # tpex_hist 在 main 是 gitignore 的，這裡要 -f 才加得進來
+          git add -f docs/data/tpex_hist/
+          if git diff --cached --quiet; then
+            echo "沒有變動，不推送"; exit 0
+          fi
+          git commit -q -m "全市場日K快照 $(date -u +'%Y-%m-%d %H:%M UTC') [skip ci]"
+          # chart-data 只由這支 workflow 寫，force 推最新一版、不留歷史
+          git push -q --force origin HEAD:chart-data
+          echo "已更新 chart-data：$(ls docs/data/tpex_hist | wc -l) 檔"

@@ -21,6 +21,9 @@
   .mono{font-family:'JetBrains Mono',monospace;}
   .up{color:var(--red);} .down{color:var(--green);}
   .market-tag{font-size:11px; color:var(--text-muted); margin-left:4px;}
+  .inst-rank-h{font-size:14px; color:var(--gold); margin:18px 0 6px; font-weight:600;}
+  .inst-rank-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
+  @media (max-width:640px){ .inst-rank-grid{grid-template-columns:1fr; gap:0;} }
 {% endblock %}
 {% block content %}
 <header><div class="masthead-label">{{ site_title }}</div>
@@ -61,6 +64,46 @@
 <hr class="divider">
 {% endif %}
 
+{% if inst_rank %}
+<section class="block">
+  <h2>三大法人當日買賣超個股排行</h2>
+  <p class="commentary" style="font-size:13px; margin-bottom:14px">
+    資料來源：TWSE T86 個股三大法人買賣超（上市）。外資已含外資自營商，
+    自營商含自行買賣與避險。單位：張。點個股看 K 線與公司資料。</p>
+  {% for grp, label in [('foreign','外資'), ('trust','投信'), ('dealer','自營商')] %}
+  {% set r = inst_rank.get(grp) %}
+  {% if r and (r.buy or r.sell) %}
+  <h3 class="inst-rank-h">{{ label }}</h3>
+  <div class="inst-rank-grid">
+    <div>
+      <table class="tech-table">
+        <tr><th>買超前 {{ r.buy|length }}</th><th style="text-align:right">張</th></tr>
+        {% for x in r.buy %}
+        <tr>
+          <td data-stock-code="{{ x.code }}" data-stock-name="{{ x.name }}">{{ x.code }} {{ x.name }}</td>
+          <td class="mono up" style="text-align:right">{{ "{:,.0f}"|format(x.lots) }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+    <div>
+      <table class="tech-table">
+        <tr><th>賣超前 {{ r.sell|length }}</th><th style="text-align:right">張</th></tr>
+        {% for x in r.sell %}
+        <tr>
+          <td data-stock-code="{{ x.code }}" data-stock-name="{{ x.name }}">{{ x.code }} {{ x.name }}</td>
+          <td class="mono down" style="text-align:right">{{ "{:,.0f}"|format(x.lots) }}</td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+  {% endif %}
+  {% endfor %}
+</section>
+<hr class="divider">
+{% endif %}
+
 {% if strong %}
 <section class="block">
   <h2>強勢股（今日漲幅前段）</h2>
@@ -93,7 +136,7 @@
 <hr class="divider">
 {% endif %}
 
-{% if not inst and not margin_top and not strong and not holders %}
+{% if not inst and not margin_top and not strong and not holders and not inst_rank %}
 <p class="commentary" style="margin-top:24px">今天還沒有資料，下一次盤後報告產出後這裡會更新。</p>
 {% endif %}
 <p class="commentary" style="margin-top:20px; font-size:13px">五面向評分 → <a href="{{ rel }}scores.html" style="color:var(--gold)">scores.html</a>　·　選股訊號（起漲點／新掛牌／黑馬）→ <a href="{{ rel }}picks.html" style="color:var(--gold)">選股雷達</a>　·　查任一個股 → <a href="{{ rel }}lookup.html" style="color:var(--gold)">個股查詢</a></p>
