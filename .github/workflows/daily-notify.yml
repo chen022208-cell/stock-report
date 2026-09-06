@@ -6,6 +6,7 @@ on:
     paths:
       - 'docs/_notify_payload.json'
       - 'docs/_notify_intraday.json'
+      - 'docs/_notify_topic.json'
 
 permissions:
   contents: read
@@ -57,18 +58,25 @@ jobs:
                   except Exception as exc:
                       print(f"Telegram 推播失敗（不影響 workflow 結果）：{exc}")
 
-          # 每日報告用 _notify_payload.json；盤中焦點股快報用 _notify_intraday.json。
+          # 每日報告用 _notify_payload.json；盤中焦點股快報用 _notify_intraday.json；
+          # 使用者點播的主題報告用 _notify_topic.json——**獨立於每日報告那個通道**：
+          # 點播是使用者自己要的東西，內容直接送出，也不會被當天的例行報告蓋掉。
+          # 它是「陣列」，一次跑出多篇會逐篇送出。
           any_sent = False
-          for fname in ("docs/_notify_payload.json", "docs/_notify_intraday.json"):
+          for fname in ("docs/_notify_payload.json", "docs/_notify_intraday.json",
+                        "docs/_notify_topic.json"):
               if not os.path.exists(fname):
                   continue
-              p = json.load(open(fname, encoding="utf-8"))
-              text = f"**{p.get('title','')}**\n\n{p.get('body','')}"
-              url = p.get("url", "")
-              if url and url not in text:
-                  text += f"\n\n完整報告：{url}/"
-              send(text)
-              any_sent = True
+              payload = json.load(open(fname, encoding="utf-8"))
+              for p in (payload if isinstance(payload, list) else [payload]):
+                  text = f"**{p.get('title','')}**\n\n{p.get('body','')}"
+                  url = p.get("url", "")
+                  if url and url not in text:
+                      # 點播的 url 是那份報告本身的網址，不要再補斜線
+                      tail = "" if url.endswith(".html") else "/"
+                      text += f"\n\n完整報告：{url}{tail}"
+                  send(text)
+                  any_sent = True
           if not any_sent:
               print("沒有找到通知暫存檔，略過")
           PYEOF

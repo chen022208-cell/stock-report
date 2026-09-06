@@ -1440,6 +1440,51 @@ def _gh_topic_issue_list() -> list[dict]:
 
 
 TOPIC_PREFIX = "[主題點播]"
+TOPIC_NOTIFY_PATH = "docs/_notify_topic.json"
+
+
+def _topic_notify_text(r: dict) -> str:
+    """把一份點播報告攤成可以直接讀的通知內容。
+
+    使用者點播是「自己要的東西」，不像早報是每天都會來的例行摘要——所以這裡
+    直接把報告內容送出去（總結＋各段重點＋相關個股＋來源），而不是只丟一個
+    連結叫人自己去網站看。Discord 單則上限 2000 字，所以逐段截斷。
+    """
+    row = r["row"]
+    parts = [f"🎯 **{r['title']}**", ""]
+    if row.get("summary"):
+        parts += [row["summary"][:400], ""]
+    for sec in (row.get("sections") or [])[:4]:
+        body = " ".join(str(sec.get("body", "")).split())
+        parts.append(f"**{sec.get('heading', '')}**")
+        parts.append(body[:260] + ("…" if len(body) > 260 else ""))
+        parts.append("")
+    stocks = row.get("stocks") or []
+    if stocks:
+        parts.append("**相關個股**：" + "、".join(
+            f"{x.get('code','')} {x.get('name','')}" for x in stocks[:8]))
+    if row.get("risks"):
+        parts.append("**風險**：" + " ".join(str(row["risks"]).split())[:200])
+    parts.append(f"\n查證來源 {len(r['sources'])} 個")
+    parts.append(r["url"])
+    return "\n".join(parts)
+
+
+def _write_topic_notify(entries: list[dict]) -> None:
+    """點播報告的推播內容 → docs/_notify_topic.json（**獨立於早報那個通道**）。
+
+    刻意不共用 `_notify_payload.json`：那是早報／盤後的檔案，內容會被當天的
+    例行報告覆蓋，而且 send_notification() 結尾固定接「完整報告：站台首頁」，
+    點播通知連過去根本不是使用者要的那份報告。格式是陣列，一次跑出多篇也不會
+    互相蓋掉（daily-notify.yml 會逐篇送出）。
+    """
+    if not entries:
+        return
+    path = render.DOCS_DIR / "_notify_topic.json"
+    payload = [{"title": f"點播主題報告：{e['title']}",
+                "body": _topic_notify_text(e), "url": e["url"]} for e in entries]
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"[topic] 已寫入推播內容 {path.name}（{len(entries)} 篇）")
 
 
 def _make_topic_report(topic_title: str, detail: str, source_desc: str,
@@ -1493,14 +1538,9 @@ def _make_topic_report(topic_title: str, detail: str, source_desc: str,
         link=f"analysis/{today}-{slug}.html",
     ), None, "研究筆記（主題點播）")
 
-    # 送出點播的人本來完全收不到回音——這條路徑以前沒接通知，只能自己去網站看。
-    # 產出後推一則，附網址與來源數，讓使用者知道「跑完了、在哪裡看」。
     url = f"{load_config()['site']['base_url']}/analysis/{today}-{slug}.html"
-    _safe(lambda: send_notification(
-        f"🎯 點播主題報告已產出：{row['title']}",
-        f"{row['summary'][:300]}\n\n查證來源 {len(sources)} 個\n{url}"),
-        None, "主題點播通知")
-    return {"slug": slug, "path": path, "sources": sources, "title": row["title"]}
+    return {"slug": slug, "path": path, "sources": sources,
+            "title": row["title"], "url": url, "row": row}
 
 
 def run_topic_requests() -> None:
@@ -1527,6 +1567,7 @@ def run_topic_requests() -> None:
     ))
 
     made = 0
+    produced: list[dict] = []
     for issue in issues:
         number = issue["number"]
         topic = (issue.get("title") or "").strip()
@@ -1551,6 +1592,7 @@ def run_topic_requests() -> None:
             continue
 
         made += 1
+        produced.append(result)
         url = f"{load_config()['site']['base_url']}/analysis/{today}-{result['slug']}.html"
         _gh_issue_comment_and_close(
             number, f"已產出主題報告：{result['title']}\n\n{url}\n\n"
@@ -1560,6 +1602,7 @@ def run_topic_requests() -> None:
     if made:
         render.render_intraday_report_index()
         render.render_research_notes()      # 點播結果也會出現在研究筆記頁
+        _safe(lambda: _write_topic_notify(produced), None, "點播推播")
         print(f"[topic] 產出 {made} 篇主題報告")
 
 
@@ -1645,6 +1688,8 @@ def run_research_intake() -> None:
         + [t["name"] for t in db.list_all_themes()]
     ))
     processed = 0
+    topic_made: list[dict] = []      # 點播成功的，最後統一寫進獨立的推播檔
+    topic_failed: list[str] = []
 
     # 來源一：GitHub Issue（給熟悉 GitHub 的人，例如你自己）
     issues = _safe(_gh_issue_list, [], "讀取使用者研究提交（GitHub）")
@@ -1686,6 +1731,7 @@ def run_research_intake() -> None:
                     today, known_theme_names)
                 if made:
                     processed += 1
+                    topic_made.append(made)
                     print(f"[research] 主題報告已產出：{made['path'].name}")
                 else:
                     # 產不出來也要留一筆，不然使用者送出後完全看不到任何回應
@@ -1700,11 +1746,7 @@ def run_research_intake() -> None:
                         affected_themes=[], affected_stocks=[]),
                         None, "研究筆記（點播失敗）")
                     # 失敗也要講一聲，不然使用者會一直等一則永遠不會來的通知
-                    _safe(lambda t=topic: send_notification(
-                        f"🎯 點播主題「{t}」查不到足夠外部來源",
-                        "依站內規則不產出報告（寧可不寫，也不放未經查證的內容）。"
-                        "可以換個更具體的講法再點播一次；結果已記在研究筆記頁。"),
-                        None, "點播失敗通知")
+                    topic_failed.append(topic)
                     processed += 1
                 continue
 
@@ -1722,12 +1764,25 @@ def run_research_intake() -> None:
         return
     render.render_site()
     print(f"[research] 本批處理 {processed} 篇提交")
-    # 使用者提交後唯一的回音就是這則；沒有它只能自己去網站刷新看有沒有更新。
-    _safe(lambda: send_notification(
-        f"📝 已處理 {processed} 筆研究提交",
-        f"驗證結果與是否回寫題材，見研究筆記頁：\n"
-        f"{load_config()['site']['base_url']}/research.html"),
-        None, "研究提交通知")
+
+    # 點播是使用者自己要的東西，走獨立通道、直接送報告內容
+    _safe(lambda: _write_topic_notify(topic_made), None, "點播推播")
+    for t in topic_failed:
+        _safe(lambda x=t: _write_topic_notify([{
+            "title": f"「{x}」查不到足夠外部來源", "url": "",
+            "sources": [],
+            "row": {"summary": "依站內規則不產出報告（寧可不寫，也不放未經查證的"
+                               "內容）。可以換個更具體的講法再點播一次；"
+                               "結果已記在研究筆記頁。", "sections": []},
+        }]), None, "點播失敗推播")
+
+    # 一般研究提交（貼文章／貼連結）維持走既有的每日通道
+    if processed > len(topic_made) + len(topic_failed):
+        _safe(lambda: send_notification(
+            f"📝 已處理 {processed - len(topic_made) - len(topic_failed)} 筆研究提交",
+            f"驗證結果與是否回寫題材，見研究筆記頁：\n"
+            f"{load_config()['site']['base_url']}/research.html"),
+            None, "研究提交通知")
 
 
 def _report_result_to_issue(number: int, result: dict) -> None:
