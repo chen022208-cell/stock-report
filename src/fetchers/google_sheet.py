@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import csv
 import io
+import time
 
 import requests
 
@@ -29,7 +30,16 @@ def fetch_form_responses(csv_url: str) -> list[dict]:
     if not csv_url:
         return []
     try:
-        resp = requests.get(csv_url, headers=HEADERS, timeout=TIMEOUT)
+        # ⚠️ 一定要破快取。Google 這個「發布到網路」的網址回的是
+        # `Cache-Control: private, max-age=300`——最多 5 分鐘的舊資料。
+        # 表單送出後用 API trigger 秒觸發 Routine 時，若讀到快取版本就會看不到
+        # 「剛剛那一筆」，等於觸發了卻什麼都沒處理，秒觸發形同虛設。
+        # 加隨機 query 參數＋no-cache 標頭強制取得最新內容。
+        bust = f"{'&' if '?' in csv_url else '?'}_cb={int(time.time())}"
+        resp = requests.get(csv_url + bust,
+                            headers={**HEADERS, "Cache-Control": "no-cache",
+                                     "Pragma": "no-cache"},
+                            timeout=TIMEOUT)
         resp.raise_for_status()
         reader = csv.reader(io.StringIO(resp.text))
         rows = list(reader)
