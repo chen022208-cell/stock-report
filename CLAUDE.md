@@ -49,8 +49,17 @@ Claude 帳號」下、吃該帳號訂閱額度，跟你在哪台電腦開發無�
   claude.ai → Settings → Claude Code → Cloud → Default 環境 → 齒輪設定 → Network
   access 檢查目前是不是又跳回 Trusted，不要一發現問題就急著恢復 GitHub Actions
   排程——先確認是不是網路設定被改回去。
-  兩個 Routine 目前的 job_config 沒有預先掛載 git source，每次執行都是自己手動
-  `git clone`，能動但每次多花幾秒，不算 bug。
+  ⚠️ **沒有掛 git source 的 Routine 推不上去（2026-09-06 實際踩到）**。這裡本來
+  寫著「兩個 Routine 沒有預先掛載 git source、每次自己 `git clone`，能動但多花
+  幾秒，不算 bug」——**那是錯的**。雲端 CCR session 的 git 走 egress proxy，
+  只有「掛在 job_config 的 git source」那個 repo 才在授權清單內：沒掛的話
+  `git clone` 公開 repo 讀得到，但 `git push` 會被 proxy 擋掉，跳
+  `403 access denied`／「repo 未在此 session 授權清單內」，於是整輪跑完的結果
+  寫不回 repo（即時快訊監控就是這樣連續失敗的）。
+  **凡是會 push 的 Routine，job_config 都要掛 git source
+  `https://github.com/chen022208-cell/stock-report`**。「個股逐檔查證」有掛、
+  可以正常 push，可以拿它當對照組：修的時候直接複製它的 git_source 區塊，
+  不要自己猜 JSON 格式。
 - **每週深度週報**：Routine「台股週報：全球總經＋台股深度研究」，每週五，
   產出 `docs/weekly/<日期>.pdf`。不受網路政策影響（主要用 WebSearch/WebFetch
   做研究，讀本地 repo 檔案，不需要直連 twse.com.tw）。

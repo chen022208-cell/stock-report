@@ -55,6 +55,12 @@
 
 共通設定：
 - **git source**：`https://github.com/chen022208-cell/stock-report`
+  ⚠️ **這一項不是選配，會 push 的 Routine 一定要掛**。雲端 CCR session 的 git 走
+  egress proxy，只有掛在 job_config 的 git source 才在授權清單內。沒掛的話
+  `git clone` 公開 repo 讀得到，但 `git push` 會被擋成 `403 access denied`
+  （通知訊息長這樣：「git push 被 proxy 拒絕（403 access denied），repo 未在此
+  session 授權清單內」），程式跑完的結果全部寫不回去。2026-09-06 即時快訊監控
+  就是因為沒掛而連續失敗。修法見第 7 節。
 - **persist_session**：false
 - **model**：除非註明，用 `claude-sonnet-5`（「每日早報 / 盤後」原本沒指定，等同帳號預設即可）
 
@@ -491,3 +497,40 @@ RemoteTrigger action=create_webhook_trigger body={
 | 週報 | `0 12 * * 5` | 週五 20:00 |
 | 深度月報 | `0 0 1 * *` | 每月 1 號 08:00 |
 | 盤中焦點股深度快報（掃尾 cron） | `0 6 * * 1-5` | 平日 14:00 |
+
+---
+
+## 7. 疑難排解：`git push` 被 proxy 擋（403 access denied）
+
+**症狀**：Routine 的 PushNotification 說
+「git push 被 proxy 拒絕（403 access denied），repo 未在此 session 授權清單內」，
+或「git push 被拒絕，無法把結果寫回 repo」。程式本身跑完了，只是推不上去。
+
+**原因**：這支 Routine 的 `job_config` 沒有掛 git source。CCR session 的 git 走
+egress proxy，只有掛上去的 repo 在授權清單內。prompt 裡自己 `git clone` 只能解決
+「讀」，不能解決「寫」。
+
+**跟網路政策無關**：不要跑去改環境的 Network access（那是另一個問題，症狀是
+`EGRESS_BLOCKED` / 連不到 twse.com.tw）。這個是 repo 授權，不是對外連網。
+
+**修法**（在**有這些 Routine 的那個帳號**下操作）：
+
+- **網頁**：https://claude.ai/code/routines → 點進該支 → 設定裡把
+  `https://github.com/chen022208-cell/stock-report` 加成 git source → 儲存。
+
+- **API**（同帳號的 Claude Code session 裡）：**不要自己猜 JSON 格式**，
+  直接抄一支已經能正常 push 的（「台股個股逐檔查證」有掛 git source）：
+
+  1. `RemoteTrigger action=get trigger_id=<逐檔查證那支的 id>`
+  2. 從回傳的 `job_config.ccr` 裡把 `git_source` 整個區塊複製下來
+  3. 對每一支推不上去的 Routine：
+     `RemoteTrigger action=update trigger_id=<那支的 id> body={"job_config":{"ccr":{"git_source": <剛剛複製的區塊>}}}`
+  4. `RemoteTrigger action=run trigger_id=<那支的 id>` 跑一次，再用
+     `action=list_runs` ＋ `action=get_run_log` 確認這次有推成功
+
+**要檢查的對象**：所有 prompt 裡寫「工作目錄若還沒有 repo 就 `git clone`」的
+Routine——台股每日早報、台股每日盤後、台股即時快訊監控、台股使用者研究提交處理。
+（逐檔查證、盤中焦點股深度快報本來就有掛。）
+
+**沒修的後果**：程式每輪都白跑——即時快訊照樣抓、照樣分析，但結果寫不回 repo，
+網站不會更新，而且每次都發一則失敗通知。
