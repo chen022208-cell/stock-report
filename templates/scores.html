@@ -13,6 +13,8 @@
   .axis-value{width:34px; text-align:right; font-family:'JetBrains Mono',monospace; color:var(--text-secondary); flex-shrink:0;}
   .axis-na{color:var(--text-muted); font-size:12px; width:34px; text-align:right;}
   .analysis-toggle{margin-top:12px; border-top:1px solid var(--hairline); padding-top:10px;}
+  .analysis-none{font-size:12.5px; color:var(--text-muted); line-height:1.7; margin:0;}
+  .analysis-none a{color:var(--gold);}
   .analysis-toggle summary{cursor:pointer; font-size:12.5px; color:var(--gold); list-style:none;}
   .analysis-toggle summary::-webkit-details-marker{display:none;}
   .analysis-body{margin-top:12px; display:flex; flex-direction:column; gap:12px;}
@@ -77,6 +79,15 @@
       </div>
     </div>
   </details>
+  {% else %}
+  {# 沒有 LLM 分析的個股，不要整區消失——那會讓同一張排行裡有些檔看得到公司介紹、
+     有些什麼都沒有，像是漏資料。改成明講「還沒逐檔查證」並指到個股頁，
+     那裡一定有申報主要經營業務＋月營收＋同產業個股這些事實層資料。 #}
+  <div class="analysis-toggle">
+    <p class="analysis-none">尚未逐檔查證公司分析（本站只放查證過的判讀，不用股票名稱推測）。
+      公司申報營業項目、月營收與同產業個股見
+      <a href="{{ rel }}stock.html?code={{ r.code }}">個股資料頁 →</a></p>
+  </div>
   {% endif %}
 </div>
 {% endfor %}
