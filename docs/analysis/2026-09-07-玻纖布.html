@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>處置股預警 · 盤後快訊</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>玻纖布：AI 伺服器高速材料升級戰下的低介電稀缺資源 · 盤後快訊</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 <meta name="theme-color" content="#1C1B19">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -213,111 +213,146 @@
                     padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  .meta{font-size:13px; color:var(--text-muted); margin:10px 0 20px;}
-  .card{background:var(--surface); border-radius:8px; padding:16px 18px; margin-bottom:12px;
-       border-left:2px solid var(--red);}
-  .card.watch{border-left-color:var(--gold);}
-  .card.today{border-left-color:var(--text-secondary);}
-  .card-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px; margin-bottom:6px;}
-  .card-detail{font-size:13.5px; color:var(--text-secondary); line-height:1.7;}
-  .card-tag{display:inline-block; font-size:11.5px; color:var(--text-muted); margin-bottom:6px;}
-  .section-head{font-family:'Noto Serif TC',serif; font-size:16px;
-                color:var(--text-secondary); margin:28px 0 12px;}
+  .tr-meta{font-size:12.5px; color:var(--text-muted); margin:8px 0 20px;}
+  .tr-badge{display:inline-block; font-size:11.5px; background:var(--surface-2);
+            border:1px solid var(--hairline); border-radius:999px; padding:2px 9px;
+            color:var(--c-theme); margin-right:8px;}
+  .tr-pdf{margin:0 0 18px;}
+  .tr-pdf a{font-size:13.5px; color:var(--gold); text-decoration:none;
+            border:1px solid var(--hairline); border-radius:999px; padding:6px 14px;}
+  .tr-pdf a:hover{border-color:var(--gold);}
+  .tr-summary{font-size:15px; line-height:1.85; color:var(--text-primary);
+              background:var(--surface); border-left:3px solid var(--gold);
+              border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:24px;}
+  .tr-sec{margin-bottom:26px;}
+  .tr-sec h2{font-size:17px; margin:0 0 10px;}
+  .tr-sec p{font-size:14.5px; line-height:1.9; color:var(--text-secondary); margin:0;}
+  .tr-stocks{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;}
+  .tr-stock{cursor:pointer; background:var(--surface); border:1px solid var(--hairline);
+            border-radius:var(--radius-sm); padding:8px 12px; font-size:13px; max-width:340px;}
+  .tr-stock:hover{border-color:var(--gold);}
+  .tr-stock b{font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
+  .tr-stock span{display:block; color:var(--text-muted); font-size:12px; margin-top:3px;}
+  .tr-risk{background:var(--surface); border-left:3px solid var(--c-warn);
+           border-radius:var(--radius-sm); padding:12px 15px; font-size:14px;
+           line-height:1.85; color:var(--text-secondary);}
+  .tr-src{font-size:12.5px; color:var(--text-muted); line-height:1.9;
+          border-top:1px solid var(--hairline); padding-top:14px; margin-top:26px;}
+  .tr-src a{color:var(--gold); word-break:break-all;}
 
 </style>
 </head>
 <body>
 <div class="page">
   <nav class="nav">
-    <a href="index.html" class="">最新</a>
-    <a href="heatmap.html" class="">🔥 熱力圖</a>
-    <a href="chips.html" class="">💰 籌碼</a>
-    <a href="scores.html" class="">⭐ 評分</a>
-    <a href="picks.html" class="">🎯 選股雷達</a>
-    <a href="intraday.html" class="">⚡ 盤中強勢</a>
-    <a href="lookup.html" class="">🔍 個股查詢</a>
-    <a href="disposition.html" class="current">⚠️ 處置</a>
-    <a href="themes.html" class="">題材庫</a>
-    <a href="archive.html" class="">歷史</a>
-    <a href="weekly/index.html" class="">📅 週報</a>
-    <a href="monthly-deep/index.html" class="">🌍 深度月報</a>
-    <a href="research.html" class="">📥 研究筆記</a>
-    <a href="submit.html" class="">📤 提交研究</a>
+    <a href="../index.html" class="">最新</a>
+    <a href="../heatmap.html" class="">🔥 熱力圖</a>
+    <a href="../chips.html" class="">💰 籌碼</a>
+    <a href="../scores.html" class="">⭐ 評分</a>
+    <a href="../picks.html" class="">🎯 選股雷達</a>
+    <a href="../intraday.html" class="">⚡ 盤中強勢</a>
+    <a href="../lookup.html" class="">🔍 個股查詢</a>
+    <a href="../disposition.html" class="">⚠️ 處置</a>
+    <a href="../themes.html" class="">題材庫</a>
+    <a href="../archive.html" class="">歷史</a>
+    <a href="../weekly/index.html" class="">📅 週報</a>
+    <a href="../monthly-deep/index.html" class="">🌍 深度月報</a>
+    <a href="../research.html" class="">📥 研究筆記</a>
+    <a href="../submit.html" class="">📤 提交研究</a>
   </nav>
 
   
-<header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">處置股預警</h1></header>
-<p class="meta">2026年9月5日．週六 · 資料源：TWSE 公布注意／處置交易資訊，官方原文照登</p>
+<header>
+  <div class="masthead-label">盤後快訊</div>
+  <h1 class="masthead-date">玻纖布：AI 伺服器高速材料升級戰下的低介電稀缺資源</h1>
+</header>
+<p class="tr-meta">
+  <span class="tr-badge">🎯 使用者點播主題</span>
+  2026-09-07 產出　·　原始點播：玻纖布
+</p>
 
-<div class="section-head">處置中（8）</div>
 
 
-<div class="card">
-  <div class="card-tag">處置期間 115/09/07～115/09/15 · 第二次處置</div>
-  <div class="card-name">2455 全新</div>
-  <div class="card-detail">連續五次及當日沖銷標準</div>
+<div class="tr-summary">玻纖布（玻璃纖維布）是銅箔基板（CCL）與 PCB 的核心結構材料，隨 AI 伺服器、800G/1.6T 交換器對低訊號損耗的要求提高，產業正從一般 E-glass 往低介電常數（Low Dk）、低介電損耗（Low Df）、低熱膨脹係數（Low CTE）甚至頂規 T-glass 升級，帶動相關台廠 2026 年股價明顯反應。這個主題與本站既有題材「CCL｜銅箔基板（高速料)」高度相關，可視為其上游材料端的延伸；多篇報導提到的個股同時涉及漲停、族群輪動等市場面消息，本報告僅整理供應鏈角色與需求邏輯，不評論股價後續走勢。</div>
+
+
+<section class="tr-sec">
+  <h2>玻纖布在 AI 伺服器供應鏈中的位置</h2>
+  <p>根據數位時代（bnext）與材料世界網報導，玻纖布是銅箔基板（CCL）的關鍵結構材料之一，用來提供 PCB 板材的機械強度與訊號傳輸特性。AI 伺服器主機板、高速交換器、800G/1.6T 網通設備對訊號損耗（Insertion Loss）與訊號完整性要求提高，使 PCB／CCL 材料必須從一般 E-glass 升級到具備低介電常數（Low Dk）、低介電損耗（Low Df）、低熱膨脹係數（Low CTE）特性的高階玻纖布，甚至頂規的 T-glass。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>台廠供應鏈與各自角色（依查證到的報導整理）</h2>
+  <p>根據 sinotrade 豐雲學堂與理財周刊的報導，台股玻纖布相關公司常被市場稱為「玻纖五虎」，包括：
+南亞（1303）— 報導指其垂直整合最完整、基本面較穩健，橫跨玻纖紗到玻纖布、CCL 材料。
+台玻（1802）— 報導指其產能擴張規模最大。
+富喬（1815）— 報導指其轉型速度快、獲利彈性高，具備 Low Dk、Low CTE 等高障礙技術，是少數能同時生產玻纖紗與玻纖布的廠商、垂直整合掌握成本與品質。
+建榮（5340）、德宏（5475）— 多篇報導（經濟日報、工商時報、Yahoo 股市）列為玻纖布／CCL 族群中同步表態的公司，惟本次查證未取得其產品規格或客戶端的具體公開說明，公司角色細節建議後續個股查證時再確認。
+下游則是既有題材「CCL｜銅箔基板（高速料)」所涵蓋的銅箔基板廠，會採購玻纖布做為原料，兩個主題屬於同一供應鏈的上下游關係。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>缺貨與漲價的市場觀察</h2>
+  <p>理財周刊與經濟日報報導提到，日東紡（日商，非台股）等玻纖布廠調漲電子級玻纖布價格且被客戶接受，反映需求端確有實際拉貨動作而非單純供給端喊漲；市場估計 Low Dk、Low CTE 等高階規格供給吃緊狀況可能持續到 2027 年底，NVIDIA 下一代平台（Rubin）因基板面積與層數增加，可能進一步推升高階玻纖布需求（此為報導引述的市場預期，本站未獨立查證 NVIDIA 官方規格文件）。</p>
+</section>
+
+
+
+<section class="tr-sec">
+  <h2>相關個股</h2>
+  <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:8px">
+    只列出查證過、確定與本主題相關的個股。點任一檔看 K 線與公司資料。</p>
+  <div class="tr-stocks">
+    
+    <div class="tr-stock" data-stock-code="1303" data-stock-name="南亞">
+      <b>1303 南亞</b>
+      <span>玻纖紗、玻纖布、CCL 材料垂直整合廠，多篇報導列為玻纖布概念股核心公司之一</span>
+    </div>
+    
+    <div class="tr-stock" data-stock-code="1802" data-stock-name="台玻">
+      <b>1802 台玻</b>
+      <span>玻纖布廠，報導指其產能擴張規模為同業中最大</span>
+    </div>
+    
+    <div class="tr-stock" data-stock-code="1815" data-stock-name="富喬">
+      <b>1815 富喬</b>
+      <span>具備 Low Dk、Low CTE 等高階玻纖布技術，可同時生產玻纖紗與玻纖布，垂直整合程度高</span>
+    </div>
+    
+    <div class="tr-stock" data-stock-code="5340" data-stock-name="建榮">
+      <b>5340 建榮</b>
+      <span>多篇報導列為玻纖布／CCL 族群同步表態的公司</span>
+    </div>
+    
+    <div class="tr-stock" data-stock-code="5475" data-stock-name="德宏">
+      <b>5475 德宏</b>
+      <span>多篇報導列為玻纖布／CCL 族群同步表態的公司</span>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="tr-sec">
+  <h2>風險與觀察重點</h2>
+  <div class="tr-risk">（1）本報告來源多為財經媒體對股價族群表現的報導（含漲停、族群輪動等市場面消息），對建榮、德宏兩家公司的具體產品規格、客戶結構未查到公司官方或財報等更第一手的資料，僅能確認其被市場歸類為玻纖布概念股，公司角色描述較粗略；（2）玻纖布報導中同時出現「玻纖布熄火」「翻黑重挫」等短線劇烈波動描述（工商時報），顯示題材本身伴隨高度市場情緒與股價波動，供需缺口與實際訂單認列時間點可能不一致；（3）不同機構對供給吃緊延續時間（到 2027 年底）與需求驅動力（NVIDIA Rubin 平台）的說法來自產業報導引述，並非公司或 NVIDIA 官方公開數字，實際規格與時程仍待正式資訊驗證。</div>
+</section>
+
+
+<div class="tr-src">
+  <b>查證來源</b>（本報告依站內規則，沒有外部來源就不產出）：<br>
+  <a href="https://www.bnext.com.tw/article/89857/whats-glass-cloth" target="_blank" rel="noopener">https://www.bnext.com.tw/article/89857/whats-glass-cloth</a>　·　
+  <a href="https://www.sinotrade.com.tw/richclub/industry/%E7%8E%BB%E7%BA%96%E5%B8%83%E6%98%AF%E4%BB%80%E9%BA%BC-%E7%8E%BB%E7%BA%96%E5%B8%83%E6%A6%82%E5%BF%B5%E8%82%A1%E6%9C%89%E5%93%AA%E4%BA%9B-%E9%AB%98%E9%9A%8EPCB%E4%B8%8D%E5%8F%AF%E7%BC%BA%E5%B0%91%E7%9A%84%E6%9D%90%E6%96%99-%E5%88%A5%E5%8F%AA%E7%9F%A5%E9%81%93%E5%AF%8C%E5%96%AC-%E5%8F%B0%E7%8E%BB--%E8%82%A1%E5%B8%82%E8%A9%B1%E9%A1%8C-689b075063793f3efc2da52e" target="_blank" rel="noopener">https://www.sinotrade.com.tw/richclub/industry/%E7%8E%BB%E7%BA%96%E5%B8%83%E6%98%AF%E4%BB%80%E9%BA%BC-%E7%8E%BB%E7%BA%96%E5%B8%83%E6%A6%82%E5%BF%B5%E8%82%A1%E6%9C%89%E5%93%AA%E4%BA%9B-%E9%AB%98%E9%9A%8EPCB%E4%B8%8D%E5%8F%AF%E7%BC%BA%E5%B0%91%E7%9A%84%E6%9D%90%E6%96%99-%E5%88%A5%E5%8F%AA%E7%9F%A5%E9%81%93%E5%AF%8C%E5%96%AC-%E5%8F%B0%E7%8E%BB--%E8%82%A1%E5%B8%82%E8%A9%B1%E9%A1%8C-689b075063793f3efc2da52e</a>　·　
+  <a href="https://money.udn.com/money/story/5607/9341003" target="_blank" rel="noopener">https://money.udn.com/money/story/5607/9341003</a>　·　
+  <a href="https://www.moneyweekly.com.tw/ArticleData/Info/Article/245093" target="_blank" rel="noopener">https://www.moneyweekly.com.tw/ArticleData/Info/Article/245093</a>
+  
+  <p style="margin-top:10px">本頁為系統依使用者點播主題自動整理之資訊，明確標示「（推論）」者為推論而非查證事實；
+  僅供研究參考，不構成投資建議。</p>
 </div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/03～115/09/09 · 第一次處置</div>
-  <div class="card-name">3008 大立光</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/02～115/09/08 · 第一次處置</div>
-  <div class="card-name">3406 玉晶光</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/03～115/09/11 · 第二次處置</div>
-  <div class="card-name">3450 聯鈞</div>
-  <div class="card-detail">連續五次及當日沖銷標準</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/01～115/09/07 · 第一次處置</div>
-  <div class="card-name">6226 光鼎</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/02～115/09/08 · 第一次處置</div>
-  <div class="card-name">6805 富世達</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/07～115/09/11 · 第二次處置</div>
-  <div class="card-name">6933 AMAX-KY</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/02～115/09/08 · 第一次處置</div>
-  <div class="card-name">6933 AMAX-KY</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-
-
-<div class="section-head">注意累計次數接近處置門檻（1）</div>
-
-
-<div class="card watch">
-  <div class="card-name">2426 鼎元</div>
-  <div class="card-detail">115年8月25日至115年9月4日等九個營業日已有五次</div>
-</div>
-
-
-
-<div class="section-head">今日新公布注意股票（0）</div>
-
-<p class="commentary">今天沒有新公布的注意股票。</p>
-
-<p class="commentary" style="margin-top:20px; font-size:13px">選股訊號（起漲點／新掛牌／黑馬）→ <a href="picks.html" style="color:var(--gold)">選股雷達</a>　·　查任一個股 → <a href="lookup.html" style="color:var(--gold)">個股查詢</a></p>
+<p style="margin-top:20px; font-size:13px">
+  ← 回 <a href="index.html" style="color:var(--gold)">分析清單</a>　·
+  <a href="../submit.html" style="color:var(--gold)">再點播一個主題</a></p>
 
 
   <footer class="site-footer">
@@ -327,11 +362,11 @@
 </div>
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
   }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=da241156"></script>
+<script src="../assets/stock-chart.js?v=da241156"></script>
 
 </body>
 </html>

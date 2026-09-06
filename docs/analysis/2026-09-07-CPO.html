@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>處置股預警 · 盤後快訊</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>CPO（共同封裝光學）與矽光子：2026 商轉元年台股供應鏈解析 · 盤後快訊</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 <meta name="theme-color" content="#1C1B19">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -213,125 +213,136 @@
                     padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  .meta{font-size:13px; color:var(--text-muted); margin:10px 0 20px;}
-  .card{background:var(--surface); border-radius:8px; padding:16px 18px; margin-bottom:12px;
-       border-left:2px solid var(--red);}
-  .card.watch{border-left-color:var(--gold);}
-  .card.today{border-left-color:var(--text-secondary);}
-  .card-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px; margin-bottom:6px;}
-  .card-detail{font-size:13.5px; color:var(--text-secondary); line-height:1.7;}
-  .card-tag{display:inline-block; font-size:11.5px; color:var(--text-muted); margin-bottom:6px;}
-  .section-head{font-family:'Noto Serif TC',serif; font-size:16px;
-                color:var(--text-secondary); margin:28px 0 12px;}
+  .tr-meta{font-size:12.5px; color:var(--text-muted); margin:8px 0 20px;}
+  .tr-badge{display:inline-block; font-size:11.5px; background:var(--surface-2);
+            border:1px solid var(--hairline); border-radius:999px; padding:2px 9px;
+            color:var(--c-theme); margin-right:8px;}
+  .tr-pdf{margin:0 0 18px;}
+  .tr-pdf a{font-size:13.5px; color:var(--gold); text-decoration:none;
+            border:1px solid var(--hairline); border-radius:999px; padding:6px 14px;}
+  .tr-pdf a:hover{border-color:var(--gold);}
+  .tr-summary{font-size:15px; line-height:1.85; color:var(--text-primary);
+              background:var(--surface); border-left:3px solid var(--gold);
+              border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:24px;}
+  .tr-sec{margin-bottom:26px;}
+  .tr-sec h2{font-size:17px; margin:0 0 10px;}
+  .tr-sec p{font-size:14.5px; line-height:1.9; color:var(--text-secondary); margin:0;}
+  .tr-stocks{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;}
+  .tr-stock{cursor:pointer; background:var(--surface); border:1px solid var(--hairline);
+            border-radius:var(--radius-sm); padding:8px 12px; font-size:13px; max-width:340px;}
+  .tr-stock:hover{border-color:var(--gold);}
+  .tr-stock b{font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
+  .tr-stock span{display:block; color:var(--text-muted); font-size:12px; margin-top:3px;}
+  .tr-risk{background:var(--surface); border-left:3px solid var(--c-warn);
+           border-radius:var(--radius-sm); padding:12px 15px; font-size:14px;
+           line-height:1.85; color:var(--text-secondary);}
+  .tr-src{font-size:12.5px; color:var(--text-muted); line-height:1.9;
+          border-top:1px solid var(--hairline); padding-top:14px; margin-top:26px;}
+  .tr-src a{color:var(--gold); word-break:break-all;}
 
 </style>
 </head>
 <body>
 <div class="page">
   <nav class="nav">
-    <a href="index.html" class="">最新</a>
-    <a href="heatmap.html" class="">🔥 熱力圖</a>
-    <a href="chips.html" class="">💰 籌碼</a>
-    <a href="scores.html" class="">⭐ 評分</a>
-    <a href="picks.html" class="">🎯 選股雷達</a>
-    <a href="intraday.html" class="">⚡ 盤中強勢</a>
-    <a href="lookup.html" class="">🔍 個股查詢</a>
-    <a href="disposition.html" class="current">⚠️ 處置</a>
-    <a href="themes.html" class="">題材庫</a>
-    <a href="archive.html" class="">歷史</a>
-    <a href="weekly/index.html" class="">📅 週報</a>
-    <a href="monthly-deep/index.html" class="">🌍 深度月報</a>
-    <a href="research.html" class="">📥 研究筆記</a>
-    <a href="submit.html" class="">📤 提交研究</a>
+    <a href="../index.html" class="">最新</a>
+    <a href="../heatmap.html" class="">🔥 熱力圖</a>
+    <a href="../chips.html" class="">💰 籌碼</a>
+    <a href="../scores.html" class="">⭐ 評分</a>
+    <a href="../picks.html" class="">🎯 選股雷達</a>
+    <a href="../intraday.html" class="">⚡ 盤中強勢</a>
+    <a href="../lookup.html" class="">🔍 個股查詢</a>
+    <a href="../disposition.html" class="">⚠️ 處置</a>
+    <a href="../themes.html" class="">題材庫</a>
+    <a href="../archive.html" class="">歷史</a>
+    <a href="../weekly/index.html" class="">📅 週報</a>
+    <a href="../monthly-deep/index.html" class="">🌍 深度月報</a>
+    <a href="../research.html" class="">📥 研究筆記</a>
+    <a href="../submit.html" class="">📤 提交研究</a>
   </nav>
 
   
-<header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">處置股預警</h1></header>
-<p class="meta">2026年9月5日．週六 · 資料源：TWSE 公布注意／處置交易資訊，官方原文照登</p>
+<header>
+  <div class="masthead-label">盤後快訊</div>
+  <h1 class="masthead-date">CPO（共同封裝光學）與矽光子：2026 商轉元年台股供應鏈解析</h1>
+</header>
+<p class="tr-meta">
+  <span class="tr-badge">🎯 使用者點播主題</span>
+  2026-09-07 產出　·　原始點播：CPO
+</p>
 
-<div class="section-head">處置中（8）</div>
 
 
-<div class="card">
-  <div class="card-tag">處置期間 115/09/07～115/09/15 · 第二次處置</div>
-  <div class="card-name">2455 全新</div>
-  <div class="card-detail">連續五次及當日沖銷標準</div>
+<div class="tr-summary">CPO（Co-Packaged Optics）將光引擎與交換器晶片共同封裝，目的是縮短電訊號路徑、大幅降低功耗，被視為 AI 資料中心高速互連下一階段的關鍵技術。2026 年隨 NVIDIA、Broadcom 的 CPO 交換器產品陸續進入量產，市場普遍稱為「商轉元年」，台積電以 COUPE 平台扮演核心角色，台廠供應鏈則分散在雷射晶片磊晶、光學被動元件、光纖陣列對準封裝，以及先進封裝測試等環節。目前多數台廠仍處於送樣或小量出貨階段，實際放量規模與時程仍待觀察。</div>
+
+
+<section class="tr-sec">
+  <h2>CPO 是什麼、為何重要</h2>
+  <p>CPO 把光引擎直接封裝在交換器晶片旁，取代傳統可插拔光模組經由較長銅線／PCB 走線傳輸電訊號的方式，藉此縮短電訊號路徑。EDN 與科技新報等產業報導指出，這項設計能明顯降低功耗與延遲，是因應 AI 資料中心對頻寬需求快速增加、但傳統銅纜互連功耗與訊號完整性已逼近極限而發展出的下一階段方案（推論：確切降幅因產品世代與導入規模而異，需以個別廠商公告為準）。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>台積電 COUPE 與 2026 商轉時程</h2>
+  <p>根據數位時代（bnext）報導，台積電的 COUPE（Compact Universal Photonic Engine）技術平台是這波 CPO 供應鏈的核心，相較銅線互連號稱可提供約 4 倍功耗效率、降低高達 90% 延遲，200Gbps 微環調變器規劃 2026 年量產。同一報導指出博通（Broadcom）Tomahawk 6-Davisson CPO 交換器已於 2025 年 10 月發表並向早期客戶供樣；玉山證券與科技新報的報導則提到 NVIDIA 在 2026 年台北 GTC 大會宣布採用 CPO 的 Spectrum-X Photonics 乙太網路交換器進入量產，是市場將 2026 年稱為「CPO 商轉元年」的主要依據。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>市場規模估計（機構預測，非本站驗證數字）</h2>
+  <p>報導引述摩根史坦利估計，CPO 市場規模將從 2023 年約 800 萬美元，成長至 2030 年約 93 億美元，七年複合成長率約 172%；另有市場研究提到 2028 年矽光子市場規模看到約 6,400 萬美元、CPO 擴大至約 5 億美元的估計。（不同機構預測基期與定義不同，數字差異大，僅供參考，非本站自行驗證）。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>台股供應鏈分工（依查證到的公司角色分類）</h2>
+  <p>根據數位時代（bnext）文章整理，台股在這波矽光子／CPO 供應鏈中的分工大致可分四層：
+上游磊晶材料：聯亞（3081）、全新（2455）、英特磊（4971）從事 InP 與砷化鎵磊晶，是雷射晶片的上游材料供應商。
+中游光收發模組與光學元件：波若威（3163）為 NVIDIA Spectrum-X 官方合作夥伴；上詮（3363）從事光纖陣列（FAU）與矽光子晶片對準接合；大立光（3008）則在光纖陣列與稜鏡準直鏡頭上處於送樣階段、尚未量產。
+下游先進封裝：日月光投控（3711）投入 CPO 先進封裝。
+檢測分析：汎銓（6830）、閎康（3587）、宜特（3289）被市場稱為「檢測三雄」，提供材料與製程分析服務。
+另有海外報導（Penchan／BigGo Finance）提及 ASE（即日月光投控）、FOCI、Xintec（精材）等公司在雷射晶片、被動元件、光學收發模組組裝測試、矽光子代工上的角色，惟本次未逐一查證細節，暫不列入 stocks。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>與本站既有題材知識庫的對應</h2>
+  <p>使用者點播的「CPO」與本站題材知識庫既有的「矽光子與 CPO」為同一題材，本次研究內容建議歸入該題材項下累加更新。</p>
+</section>
+
+
+
+
+
+<section class="tr-sec">
+  <h2>風險與觀察重點</h2>
+  <div class="tr-risk">（1）多數台廠目前仍處於送樣或小量出貨階段（如大立光的稜鏡準直鏡頭），實際放量時程與良率尚待驗證，不宜直接視為已放量出貨；（2）不同機構對市場規模的預測基期、定義差異極大（如 2030 年 93 億美元 vs. 2028 年 5 億美元兩組數字並不一致），顯示產業仍處早期預測階段，實際成長曲線有高度不確定性；（3）CPO 對既有可插拔光模組供應鏈是替代性技術，若量產時程遞延，「光進銅退」的產業敘事可能不如預期，傳統銅纜／可插拔模組廠商的訂單移轉速度需持續觀察；（4）本報告所列公司角色來自單一媒體整理報導，未逐家公司查證官方公告或財報，建議後續個股查證時再次確認實際訂單與營收貢獻。</div>
+</section>
+
+
+<div class="tr-src">
+  <b>查證來源</b>（本報告依站內規則，沒有外部來源就不產出）：<br>
+  <a href="https://www.bnext.com.tw/article/91166/silicon-photonics-2026-mass-production-nvidia-cpo-tsmc-coupe-taiwan-stocks" target="_blank" rel="noopener">https://www.bnext.com.tw/article/91166/silicon-photonics-2026-mass-production-nvidia-cpo-tsmc-coupe-taiwan-stocks</a>　·　
+  <a href="https://technews.tw/2026/03/17/tawian-optical-communication-industry/" target="_blank" rel="noopener">https://technews.tw/2026/03/17/tawian-optical-communication-industry/</a>　·　
+  <a href="https://www.esunsec.com.tw/article/post/581" target="_blank" rel="noopener">https://www.esunsec.com.tw/article/post/581</a>　·　
+  <a href="https://www.edn.com/where-co-packaged-optics-cpo-technology-stands-in-2026/" target="_blank" rel="noopener">https://www.edn.com/where-co-packaged-optics-cpo-technology-stands-in-2026/</a>
+  
+  <p style="margin-top:10px">本頁為系統依使用者點播主題自動整理之資訊，明確標示「（推論）」者為推論而非查證事實；
+  僅供研究參考，不構成投資建議。</p>
 </div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/03～115/09/09 · 第一次處置</div>
-  <div class="card-name">3008 大立光</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/02～115/09/08 · 第一次處置</div>
-  <div class="card-name">3406 玉晶光</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/03～115/09/11 · 第二次處置</div>
-  <div class="card-name">3450 聯鈞</div>
-  <div class="card-detail">連續五次及當日沖銷標準</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/01～115/09/07 · 第一次處置</div>
-  <div class="card-name">6226 光鼎</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/02～115/09/08 · 第一次處置</div>
-  <div class="card-name">6805 富世達</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/07～115/09/11 · 第二次處置</div>
-  <div class="card-name">6933 AMAX-KY</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/02～115/09/08 · 第一次處置</div>
-  <div class="card-name">6933 AMAX-KY</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-
-
-<div class="section-head">注意累計次數接近處置門檻（1）</div>
-
-
-<div class="card watch">
-  <div class="card-name">2426 鼎元</div>
-  <div class="card-detail">115年8月25日至115年9月4日等九個營業日已有五次</div>
-</div>
-
-
-
-<div class="section-head">今日新公布注意股票（0）</div>
-
-<p class="commentary">今天沒有新公布的注意股票。</p>
-
-<p class="commentary" style="margin-top:20px; font-size:13px">選股訊號（起漲點／新掛牌／黑馬）→ <a href="picks.html" style="color:var(--gold)">選股雷達</a>　·　查任一個股 → <a href="lookup.html" style="color:var(--gold)">個股查詢</a></p>
+<p style="margin-top:20px; font-size:13px">
+  ← 回 <a href="index.html" style="color:var(--gold)">分析清單</a>　·
+  <a href="../submit.html" style="color:var(--gold)">再點播一個主題</a></p>
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-07 04:04</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-07 04:02</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
   }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=da241156"></script>
+<script src="../assets/stock-chart.js?v=da241156"></script>
 
 </body>
 </html>
