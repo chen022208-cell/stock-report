@@ -330,6 +330,78 @@ def process_stock_swot_batch(cfg: dict, today: str) -> int:
     return written
 
 
+def run_verify_stocks() -> None:
+    """每天逐檔查證少量個股的公司介紹＋SWOT，寫進 stock_analysis（帶 sources）。
+
+    這是排程「台股個股逐檔查證」用的入口。跟已停用的 process_stock_swot_batch
+    不同：這裡每檔都要求 LLM（雲端 CCR session）實際 WebSearch 鉅亨／Goodinfo／
+    財報狗／公司官網／年報查證，回覆一定要帶 sources，查不到就不寫那一檔。
+    範圍依市值（最新月營收）由大到小，每 refresh_days 天複查一次。
+    """
+    cfg = load_config()
+    sv = cfg.get("stock_verify", {})
+    limit = sv.get("daily_count", 10)
+    refresh_days = sv.get("refresh_days", 180)
+    today = today_str()
+
+    profiles = db.all_company_profiles()
+    if not profiles:
+        print("[verify] 還沒有公司基本資料，先跑一次盤後產生 company_profile")
+        return
+    revenue = db.latest_monthly_revenue()
+    themes_by_code: dict[str, list[str]] = {}
+    for t in _safe(db.list_themes_with_stocks, [], "題材相關個股"):
+        for s in t.get("stocks", []):
+            code = str(s.get("code", "")).strip()
+            if code:
+                themes_by_code.setdefault(code, []).append(t["name"])
+
+    fresh = db.stock_analysis_codes(today, refresh_days)   # 已查證且未過期
+    prior = db.all_stock_analysis()
+    pending = [c for c in profiles if c not in fresh and (profiles[c].get("business") or "").strip()]
+    # 依最新月營收（市值代理）由大到小；沒有月營收的排最後
+    pending.sort(key=lambda c: -((revenue.get(c) or {}).get("revenue") or 0))
+    if not pending:
+        print(f"[verify] 全市場有申報營業項目的個股都在 {refresh_days} 天內查證過了")
+        return
+
+    batch_codes = pending[:limit]
+    batch = []
+    for code in batch_codes:
+        p = profiles[code]
+        batch.append({
+            "code": code,
+            "name": (revenue.get(code) or {}).get("name") or p.get("full_name", ""),
+            "industry": p.get("industry", ""),
+            "business": p.get("business", ""),
+            "rev": revenue.get(code, {}),
+            "themes": themes_by_code.get(code, []),
+            "prior_desc": (prior.get(code) or {}).get("company_desc", ""),
+        })
+
+    result = _safe(lambda: llm.verify_company_analysis(batch), {}, "逐檔查證公司分析")
+    written = 0
+    for s in batch:
+        a = result.get(s["code"])
+        if not a or not a.get("company_desc"):
+            continue
+        srcs = [x for x in (a.get("sources") or []) if str(x).strip()]
+        external = [x for x in srcs if "公開資訊觀測站申報值" not in str(x)]
+        if not external:
+            print(f"[verify] {s['code']} {s['name']}：沒有申報值以外的來源，略過不寫")
+            continue
+        db.upsert_stock_analysis(s["code"], s.get("name", ""), a["company_desc"],
+                                 a.get("swot", {}), today, sources=srcs)
+        written += 1
+
+    if written:
+        render.render_stock_analysis_json()
+        render.render_stock_info()
+    remaining = len(pending) - written
+    print(f"[verify] 本批查證寫入 {written} / {len(batch_codes)} 檔"
+          f"（尚待查證約 {remaining} 檔，每天 {limit} 檔）")
+
+
 def snapshot_offmarket_history(codes: dict[str, str], cfg: dict) -> int:
     """把上櫃／興櫃個股的日 K 抓下來存成 docs/data/tpex_hist/<code>.json。
     瀏覽器對 tpex.org.tw 沒有 CORS，stock-chart.js 只能靠這份快照畫上櫃／興櫃圖。
@@ -1073,6 +1145,7 @@ def main() -> None:
         "catalog": run_import_catalog,
         "research": run_research_intake,
         "news": run_news_monitor,
+        "verify-stocks": run_verify_stocks,
     }
 
     if mode == "auto":

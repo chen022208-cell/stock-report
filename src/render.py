@@ -517,6 +517,7 @@ def render_stock_info() -> Path:
             "themes": themes_by_code.get(code, []),
             "desc": ana.get("company_desc", ""),
             "swot": ana.get("swot", {}),
+            "sources": ana.get("sources", []),
             "updated": ana.get("updated_at", ""),
         }
         (out_dir / f"{code}.json").write_text(

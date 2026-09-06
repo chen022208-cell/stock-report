@@ -447,6 +447,81 @@ def company_swot_batch(stocks: list[dict]) -> dict[str, dict]:
         return {}
 
 
+# ── 逐檔查證版公司介紹／SWOT（排程每天少量、每檔真的上網查）────────────
+VERIFY_COMPANY_SYSTEM = """你是台股個股研究員。這一批股票要「逐檔查證」後才寫，數量少、可以慢慢查。
+
+每檔都附上：公開資訊觀測站申報的「主要經營業務」、產業類別、最新月營收與年增率、
+本站題材歸類。你手上有 WebSearch，請對每一檔都實際上網查證：
+
+【查證步驟（每檔都要做）】
+1. 先讀申報的「主要經營業務」——這是這家公司在做什麼的底線事實。
+2. WebSearch 這家公司（用代號＋全名），至少看過下列其中兩類來源：
+   鉅亨網 cnyes、Goodinfo、財報狗 statementdog、公司官網、公開資訊觀測站年報／
+   法說會簡報、經濟日報／工商時報個股新聞。
+3. 從查到的資料確認：主要產品與營收占比、主要客戶或終端應用、主要競爭對手、
+   近年有沒有重大併購／轉投資／轉型、股本與市場別。
+
+【怎麼寫】
+- company_desc：2～4 句，講這家公司「實際上」在做什麼＋關鍵事實（主力產品、
+  重要客戶或應用、重大併購）。每一個具體細節都必須是你這次查證看到的，
+  不能憑印象；查不到就不要寫那一句。主業與申報的「主要經營業務」不得矛盾。
+- swot：strengths / weaknesses / opportunities / threats 各 1～2 句，用查到的
+  事實與營收數字支撐。純屬推理、查不到直接佐證的判斷要標「（推論）」。
+- sources：**必填**，列出你這次實際看過、且用來下筆的來源（網址或明確出處名稱），
+  至少 1 個是「公開資訊觀測站申報值」以外的外部來源。
+- 不用投資建議語氣，不寫買賣點、目標價。
+
+【查不到就跳過】
+如果查證後你對這家公司在做什麼仍然沒把握、或找不到申報值以外的可靠來源，
+該檔直接不要出現在輸出 JSON 裡。少寫沒關係，寫沒查證過的東西不行。
+
+只輸出 JSON，不要 markdown 標記，key 是股票代號：
+{
+  "1234": {
+    "company_desc": "...",
+    "swot": {"strengths": "...", "weaknesses": "...", "opportunities": "...", "threats": "..."},
+    "sources": ["https://...", "財報狗 個股財報", "公司 2025 年報 第 X 頁"]
+  }
+}"""
+
+
+def verify_company_analysis(stocks: list[dict]) -> dict[str, dict]:
+    """stocks = [{code, name, industry, business, rev, themes, prior_desc?}, ...]。
+
+    跟 company_swot_batch 的差別：這條是排程每天少量處理、每檔真的上網查證，
+    回傳一定要帶 sources；查不到就不回那一檔。"""
+    if DRY_RUN:
+        return {}
+    grounded = [s for s in stocks if (s.get("business") or "").strip()]
+    if not grounded:
+        return {}
+
+    blocks = []
+    for s in grounded:
+        parts = [f"股票代號：{s['code']}　名稱：{s.get('name', '')}"]
+        if s.get("industry"):
+            parts.append(f"產業類別：{s['industry']}")
+        parts.append(f"主要經營業務（申報值）：{s['business']}")
+        rev = s.get("rev") or {}
+        if rev.get("revenue") is not None:
+            parts.append(
+                f"最新月營收（{rev.get('period', '')}）：{rev['revenue']:,.0f} 千元"
+                + (f"，年增 {rev['yoy']:.1f}%" if rev.get("yoy") is not None else "")
+                + (f"，累計年增 {rev['cum_yoy']:.1f}%" if rev.get("cum_yoy") is not None else "")
+            )
+        if s.get("themes"):
+            parts.append("本站歸類題材：" + "、".join(s["themes"]))
+        if s.get("prior_desc"):
+            parts.append(f"（本站舊版判讀，需重新查證確認）：{s['prior_desc']}")
+        blocks.append("\n".join(parts))
+
+    try:
+        return _parse_json(_call(VERIFY_COMPANY_SYSTEM, "\n\n".join(blocks), 16000))
+    except Exception as exc:
+        print(f"[llm] 逐檔查證公司分析失敗：{exc}")
+        return {}
+
+
 # ── 供應鏈結構 ─────────────────────────────────────────
 SUPPLY_CHAIN_SYSTEM = """你是台股產業鏈研究員。輸入一個題材的名稱、摘要與目前追蹤到的相關個股。
 

@@ -55,10 +55,17 @@ theme_catalog:
 #    名單＝評分頁 rows＋追蹤中題材相關個股＋選股雷達起漲點/黑馬（不含興櫃新掛牌）。
 #    不確定的公司 LLM 會整檔略過，寧缺勿錯，不追求全市場覆蓋。
 stock_swot:
-  batch_size: 100           # 每次（每天盤後）最多送幾檔給 LLM（全市場約 2300 檔）
-  refresh_days: 180         # 已產出的分析幾天後才排入重新產出
+  batch_size: 100           # （已停用 process_stock_swot_batch，保留設定不影響其他流程）
+  refresh_days: 180
   snapshot_limit: 120       # 每次最多新抓幾檔上櫃／興櫃日K（興櫃最新報價每次都全更新）
   profile_limit: 200        # 每次最多抓幾檔公司基本資料（抓過就不再抓）
+
+# ── 個股逐檔查證（排程「台股個股逐檔查證」→ python -m src.main verify-stocks）──
+# 跟已停用的全市場 SWOT 回填不同：每檔都要 WebSearch 鉅亨／Goodinfo／財報狗／
+# 官網／年報實際查證，回覆一定要帶 sources，查不到就不寫。範圍依市值由大到小。
+stock_verify:
+  daily_count: 10           # 每天逐檔查證幾檔
+  refresh_days: 180         # 已查證的分析幾天後排入重新查證
 
 # ── 使用者研究提交（submit.html → GitHub Issue 或 Google 表單）──
 research_intake:

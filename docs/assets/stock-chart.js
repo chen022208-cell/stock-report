@@ -130,12 +130,24 @@
     }
     var grid = cell("優勢 S", sw.strengths) + cell("劣勢 W", sw.weaknesses)
              + cell("機會 O", sw.opportunities) + cell("威脅 T", sw.threats);
+    var srcs = info.sources || [];
+    var srcLine = srcs.length
+      ? '<p class="sc-swot-updated">查證來源：'
+        + srcs.map(function (s) {
+            return /^https?:\/\//.test(s)
+              ? '<a href="' + esc(s) + '" target="_blank" rel="noopener">' + esc(s) + "</a>"
+              : esc(s);
+          }).join("、")
+        + "</p>"
+      : "";
+    var srcTag = srcs.length ? "已逐檔查證，SWOT 仍含推論" : "系統判讀，非官方說法";
     return '<div class="sc-sec sc-swot">'
-      + '<div class="sc-sec-h">公司介紹與 SWOT <span class="sc-src sc-src-warn">系統判讀，非官方說法</span></div>'
+      + '<div class="sc-sec-h">公司介紹與 SWOT <span class="sc-src sc-src-warn">' + srcTag + "</span></div>"
       + '<p class="sc-swot-desc">' + esc(info.desc) + "</p>"
       + (grid ? '<div class="sc-swot-grid">' + grid + "</div>" : "")
-      + (info.updated ? '<p class="sc-swot-updated">判讀更新：' + esc(info.updated)
-          + '　·　依上方申報的營業項目與營收數據推導，僅供研究參考</p>' : "")
+      + srcLine
+      + (info.updated ? '<p class="sc-swot-updated">更新：' + esc(info.updated)
+          + "　·　僅供研究參考，不構成投資建議</p>" : "")
       + "</div>";
   }
 

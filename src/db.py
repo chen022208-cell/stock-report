@@ -105,6 +105,7 @@ CREATE TABLE IF NOT EXISTS stock_analysis (
     name          TEXT,
     company_desc  TEXT,
     swot          TEXT,               -- JSON：{strengths, weaknesses, opportunities, threats}
+    sources       TEXT,               -- JSON 陣列：逐檔查證時實際看過的來源（鉅亨／財報狗／官網／財報…）
     updated_at    TEXT NOT NULL
 );
 
@@ -188,6 +189,10 @@ def init_db() -> None:
             pass
         try:
             conn.execute("ALTER TABLE themes ADD COLUMN last_analyzed TEXT")
+        except sqlite3.OperationalError:
+            pass
+        try:
+            conn.execute("ALTER TABLE stock_analysis ADD COLUMN sources TEXT")
         except sqlite3.OperationalError:
             pass
 
@@ -541,15 +546,16 @@ def latest_monthly_revenue() -> dict[str, dict]:
 
 
 def upsert_stock_analysis(code: str, name: str, company_desc: str,
-                          swot: dict, today: str) -> None:
+                          swot: dict, today: str, sources: list | None = None) -> None:
     with get_conn() as conn:
         conn.execute(
-            """INSERT INTO stock_analysis (code, name, company_desc, swot, updated_at)
-               VALUES (?,?,?,?,?)
+            """INSERT INTO stock_analysis (code, name, company_desc, swot, sources, updated_at)
+               VALUES (?,?,?,?,?,?)
                ON CONFLICT(code) DO UPDATE SET name=excluded.name,
                    company_desc=excluded.company_desc, swot=excluded.swot,
-                   updated_at=excluded.updated_at""",
-            (code, name, company_desc, json.dumps(swot, ensure_ascii=False), today),
+                   sources=excluded.sources, updated_at=excluded.updated_at""",
+            (code, name, company_desc, json.dumps(swot, ensure_ascii=False),
+             json.dumps(sources or [], ensure_ascii=False), today),
         )
 
 
@@ -560,6 +566,7 @@ def get_stock_analysis(code: str) -> dict | None:
             return None
         d = dict(row)
         d["swot"] = json.loads(d.get("swot") or "{}")
+        d["sources"] = json.loads(d.get("sources") or "[]")
         return d
 
 
@@ -575,15 +582,17 @@ def stock_analysis_codes(today: str, refresh_days: int) -> set[str]:
 
 
 def all_stock_analysis() -> dict[str, dict]:
-    """code -> {company_desc, swot}，給 render 匯出 docs/data/stock_analysis.json 用。"""
+    """code -> {company_desc, swot, sources}，給 render 匯出 docs/data/stock_analysis.json 用。"""
     with get_conn() as conn:
         rows = conn.execute(
-            "SELECT code, name, company_desc, swot, updated_at FROM stock_analysis").fetchall()
+            "SELECT code, name, company_desc, swot, sources, updated_at FROM stock_analysis"
+        ).fetchall()
         out = {}
         for r in rows:
             out[r["code"]] = {
                 "name": r["name"], "company_desc": r["company_desc"],
                 "swot": json.loads(r["swot"] or "{}"),
+                "sources": json.loads((r["sources"] if "sources" in r.keys() else None) or "[]"),
                 "updated_at": r["updated_at"],
             }
         return out
