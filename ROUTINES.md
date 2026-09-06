@@ -547,19 +547,40 @@ egress proxy，只有掛上去的 repo 在授權清單內。prompt 裡自己 `gi
 - **網頁**：https://claude.ai/code/routines → 點進該支 → 設定裡把
   `https://github.com/chen022208-cell/stock-report` 加成 git source → 儲存。
 
-- **API**（同帳號的 Claude Code session 裡）：**不要自己猜 JSON 格式**，
-  直接抄一支已經能正常 push 的（「台股個股逐檔查證」有掛 git source）：
+- **API**（同帳號的 Claude Code session 裡）。git source 實際欄位是
+  `job_config.ccr.session_context.sources`，值是
+  `[{"git_repository": {"url": "https://github.com/chen022208-cell/stock-report"}}]`
+  （2026-09-06 實測：舊文件寫的 `ccr.git_source` 這個 key 不存在）。
 
-  1. `RemoteTrigger action=get trigger_id=<逐檔查證那支的 id>`
-  2. 從回傳的 `job_config.ccr` 裡把 `git_source` 整個區塊複製下來
-  3. 對每一支推不上去的 Routine：
-     `RemoteTrigger action=update trigger_id=<那支的 id> body={"job_config":{"ccr":{"git_source": <剛剛複製的區塊>}}}`
+  ⚠️ **`action=update` 會整包取代 `job_config.ccr`，不是深層合併**。只送
+  `{"job_config":{"ccr":{"session_context":{"sources":[...]}}}}` 會出現兩種結果：
+  少了 `environment_id` → 400；有 `environment_id` 但少了 `events` → **prompt 被清空**。
+  所以每支都要「先 get、再把完整 `ccr` 連同 prompt 一起 update」：
+
+  1. `RemoteTrigger action=get trigger_id=<那支的 id>`，記下 `job_config.ccr` 的
+     `environment_id`、`events`（整個陣列，含 `data.message.content` 的 prompt 原文、
+     `data.uuid`、以及有的話 `data.isSynthetic`）、`session_context`
+     （`model` 有就留、`allowed_tools`）。
+  2. `RemoteTrigger action=update trigger_id=<那支的 id> body={"job_config":{"ccr":{
+       "environment_id": "<原值>",
+       "session_context": {"model": "<原值，沒有就省略>", "allowed_tools": [<原值>],
+         "sources": [{"git_repository": {"url": "https://github.com/chen022208-cell/stock-report"}}]},
+       "events": [<步驟 1 的整個 events 陣列原封不動>]
+     }}}`
+  3. update 回傳裡確認 `derived_state.prompt` 不是空字串、
+     `job_config.ccr.session_context.sources` 有值。
   4. `RemoteTrigger action=run trigger_id=<那支的 id>` 跑一次，再用
-     `action=list_runs` ＋ `action=get_run_log` 確認這次有推成功
+     `action=list_runs` ＋ `action=get_run_log` 看 `git push` 有沒有成功
+     （對照組：「台股個股逐檔查證」的 run log 裡
+     `git pull --rebase origin main && git push` 會印出 `main -> main` 成功）。
+     run log 若出現 `HTTP 403` 但同時有 `! [rejected] main -> main (fetch first)`，
+     那是併發推擠的 non-fast-forward、不是授權問題，Routine 自己會 rebase 重推。
 
-**要檢查的對象**：所有 prompt 裡寫「工作目錄若還沒有 repo 就 `git clone`」的
-Routine——台股每日早報、台股每日盤後、台股即時快訊監控、台股使用者研究提交處理。
-（逐檔查證、盤中焦點股深度快報本來就有掛。）
+**已修**（2026-09-06，全部確認 `sources` 已掛、prompt 未損）：
+台股每日早報 `trig_01R9kev8w4MQvozhPWEsv61g`、台股每日盤後
+`trig_01E5e1rMVnZk6JbxSpgxXu4K`、台股即時快訊監控 `trig_01HTffRTdsBaegyH5EiyRryw`、
+台股使用者研究提交處理 `trig_01WCoQ9PpAkkwE6PgAWEzR9H`。
+（逐檔查證、盤中焦點股深度快報、主題點播本來就有掛。）
 
 **沒修的後果**：程式每輪都白跑——即時快訊照樣抓、照樣分析，但結果寫不回 repo，
 網站不會更新，而且每次都發一則失敗通知。
