@@ -1759,6 +1759,33 @@ def run_research_intake() -> None:
         if new_rows:
             db.set_state("research_form_row_count", str(len(rows)))
 
+    # 來源三：GitHub Issue（標籤 topic-request）＝主題點播的另一個入口。
+    # 併進這一支處理，而不是另外養一支 Routine：兩者都是「使用者提交了東西、
+    # 要盡快回應」，分成兩支等於同樣的空跑成本付兩次，而使用者實際用的是網頁
+    # 表單那條路。合併後只要一支跑高頻就夠。
+    for issue in _safe(_gh_topic_issue_list, [], "讀取主題點播（GitHub）"):
+        number = issue["number"]
+        title = (issue.get("title") or "").strip()
+        if title.startswith(TOPIC_PREFIX):
+            title = title[len(TOPIC_PREFIX):].strip()
+        print(f"[research] 處理主題點播 Issue #{number}：{title[:40]}")
+        made = _make_topic_report(title, issue.get("body", ""),
+                                  f"主題點播（GitHub Issue #{number}）",
+                                  today, known_theme_names)
+        if made:
+            topic_made.append(made)
+            processed += 1
+            _gh_issue_comment_and_close(
+                number, f"已產出主題報告：{made['title']}\n\n{made['url']}\n\n"
+                        f"查證來源 {len(made['sources'])} 個。"
+                        f"報告同時列在研究筆記與分析清單頁。")
+        else:
+            topic_failed.append(title)
+            processed += 1
+            _gh_issue_comment_and_close(
+                number, "這個主題查不到可靠的外部來源、或產出失敗，依站內規則不產出"
+                        "報告（寧可不寫，也不放未經查證的內容）。可以換個更具體的講法再試。")
+
     if processed == 0:
         print("[research] 目前沒有待處理的使用者研究提交")
         return
