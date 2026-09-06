@@ -4,6 +4,9 @@
 
 ## 自動化架構
 
+> 全部 8 支雲端 Routine 的完整規格（名稱／cron／model／allowed_tools／prompt 原文）
+> 與「搬到另一個 Claude 帳號」的步驟，見 `ROUTINES.md`。
+
 - **每日早報／盤後**：Claude Code Routine「台股每日早報」「台股每日盤後」驅動，
   `LLM_AGENT_MODE=1 python -m src.main auto morning|evening`，吃 Pro/Max 額度、
   不打計量 API。每月 12 號的績效回顧月報併在「台股每日盤後」裡多跑一次
