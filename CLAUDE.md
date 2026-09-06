@@ -2,6 +2,34 @@
 
 台股報告網站。網站本體：https://chen022208-cell.github.io/stock-report
 
+## 從新電腦／新帳號接手（先讀這段）
+
+這個 repo 就是完整的接手依據，本機不需要任何私密檔案。換電腦或換 Claude 帳號
+繼續開發，只要：
+
+1. `git clone https://github.com/chen022208-cell/stock-report` → `cd stock-report`
+2. Windows：`python -m venv .venv` → `.venv\Scripts\python -m pip install -r requirements.txt`
+   （之後所有指令都用 `.venv\Scripts\python`，系統 python 沒有 yaml）
+3. 開 Claude Code、登入要用的帳號，讀完本檔 ＋ `ROUTINES.md`
+4. 動手前 `git fetch`；commit 前 `git pull --rebase origin main`
+   （repo 會被雲端 Routine 同時改，衝突正常）
+5. 冒煙測試：`.venv\Scripts\python -m src.main site` 應該無錯重繪 `docs/` 索引頁
+
+會少掉、但不影響開發的東西：
+- 舊電腦 `~/.claude/…/memory/`（本機記憶）不會同步——重點都已寫進本檔。
+- `data/prices.db`、`data/intraday_hist.db`：gitignore 的本機滾動快取，
+  跑一次 `intraday-ref` / `snapshot` 類指令會自己重建。
+- `data/market.db` 有進 git，clone 就有。
+
+**8 支雲端 Routine（早報／盤後／快訊／查證／週報／月報／盤中快報）跑在「某個
+Claude 帳號」下、吃該帳號訂閱額度，跟你在哪台電腦開發無關。** 要把 Routine 也
+換帳號（例如原帳號額度爆了），照 `ROUTINES.md` 第 2 節逐支重建、再把舊帳號那 8 支
+停用。純粹換電腦繼續寫程式的話，Routine 不用動。
+
+歷史脈絡文件：`HANDOFF.md`（專案原始交接）、`DEPLOY.md`（部署）、`ROADMAP.md`、
+`THEMES.md`、`ROUTINES.md`（雲端排程規格）。README 的 `DRY_RUN` / `ANTHROPIC_API_KEY`
+段落是舊架構，現況以本檔「自動化架構」為準（改吃訂閱額度、`LLM_AGENT_MODE=1`）。
+
 ## 自動化架構
 
 > 全部 8 支雲端 Routine 的完整規格（名稱／cron／model／allowed_tools／prompt 原文）
