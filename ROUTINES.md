@@ -709,3 +709,73 @@ egress proxy，只有掛上去的 repo 在授權清單內。prompt 裡自己 `gi
 
 **沒修的後果**：程式每輪都白跑——即時快訊照樣抓、照樣分析，但結果寫不回 repo，
 網站不會更新，而且每次都發一則失敗通知。
+
+---
+
+## 8. API trigger：Google 表單提交秒觸發「使用者研究提交處理」
+
+排程最快一小時一次（平台限制）。要「送出當下就叫醒」Routine，用 **API trigger ＋
+Google Apps Script**：使用者按送出 → 表單回應寫進試算表 → Apps Script `onFormSubmit`
+POST 到 API trigger → Routine 幾秒內起一個 session。2026-09-07 實測可用。
+
+### 建 API trigger（只能在 claude.ai 網頁，`RemoteTrigger` API 建不出這種）
+
+1. https://claude.ai/code/routines/trig_01WCoQ9PpAkkwE6PgAWEzR9H → 編輯 →
+   `+ Add another trigger` → 選 **API**。
+2. 存檔後給一個觸發網址（形如
+   `https://api.anthropic.com/v1/claude_code/routines/<trigger_id>/fire`）＋一組 token
+   （`sk-ant-oat01-…`）。**這兩個等同鑰匙，不要進 repo、不要貼給任何人。**
+3. 原本的 schedule trigger（cron `0 11 * * 1-5`）**留著當退路**——Apps Script 授權過期
+   或 Google 出錯時至少排程還會補跑。
+
+### Google Apps Script
+
+從**表單回應試算表**的「擴充功能 → Apps Script」開啟（一定要 container-bound，
+獨立專案綁不到表單事件）。程式碼：
+
+```javascript
+function onFormSubmit(e) {
+  var props = PropertiesService.getScriptProperties();
+  var url   = props.getProperty('TRIGGER_URL');
+  var token = props.getProperty('TRIGGER_TOKEN');
+  if (!url) { console.error('尚未設定 TRIGGER_URL'); return; }
+
+  var options = {
+    method: 'post',
+    contentType: 'application/json',
+    payload: JSON.stringify({ source: 'google-form' }),
+    muteHttpExceptions: true,
+    headers: { 'anthropic-version': '2023-06-01' }   // ← 少了這個會 400
+  };
+  if (token) options.headers['Authorization'] = 'Bearer ' + token;
+
+  try {
+    var res = UrlFetchApp.fetch(url, options);
+    console.log('觸發回應 ' + res.getResponseCode() + '：' + res.getContentText().slice(0, 200));
+  } catch (err) {
+    console.error('觸發失敗：' + err);
+  }
+}
+```
+
+- 密鑰放**專案設定 → 指令碼屬性**：`TRIGGER_URL`、`TRIGGER_TOKEN`。不要塞進
+  `getProperty()` 的括號（那是查詢用的鍵名，不是值），也不要寫死在程式碼裡。
+- **觸發條件**（左側時鐘圖示 → 新增）：功能 `onFormSubmit`／來源「試算表」／
+  類型「**表單提交時**」（不是「文件開啟時」）。第一次存會跳 OAuth
+  「Google hasn't verified this app」——開發者是自己，按 **Advanced → 前往…（不安全）
+  → Allow**。
+- 「選擇功能」下拉是空的／一直轉：程式沒存檔。回編輯器 Ctrl+S 再開對話框。
+
+### 成功長怎樣
+
+Apps Script 執行紀錄：`觸發回應 200：{"claude_code_session_id":"session_…",
+"type":"routine_fire"}`。錯誤對照：`401 authentication_error`＝token 錯／過期／被空白換行
+汙染；`400 anthropic-version: header is required`＝少了版本標頭。
+
+### 踩過的坑
+
+- 把 API trigger 建到錯的 Routine（`trig_01HTffRTdsBaegyH5EiyRryw` 是即時快訊監控，
+  不是研究提交）。
+- 換新表單時 `research_form_row_count` 沒歸零 → 程式以為前 N 列已處理、新表單前 N 筆
+  提交被跳過（換表單 SOP 見 3.4 的 config 四個值 ＋ `db.set_state
+  ("research_form_row_count","0")`）。
