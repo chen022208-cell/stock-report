@@ -35,7 +35,7 @@ from . import db, llm, notify, prices_db, render
 from .analysis import global_themes, industry, review, scoring, screener, technical
 from .config import DRY_RUN, load_config, today_str, now_tpe
 from .fetchers import (fred, google_sheet, international, mops, stock_news,
-                       tdcc, tpex, twse, wallstreetcn)
+                       tdcc, tpex, twse, wallstreetcn, yahoo)
 from .market_calendar import (classify_day, consecutive_closed_days,
                               is_last_day_before_reopen, next_trading_day,
                               refresh_holidays)
@@ -524,65 +524,86 @@ def run_verify_stocks() -> None:
 
 def snapshot_offmarket_history(codes: dict[str, str], cfg: dict) -> int:
     """把上櫃／興櫃個股的日 K 抓下來存成 docs/data/tpex_hist/<code>.json。
-    瀏覽器對 tpex.org.tw 沒有 CORS，stock-chart.js 只能靠這份快照畫上櫃／興櫃圖。
-    上市（TWSE）代號會查不到、自動跳過（前端本來就能即時抓 TWSE）。
-    2 天內更新過的就不重抓；每次最多抓 sw_cfg['snapshot_limit'] 檔避免拖太久。"""
+    瀏覽器對 tpex.org.tw 與 Yahoo 都沒有 CORS，stock-chart.js 只能靠這份快照
+    畫上櫃／興櫃圖。上市股票不走這裡（前端能直接即時抓 TWSE STOCK_DAY）。
+
+    資料源用 Yahoo（`fetchers/yahoo.py`），不是 TPEx，原因有兩個：
+    1. **興櫃終於有真的開高低收**。TPEx 的 emerging/historical 只給日均價，
+       只能畫「均價走勢」而且最新價對不上看盤軟體的成交欄（歷史事故：7686
+       捷立康拿日均價 686.33 當股價，跟 TPEx 網站的成交價 802 對不起來）。
+       Yahoo 對 7686 回的收盤就是 802，跟當日行情表一致。
+    2. **快一個數量級**。TPEx 一檔要打 8 次（一次一個月），Yahoo 一次就給兩年，
+       實測 0.1 秒／檔，全市場上櫃＋興櫃約 1250 檔跑完約 2 分鐘——所以不必再
+       像以前那樣每天只補 120 檔、輪好幾天才補得完（剛掛牌的 7925 健生、
+       7686 捷立康就是還沒輪到，彈窗才會顯示「查無股價資料」）。
+
+    Yahoo 查不到的個股會退回 TPEx 原本那條路，不會因為單一資料源掛掉就整批開天窗。
+    """
     from datetime import datetime, timedelta
 
     out_dir = Path(__file__).resolve().parent.parent / "docs" / "data" / "tpex_hist"
     out_dir.mkdir(parents=True, exist_ok=True)
-    limit = int(cfg.get("stock_swot", {}).get("snapshot_limit", 50))
-    fresh_before = datetime.utcnow() - timedelta(days=2)
-    # 興櫃歷史端點只有「日均價」，看盤說的股價是「成交（最後成交價）」，
-    # 要另外從當日行情表補，否則彈窗顯示的價格會跟 TPEx 網站對不起來。
+    sw = cfg.get("stock_swot", {})
+    limit = int(sw.get("snapshot_limit", 0)) or None      # 0／未設 = 不限，全市場都補
+    fresh_hours = int(sw.get("snapshot_fresh_hours", 20))
+    fresh_before = datetime.utcnow() - timedelta(hours=fresh_hours)
+
+    # 興櫃「當日行情表」是一支 bulk API，成本很低：報買／報賣／日均價這些欄位
+    # 只有 TPEx 有，Yahoo 沒有，所以留著當彈窗的補充報價列（不再當主要股價來源）。
     esb_pricing = _safe(tpex.fetch_esb_pricing, {}, "興櫃當日行情")
 
-    # 興櫃當日行情是一支 bulk API，成本很低，所以「最新成交價」每次都全部更新，
-    # 只有 K 棒歷史（每檔要打 8 次）才受 limit 與 2 天新鮮度限制、輪流補。
-    refreshed = 0
-    for fp in out_dir.glob("*.json"):
-        q = esb_pricing.get(fp.stem)
-        if not q:
-            continue
-        try:
-            snap = json.loads(fp.read_text(encoding="utf-8"))
-        except Exception:
-            continue
-        if snap.get("market") != "esb":
-            continue
-        snap["latest"] = q
-        fp.write_text(json.dumps(snap, ensure_ascii=False), encoding="utf-8")
-        refreshed += 1
-
-    done = 0
+    done = fails = skipped = 0
     for code, name in list(codes.items()):
-        if done >= limit:
+        if limit and done >= limit:
             break
         if not (code and code.isdigit() and len(code) == 4):
             continue
         fp = out_dir / f"{code}.json"
+        market = ""
         if fp.exists():
             try:
                 prev = json.loads(fp.read_text(encoding="utf-8"))
+                market = prev.get("market", "")
                 ts = datetime.fromisoformat(prev.get("updated", "2000-01-01T00:00:00"))
-                if ts > fresh_before and prev.get("bars"):
+                # 已經是今天抓的真 OHLC 就跳過；舊的 TPEx 均價快照一律重抓，
+                # 才會被 Yahoo 的真開高低收換掉。
+                if ts > fresh_before and prev.get("bars") and prev.get("source") == "yahoo":
+                    skipped += 1
                     continue
             except Exception:
                 pass
-        res = _safe(lambda: tpex.fetch_offmarket_daily_history(code, months=8),
-                    {"bars": [], "market": ""}, f"{code} 上櫃/興櫃歷史")
-        if not res.get("bars"):
+
+        res = _safe(lambda: yahoo.fetch_daily_history(code, market or "tpex"),
+                    {"bars": [], "meta": {}}, f"{code} Yahoo 日K")
+        source, bars = "yahoo", res.get("bars") or []
+        if not bars:                                   # Yahoo 沒有 → 退回 TPEx
+            alt = _safe(lambda: tpex.fetch_offmarket_daily_history(code, months=8),
+                        {"bars": [], "market": ""}, f"{code} 上櫃/興櫃歷史")
+            bars, source = alt.get("bars") or [], "tpex"
+            if bars:
+                market = alt["market"]
+        if not bars:
+            fails += 1
             continue
+
+        # 市場別：優先用既有的（company_profile 申報值），再用 Yahoo 的代號後綴推。
+        if not market:
+            market = "esb" if code in esb_pricing else (
+                "tpex" if str(res.get("symbol", "")).endswith(".TWO") else "tpex")
         payload = {
-            "code": code, "name": name, "market": res["market"],
+            "code": code, "name": name or (res.get("meta") or {}).get("name", ""),
+            "market": market, "source": source,
             "updated": datetime.utcnow().isoformat(timespec="seconds"),
-            "bars": res["bars"],
+            "bars": bars,
         }
-        if res["market"] == "esb" and code in esb_pricing:
+        # source=="yahoo" 時 bars 已經是真的開高低收，前端不需要再走「均價走勢」
+        # 那條退路；latest 只當補充欄位（報買／報賣／日均價）。
+        if code in esb_pricing:
             payload["latest"] = esb_pricing[code]
         fp.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
         done += 1
-    print(f"[otc-hist] 新抓 {done} 檔上櫃／興櫃日K、更新 {refreshed} 檔興櫃最新報價")
+
+    print(f"[otc-hist] 上櫃／興櫃日K：新抓/更新 {done} 檔、沿用 {skipped} 檔、查無 {fails} 檔")
     return done
 
 

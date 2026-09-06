@@ -26,7 +26,7 @@
 {% if cells %}
 <div class="heat-grid">
   {% for c in cells %}
-  <details class="heat-cell" style="background:{{ c.bg }}">
+  <details class="heat-cell" id="ind-{{ c.slug }}" style="background:{{ c.bg }}">
     <summary>
       <span class="hc-name">{{ c.name }}</span>
       <span class="hc-pct {{ 'up' if c.avg_change_pct >= 0 else 'down' }}">{{ "%+.2f"|format(c.avg_change_pct) }}%</span>
@@ -46,5 +46,21 @@
 {% else %}
 <p class="commentary" style="margin-top:24px">今天還沒有資料，下一次盤後報告產出後這裡會更新。</p>
 {% endif %}
+<script>
+/* 首頁「產業熱力」那排點進來時帶 #ind-<產業>，把對應格子自動展開並捲到畫面上，
+   否則使用者會落在一整片收合的格子中間、看不出剛剛點的是哪一個。 */
+(function () {
+  function openTarget() {
+    var h = decodeURIComponent(location.hash || "").slice(1);
+    if (!h) return;
+    var el = document.getElementById(h);
+    if (!el) return;
+    el.open = true;
+    el.scrollIntoView({ block: "center" });
+  }
+  openTarget();
+  window.addEventListener("hashchange", openTarget);
+})();
+</script>
 <p class="commentary" style="margin-top:20px; font-size:13px">籌碼儀表板 → <a href="{{ rel }}chips.html" style="color:var(--gold)">chips.html</a>　·　五面向評分 → <a href="{{ rel }}scores.html" style="color:var(--gold)">scores.html</a>　·　查任一個股 → <a href="{{ rel }}lookup.html" style="color:var(--gold)">個股查詢</a></p>
 {% endblock %}

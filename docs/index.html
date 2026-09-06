@@ -216,6 +216,9 @@
                  border-radius:var(--radius-sm); padding:11px 13px; border:1px solid var(--hairline);}
   .industry-chip .ic-name{font-size:12.5px; color:var(--text-secondary); margin-bottom:5px;}
   .industry-chip .ic-pct{font-family:'JetBrains Mono',monospace; font-size:16px; font-weight:600;}
+  .industry-chip .ic-count{font-size:11px; color:var(--text-muted); margin-top:4px;}
+  a.industry-chip{text-decoration:none; transition:background .15s, border-color .15s;}
+  a.industry-chip:hover{background:var(--surface-2); border-color:var(--gold);}
   .theme-row-mini{display:flex; align-items:center; gap:10px; padding:11px 0;
                   border-bottom:1px solid var(--hairline);}
   .theme-row-mini:last-child{border-bottom:none;}
@@ -280,25 +283,29 @@
 <div class="section-title">產業熱力 <a href="heatmap.html">看全部 →</a></div>
 <div class="industry-strip">
   
-  <div class="industry-chip">
+  <a class="industry-chip" href="heatmap.html#ind-電腦及週邊設備業">
     <div class="ic-name">電腦及週邊設備業</div>
     <div class="ic-pct up">+3.0%</div>
-  </div>
+    <div class="ic-count">64 檔 →</div>
+  </a>
   
-  <div class="industry-chip">
+  <a class="industry-chip" href="heatmap.html#ind-電子零組件業">
     <div class="ic-name">電子零組件業</div>
     <div class="ic-pct up">+2.4%</div>
-  </div>
+    <div class="ic-count">104 檔 →</div>
+  </a>
   
-  <div class="industry-chip">
+  <a class="industry-chip" href="heatmap.html#ind-電機機械">
     <div class="ic-name">電機機械</div>
     <div class="ic-pct up">+1.8%</div>
-  </div>
+    <div class="ic-count">48 檔 →</div>
+  </a>
   
-  <div class="industry-chip">
+  <a class="industry-chip" href="heatmap.html#ind-半導體業">
     <div class="ic-name">半導體業</div>
     <div class="ic-pct up">+1.7%</div>
-  </div>
+    <div class="ic-count">96 檔 →</div>
+  </a>
   
 </div>
 
@@ -427,7 +434,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-06 17:21</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-06 20:24</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
@@ -437,7 +444,7 @@
   }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=419a16fa"></script>
+<script src="assets/stock-chart.js?v=f1ebcca3"></script>
 
 </body>
 </html>

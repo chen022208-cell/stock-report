@@ -57,7 +57,11 @@ theme_catalog:
 stock_swot:
   batch_size: 100           # （已停用 process_stock_swot_batch，保留設定不影響其他流程）
   refresh_days: 180
-  snapshot_limit: 120       # 每次最多新抓幾檔上櫃／興櫃日K（興櫃最新報價每次都全更新）
+  # 上櫃／興櫃日K快照改走 Yahoo（一次一檔給兩年、0.1 秒／檔），全市場約 1250 檔
+  # 只要 ~2 分鐘，所以不再分批輪流補：0 = 不限檔數，每天全市場都補齊。
+  # 以前設 120 的後果是新掛牌個股要等好幾天才輪得到，彈窗顯示「查無股價資料」。
+  snapshot_limit: 0
+  snapshot_fresh_hours: 20  # 快照幾小時內算新鮮就不重抓（跨過每天盤後即失效）
   profile_limit: 200        # 每次最多抓幾檔公司基本資料（抓過就不再抓）
 
 # ── 個股逐檔查證（排程「台股個股逐檔查證」→ python -m src.main verify-stocks）──

@@ -426,6 +426,11 @@
 
   function findPrevPivotHigh(bars, idx) {
     for (var i = idx - 3; i >= Math.max(0, idx - 20); i--) {
+      // i === 0 時 bars[i-1] 是 undefined，讀 .high 會整個彈窗炸掉
+      // （TypeError: Cannot read properties of undefined）。剛掛牌的個股歷史短，
+      // 樞紐點往回找很容易掃到第 0 根，findPrevPivotLow 本來就有這個防呆，
+      // 這邊漏掉——7855 和運租車（2026-08-11 掛牌）就是這樣開不起來的。
+      if (i <= 0) continue;
       if (bars[i].high >= bars[i - 1].high && bars[i].high >= bars[i + 1].high) return i;
     }
     return null;
@@ -631,10 +636,12 @@
     var chg = prev ? last.close - prev.close : 0;
     var chgPct = prev && prev.close ? (chg / prev.close * 100) : 0;
     var headPrice = last.close, headDate = last.date;
-    // 興櫃：看盤說的股價是「成交（最後成交價）」，不是歷史端點只給得到的日均價。
-    // 有當日行情表資料時，標題價格一律用「成交」，跟 TPEx 網站對得起來。
     var q = opts.latest;
-    if (q && q.price) {
+    // 興櫃：看盤說的股價是「成交（最後成交價）」，不是日均價。
+    // 舊的 TPEx 快照（avgPriceNote）收盤欄放的是日均價，一定要用當日行情表的
+    // 「成交」蓋掉；Yahoo 快照的收盤本身就是成交價（實測 7686 = 802，跟 TPEx
+    // 當日行情表一致），這時只有在當日行情表比最後一根 K 還新時才覆蓋。
+    if (q && q.price && (opts.avgPriceNote || (q.date && q.date > last.date))) {
       headPrice = q.price; headDate = q.date || headDate;
       chg = q.change; chgPct = q.change_pct;
     }
@@ -731,13 +738,23 @@
     return fetch(assetBase() + "data/tpex_hist/" + code + ".json")
       .then(function (r) { return r.ok ? r.json() : null; })
       .then(function (snap) {
-        if (snap && snap.bars && snap.bars.length >= 2) {
+        // 只有 1 根也照畫（剛掛牌的個股）：圖表本身會顯示「資料不足」，
+        // 但價格、公司基本資料與題材照樣看得到，比整頁「查無股價資料」有用。
+        if (snap && snap.bars && snap.bars.length >= 1) {
           var esb = snap.market === "esb";
+          // source==="yahoo" 的快照是真的開高低收（連興櫃都有），可以直接畫 K 棒。
+          // 只有舊的 TPEx 興櫃快照才是「日均價當收盤」，那種要標註成均價走勢。
+          var avgOnly = esb && snap.source !== "yahoo";
+          var src = snap.source === "yahoo"
+            ? "資料來源：Yahoo Finance 日線（開高低收）"
+              + (esb ? "，興櫃成交價與 TPEx 當日行情表一致" : "")
+            : (esb ? "資料來源：TPEx 興櫃當日行情表＋歷史行情"
+                   : "資料來源：TPEx 上櫃每日成交資訊");
           renderReport(body, code, name || snap.name, snap.bars, {
-            avgPriceNote: esb,
+            avgPriceNote: avgOnly,
             latest: snap.latest,
-            source: (esb ? "資料來源：TPEx 興櫃當日行情表＋歷史行情" : "資料來源：TPEx 上櫃每日成交資訊")
-              + "，本站盤後快照（非即時，更新於 " + String(snap.updated || "").slice(0, 10) + "）",
+            source: src + "，本站盤後快照（非即時，更新於 "
+              + String(snap.updated || "").slice(0, 10) + "）",
           });
         } else {
           showNoPrice(body, code, name);

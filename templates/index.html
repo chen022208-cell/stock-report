@@ -15,6 +15,9 @@
                  border-radius:var(--radius-sm); padding:11px 13px; border:1px solid var(--hairline);}
   .industry-chip .ic-name{font-size:12.5px; color:var(--text-secondary); margin-bottom:5px;}
   .industry-chip .ic-pct{font-family:'JetBrains Mono',monospace; font-size:16px; font-weight:600;}
+  .industry-chip .ic-count{font-size:11px; color:var(--text-muted); margin-top:4px;}
+  a.industry-chip{text-decoration:none; transition:background .15s, border-color .15s;}
+  a.industry-chip:hover{background:var(--surface-2); border-color:var(--gold);}
   .theme-row-mini{display:flex; align-items:center; gap:10px; padding:11px 0;
                   border-bottom:1px solid var(--hairline);}
   .theme-row-mini:last-child{border-bottom:none;}
@@ -62,10 +65,11 @@
 <div class="section-title">產業熱力 <a href="{{ rel }}heatmap.html">看全部 →</a></div>
 <div class="industry-strip">
   {% for ind in top_industries %}
-  <div class="industry-chip">
+  <a class="industry-chip" href="{{ rel }}heatmap.html#ind-{{ ind.slug }}">
     <div class="ic-name">{{ ind.name }}</div>
     <div class="ic-pct {{ 'up' if ind.avg_change_pct >= 0 else 'down' }}">{{ "%+.1f"|format(ind.avg_change_pct) }}%</div>
-  </div>
+    <div class="ic-count">{{ ind.count }} 檔 →</div>
+  </a>
   {% endfor %}
 </div>
 {% endif %}

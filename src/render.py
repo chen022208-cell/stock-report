@@ -255,6 +255,9 @@ def render_index() -> Path:
     if heatmap_data and heatmap_data.get("industries"):
         rows = [r for r in heatmap_data["industries"] if r.get("name") != "其他"]
         top_industries = sorted(rows, key=lambda r: abs(r["avg_change_pct"]), reverse=True)[:4]
+        # 首頁這排本來是純 div、點了完全沒反應，使用者以為是「沒資料」。
+        # 補上 slug，模板才能連到熱力圖對應產業的錨點。
+        top_industries = [{**r, "slug": slugify(r["name"])} for r in top_industries]
 
     top_score = None
     if scores_data and scores_data.get("rows"):
@@ -335,6 +338,15 @@ def render_lookup_page() -> Path:
     scores_data = _read_json("scores")
     scored_codes = {r["code"] for r in (scores_data or {}).get("rows", [])}
 
+    # 市場別一律以申報基本資料（t187ap03）為準，不要從熱力圖硬猜——熱力圖同時
+    # 含上市與上櫃，全部標成 twse 會讓 3441 聯一光這種上櫃股被標錯市場。
+    profiles = db.all_company_profiles()
+    snap = _snapshot_meta()
+
+    def market_of(code: str) -> str:
+        return (profiles.get(code, {}).get("market")
+                or snap.get(code, {}).get("market") or "")
+
     stocks = []
     seen = set()
     if heatmap_data:
@@ -346,9 +358,38 @@ def render_lookup_page() -> Path:
                 stocks.append({
                     "code": s["code"], "name": s["name"],
                     "industry": industry.get("name", ""),
+                    "market": market_of(s["code"]),
                     "change_pct": s.get("change_pct", 0),
                     "has_score": s["code"] in scored_codes,
                 })
+
+    # 熱力圖只涵蓋有當日行情的上市／上櫃，**興櫃完全不在裡面**（議價市場，
+    # 刻意不混進熱力圖與強勢股掃描），剛掛牌的個股也還沒有行情——結果就是
+    # 個股查詢頁搜不到任何興櫃股票。這裡再用「申報基本資料」＋「盤後快照」
+    # 補一輪，讓搜尋涵蓋上市／上櫃／興櫃全市場。
+    for code in sorted(set(profiles) | set(snap)):
+        if code in seen:
+            continue
+        prof = profiles.get(code, {})
+        market = market_of(code)
+        name = snap.get(code, {}).get("name") or ""
+        if not name:
+            # 申報全名 → 短名（「健生實業股份有限公司」→「健生實業」），
+            # 沒有中文短名時至少不要顯示空白。
+            full = prof.get("full_name", "")
+            for tail in ("股份有限公司", "有限公司", "公司"):
+                if full.endswith(tail):
+                    full = full[: -len(tail)]
+                    break
+            name = full
+        seen.add(code)
+        stocks.append({
+            "code": code, "name": name,
+            "industry": prof.get("industry", ""),
+            "market": market, "change_pct": None,
+            "has_score": code in scored_codes,
+        })
+
     stocks.sort(key=lambda s: (not s["has_score"], s["code"]))
     _write_json("stock_index", {"stocks": stocks})
 
@@ -358,6 +399,32 @@ def render_lookup_page() -> Path:
         rel="", nav_current="lookup",
     ), encoding="utf-8")
     return path
+
+
+def _snapshot_meta() -> dict[str, dict]:
+    """讀 docs/data/tpex_hist/*.json，回傳 {代號: {"name":, "market":}}。
+
+    上櫃／興櫃在熱力圖行情裡不一定出現（興櫃根本不進熱力圖，剛掛牌的也還沒有
+    當日行情），中文名與市場別只有這份盤後快照有——個股查詢頁與個股資料頁
+    都靠它補，否則 7925 健生、7686 捷立康那種剛掛牌的興櫃會變成「有代號沒名字」
+    而且搜尋不到。"""
+    out: dict[str, dict] = {}
+    for p in (DOCS_DIR / "data" / "tpex_hist").glob("*.json"):
+        try:
+            d = json.loads(p.read_text(encoding="utf-8"))
+        except Exception:
+            continue
+        out[p.stem] = {"name": d.get("name", ""), "market": d.get("market", "")}
+    return out
+
+
+def _short_name(prof: dict) -> str:
+    """申報全名 → 顯示用短名（「健生實業股份有限公司」→「健生實業」）。"""
+    full = (prof or {}).get("full_name", "") or ""
+    for tail in ("股份有限公司", "有限公司", "公司"):
+        if full.endswith(tail):
+            return full[: -len(tail)]
+    return full
 
 
 def _write_json(name: str, data) -> None:
@@ -378,7 +445,9 @@ def render_heatmap(industries: list[dict], date_label_str: str) -> Path:
         intensity = min(abs(pct) / peak, 1.0)
         base = (219, 84, 74) if pct >= 0 else (79, 158, 113)
         alpha = 0.18 + intensity * 0.72
-        cells.append({**row, "bg": f"rgba({base[0]},{base[1]},{base[2]},{alpha:.2f})"})
+        # slug 當錨點：首頁「產業熱力」那排要能點進來直接展開對應的產業格子
+        cells.append({**row, "slug": slugify(row["name"]),
+                      "bg": f"rgba({base[0]},{base[1]},{base[2]},{alpha:.2f})"})
     path = DOCS_DIR / "heatmap.html"
     path.write_text(_env().get_template("heatmap.html").render(
         site_title=cfg["site"]["title"],
@@ -482,12 +551,8 @@ def render_stock_info() -> Path:
 
     # 有後端快照的上櫃／興櫃也要有檔案：前端靠 profile.market 決定要不要
     # 直接走快照，沒有這個標記就會先白打 36 次必定失敗的 TWSE 請求。
-    snap_market = {}
-    for p in (DOCS_DIR / "data" / "tpex_hist").glob("*.json"):
-        try:
-            snap_market[p.stem] = json.loads(p.read_text(encoding="utf-8")).get("market", "")
-        except Exception:
-            continue
+    snap = _snapshot_meta()
+    snap_market = {c: m["market"] for c, m in snap.items()}
 
     # 個股資料頁的範圍＝有申報基本資料的公司（申報營業項目 t187ap03 全市場 2341 檔）
     # ＋有後端盤後快照的上櫃／興櫃。題材成員「只用來標註既有個股頁」，不會憑
@@ -509,7 +574,11 @@ def render_stock_info() -> Path:
         ana = analysis.get(code, {})
         payload = {
             "code": code,
-            "name": ana.get("name") or rev.get("name") or names.get(code, ""),
+            # 名稱優先序：分析 → 月營收 → 搜尋索引 → 盤後快照 → 申報全名縮寫。
+            # 少了後兩層時，剛掛牌的興櫃（7925 健生、7686 捷立康）彈窗標題
+            # 只會顯示代號、名字整個空白。
+            "name": (ana.get("name") or rev.get("name") or names.get(code, "")
+                     or snap.get(code, {}).get("name") or _short_name(prof)),
             "profile": {k: prof.get(k, "") for k in
                         ("full_name", "industry", "business", "capital",
                          "founded", "listed", "market", "website")} if prof else {},
