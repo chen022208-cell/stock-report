@@ -1690,6 +1690,7 @@ def run_research_intake() -> None:
     processed = 0
     topic_made: list[dict] = []      # 點播成功的，最後統一寫進獨立的推播檔
     topic_failed: list[str] = []
+    topic_seen: set[str] = set()     # 本輪已處理的主題（大小寫無關），用來去重
 
     # 來源一：GitHub Issue（給熟悉 GitHub 的人，例如你自己）
     issues = _safe(_gh_issue_list, [], "讀取使用者研究提交（GitHub）")
@@ -1724,6 +1725,13 @@ def run_research_intake() -> None:
             # 研究筆記上也看不到東西（使用者實際回報）。這裡改成分流到點播那條線。
             if title.startswith(TOPIC_PREFIX):
                 topic = title[len(TOPIC_PREFIX):].strip()
+                # 同一輪重複送同一個主題（大小寫不同也算），只做一次——使用者
+                # 常常按了沒反應就再送一次，逐筆做等於同樣的查證跑好幾遍，
+                # 還會產生 slug 只差大小寫的近乎重複頁面。
+                if topic.casefold() in topic_seen:
+                    print(f"[research] 主題「{topic}」本輪已處理過，略過重複提交")
+                    continue
+                topic_seen.add(topic.casefold())
                 print(f"[research] 處理主題點播（{row['timestamp']}）：{topic}")
                 made = _make_topic_report(
                     topic, row.get("body", ""),

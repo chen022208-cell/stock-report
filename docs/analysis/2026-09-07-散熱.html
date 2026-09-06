@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>產業深度分析 · 盤後快訊</title>
+<title>AI 伺服器散熱：液冷從選配變標配，台廠營收已明顯分流 · 盤後快訊</title>
 <link rel="manifest" href="../manifest.json">
 <link rel="icon" href="../icons/icon-192.png">
 <link rel="apple-touch-icon" href="../icons/icon-192.png">
@@ -213,23 +213,32 @@
                     padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  .ii-intro{font-size:14px; line-height:1.85; color:var(--text-secondary); margin:10px 0 6px;}
-  .ii-prog{font-size:12.5px; color:var(--text-muted); margin-bottom:20px;}
-  .ii-bar{height:6px; background:var(--surface-2); border-radius:3px;
-          overflow:hidden; margin:8px 0 6px; max-width:420px;}
-  .ii-bar i{display:block; height:100%; background:var(--gold);}
-  .ii-row{display:block; text-decoration:none; background:var(--surface);
-          border:1px solid var(--hairline); border-radius:var(--radius-sm);
-          padding:13px 16px; margin-bottom:10px;}
-  .ii-row:hover{border-color:var(--gold);}
-  .ii-top{display:flex; justify-content:space-between; align-items:baseline;
-          gap:12px; flex-wrap:wrap;}
-  .ii-name{font-size:15px; font-weight:600; color:var(--text-primary);}
-  .ii-num{font-size:12px; color:var(--text-muted); font-family:'JetBrains Mono',monospace;}
-  .ii-sum{font-size:13px; color:var(--text-secondary); line-height:1.7; margin-top:6px;}
-  .ii-pending{display:flex; flex-wrap:wrap; gap:7px; margin-top:10px;}
-  .ii-chip{font-size:12px; background:var(--surface-2); border:1px solid var(--hairline);
-           border-radius:999px; padding:3px 10px; color:var(--text-muted);}
+  .tr-meta{font-size:12.5px; color:var(--text-muted); margin:8px 0 20px;}
+  .tr-badge{display:inline-block; font-size:11.5px; background:var(--surface-2);
+            border:1px solid var(--hairline); border-radius:999px; padding:2px 9px;
+            color:var(--c-theme); margin-right:8px;}
+  .tr-pdf{margin:0 0 18px;}
+  .tr-pdf a{font-size:13.5px; color:var(--gold); text-decoration:none;
+            border:1px solid var(--hairline); border-radius:999px; padding:6px 14px;}
+  .tr-pdf a:hover{border-color:var(--gold);}
+  .tr-summary{font-size:15px; line-height:1.85; color:var(--text-primary);
+              background:var(--surface); border-left:3px solid var(--gold);
+              border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:24px;}
+  .tr-sec{margin-bottom:26px;}
+  .tr-sec h2{font-size:17px; margin:0 0 10px;}
+  .tr-sec p{font-size:14.5px; line-height:1.9; color:var(--text-secondary); margin:0;}
+  .tr-stocks{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;}
+  .tr-stock{cursor:pointer; background:var(--surface); border:1px solid var(--hairline);
+            border-radius:var(--radius-sm); padding:8px 12px; font-size:13px; max-width:340px;}
+  .tr-stock:hover{border-color:var(--gold);}
+  .tr-stock b{font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
+  .tr-stock span{display:block; color:var(--text-muted); font-size:12px; margin-top:3px;}
+  .tr-risk{background:var(--surface); border-left:3px solid var(--c-warn);
+           border-radius:var(--radius-sm); padding:12px 15px; font-size:14px;
+           line-height:1.85; color:var(--text-secondary);}
+  .tr-src{font-size:12.5px; color:var(--text-muted); line-height:1.9;
+          border-top:1px solid var(--hairline); padding-top:14px; margin-top:26px;}
+  .tr-src a{color:var(--gold); word-break:break-all;}
 
 </style>
 </head>
@@ -255,38 +264,110 @@
   
 <header>
   <div class="masthead-label">盤後快訊</div>
-  <h1 class="masthead-date">產業深度分析</h1>
+  <h1 class="masthead-date">AI 伺服器散熱：液冷從選配變標配，台廠營收已明顯分流</h1>
 </header>
-<p class="ii-intro">
-  以公開資訊觀測站的<b>申報產業別</b>為單位，37 類涵蓋全市場 2345 檔個股。
-  每一檔股票都屬於其中一類，所以這裡做完就等於每一檔都有產業脈絡可看。
-  分析輸入的公司資訊全部是<b>申報主要經營業務</b>與政府開放資料的月營收，
-  不臆測任何個別公司；沒有外部查證來源的產業不會產出報告。
+<p class="tr-meta">
+  <span class="tr-badge">🎯 使用者點播主題</span>
+  2026-09-07 產出　·　原始點播：散熱
 </p>
-<div class="ii-prog">
-  已完成 0 / 37 類
-  <div class="ii-bar"><i style="width:0.0%"></i></div>
-  每天自動分析數類，連跑約一週補滿，之後定期輪替更新。
+
+
+
+<div class="tr-summary">隨著單機櫃功耗一路拉高，液冷對高階 AI 機櫃已從選配變成強制需求，市場預估液冷滲透率由 2024 年不到 10%、2025 年 15~20%，2026 年升至 40~50%。這個轉折在台廠最新月營收上看得很清楚：業務綁定 AI 伺服器與液冷的廠商年增率落在 +57% 到 +117%，而申報業務仍以筆電散熱模組為主的廠商則是負成長。同一個「散熱」族群，實際上已經分成兩條完全不同的軌道。</div>
+
+
+<section class="tr-sec">
+  <h2>為什麼液冷變成強制需求</h2>
+  <p>散熱的難度不是溫度，而是功率密度。氣冷靠風扇把熱帶走，單位體積能移除的熱量有物理上限；當單機櫃功耗從數十 kW 級距往上跳（市場報導指 GB300 世代單機櫃功耗約 120kW、前一代 GB200 約 75kW），氣冷在合理噪音與風扇功耗下已經無法處理，液冷因此不再是可選的加值項，而是能不能出貨的前提。（推論）這也解釋了為什麼散熱這一段的價值量增加得比出貨台數快——它從「附加元件」變成「系統能否成立的關鍵零件」。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>價值量怎麼放大</h2>
+  <p>液冷把零件數與單價一起往上推。市場報導指出，交換托盤水冷板數量由前一代的 18 個增加到 27 個，快接頭（QD）從零增加到 180 個，使單機櫃的液冷價值提升約 10~20%；散熱模組的單台均價則被描述為提升 2~3 倍。（推論）零件數增加的同時，冷板、快接頭、CDU、歧管這些環節的良率與洩漏風險也一起放大，對已經有量產經驗與客戶驗證的廠商相對有利，新進者不容易只靠報價切入。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>台廠營收已經分流成兩條軌道</h2>
+  <p>把政府開放資料的最新月營收與公開資訊觀測站的申報營業項目對起來看，分流非常明顯。偏 AI／液冷這一側：3324 雙鴻（申報業務「散熱模組」）月營收 37.7 億、年增 +116.7%；3653 健策（精密沖件與模具，供應冷板類金屬件）32.1 億、+91.0%；6613 朋億*（高科技產業製程系統與設備）12.9 億、+64.3%；8996 高力（板式熱交換器、熱能產品）9.2 億、+57.6%；3017 奇鋐 185.9 億、+57.4%，為族群中營收規模最大者。偏消費性／筆電這一側：3483 力致（申報業務直接寫 NB Thermal Module）6.4 億、年增 -16.0%；6230 尼得科超眾（散熱模組、散熱片、熱導管、微均熱板）7.9 億、-0.3%；6275 元山（電腦週邊、小家電）3.4 億、-1.2%。同樣掛「散熱」，終端綁在哪裡決定了成長方向。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>看這個題材要盯什麼</h2>
+  <p>（推論）三個觀察點：一是滲透率是否真的按預期爬升——液冷從 15~20% 到 40~50% 是這輪成長的核心假設，若資料中心改建進度落後，最先反映在冷板與快接頭的拉貨節奏；二是價值量能不能守住，零件數增加會吸引更多競爭者，單價下滑速度若快於出貨成長，營收成長不等於獲利成長；三是要分清楚公司的實際曝險，不要因為公司名字或產業分類掛「散熱」就當成 AI 受惠股——上面那組負成長的數字就是反例。</p>
+</section>
+
+
+
+<section class="tr-sec">
+  <h2>相關個股</h2>
+  <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:8px">
+    只列出查證過、確定與本主題相關的個股。點任一檔看 K 線與公司資料。</p>
+  <div class="tr-stocks">
+    
+    <div class="tr-stock" data-stock-code="3324" data-stock-name="雙鴻">
+      <b>3324 雙鴻</b>
+      <span>申報業務為散熱模組；月營收 37.7 億、年增 +116.7%，為族群中年增最高者。站內另有逐檔查證紀錄指其供應 AI 伺服器液冷散熱模組。</span>
+    </div>
+    
+    <div class="tr-stock" data-stock-code="3653" data-stock-name="健策">
+      <b>3653 健策</b>
+      <span>申報業務為精密沖件、精密模具與金屬零件加工，對應冷板類金屬件；月營收 32.1 億、年增 +91.0%。</span>
+    </div>
+    
+    <div class="tr-stock" data-stock-code="6613" data-stock-name="朋億*">
+      <b>6613 朋億*</b>
+      <span>申報業務為高科技產業製程系統、設備製造安裝；月營收 12.9 億、年增 +64.3%。</span>
+    </div>
+    
+    <div class="tr-stock" data-stock-code="8996" data-stock-name="高力">
+      <b>8996 高力</b>
+      <span>申報業務為板式熱交換器、熱能產品，對應液冷迴路的熱交換環節；月營收 9.2 億、年增 +57.6%。</span>
+    </div>
+    
+    <div class="tr-stock" data-stock-code="3017" data-stock-name="奇鋐">
+      <b>3017 奇鋐</b>
+      <span>月營收 185.9 億、年增 +57.4%，族群中營收規模最大。註：其申報業務僅寫「3C電子產品」，沒有資訊量，本報告不據此描述其產品組合；外部報導將其列為液冷受惠廠商。</span>
+    </div>
+    
+    <div class="tr-stock" data-stock-code="3483" data-stock-name="力致">
+      <b>3483 力致</b>
+      <span>申報業務明寫 NB Thermal Module，終端偏筆電；月營收 6.4 億、年增 -16.0%——與 AI 液冷這一側形成對照。</span>
+    </div>
+    
+    <div class="tr-stock" data-stock-code="6230" data-stock-name="尼得科超眾">
+      <b>6230 尼得科超眾</b>
+      <span>申報業務為散熱模組、散熱片、熱導管及微均熱板；月營收 7.9 億、年增 -0.3%，成長停滯。</span>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="tr-sec">
+  <h2>風險與觀察重點</h2>
+  <div class="tr-risk">（推論）一、滲透率假設若落後，冷板與快接頭的拉貨節奏會最先反映；二、零件數放大會吸引競爭者進入，單價下滑速度若快於出貨成長，營收成長不等於獲利成長；三、族群內部分化嚴重，用「散熱」當選股標籤會同時買到負成長的筆電曝險公司。另需注意本報告引用的是單月營收，散熱有專案出貨波動，單月高年增不等於全年趨勢確立；奇鋐的申報營業項目過於籠統，其產品組合未經本站逐檔查證。</div>
+</section>
+
+
+<div class="tr-src">
+  <b>查證來源</b>（本報告依站內規則，沒有外部來源就不產出）：<br>
+  <a href="https://news.cnyes.com/news/id/6545208" target="_blank" rel="noopener">https://news.cnyes.com/news/id/6545208</a>　·　
+  <a href="https://money.udn.com/money/story/5607/9109458" target="_blank" rel="noopener">https://money.udn.com/money/story/5607/9109458</a>　·　
+  <a href="https://tw.news.yahoo.com/%E6%B6%B2%E5%86%B7%E6%95%A3%E7%86%B1-2026-%E6%BB%B2%E9%80%8F%E7%8E%87%E9%A3%86%E7%A0%B4%E4%BA%94%E6%88%90-%E5%8F%B0%E5%BB%A0%E5%8F%97%E6%83%A0-%E5%A5%87%E9%8B%90-105500186.html" target="_blank" rel="noopener">https://tw.news.yahoo.com/%E6%B6%B2%E5%86%B7%E6%95%A3%E7%86%B1-2026-%E6%BB%B2%E9%80%8F%E7%8E%87%E9%A3%86%E7%A0%B4%E4%BA%94%E6%88%90-%E5%8F%B0%E5%BB%A0%E5%8F%97%E6%83%A0-%E5%A5%87%E9%8B%90-105500186.html</a>　·　
+  公開資訊觀測站 t187ap03 申報主要經營業務（各公司業務描述）　·　
+  政府開放資料月營收申報（t187ap05，各公司月營收與年增率）
+  
+  <p style="margin-top:10px">本頁為系統依使用者點播主題自動整理之資訊，明確標示「（推論）」者為推論而非查證事實；
+  僅供研究參考，不構成投資建議。</p>
 </div>
-
-
-<p class="commentary" style="margin-top:20px; color:var(--text-muted)">
-  還沒有產業分析。排程第一次執行後這裡會開始累積。</p>
-
-
-
-<h2 style="font-size:15px; margin:26px 0 4px">尚未分析（37 類）</h2>
-<div class="ii-pending">
-  <span class="ii-chip">生技醫療業 251 檔</span><span class="ii-chip">半導體業 240 檔</span><span class="ii-chip">電子零組件業 230 檔</span><span class="ii-chip">光電業 137 檔</span><span class="ii-chip">電腦及週邊設備業 125 檔</span><span class="ii-chip">電機機械 118 檔</span><span class="ii-chip">其他 116 檔</span><span class="ii-chip">其他電子業 109 檔</span><span class="ii-chip">通信網路業 103 檔</span><span class="ii-chip">建材營造 89 檔</span><span class="ii-chip">綠能環保 73 檔</span><span class="ii-chip">觀光餐旅 65 檔</span><span class="ii-chip">資訊服務業 58 檔</span><span class="ii-chip">紡織纖維 53 檔</span><span class="ii-chip">數位雲端 52 檔</span><span class="ii-chip">鋼鐵工業 51 檔</span><span class="ii-chip">化學工業 50 檔</span><span class="ii-chip">汽車工業 44 檔</span><span class="ii-chip">食品工業 41 檔</span><span class="ii-chip">電子通路業 40 檔</span><span class="ii-chip">居家生活 39 檔</span><span class="ii-chip">航運業 36 檔</span><span class="ii-chip">文化創意業 34 檔</span><span class="ii-chip">運動休閒 31 檔</span><span class="ii-chip">金融保險業 31 檔</span><span class="ii-chip">塑膠工業 25 檔</span><span class="ii-chip">貿易百貨 18 檔</span><span class="ii-chip">電器電纜 17 檔</span><span class="ii-chip">金融業 14 檔</span><span class="ii-chip">油電燃氣業 13 檔</span><span class="ii-chip">橡膠工業 11 檔</span><span class="ii-chip">水泥工業 7 檔</span><span class="ii-chip">造紙工業 7 檔</span><span class="ii-chip">農業科技 7 檔</span><span class="ii-chip">玻璃陶瓷 5 檔</span><span class="ii-chip">存託憑證 4 檔</span><span class="ii-chip">化學生技醫療 1 檔</span>
-</div>
-
-<p class="commentary" style="margin-top:22px; font-size:13px">
-  想看單一個股 → <a href="../lookup.html" style="color:var(--gold)">個股查詢</a>　·
-  產業當日漲跌 → <a href="../heatmap.html" style="color:var(--gold)">產業熱力圖</a></p>
+<p style="margin-top:20px; font-size:13px">
+  ← 回 <a href="index.html" style="color:var(--gold)">分析清單</a>　·
+  <a href="../submit.html" style="color:var(--gold)">再點播一個主題</a></p>
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-07 02:10</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-07 02:21</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>

@@ -1,0 +1,13 @@
+[research] 讀取 GitHub Issue 失敗（可能沒裝 gh 或未登入）：[WinError 2] 系統找不到指定的檔案。
+[research] 處理表單提交（2026/9/6 下午 7:42:04）：使用者研究提交
+[agent-queue] 等待 agent 回覆：agent_llm_queue\085b8477a0664aabaf35a41eaad95280.request.json
+[research] 處理表單提交（2026/9/6 下午 10:37:52）：使用者研究提交
+[agent-queue] 等待 agent 回覆：agent_llm_queue\dc75d7d656d14c4ba250e854dc595976.request.json
+[research] 處理主題點播（2026/9/6 下午 10:44:49）：cpo
+[agent-queue] 等待 agent 回覆：agent_llm_queue\c7546ae32055446e9afc6420f0f6207e.request.json
+[research] 主題報告已產出：2026-09-07-cpo.html
+[research] 處理主題點播（2026/9/7 上午 12:49:17）：散熱
+[agent-queue] 等待 agent 回覆：agent_llm_queue\8e04c8aaaa804b24919760f5922f8e1a.request.json
+[research] 主題報告已產出：2026-09-07-散熱.html
+[research] 處理主題點播（2026/9/7 上午 1:20:18）：銅箔基板
+[agent-queue] 等待 agent 回覆：agent_llm_queue\8dc0ef2ad50e48078e8b6f24adc79dd2.request.json
