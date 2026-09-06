@@ -64,6 +64,36 @@
   每小時跑一次**，跟每日早報／盤後一樣是 CCR session 自己 clone repo、
   自己扮演 LLM 服務 `agent_llm_queue/`、只有真的產生變更才 commit push，
   失敗才 PushNotification。
+- **盤中強勢股篩選（波段用）**：GitHub Actions 迴圈式（方案①），
+  `.github/workflows/intraday.yml`。平日 08:45（Asia/Taipei）由外部 cron-job.org
+  POST `repository_dispatch`（`event_type: intraday-loop`）觸發，一支長 job 內部
+  每 ~55 秒跑一輪 `python -m src.main intraday`，用證交所 MIS 端點
+  （`mis.twse.com.tw/stock/api/getStockInfo.jsp`，上市＋上櫃一次抓）拿近即時報價，
+  跑多層漏斗（相對強度 vs 大盤／同業 → 昨量比（含盤中時間校正）→ 動能／突破
+  20/60/120/252 日高）算加權分數分 A（≥80）／B（≥60）級。結果推到 **`intraday-data`
+  分支**（force push，不留歷史），前端 `docs/intraday.html`（⚡ 盤中強勢，nav 有連結）
+  每 45 秒 fetch `raw.githubusercontent.com/.../intraday-data/docs/data/intraday.json`。
+  滾動參考值（新高、昨量）存 `data/intraday_hist.db`（不進 git，Actions cache 跨天保留），
+  **需要幾個交易日暖機**新高／量比才準。`config.yaml` 的 `intraday:` 區塊調參數，
+  公開頁 `display_delay_min: 15`（不轉發即時報價給第三方）。`intraday-ref` 子命令
+  盤前更新參考值、`intraday --loop --until HH:MM --interval N` 跑迴圈。
+- **盤中焦點股深度快報**：盤中篩選器拓到新 A 級強勢股時（`_update_signals` 寫
+  `docs/data/intraday_new_signal.json` 並 push 到 intraday-data），webhook 觸發雲端
+  Routine「台股盤中焦點股深度快報」（**trig_01HpFbfTcMzrwPn2LdBG3Smh**；webhook
+  `25f1fb92-91cd-490b-8dfe-a6b574ba228c`，GitHub App、push 事件、**無法依分支/路徑
+  過濾**；另有 cron `0 6 * * 1-5`＝台灣 14:00 當盤後掃尾）。Routine 跑
+  `LLM_AGENT_MODE=1 python -m src.main intraday-report`（`run_intraday_deep_report`）：
+  讀 intraday-data 的 `intraday_new_signal.json`，扣掉今日已產出的、每日上限
+  **5 篇**（`deep_report_daily_cap`）、分數門檻（`deep_report_min_score`）後，對每檔
+  用 `llm.intraday_flash_report` 走 `agent_llm_queue/`，CCR session 實際 WebSearch
+  查證（鉅亨／Goodinfo／財報狗／官網），回覆一定帶 `sources`（≥1 個申報值以外
+  外部來源），查不到就不寫那一檔。產出 `intraday_reports` 表 ＋
+  `docs/analysis/<日期>-<代號>.html` ＋ `docs/analysis/index.html`（複用「一般對話
+  股票分析同步存檔」那條路的資料夾）＋ `docs/_notify_intraday.json`（`daily-notify.yml`
+  偵測到就發 Discord）。webhook 每次 push 都觸發、多數空跑（Routine 判斷沒有今日
+  新訊號就安靜結束），所以 `intraday.yml` 迴圈把一般行情資料 push 壓到每 10 分鐘
+  一次、只有 `intraday_new_signal.json` 變動才立即 push。**快報形式、非深度查證**，
+  跟 `lookup.html` 的逐檔人工查證分析（`verify-stocks`）是兩回事。
 
 ## 個股技術圖表／查詢
 

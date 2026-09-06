@@ -11,6 +11,13 @@ name: 盤中強勢股篩選（迴圈式）
 #           Accept: application/vnd.github+json
 #   Body  : {"event_type":"intraday-loop"}
 #   排程  : 平日 08:45（Asia/Taipei）
+#
+# 下游：本 job 推到 intraday-data 分支時，會 webhook 觸發雲端 Routine
+# 「台股盤中焦點股深度快報」（trig_01HpFbfTcMzrwPn2LdBG3Smh，webhook
+# 25f1fb92-91cd-490b-8dfe-a6b574ba228c，GitHub App push 事件、無分支/路徑過濾）。
+# 那條 Routine 讀 intraday-data 的 intraday_new_signal.json，對新 A 級強勢股逐檔
+# WebSearch 查證後產出盤中快報。webhook 每次 push 都觸發，多數是空跑（Routine 自己
+# 判斷沒有今日新訊號就安靜結束），所以下面迴圈把一般資料 push 壓到每 10 分鐘一次。
 on:
   repository_dispatch:
     types: [intraday-loop]
@@ -67,6 +74,15 @@ jobs:
           # 收盤後再多跑 5 分鐘收尾（13:35 台灣時間）
           SESSION_END="13:35"
 
+          # 每次 push 到 chen022208-cell/stock-report 都會觸發雲端 Routine
+          # 「台股盤中焦點股深度快報」（webhook 無法依分支／路徑過濾）。所以：
+          #   - intraday_new_signal.json 這一輪有變動（出現新 A 級強勢股）→ 立即 push，
+          #     讓深度快報 ~1-2 分鐘內啟動。
+          #   - 只有一般行情資料變動 → 最多每 10 分鐘 push 一次（前端顯示本來就延遲 15 分、
+          #     raw.githubusercontent 還有 ~5 分 CDN 快取），避免每分鐘空跑一個雲端 session。
+          LAST_DATA_PUSH=0
+          DATA_PUSH_INTERVAL=600
+
           while :; do
             NOW=$(date +%s)
             if [ "$NOW" -ge "$HARD_STOP" ]; then echo "到硬上限，收工"; break; fi
@@ -76,10 +92,26 @@ jobs:
 
             git add -f docs/data/intraday.json docs/data/intraday_signals.json \
                        docs/data/intraday_new_signal.json docs/data/intraday_ref.json 2>/dev/null || true
-            if ! git diff --cached --quiet; then
-              git commit -q -m "盤中 $(date +%H:%M) [skip ci]"
-              # intraday-data 只由這支 workflow 寫，直接 force 推最新一版，不留長歷史負擔
-              git push -q --force origin HEAD:intraday-data || echo "推送失敗，下一輪再試"
+
+            if git diff --cached --quiet; then
+              sleep 55; continue
+            fi
+
+            if git diff --cached --name-only | grep -q 'intraday_new_signal.json'; then
+              REASON="新訊號"
+            elif [ $(( NOW - LAST_DATA_PUSH )) -ge "$DATA_PUSH_INTERVAL" ]; then
+              REASON="資料更新"
+            else
+              git reset -q            # 保留工作區改動，下一輪再評估要不要推
+              sleep 55; continue
+            fi
+
+            git commit -q -m "盤中 $(date +%H:%M) $REASON [skip ci]"
+            # intraday-data 只由這支 workflow 寫，直接 force 推最新一版，不留長歷史負擔
+            if git push -q --force origin HEAD:intraday-data; then
+              LAST_DATA_PUSH=$NOW
+            else
+              echo "推送失敗，下一輪再試"
             fi
             sleep 55
           done
