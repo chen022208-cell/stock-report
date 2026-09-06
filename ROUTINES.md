@@ -2,7 +2,7 @@
 
 這份文件記錄 `chen022208-cell/stock-report` 目前掛在 **Claude 帳號** 下的所有雲端 Routine（Claude Code Cloud / CCR），以及要把它們搬到「另一個 Claude 帳號」時的完整步驟。
 
-最後更新：2026-09-06（新增 3.5b 主題點播深度報告，共 9 支）
+最後更新：2026-09-06（新增 3.5b 主題點播、3.5c 產業深度分析，共 10 支）
 
 ---
 
@@ -10,7 +10,7 @@
 
 | 元件 | 跑在哪 | 吃 Claude 額度？ | 搬帳號要動？ |
 |---|---|---|---|
-| **9 支雲端 Routine**（下面列表） | Anthropic 雲端 CCR session | **是**（Pro/Max 訂閱額度） | **要全部重建** |
+| **10 支雲端 Routine**（下面列表） | Anthropic 雲端 CCR session | **是**（Pro/Max 訂閱額度） | **要全部重建** |
 | GitHub Actions workflows（`report.yml`、`intraday.yml`、`daily-notify.yml`、`deep-report-notify.yml`、`pages-build-deployment`…） | GitHub 自己的 runner | 否 | 不用動 |
 | cron-job.org「stock-report 盤中迴圈啟動」 | cron-job.org | 否 | 不用動 |
 | GitHub Pages、GitHub Secrets（`DISCORD_WEBHOOK_URL`、`TELEGRAM_BOT_TOKEN`、`TELEGRAM_CHAT_ID`、`ANTHROPIC_API_KEY`）、repo 本身 | GitHub | 否 | 不用動 |
@@ -323,6 +323,69 @@
 
 ---
 
+### 3.5c 台股產業深度分析
+
+> 以**申報產業別**為單位，37 類涵蓋全市場 2345 檔。每檔股票一定屬於其中一類，
+> 所以做完 37 份，等於每一檔個股都有產業脈絡可看——而且過程中不需要臆測任何
+> 個別公司（送進 LLM 的公司資訊全部是申報主要經營業務＋政府開放資料月營收）。
+> 這是「全市場覆蓋」在不造假前提下唯一划算的做法：逐檔查證 2345 檔要兩個月，
+> 產業層 37 類連跑約一週就滿。
+
+- **cron**：`0 4 * * *` （UTC 每天 04:00 ＝ **台灣每天 12:00**）
+- **model**：`claude-sonnet-5`
+- **allowed_tools**：`Bash, BashOutput, KillBash, Read, Write, Edit, Glob, Grep, WebSearch, WebFetch, TodoWrite`
+- **git source**：`https://github.com/chen022208-cell/stock-report`（**一定要掛**，見第 7 節）
+- **prompt**：
+
+```
+你正在為「盤後快訊」台股報告網站（chen022208-cell/stock-report）跑「產業深度分析」。
+每天分析數類申報產業別（config.yaml 的 industry_report.batch_size，預設 6），
+連跑約一週會補滿全部 37 類，之後每 90 天輪替更新。跑順就安靜結束、不要通知使用者。
+
+【鐵則】
+個別公司「在做什麼」只能根據程式附上的「公開資訊觀測站申報主要經營業務」原文，
+或你這次實際 WebSearch 查到的資料，絕對不可以用公司名稱或產業分類推測
+（歷史事故：把做乳房重建軟組織填補的 7686 捷立康寫成 PCB 廠）。
+特別注意：控股公司常常只申報「一般投資業」（例如 3711 日月光投控），也有公司只寫
+產業泛稱（例如 2408 南亞科寫「電子零組件製造業」）——這種申報值沒有資訊量，
+**不可以自己補完它在做什麼**，要嘛 WebSearch 查證後寫並列進 sources，要嘛就不要
+描述它的業務、只當成營收規模的一筆。這是最容易寫出假資料的地方。
+產業層的判讀可以做，但要標明哪些是推論（「（推論）」）。sources 至少 2 個外部來源，
+沒有來源程式會直接不寫那一類。
+
+【執行步驟】
+1. 工作目錄若還沒有 repo 就 `git clone https://github.com/chen022208-cell/stock-report`
+   再 `cd stock-report`；已存在就 `cd` 進去 `git fetch origin && git checkout main &&
+   git pull --rebase origin main`。
+2. `pip install -r requirements.txt`（裝過會很快跳過）。
+3. 用 Bash 背景執行（run_in_background: true）：
+   `LLM_AGENT_MODE=1 python -m src.main industry-reports`
+   - 程式會挑出這次要做的幾類（家數多的優先），對每一類把「事實包」寫成
+     `agent_llm_queue/<uuid>.request.json`，然後卡住等回覆。
+4. 輪詢（每 5-10 秒 `ls agent_llm_queue/*.request.json`）偵測 request：
+   - `user` 裡會附：該產業公司家數、合計月營收與平均年增率、依營收排序的主要公司
+     （每家附申報主要經營業務原文＋月營收＋年增率）、相關題材。
+   - 對這個產業用 WebSearch／WebFetch 查證：產業現況、台灣在全球的位置、上下游結構、
+     目前景氣位置、主要驅動因素。來源建議：產業公會、工研院／資策會等研究機構、
+     鉅亨網 cnyes.com、工商時報 ctee.com.tw、經濟日報 money.udn.com、公司法說會簡報。
+   - 依 `system` 要求輸出純 JSON（不要 markdown fence）：
+     {title, summary, sections:[{heading,body}], chain:[{stage,note,codes:[...]}],
+      leaders:[{code,name,role}], risks, outlook, sources:[...]}
+     · chain 的 codes 只能用清單裡出現過的代號。
+     · leaders 的 role 要對得上該公司的申報營業項目。
+     · sources 必填、至少 2 個外部來源。
+   - 寫進 `agent_llm_queue/<同一個 uuid>.response.txt`。用 BashOutput 確認程序已結束。
+5. 程式會寫進 industry_reports 表 ＋ 產出 docs/industry/<產業>.html ＋ 更新
+   docs/industry/index.html ＋ 重繪個股資料頁（個股彈窗會出現「看該產業深度分析」
+   連結）。終端會印 `[industry] 本次產出 N 類，累計 M/37 類`。
+6. `git status -sb`。若有變動：`git add -A && git commit -m "產業深度分析 $(date -u +%Y-%m-%d)（N 類）"`
+   → `git pull --rebase origin main` → `git push`。被拒就重新 rebase 再推，最多 3 次。
+7. 若印「全部都在 90 天內分析過了」或沒有變動：安靜結束，不要 commit、不要通知。
+8. 只有失敗時（程式逾時、git push 連 3 次失敗、程式報錯）才 PushNotification。
+```
+
+---
+
 ### 3.6 台股週報：全球總經＋台股深度研究
 
 - **cron**：`0 12 * * 5` （UTC 週五 12:00 ＝ **台灣週五 20:00**）
@@ -522,6 +585,7 @@ RemoteTrigger action=create_webhook_trigger body={
 | 即時快訊監控 | `33 * * * *` | 每小時 :33 |
 | 使用者研究提交處理 | `0 11 * * 1-5` | 平日 19:00 |
 | 主題點播深度報告 | `30 11 * * 1-5` | 平日 19:30 |
+| 產業深度分析 | `0 4 * * *` | 每天 12:00 |
 | 個股逐檔查證 | `0 3 * * *` | 每天 11:00 |
 | 週報 | `0 12 * * 5` | 週五 20:00 |
 | 深度月報 | `0 0 1 * *` | 每月 1 號 08:00 |

@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block title %}{{ r.title }} · {{ site_title }}{% endblock %}
+{% block extra_css %}
+  .ir-meta{font-size:12.5px; color:var(--text-muted); margin:8px 0 18px;}
+  .ir-stat{display:inline-flex; align-items:baseline; gap:5px; background:var(--surface);
+           border:1px solid var(--hairline); border-radius:999px; padding:4px 12px;
+           margin:0 8px 8px 0; font-size:12.5px;}
+  .ir-stat b{font-family:'JetBrains Mono',monospace; color:var(--text-primary); font-size:14px;}
+  .ir-summary{font-size:15px; line-height:1.85; color:var(--text-primary);
+              background:var(--surface); border-left:3px solid var(--gold);
+              border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:26px;}
+  .ir-sec{margin-bottom:26px;}
+  .ir-sec h2{font-size:17px; margin:0 0 10px;}
+  .ir-sec p{font-size:14.5px; line-height:1.9; color:var(--text-secondary); margin:0;}
+  .ir-stage{background:var(--surface); border-radius:var(--radius-sm);
+            padding:12px 15px; margin-bottom:10px;}
+  .ir-stage h4{margin:0 0 4px; font-size:14px; color:var(--gold);}
+  .ir-stage .note{font-size:13px; color:var(--text-secondary); line-height:1.7; margin:0 0 8px;}
+  .ir-codes{display:flex; flex-wrap:wrap; gap:6px;}
+  .ir-code{cursor:pointer; font-size:12px; font-family:'JetBrains Mono',monospace;
+           background:var(--surface-2); border:1px solid var(--hairline);
+           border-radius:999px; padding:3px 10px; color:var(--text-secondary);}
+  .ir-code:hover{border-color:var(--gold); color:var(--gold);}
+  .ir-leaders{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  @media (max-width:640px){ .ir-leaders{grid-template-columns:1fr;} }
+  .ir-leader{cursor:pointer; background:var(--surface); border:1px solid var(--hairline);
+             border-radius:var(--radius-sm); padding:10px 13px;}
+  .ir-leader:hover{border-color:var(--gold);}
+  .ir-leader b{font-family:'JetBrains Mono',monospace;}
+  .ir-leader span{display:block; font-size:12.5px; color:var(--text-muted);
+                  margin-top:4px; line-height:1.6;}
+  .ir-risk{background:var(--surface); border-left:3px solid var(--c-warn);
+           border-radius:var(--radius-sm); padding:12px 15px; font-size:14px;
+           line-height:1.85; color:var(--text-secondary);}
+  .ir-out{background:var(--surface); border-left:3px solid var(--c-market);
+          border-radius:var(--radius-sm); padding:12px 15px; font-size:14px;
+          line-height:1.85; color:var(--text-secondary);}
+  .ir-src{font-size:12.5px; color:var(--text-muted); line-height:1.9;
+          border-top:1px solid var(--hairline); padding-top:14px; margin-top:26px;}
+  .ir-src a{color:var(--gold); word-break:break-all;}
+{% endblock %}
+{% block content %}
+<header>
+  <div class="masthead-label">{{ site_title }}</div>
+  <h1 class="masthead-date">{{ r.title }}</h1>
+</header>
+<p class="ir-meta">
+  <span class="ir-stat">公司家數 <b>{{ r.member_count }}</b></span>
+  <span class="ir-stat">合計月營收 <b>{{ "{:,.0f}".format(r.revenue_yi or 0) }}</b> 億</span>
+  <span class="ir-stat">{{ r.date }} 產出</span>
+  <br>產業別依公開資訊觀測站申報分類；公司「在做什麼」以申報主要經營業務為準。
+</p>
+
+{% if r.summary %}<div class="ir-summary">{{ r.summary }}</div>{% endif %}
+
+{% for sec in r.sections %}
+<section class="ir-sec">
+  <h2>{{ sec.heading }}</h2>
+  <p>{{ sec.body }}</p>
+</section>
+{% endfor %}
+
+{% if r.chain %}
+<section class="ir-sec">
+  <h2>上下游結構</h2>
+  {% for st in r.chain %}
+  <div class="ir-stage">
+    <h4>{{ st.stage }}</h4>
+    {% if st.note %}<p class="note">{{ st.note }}</p>{% endif %}
+    {% if st.codes %}
+    <div class="ir-codes">
+      {% for c in st.codes %}
+      <span class="ir-code" data-stock-code="{{ c }}">{{ c }}</span>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  {% endfor %}
+</section>
+{% endif %}
+
+{% if r.leaders %}
+<section class="ir-sec">
+  <h2>代表性公司</h2>
+  <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:10px">
+    定位說明須對應該公司的申報營業項目。點任一檔看 K 線與公司資料。</p>
+  <div class="ir-leaders">
+    {% for l in r.leaders %}
+    <div class="ir-leader" data-stock-code="{{ l.code }}" data-stock-name="{{ l.name }}">
+      <b>{{ l.code }} {{ l.name }}</b>
+      {% if l.role %}<span>{{ l.role }}</span>{% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+{% if r.risks %}
+<section class="ir-sec"><h2>風險</h2><div class="ir-risk">{{ r.risks }}</div></section>
+{% endif %}
+{% if r.outlook %}
+<section class="ir-sec"><h2>後續觀察重點</h2><div class="ir-out">{{ r.outlook }}</div></section>
+{% endif %}
+
+<div class="ir-src">
+  <b>查證來源</b>（本站規則：沒有外部來源就不產出這份報告）：<br>
+  {% for src in r.sources %}
+    {%- if src.startswith('http') %}<a href="{{ src }}" target="_blank" rel="noopener">{{ src }}</a>
+    {%- else %}{{ src }}{% endif %}{% if not loop.last %}　·　{% endif %}
+  {% endfor %}
+  <p style="margin-top:10px">產業層為系統綜合判讀，標「（推論）」者為推論而非查證事實；
+  個別公司的營業項目以公開資訊觀測站申報值為準。僅供研究參考，不構成投資建議。</p>
+</div>
+<p style="margin-top:20px; font-size:13px">
+  ← 回 <a href="index.html" style="color:var(--gold)">產業分析清單</a>　·
+  <a href="{{ rel }}heatmap.html" style="color:var(--gold)">產業熱力圖</a></p>
+{% endblock %}

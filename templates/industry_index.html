@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}產業深度分析 · {{ site_title }}{% endblock %}
+{% block extra_css %}
+  .ii-intro{font-size:14px; line-height:1.85; color:var(--text-secondary); margin:10px 0 6px;}
+  .ii-prog{font-size:12.5px; color:var(--text-muted); margin-bottom:20px;}
+  .ii-bar{height:6px; background:var(--surface-2); border-radius:3px;
+          overflow:hidden; margin:8px 0 6px; max-width:420px;}
+  .ii-bar i{display:block; height:100%; background:var(--gold);}
+  .ii-row{display:block; text-decoration:none; background:var(--surface);
+          border:1px solid var(--hairline); border-radius:var(--radius-sm);
+          padding:13px 16px; margin-bottom:10px;}
+  .ii-row:hover{border-color:var(--gold);}
+  .ii-top{display:flex; justify-content:space-between; align-items:baseline;
+          gap:12px; flex-wrap:wrap;}
+  .ii-name{font-size:15px; font-weight:600; color:var(--text-primary);}
+  .ii-num{font-size:12px; color:var(--text-muted); font-family:'JetBrains Mono',monospace;}
+  .ii-sum{font-size:13px; color:var(--text-secondary); line-height:1.7; margin-top:6px;}
+  .ii-pending{display:flex; flex-wrap:wrap; gap:7px; margin-top:10px;}
+  .ii-chip{font-size:12px; background:var(--surface-2); border:1px solid var(--hairline);
+           border-radius:999px; padding:3px 10px; color:var(--text-muted);}
+{% endblock %}
+{% block content %}
+<header>
+  <div class="masthead-label">{{ site_title }}</div>
+  <h1 class="masthead-date">產業深度分析</h1>
+</header>
+<p class="ii-intro">
+  以公開資訊觀測站的<b>申報產業別</b>為單位，{{ total }} 類涵蓋全市場 {{ covered_stocks }} 檔個股。
+  每一檔股票都屬於其中一類，所以這裡做完就等於每一檔都有產業脈絡可看。
+  分析輸入的公司資訊全部是<b>申報主要經營業務</b>與政府開放資料的月營收，
+  不臆測任何個別公司；沒有外部查證來源的產業不會產出報告。
+</p>
+<div class="ii-prog">
+  已完成 {{ reports|length }} / {{ total }} 類
+  <div class="ii-bar"><i style="width:{{ (reports|length / total * 100) if total else 0 }}%"></i></div>
+  每天自動分析數類，連跑約一週補滿，之後定期輪替更新。
+</div>
+
+{% if reports %}
+{% for r in reports %}
+<a class="ii-row" href="{{ r.slug }}.html">
+  <div class="ii-top">
+    <span class="ii-name">{{ r.industry }}</span>
+    <span class="ii-num">{{ r.member_count }} 檔 · {{ "{:,.0f}".format(r.revenue_yi or 0) }} 億 · {{ r.date }}</span>
+  </div>
+  {% if r.summary %}<div class="ii-sum">{{ r.summary[:130] }}{% if r.summary|length > 130 %}…{% endif %}</div>{% endif %}
+</a>
+{% endfor %}
+{% else %}
+<p class="commentary" style="margin-top:20px; color:var(--text-muted)">
+  還沒有產業分析。排程第一次執行後這裡會開始累積。</p>
+{% endif %}
+
+{% if pending %}
+<h2 style="font-size:15px; margin:26px 0 4px">尚未分析（{{ pending|length }} 類）</h2>
+<div class="ii-pending">
+  {% for p in pending %}<span class="ii-chip">{{ p.industry }} {{ p.count }} 檔</span>{% endfor %}
+</div>
+{% endif %}
+<p class="commentary" style="margin-top:22px; font-size:13px">
+  想看單一個股 → <a href="{{ rel }}lookup.html" style="color:var(--gold)">個股查詢</a>　·
+  產業當日漲跌 → <a href="{{ rel }}heatmap.html" style="color:var(--gold)">產業熱力圖</a></p>
+{% endblock %}

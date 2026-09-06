@@ -168,6 +168,27 @@ CREATE TABLE IF NOT EXISTS research_notes (
 
 -- 盤中焦點股深度快報：盤中篩選器抓到 A 級 → webhook 觸發雲端 Routine 逐檔查證後產出。
 -- 一檔一天最多一篇（PK code+date）。跟 stock_analysis（長期維護的公司判讀）分開存。
+-- 產業深度分析：以「申報產業別」為單位（37 類，涵蓋全市場 2345 檔）。
+-- 為什麼做產業層而不是逐檔：個股層的公司判讀必須逐檔查證，全市場 2345 檔照
+-- 40 檔/天要兩個月；而產業只有 37 類，每一檔股票又一定屬於其中一類，所以做完
+-- 37 份就等於每一檔都有可靠的產業脈絡可看，而且完全不需要臆測個別公司。
+CREATE TABLE IF NOT EXISTS industry_reports (
+    industry     TEXT PRIMARY KEY,          -- 申報產業別原名（半導體業…）
+    slug         TEXT NOT NULL,
+    date         TEXT NOT NULL,
+    reported_at  TEXT NOT NULL,
+    title        TEXT,
+    summary      TEXT,
+    sections     TEXT,                      -- JSON：[{heading, body}]
+    leaders      TEXT,                      -- JSON：[{code, name, role}] 產業內定位
+    chain        TEXT,                      -- JSON：[{stage, note, codes:[...]}] 上下游
+    risks        TEXT,
+    outlook      TEXT,
+    sources      TEXT,                      -- JSON 陣列：實際查證看過的來源
+    member_count INTEGER,
+    revenue_yi   REAL                       -- 產出當下的產業合計月營收（億）
+);
+
 -- 使用者「點播」的深度主題報告（提交研究頁的第三種模式）。
 -- 跟 intraday_reports 分開：那張是「某一檔股票今天在動什麼」的盤中快報，
 -- 這張是「使用者指定一個主題，系統做完整研究」的產出，沒有股票代號當主鍵。
@@ -499,6 +520,58 @@ def catalog_themes_needing_deep_dive(limit: int) -> list[dict]:
             (limit,),
         ).fetchall()
         return [dict(r) for r in rows]
+
+
+def upsert_industry_report(industry: str, row: dict) -> None:
+    with get_conn() as conn:
+        conn.execute(
+            """INSERT INTO industry_reports
+                 (industry, slug, date, reported_at, title, summary, sections,
+                  leaders, chain, risks, outlook, sources, member_count, revenue_yi)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+               ON CONFLICT(industry) DO UPDATE SET
+                 slug=excluded.slug, date=excluded.date,
+                 reported_at=excluded.reported_at, title=excluded.title,
+                 summary=excluded.summary, sections=excluded.sections,
+                 leaders=excluded.leaders, chain=excluded.chain,
+                 risks=excluded.risks, outlook=excluded.outlook,
+                 sources=excluded.sources, member_count=excluded.member_count,
+                 revenue_yi=excluded.revenue_yi""",
+            (industry, row.get("slug", ""), row.get("date", ""),
+             row.get("reported_at", ""), row.get("title", ""), row.get("summary", ""),
+             json.dumps(row.get("sections") or [], ensure_ascii=False),
+             json.dumps(row.get("leaders") or [], ensure_ascii=False),
+             json.dumps(row.get("chain") or [], ensure_ascii=False),
+             row.get("risks", ""), row.get("outlook", ""),
+             json.dumps(row.get("sources") or [], ensure_ascii=False),
+             row.get("member_count"), row.get("revenue_yi")),
+        )
+
+
+def all_industry_reports() -> dict[str, dict]:
+    """{產業別: report}。個股頁要用它判斷「這檔所屬產業有沒有分析可看」。"""
+    with get_conn() as conn:
+        rows = conn.execute("SELECT * FROM industry_reports").fetchall()
+    out = {}
+    for r in rows:
+        d = dict(r)
+        for k in ("sections", "leaders", "chain", "sources"):
+            try:
+                d[k] = json.loads(d.get(k) or "[]")
+            except (json.JSONDecodeError, TypeError):
+                d[k] = []
+        out[d["industry"]] = d
+    return out
+
+
+def industry_reports_stale(refresh_days: int, today: str) -> set[str]:
+    """回傳「已經有報告且還新鮮」的產業別，呼叫端拿它排除掉不用重做的。"""
+    from datetime import date as _date, timedelta as _td
+    cutoff = (_date.fromisoformat(today) - _td(days=refresh_days)).isoformat()
+    with get_conn() as conn:
+        rows = conn.execute("SELECT industry FROM industry_reports WHERE date > ?",
+                            (cutoff,)).fetchall()
+    return {r["industry"] for r in rows}
 
 
 def upsert_topic_report(slug: str, row: dict) -> None:

@@ -428,8 +428,9 @@ def _snapshot_meta() -> dict[str, dict]:
 
 def _industry_peers(code: str, prof: dict, by_industry: dict, profiles: dict,
                     revenue: dict, analysis: dict, names: dict, snap: dict,
-                    limit: int = 12) -> dict:
-    """同一個申報產業別的其他個股（依最新月營收由大到小）。純申報值，不含推論。"""
+                    limit: int = 12, industry_slug: dict | None = None) -> dict:
+    """同一個申報產業別的其他個股（依最新月營收由大到小）。純申報值，不含推論。
+    該產業若已有深度分析，一併帶上 report_slug 讓前端顯示連結。"""
     ind = (prof or {}).get("industry", "").strip()
     if not ind:
         return {}
@@ -439,7 +440,8 @@ def _industry_peers(code: str, prof: dict, by_industry: dict, profiles: dict,
             continue
         peers.append({"code": c, "name": _display_name(
             c, profiles.get(c, {}), analysis.get(c, {}), revenue.get(c, {}), names, snap)})
-    return {"industry": ind, "peers": peers, "total": len(by_industry.get(ind, []))}
+    return {"industry": ind, "peers": peers, "total": len(by_industry.get(ind, [])),
+            "report_slug": (industry_slug or {}).get(ind, "")}
 
 
 def _display_name(code: str, prof: dict, ana: dict, rev: dict,
@@ -614,12 +616,61 @@ def render_stock_page() -> Path:
     return path
 
 
+def render_industry_report(industry: str, row: dict) -> Path:
+    """單篇產業深度分析 → docs/industry/<slug>.html。"""
+    cfg = load_config()
+    out_dir = DOCS_DIR / "industry"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    path = out_dir / f"{row['slug']}.html"
+    path.write_text(_env().get_template("industry_report.html").render(
+        site_title=cfg["site"]["title"],
+        generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
+        rel="../", nav_current="industry",
+        r={**row, "industry": industry},
+    ), encoding="utf-8")
+    return path
+
+
+def render_industry_index() -> Path:
+    """產業分析清單 → docs/industry/index.html，含覆蓋進度與尚未分析的清單。
+
+    刻意把「還沒分析的產業」也列出來：使用者才看得出這是逐步累積的（37 類要
+    連跑約一週），而不是以為系統只認得那幾類。
+    """
+    cfg = load_config()
+    out_dir = DOCS_DIR / "industry"
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    profiles = db.all_company_profiles()
+    by_industry: dict[str, int] = {}
+    for prof in profiles.values():
+        ind = (prof.get("industry") or "").strip()
+        if ind:
+            by_industry[ind] = by_industry.get(ind, 0) + 1
+
+    done = db.all_industry_reports()
+    reports = sorted(done.values(), key=lambda r: -(r.get("member_count") or 0))
+    pending = sorted(({"industry": i, "count": n} for i, n in by_industry.items()
+                      if i not in done), key=lambda x: -x["count"])
+
+    path = out_dir / "index.html"
+    path.write_text(_env().get_template("industry_index.html").render(
+        site_title=cfg["site"]["title"],
+        generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
+        rel="../", nav_current="industry",
+        reports=reports, pending=pending,
+        total=len(by_industry), covered_stocks=sum(by_industry.values()),
+    ), encoding="utf-8")
+    return path
+
+
 def render_site() -> list[Path]:
     """重建所有索引頁。每次跑完報告都要呼叫，索引才會包含最新內容。"""
     return [render_index(), render_archive(), render_themes_page(), render_lookup_page(),
             render_submit_page(), render_research_notes(),
             render_weekly_index(), render_monthly_deep_index(), render_picks_page(),
             render_intraday_page(), render_intraday_report_index(), render_stock_page(),
+            render_industry_index(),
             render_stock_analysis_json(), render_stock_info(),
             *rerender_market_pages()]
 
@@ -671,6 +722,8 @@ def render_stock_info() -> Path:
         ind = (prof.get("industry") or "").strip()
         if ind:
             by_industry.setdefault(ind, []).append(code)
+    # 該產業已經有深度分析時，個股彈窗／個股頁要能一鍵點進去看
+    industry_slug = {i: r.get("slug", "") for i, r in db.all_industry_reports().items()}
     for ind, members in by_industry.items():
         members.sort(key=lambda c: -(revenue.get(c, {}).get("revenue") or 0))
 
@@ -714,7 +767,8 @@ def render_stock_info() -> Path:
                     ("period", "revenue", "yoy", "mom", "cum_revenue", "cum_yoy")} if rev else {},
             "themes": themes_by_code.get(code, []),
             "industry_peers": _industry_peers(code, prof, by_industry, profiles,
-                                              revenue, analysis, names, snap),
+                                              revenue, analysis, names, snap,
+                                              industry_slug=industry_slug),
             "desc": ana.get("company_desc", ""),
             "swot": ana.get("swot", {}),
             "sources": ana.get("sources", []),

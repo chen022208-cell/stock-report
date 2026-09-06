@@ -722,6 +722,139 @@ def run_period_facts(days: int = 7) -> None:
           "不可以直接當事實寫進報告。")
 
 
+def _industry_context(industry: str, codes: list[str], profiles: dict,
+                      revenue: dict, themes_by_code: dict, top_n: int = 25) -> tuple[str, dict]:
+    """組出「某個產業的事實包」給 LLM，回傳 (context 文字, 統計)。
+
+    重點在**只餵事實**：每家公司附的是公開資訊觀測站的申報主要經營業務原文
+    ＋政府開放資料的月營收，不含任何本站判讀。LLM 的工作是在這些事實上做產業層
+    綜合分析，而不是憑公司名稱想像它在做什麼——那正是先前寫出假資料的原因。
+    """
+    rows = []
+    for c in codes:
+        r = revenue.get(c, {})
+        rows.append((c, r.get("revenue") or 0))
+    rows.sort(key=lambda x: -x[1])
+
+    total_rev = sum(v for _, v in rows) / 100000.0          # 千元 → 億
+    with_rev = [c for c, v in rows if v]
+    yoys = [revenue[c]["yoy"] for c in with_rev
+            if revenue.get(c, {}).get("yoy") is not None]
+    avg_yoy = sum(yoys) / len(yoys) if yoys else None
+
+    lines = [
+        f"公司家數：{len(codes)} 檔（其中 {len(with_rev)} 檔有月營收申報）",
+        f"合計最新月營收：{total_rev:,.0f} 億元"
+        + (f"，家數加權平均年增率 {avg_yoy:+.1f}%" if avg_yoy is not None else ""),
+        "",
+        f"依最新月營收排序的主要公司（最多 {top_n} 家）——"
+        "「主要經營業務」為公開資訊觀測站申報原文，是這家公司在做什麼的權威依據：",
+    ]
+    for c, _ in rows[:top_n]:
+        prof = profiles.get(c, {})
+        r = revenue.get(c, {})
+        name = prof.get("short_name") or r.get("name") or c
+        amt = (r.get("revenue") or 0) / 100000.0
+        yoy = r.get("yoy")
+        lines.append(
+            f"\n- {c} {name}｜月營收 {amt:,.1f} 億"
+            + (f"、年增 {yoy:+.1f}%" if yoy is not None else "、無月營收資料")
+            + f"\n  申報主要經營業務：{prof.get('business', '（無申報資料）')}"
+        )
+
+    rel_themes = sorted({t for c in codes for t in themes_by_code.get(c, [])})
+    if rel_themes:
+        lines += ["", "本站題材知識庫中與這個產業相關的題材："]
+        lines += [f"- {t}" for t in rel_themes[:15]]
+
+    stats = {"member_count": len(codes), "revenue_yi": round(total_rev, 1)}
+    return "\n".join(lines), stats
+
+
+def run_industry_reports() -> None:
+    """各產業深度分析（申報產業別，37 類涵蓋全市場 2345 檔）。
+
+    為什麼做這一層：個股層的公司判讀必須逐檔查證，全市場照 40 檔/天要兩個月；
+    而產業只有 37 類，而且**每一檔股票一定屬於其中一類**，所以做完 37 份，
+    等於每一檔個股都有可靠的產業脈絡可看，過程中完全不需要臆測個別公司
+    （送進 LLM 的公司資訊全部是申報營業業務＋政府月營收）。
+
+    每次跑 batch_size 類，refresh_days 天內做過的跳過，所以連跑幾天就會補滿，
+    之後定期輪替更新。
+    """
+    cfg = load_config()
+    ic = cfg.get("industry_report", {})
+    batch = int(ic.get("batch_size", 6))
+    refresh_days = int(ic.get("refresh_days", 90))
+    min_members = int(ic.get("min_members", 3))
+    today = today_str()
+
+    profiles = db.all_company_profiles()
+    revenue = db.latest_monthly_revenue()
+    themes_by_code: dict[str, list[str]] = {}
+    for t in db.list_themes_with_stocks():
+        for st in t.get("stocks", []):
+            code = str(st.get("code", "")).strip()
+            if code:
+                themes_by_code.setdefault(code, []).append(t["name"])
+
+    by_industry: dict[str, list[str]] = {}
+    for code, prof in profiles.items():
+        ind = (prof.get("industry") or "").strip()
+        if ind:
+            by_industry.setdefault(ind, []).append(code)
+
+    fresh = db.industry_reports_stale(refresh_days, today)
+    # 家數多的先做：涵蓋到的個股最多，效益最高
+    pending = sorted(((i, c) for i, c in by_industry.items()
+                      if i not in fresh and len(c) >= min_members),
+                     key=lambda kv: -len(kv[1]))
+    if not pending:
+        print(f"[industry] 全部 {len(by_industry)} 類產業都在 {refresh_days} 天內分析過了")
+        return
+
+    print(f"[industry] 待分析 {len(pending)} 類，本次做 {min(batch, len(pending))} 類")
+    made = 0
+    for industry, codes in pending[:batch]:
+        context, stats = _industry_context(industry, codes, profiles, revenue, themes_by_code)
+        report = _safe(lambda i=industry, c=context: llm.write_industry_report(i, c),
+                       {}, f"產業分析 {industry}")
+        if not report or not report.get("sections"):
+            print(f"[industry] {industry}：產出失敗或內容為空，略過")
+            continue
+        sources = [x for x in (report.get("sources") or []) if str(x).strip()]
+        if not sources:
+            # 跟個股逐檔查證同一條規則：沒有查證來源就不寫
+            print(f"[industry] {industry}：沒有查證來源，略過不寫")
+            continue
+
+        slug = render.slugify(industry)
+        row = {
+            "slug": slug, "date": today,
+            "reported_at": now_tpe().strftime("%Y-%m-%d %H:%M:%S"),
+            "title": report.get("title") or f"{industry}：產業深度分析",
+            "summary": report.get("summary", ""),
+            "sections": report.get("sections") or [],
+            "leaders": report.get("leaders") or [],
+            "chain": report.get("chain") or [],
+            "risks": report.get("risks", ""),
+            "outlook": report.get("outlook", ""),
+            "sources": sources,
+            **stats,
+        }
+        db.upsert_industry_report(industry, row)
+        render.render_industry_report(industry, row)
+        made += 1
+        print(f"[industry] 已產出：{industry}（{stats['member_count']} 檔，"
+              f"{stats['revenue_yi']:,.0f} 億，來源 {len(sources)} 個）")
+
+    if made:
+        render.render_industry_index()
+        render.render_stock_info()      # 個股頁要帶上「所屬產業有分析」的連結
+    done = len(db.all_industry_reports())
+    print(f"[industry] 本次產出 {made} 類，累計 {done}/{len(by_industry)} 類")
+
+
 def run_chart_snapshot() -> None:
     """全市場上櫃＋興櫃日K快照 → docs/data/tpex_hist/<code>.json。
 
@@ -1638,6 +1771,7 @@ def main() -> None:
         "intraday-report": run_intraday_deep_report,
         "topic-requests": run_topic_requests,
         "chart-snapshot": run_chart_snapshot,
+        "industry-reports": run_industry_reports,
         "weekly-facts": lambda: run_period_facts(7),
         "monthly-facts": lambda: run_period_facts(31),
     }

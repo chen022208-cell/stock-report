@@ -143,3 +143,13 @@ notify:
   discord_enabled: true      # DISCORD_WEBHOOK_URL 走環境變數
   telegram_enabled: true     # TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID 走環境變數
   # 兩個都設定好的話兩邊都會收到，互不影響；哪個 Secret 沒填就自動略過那個
+
+# ── 各產業深度分析（排程「台股產業深度分析」→ python -m src.main industry-reports）──
+# 以申報產業別為單位，37 類涵蓋全市場 2345 檔。個股層的公司判讀必須逐檔查證
+# （40 檔/天要兩個月），但每檔股票一定屬於某一個產業，所以做完 37 份產業分析
+# 就等於每一檔都有可靠的產業脈絡——而且過程中不需要臆測任何個別公司，送進
+# LLM 的公司資訊全部是申報主要經營業務＋政府開放資料的月營收。
+industry_report:
+  batch_size: 6             # 每次分析幾類（連跑約一週補滿 37 類）
+  refresh_days: 90          # 幾天後排入重新分析
+  min_members: 3            # 家數太少的產業（例如存託憑證 4 檔）不值得單獨成篇

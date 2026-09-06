@@ -127,9 +127,15 @@
   function peersHtml(info) {
     var p = info.industry_peers || {};
     if (!p.industry || !p.peers || !p.peers.length) return "";
+    var reportLink = p.report_slug
+      ? '<p class="sc-biz"><a class="sc-ind-link" href="' + assetBase() + 'industry/'
+        + encodeURIComponent(p.report_slug) + '.html">📊 看「' + esc(p.industry)
+        + '」產業深度分析 →</a></p>'
+      : "";
     return '<div class="sc-sec">'
       + '<div class="sc-sec-h">同產業個股 · ' + esc(p.industry)
       + ' <span class="sc-src">公開資訊觀測站申報產業別</span></div>'
+      + reportLink
       + '<p class="sc-biz">同一申報產業別共 ' + p.total + ' 檔，依最新月營收由大到小列出前 '
       + p.peers.length + ' 檔（點任一檔看該股 K 線與公司資料）：</p>'
       + '<div class="sc-theme-tags">'
