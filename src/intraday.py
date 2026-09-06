@@ -107,6 +107,7 @@ def sync_ref(keep_days: int = 260) -> Path:
             "name": prof.get("full_name") or names.get(code, ""),
             "industry": prof.get("industry", ""),
             "prev_vol": rows[0][1] or 0,
+            "high_5": max(closes[:5]) if closes else None,
             "high_20": max(closes[:20]) if closes else None,
             "high_60": max(closes[:60]) if closes else None,
             "high_120": max(closes[:120]) if closes else None,
@@ -280,13 +281,21 @@ def run_once(cfg: dict, ref: dict, disp_codes: set[str]) -> dict:
     return result
 
 
+# 創新高週期 → ref 裡的欄位。前端「創新高」那個選項會再展開這幾個細分檔位，
+# 使用者才能先挑週期再看名單，而不是只有寫死的「創年新高」一種。
+NEW_HIGH_PERIODS = [("5d", "5天", "high_5"), ("1m", "1月", "high_20"),
+                    ("3m", "3月", "high_60"), ("6m", "半年", "high_120"),
+                    ("1y", "1年", "high_252")]
+
+
 def _rankings(quotes: dict, ref: dict, frac: float, top: int = 30) -> dict:
     vals = list(quotes.values())
     for q in vals:
         r = ref.get(q["code"], {}) or {}
         pv = r.get("prev_vol") or 0
         q["_vr"] = (q["volume"] / (frac * pv)) if (pv > 0 and frac > 0) else 0.0
-        q["_hi252"] = r.get("high_252")
+        for _, _, field in NEW_HIGH_PERIODS:
+            q["_" + field] = r.get(field)
 
     def slim(q):
         return {"code": q["code"], "name": q["name"], "price": q["price"],
@@ -296,12 +305,16 @@ def _rankings(quotes: dict, ref: dict, frac: float, top: int = 30) -> dict:
     up = sorted(vals, key=lambda q: -q["change_pct"])[:top]
     volr = sorted((q for q in vals if q["_vr"] > 0), key=lambda q: -q["_vr"])[:top]
     turn = sorted(vals, key=lambda q: -(q["price"] * q["volume"]))[:top]
-    new_hi = sorted((q for q in vals if q["_hi252"] and q["price"] >= q["_hi252"]),
+    out = {"gainers": [slim(q) for q in up],
+           "volume_ratio": [slim(q) for q in volr],
+           "turnover": [slim(q) for q in turn]}
+    for key, _, field in NEW_HIGH_PERIODS:
+        hi = sorted((q for q in vals if q.get("_" + field) and q["price"] >= q["_" + field]),
                     key=lambda q: -q["change_pct"])[:top]
-    return {"gainers": [slim(q) for q in up],
-            "volume_ratio": [slim(q) for q in volr],
-            "turnover": [slim(q) for q in turn],
-            "new_high_1y": [slim(q) for q in new_hi]}
+        out["new_high_" + key] = [slim(q) for q in hi]
+    # 舊 key 保留：前端可能還是快取住舊版 JS，先讓它不要整區空掉
+    out["new_high_1y"] = out.get("new_high_1y", [])
+    return out
 
 
 def _sector_rotation(quotes: dict, ref: dict) -> list[dict]:

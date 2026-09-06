@@ -18,3 +18,4 @@ agent_llm_queue/
 # 由 .github/workflows/chart-data.yml 每天更新，前端從 raw.githubusercontent 讀。
 docs/data/tpex_hist/
 chart_snap.log
+.claude/launch.json
