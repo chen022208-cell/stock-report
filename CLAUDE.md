@@ -27,6 +27,15 @@
 - **每月深度月報**：Routine「台股深度月報：全球總經＋台股結構＋焦點個股」，
   每月 1 號，產出 `docs/monthly-deep/<年-月>.pdf`。同樣不受網路政策影響。
   下次執行：2026-10-01。
+- **個股逐檔查證**：Routine「台股個股逐檔查證（每天 10 檔）」
+  （trig_01E5mQG59kmfAewV1V79BoBY），cron `0 3 * * *`（每天 11:00 台灣時間）。
+  `LLM_AGENT_MODE=1 python -m src.main verify-stocks`：取市值（最新月營收）
+  最大、`stock_analysis` 還沒有或超過 180 天的個股，一次 10 檔，雲端 CCR
+  session 對每一檔實際 WebSearch 鉅亨／Goodinfo／財報狗／官網／年報查證後
+  才寫 `company_desc`＋SWOT，回覆一定要帶 `sources`（至少 1 個申報值以外的
+  外部來源），查不到就不寫那一檔。有寫入才 commit push、沒有就安靜結束，
+  失敗才 PushNotification。job_config 有預掛 git source。這條**取代**了已停用
+  的全市場 SWOT 批次回填（process_stock_swot_batch）。
 - **重要：`docs/weekly/index.html`／`docs/monthly-deep/index.html` 不要再手寫**。
   這兩頁本來是 Routine 每次執行時手動編輯 HTML（在檔案裡直接加一段 `.card`），
   2026-09-05 發現這樣做的版本忘記幫 nav 連結加 `../` 前綴（這兩頁在子目錄下），
