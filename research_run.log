@@ -11,3 +11,14 @@
 [research] 主題報告已產出：2026-09-07-散熱.html
 [research] 處理主題點播（2026/9/7 上午 1:20:18）：銅箔基板
 [agent-queue] 等待 agent 回覆：agent_llm_queue\8dc0ef2ad50e48078e8b6f24adc79dd2.request.json
+[llm] 主題報告產出失敗：agent 逾時未回覆：agent_llm_queue\8dc0ef2ad50e48078e8b6f24adc79dd2.request.json
+[research] 主題「Cpo」本輪已處理過，略過重複提交
+[research] 主題「Cpo」本輪已處理過，略過重複提交
+[research] 主題「銅箔基板」本輪已處理過，略過重複提交
+[topic] 讀取 GitHub Issue 失敗（可能沒裝 gh 或未登入）：[WinError 2] 系統找不到指定的檔案。
+[render] 個股資料頁 2345 檔（docs/data/stock_info/）
+[research] 本批處理 5 篇提交
+[topic] 已寫入推播內容 _notify_topic.json（2 篇）
+[topic] 已寫入推播內容 _notify_topic.json（1 篇）
+[notify] 未設定 DISCORD_WEBHOOK_URL，略過 Discord 推播
+[notify] 未設定 Telegram 環境變數，略過推播

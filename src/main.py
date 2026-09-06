@@ -1800,16 +1800,17 @@ def run_research_intake() -> None:
     render.render_site()
     print(f"[research] 本批處理 {processed} 篇提交")
 
-    # 點播是使用者自己要的東西，走獨立通道、直接送報告內容
-    _safe(lambda: _write_topic_notify(topic_made), None, "點播推播")
-    for t in topic_failed:
-        _safe(lambda x=t: _write_topic_notify([{
-            "title": f"「{x}」查不到足夠外部來源", "url": "",
-            "sources": [],
-            "row": {"summary": "依站內規則不產出報告（寧可不寫，也不放未經查證的"
-                               "內容）。可以換個更具體的講法再點播一次；"
-                               "結果已記在研究筆記頁。", "sections": []},
-        }]), None, "點播失敗推播")
+    # 點播是使用者自己要的東西，走獨立通道、直接送報告內容。
+    # ⚠️ _write_topic_notify() 每次都會「重寫整個檔案」，所以成功與失敗的通知
+    # 一定要先合成同一個 list、只呼叫一次。之前分開呼叫的版本，失敗那則會把
+    # 前面成功的整批蓋掉（實際發生過：2 篇成功被 1 則失敗覆蓋）。
+    entries = list(topic_made) + [{
+        "title": f"「{t}」查不到足夠外部來源", "url": "", "sources": [],
+        "row": {"summary": "依站內規則不產出報告（寧可不寫，也不放未經查證的"
+                           "內容）。可以換個更具體的講法再點播一次；"
+                           "結果已記在研究筆記頁。", "sections": []},
+    } for t in topic_failed]
+    _safe(lambda: _write_topic_notify(entries), None, "點播推播")
 
     # 一般研究提交（貼文章／貼連結）維持走既有的每日通道
     if processed > len(topic_made) + len(topic_failed):
