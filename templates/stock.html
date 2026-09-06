@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% block title %}個股資料 · {{ site_title }}{% endblock %}
+{% block extra_css %}
+  /* 這一頁把彈窗裡那份內容攤成整頁，所以要把彈窗版面裡「因為在小框框裡」
+     才需要的限制拿掉：不要 max-width、標題可以大一點。 */
+  .sp-wrap{margin-top:8px;}
+  .sp-wrap .sc-title{font-size:26px; margin:0 0 6px;}
+  .sp-back{font-size:13px; color:var(--gold); text-decoration:none;}
+  .sp-search{display:flex; gap:8px; margin:14px 0 6px; flex-wrap:wrap;}
+  .sp-search input{flex:1; min-width:180px; background:var(--surface-2);
+                   border:1px solid var(--hairline); border-radius:var(--radius-sm);
+                   color:var(--text-primary); padding:9px 12px; font:inherit; font-size:14px;}
+  .sp-search button{background:var(--gold); color:#171615; border:0; font:inherit;
+                    font-weight:600; border-radius:var(--radius-sm); padding:9px 18px;
+                    cursor:pointer;}
+  .sp-hint{font-size:12.5px; color:var(--text-muted); margin:0 0 18px;}
+  .sp-empty{font-size:14px; color:var(--text-secondary); margin:24px 0;}
+{% endblock %}
+{% block content %}
+<header>
+  <div class="masthead-label">{{ site_title }}</div>
+  <h1 class="masthead-date">個股資料</h1>
+</header>
+<p class="sp-hint">
+  技術圖＋公司基本資料＋月營收＋題材＋同產業個股。上市走 TWSE 即時資料，
+  上櫃／興櫃走本站每日盤後快照。<a class="sp-back" href="{{ rel }}lookup.html">← 回個股查詢</a>
+</p>
+
+<form class="sp-search" id="spForm" autocomplete="off">
+  <input id="spInput" type="text" placeholder="輸入股票代號，例如 2330／6488／7686" aria-label="股票代號">
+  <button type="submit">查詢</button>
+</form>
+
+<div class="sp-wrap" id="spBody"></div>
+{% endblock %}
+{% block extra_js %}
+<script>
+/* 獨立個股頁：跟彈窗共用 stock-chart.js 的 renderInto()，版面與資料完全一致，
+   差別只在這裡有自己的網址（stock.html?code=2330），可以分享、可以加書籤，
+   而不是只能從別的頁面點出一個彈窗。 */
+(function () {
+  document.body.setAttribute("data-stock-page", "1");   // 讓事件委派改成換頁而不是開彈窗
+
+  function codeFromUrl() {
+    var m = /[?&]code=([^&#]+)/.exec(location.search);
+    return m ? decodeURIComponent(m[1]).trim() : "";
+  }
+
+  function nameFor(code) {
+    return fetch("{{ rel }}data/stock_info/" + encodeURIComponent(code) + ".json")
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (info) { return (info && info.name) || ""; })
+      .catch(function () { return ""; });
+  }
+
+  function show(code) {
+    var body = document.getElementById("spBody");
+    if (!code) {
+      body.innerHTML = '<p class="sp-empty">請在上面輸入股票代號，'
+        + '或從<a href="{{ rel }}lookup.html" style="color:var(--gold)">個股查詢</a>挑一檔。</p>';
+      return;
+    }
+    document.getElementById("spInput").value = code;
+    nameFor(code).then(function (name) {
+      document.title = code + (name ? " " + name : "") + " · {{ site_title }}";
+      window.StockChart.renderInto(body, code, name);
+    });
+  }
+
+  document.getElementById("spForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var v = document.getElementById("spInput").value.trim();
+    if (!v) return;
+    // 用 pushState 換網址，這樣上一頁／分享連結都還是對的
+    history.pushState({}, "", "stock.html?code=" + encodeURIComponent(v));
+    show(v);
+  });
+  window.addEventListener("popstate", function () { show(codeFromUrl()); });
+
+  show(codeFromUrl());
+})();
+</script>
+{% endblock %}

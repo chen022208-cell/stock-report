@@ -632,6 +632,7 @@
     m.id = "sc-modal";
     m.className = "sc-modal";
     m.innerHTML = '<div class="sc-modal-inner">'
+      + '<a class="sc-fullpage" id="sc-fullpage" href="#">開啟完整頁面 ↗</a>'
       + '<button class="sc-close" aria-label="關閉">✕</button>'
       + '<div id="sc-modal-body"></div>'
       + '</div>';
@@ -813,14 +814,13 @@
       .catch(function () { showNoPrice(body, code, name); });
   }
 
-  function open(code, name) {
-    var m = ensureModal();
-    var body = document.getElementById("sc-modal-body");
-    body.innerHTML = '<h3 class="sc-title">' + code + ' ' + (name || "") + '</h3>'
+  // 把「把某一檔畫進某個容器」抽出來，彈窗與獨立個股頁（stock.html）共用同一套
+  // 流程，不會出現兩邊資料或版面不一致。body 可以是彈窗內容區，也可以是整頁的容器。
+  function renderInto(body, code, name) {
+    body.innerHTML = '<h3 class="sc-title">' + esc(code) + ' ' + esc(name || "") + '</h3>'
       + '<p class="sc-loading">讀取股價資料中…</p>';
-    m.classList.add("open");
 
-    loadInfo(code).then(function (info) {
+    return loadInfo(code).then(function (info) {
       var market = info && info.profile ? info.profile.market : "";
       if (market === "tpex" || market === "esb") {
         return openFromSnapshot(body, code, name);
@@ -833,13 +833,22 @@
         return openFromSnapshot(body, code, name);
       });
     }).catch(function (exc) {
-      body.innerHTML = '<h3 class="sc-title">' + code + ' ' + (name || "") + '</h3>'
-        + '<p class="sc-empty">讀取失敗：' + String(exc) + '</p>';
+      body.innerHTML = '<h3 class="sc-title">' + esc(code) + ' ' + esc(name || "") + '</h3>'
+        + '<p class="sc-empty">讀取失敗：' + esc(String(exc)) + '</p>';
       appendSwot(body, code);
     });
   }
 
-  window.StockChart = { open: open, close: close };
+  function open(code, name) {
+    var m = ensureModal();
+    var body = document.getElementById("sc-modal-body");
+    m.classList.add("open");
+    var link = document.getElementById("sc-fullpage");
+    if (link) link.href = assetBase() + "stock.html?code=" + encodeURIComponent(code);
+    return renderInto(body, code, name);
+  }
+
+  window.StockChart = { open: open, close: close, renderInto: renderInto };
 
   // 事件委派：任何有 data-stock-code 屬性的元素都自動可點擊開圖表，
   // 不用每個模板各自綁 onclick。
@@ -847,6 +856,12 @@
     var el = e.target.closest ? e.target.closest("[data-stock-code]") : null;
     if (!el) return;
     e.preventDefault();
-    open(el.getAttribute("data-stock-code"), el.getAttribute("data-stock-name") || "");
+    var code = el.getAttribute("data-stock-code");
+    // 已經在獨立個股頁上時，點同業／關聯個股應該是「換一檔」而不是疊一個彈窗
+    if (document.body.getAttribute("data-stock-page") === "1") {
+      location.href = "stock.html?code=" + encodeURIComponent(code);
+      return;
+    }
+    open(code, el.getAttribute("data-stock-name") || "");
   });
 })();

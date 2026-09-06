@@ -380,7 +380,7 @@ def render_lookup_page() -> Path:
             continue
         prof = profiles.get(code, {})
         market = market_of(code)
-        name = snap.get(code, {}).get("name") or ""
+        name = prof.get("short_name") or snap.get(code, {}).get("name") or ""
         if not name:
             # 申報全名 → 短名（「健生實業股份有限公司」→「健生實業」），
             # 沒有中文短名時至少不要顯示空白。
@@ -444,8 +444,14 @@ def _industry_peers(code: str, prof: dict, by_industry: dict, profiles: dict,
 
 def _display_name(code: str, prof: dict, ana: dict, rev: dict,
                   names: dict, snap: dict) -> str:
-    """個股顯示名。市場通用短名（台積電）優先於申報全名（台灣積體電路製造…）。"""
-    return (names.get(code, "") or snap.get(code, {}).get("name")
+    """個股顯示名。市場通用簡稱（台積電）優先於申報全名（台灣積體電路製造…）。
+
+    company_profile.short_name 排第一，是因為它是唯一「進 git、離線也在」的
+    簡稱來源：熱力圖索引不含興櫃，盤後快照目錄又是 gitignore 的（只存在
+    chart-data 分支），只靠那兩個的話本機重繪就會退化成申報全名。
+    """
+    return ((prof or {}).get("short_name") or names.get(code, "")
+            or snap.get(code, {}).get("name")
             or ana.get("name", "") or rev.get("name", "") or _short_name(prof))
 
 
@@ -589,12 +595,31 @@ def rerender_market_pages() -> list[Path]:
     return out
 
 
+def render_stock_page() -> Path:
+    """獨立個股頁 docs/stock.html?code=XXXX。
+
+    使用者反映「點開後希望有自己的頁面，不要長這樣（彈窗）」。刻意做成一頁吃
+    query string，而不是每檔生一個 HTML：全市場 2300+ 檔各生一頁等於再多幾 MB
+    的靜態檔要進 git，而內容本來就是前端從 stock_info/<code>.json 動態組的，
+    一頁就夠。網址仍然是 stock.html?code=2330，可以分享、可以加書籤。
+    版面與資料跟彈窗共用 stock-chart.js 的 renderInto()，不會兩邊長不一樣。
+    """
+    cfg = load_config()
+    path = DOCS_DIR / "stock.html"
+    path.write_text(_env().get_template("stock.html").render(
+        site_title=cfg["site"]["title"],
+        generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
+        rel="", nav_current="lookup",
+    ), encoding="utf-8")
+    return path
+
+
 def render_site() -> list[Path]:
     """重建所有索引頁。每次跑完報告都要呼叫，索引才會包含最新內容。"""
     return [render_index(), render_archive(), render_themes_page(), render_lookup_page(),
             render_submit_page(), render_research_notes(),
             render_weekly_index(), render_monthly_deep_index(), render_picks_page(),
-            render_intraday_page(), render_intraday_report_index(),
+            render_intraday_page(), render_intraday_report_index(), render_stock_page(),
             render_stock_analysis_json(), render_stock_info(),
             *rerender_market_pages()]
 

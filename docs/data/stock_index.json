@@ -2362,7 +2362,7 @@
     },
     {
       "code": "1260",
-      "name": "富味鄉食品",
+      "name": "富味鄉",
       "industry": "食品工業",
       "market": "esb",
       "change_pct": null,
@@ -2394,7 +2394,7 @@
     },
     {
       "code": "1271",
-      "name": "晨暉生物科技",
+      "name": "晨暉生技",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -2634,7 +2634,7 @@
     },
     {
       "code": "1343",
-      "name": "旭東環保科技",
+      "name": "旭東環保",
       "industry": "綠能環保",
       "market": "esb",
       "change_pct": null,
@@ -3034,7 +3034,7 @@
     },
     {
       "code": "1480",
-      "name": "東盟開發實業",
+      "name": "東盟開發",
       "industry": "鋼鐵工業",
       "market": "esb",
       "change_pct": null,
@@ -3242,7 +3242,7 @@
     },
     {
       "code": "1538",
-      "name": "正峰工業",
+      "name": "正峰",
       "industry": "電機機械",
       "market": "twse",
       "change_pct": null,
@@ -3290,7 +3290,7 @@
     },
     {
       "code": "1563",
-      "name": "巧新科技工業",
+      "name": "巧新",
       "industry": "汽車工業",
       "market": "twse",
       "change_pct": null,
@@ -3378,7 +3378,7 @@
     },
     {
       "code": "1589",
-      "name": "永冠能源科技集團",
+      "name": "永冠-KY",
       "industry": "電機機械",
       "market": "twse",
       "change_pct": null,
@@ -3410,7 +3410,7 @@
     },
     {
       "code": "1594",
-      "name": "日高工程實業",
+      "name": "日高",
       "industry": "電機機械",
       "market": "esb",
       "change_pct": null,
@@ -4330,7 +4330,7 @@
     },
     {
       "code": "2071",
-      "name": "震南鐵線",
+      "name": "震南鐵",
       "industry": "鋼鐵工業",
       "market": "esb",
       "change_pct": null,
@@ -4586,7 +4586,7 @@
     },
     {
       "code": "2245",
-      "name": "詠勝昌",
+      "name": "詠勝昌*",
       "industry": "電機機械",
       "market": "esb",
       "change_pct": null,
@@ -4610,7 +4610,7 @@
     },
     {
       "code": "2249",
-      "name": "湧盛電機",
+      "name": "湧盛",
       "industry": "電機機械",
       "market": "esb",
       "change_pct": null,
@@ -4626,7 +4626,7 @@
     },
     {
       "code": "2252",
-      "name": "為昇科科技",
+      "name": "為昇科",
       "industry": "其他電子業",
       "market": "esb",
       "change_pct": null,
@@ -4650,7 +4650,7 @@
     },
     {
       "code": "2256",
-      "name": "歐特明電子",
+      "name": "歐特明",
       "industry": "其他電子業",
       "market": "esb",
       "change_pct": null,
@@ -6290,7 +6290,7 @@
     },
     {
       "code": "2724",
-      "name": "藝舍國際創新",
+      "name": "藝舍-KY",
       "industry": "其他",
       "market": "tpex",
       "change_pct": null,
@@ -6378,7 +6378,7 @@
     },
     {
       "code": "2741",
-      "name": "人杰老四川餐飲管理顧問(股)",
+      "name": "老四川",
       "industry": "觀光餐旅",
       "market": "esb",
       "change_pct": null,
@@ -6458,7 +6458,7 @@
     },
     {
       "code": "2758",
-      "name": "路易莎職人咖啡",
+      "name": "路易莎咖啡",
       "industry": "觀光餐旅",
       "market": "esb",
       "change_pct": null,
@@ -6474,7 +6474,7 @@
     },
     {
       "code": "2761",
-      "name": "橘焱胡同國際",
+      "name": "橘焱胡同",
       "industry": "觀光餐旅",
       "market": "esb",
       "change_pct": null,
@@ -7018,7 +7018,7 @@
     },
     {
       "code": "2942",
-      "name": "京站實業",
+      "name": "京站",
       "industry": "居家生活",
       "market": "esb",
       "change_pct": null,
@@ -7490,7 +7490,7 @@
     },
     {
       "code": "3064",
-      "name": "泰偉電子",
+      "name": "泰偉",
       "industry": "文化創意業",
       "market": "tpex",
       "change_pct": null,
@@ -7610,7 +7610,7 @@
     },
     {
       "code": "3097",
-      "name": "拍檔科技",
+      "name": "拍檔",
       "industry": "電腦及週邊設備業",
       "market": "esb",
       "change_pct": null,
@@ -7642,7 +7642,7 @@
     },
     {
       "code": "3117",
-      "name": "年程科技",
+      "name": "年程",
       "industry": "電子零組件業",
       "market": "esb",
       "change_pct": null,
@@ -7826,7 +7826,7 @@
     },
     {
       "code": "3184",
-      "name": "微邦科技",
+      "name": "微邦",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -8586,7 +8586,7 @@
     },
     {
       "code": "3473",
-      "name": "智通聯網科技",
+      "name": "智通聯網",
       "industry": "通信網路業",
       "market": "esb",
       "change_pct": null,
@@ -9042,7 +9042,7 @@
     },
     {
       "code": "3585",
-      "name": "聯致科技",
+      "name": "聯致",
       "industry": "電子零組件業",
       "market": "esb",
       "change_pct": null,
@@ -9234,7 +9234,7 @@
     },
     {
       "code": "3632",
-      "name": "研勤科技",
+      "name": "研勤",
       "industry": "通信網路業",
       "market": "tpex",
       "change_pct": null,
@@ -9242,7 +9242,7 @@
     },
     {
       "code": "3633",
-      "name": "云光科技",
+      "name": "云光",
       "industry": "光電業",
       "market": "esb",
       "change_pct": null,
@@ -9250,7 +9250,7 @@
     },
     {
       "code": "3644",
-      "name": "凌嘉科技",
+      "name": "凌嘉科",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -9290,7 +9290,7 @@
     },
     {
       "code": "3659",
-      "name": "百辰光電",
+      "name": "百辰",
       "industry": "光電業",
       "market": "esb",
       "change_pct": null,
@@ -9370,7 +9370,7 @@
     },
     {
       "code": "3678",
-      "name": "聯享光電",
+      "name": "聯享",
       "industry": "光電業",
       "market": "esb",
       "change_pct": null,
@@ -9674,7 +9674,7 @@
     },
     {
       "code": "4115",
-      "name": "善德生化科技",
+      "name": "善德生技",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -9842,7 +9842,7 @@
     },
     {
       "code": "4154",
-      "name": "樂威科",
+      "name": "樂威科-KY",
       "industry": "其他",
       "market": "tpex",
       "change_pct": null,
@@ -9938,7 +9938,7 @@
     },
     {
       "code": "4170",
-      "name": "鑫品生醫科技",
+      "name": "鑫品生醫",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -9954,7 +9954,7 @@
     },
     {
       "code": "4172",
-      "name": "因華生技製藥",
+      "name": "因華",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -10002,7 +10002,7 @@
     },
     {
       "code": "4186",
-      "name": "台灣尖端先進生技醫藥(股)",
+      "name": "尖端醫",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -10034,7 +10034,7 @@
     },
     {
       "code": "4194",
-      "name": "禾伸堂生技",
+      "name": "禾生技",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -10050,7 +10050,7 @@
     },
     {
       "code": "4197",
-      "name": "暐世生物科技",
+      "name": "暐世",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -10130,7 +10130,7 @@
     },
     {
       "code": "4406",
-      "name": "新昕纖維",
+      "name": "新昕纖",
       "industry": "紡織纖維",
       "market": "tpex",
       "change_pct": null,
@@ -10202,7 +10202,7 @@
     },
     {
       "code": "4431",
-      "name": "敏成健康科技",
+      "name": "敏成健康",
       "industry": "其他",
       "market": "esb",
       "change_pct": null,
@@ -10394,7 +10394,7 @@
     },
     {
       "code": "4537",
-      "name": "旭東機械工業",
+      "name": "旭東",
       "industry": "光電業",
       "market": "esb",
       "change_pct": null,
@@ -10442,7 +10442,7 @@
     },
     {
       "code": "4544",
-      "name": "春日機械工業",
+      "name": "春日",
       "industry": "電機機械",
       "market": "esb",
       "change_pct": null,
@@ -10466,7 +10466,7 @@
     },
     {
       "code": "4550",
-      "name": "長佳機電工程",
+      "name": "長佳",
       "industry": "電機機械",
       "market": "tpex",
       "change_pct": null,
@@ -10490,7 +10490,7 @@
     },
     {
       "code": "4553",
-      "name": "盛復工業",
+      "name": "盛復",
       "industry": "電機機械",
       "market": "esb",
       "change_pct": null,
@@ -10538,7 +10538,7 @@
     },
     {
       "code": "4559",
-      "name": "久裕興業科技",
+      "name": "久裕興",
       "industry": "運動休閒",
       "market": "esb",
       "change_pct": null,
@@ -10586,7 +10586,7 @@
     },
     {
       "code": "4565",
-      "name": "宏偉電機工業",
+      "name": "宏偉",
       "industry": "電機機械",
       "market": "esb",
       "change_pct": null,
@@ -10618,7 +10618,7 @@
     },
     {
       "code": "4570",
-      "name": "傑生工業",
+      "name": "傑生",
       "industry": "電機機械",
       "market": "esb",
       "change_pct": null,
@@ -10642,7 +10642,7 @@
     },
     {
       "code": "4573",
-      "name": "高明鐵企業",
+      "name": "高明鐵",
       "industry": "電機機械",
       "market": "esb",
       "change_pct": null,
@@ -10650,7 +10650,7 @@
     },
     {
       "code": "4575",
-      "name": "銓寶工業",
+      "name": "銓寶",
       "industry": "電機機械",
       "market": "esb",
       "change_pct": null,
@@ -10834,7 +10834,7 @@
     },
     {
       "code": "4724",
-      "name": "宣捷幹細胞生技",
+      "name": "宣捷幹細胞",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -10866,7 +10866,7 @@
     },
     {
       "code": "4732",
-      "name": "彥臣生技藥品",
+      "name": "彥臣",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -10898,7 +10898,7 @@
     },
     {
       "code": "4738",
-      "name": "大同精密化學",
+      "name": "大同精化",
       "industry": "化學工業",
       "market": "esb",
       "change_pct": null,
@@ -11066,7 +11066,7 @@
     },
     {
       "code": "4804",
-      "name": "大略國際控股",
+      "name": "大略-KY",
       "industry": "觀光餐旅",
       "market": "tpex",
       "change_pct": null,
@@ -11202,7 +11202,7 @@
     },
     {
       "code": "4925",
-      "name": "智微科技",
+      "name": "智微",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -11578,7 +11578,7 @@
     },
     {
       "code": "5205",
-      "name": "中茂能資系統整合科技(股)",
+      "name": "中茂",
       "industry": "綠能環保",
       "market": "tpex",
       "change_pct": null,
@@ -11714,7 +11714,7 @@
     },
     {
       "code": "5240",
-      "name": "建騰創達科技",
+      "name": "建騰",
       "industry": "光電業",
       "market": "esb",
       "change_pct": null,
@@ -11746,7 +11746,7 @@
     },
     {
       "code": "5246",
-      "name": "勵威電子",
+      "name": "勵威",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -11754,7 +11754,7 @@
     },
     {
       "code": "5248",
-      "name": "景傳光電",
+      "name": "景傳",
       "industry": "光電業",
       "market": "esb",
       "change_pct": null,
@@ -11786,7 +11786,7 @@
     },
     {
       "code": "5262",
-      "name": "立達國際電子",
+      "name": "立達",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -11802,7 +11802,7 @@
     },
     {
       "code": "5267",
-      "name": "龍翩真空科技",
+      "name": "龍翩",
       "industry": "光電業",
       "market": "esb",
       "change_pct": null,
@@ -11818,7 +11818,7 @@
     },
     {
       "code": "5271",
-      "name": "紘通企業",
+      "name": "紘通",
       "industry": "電子零組件業",
       "market": "esb",
       "change_pct": null,
@@ -11922,7 +11922,7 @@
     },
     {
       "code": "5297",
-      "name": "廣化科技",
+      "name": "廣化",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -11970,7 +11970,7 @@
     },
     {
       "code": "5310",
-      "name": "天剛資訊",
+      "name": "天剛",
       "industry": "資訊服務業",
       "market": "tpex",
       "change_pct": null,
@@ -12458,7 +12458,7 @@
     },
     {
       "code": "5520",
-      "name": "力泰建設企業",
+      "name": "力泰",
       "industry": "建材營造",
       "market": "tpex",
       "change_pct": null,
@@ -12642,7 +12642,7 @@
     },
     {
       "code": "5703",
-      "name": "亞都麗緻大飯店",
+      "name": "亞都麗緻",
       "industry": "觀光餐旅",
       "market": "tpex",
       "change_pct": null,
@@ -12666,7 +12666,7 @@
     },
     {
       "code": "5859",
-      "name": "遠雄人壽保險事業",
+      "name": "遠壽",
       "industry": "金融業",
       "market": "esb",
       "change_pct": null,
@@ -12674,7 +12674,7 @@
     },
     {
       "code": "5863",
-      "name": "瑞興商業銀行",
+      "name": "瑞興銀",
       "industry": "金融業",
       "market": "esb",
       "change_pct": null,
@@ -12762,7 +12762,7 @@
     },
     {
       "code": "5906",
-      "name": "台南生活(開曼)",
+      "name": "台南-KY",
       "industry": "貿易百貨",
       "market": "twse",
       "change_pct": null,
@@ -12842,7 +12842,7 @@
     },
     {
       "code": "6027",
-      "name": "德信綜合證券(股)",
+      "name": "德信",
       "industry": "金融業",
       "market": "esb",
       "change_pct": null,
@@ -13042,7 +13042,7 @@
     },
     {
       "code": "6129",
-      "name": "普誠科技",
+      "name": "普誠",
       "industry": "半導體業",
       "market": "tpex",
       "change_pct": null,
@@ -13698,7 +13698,7 @@
     },
     {
       "code": "6228",
-      "name": "全譜科技",
+      "name": "全譜",
       "industry": "電腦及週邊設備業",
       "market": "tpex",
       "change_pct": null,
@@ -14154,7 +14154,7 @@
     },
     {
       "code": "6428",
-      "name": "台灣淘米科技",
+      "name": "台灣淘米",
       "industry": "文化創意業",
       "market": "esb",
       "change_pct": null,
@@ -14258,7 +14258,7 @@
     },
     {
       "code": "6461",
-      "name": "益得生物科技",
+      "name": "益得",
       "industry": "生技醫療業",
       "market": "tpex",
       "change_pct": null,
@@ -14290,7 +14290,7 @@
     },
     {
       "code": "6467",
-      "name": "泰合生技藥品",
+      "name": "泰合",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -14322,7 +14322,7 @@
     },
     {
       "code": "6473",
-      "name": "美賣科技",
+      "name": "美賣*",
       "industry": "數位雲端",
       "market": "esb",
       "change_pct": null,
@@ -14402,7 +14402,7 @@
     },
     {
       "code": "6493",
-      "name": "雷虎生技",
+      "name": "雷虎生",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -14418,7 +14418,7 @@
     },
     {
       "code": "6496",
-      "name": "科懋生物科技",
+      "name": "科懋",
       "industry": "生技醫療業",
       "market": "tpex",
       "change_pct": null,
@@ -14610,7 +14610,7 @@
     },
     {
       "code": "6536",
-      "name": "碩豐數位科技",
+      "name": "碩豐",
       "industry": "資訊服務業",
       "market": "esb",
       "change_pct": null,
@@ -14626,7 +14626,7 @@
     },
     {
       "code": "6539",
-      "name": "麗彤生醫科技",
+      "name": "麗彤",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -14682,7 +14682,7 @@
     },
     {
       "code": "6549",
-      "name": "景凱生物科技",
+      "name": "景凱",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -14706,7 +14706,7 @@
     },
     {
       "code": "6555",
-      "name": "榮炭科技",
+      "name": "榮炭",
       "industry": "電子零組件業",
       "market": "esb",
       "change_pct": null,
@@ -14730,7 +14730,7 @@
     },
     {
       "code": "6559",
-      "name": "研晶光電",
+      "name": "研晶",
       "industry": "光電業",
       "market": "esb",
       "change_pct": null,
@@ -14754,7 +14754,7 @@
     },
     {
       "code": "6563",
-      "name": "映智科技",
+      "name": "映智",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -14762,7 +14762,7 @@
     },
     {
       "code": "6564",
-      "name": "安特羅生物科技",
+      "name": "安特羅",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -14770,7 +14770,7 @@
     },
     {
       "code": "6565",
-      "name": "物聯智慧",
+      "name": "物聯",
       "industry": "數位雲端",
       "market": "esb",
       "change_pct": null,
@@ -14802,7 +14802,7 @@
     },
     {
       "code": "6572",
-      "name": "博錸生技",
+      "name": "博錸",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -14858,7 +14858,7 @@
     },
     {
       "code": "6580",
-      "name": "台睿生物科技",
+      "name": "台睿",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -14882,7 +14882,7 @@
     },
     {
       "code": "6583",
-      "name": "友松娛樂",
+      "name": "友松",
       "industry": "文化創意業",
       "market": "esb",
       "change_pct": null,
@@ -14906,7 +14906,7 @@
     },
     {
       "code": "6586",
-      "name": "醣基生醫",
+      "name": "醣基",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -14978,7 +14978,7 @@
     },
     {
       "code": "6595",
-      "name": "光禹國際數位娛樂開發(股)",
+      "name": "光禹國際",
       "industry": "文化創意業",
       "market": "esb",
       "change_pct": null,
@@ -15026,7 +15026,7 @@
     },
     {
       "code": "6604",
-      "name": "儒億科技",
+      "name": "儒億",
       "industry": "電機機械",
       "market": "esb",
       "change_pct": null,
@@ -15058,7 +15058,7 @@
     },
     {
       "code": "6610",
-      "name": "安成生物科技",
+      "name": "安成生技",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -15090,7 +15090,7 @@
     },
     {
       "code": "6615",
-      "name": "慧智基因",
+      "name": "慧智",
       "industry": "生技醫療業",
       "market": "tpex",
       "change_pct": null,
@@ -15114,7 +15114,7 @@
     },
     {
       "code": "6618",
-      "name": "永虹先進材料",
+      "name": "永虹先進",
       "industry": "化學工業",
       "market": "esb",
       "change_pct": null,
@@ -15130,7 +15130,7 @@
     },
     {
       "code": "6621",
-      "name": "華宇藥品",
+      "name": "華宇藥",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -15138,7 +15138,7 @@
     },
     {
       "code": "6622",
-      "name": "百聿數碼創意",
+      "name": "百聿數碼",
       "industry": "文化創意業",
       "market": "esb",
       "change_pct": null,
@@ -15170,7 +15170,7 @@
     },
     {
       "code": "6634",
-      "name": "欣耀生醫",
+      "name": "欣耀",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -15186,7 +15186,7 @@
     },
     {
       "code": "6638",
-      "name": "沅聖科技",
+      "name": "沅聖",
       "industry": "電腦及週邊設備業",
       "market": "esb",
       "change_pct": null,
@@ -15242,7 +15242,7 @@
     },
     {
       "code": "6648",
-      "name": "斯其大科技",
+      "name": "斯其大",
       "industry": "其他電子業",
       "market": "esb",
       "change_pct": null,
@@ -15258,7 +15258,7 @@
     },
     {
       "code": "6650",
-      "name": "帝圖科技文化",
+      "name": "帝圖",
       "industry": "文化創意業",
       "market": "esb",
       "change_pct": null,
@@ -15338,7 +15338,7 @@
     },
     {
       "code": "6665",
-      "name": "康聯生醫科技",
+      "name": "康聯生醫",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -15402,7 +15402,7 @@
     },
     {
       "code": "6673",
-      "name": "和詮科技",
+      "name": "和詮",
       "industry": "光電業",
       "market": "esb",
       "change_pct": null,
@@ -15418,7 +15418,7 @@
     },
     {
       "code": "6676",
-      "name": "祥翊製藥",
+      "name": "祥翊",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -15426,7 +15426,7 @@
     },
     {
       "code": "6677",
-      "name": "瑩碩生技醫藥",
+      "name": "瑩碩生技",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -15522,7 +15522,7 @@
     },
     {
       "code": "6696",
-      "name": "仁新醫藥",
+      "name": "仁新*",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -15554,7 +15554,7 @@
     },
     {
       "code": "6704",
-      "name": "國璽幹細胞應用技術",
+      "name": "國璽幹細胞",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -15562,7 +15562,7 @@
     },
     {
       "code": "6705",
-      "name": "振躍精密滑軌",
+      "name": "振躍精密",
       "industry": "電機機械",
       "market": "esb",
       "change_pct": null,
@@ -15658,7 +15658,7 @@
     },
     {
       "code": "6723",
-      "name": "傑智環境科技",
+      "name": "傑智環境",
       "industry": "綠能環保",
       "market": "esb",
       "change_pct": null,
@@ -15722,7 +15722,7 @@
     },
     {
       "code": "6734",
-      "name": "安盛生科",
+      "name": "安盛生",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -15738,7 +15738,7 @@
     },
     {
       "code": "6737",
-      "name": "秀育企業",
+      "name": "秀育",
       "industry": "電腦及週邊設備業",
       "market": "esb",
       "change_pct": null,
@@ -15746,7 +15746,7 @@
     },
     {
       "code": "6738",
-      "name": "鼎恒數位科技",
+      "name": "鼎恒",
       "industry": "資訊服務業",
       "market": "esb",
       "change_pct": null,
@@ -15786,7 +15786,7 @@
     },
     {
       "code": "6744",
-      "name": "豐技生物科技",
+      "name": "豐技生技",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -15866,7 +15866,7 @@
     },
     {
       "code": "6758",
-      "name": "冠亞生技",
+      "name": "冠亞",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -15882,7 +15882,7 @@
     },
     {
       "code": "6762",
-      "name": "達亞國際",
+      "name": "達亞",
       "industry": "生技醫療業",
       "market": "tpex",
       "change_pct": null,
@@ -15898,7 +15898,7 @@
     },
     {
       "code": "6767",
-      "name": "台灣微創醫療器材",
+      "name": "台微醫",
       "industry": "生技醫療業",
       "market": "tpex",
       "change_pct": null,
@@ -15946,7 +15946,7 @@
     },
     {
       "code": "6780",
-      "name": "學習王科技",
+      "name": "學習王",
       "industry": "文化創意業",
       "market": "esb",
       "change_pct": null,
@@ -15986,7 +15986,7 @@
     },
     {
       "code": "6786",
-      "name": "芯測科技",
+      "name": "芯測",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -15994,7 +15994,7 @@
     },
     {
       "code": "6787",
-      "name": "晶瑞光電",
+      "name": "晶瑞光",
       "industry": "光電業",
       "market": "esb",
       "change_pct": null,
@@ -16042,7 +16042,7 @@
     },
     {
       "code": "6793",
-      "name": "天力離岸風電科技",
+      "name": "天力離岸",
       "industry": "其他",
       "market": "esb",
       "change_pct": null,
@@ -16066,7 +16066,7 @@
     },
     {
       "code": "6797",
-      "name": "台灣圓點奈米技術",
+      "name": "圓點奈米",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -16074,7 +16074,7 @@
     },
     {
       "code": "6798",
-      "name": "展逸國際企業",
+      "name": "展逸",
       "industry": "運動休閒",
       "market": "esb",
       "change_pct": null,
@@ -16122,7 +16122,7 @@
     },
     {
       "code": "6808",
-      "name": "三鼎生物科技",
+      "name": "三鼎生技",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -16146,7 +16146,7 @@
     },
     {
       "code": "6812",
-      "name": "梭特科技",
+      "name": "梭特",
       "industry": "光電業",
       "market": "esb",
       "change_pct": null,
@@ -16170,7 +16170,7 @@
     },
     {
       "code": "6816",
-      "name": "捷智商訊科技",
+      "name": "捷智商訊",
       "industry": "資訊服務業",
       "market": "esb",
       "change_pct": null,
@@ -16178,7 +16178,7 @@
     },
     {
       "code": "6817",
-      "name": "溫士頓醫藥",
+      "name": "溫士頓",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -16186,7 +16186,7 @@
     },
     {
       "code": "6818",
-      "name": "連騰科技",
+      "name": "連騰",
       "industry": "通信網路業",
       "market": "esb",
       "change_pct": null,
@@ -16194,7 +16194,7 @@
     },
     {
       "code": "6819",
-      "name": "眾智光電科技",
+      "name": "眾智",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -16202,7 +16202,7 @@
     },
     {
       "code": "6820",
-      "name": "連訊通信",
+      "name": "連訊",
       "industry": "通信網路業",
       "market": "esb",
       "change_pct": null,
@@ -16234,7 +16234,7 @@
     },
     {
       "code": "6826",
-      "name": "和淞科技",
+      "name": "和淞",
       "industry": "其他電子業",
       "market": "esb",
       "change_pct": null,
@@ -16242,7 +16242,7 @@
     },
     {
       "code": "6827",
-      "name": "巨生生醫",
+      "name": "巨生醫",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -16274,7 +16274,7 @@
     },
     {
       "code": "6832",
-      "name": "金鼎聯合科技纖維",
+      "name": "金鼎科",
       "industry": "其他",
       "market": "esb",
       "change_pct": null,
@@ -16338,7 +16338,7 @@
     },
     {
       "code": "6842",
-      "name": "瑞宇國際",
+      "name": "瑞宇",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -16370,7 +16370,7 @@
     },
     {
       "code": "6847",
-      "name": "普瑞博生技",
+      "name": "普瑞博",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -16378,7 +16378,7 @@
     },
     {
       "code": "6848",
-      "name": "拉法生醫",
+      "name": "拉法醫",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -16394,7 +16394,7 @@
     },
     {
       "code": "6850",
-      "name": "光鼎生物科技",
+      "name": "光鼎生技",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -16474,7 +16474,7 @@
     },
     {
       "code": "6864",
-      "name": "元樟生物科技",
+      "name": "元樟生技",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -16498,7 +16498,7 @@
     },
     {
       "code": "6868",
-      "name": "采威國際資訊",
+      "name": "采威國際",
       "industry": "資訊服務業",
       "market": "esb",
       "change_pct": null,
@@ -16554,7 +16554,7 @@
     },
     {
       "code": "6876",
-      "name": "朗齊生物醫學",
+      "name": "朗齊生醫*",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -16570,7 +16570,7 @@
     },
     {
       "code": "6878",
-      "name": "歐付寶電子支付",
+      "name": "歐付寶",
       "industry": "金融業",
       "market": "esb",
       "change_pct": null,
@@ -16578,7 +16578,7 @@
     },
     {
       "code": "6879",
-      "name": "大江基因醫學",
+      "name": "大江基因",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -16618,7 +16618,7 @@
     },
     {
       "code": "6886",
-      "name": "遠東生物科技",
+      "name": "遠東生技",
       "industry": "食品工業",
       "market": "esb",
       "change_pct": null,
@@ -16642,7 +16642,7 @@
     },
     {
       "code": "6891",
-      "name": "樂迦再生科技",
+      "name": "樂迦再生",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -16674,7 +16674,7 @@
     },
     {
       "code": "6898",
-      "name": "程曦資訊整合",
+      "name": "程曦資訊",
       "industry": "資訊服務業",
       "market": "esb",
       "change_pct": null,
@@ -16714,7 +16714,7 @@
     },
     {
       "code": "6904",
-      "name": "伯鑫工具",
+      "name": "伯鑫",
       "industry": "其他",
       "market": "tpex",
       "change_pct": null,
@@ -16762,7 +16762,7 @@
     },
     {
       "code": "6911",
-      "name": "群運環保",
+      "name": "群運",
       "industry": "其他",
       "market": "esb",
       "change_pct": null,
@@ -16770,7 +16770,7 @@
     },
     {
       "code": "6912",
-      "name": "益鈞環保科技",
+      "name": "益鈞環科*",
       "industry": "綠能環保",
       "market": "esb",
       "change_pct": null,
@@ -16794,7 +16794,7 @@
     },
     {
       "code": "6915",
-      "name": "美強光學",
+      "name": "美強光",
       "industry": "電子零組件業",
       "market": "esb",
       "change_pct": null,
@@ -16810,7 +16810,7 @@
     },
     {
       "code": "6917",
-      "name": "竟天生物科技",
+      "name": "竟天",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -16922,7 +16922,7 @@
     },
     {
       "code": "6932",
-      "name": "水星生醫",
+      "name": "水星生醫*",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -16978,7 +16978,7 @@
     },
     {
       "code": "6939",
-      "name": "啟弘生物科技",
+      "name": "啟弘生技",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -16986,7 +16986,7 @@
     },
     {
       "code": "6940",
-      "name": "格斯科技",
+      "name": "格斯科技*",
       "industry": "電子零組件業",
       "market": "esb",
       "change_pct": null,
@@ -17026,7 +17026,7 @@
     },
     {
       "code": "6949",
-      "name": "沛爾生技醫藥",
+      "name": "沛爾生醫*-創",
       "industry": "生技醫療業",
       "market": "twse",
       "change_pct": null,
@@ -17034,7 +17034,7 @@
     },
     {
       "code": "6950",
-      "name": "科科科技",
+      "name": "科科科技-KY",
       "industry": "數位雲端",
       "market": "esb",
       "change_pct": null,
@@ -17098,7 +17098,7 @@
     },
     {
       "code": "6959",
-      "name": "兆捷科技國際",
+      "name": "兆捷科技",
       "industry": "化學工業",
       "market": "esb",
       "change_pct": null,
@@ -17122,7 +17122,7 @@
     },
     {
       "code": "6963",
-      "name": "品元實業",
+      "name": "品元",
       "industry": "食品工業",
       "market": "esb",
       "change_pct": null,
@@ -17170,7 +17170,7 @@
     },
     {
       "code": "6972",
-      "name": "博瑞達應用材料",
+      "name": "博瑞達應材",
       "industry": "化學工業",
       "market": "esb",
       "change_pct": null,
@@ -17178,7 +17178,7 @@
     },
     {
       "code": "6973",
-      "name": "永立榮生醫",
+      "name": "永立榮",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -17186,7 +17186,7 @@
     },
     {
       "code": "6976",
-      "name": "英屬開曼群島商育世博(股)",
+      "name": "育世博-KY",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -17194,7 +17194,7 @@
     },
     {
       "code": "6977",
-      "name": "聯純科技",
+      "name": "聯純",
       "industry": "綠能環保",
       "market": "esb",
       "change_pct": null,
@@ -17202,7 +17202,7 @@
     },
     {
       "code": "6979",
-      "name": "勝釩科技",
+      "name": "勝釩",
       "industry": "光電業",
       "market": "esb",
       "change_pct": null,
@@ -17234,7 +17234,7 @@
     },
     {
       "code": "6984",
-      "name": "交流資服",
+      "name": "ACpay",
       "industry": "數位雲端",
       "market": "esb",
       "change_pct": null,
@@ -17250,7 +17250,7 @@
     },
     {
       "code": "6987",
-      "name": "寶晶能源",
+      "name": "寶晶能源*",
       "industry": "綠能環保",
       "market": "esb",
       "change_pct": null,
@@ -17266,7 +17266,7 @@
     },
     {
       "code": "6990",
-      "name": "華鉬實業",
+      "name": "華鉬",
       "industry": "綠能環保",
       "market": "esb",
       "change_pct": null,
@@ -17306,7 +17306,7 @@
     },
     {
       "code": "6997",
-      "name": "博弘雲端科技",
+      "name": "博弘",
       "industry": "數位雲端",
       "market": "tpex",
       "change_pct": null,
@@ -17330,7 +17330,7 @@
     },
     {
       "code": "7415",
-      "name": "元澄半導體科技",
+      "name": "元澄半導體",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -17346,7 +17346,7 @@
     },
     {
       "code": "7419",
-      "name": "達勝科技",
+      "name": "達勝",
       "industry": "電子零組件業",
       "market": "esb",
       "change_pct": null,
@@ -17354,7 +17354,7 @@
     },
     {
       "code": "7422",
-      "name": "鴻林堂生物科技",
+      "name": "鴻林堂",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -17362,7 +17362,7 @@
     },
     {
       "code": "7427",
-      "name": "華上生技醫藥",
+      "name": "華上生醫",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -17370,7 +17370,7 @@
     },
     {
       "code": "7443",
-      "name": "凡事康流體科技",
+      "name": "凡事康",
       "industry": "其他",
       "market": "esb",
       "change_pct": null,
@@ -17394,7 +17394,7 @@
     },
     {
       "code": "7516",
-      "name": "清淨海生技",
+      "name": "清淨海",
       "industry": "其他",
       "market": "esb",
       "change_pct": null,
@@ -17442,7 +17442,7 @@
     },
     {
       "code": "7561",
-      "name": "光晟生物科技",
+      "name": "光晟生技",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -17458,7 +17458,7 @@
     },
     {
       "code": "7566",
-      "name": "亞果遊艇開發",
+      "name": "亞果遊艇",
       "industry": "觀光餐旅",
       "market": "esb",
       "change_pct": null,
@@ -17498,7 +17498,7 @@
     },
     {
       "code": "7595",
-      "name": "世基生物醫學",
+      "name": "世基生醫",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -17506,7 +17506,7 @@
     },
     {
       "code": "7607",
-      "name": "通用幹細胞",
+      "name": "通用幹細胞*",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -17546,7 +17546,7 @@
     },
     {
       "code": "7686",
-      "name": "捷立康生物科技",
+      "name": "捷立康",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -17562,7 +17562,7 @@
     },
     {
       "code": "7702",
-      "name": "前端離岸風電設備製造（股）",
+      "name": "前端風電",
       "industry": "綠能環保",
       "market": "esb",
       "change_pct": null,
@@ -17602,7 +17602,7 @@
     },
     {
       "code": "7707",
-      "name": "益芯科技",
+      "name": "益芯科",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -17698,7 +17698,7 @@
     },
     {
       "code": "7719",
-      "name": "碳基科技",
+      "name": "碳基",
       "industry": "其他",
       "market": "esb",
       "change_pct": null,
@@ -17730,7 +17730,7 @@
     },
     {
       "code": "7724",
-      "name": "諾亞克科技",
+      "name": "諾亞克",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -17738,7 +17738,7 @@
     },
     {
       "code": "7725",
-      "name": "列特博生技",
+      "name": "列特博",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -17746,7 +17746,7 @@
     },
     {
       "code": "7726",
-      "name": "暄達醫學科技",
+      "name": "暄達",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -17762,7 +17762,7 @@
     },
     {
       "code": "7729",
-      "name": "仲恩生醫科技",
+      "name": "仲恩生醫",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -17778,7 +17778,7 @@
     },
     {
       "code": "7731",
-      "name": "火星生技",
+      "name": "火星生技*",
       "industry": "食品工業",
       "market": "esb",
       "change_pct": null,
@@ -17802,7 +17802,7 @@
     },
     {
       "code": "7735",
-      "name": "台灣智慧雲端服務",
+      "name": "台智雲",
       "industry": "資訊服務業",
       "market": "esb",
       "change_pct": null,
@@ -17818,7 +17818,7 @@
     },
     {
       "code": "7737",
-      "name": "凱鈿行動科技",
+      "name": "凱鈿",
       "industry": "數位雲端",
       "market": "esb",
       "change_pct": null,
@@ -17842,7 +17842,7 @@
     },
     {
       "code": "7742",
-      "name": "天弘化學",
+      "name": "天弘化",
       "industry": "化學工業",
       "market": "esb",
       "change_pct": null,
@@ -17866,7 +17866,7 @@
     },
     {
       "code": "7745",
-      "name": "紅陽科技",
+      "name": "紅陽",
       "industry": "數位雲端",
       "market": "esb",
       "change_pct": null,
@@ -17914,7 +17914,7 @@
     },
     {
       "code": "7752",
-      "name": "世紀樺欣風能",
+      "name": "世紀樺欣",
       "industry": "綠能環保",
       "market": "esb",
       "change_pct": null,
@@ -17930,7 +17930,7 @@
     },
     {
       "code": "7754",
-      "name": "安基生技新藥",
+      "name": "安基生技",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -17938,7 +17938,7 @@
     },
     {
       "code": "7756",
-      "name": "多那之國際",
+      "name": "多那之",
       "industry": "觀光餐旅",
       "market": "esb",
       "change_pct": null,
@@ -17962,7 +17962,7 @@
     },
     {
       "code": "7759",
-      "name": "視航生物醫學",
+      "name": "視航生醫",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -17978,7 +17978,7 @@
     },
     {
       "code": "7761",
-      "name": "三大未來科技",
+      "name": "三大未來",
       "industry": "綠能環保",
       "market": "esb",
       "change_pct": null,
@@ -17986,7 +17986,7 @@
     },
     {
       "code": "7762",
-      "name": "吉晟生技",
+      "name": "吉晟生",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -18002,7 +18002,7 @@
     },
     {
       "code": "7764",
-      "name": "聖州企業",
+      "name": "聖州",
       "industry": "其他",
       "market": "esb",
       "change_pct": null,
@@ -18050,7 +18050,7 @@
     },
     {
       "code": "7771",
-      "name": "綠基企業",
+      "name": "綠基",
       "industry": "光電業",
       "market": "esb",
       "change_pct": null,
@@ -18090,7 +18090,7 @@
     },
     {
       "code": "7779",
-      "name": "鍇睿國際數位",
+      "name": "鍇睿國際",
       "industry": "運動休閒",
       "market": "esb",
       "change_pct": null,
@@ -18106,7 +18106,7 @@
     },
     {
       "code": "7781",
-      "name": "昕力資訊",
+      "name": "昕力資*",
       "industry": "數位雲端",
       "market": "esb",
       "change_pct": null,
@@ -18122,7 +18122,7 @@
     },
     {
       "code": "7783",
-      "name": "佳運重機械工程",
+      "name": "佳運",
       "industry": "綠能環保",
       "market": "esb",
       "change_pct": null,
@@ -18130,7 +18130,7 @@
     },
     {
       "code": "7784",
-      "name": "安邦生技",
+      "name": "安邦生技*",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -18138,7 +18138,7 @@
     },
     {
       "code": "7785",
-      "name": "北祥科技服務",
+      "name": "北祥科服",
       "industry": "數位雲端",
       "market": "esb",
       "change_pct": null,
@@ -18162,7 +18162,7 @@
     },
     {
       "code": "7789",
-      "name": "開展餐飲",
+      "name": "開展",
       "industry": "觀光餐旅",
       "market": "esb",
       "change_pct": null,
@@ -18170,7 +18170,7 @@
     },
     {
       "code": "7790",
-      "name": "思必瑞特生技",
+      "name": "思必瑞特",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -18210,7 +18210,7 @@
     },
     {
       "code": "7796",
-      "name": "擷發科技",
+      "name": "擷發科",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -18218,7 +18218,7 @@
     },
     {
       "code": "7797",
-      "name": "饗樂餐飲實業",
+      "name": "Q Burger",
       "industry": "觀光餐旅",
       "market": "esb",
       "change_pct": null,
@@ -18274,7 +18274,7 @@
     },
     {
       "code": "7808",
-      "name": "訊聯細胞智藥",
+      "name": "訊聯智藥",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -18298,7 +18298,7 @@
     },
     {
       "code": "7812",
-      "name": "稜研科技",
+      "name": "稜研科技*",
       "industry": "通信網路業",
       "market": "esb",
       "change_pct": null,
@@ -18306,7 +18306,7 @@
     },
     {
       "code": "7813",
-      "name": "宇辰系統科技",
+      "name": "宇辰系統",
       "industry": "其他電子業",
       "market": "esb",
       "change_pct": null,
@@ -18322,7 +18322,7 @@
     },
     {
       "code": "7815",
-      "name": "新特系統",
+      "name": "新特",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -18330,7 +18330,7 @@
     },
     {
       "code": "7816",
-      "name": "來穎科技",
+      "name": "來穎",
       "industry": "電子零組件業",
       "market": "esb",
       "change_pct": null,
@@ -18386,7 +18386,7 @@
     },
     {
       "code": "7824",
-      "name": "智寶國際開發",
+      "name": "智寶",
       "industry": "其他",
       "market": "esb",
       "change_pct": null,
@@ -18394,7 +18394,7 @@
     },
     {
       "code": "7825",
-      "name": "和亞智慧科技",
+      "name": "和亞智慧",
       "industry": "其他電子業",
       "market": "esb",
       "change_pct": null,
@@ -18426,7 +18426,7 @@
     },
     {
       "code": "7829",
-      "name": "英屬開曼群島商思捷優達(股)",
+      "name": "思捷優達-KY",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -18442,7 +18442,7 @@
     },
     {
       "code": "7832",
-      "name": "智新生技",
+      "name": "智新生技*",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -18474,7 +18474,7 @@
     },
     {
       "code": "7836",
-      "name": "智生活科技",
+      "name": "智生活",
       "industry": "其他",
       "market": "esb",
       "change_pct": null,
@@ -18482,7 +18482,7 @@
     },
     {
       "code": "7837",
-      "name": "啟新生物科技",
+      "name": "啟新生",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -18498,7 +18498,7 @@
     },
     {
       "code": "7840",
-      "name": "祥圃實業",
+      "name": "祥圃",
       "industry": "農業科技",
       "market": "esb",
       "change_pct": null,
@@ -18506,7 +18506,7 @@
     },
     {
       "code": "7841",
-      "name": "經貿聯網科技",
+      "name": "經貿聯網",
       "industry": "資訊服務業",
       "market": "esb",
       "change_pct": null,
@@ -18522,7 +18522,7 @@
     },
     {
       "code": "7843",
-      "name": "英柏得科技",
+      "name": "英柏得",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -18530,7 +18530,7 @@
     },
     {
       "code": "7846",
-      "name": "德揚科技",
+      "name": "德揚",
       "industry": "綠能環保",
       "market": "esb",
       "change_pct": null,
@@ -18546,7 +18546,7 @@
     },
     {
       "code": "7848",
-      "name": "騏億鑫科技",
+      "name": "騏億鑫",
       "industry": "其他電子業",
       "market": "esb",
       "change_pct": null,
@@ -18554,7 +18554,7 @@
     },
     {
       "code": "7849",
-      "name": "旭誼工程",
+      "name": "旭誼",
       "industry": "其他電子業",
       "market": "esb",
       "change_pct": null,
@@ -18570,7 +18570,7 @@
     },
     {
       "code": "7851",
-      "name": "英屬開曼群島商慧康生活科技(股)",
+      "name": "慧康生技*-KY",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -18602,7 +18602,7 @@
     },
     {
       "code": "7856",
-      "name": "漢民測試系統",
+      "name": "漢測",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -18610,7 +18610,7 @@
     },
     {
       "code": "7857",
-      "name": "合水先進環境技術",
+      "name": "合水先進",
       "industry": "綠能環保",
       "market": "esb",
       "change_pct": null,
@@ -18618,7 +18618,7 @@
     },
     {
       "code": "7858",
-      "name": "芝普企業",
+      "name": "芝普",
       "industry": "化學工業",
       "market": "esb",
       "change_pct": null,
@@ -18634,7 +18634,7 @@
     },
     {
       "code": "7861",
-      "name": "貝爾威勒電子",
+      "name": "貝爾威勒",
       "industry": "電子零組件業",
       "market": "esb",
       "change_pct": null,
@@ -18642,7 +18642,7 @@
     },
     {
       "code": "7862",
-      "name": "聚泰環保材料科技",
+      "name": "聚泰",
       "industry": "紡織纖維",
       "market": "esb",
       "change_pct": null,
@@ -18650,7 +18650,7 @@
     },
     {
       "code": "7863",
-      "name": "中科國際物流",
+      "name": "中科物流",
       "industry": "航運業",
       "market": "esb",
       "change_pct": null,
@@ -18658,7 +18658,7 @@
     },
     {
       "code": "7865",
-      "name": "金聯成資源科技",
+      "name": "金聯成",
       "industry": "綠能環保",
       "market": "esb",
       "change_pct": null,
@@ -18666,7 +18666,7 @@
     },
     {
       "code": "7866",
-      "name": "丹立電子",
+      "name": "丹立",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -18682,7 +18682,7 @@
     },
     {
       "code": "7868",
-      "name": "聖育科技",
+      "name": "聖育",
       "industry": "資訊服務業",
       "market": "esb",
       "change_pct": null,
@@ -18706,7 +18706,7 @@
     },
     {
       "code": "7871",
-      "name": "安立璽榮醫藥",
+      "name": "安立璽榮-KY",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -18714,7 +18714,7 @@
     },
     {
       "code": "7872",
-      "name": "登豐微電子",
+      "name": "登豐",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -18722,7 +18722,7 @@
     },
     {
       "code": "7873",
-      "name": "瑞峰半導體",
+      "name": "瑞峰",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -18730,7 +18730,7 @@
     },
     {
       "code": "7875",
-      "name": "安圖斯科技",
+      "name": "安圖斯",
       "industry": "電腦及週邊設備業",
       "market": "esb",
       "change_pct": null,
@@ -18746,7 +18746,7 @@
     },
     {
       "code": "7877",
-      "name": "海利普電子科技",
+      "name": "海利普",
       "industry": "綠能環保",
       "market": "esb",
       "change_pct": null,
@@ -18754,7 +18754,7 @@
     },
     {
       "code": "7878",
-      "name": "藥祇生醫",
+      "name": "藥祇",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -18770,7 +18770,7 @@
     },
     {
       "code": "7880",
-      "name": "聖凰科技",
+      "name": "聖凰",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -18778,7 +18778,7 @@
     },
     {
       "code": "7881",
-      "name": "科明儀器",
+      "name": "科明",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -18786,7 +18786,7 @@
     },
     {
       "code": "7882",
-      "name": "倍利生技創業投資",
+      "name": "倍利創投",
       "industry": "其他",
       "market": "esb",
       "change_pct": null,
@@ -18794,7 +18794,7 @@
     },
     {
       "code": "7883",
-      "name": "饗賓餐旅事業",
+      "name": "饗賓",
       "industry": "觀光餐旅",
       "market": "esb",
       "change_pct": null,
@@ -18810,7 +18810,7 @@
     },
     {
       "code": "7886",
-      "name": "科建國際實業",
+      "name": "科建",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -18818,7 +18818,7 @@
     },
     {
       "code": "7887",
-      "name": "宇川精密材料科技",
+      "name": "宇川精材",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -18826,7 +18826,7 @@
     },
     {
       "code": "7888",
-      "name": "麗寶新藥生物科技",
+      "name": "麗寶新藥",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -18850,7 +18850,7 @@
     },
     {
       "code": "7891",
-      "name": "博研醫藥開發",
+      "name": "博研醫藥",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -18858,7 +18858,7 @@
     },
     {
       "code": "7892",
-      "name": "元鈦科技",
+      "name": "元鈦科",
       "industry": "電腦及週邊設備業",
       "market": "esb",
       "change_pct": null,
@@ -18866,7 +18866,7 @@
     },
     {
       "code": "7893",
-      "name": "睿信電子",
+      "name": "睿信",
       "industry": "電子零組件業",
       "market": "esb",
       "change_pct": null,
@@ -18882,7 +18882,7 @@
     },
     {
       "code": "7895",
-      "name": "元進莊企業",
+      "name": "元進莊",
       "industry": "農業科技",
       "market": "esb",
       "change_pct": null,
@@ -18890,7 +18890,7 @@
     },
     {
       "code": "7896",
-      "name": "喬越實業",
+      "name": "喬越",
       "industry": "電子零組件業",
       "market": "esb",
       "change_pct": null,
@@ -18906,7 +18906,7 @@
     },
     {
       "code": "7898",
-      "name": "乾瞻科技",
+      "name": "乾瞻",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -18914,7 +18914,7 @@
     },
     {
       "code": "7899",
-      "name": "景美科技",
+      "name": "景美",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -18930,7 +18930,7 @@
     },
     {
       "code": "7902",
-      "name": "宇越生醫科技",
+      "name": "宇越生醫*",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -18938,7 +18938,7 @@
     },
     {
       "code": "7904",
-      "name": "任開數位媒體行銷",
+      "name": "任開數位",
       "industry": "數位雲端",
       "market": "esb",
       "change_pct": null,
@@ -18946,7 +18946,7 @@
     },
     {
       "code": "7907",
-      "name": "錸恩帕斯科技",
+      "name": "錸恩帕斯",
       "industry": "其他電子業",
       "market": "esb",
       "change_pct": null,
@@ -18954,7 +18954,7 @@
     },
     {
       "code": "7909",
-      "name": "鈺祥企業",
+      "name": "鈺祥",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -18970,7 +18970,7 @@
     },
     {
       "code": "7912",
-      "name": "新聿科技",
+      "name": "新聿科",
       "industry": "電子零組件業",
       "market": "esb",
       "change_pct": null,
@@ -18978,7 +18978,7 @@
     },
     {
       "code": "7913",
-      "name": "通寶半導體設計",
+      "name": "通寶半導體",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -18994,7 +18994,7 @@
     },
     {
       "code": "7915",
-      "name": "廌家科技",
+      "name": "廌家",
       "industry": "通信網路業",
       "market": "esb",
       "change_pct": null,
@@ -19010,7 +19010,7 @@
     },
     {
       "code": "7918",
-      "name": "創鉅先進材料",
+      "name": "創鉅材料",
       "industry": "半導體業",
       "market": "esb",
       "change_pct": null,
@@ -19018,7 +19018,7 @@
     },
     {
       "code": "7919",
-      "name": "禾蒼科技",
+      "name": "禾蒼",
       "industry": "光電業",
       "market": "esb",
       "change_pct": null,
@@ -19026,7 +19026,7 @@
     },
     {
       "code": "7920",
-      "name": "瀚陽生物科技",
+      "name": "瀚陽*",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -19034,7 +19034,7 @@
     },
     {
       "code": "7921",
-      "name": "台普威能源",
+      "name": "台普威",
       "industry": "綠能環保",
       "market": "esb",
       "change_pct": null,
@@ -19042,7 +19042,7 @@
     },
     {
       "code": "7922",
-      "name": "源點科技",
+      "name": "源點*",
       "industry": "綠能環保",
       "market": "esb",
       "change_pct": null,
@@ -19050,7 +19050,7 @@
     },
     {
       "code": "7924",
-      "name": "TLC BioSciences Corp.",
+      "name": "TLC-KY",
       "industry": "生技醫療業",
       "market": "esb",
       "change_pct": null,
@@ -19058,7 +19058,7 @@
     },
     {
       "code": "7925",
-      "name": "健生實業",
+      "name": "健生",
       "industry": "電機機械",
       "market": "esb",
       "change_pct": null,
@@ -19066,7 +19066,7 @@
     },
     {
       "code": "7926",
-      "name": "中華立鼎光電",
+      "name": "中華立鼎",
       "industry": "光電業",
       "market": "esb",
       "change_pct": null,
@@ -19082,7 +19082,7 @@
     },
     {
       "code": "7928",
-      "name": "合聖科技",
+      "name": "合聖科技*",
       "industry": "通信網路業",
       "market": "esb",
       "change_pct": null,
@@ -19090,7 +19090,7 @@
     },
     {
       "code": "7929",
-      "name": "碩通散熱",
+      "name": "碩通",
       "industry": "電腦及週邊設備業",
       "market": "esb",
       "change_pct": null,
@@ -19122,7 +19122,7 @@
     },
     {
       "code": "7933",
-      "name": "威旭數據科技",
+      "name": "威旭",
       "industry": "其他",
       "market": "esb",
       "change_pct": null,
@@ -19130,7 +19130,7 @@
     },
     {
       "code": "7935",
-      "name": "安富科技",
+      "name": "安富",
       "industry": "通信網路業",
       "market": "esb",
       "change_pct": null,
@@ -19138,7 +19138,7 @@
     },
     {
       "code": "7936",
-      "name": "寰聖國際實業",
+      "name": "寰聖",
       "industry": "電子零組件業",
       "market": "esb",
       "change_pct": null,
@@ -19154,7 +19154,7 @@
     },
     {
       "code": "7942",
-      "name": "東佑達自動化科技",
+      "name": "東佑達",
       "industry": "電機機械",
       "market": "esb",
       "change_pct": null,
@@ -19362,7 +19362,7 @@
     },
     {
       "code": "8058",
-      "name": "耐特科技材料",
+      "name": "耐特",
       "industry": "其他電子業",
       "market": "esb",
       "change_pct": null,
@@ -19458,7 +19458,7 @@
     },
     {
       "code": "8077",
-      "name": "洛碁實業",
+      "name": "洛碁",
       "industry": "觀光餐旅",
       "market": "tpex",
       "change_pct": null,
@@ -19690,7 +19690,7 @@
     },
     {
       "code": "8119",
-      "name": "公信電子",
+      "name": "公信",
       "industry": "電腦及週邊設備業",
       "market": "esb",
       "change_pct": null,
@@ -19930,7 +19930,7 @@
     },
     {
       "code": "8298",
-      "name": "威睿科技",
+      "name": "威睿",
       "industry": "資訊服務業",
       "market": "esb",
       "change_pct": null,
@@ -19946,7 +19946,7 @@
     },
     {
       "code": "8329",
-      "name": "臺灣電視事業",
+      "name": "台視",
       "industry": "文化創意業",
       "market": "esb",
       "change_pct": null,
@@ -19962,7 +19962,7 @@
     },
     {
       "code": "8342",
-      "name": "益張實業",
+      "name": "益張",
       "industry": "其他",
       "market": "tpex",
       "change_pct": null,
@@ -19970,7 +19970,7 @@
     },
     {
       "code": "8345",
-      "name": "超秦企業",
+      "name": "超秦",
       "industry": "農業科技",
       "market": "esb",
       "change_pct": null,
@@ -20002,7 +20002,7 @@
     },
     {
       "code": "8359",
-      "name": "錢櫃企業",
+      "name": "錢櫃",
       "industry": "觀光餐旅",
       "market": "esb",
       "change_pct": null,
@@ -20098,7 +20098,7 @@
     },
     {
       "code": "8416",
-      "name": "實威國際",
+      "name": "實威",
       "industry": "資訊服務業",
       "market": "tpex",
       "change_pct": null,
@@ -20274,7 +20274,7 @@
     },
     {
       "code": "8458",
-      "name": "影一製作所",
+      "name": "影一",
       "industry": "文化創意業",
       "market": "esb",
       "change_pct": null,
@@ -20458,7 +20458,7 @@
     },
     {
       "code": "8923",
-      "name": "時報文化出版企業",
+      "name": "時報",
       "industry": "文化創意業",
       "market": "tpex",
       "change_pct": null,
@@ -20498,7 +20498,7 @@
     },
     {
       "code": "8929",
-      "name": "富堡工業",
+      "name": "富堡",
       "industry": "其他",
       "market": "tpex",
       "change_pct": null,
@@ -20602,7 +20602,7 @@
     },
     {
       "code": "8999",
-      "name": "台灣積層工業",
+      "name": "台灣積層",
       "industry": "其他",
       "market": "esb",
       "change_pct": null,
@@ -21010,7 +21010,7 @@
     },
     {
       "code": "9957",
-      "name": "燁聯鋼鐵",
+      "name": "燁聯",
       "industry": "鋼鐵工業",
       "market": "esb",
       "change_pct": null,

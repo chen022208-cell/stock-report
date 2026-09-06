@@ -255,6 +255,10 @@ def sync_company_profiles(today: str, limit: int = 300) -> int:
         prof = _safe(lambda: mops.fetch_company_profile(s["code"]), {},
                      f"{s['code']} 公司基本資料")
         if prof.get("business"):
+            # t05st03 只有申報全名（台灣積體電路製造股份有限公司），市場通用簡稱
+            # （台積電）在 t187ap03 的清單裡，一併帶進去；個股頁標題要用簡稱，
+            # 不然彈窗與個股頁會出現一整串申報全名。
+            prof = {**prof, "short_name": s.get("name", "")}
             db.upsert_company_profile(s["code"], prof, s.get("market", ""), today)
             written += 1
         time.sleep(0.4)

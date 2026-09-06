@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>盤中強勢股 · 盤後快訊</title>
+<title>個股資料 · 盤後快訊</title>
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -210,50 +210,20 @@
                     padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  .iv-bar{display:flex; flex-wrap:wrap; gap:14px; align-items:baseline; margin:14px 0 6px;
-    font-size:13px; color:var(--text-secondary);}
-  .iv-bar b{color:var(--text);}
-  .iv-status{font-size:12px; padding:2px 8px; border-radius:10px; background:var(--surface-2);}
-  .iv-status.open{color:var(--c-score); background:rgba(46,160,67,.12);}
-  .iv-delay{font-size:11.5px; color:var(--text-muted);}
-  .iv-sec{margin-top:24px;}
-  .iv-sec h2{font-size:15px; margin-bottom:4px;}
-  .iv-sec .hint{font-size:12px; color:var(--text-muted); margin-bottom:10px;}
-  .iv-card{background:var(--surface); border:1px solid var(--hairline); border-radius:var(--radius-sm);
-    padding:11px 13px; margin-bottom:9px; cursor:pointer;}
-  .iv-card:hover{border-color:var(--text-muted);}
-  .iv-card .row1{display:flex; justify-content:space-between; align-items:baseline; gap:10px;}
-  .iv-name{font-weight:600; font-size:14px;}
-  .iv-score{font-size:12px; color:var(--text-muted);}
-  .iv-chg{font-weight:600;}
-  .iv-chg.up{color:var(--c-chip);} .iv-chg.down{color:var(--c-score);}
-  .iv-tags{margin-top:6px; display:flex; flex-wrap:wrap; gap:5px;}
-  .iv-tag{font-size:11px; padding:1px 7px; border-radius:9px; background:var(--surface-2); color:var(--text-secondary);}
-  .iv-tag.hot{background:rgba(219,109,40,.14); color:var(--c-market);}
-  .iv-lowconf{font-size:11px; color:var(--c-market); margin-left:6px;}
-  .iv-tabs{display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap;}
-  .iv-tabs button{font:inherit; font-size:12.5px; padding:4px 11px; border:1px solid var(--hairline);
-    border-radius:14px; background:var(--surface); color:var(--text-secondary); cursor:pointer;}
-  .iv-tabs button.on{background:var(--text); color:var(--bg); border-color:var(--text);}
-  .iv-table{width:100%; border-collapse:collapse; font-size:13px;}
-  .iv-table th,.iv-table td{text-align:left; padding:7px 9px; border-bottom:1px solid var(--hairline);}
-  .iv-table th{font-size:11px; color:var(--text-muted); font-weight:500;}
-  .iv-table td.num{text-align:right; font-variant-numeric:tabular-nums;}
-  .iv-table tr{cursor:pointer;}
-  .iv-subtabs{align-items:center;}
-  /* .iv-tabs 是 display:flex，會蓋掉 [hidden] 預設的 display:none，
-     不補這一條的話「創新高週期」那排在沒選創新高時也會一直露出來 */
-  .iv-tabs[hidden]{display:none;}
-  .iv-subs-label{font-size:11.5px; color:var(--text-muted); margin-right:2px;}
-  /* 可排序表頭：點一次由高到低、再點由低到高、第三次回到預設排序 */
-  .iv-table th.sortable{cursor:pointer; user-select:none; white-space:nowrap;}
-  .iv-table th.sortable:hover{color:var(--text-primary);}
-  .iv-table th .iv-arrow{opacity:.45; font-size:9px; margin-left:3px;}
-  .iv-table th.sorted{color:var(--gold);}
-  .iv-table th.sorted .iv-arrow{opacity:1;}
-  .iv-empty{font-size:13px; color:var(--text-muted); padding:12px 0;}
-  .iv-collapse{margin-top:8px;}
-  .iv-collapse summary{font-size:12.5px; color:var(--text-secondary); cursor:pointer;}
+  /* 這一頁把彈窗裡那份內容攤成整頁，所以要把彈窗版面裡「因為在小框框裡」
+     才需要的限制拿掉：不要 max-width、標題可以大一點。 */
+  .sp-wrap{margin-top:8px;}
+  .sp-wrap .sc-title{font-size:26px; margin:0 0 6px;}
+  .sp-back{font-size:13px; color:var(--gold); text-decoration:none;}
+  .sp-search{display:flex; gap:8px; margin:14px 0 6px; flex-wrap:wrap;}
+  .sp-search input{flex:1; min-width:180px; background:var(--surface-2);
+                   border:1px solid var(--hairline); border-radius:var(--radius-sm);
+                   color:var(--text-primary); padding:9px 12px; font:inherit; font-size:14px;}
+  .sp-search button{background:var(--gold); color:#171615; border:0; font:inherit;
+                    font-weight:600; border-radius:var(--radius-sm); padding:9px 18px;
+                    cursor:pointer;}
+  .sp-hint{font-size:12.5px; color:var(--text-muted); margin:0 0 18px;}
+  .sp-empty{font-size:14px; color:var(--text-secondary); margin:24px 0;}
 
 </style>
 </head>
@@ -265,8 +235,8 @@
     <a href="chips.html" class="">💰 籌碼</a>
     <a href="scores.html" class="">⭐ 評分</a>
     <a href="picks.html" class="">🎯 選股雷達</a>
-    <a href="intraday.html" class="current">⚡ 盤中強勢</a>
-    <a href="lookup.html" class="">🔍 個股查詢</a>
+    <a href="intraday.html" class="">⚡ 盤中強勢</a>
+    <a href="lookup.html" class="current">🔍 個股查詢</a>
     <a href="disposition.html" class="">⚠️ 處置</a>
     <a href="themes.html" class="">題材庫</a>
     <a href="archive.html" class="">歷史</a>
@@ -277,235 +247,21 @@
   </nav>
 
   
-<header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">盤中強勢股</h1></header>
-
-<p class="commentary" style="margin-top:14px">
-盤中每分鐘用量價條件從全市場篩「當下最有動能」的一小群股票——多層漏斗（相對強度→量能→突破）＋加權評分，
-分 A／B 級。<b>這是客觀訊號整理，不是推薦標的</b>，追高風險高，務必自己搭配停損與部位控管。
-資料來自證交所即時報價，公開頁面延遲顯示。</p>
-
-<div class="iv-bar" id="ivBar">
-  <span>載入中…</span>
-</div>
-<div class="iv-delay" id="ivDelay"></div>
-
-<section class="iv-sec">
-  <h2>🅰️ A 級（<span id="ivACount">–</span>）</h2>
-  <div class="hint">分數 ≥ 80，動能最集中的一群。點任一檔看 K 線與公司資料。</div>
-  <div id="ivA"><div class="iv-empty">—</div></div>
-</section>
-
-<section class="iv-sec">
-  <details class="iv-collapse" id="ivBWrap">
-    <summary>🅱️ B 級（<span id="ivBCount">–</span>）— 展開</summary>
-    <div id="ivB" style="margin-top:10px"></div>
-  </details>
-</section>
-
-<section class="iv-sec">
-  <h2>📊 排行</h2>
-  <div class="iv-tabs" id="ivRankTabs">
-    <button data-k="gainers" class="on">漲幅</button>
-    <button data-k="volume_ratio">量比</button>
-    <button data-k="turnover">成交值</button>
-    <button data-k="new_high">創新高</button>
-  </div>
-  <!-- 創新高的細分週期：選了「創新高」才出現，再挑要看哪一個週期的新高 -->
-  <div class="iv-tabs iv-subtabs" id="ivHighTabs" hidden>
-    <span class="iv-subs-label">創新高週期</span>
-    <button data-p="5d">5天</button>
-    <button data-p="1m">1月</button>
-    <button data-p="3m">3月</button>
-    <button data-p="6m">半年</button>
-    <button data-p="1y" class="on">1年</button>
-  </div>
-  <div id="ivRank"></div>
-</section>
-
-<section class="iv-sec">
-  <h2>🔄 類股輪動</h2>
-  <div class="hint">各產業當下漲幅中位數與「漲逾 3%」家數，看資金流向哪個族群。</div>
-  <div id="ivSectors"></div>
-</section>
-
-<p class="commentary" style="margin-top:26px; font-size:12px; color:var(--text-muted)">
-資料來源：證交所基本市況報導（即時報價，公開頁面延遲顯示）。技術指標於瀏覽器端計算，僅供研究參考，不構成投資建議。
+<header>
+  <div class="masthead-label">盤後快訊</div>
+  <h1 class="masthead-date">個股資料</h1>
+</header>
+<p class="sp-hint">
+  技術圖＋公司基本資料＋月營收＋題材＋同產業個股。上市走 TWSE 即時資料，
+  上櫃／興櫃走本站每日盤後快照。<a class="sp-back" href="lookup.html">← 回個股查詢</a>
 </p>
 
-<script>
-(function () {
-  var SRC = "https://raw.githubusercontent.com/chen022208-cell/stock-report/intraday-data/docs/data/intraday.json";
-  var REFRESH_MS = 45000;
-  var rankKey = "gainers";
-  var highPeriod = "1y";        // 「創新高」選項下的細分週期
-  var lastData = null;          // 最後一次成功抓到的資料：切標籤／排序時直接重繪，不重抓
+<form class="sp-search" id="spForm" autocomplete="off">
+  <input id="spInput" type="text" placeholder="輸入股票代號，例如 2330／6488／7686" aria-label="股票代號">
+  <button type="submit">查詢</button>
+</form>
 
-  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
-    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
-  function pct(v) { return (v == null) ? "–" : (v > 0 ? "+" : "") + v.toFixed(2) + "%"; }
-  function fmt(v) { return (v == null) ? "–" : Number(v).toLocaleString("en-US"); }
-
-  function card(r) {
-    var tags = [];
-    if (r.breakout_252d) tags.push('<span class="iv-tag hot">創年新高</span>');
-    else if (r.breakout_120d) tags.push('<span class="iv-tag hot">創半年新高</span>');
-    else if (r.breakout_20d) tags.push('<span class="iv-tag">創20日高</span>');
-    if (r.volume_ratio != null) tags.push('<span class="iv-tag">量比 ' + r.volume_ratio.toFixed(1) + '×</span>');
-    tags.push('<span class="iv-tag">領先大盤 ' + pct(r.rs_market) + '</span>');
-    if (r.rs_sector != null) tags.push('<span class="iv-tag">領先同業 ' + pct(r.rs_sector) + '</span>');
-    if (r.industry) tags.push('<span class="iv-tag">' + esc(r.industry) + '</span>');
-    return '<div class="iv-card" data-stock-code="' + esc(r.code) + '" data-stock-name="' + esc(r.name) + '">'
-      + '<div class="row1"><span class="iv-name">' + esc(r.code) + ' ' + esc(r.name)
-      + (r.low_confidence ? '<span class="iv-lowconf">開盤初期，數據波動大</span>' : '')
-      + '</span>'
-      + '<span><span class="iv-chg ' + (r.change_pct >= 0 ? "up" : "down") + '">' + pct(r.change_pct)
-      + '</span> <span class="iv-score">分 ' + r.score + '</span></span></div>'
-      + '<div class="iv-tags">' + tags.join("") + '</div></div>';
-  }
-
-  // 表頭排序狀態：null = 依後端預設排序，否則 {key, dir}（dir: -1 高→低、1 低→高）
-  var sortState = null;
-  var RANK_COLS = [
-    { key: "name",         label: "個股",   num: false },
-    { key: "price",        label: "價",     num: true },
-    { key: "change_pct",   label: "漲跌幅", num: true },
-    { key: "volume",       label: "量(張)", num: true },
-    { key: "volume_ratio", label: "量比",   num: true }
-  ];
-
-  function sortRows(rows) {
-    if (!sortState) return rows;
-    var k = sortState.key, dir = sortState.dir;
-    // 複製再排，不要就地改動快取住的原始資料
-    return rows.slice().sort(function (a, b) {
-      var x = a[k], y = b[k];
-      // 缺值一律沉底（不分升冪降冪），免得「–」浮在最上面看起來像最強的
-      if (x == null && y == null) return 0;
-      if (x == null) return 1;
-      if (y == null) return -1;
-      if (typeof x === "string") return dir * x.localeCompare(y);
-      return dir * (x - y);
-    });
-  }
-
-  function rankTable(rows) {
-    if (!rows || !rows.length) return '<div class="iv-empty">—</div>';
-    var body = sortRows(rows).map(function (r) {
-      return '<tr data-stock-code="' + esc(r.code) + '" data-stock-name="' + esc(r.name) + '">'
-        + '<td>' + esc(r.code) + ' ' + esc(r.name) + '</td>'
-        + '<td class="num">' + (r.price == null ? "–" : r.price) + '</td>'
-        + '<td class="num">' + pct(r.change_pct) + '</td>'
-        + '<td class="num">' + fmt(r.volume) + '</td>'
-        + '<td class="num">' + (r.volume_ratio == null ? "–" : r.volume_ratio.toFixed(1) + "×") + '</td></tr>';
-    }).join("");
-    var head = RANK_COLS.map(function (c) {
-      var on = sortState && sortState.key === c.key;
-      var arrow = on ? (sortState.dir < 0 ? "\u25BC" : "\u25B2") : "\u21C5";
-      return '<th class="sortable' + (c.num ? " num" : "") + (on ? " sorted" : "")
-        + '" data-sort="' + c.key + '" title="點擊排序，再點一次反向，第三次復原">'
-        + c.label + '<span class="iv-arrow">' + arrow + '</span></th>';
-    }).join("");
-    return '<table class="iv-table"><thead><tr>' + head + '</tr></thead><tbody>'
-      + body + '</tbody></table>';
-  }
-
-  function sectorTable(rows) {
-    if (!rows || !rows.length) return '<div class="iv-empty">—</div>';
-    var body = rows.map(function (s) {
-      return '<tr><td>' + esc(s.industry) + '</td>'
-        + '<td class="num ' + (s.median_change_pct >= 0 ? "" : "") + '">' + pct(s.median_change_pct) + '</td>'
-        + '<td class="num">' + s.strong_count + " / " + s.count + '</td></tr>';
-    }).join("");
-    return '<table class="iv-table"><thead><tr><th>產業</th><th class="num">漲幅中位數</th>'
-      + '<th class="num">漲逾3% / 家數</th></tr></thead><tbody>' + body + '</tbody></table>';
-  }
-
-  function render(d) {
-    lastData = d;
-    var st = d.market_status;
-    var stLabel = { open: "盤中", pre_open: "開盤前", closing: "尾盤", closed: "已收盤" }[st] || st;
-    document.getElementById("ivBar").innerHTML =
-      '<span class="iv-status ' + (st === "open" ? "open" : "") + '">' + stLabel + '</span>'
-      + '<span>資料時間 <b>' + esc(d.as_of) + '</b></span>'
-      + (d.taiex && d.taiex.change_pct != null
-          ? '<span>加權指數 <b>' + (d.taiex.value ? d.taiex.value.toLocaleString() : "–")
-            + '</b> (' + pct(d.taiex.change_pct) + ')</span>' : "")
-      + '<span>掃描 <b>' + (d.counts ? d.counts.scanned : "–") + '</b> 檔</span>';
-    document.getElementById("ivDelay").textContent =
-      "公開頁面資料延遲顯示約 " + (d.display_delay_min || 15) + " 分鐘；盤中每分鐘更新一次。";
-
-    var A = (d.tiers && d.tiers.A) || [], B = (d.tiers && d.tiers.B) || [];
-    document.getElementById("ivACount").textContent = A.length;
-    document.getElementById("ivBCount").textContent = B.length;
-    document.getElementById("ivA").innerHTML = A.length
-      ? A.map(card).join("") : '<div class="iv-empty">目前沒有 A 級標的。</div>';
-    document.getElementById("ivB").innerHTML = B.length
-      ? B.map(card).join("") : '<div class="iv-empty">目前沒有 B 級標的。</div>';
-
-    renderRank();
-    document.getElementById("ivSectors").innerHTML = sectorTable(d.sectors);
-  }
-
-  // 排行表獨立重繪：切換排行種類、創新高週期、欄位排序都只重畫這一塊。
-  // 以前這幾個動作都會呼叫 load() 重新發網路請求，網路慢或失敗時整個候選名單
-  // 會先消失（使用者回報「選項點擊候選會不見」），現在改成吃 lastData。
-  function renderRank() {
-    var el = document.getElementById("ivRank");
-    if (!el) return;
-    if (!lastData) { el.innerHTML = '<div class="iv-empty">載入中…</div>'; return; }
-    var key = rankKey === "new_high" ? "new_high_" + highPeriod : rankKey;
-    var rows = (lastData.rankings || {})[key];
-    // 舊版資料只有 new_high_1y 這個 key，沒有細分週期時退回它，不要整區空白
-    if (!rows && rankKey === "new_high") rows = (lastData.rankings || {}).new_high_1y;
-    el.innerHTML = rankTable(rows);
-    document.getElementById("ivHighTabs").hidden = (rankKey !== "new_high");
-  }
-
-  function fetchJson(u) {
-    return fetch(u + "?_=" + Date.now(), { cache: "no-store" })
-      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
-  }
-  function load() {
-    // 先抓 intraday-data 分支的即時檔；抓不到就退回站上建置時附的那份（可能較舊）
-    fetchJson(SRC).catch(function () { return fetchJson("data/intraday.json"); })
-      .then(render)
-      .catch(function (e) {
-        document.getElementById("ivBar").innerHTML =
-          '<span>盤中資料尚未產生或載入失敗（' + esc(e.message) + '）。非交易時段這是正常的。</span>';
-      });
-  }
-
-  document.getElementById("ivRankTabs").addEventListener("click", function (e) {
-    var b = e.target.closest("button"); if (!b) return;
-    rankKey = b.dataset.k;
-    sortState = null;              // 換一種排行就回到後端的預設排序
-    [].forEach.call(this.querySelectorAll("button"), function (x) { x.classList.toggle("on", x === b); });
-    renderRank();                  // 只重繪、不重抓——候選名單不會閃掉
-  });
-
-  document.getElementById("ivHighTabs").addEventListener("click", function (e) {
-    var b = e.target.closest("button"); if (!b) return;
-    highPeriod = b.dataset.p;
-    [].forEach.call(this.querySelectorAll("button"), function (x) { x.classList.toggle("on", x === b); });
-    renderRank();
-  });
-
-  // 表頭排序：第一次點 = 由高到低，再點 = 由低到高，第三次 = 復原成預設排序
-  document.getElementById("ivRank").addEventListener("click", function (e) {
-    var th = e.target.closest("th.sortable"); if (!th) return;
-    e.stopPropagation();           // 別讓點擊冒泡到 tr 的個股彈窗
-    var k = th.dataset.sort;
-    if (!sortState || sortState.key !== k) sortState = { key: k, dir: -1 };
-    else if (sortState.dir === -1) sortState.dir = 1;
-    else sortState = null;
-    renderRank();
-  });
-
-  load();
-  setInterval(load, REFRESH_MS);
-})();
-</script>
+<div class="sp-wrap" id="spBody"></div>
 
 
   <footer class="site-footer">
@@ -520,6 +276,53 @@
 </script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
 <script src="assets/stock-chart.js?v=0995c8f4"></script>
+
+<script>
+/* 獨立個股頁：跟彈窗共用 stock-chart.js 的 renderInto()，版面與資料完全一致，
+   差別只在這裡有自己的網址（stock.html?code=2330），可以分享、可以加書籤，
+   而不是只能從別的頁面點出一個彈窗。 */
+(function () {
+  document.body.setAttribute("data-stock-page", "1");   // 讓事件委派改成換頁而不是開彈窗
+
+  function codeFromUrl() {
+    var m = /[?&]code=([^&#]+)/.exec(location.search);
+    return m ? decodeURIComponent(m[1]).trim() : "";
+  }
+
+  function nameFor(code) {
+    return fetch("data/stock_info/" + encodeURIComponent(code) + ".json")
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (info) { return (info && info.name) || ""; })
+      .catch(function () { return ""; });
+  }
+
+  function show(code) {
+    var body = document.getElementById("spBody");
+    if (!code) {
+      body.innerHTML = '<p class="sp-empty">請在上面輸入股票代號，'
+        + '或從<a href="lookup.html" style="color:var(--gold)">個股查詢</a>挑一檔。</p>';
+      return;
+    }
+    document.getElementById("spInput").value = code;
+    nameFor(code).then(function (name) {
+      document.title = code + (name ? " " + name : "") + " · 盤後快訊";
+      window.StockChart.renderInto(body, code, name);
+    });
+  }
+
+  document.getElementById("spForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var v = document.getElementById("spInput").value.trim();
+    if (!v) return;
+    // 用 pushState 換網址，這樣上一頁／分享連結都還是對的
+    history.pushState({}, "", "stock.html?code=" + encodeURIComponent(v));
+    show(v);
+  });
+  window.addEventListener("popstate", function () { show(codeFromUrl()); });
+
+  show(codeFromUrl());
+})();
+</script>
 
 </body>
 </html>

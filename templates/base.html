@@ -178,6 +178,11 @@
   .sc-fund-cell{background:var(--surface-2); border-radius:var(--radius-sm); padding:8px 6px; text-align:center;}
   .sc-fund-cell h5{font-size:11px; margin:0 0 4px; color:var(--text-muted); font-weight:400;}
   .sc-fund-cell p{font-size:13px; margin:0; font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
+  .sc-fullpage{position:absolute; top:14px; right:52px; font-size:12px; color:var(--gold);
+               text-decoration:none; border:1px solid var(--hairline);
+               border-radius:999px; padding:3px 10px; background:var(--surface-2);}
+  .sc-fullpage:hover{border-color:var(--gold);}
+  @media (max-width:560px){ .sc-fullpage{display:none;} }
   .sc-theme-tags{display:flex; flex-wrap:wrap; gap:6px;}
   /* 同產業個股：可點，跟不可點的題材標籤要看得出差別 */
   .sc-peer{cursor:pointer; font-family:'JetBrains Mono',monospace;}

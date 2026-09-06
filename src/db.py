@@ -115,6 +115,7 @@ CREATE TABLE IF NOT EXISTS stock_analysis (
 CREATE TABLE IF NOT EXISTS company_profile (
     code        TEXT PRIMARY KEY,
     full_name   TEXT,
+    short_name  TEXT,               -- 市場通用簡稱（台積電），非申報全名
     industry    TEXT,               -- 產業類別（申報值）
     business    TEXT,               -- 主要經營業務（申報值，權威來源）
     capital     TEXT,               -- 實收資本額
@@ -211,6 +212,10 @@ def init_db() -> None:
             pass
         try:
             conn.execute("ALTER TABLE stock_analysis ADD COLUMN sources TEXT")
+        except sqlite3.OperationalError:
+            pass
+        try:
+            conn.execute("ALTER TABLE company_profile ADD COLUMN short_name TEXT")
         except sqlite3.OperationalError:
             pass
 
@@ -503,17 +508,21 @@ def upsert_company_profile(code: str, prof: dict, market: str, today: str) -> No
     with get_conn() as conn:
         conn.execute(
             """INSERT INTO company_profile
-                 (code, full_name, industry, business, capital, founded, listed,
-                  market, chairman, gm, website, updated_at)
-               VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
+                 (code, full_name, short_name, industry, business, capital, founded,
+                  listed, market, chairman, gm, website, updated_at)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)
                ON CONFLICT(code) DO UPDATE SET
-                 full_name=excluded.full_name, industry=excluded.industry,
+                 full_name=excluded.full_name,
+                 -- 簡稱可能還沒補到（舊資料），有新值才覆蓋，不要用空字串洗掉
+                 short_name=COALESCE(NULLIF(excluded.short_name, ''), company_profile.short_name),
+                 industry=excluded.industry,
                  business=excluded.business, capital=excluded.capital,
                  founded=excluded.founded, listed=excluded.listed,
                  market=excluded.market, chairman=excluded.chairman,
                  gm=excluded.gm, website=excluded.website,
                  updated_at=excluded.updated_at""",
-            (code, prof.get("full_name", ""), prof.get("industry", ""),
+            (code, prof.get("full_name", ""), prof.get("short_name", ""),
+             prof.get("industry", ""),
              prof.get("business", ""), prof.get("capital", ""),
              prof.get("founded", ""),
              prof.get("listed_twse") or prof.get("listed_tpex") or prof.get("listed_esb") or "",
@@ -538,8 +547,8 @@ def company_profile_codes() -> set[str]:
 def all_company_profiles() -> dict[str, dict]:
     with get_conn() as conn:
         rows = conn.execute(
-            """SELECT code, full_name, industry, business, capital, founded,
-                      listed, market, website FROM company_profile
+            """SELECT code, full_name, short_name, industry, business, capital,
+                      founded, listed, market, website FROM company_profile
                WHERE business != ''""").fetchall()
     return {r["code"]: dict(r) for r in rows}
 
