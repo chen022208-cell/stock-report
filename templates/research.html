@@ -20,6 +20,9 @@
   .rn-tag.applied{border-color:var(--gold); color:var(--gold);}
   a.rn-tag:hover{text-decoration:underline;}
   .rn-meta{font-size:12px; color:var(--text-muted);}
+  .rn-report{margin:2px 0 8px;}
+  .rn-report a{font-size:13px; color:var(--gold); text-decoration:none;}
+  .rn-report a:hover{text-decoration:underline;}
 {% endblock %}
 {% block content %}
 <header><div class="masthead-label">{{ site_title }}</div>
@@ -57,6 +60,9 @@
           style="cursor:pointer">{{ s.code }} {{ s.name }}</span>
     {% endfor %}
   </div>
+  {% endif %}
+  {% if n.link %}
+  <p class="rn-report"><a href="{{ rel }}{{ n.link }}">📄 看完整報告 →</a></p>
   {% endif %}
   <div class="rn-meta">{{ n.submitted_at }} · 來源：{{ n.source }}</div>
 </div>

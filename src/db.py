@@ -162,7 +162,8 @@ CREATE TABLE IF NOT EXISTS research_notes (
     verification_note  TEXT,               -- 為什麼判定成這個狀態（引用哪裡衝突/佐證）
     affected_themes    TEXT,               -- JSON：[{"name":, "impact":, "applied": bool}]
     affected_stocks    TEXT,               -- JSON：[{"code":, "name":, "impact":, "applied": bool}]
-    status             TEXT DEFAULT 'pending'  -- pending / applied / rejected
+    status             TEXT DEFAULT 'pending', -- pending / applied / rejected
+    link               TEXT                    -- 有產出獨立報告時的相對網址
 );
 
 -- 盤中焦點股深度快報：盤中篩選器抓到 A 級 → webhook 觸發雲端 Routine 逐檔查證後產出。
@@ -233,6 +234,10 @@ def init_db() -> None:
             pass
         try:
             conn.execute("ALTER TABLE company_profile ADD COLUMN short_name TEXT")
+        except sqlite3.OperationalError:
+            pass
+        try:
+            conn.execute("ALTER TABLE research_notes ADD COLUMN link TEXT")
         except sqlite3.OperationalError:
             pass
 
@@ -778,16 +783,20 @@ def create_research_note(
     submitted_at: str, source: str, title: str, raw_excerpt: str, summary: str,
     verified: str, verification_note: str,
     affected_themes: list[dict], affected_stocks: list[dict],
+    link: str = "",
 ) -> int:
+    """link：這筆筆記有對應的獨立報告時的相對網址（例如點播主題報告）。
+    研究筆記頁會把它渲染成「看完整報告 →」，不然使用者只看得到摘要、
+    不知道還有一份完整的東西可以點。"""
     with get_conn() as conn:
         cur = conn.execute(
             """INSERT INTO research_notes
                (submitted_at, source, title, raw_excerpt, summary, verified,
-                verification_note, affected_themes, affected_stocks, status)
-               VALUES (?,?,?,?,?,?,?,?,?, 'pending')""",
+                verification_note, affected_themes, affected_stocks, status, link)
+               VALUES (?,?,?,?,?,?,?,?,?, 'pending', ?)""",
             (submitted_at, source, title, raw_excerpt, summary, verified, verification_note,
              json.dumps(affected_themes, ensure_ascii=False),
-             json.dumps(affected_stocks, ensure_ascii=False)),
+             json.dumps(affected_stocks, ensure_ascii=False), link),
         )
         return cur.lastrowid
 

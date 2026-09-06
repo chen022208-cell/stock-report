@@ -43,7 +43,7 @@
 <a class="ar-row" href="{{ t.date }}-{{ t.slug }}.html">
   <div class="ar-top">
     <span class="ar-name">{{ t.title }}</span>
-    <span class="ar-when">{{ t.date }} · 來源 {{ t.sources|length }} 個</span>
+    <span class="ar-when">{{ t.date }} · 來源 {{ t.sources|length }} 個{% if t.pdf %} · 📄 PDF{% endif %}</span>
   </div>
   {% if t.summary %}<div class="ar-head">{{ t.summary[:110] }}{% if t.summary|length > 110 %}…{% endif %}</div>{% endif %}
 </a>

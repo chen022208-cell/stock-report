@@ -768,6 +768,23 @@ def render_intraday_report(row: dict) -> Path:
     return path
 
 
+def _with_pdf_flag(rows: list[dict]) -> list[dict]:
+    """幫每筆主題報告標上「同名 PDF 存在嗎」。
+
+    PDF 是由雲端 Routine 在 Python 產完 HTML 之後才轉出來的（沙箱裡才有
+    weasyprint／chromium 那套工具鏈），所以不能在產出當下就寫死連結——
+    改成每次重繪時看檔案在不在。Routine 轉完 PDF 後再跑一次
+    `python -m src.main site`，連結就會出現。
+    """
+    out = []
+    for r in rows:
+        d = dict(r)
+        name = f"{d.get('date')}-{d.get('slug')}.pdf"
+        d["pdf"] = name if (DOCS_DIR / "analysis" / name).exists() else ""
+        out.append(d)
+    return out
+
+
 def render_topic_report(slug: str, row: dict) -> Path:
     """使用者點播的主題報告 → docs/analysis/<date>-<slug>.html。
 
@@ -782,7 +799,7 @@ def render_topic_report(slug: str, row: dict) -> Path:
     path.write_text(_env().get_template("topic_report.html").render(
         site_title=cfg["site"]["title"],
         generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
-        rel="../", nav_current="", r=row,
+        rel="../", nav_current="", r=_with_pdf_flag([{**row, "slug": slug}])[0],
     ), encoding="utf-8")
     return path
 
@@ -799,7 +816,7 @@ def render_intraday_report_index() -> Path:
         rel="../", nav_current="",
         cap=cfg.get("intraday", {}).get("deep_report_daily_cap", 5),
         reports=db.all_intraday_reports(300),
-        topic_reports=db.all_topic_reports(300),
+        topic_reports=_with_pdf_flag(db.all_topic_reports(300)),
     ), encoding="utf-8")
     return path
 

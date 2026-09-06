@@ -5,6 +5,10 @@
   .tr-badge{display:inline-block; font-size:11.5px; background:var(--surface-2);
             border:1px solid var(--hairline); border-radius:999px; padding:2px 9px;
             color:var(--c-theme); margin-right:8px;}
+  .tr-pdf{margin:0 0 18px;}
+  .tr-pdf a{font-size:13.5px; color:var(--gold); text-decoration:none;
+            border:1px solid var(--hairline); border-radius:999px; padding:6px 14px;}
+  .tr-pdf a:hover{border-color:var(--gold);}
   .tr-summary{font-size:15px; line-height:1.85; color:var(--text-primary);
               background:var(--surface); border-left:3px solid var(--gold);
               border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:24px;}
@@ -33,6 +37,10 @@
   <span class="tr-badge">🎯 使用者點播主題</span>
   {{ r.date }} 產出　·　原始點播：{{ r.topic }}
 </p>
+
+{% if r.pdf %}
+<p class="tr-pdf"><a href="{{ r.pdf }}" target="_blank" rel="noopener">📄 下載 PDF 版報告</a></p>
+{% endif %}
 
 {% if r.summary %}<div class="tr-summary">{{ r.summary }}</div>{% endif %}
 

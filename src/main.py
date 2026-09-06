@@ -689,9 +689,37 @@ def run_period_facts(days: int = 7) -> None:
     else:
         print("  （目前沒有帶查證來源的個股分析）")
 
+    # 研究筆記：即時快訊監控（華爾街見聞）與使用者提交都寫在這張表，區間內的
+    # 這些是「站內這段期間實際看過並判定過的訊息」，週報／月報要納入研究範圍，
+    # 否則等於每週重新從零搜尋、抓過的東西完全沒被用到。
+    print("\n[研究筆記]（即時快訊監控＋使用者提交，區間內）")
+    notes = [n for n in db.list_research_notes()
+             if (n.get("submitted_at") or "") >= start.isoformat()]
+    if notes:
+        by_verdict = {"verified": [], "conflicting": [], "unverified": []}
+        for n in notes:
+            by_verdict.setdefault(n.get("verified", "unverified"), []).append(n)
+        label = {"verified": "已驗證（可以當事實引用）",
+                 "conflicting": "與既有資料衝突（要講清楚衝突在哪，不要直接採信）",
+                 "unverified": "無法驗證（**不可以當成事實寫進報告**，要嘛不寫，"
+                               "要嘛自己查證後標明來源）"}
+        for key in ("verified", "conflicting", "unverified"):
+            rows = by_verdict.get(key) or []
+            if not rows:
+                continue
+            print(f"  ── {label[key]}：{len(rows)} 筆")
+            for n in rows[:15]:
+                print(f"     {n.get('submitted_at')}  [{n.get('source', '')[:20]}] "
+                      f"{(n.get('title') or '')[:46]}")
+                if n.get("summary"):
+                    print(f"        {n['summary'][:110]}")
+    else:
+        print("  （區間內沒有研究筆記）")
+
     print("\n⚠️ 寫報告時：上面每一筆都有日期，凡是要寫成「本期發生」的事，"
           "都要能對應到區間內的日期；WebSearch 查到但無法確認發生日期的事件，"
-          "要嘛標明日期、要嘛不要寫成本期新聞。")
+          "要嘛標明日期、要嘛不要寫成本期新聞。研究筆記裡標為『無法驗證』的，"
+          "不可以直接當事實寫進報告。")
 
 
 def run_chart_snapshot() -> None:
@@ -1344,6 +1372,19 @@ def run_topic_requests() -> None:
         }
         db.upsert_topic_report(slug, row)
         path = render.render_topic_report(slug, row)
+        # 點播主題本質上也是一筆「使用者提交的研究」，所以同步寫進研究筆記，
+        # 讓 research.html 一頁看得到所有提交（貼文章／貼連結／點播主題）的結果，
+        # 並附上完整報告的連結。verified 這裡標 verified 是因為程式已經擋掉
+        # 沒有外部查證來源的產出（上面 sources 檢查），不是憑內容語氣判斷。
+        _safe(lambda: db.create_research_note(
+            submitted_at=today, source=f"主題點播（GitHub Issue #{number}）",
+            title=row["title"], raw_excerpt=row["topic"], summary=row["summary"],
+            verified="verified",
+            verification_note=f"系統實際查證後產出，附 {len(sources)} 個外部來源。"
+                              f"報告內標「（推論）」者為推論而非查證事實。",
+            affected_themes=[], affected_stocks=row["stocks"],
+            link=f"analysis/{today}-{slug}.html",
+        ), None, f"研究筆記 #{number}")
         made += 1
         url = f"{load_config()['site']['base_url']}/analysis/{today}-{slug}.html"
         _gh_issue_comment_and_close(
@@ -1353,6 +1394,7 @@ def run_topic_requests() -> None:
 
     if made:
         render.render_intraday_report_index()
+        render.render_research_notes()      # 點播結果也會出現在研究筆記頁
         print(f"[topic] 產出 {made} 篇主題報告")
 
 
