@@ -1,0 +1,86 @@
+{# 盤中強勢股摘要條：熱力圖／籌碼／評分三頁共用。
+
+   使用者回報「熱力圖、籌碼、評分都少盤中強勢」——這三頁講的都是同一批個股，
+   卻只有 intraday.html 看得到盤中訊號，等於要自己在頁面之間對照。
+
+   資料來源跟 intraday.html 完全一樣（intraday-data 分支的 intraday.json，
+   抓不到退回站內建置時那份），所以不會出現兩頁數字對不起來的情況。
+   這裡只放摘要（A/B 級檔數＋最強的幾檔），完整名單仍在 intraday.html。 #}
+<section class="block ivs-block">
+  <h2>⚡ 盤中強勢 <a class="ivs-more" href="{{ rel }}intraday.html">看完整名單 →</a></h2>
+  <div class="ivs-meta" id="ivsMeta">載入盤中資料中…</div>
+  <div id="ivsBody"></div>
+</section>
+<style>
+  .ivs-block h2{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;}
+  .ivs-more{font-size:12.5px; font-weight:400; color:var(--gold); text-decoration:none;}
+  .ivs-meta{font-size:12px; color:var(--text-muted); margin:-4px 0 12px;}
+  .ivs-tier{display:inline-flex; align-items:center; gap:5px; font-size:12px;
+            background:var(--surface-2); border:1px solid var(--hairline);
+            border-radius:999px; padding:3px 10px; margin:0 6px 10px 0;}
+  .ivs-tier b{font-family:'JetBrains Mono',monospace; color:var(--gold);}
+  .ivs-chips{display:flex; flex-wrap:wrap; gap:6px;}
+  .ivs-chip{display:inline-flex; align-items:center; gap:7px; cursor:pointer;
+            font-size:12.5px; background:var(--surface); border:1px solid var(--hairline);
+            border-radius:8px; padding:5px 10px;}
+  .ivs-chip:hover{border-color:var(--gold);}
+  .ivs-chip .c{font-family:'JetBrains Mono',monospace; color:var(--text-secondary);}
+  .ivs-chip .p{font-family:'JetBrains Mono',monospace;}
+  .ivs-chip .p.up{color:var(--red);} .ivs-chip .p.down{color:var(--green);}
+  .ivs-empty{font-size:13px; color:var(--text-muted);}
+</style>
+<script>
+/* 跟 intraday.html 同一份資料源，避免兩邊數字打架 */
+(function () {
+  var SRC = "https://raw.githubusercontent.com/chen022208-cell/stock-report/"
+          + "intraday-data/docs/data/intraday.json";
+  var LOCAL = "{{ rel }}data/intraday.json";
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+  function pct(v) { return (v == null) ? "–" : (v >= 0 ? "+" : "") + v.toFixed(2) + "%"; }
+
+  function chip(r) {
+    return '<span class="ivs-chip" data-stock-code="' + esc(r.code)
+      + '" data-stock-name="' + esc(r.name) + '">'
+      + '<span class="c">' + esc(r.code) + '</span>' + esc(r.name)
+      + '<span class="p ' + (r.change_pct >= 0 ? "up" : "down") + '">' + pct(r.change_pct) + '</span>'
+      + (r.volume_ratio ? '<span class="c">' + r.volume_ratio.toFixed(1) + '×</span>' : "")
+      + '</span>';
+  }
+
+  function render(d) {
+    var A = (d.tiers || {}).A || [], B = (d.tiers || {}).B || [];
+    var st = { open: "盤中", pre_open: "開盤前", closing: "尾盤", closed: "已收盤" }[d.market_status]
+             || d.market_status || "";
+    document.getElementById("ivsMeta").innerHTML =
+      esc(st) + "　·　資料時間 " + esc(d.as_of || "–")
+      + "　·　掃描 " + ((d.counts || {}).scanned != null ? d.counts.scanned : "–") + " 檔"
+      + "　·　公開頁延遲約 " + (d.display_delay_min || 15) + " 分鐘";
+
+    // A/B 級是「當下最有動能」的一小群，收盤後多半是 0 檔——這時改列漲幅榜，
+    // 免得整區空白讓人以為壞掉。
+    var list = A.length ? A : (B.length ? B : ((d.rankings || {}).gainers || []).slice(0, 12));
+    var label = A.length ? "A 級" : (B.length ? "B 級" : "今日漲幅前段");
+    var html = '<span class="ivs-tier">A 級 <b>' + A.length + '</b></span>'
+             + '<span class="ivs-tier">B 級 <b>' + B.length + '</b></span>'
+             + '<span class="ivs-tier">' + esc(label) + '</span>';
+    html += list.length
+      ? '<div class="ivs-chips">' + list.slice(0, 12).map(chip).join("") + "</div>"
+      : '<div class="ivs-empty">目前沒有盤中訊號。</div>';
+    document.getElementById("ivsBody").innerHTML = html;
+  }
+
+  function get(u) {
+    return fetch(u + "?_=" + Date.now(), { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
+  }
+  get(SRC).catch(function () { return get(LOCAL); }).then(render).catch(function () {
+    document.getElementById("ivsMeta").textContent =
+      "盤中資料尚未產生或載入失敗（非交易時段這是正常的）。";
+  });
+})();
+</script>

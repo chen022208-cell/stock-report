@@ -179,6 +179,9 @@
   .sc-fund-cell h5{font-size:11px; margin:0 0 4px; color:var(--text-muted); font-weight:400;}
   .sc-fund-cell p{font-size:13px; margin:0; font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
   .sc-theme-tags{display:flex; flex-wrap:wrap; gap:6px;}
+  /* 同產業個股：可點，跟不可點的題材標籤要看得出差別 */
+  .sc-peer{cursor:pointer; font-family:'JetBrains Mono',monospace;}
+  .sc-peer:hover{border-color:var(--gold); color:var(--gold);}
   .sc-theme-tag{font-size:12px; background:var(--surface-2); border:1px solid var(--hairline);
                 border-radius:999px; padding:3px 10px; color:var(--text-secondary);}
   @media (max-width:560px){
@@ -223,6 +226,7 @@
     <a href="chips.html" class="">💰 籌碼</a>
     <a href="scores.html" class="">⭐ 評分</a>
     <a href="picks.html" class="">🎯 選股雷達</a>
+    <a href="intraday.html" class="">⚡ 盤中強勢</a>
     <a href="lookup.html" class="">🔍 個股查詢</a>
     <a href="disposition.html" class="current">⚠️ 處置</a>
     <a href="themes.html" class="">題材庫</a>
@@ -309,7 +313,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 23:59</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-06 21:34</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
@@ -319,7 +323,7 @@
   }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=419a16fa"></script>
+<script src="assets/stock-chart.js?v=f0bdda6b"></script>
 
 </body>
 </html>

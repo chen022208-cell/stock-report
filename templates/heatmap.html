@@ -23,6 +23,8 @@
 <header><div class="masthead-label">{{ site_title }}</div>
 <h1 class="masthead-date">產業熱力圖</h1></header>
 <p class="meta">{{ date_label }} 收盤 · 依產業別等權平均漲跌幅，紅漲綠跌，顏色深淺代表強度 · 點格子看成分股</p>
+{% include "_intraday_strip.html" %}
+
 {% if cells %}
 <div class="heat-grid">
   {% for c in cells %}

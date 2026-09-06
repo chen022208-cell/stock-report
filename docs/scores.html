@@ -179,6 +179,9 @@
   .sc-fund-cell h5{font-size:11px; margin:0 0 4px; color:var(--text-muted); font-weight:400;}
   .sc-fund-cell p{font-size:13px; margin:0; font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
   .sc-theme-tags{display:flex; flex-wrap:wrap; gap:6px;}
+  /* 同產業個股：可點，跟不可點的題材標籤要看得出差別 */
+  .sc-peer{cursor:pointer; font-family:'JetBrains Mono',monospace;}
+  .sc-peer:hover{border-color:var(--gold); color:var(--gold);}
   .sc-theme-tag{font-size:12px; background:var(--surface-2); border:1px solid var(--hairline);
                 border-radius:999px; padding:3px 10px; color:var(--text-secondary);}
   @media (max-width:560px){
@@ -240,6 +243,7 @@
     <a href="chips.html" class="">💰 籌碼</a>
     <a href="scores.html" class="current">⭐ 評分</a>
     <a href="picks.html" class="">🎯 選股雷達</a>
+    <a href="intraday.html" class="">⚡ 盤中強勢</a>
     <a href="lookup.html" class="">🔍 個股查詢</a>
     <a href="disposition.html" class="">⚠️ 處置</a>
     <a href="themes.html" class="">題材庫</a>
@@ -255,6 +259,87 @@
 <h1 class="masthead-date">五面向評分排行</h1></header>
 <p class="meta">2026年9月5日．週六 · 技術／籌碼／基本／題材四軸皆為規則計算；新聞面尚未評分<br>
 想查不在這張排行裡的個股 → <a href="lookup.html" style="color:var(--gold)">個股查詢</a>　·　選股訊號 → <a href="picks.html" style="color:var(--gold)">選股雷達</a></p>
+
+
+<section class="block ivs-block">
+  <h2>⚡ 盤中強勢 <a class="ivs-more" href="intraday.html">看完整名單 →</a></h2>
+  <div class="ivs-meta" id="ivsMeta">載入盤中資料中…</div>
+  <div id="ivsBody"></div>
+</section>
+<style>
+  .ivs-block h2{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;}
+  .ivs-more{font-size:12.5px; font-weight:400; color:var(--gold); text-decoration:none;}
+  .ivs-meta{font-size:12px; color:var(--text-muted); margin:-4px 0 12px;}
+  .ivs-tier{display:inline-flex; align-items:center; gap:5px; font-size:12px;
+            background:var(--surface-2); border:1px solid var(--hairline);
+            border-radius:999px; padding:3px 10px; margin:0 6px 10px 0;}
+  .ivs-tier b{font-family:'JetBrains Mono',monospace; color:var(--gold);}
+  .ivs-chips{display:flex; flex-wrap:wrap; gap:6px;}
+  .ivs-chip{display:inline-flex; align-items:center; gap:7px; cursor:pointer;
+            font-size:12.5px; background:var(--surface); border:1px solid var(--hairline);
+            border-radius:8px; padding:5px 10px;}
+  .ivs-chip:hover{border-color:var(--gold);}
+  .ivs-chip .c{font-family:'JetBrains Mono',monospace; color:var(--text-secondary);}
+  .ivs-chip .p{font-family:'JetBrains Mono',monospace;}
+  .ivs-chip .p.up{color:var(--red);} .ivs-chip .p.down{color:var(--green);}
+  .ivs-empty{font-size:13px; color:var(--text-muted);}
+</style>
+<script>
+/* 跟 intraday.html 同一份資料源，避免兩邊數字打架 */
+(function () {
+  var SRC = "https://raw.githubusercontent.com/chen022208-cell/stock-report/"
+          + "intraday-data/docs/data/intraday.json";
+  var LOCAL = "data/intraday.json";
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+  function pct(v) { return (v == null) ? "–" : (v >= 0 ? "+" : "") + v.toFixed(2) + "%"; }
+
+  function chip(r) {
+    return '<span class="ivs-chip" data-stock-code="' + esc(r.code)
+      + '" data-stock-name="' + esc(r.name) + '">'
+      + '<span class="c">' + esc(r.code) + '</span>' + esc(r.name)
+      + '<span class="p ' + (r.change_pct >= 0 ? "up" : "down") + '">' + pct(r.change_pct) + '</span>'
+      + (r.volume_ratio ? '<span class="c">' + r.volume_ratio.toFixed(1) + '×</span>' : "")
+      + '</span>';
+  }
+
+  function render(d) {
+    var A = (d.tiers || {}).A || [], B = (d.tiers || {}).B || [];
+    var st = { open: "盤中", pre_open: "開盤前", closing: "尾盤", closed: "已收盤" }[d.market_status]
+             || d.market_status || "";
+    document.getElementById("ivsMeta").innerHTML =
+      esc(st) + "　·　資料時間 " + esc(d.as_of || "–")
+      + "　·　掃描 " + ((d.counts || {}).scanned != null ? d.counts.scanned : "–") + " 檔"
+      + "　·　公開頁延遲約 " + (d.display_delay_min || 15) + " 分鐘";
+
+    // A/B 級是「當下最有動能」的一小群，收盤後多半是 0 檔——這時改列漲幅榜，
+    // 免得整區空白讓人以為壞掉。
+    var list = A.length ? A : (B.length ? B : ((d.rankings || {}).gainers || []).slice(0, 12));
+    var label = A.length ? "A 級" : (B.length ? "B 級" : "今日漲幅前段");
+    var html = '<span class="ivs-tier">A 級 <b>' + A.length + '</b></span>'
+             + '<span class="ivs-tier">B 級 <b>' + B.length + '</b></span>'
+             + '<span class="ivs-tier">' + esc(label) + '</span>';
+    html += list.length
+      ? '<div class="ivs-chips">' + list.slice(0, 12).map(chip).join("") + "</div>"
+      : '<div class="ivs-empty">目前沒有盤中訊號。</div>';
+    document.getElementById("ivsBody").innerHTML = html;
+  }
+
+  function get(u) {
+    return fetch(u + "?_=" + Date.now(), { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
+  }
+  get(SRC).catch(function () { return get(LOCAL); }).then(render).catch(function () {
+    document.getElementById("ivsMeta").textContent =
+      "盤中資料尚未產生或載入失敗（非交易時段這是正常的）。";
+  });
+})();
+</script>
+
 
 
 <div class="score-card" id="score-1597">
@@ -1069,7 +1154,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 23:59</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-06 21:34</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
@@ -1079,7 +1164,7 @@
   }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=419a16fa"></script>
+<script src="assets/stock-chart.js?v=f0bdda6b"></script>
 
 </body>
 </html>

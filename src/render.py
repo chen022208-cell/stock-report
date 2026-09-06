@@ -547,13 +547,48 @@ def render_scores(rows: list[dict], date_label_str: str) -> Path:
     return path
 
 
+def rerender_market_pages() -> list[Path]:
+    """用 docs/data/*.json 重建熱力圖／籌碼／評分／處置四頁。
+
+    這四頁本來只有 run_evening() 帶著當天新抓的資料才會產出，`main.py site`
+    完全碰不到它們——結果是「只改樣板」的修改（例如加一個共用區塊）要等到
+    下一次盤後跑完才會生效，本機也沒辦法先看效果。這裡改成從盤後已經落地的
+    JSON 重繪，資料還是同一份，只是樣板套用即時生效。
+
+    JSON 不存在（還沒跑過盤後）就跳過那一頁，不當成錯誤。
+    """
+    out: list[Path] = []
+    heat = _read_json("heatmap")
+    if heat and heat.get("industries"):
+        out.append(render_heatmap(heat["industries"], heat.get("date", "")))
+
+    chips = _read_json("chips")
+    if chips:
+        out.append(render_chips(
+            chips.get("institutional") or {}, chips.get("margin_top") or [],
+            chips.get("strong") or [], chips.get("holders") or [],
+            chips.get("date", ""), inst_rank=chips.get("inst_rank") or {}))
+
+    scores = _read_json("scores")
+    if scores and scores.get("rows"):
+        out.append(render_scores(scores["rows"], scores.get("date", "")))
+
+    disp = _read_json("disposition")
+    if disp:
+        out.append(render_disposition(
+            disp.get("disposition") or [], disp.get("trending") or [],
+            disp.get("today") or [], disp.get("date", "")))
+    return out
+
+
 def render_site() -> list[Path]:
     """重建所有索引頁。每次跑完報告都要呼叫，索引才會包含最新內容。"""
     return [render_index(), render_archive(), render_themes_page(), render_lookup_page(),
             render_submit_page(), render_research_notes(),
             render_weekly_index(), render_monthly_deep_index(), render_picks_page(),
             render_intraday_page(), render_intraday_report_index(),
-            render_stock_analysis_json(), render_stock_info()]
+            render_stock_analysis_json(), render_stock_info(),
+            *rerender_market_pages()]
 
 
 def render_stock_analysis_json() -> Path:

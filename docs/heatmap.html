@@ -179,6 +179,9 @@
   .sc-fund-cell h5{font-size:11px; margin:0 0 4px; color:var(--text-muted); font-weight:400;}
   .sc-fund-cell p{font-size:13px; margin:0; font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
   .sc-theme-tags{display:flex; flex-wrap:wrap; gap:6px;}
+  /* 同產業個股：可點，跟不可點的題材標籤要看得出差別 */
+  .sc-peer{cursor:pointer; font-family:'JetBrains Mono',monospace;}
+  .sc-peer:hover{border-color:var(--gold); color:var(--gold);}
   .sc-theme-tag{font-size:12px; background:var(--surface-2); border:1px solid var(--hairline);
                 border-radius:999px; padding:3px 10px; color:var(--text-secondary);}
   @media (max-width:560px){
@@ -230,6 +233,7 @@
     <a href="chips.html" class="">💰 籌碼</a>
     <a href="scores.html" class="">⭐ 評分</a>
     <a href="picks.html" class="">🎯 選股雷達</a>
+    <a href="intraday.html" class="">⚡ 盤中強勢</a>
     <a href="lookup.html" class="">🔍 個股查詢</a>
     <a href="disposition.html" class="">⚠️ 處置</a>
     <a href="themes.html" class="">題材庫</a>
@@ -245,9 +249,89 @@
 <h1 class="masthead-date">產業熱力圖</h1></header>
 <p class="meta">2026年9月5日．週六 收盤 · 依產業別等權平均漲跌幅，紅漲綠跌，顏色深淺代表強度 · 點格子看成分股</p>
 
+<section class="block ivs-block">
+  <h2>⚡ 盤中強勢 <a class="ivs-more" href="intraday.html">看完整名單 →</a></h2>
+  <div class="ivs-meta" id="ivsMeta">載入盤中資料中…</div>
+  <div id="ivsBody"></div>
+</section>
+<style>
+  .ivs-block h2{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;}
+  .ivs-more{font-size:12.5px; font-weight:400; color:var(--gold); text-decoration:none;}
+  .ivs-meta{font-size:12px; color:var(--text-muted); margin:-4px 0 12px;}
+  .ivs-tier{display:inline-flex; align-items:center; gap:5px; font-size:12px;
+            background:var(--surface-2); border:1px solid var(--hairline);
+            border-radius:999px; padding:3px 10px; margin:0 6px 10px 0;}
+  .ivs-tier b{font-family:'JetBrains Mono',monospace; color:var(--gold);}
+  .ivs-chips{display:flex; flex-wrap:wrap; gap:6px;}
+  .ivs-chip{display:inline-flex; align-items:center; gap:7px; cursor:pointer;
+            font-size:12.5px; background:var(--surface); border:1px solid var(--hairline);
+            border-radius:8px; padding:5px 10px;}
+  .ivs-chip:hover{border-color:var(--gold);}
+  .ivs-chip .c{font-family:'JetBrains Mono',monospace; color:var(--text-secondary);}
+  .ivs-chip .p{font-family:'JetBrains Mono',monospace;}
+  .ivs-chip .p.up{color:var(--red);} .ivs-chip .p.down{color:var(--green);}
+  .ivs-empty{font-size:13px; color:var(--text-muted);}
+</style>
+<script>
+/* 跟 intraday.html 同一份資料源，避免兩邊數字打架 */
+(function () {
+  var SRC = "https://raw.githubusercontent.com/chen022208-cell/stock-report/"
+          + "intraday-data/docs/data/intraday.json";
+  var LOCAL = "data/intraday.json";
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c];
+    });
+  }
+  function pct(v) { return (v == null) ? "–" : (v >= 0 ? "+" : "") + v.toFixed(2) + "%"; }
+
+  function chip(r) {
+    return '<span class="ivs-chip" data-stock-code="' + esc(r.code)
+      + '" data-stock-name="' + esc(r.name) + '">'
+      + '<span class="c">' + esc(r.code) + '</span>' + esc(r.name)
+      + '<span class="p ' + (r.change_pct >= 0 ? "up" : "down") + '">' + pct(r.change_pct) + '</span>'
+      + (r.volume_ratio ? '<span class="c">' + r.volume_ratio.toFixed(1) + '×</span>' : "")
+      + '</span>';
+  }
+
+  function render(d) {
+    var A = (d.tiers || {}).A || [], B = (d.tiers || {}).B || [];
+    var st = { open: "盤中", pre_open: "開盤前", closing: "尾盤", closed: "已收盤" }[d.market_status]
+             || d.market_status || "";
+    document.getElementById("ivsMeta").innerHTML =
+      esc(st) + "　·　資料時間 " + esc(d.as_of || "–")
+      + "　·　掃描 " + ((d.counts || {}).scanned != null ? d.counts.scanned : "–") + " 檔"
+      + "　·　公開頁延遲約 " + (d.display_delay_min || 15) + " 分鐘";
+
+    // A/B 級是「當下最有動能」的一小群，收盤後多半是 0 檔——這時改列漲幅榜，
+    // 免得整區空白讓人以為壞掉。
+    var list = A.length ? A : (B.length ? B : ((d.rankings || {}).gainers || []).slice(0, 12));
+    var label = A.length ? "A 級" : (B.length ? "B 級" : "今日漲幅前段");
+    var html = '<span class="ivs-tier">A 級 <b>' + A.length + '</b></span>'
+             + '<span class="ivs-tier">B 級 <b>' + B.length + '</b></span>'
+             + '<span class="ivs-tier">' + esc(label) + '</span>';
+    html += list.length
+      ? '<div class="ivs-chips">' + list.slice(0, 12).map(chip).join("") + "</div>"
+      : '<div class="ivs-empty">目前沒有盤中訊號。</div>';
+    document.getElementById("ivsBody").innerHTML = html;
+  }
+
+  function get(u) {
+    return fetch(u + "?_=" + Date.now(), { cache: "no-store" })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
+  }
+  get(SRC).catch(function () { return get(LOCAL); }).then(render).catch(function () {
+    document.getElementById("ivsMeta").textContent =
+      "盤中資料尚未產生或載入失敗（非交易時段這是正常的）。";
+  });
+})();
+</script>
+
+
 <div class="heat-grid">
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.90)">
+  <details class="heat-cell" id="ind-電腦及週邊設備業" style="background:rgba(219,84,74,0.90)">
     <summary>
       <span class="hc-name">電腦及週邊設備業</span>
       <span class="hc-pct up">+3.01%</span>
@@ -578,7 +662,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.75)">
+  <details class="heat-cell" id="ind-電子零組件業" style="background:rgba(219,84,74,0.75)">
     <summary>
       <span class="hc-name">電子零組件業</span>
       <span class="hc-pct up">+2.40%</span>
@@ -1109,7 +1193,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.60)">
+  <details class="heat-cell" id="ind-電機機械" style="background:rgba(219,84,74,0.60)">
     <summary>
       <span class="hc-name">電機機械</span>
       <span class="hc-pct up">+1.76%</span>
@@ -1360,7 +1444,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.58)">
+  <details class="heat-cell" id="ind-半導體業" style="background:rgba(219,84,74,0.58)">
     <summary>
       <span class="hc-name">半導體業</span>
       <span class="hc-pct up">+1.68%</span>
@@ -1851,7 +1935,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.55)">
+  <details class="heat-cell" id="ind-光電業" style="background:rgba(219,84,74,0.55)">
     <summary>
       <span class="hc-name">光電業</span>
       <span class="hc-pct up">+1.53%</span>
@@ -2202,7 +2286,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.48)">
+  <details class="heat-cell" id="ind-化學工業" style="background:rgba(219,84,74,0.48)">
     <summary>
       <span class="hc-name">化學工業</span>
       <span class="hc-pct up">+1.27%</span>
@@ -2353,7 +2437,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.47)">
+  <details class="heat-cell" id="ind-通信網路業" style="background:rgba(219,84,74,0.47)">
     <summary>
       <span class="hc-name">通信網路業</span>
       <span class="hc-pct up">+1.20%</span>
@@ -2594,7 +2678,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.43)">
+  <details class="heat-cell" id="ind-資訊服務業" style="background:rgba(219,84,74,0.43)">
     <summary>
       <span class="hc-name">資訊服務業</span>
       <span class="hc-pct up">+1.03%</span>
@@ -2660,7 +2744,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.40)">
+  <details class="heat-cell" id="ind-汽車工業" style="background:rgba(219,84,74,0.40)">
     <summary>
       <span class="hc-name">汽車工業</span>
       <span class="hc-pct up">+0.90%</span>
@@ -2886,7 +2970,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.38)">
+  <details class="heat-cell" id="ind-其他電子業" style="background:rgba(219,84,74,0.38)">
     <summary>
       <span class="hc-name">其他電子業</span>
       <span class="hc-pct up">+0.83%</span>
@@ -3127,7 +3211,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.38)">
+  <details class="heat-cell" id="ind-電子通路業" style="background:rgba(219,84,74,0.38)">
     <summary>
       <span class="hc-name">電子通路業</span>
       <span class="hc-pct up">+0.82%</span>
@@ -3248,7 +3332,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.37)">
+  <details class="heat-cell" id="ind-貿易百貨" style="background:rgba(219,84,74,0.37)">
     <summary>
       <span class="hc-name">貿易百貨</span>
       <span class="hc-pct up">+0.79%</span>
@@ -3344,7 +3428,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.37)">
+  <details class="heat-cell" id="ind-玻璃陶瓷" style="background:rgba(219,84,74,0.37)">
     <summary>
       <span class="hc-name">玻璃陶瓷</span>
       <span class="hc-pct up">+0.78%</span>
@@ -3380,7 +3464,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.35)">
+  <details class="heat-cell" id="ind-38" style="background:rgba(219,84,74,0.35)">
     <summary>
       <span class="hc-name">38</span>
       <span class="hc-pct up">+0.73%</span>
@@ -3446,7 +3530,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.34)">
+  <details class="heat-cell" id="ind-綠能環保" style="background:rgba(219,84,74,0.34)">
     <summary>
       <span class="hc-name">綠能環保</span>
       <span class="hc-pct up">+0.67%</span>
@@ -3592,7 +3676,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.33)">
+  <details class="heat-cell" id="ind-金融保險" style="background:rgba(219,84,74,0.33)">
     <summary>
       <span class="hc-name">金融保險</span>
       <span class="hc-pct up">+0.64%</span>
@@ -3758,7 +3842,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.32)">
+  <details class="heat-cell" id="ind-電器電纜" style="background:rgba(219,84,74,0.32)">
     <summary>
       <span class="hc-name">電器電纜</span>
       <span class="hc-pct up">+0.57%</span>
@@ -3849,7 +3933,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.32)">
+  <details class="heat-cell" id="ind-存託憑證" style="background:rgba(219,84,74,0.32)">
     <summary>
       <span class="hc-name">存託憑證</span>
       <span class="hc-pct up">+0.57%</span>
@@ -3905,7 +3989,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.31)">
+  <details class="heat-cell" id="ind-建材營造" style="background:rgba(219,84,74,0.31)">
     <summary>
       <span class="hc-name">建材營造</span>
       <span class="hc-pct up">+0.56%</span>
@@ -4191,7 +4275,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.30)">
+  <details class="heat-cell" id="ind-食品工業" style="background:rgba(219,84,74,0.30)">
     <summary>
       <span class="hc-name">食品工業</span>
       <span class="hc-pct up">+0.49%</span>
@@ -4322,7 +4406,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.29)">
+  <details class="heat-cell" id="ind-其他業" style="background:rgba(219,84,74,0.29)">
     <summary>
       <span class="hc-name">其他業</span>
       <span class="hc-pct up">+0.45%</span>
@@ -4593,7 +4677,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.29)">
+  <details class="heat-cell" id="ind-生技醫療業" style="background:rgba(219,84,74,0.29)">
     <summary>
       <span class="hc-name">生技醫療業</span>
       <span class="hc-pct up">+0.44%</span>
@@ -4904,7 +4988,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.28)">
+  <details class="heat-cell" id="ind-油電燃氣業" style="background:rgba(219,84,74,0.28)">
     <summary>
       <span class="hc-name">油電燃氣業</span>
       <span class="hc-pct up">+0.43%</span>
@@ -4955,7 +5039,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.28)">
+  <details class="heat-cell" id="ind-鋼鐵工業" style="background:rgba(219,84,74,0.28)">
     <summary>
       <span class="hc-name">鋼鐵工業</span>
       <span class="hc-pct up">+0.41%</span>
@@ -5121,7 +5205,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.26)">
+  <details class="heat-cell" id="ind-水泥工業" style="background:rgba(219,84,74,0.26)">
     <summary>
       <span class="hc-name">水泥工業</span>
       <span class="hc-pct up">+0.34%</span>
@@ -5167,7 +5251,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.25)">
+  <details class="heat-cell" id="ind-觀光事業" style="background:rgba(219,84,74,0.25)">
     <summary>
       <span class="hc-name">觀光事業</span>
       <span class="hc-pct up">+0.31%</span>
@@ -5273,7 +5357,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.25)">
+  <details class="heat-cell" id="ind-紡織纖維" style="background:rgba(219,84,74,0.25)">
     <summary>
       <span class="hc-name">紡織纖維</span>
       <span class="hc-pct up">+0.28%</span>
@@ -5494,7 +5578,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.25)">
+  <details class="heat-cell" id="ind-37" style="background:rgba(219,84,74,0.25)">
     <summary>
       <span class="hc-name">37</span>
       <span class="hc-pct up">+0.28%</span>
@@ -5595,7 +5679,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.24)">
+  <details class="heat-cell" id="ind-數位雲端" style="background:rgba(219,84,74,0.24)">
     <summary>
       <span class="hc-name">數位雲端</span>
       <span class="hc-pct up">+0.27%</span>
@@ -5671,7 +5755,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.23)">
+  <details class="heat-cell" id="ind-橡膠工業" style="background:rgba(219,84,74,0.23)">
     <summary>
       <span class="hc-name">橡膠工業</span>
       <span class="hc-pct up">+0.20%</span>
@@ -5737,7 +5821,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.18)">
+  <details class="heat-cell" id="ind-航運業" style="background:rgba(219,84,74,0.18)">
     <summary>
       <span class="hc-name">航運業</span>
       <span class="hc-pct up">+0.00%</span>
@@ -5888,7 +5972,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(79,158,113,0.20)">
+  <details class="heat-cell" id="ind-塑膠工業" style="background:rgba(79,158,113,0.20)">
     <summary>
       <span class="hc-name">塑膠工業</span>
       <span class="hc-pct down">-0.08%</span>
@@ -6004,7 +6088,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(79,158,113,0.34)">
+  <details class="heat-cell" id="ind-造紙工業" style="background:rgba(79,158,113,0.34)">
     <summary>
       <span class="hc-name">造紙工業</span>
       <span class="hc-pct down">-0.66%</span>
@@ -6050,7 +6134,7 @@
     </div>
   </details>
   
-  <details class="heat-cell" style="background:rgba(219,84,74,0.42)">
+  <details class="heat-cell" id="ind-其他" style="background:rgba(219,84,74,0.42)">
     <summary>
       <span class="hc-name">其他</span>
       <span class="hc-pct up">+1.01%</span>
@@ -11768,11 +11852,27 @@
   
 </div>
 
+<script>
+/* 首頁「產業熱力」那排點進來時帶 #ind-<產業>，把對應格子自動展開並捲到畫面上，
+   否則使用者會落在一整片收合的格子中間、看不出剛剛點的是哪一個。 */
+(function () {
+  function openTarget() {
+    var h = decodeURIComponent(location.hash || "").slice(1);
+    if (!h) return;
+    var el = document.getElementById(h);
+    if (!el) return;
+    el.open = true;
+    el.scrollIntoView({ block: "center" });
+  }
+  openTarget();
+  window.addEventListener("hashchange", openTarget);
+})();
+</script>
 <p class="commentary" style="margin-top:20px; font-size:13px">籌碼儀表板 → <a href="chips.html" style="color:var(--gold)">chips.html</a>　·　五面向評分 → <a href="scores.html" style="color:var(--gold)">scores.html</a>　·　查任一個股 → <a href="lookup.html" style="color:var(--gold)">個股查詢</a></p>
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-05 23:59</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-06 21:34</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
@@ -11782,7 +11882,7 @@
   }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=419a16fa"></script>
+<script src="assets/stock-chart.js?v=f0bdda6b"></script>
 
 </body>
 </html>

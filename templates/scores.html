@@ -34,6 +34,9 @@
 <h1 class="masthead-date">五面向評分排行</h1></header>
 <p class="meta">{{ date_label }} · 技術／籌碼／基本／題材四軸皆為規則計算；新聞面尚未評分<br>
 想查不在這張排行裡的個股 → <a href="{{ rel }}lookup.html" style="color:var(--gold)">個股查詢</a>　·　選股訊號 → <a href="{{ rel }}picks.html" style="color:var(--gold)">選股雷達</a></p>
+
+{% include "_intraday_strip.html" %}
+
 {% if rows %}
 {% for r in rows %}
 <div class="score-card" id="score-{{ r.code }}">
