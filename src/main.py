@@ -34,7 +34,7 @@ for _stream in (sys.stdout, sys.stderr):
 from . import db, llm, notify, prices_db, render
 from .analysis import global_themes, industry, review, scoring, screener, technical
 from .config import DRY_RUN, load_config, today_str, now_tpe
-from .fetchers import (fred, google_sheet, international, mops, stock_news,
+from .fetchers import (article, fred, google_sheet, international, mops, stock_news,
                        tdcc, tpex, twse, wallstreetcn, yahoo)
 from .market_calendar import (classify_day, consecutive_closed_days,
                               is_last_day_before_reopen, next_trading_day,
@@ -1370,6 +1370,38 @@ def _process_research_submission(source: str, title: str, body: str, today: str,
     """分析一篇提交＋寫進研究筆記表；回傳結果字典給呼叫端決定要不要留言／關閉
     Issue。抽成共用函式是因為現在有兩個提交來源（GitHub Issue、Google 表單），
     分析與驗證邏輯不該重複兩份。"""
+    # 「貼連結網址」模式：提交內容整段就是一個網址。以前這裡沒有任何抓取動作，
+    # 直接把那行網址當成「原文」丟給 LLM，等於什麼內容都沒給，當然分析不出東西
+    # （使用者實際回報：「感覺只有貼文章的會成功」）。這裡先把網頁抓成純文字。
+    source_url = article.looks_like_url(body)
+    if source_url:
+        fetched = _safe(lambda: article.fetch_article(source_url),
+                        {"ok": False, "error": "抓取程序異常"}, f"抓取連結 {label}")
+        if not fetched.get("ok"):
+            # 抓不到就誠實記一筆，不要拿空內容硬分析出一篇看似有結論的東西
+            reason = fetched.get("error", "未知原因")
+            print(f"[research] {label} 連結抓取失敗：{reason}")
+            note_id = db.create_research_note(
+                submitted_at=today, source=f"{source}（連結）", title=title or source_url,
+                raw_excerpt=source_url,
+                summary=f"這個連結無法取得內容，因此沒有進行分析。原因：{reason}",
+                verified="unverified",
+                verification_note="連結內容抓取失敗，系統未對其做任何判斷，"
+                                  "也沒有回寫任何既有資料。可以改用「貼文字內容」"
+                                  "把文章內文直接貼上。",
+                affected_themes=[], affected_stocks=[])
+            db.mark_research_note_status(note_id, "pending", [], [])
+            return {"verified": "unverified", "affected_themes": [], "affected_stocks": [],
+                    "summary": f"連結抓取失敗：{reason}",
+                    "verification_note": "未進行分析"}
+        # 把網頁標題與出處一起帶進去，LLM 才知道這段文字是從哪來的
+        body = (f"（以下內容擷取自使用者提供的網址：{source_url}"
+                + (f"，網頁標題：{fetched.get('title')}" if fetched.get("title") else "")
+                + f"）\n\n{fetched['text']}")
+        if not title:
+            title = fetched.get("title") or source_url
+        source = f"{source}｜{source_url}"
+
     result = _safe(lambda: llm.analyze_research_submission(body, known_theme_names),
                    {}, f"研究分析 {label}")
     if not result:
