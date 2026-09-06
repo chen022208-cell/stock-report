@@ -1492,6 +1492,14 @@ def _make_topic_report(topic_title: str, detail: str, source_desc: str,
         affected_themes=[], affected_stocks=row["stocks"],
         link=f"analysis/{today}-{slug}.html",
     ), None, "研究筆記（主題點播）")
+
+    # 送出點播的人本來完全收不到回音——這條路徑以前沒接通知，只能自己去網站看。
+    # 產出後推一則，附網址與來源數，讓使用者知道「跑完了、在哪裡看」。
+    url = f"{load_config()['site']['base_url']}/analysis/{today}-{slug}.html"
+    _safe(lambda: send_notification(
+        f"🎯 點播主題報告已產出：{row['title']}",
+        f"{row['summary'][:300]}\n\n查證來源 {len(sources)} 個\n{url}"),
+        None, "主題點播通知")
     return {"slug": slug, "path": path, "sources": sources, "title": row["title"]}
 
 
@@ -1691,6 +1699,12 @@ def run_research_intake() -> None:
                                           "可以換個更具體的講法再點播一次。",
                         affected_themes=[], affected_stocks=[]),
                         None, "研究筆記（點播失敗）")
+                    # 失敗也要講一聲，不然使用者會一直等一則永遠不會來的通知
+                    _safe(lambda t=topic: send_notification(
+                        f"🎯 點播主題「{t}」查不到足夠外部來源",
+                        "依站內規則不產出報告（寧可不寫，也不放未經查證的內容）。"
+                        "可以換個更具體的講法再點播一次；結果已記在研究筆記頁。"),
+                        None, "點播失敗通知")
                     processed += 1
                 continue
 
@@ -1708,6 +1722,12 @@ def run_research_intake() -> None:
         return
     render.render_site()
     print(f"[research] 本批處理 {processed} 篇提交")
+    # 使用者提交後唯一的回音就是這則；沒有它只能自己去網站刷新看有沒有更新。
+    _safe(lambda: send_notification(
+        f"📝 已處理 {processed} 筆研究提交",
+        f"驗證結果與是否回寫題材，見研究筆記頁：\n"
+        f"{load_config()['site']['base_url']}/research.html"),
+        None, "研究提交通知")
 
 
 def _report_result_to_issue(number: int, result: dict) -> None:

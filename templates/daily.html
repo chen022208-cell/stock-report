@@ -214,6 +214,7 @@
 {% if inst %}
 <section class="block">
   <h2>三大法人動向</h2>
+  {# None ＝ 當日尚未公布，不要當成 0 畫成空長條 #}
   {% for row in [('外資', inst.foreign_net), ('投信', inst.trust_net), ('自營商', inst.dealer_net)] %}
   <div class="inst-row">
     <span class="inst-name">{{ row[0] }}</span>

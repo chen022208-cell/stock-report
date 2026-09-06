@@ -47,8 +47,16 @@
     <div class="stat-tile c-market"><div class="stat-tile-label">成交值</div>
       <div class="stat-tile-value">{{ "{:,.0f}".format(market.turnover / 100000000) }}億</div></div>
     {% endif %}
+    {# 法人三欄為 None ＝ TWSE 當日尚未公布，跟「買賣超 0 億」是兩回事。
+       以前寫 `or 0` 會把「沒資料」顯示成「+0億」，看起來像法人今天完全沒動作。 #}
     <div class="stat-tile c-chip"><div class="stat-tile-label">三大法人</div>
-      <div class="stat-tile-value {{ 'up' if (market.foreign_net or 0) + (market.trust_net or 0) + (market.dealer_net or 0) >= 0 else 'down' }}">{{ "%+.0f"|format((market.foreign_net or 0) + (market.trust_net or 0) + (market.dealer_net or 0)) }}億</div></div>
+      {% if market.foreign_net is none and market.trust_net is none and market.dealer_net is none %}
+      <div class="stat-tile-value muted">尚未公布</div>
+      {% else %}
+      {% set inst_sum = (market.foreign_net or 0) + (market.trust_net or 0) + (market.dealer_net or 0) %}
+      <div class="stat-tile-value {{ 'up' if inst_sum >= 0 else 'down' }}">{{ "%+.0f"|format(inst_sum) }}億</div>
+      {% endif %}
+    </div>
     {% if market.advancers %}
     <div class="stat-tile c-market"><div class="stat-tile-label">漲跌家數</div>
       <div class="stat-tile-value" style="font-size:14px">{{ market.advancers }}/{{ market.decliners }}</div></div>
