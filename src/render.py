@@ -437,7 +437,7 @@ def render_site() -> list[Path]:
     return [render_index(), render_archive(), render_themes_page(), render_lookup_page(),
             render_submit_page(), render_research_notes(),
             render_weekly_index(), render_monthly_deep_index(), render_picks_page(),
-            render_intraday_page(),
+            render_intraday_page(), render_intraday_report_index(),
             render_stock_analysis_json(), render_stock_info()]
 
 
@@ -551,6 +551,36 @@ def render_intraday_page() -> Path:
         site_title=cfg["site"]["title"],
         generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
         rel="", nav_current="intraday",
+    ), encoding="utf-8")
+    return path
+
+
+def render_intraday_report(row: dict) -> Path:
+    """單篇盤中快報 → docs/analysis/<date>-<code>.html。"""
+    cfg = load_config()
+    out_dir = DOCS_DIR / "analysis"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    path = out_dir / f"{row['date']}-{row['code']}.html"
+    path.write_text(_env().get_template("analysis.html").render(
+        site_title=cfg["site"]["title"],
+        generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
+        rel="../", nav_current="", r=row,
+    ), encoding="utf-8")
+    return path
+
+
+def render_intraday_report_index() -> Path:
+    """盤中快報清單 → docs/analysis/index.html。"""
+    cfg = load_config()
+    out_dir = DOCS_DIR / "analysis"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    path = out_dir / "index.html"
+    path.write_text(_env().get_template("analysis_index.html").render(
+        site_title=cfg["site"]["title"],
+        generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
+        rel="../", nav_current="",
+        cap=cfg.get("intraday", {}).get("deep_report_daily_cap", 5),
+        reports=db.all_intraday_reports(300),
     ), encoding="utf-8")
     return path
 

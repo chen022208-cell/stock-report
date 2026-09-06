@@ -522,6 +522,74 @@ def verify_company_analysis(stocks: list[dict]) -> dict[str, dict]:
         return {}
 
 
+# ── 盤中焦點股深度快報（webhook 觸發，一次少量、每檔上網查證）────────────
+INTRADAY_FLASH_SYSTEM = """你是台股盤中研究員。盤中篩選器抓到幾檔「當下動能最強」的股票，
+每檔附上：代號、名稱、產業、申報主要經營業務、觸發當下的量價訊號（漲幅、領先大盤/同業、
+量比、有沒有創新高）。你要對每一檔上網查證後，寫一份「盤中快報」。
+
+【定位：快報，不是深度查證】
+時間有限，做輕度查證即可（新聞＋1～2 個可靠來源），但一樣有鐵則：
+- 公司「在做什麼」只能根據申報的主要經營業務 ＋ 你這次 WebSearch 查到的東西，
+  絕對不能用股票名稱或產業分類去推測。
+- 每個具體細節（產品、客戶、題材、今天為什麼漲）都要能對到來源。
+- sources 必填，至少 1 個是申報值以外的外部來源。查不到可靠來源就不要寫那一檔。
+
+【每檔輸出】
+- headline：一句話，這檔今天盤中在動什麼（例：「AI 伺服器散熱訂單傳出擴大，帶動急拉」）。
+  如果查不到明確催化事件，就寫「盤面帶動，暫無明確個股消息」，不要編。
+- company_desc：2～3 句，這家公司實際在做什麼＋關鍵事實。
+- swot：strengths / weaknesses / opportunities / threats 各 1～2 句，推理標「（推論）」。
+- sources：實際看過的來源清單（網址或明確出處）。
+
+只輸出 JSON，不要 markdown fence，key 是股票代號；查不到就不要放：
+{
+  "1234": {
+    "headline": "...",
+    "company_desc": "...",
+    "swot": {"strengths":"...","weaknesses":"...","opportunities":"...","threats":"..."},
+    "sources": ["https://...", "..."]
+  }
+}"""
+
+
+def intraday_flash_report(stocks: list[dict]) -> dict[str, dict]:
+    """stocks = [{code, name, industry, business, signals(dict)}, ...]。"""
+    if DRY_RUN or not stocks:
+        return {}
+    blocks = []
+    for s in stocks:
+        parts = [f"股票代號：{s['code']}　名稱：{s.get('name', '')}"]
+        if s.get("industry"):
+            parts.append(f"產業類別：{s['industry']}")
+        if s.get("business"):
+            parts.append(f"主要經營業務（申報值）：{s['business']}")
+        sig = s.get("signals") or {}
+        bits = []
+        if sig.get("change_pct") is not None:
+            bits.append(f"盤中漲幅 {sig['change_pct']:+.2f}%")
+        if sig.get("rs_market") is not None:
+            bits.append(f"領先大盤 {sig['rs_market']:+.2f}%")
+        if sig.get("rs_sector") is not None:
+            bits.append(f"領先同業 {sig['rs_sector']:+.2f}%")
+        if sig.get("volume_ratio") is not None:
+            bits.append(f"量比 {sig['volume_ratio']:.1f}×")
+        hi = [k for k, label in (("breakout_252d", "創一年新高"),
+                                 ("breakout_120d", "創半年新高"),
+                                 ("breakout_20d", "創20日新高")) if sig.get(k)]
+        if hi:
+            bits.append(hi[0].replace("breakout_252d", "創一年新高")
+                        .replace("breakout_120d", "創半年新高")
+                        .replace("breakout_20d", "創20日新高"))
+        if bits:
+            parts.append("觸發訊號：" + "、".join(bits))
+        blocks.append("\n".join(parts))
+    try:
+        return _parse_json(_call(INTRADAY_FLASH_SYSTEM, "\n\n".join(blocks), 12000))
+    except Exception as exc:
+        print(f"[llm] 盤中快報產出失敗：{exc}")
+        return {}
+
+
 # ── 供應鏈結構 ─────────────────────────────────────────
 SUPPLY_CHAIN_SYSTEM = """你是台股產業鏈研究員。輸入一個題材的名稱、摘要與目前追蹤到的相關個股。
 

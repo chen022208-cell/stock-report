@@ -163,6 +163,24 @@ CREATE TABLE IF NOT EXISTS research_notes (
     affected_stocks    TEXT,               -- JSON：[{"code":, "name":, "impact":, "applied": bool}]
     status             TEXT DEFAULT 'pending'  -- pending / applied / rejected
 );
+
+-- 盤中焦點股深度快報：盤中篩選器抓到 A 級 → webhook 觸發雲端 Routine 逐檔查證後產出。
+-- 一檔一天最多一篇（PK code+date）。跟 stock_analysis（長期維護的公司判讀）分開存。
+CREATE TABLE IF NOT EXISTS intraday_reports (
+    code          TEXT NOT NULL,
+    date          TEXT NOT NULL,            -- 台北日期 YYYY-MM-DD
+    reported_at   TEXT NOT NULL,            -- 產出時間
+    name          TEXT,
+    tier          TEXT,
+    peak_score    REAL,
+    signals       TEXT,                     -- JSON：觸發當下的量價訊號
+    headline      TEXT,                     -- 一句話重點
+    company_desc  TEXT,                     -- 這家公司在做什麼（查證後）
+    swot          TEXT,                     -- JSON：{strengths, weaknesses, opportunities, threats}
+    sources       TEXT,                     -- JSON 陣列：實際查證看過的來源
+    discord_sent  INTEGER DEFAULT 0,
+    PRIMARY KEY (code, date)
+);
 """
 
 
@@ -595,6 +613,68 @@ def all_stock_analysis() -> dict[str, dict]:
                 "sources": json.loads((r["sources"] if "sources" in r.keys() else None) or "[]"),
                 "updated_at": r["updated_at"],
             }
+        return out
+
+
+# ── 盤中焦點股深度快報 ────────────────────────────────
+def intraday_report_exists(code: str, date: str) -> bool:
+    with get_conn() as conn:
+        return conn.execute(
+            "SELECT 1 FROM intraday_reports WHERE code=? AND date=?", (code, date)
+        ).fetchone() is not None
+
+
+def intraday_reports_on(date: str) -> list[dict]:
+    with get_conn() as conn:
+        rows = conn.execute(
+            "SELECT * FROM intraday_reports WHERE date=? ORDER BY reported_at", (date,)
+        ).fetchall()
+        out = []
+        for r in rows:
+            d = dict(r)
+            d["signals"] = json.loads(d.get("signals") or "{}")
+            d["swot"] = json.loads(d.get("swot") or "{}")
+            d["sources"] = json.loads(d.get("sources") or "[]")
+            out.append(d)
+        return out
+
+
+def upsert_intraday_report(code: str, date: str, reported_at: str, name: str,
+                           tier: str, peak_score: float, signals: dict, headline: str,
+                           company_desc: str, swot: dict, sources: list,
+                           discord_sent: bool = False) -> None:
+    with get_conn() as conn:
+        conn.execute(
+            """INSERT INTO intraday_reports
+                 (code, date, reported_at, name, tier, peak_score, signals, headline,
+                  company_desc, swot, sources, discord_sent)
+               VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
+               ON CONFLICT(code, date) DO UPDATE SET
+                 reported_at=excluded.reported_at, name=excluded.name, tier=excluded.tier,
+                 peak_score=excluded.peak_score, signals=excluded.signals,
+                 headline=excluded.headline, company_desc=excluded.company_desc,
+                 swot=excluded.swot, sources=excluded.sources,
+                 discord_sent=excluded.discord_sent""",
+            (code, date, reported_at, name, tier, peak_score,
+             json.dumps(signals, ensure_ascii=False), headline, company_desc,
+             json.dumps(swot, ensure_ascii=False), json.dumps(sources, ensure_ascii=False),
+             1 if discord_sent else 0),
+        )
+
+
+def all_intraday_reports(limit: int = 300) -> list[dict]:
+    with get_conn() as conn:
+        rows = conn.execute(
+            "SELECT * FROM intraday_reports ORDER BY date DESC, reported_at DESC LIMIT ?",
+            (limit,)
+        ).fetchall()
+        out = []
+        for r in rows:
+            d = dict(r)
+            d["signals"] = json.loads(d.get("signals") or "{}")
+            d["swot"] = json.loads(d.get("swot") or "{}")
+            d["sources"] = json.loads(d.get("sources") or "[]")
+            out.append(d)
         return out
 
 

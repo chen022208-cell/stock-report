@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}盤中快報清單 · {{ site_title }}{% endblock %}
+{% block extra_css %}
+  .ar-row{display:block; background:var(--surface); border:1px solid var(--hairline);
+    border-radius:var(--radius-sm); padding:12px 14px; margin-bottom:9px; text-decoration:none; color:inherit;}
+  .ar-row:hover{border-color:var(--text-muted);}
+  .ar-top{display:flex; justify-content:space-between; gap:10px; align-items:baseline;}
+  .ar-name{font-weight:600; font-size:14px;}
+  .ar-when{font-size:11.5px; color:var(--text-muted);}
+  .ar-head{font-size:12.5px; color:var(--text-secondary); margin-top:4px; line-height:1.5;}
+{% endblock %}
+{% block content %}
+<header><div class="masthead-label">{{ site_title }}</div>
+<h1 class="masthead-date">盤中快報</h1></header>
+<p class="commentary" style="margin-top:14px">盤中強勢股篩選抓到 A 級標的時，系統即時上網查證後產出的快報（每日上限
+{{ cap }} 篇）。<b>快報形式、非深度查證</b>，僅供研究參考，不構成投資建議。深度、逐檔查證過的公司分析在
+<a href="lookup.html">個股查詢</a>。</p>
+
+{% if reports %}
+{% for r in reports %}
+<a class="ar-row" href="analysis/{{ r.date }}-{{ r.code }}.html">
+  <div class="ar-top">
+    <span class="ar-name">{{ r.code }} {{ r.name }}
+      {%- if r.signals and r.signals.change_pct is not none %} <span style="color:var(--c-chip)">{{ '%+.2f'|format(r.signals.change_pct) }}%</span>{% endif %}</span>
+    <span class="ar-when">{{ r.date }} {{ r.reported_at[-8:] if r.reported_at else '' }}</span>
+  </div>
+  {% if r.headline %}<div class="ar-head">{{ r.headline }}</div>{% endif %}
+</a>
+{% endfor %}
+{% else %}
+<p class="commentary" style="color:var(--text-muted); margin-top:16px">尚未有盤中快報。</p>
+{% endif %}
+{% endblock %}

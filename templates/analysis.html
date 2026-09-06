@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}{{ r.code }} {{ r.name }} 盤中快報 · {{ site_title }}{% endblock %}
+{% block extra_css %}
+  .an-meta{font-size:12.5px; color:var(--text-muted); margin:8px 0 18px;}
+  .an-head{font-weight:600; font-size:15px; margin:18px 0 6px;}
+  .an-sig{display:flex; flex-wrap:wrap; gap:6px; margin:10px 0;}
+  .an-sig span{font-size:11.5px; padding:2px 8px; border-radius:9px; background:var(--surface-2); color:var(--text-secondary);}
+  .an-swot{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px;}
+  .an-swot .cell{background:var(--surface); border:1px solid var(--hairline); border-radius:8px; padding:10px 12px;}
+  .an-swot h5{font-size:11.5px; color:var(--text-muted); margin-bottom:4px;}
+  .an-swot p{font-size:13px; color:var(--text-secondary); line-height:1.55;}
+  .an-src{font-size:12px; color:var(--text-muted); line-height:1.7; margin-top:14px;}
+  .an-src a{color:var(--text-secondary);}
+  @media(max-width:480px){ .an-swot{grid-template-columns:1fr;} }
+{% endblock %}
+{% block content %}
+<header><div class="masthead-label">{{ site_title }}</div>
+<h1 class="masthead-date" data-stock-code="{{ r.code }}" data-stock-name="{{ r.name }}">{{ r.code }} {{ r.name }} · 盤中快報</h1></header>
+<div class="an-meta">{{ r.date }} {{ r.reported_at }}　·　盤中篩選觸發（{{ r.tier }} 級，分數 {{ r.peak_score }}）　·　快報形式，非深度查證；僅供研究參考，不構成投資建議</div>
+
+{% if r.signals %}
+<div class="an-sig">
+  {% if r.signals.change_pct is not none %}<span>盤中漲幅 {{ '%+.2f'|format(r.signals.change_pct) }}%</span>{% endif %}
+  {% if r.signals.rs_market is not none %}<span>領先大盤 {{ '%+.2f'|format(r.signals.rs_market) }}%</span>{% endif %}
+  {% if r.signals.rs_sector is not none %}<span>領先同業 {{ '%+.2f'|format(r.signals.rs_sector) }}%</span>{% endif %}
+  {% if r.signals.volume_ratio is not none %}<span>量比 {{ '%.1f'|format(r.signals.volume_ratio) }}×</span>{% endif %}
+  {% if r.signals.breakout_252d %}<span>創一年新高</span>{% elif r.signals.breakout_120d %}<span>創半年新高</span>{% elif r.signals.breakout_20d %}<span>創20日新高</span>{% endif %}
+  {% if r.signals.industry %}<span>{{ r.signals.industry }}</span>{% endif %}
+</div>
+{% endif %}
+
+{% if r.headline %}<p class="commentary" style="margin-top:12px"><b>{{ r.headline }}</b></p>{% endif %}
+<p class="commentary" style="margin-top:10px">{{ r.company_desc }}</p>
+
+{% if r.swot %}
+<div class="an-head">SWOT</div>
+<div class="an-swot">
+  {% if r.swot.strengths %}<div class="cell"><h5>優勢 S</h5><p>{{ r.swot.strengths }}</p></div>{% endif %}
+  {% if r.swot.weaknesses %}<div class="cell"><h5>劣勢 W</h5><p>{{ r.swot.weaknesses }}</p></div>{% endif %}
+  {% if r.swot.opportunities %}<div class="cell"><h5>機會 O</h5><p>{{ r.swot.opportunities }}</p></div>{% endif %}
+  {% if r.swot.threats %}<div class="cell"><h5>威脅 T</h5><p>{{ r.swot.threats }}</p></div>{% endif %}
+</div>
+{% endif %}
+
+{% if r.sources %}
+<div class="an-src"><b>查證來源：</b>
+  {% for s in r.sources %}{% if s.startswith('http') %}<a href="{{ s }}" target="_blank" rel="noopener">{{ s }}</a>{% else %}{{ s }}{% endif %}{% if not loop.last %}　·　{% endif %}{% endfor %}
+</div>
+{% endif %}
+
+<p style="margin-top:24px"><a href="analysis/index.html">← 盤中快報清單</a></p>
+{% endblock %}

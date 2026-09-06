@@ -31,7 +31,7 @@ for _stream in (sys.stdout, sys.stderr):
     except Exception:
         pass
 
-from . import db, llm, prices_db, render
+from . import db, llm, notify, prices_db, render
 from .analysis import global_themes, industry, review, scoring, screener, technical
 from .config import DRY_RUN, load_config, today_str, now_tpe
 from .fetchers import (fred, google_sheet, international, mops, stock_news,
@@ -334,6 +334,120 @@ def _run_intraday_ref() -> None:
     """盤中篩選器每日盤前的參考值更新（新高、昨量），intraday-data 分支用。"""
     from . import intraday
     intraday.sync_ref()
+
+
+_INTRADAY_NEWSIG_URL = ("https://raw.githubusercontent.com/chen022208-cell/"
+                        "stock-report/intraday-data/docs/data/intraday_new_signal.json")
+
+
+def run_intraday_deep_report() -> None:
+    """盤中焦點股深度快報：webhook 觸發時跑一次。
+
+    盤中篩選器抓到新的 A 級標的 → 更新 intraday-data 分支的 intraday_new_signal.json
+    → webhook 觸發這個。逐檔上網查證後產出快報，寫 intraday_reports 表 ＋ 產出
+    docs/analysis/ 頁面 ＋ 發 Discord。每日上限見 config.yaml。沒有新標的就安靜結束。
+    """
+    import urllib.request
+
+    cfg = load_config()
+    iv = cfg.get("intraday", {})
+    cap = iv.get("deep_report_daily_cap", 5)
+    min_score = iv.get("deep_report_min_score", 82)
+    today = today_str()
+
+    # 取 intraday-data 分支上的新訊號檔
+    payload = None
+    local = render.DOCS_DIR / "data" / "intraday_new_signal.json"
+    if local.exists():
+        payload = _safe(lambda: json.loads(local.read_text(encoding="utf-8")), None, "本地新訊號")
+    if payload is None:
+        try:
+            req = urllib.request.Request(_INTRADAY_NEWSIG_URL,
+                                         headers={"User-Agent": "Mozilla/5.0"})
+            payload = json.loads(urllib.request.urlopen(req, timeout=20).read())
+        except Exception as exc:
+            print(f"[intraday-report] 取不到 intraday_new_signal.json：{exc}")
+            return
+    if not payload or payload.get("date") != today:
+        print("[intraday-report] 沒有今日的新訊號")
+        return
+
+    # 這一批訊號處理過了就跳（webhook 每分鐘都可能觸發）
+    stamp = f"{payload.get('date')}|{payload.get('at')}"
+    if db.get_state("intraday_deepreport_stamp") == stamp:
+        print("[intraday-report] 這批訊號已處理過")
+        return
+
+    done = db.intraday_reports_on(today)
+    remaining = cap - len(done)
+    if remaining <= 0:
+        print(f"[intraday-report] 今日已達上限 {cap} 篇")
+        db.set_state("intraday_deepreport_stamp", stamp)
+        return
+
+    sig_stocks = payload.get("stocks", {})
+    profiles = db.all_company_profiles()
+    batch = []
+    for code in payload.get("new_codes", []):
+        s = sig_stocks.get(code, {})
+        if db.intraday_report_exists(code, today):
+            continue
+        if (s.get("peak_score") or 0) < min_score:
+            continue
+        prof = profiles.get(code, {})
+        batch.append({
+            "code": code, "name": s.get("name") or prof.get("full_name", ""),
+            "industry": prof.get("industry", ""), "business": prof.get("business", ""),
+            "signals": s.get("signals", {}), "peak_score": s.get("peak_score"),
+        })
+        if len(batch) >= remaining:
+            break
+
+    if not batch:
+        print("[intraday-report] 沒有符合條件的新標的")
+        db.set_state("intraday_deepreport_stamp", stamp)
+        return
+
+    result = _safe(lambda: llm.intraday_flash_report(batch), {}, "盤中快報")
+    now_s = now_tpe().strftime("%Y-%m-%d %H:%M:%S")
+    made = []
+    for s in batch:
+        a = result.get(s["code"])
+        if not a or not a.get("company_desc"):
+            continue
+        srcs = [x for x in (a.get("sources") or []) if str(x).strip()]
+        external = [x for x in srcs if "公開資訊觀測站申報值" not in str(x)]
+        if not external:
+            print(f"[intraday-report] {s['code']} 無外部來源，略過")
+            continue
+        db.upsert_intraday_report(
+            s["code"], today, now_s, s["name"], "A", s.get("peak_score") or 0.0,
+            s.get("signals", {}), a.get("headline", ""), a["company_desc"],
+            a.get("swot", {}), srcs, discord_sent=True)
+        row = {"code": s["code"], "name": s["name"], "date": today, "reported_at": now_s,
+               "tier": "A", "peak_score": s.get("peak_score") or 0.0,
+               "signals": s.get("signals", {}), "headline": a.get("headline", ""),
+               "company_desc": a["company_desc"], "swot": a.get("swot", {}), "sources": srcs}
+        render.render_intraday_report(row)
+        made.append(row)
+
+    render.render_intraday_report_index()
+    if made:
+        lines = [f"⚡ 盤中焦點股快報（{today}）"]
+        for m in made:
+            chg = m["signals"].get("change_pct")
+            lines.append(f"\n**{m['code']} {m['name']}**"
+                         + (f"（{chg:+.2f}%）" if chg is not None else "")
+                         + (f"\n{m['headline']}" if m.get("headline") else ""))
+        base = _safe(notify._site_base_url, "", "站台網址")
+        if base:
+            lines.append(f"\n{base}/analysis/index.html")
+        (render.DOCS_DIR / "_notify_intraday.json").write_text(
+            json.dumps({"title": lines[0], "body": "\n".join(lines[1:]).strip(),
+                        "url": f"{base}/analysis/index.html" if base else ""},
+                       ensure_ascii=False), encoding="utf-8")
+    db.set_state("intraday_deepreport_stamp", stamp)
+    print(f"[intraday-report] 產出 {len(made)} 篇（今日累計 {len(done) + len(made)}/{cap}）")
 
 
 def run_verify_stocks() -> None:
@@ -1153,6 +1267,7 @@ def main() -> None:
         "news": run_news_monitor,
         "verify-stocks": run_verify_stocks,
         "intraday-ref": _run_intraday_ref,
+        "intraday-report": run_intraday_deep_report,
     }
 
     if mode == "auto":
