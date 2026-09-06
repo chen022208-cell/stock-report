@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>歷史報告 · 盤後快訊</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>捷立康（7686）查證報告：軟組織填補與支撐平台，剛登錄興櫃的醫美／醫材新兵 · 盤後快訊</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 <meta name="theme-color" content="#1C1B19">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -213,52 +213,127 @@
                     padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  .entry{display:flex; justify-content:space-between; gap:14px; padding:12px 0;
-         border-bottom:1px solid var(--hairline); font-size:14.5px;}
-  .entry:last-child{border-bottom:none;}
-  .entry a{text-decoration:none;}
-  .entry a:hover{color:var(--gold);}
-  .entry .date{font-family:'JetBrains Mono',monospace; color:var(--text-muted);
-               font-size:13px; flex-shrink:0;}
-  .month-head{font-family:'Noto Serif TC',serif; font-size:16px;
-              color:var(--text-secondary); margin:28px 0 8px;}
+  .tr-meta{font-size:12.5px; color:var(--text-muted); margin:8px 0 20px;}
+  .tr-badge{display:inline-block; font-size:11.5px; background:var(--surface-2);
+            border:1px solid var(--hairline); border-radius:999px; padding:2px 9px;
+            color:var(--c-theme); margin-right:8px;}
+  .tr-pdf{margin:0 0 18px;}
+  .tr-pdf a{font-size:13.5px; color:var(--gold); text-decoration:none;
+            border:1px solid var(--hairline); border-radius:999px; padding:6px 14px;}
+  .tr-pdf a:hover{border-color:var(--gold);}
+  .tr-summary{font-size:15px; line-height:1.85; color:var(--text-primary);
+              background:var(--surface); border-left:3px solid var(--gold);
+              border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:24px;}
+  .tr-sec{margin-bottom:26px;}
+  .tr-sec h2{font-size:17px; margin:0 0 10px;}
+  .tr-sec p{font-size:14.5px; line-height:1.9; color:var(--text-secondary); margin:0;}
+  .tr-stocks{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;}
+  .tr-stock{cursor:pointer; background:var(--surface); border:1px solid var(--hairline);
+            border-radius:var(--radius-sm); padding:8px 12px; font-size:13px; max-width:340px;}
+  .tr-stock:hover{border-color:var(--gold);}
+  .tr-stock b{font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
+  .tr-stock span{display:block; color:var(--text-muted); font-size:12px; margin-top:3px;}
+  .tr-risk{background:var(--surface); border-left:3px solid var(--c-warn);
+           border-radius:var(--radius-sm); padding:12px 15px; font-size:14px;
+           line-height:1.85; color:var(--text-secondary);}
+  .tr-src{font-size:12.5px; color:var(--text-muted); line-height:1.9;
+          border-top:1px solid var(--hairline); padding-top:14px; margin-top:26px;}
+  .tr-src a{color:var(--gold); word-break:break-all;}
 
 </style>
 </head>
 <body>
 <div class="page">
   <nav class="nav">
-    <a href="index.html" class="">最新</a>
-    <a href="heatmap.html" class="">🔥 熱力圖</a>
-    <a href="chips.html" class="">💰 籌碼</a>
-    <a href="scores.html" class="">⭐ 評分</a>
-    <a href="picks.html" class="">🎯 選股雷達</a>
-    <a href="intraday.html" class="">⚡ 盤中強勢</a>
-    <a href="lookup.html" class="">🔍 個股查詢</a>
-    <a href="disposition.html" class="">⚠️ 處置</a>
-    <a href="themes.html" class="">題材庫</a>
-    <a href="archive.html" class="current">歷史</a>
-    <a href="weekly/index.html" class="">📅 週報</a>
-    <a href="monthly-deep/index.html" class="">🌍 深度月報</a>
-    <a href="research.html" class="">📥 研究筆記</a>
-    <a href="submit.html" class="">📤 提交研究</a>
+    <a href="../index.html" class="">最新</a>
+    <a href="../heatmap.html" class="">🔥 熱力圖</a>
+    <a href="../chips.html" class="">💰 籌碼</a>
+    <a href="../scores.html" class="">⭐ 評分</a>
+    <a href="../picks.html" class="">🎯 選股雷達</a>
+    <a href="../intraday.html" class="">⚡ 盤中強勢</a>
+    <a href="../lookup.html" class="">🔍 個股查詢</a>
+    <a href="../disposition.html" class="">⚠️ 處置</a>
+    <a href="../themes.html" class="">題材庫</a>
+    <a href="../archive.html" class="">歷史</a>
+    <a href="../weekly/index.html" class="">📅 週報</a>
+    <a href="../monthly-deep/index.html" class="">🌍 深度月報</a>
+    <a href="../research.html" class="">📥 研究筆記</a>
+    <a href="../submit.html" class="">📤 提交研究</a>
   </nav>
 
   
-<header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">歷史報告</h1></header>
-
-<div class="month-head">2026-09</div>
-
-<div class="entry"><a href="reports/2026-09-05-morning.html">2026年9月5日．週六　早報</a><span class="date">2026-09-05</span></div>
-
-<div class="entry"><a href="reports/2026-09-05-evening.html">2026年9月5日．週六　盤後</a><span class="date">2026-09-05</span></div>
-
-<div class="entry"><a href="reports/2026-09-04-morning.html">2026年9月4日．週五　早報</a><span class="date">2026-09-04</span></div>
-
-<div class="entry"><a href="reports/2026-09-04-evening.html">2026年9月4日．週五　盤後</a><span class="date">2026-09-04</span></div>
+<header>
+  <div class="masthead-label">盤後快訊</div>
+  <h1 class="masthead-date">捷立康（7686）查證報告：軟組織填補與支撐平台，剛登錄興櫃的醫美／醫材新兵</h1>
+</header>
+<p class="tr-meta">
+  <span class="tr-badge">🎯 使用者點播主題</span>
+  2026-09-07 產出　·　原始點播：捷立康
+</p>
 
 
+<p class="tr-pdf"><a href="2026-09-07-捷立康.pdf" target="_blank" rel="noopener">📄 下載 PDF 版報告</a></p>
+
+
+<div class="tr-summary">捷立康生物科技（7686）是2021年成立、2026年8月31日剛登錄興櫃的醫療器材公司，核心是LipoShell軟組織填補平台與HeliBarb軟組織支撐平台，首波應用鎖定乳房術後重建、體積填補與醫學美容。由於剛掛牌，目前公開財務揭露有限，本報告以公司登記業務、技術平台與媒體報導為基礎整理，不含未經查證的財務預測。</div>
+
+
+<section class="tr-sec">
+  <h2>公司基本資料（已查證）</h2>
+  <p>捷立康生物科技股份有限公司（英文名 A-TOP Health BIOTECH CO., LTD.）成立於2021年7月29日，實收資本額5.01億元，已發行股數5,011萬股，股東人數952人，外資持股約0.46%，於2026年8月31日正式登錄興櫃（此前曾於創櫃板掛牌）。公司登記地址為台北市內湖區洲子街57號6樓，董事長暨總經理為曾昱嘉。公開資訊觀測站登記之營業項目為「醫療器材製造業、精密化學材料製造業、研究發展服務業」（來源：鉅亨網公司基本資料頁）。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>產品與技術平台（已查證）</h2>
+  <p>公司核心為兩大技術平台：LipoShell™（軟組織填補平台），採用可降解生醫材料，設計上讓支撐力量隨材料降解逐步交由自體組織承接，首波開發方向為乳房重建與乳房體積填補；以及HeliBarb™（軟組織支撐平台），以螺旋結構專利提供均勻穩定支撐力，訴求優於傳統倒鉤線材。另有生物可吸收拉提線產品「JOUVENCE®」。公司對外訴求瞄準所謂「身體經濟（Body Economy）」——即GLP-1類減重藥物流行後，體態雕塑／術後體積填補需求擴大的市場敘事（來源：經濟日報〈捷立康瞄準全球千億級身體經濟商機 邁向興櫃〉、鉅亨網興櫃消息報導）。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>與本站既有題材的對應</h2>
+  <p>捷立康的業務屬性對應本站題材知識庫中的「醫美」與「醫療器材」兩個既有題材，而非半導體、電子零組件等科技供應鏈題材——需特別澄清，因為公司名稱／代號曾在過去被誤判為電子相關廠商，本報告已重新以官方登記資料與媒體報導核實其真實業務內容為軟組織填補／醫美醫材，並非PCB或電子製造業者。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>尚待查證／資料缺口</h2>
+  <p>（推論）由於捷立康2026年8月底才登錄興櫃，尚未查到公開的月營收、季報或年報數據，也未查到臨床試驗進度、TFDA／FDA等主管機關核准狀態、或具體訂單／通路夥伴的第三方報導，故本報告不對其營收規模、獲利能力或市場滲透率做任何估計，僅呈現已公開的公司登記資訊與技術平台描述。</p>
+</section>
+
+
+
+<section class="tr-sec">
+  <h2>相關個股</h2>
+  <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:8px">
+    只列出查證過、確定與本主題相關的個股。點任一檔看 K 線與公司資料。</p>
+  <div class="tr-stocks">
+    
+    <div class="tr-stock" data-stock-code="7686" data-stock-name="捷立康">
+      <b>7686 捷立康</b>
+      <span>軟組織填補（LipoShell）與軟組織支撐（HeliBarb）技術平台，首波應用為乳房重建、體積填補與醫學美容，2026-08-31登錄興櫃，屬醫美／醫療器材題材，非科技供應鏈公司。</span>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="tr-sec">
+  <h2>風險與觀察重點</h2>
+  <div class="tr-risk">捷立康屬剛登錄興櫃的小型公司，目前查無公開月營收與財報數據，獲利能力與商業化進度不明；醫療器材／醫美產品的臨床驗證與主管機關核准進度、實際市場接受度都缺乏第三方查證資料；興櫃股票流動性通常偏低、股東人數與外資持股都不高，資訊揭露頻率也不如上市櫃公司，投資人若關注此股需留意資訊不對稱與流動性風險。</div>
+</section>
+
+
+<div class="tr-src">
+  <b>查證來源</b>（本報告依站內規則，沒有外部來源就不產出）：<br>
+  <a href="https://www.cnyes.com/twstock/7686/company/profile" target="_blank" rel="noopener">https://www.cnyes.com/twstock/7686/company/profile</a>　·　
+  <a href="https://money.udn.com/money/story/5635/9713460" target="_blank" rel="noopener">https://money.udn.com/money/story/5635/9713460</a>　·　
+  <a href="https://news.cnyes.com/news/id/6585397" target="_blank" rel="noopener">https://news.cnyes.com/news/id/6585397</a>
+  
+  <p style="margin-top:10px">本頁為系統依使用者點播主題自動整理之資訊，明確標示「（推論）」者為推論而非查證事實；
+  僅供研究參考，不構成投資建議。</p>
+</div>
+<p style="margin-top:20px; font-size:13px">
+  ← 回 <a href="index.html" style="color:var(--gold)">分析清單</a>　·
+  <a href="../submit.html" style="color:var(--gold)">再點播一個主題</a></p>
 
 
   <footer class="site-footer">
@@ -268,11 +343,11 @@
 </div>
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
   }
 </script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=da241156"></script>
+<script src="../assets/stock-chart.js?v=da241156"></script>
 
 </body>
 </html>
