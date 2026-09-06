@@ -1439,6 +1439,62 @@ def _gh_topic_issue_list() -> list[dict]:
         return []
 
 
+TOPIC_PREFIX = "[主題點播]"
+
+
+def _make_topic_report(topic_title: str, detail: str, source_desc: str,
+                       today: str, known: list[str]) -> dict | None:
+    """產出一篇主題點播報告：查證 → 寫表 → 產頁 → 寫研究筆記。
+
+    抽成共用函式是因為點播有兩個入口，兩邊規則必須一致：
+      · GitHub Issue（標籤 topic-request）
+      · Google 表單（標題以「[主題點播]」開頭）——網頁上那個免登入的路徑
+    回傳 {slug, path, sources} 成功；來源不足或產出失敗回 None（呼叫端據此回覆使用者）。
+    """
+    topic = (topic_title or "").strip()
+    if not topic:
+        return None
+    prompt_topic = topic
+    if detail and detail.strip() and detail.strip() != topic:
+        prompt_topic = f"{topic}\n補充說明：{detail.strip()}"
+
+    report = _safe(lambda: llm.write_topic_report(prompt_topic, known), {},
+                   f"主題報告 {topic[:20]}")
+    if not report or not report.get("sections"):
+        return None
+
+    sources = [x for x in (report.get("sources") or []) if str(x).strip()]
+    if not sources:
+        # 跟其他產出線同一條規則：沒有外部查證來源就不留檔
+        print(f"[topic] {topic[:20]}：查不到外部來源，不產出")
+        return None
+
+    slug = render.slugify(topic)[:40]
+    row = {
+        "date": today, "reported_at": now_tpe().strftime("%Y-%m-%d %H:%M:%S"),
+        "topic": topic, "title": report.get("title") or topic,
+        "summary": report.get("summary", ""),
+        "sections": report.get("sections") or [],
+        "stocks": report.get("stocks") or [],
+        "risks": report.get("risks", ""), "sources": sources, "issue_no": None,
+    }
+    # 標題收斂成單行：prompt 裡帶了「補充說明：…」的換行，LLM 有時會整段回聲成
+    # 標題，那樣頁面標題與研究筆記會變成多行。
+    row["title"] = " ".join(str(row["title"]).split())[:80] or topic
+
+    db.upsert_topic_report(slug, row)
+    path = render.render_topic_report(slug, row)
+    _safe(lambda: db.create_research_note(
+        submitted_at=today, source=source_desc, title=row["title"],
+        raw_excerpt=topic, summary=row["summary"], verified="verified",
+        verification_note=f"系統實際查證後產出，附 {len(sources)} 個外部來源。"
+                          f"報告內標「（推論）」者為推論而非查證事實。",
+        affected_themes=[], affected_stocks=row["stocks"],
+        link=f"analysis/{today}-{slug}.html",
+    ), None, "研究筆記（主題點播）")
+    return {"slug": slug, "path": path, "sources": sources, "title": row["title"]}
+
+
 def run_topic_requests() -> None:
     """使用者點播主題 → 系統做完整研究 → 產出報告頁存回網站。
 
@@ -1474,56 +1530,24 @@ def run_topic_requests() -> None:
             continue
 
         print(f"[topic] 處理 Issue #{number}：{topic[:40]}")
-        report = _safe(lambda t=topic: llm.write_topic_report(t, known), {},
-                       f"主題報告 #{number}")
-        if not report or not report.get("sections"):
+        title = (issue.get("title") or "").strip()
+        if title.startswith(TOPIC_PREFIX):          # 前端會帶這個前綴，去掉才是主題本身
+            title = title[len(TOPIC_PREFIX):].strip()
+        result = _make_topic_report(
+            title, issue.get("body", ""),
+            f"主題點播（GitHub Issue #{number}）", today, known)
+        if not result:
             _gh_issue_comment_and_close(
-                number, "產出失敗（LLM 呼叫或解析出錯），請稍後再試或換個講法描述主題。")
+                number, "這個主題查不到可靠的外部來源、或產出失敗，依站內規則不產出報告"
+                        "（寧可不寫，也不放未經查證的內容）。可以換個更具體的講法再試。")
             continue
 
-        sources = [x for x in (report.get("sources") or []) if str(x).strip()]
-        if len(sources) < 1:
-            # 沒有任何查證來源就不留檔——寧可不生，也不要放一篇沒查證的報告
-            _gh_issue_comment_and_close(
-                number, "這個主題查不到可靠的外部來源，依站內規則不產出報告"
-                        "（寧可不寫，也不放未經查證的內容）。")
-            print(f"[topic] #{number} 無來源，略過不寫")
-            continue
-
-        slug = render.slugify((issue.get("title") or "topic").strip())[:40]
-        row = {
-            "date": today,
-            "reported_at": now_tpe().strftime("%Y-%m-%d %H:%M:%S"),
-            "topic": (issue.get("title") or "").strip(),
-            "title": report.get("title") or issue.get("title") or "主題研究",
-            "summary": report.get("summary", ""),
-            "sections": report.get("sections") or [],
-            "stocks": report.get("stocks") or [],
-            "risks": report.get("risks", ""),
-            "sources": sources,
-            "issue_no": number,
-        }
-        db.upsert_topic_report(slug, row)
-        path = render.render_topic_report(slug, row)
-        # 點播主題本質上也是一筆「使用者提交的研究」，所以同步寫進研究筆記，
-        # 讓 research.html 一頁看得到所有提交（貼文章／貼連結／點播主題）的結果，
-        # 並附上完整報告的連結。verified 這裡標 verified 是因為程式已經擋掉
-        # 沒有外部查證來源的產出（上面 sources 檢查），不是憑內容語氣判斷。
-        _safe(lambda: db.create_research_note(
-            submitted_at=today, source=f"主題點播（GitHub Issue #{number}）",
-            title=row["title"], raw_excerpt=row["topic"], summary=row["summary"],
-            verified="verified",
-            verification_note=f"系統實際查證後產出，附 {len(sources)} 個外部來源。"
-                              f"報告內標「（推論）」者為推論而非查證事實。",
-            affected_themes=[], affected_stocks=row["stocks"],
-            link=f"analysis/{today}-{slug}.html",
-        ), None, f"研究筆記 #{number}")
         made += 1
-        url = f"{load_config()['site']['base_url']}/analysis/{today}-{slug}.html"
+        url = f"{load_config()['site']['base_url']}/analysis/{today}-{result['slug']}.html"
         _gh_issue_comment_and_close(
-            number, f"已產出主題報告：{row['title']}\n\n{url}\n\n"
-                    f"查證來源 {len(sources)} 個。報告同時列在研究／分析清單頁。")
-        print(f"[topic] 已產出 {path.name}")
+            number, f"已產出主題報告：{result['title']}\n\n{url}\n\n"
+                    f"查證來源 {len(result['sources'])} 個。報告同時列在研究筆記與分析清單頁。")
+        print(f"[topic] 已產出 {result['path'].name}")
 
     if made:
         render.render_intraday_report_index()
@@ -1640,9 +1664,39 @@ def run_research_intake() -> None:
         last_count = int(db.get_state("research_form_row_count", "0"))
         new_rows = rows[last_count:]
         for row in new_rows:
-            print(f"[research] 處理表單提交（{row['timestamp']}）：{row['title']}")
+            title = (row.get("title") or "").strip()
+            # 「🎯 點播深度主題」在網頁上是走這條免登入的表單送出的，標題會帶
+            # 「[主題點播]」前綴。以前這裡沒有分流，等於把使用者輸入的「主題關鍵字」
+            # 當成一篇文章去做真偽驗證——關鍵字沒有內容可驗證，所以什麼都產不出來，
+            # 研究筆記上也看不到東西（使用者實際回報）。這裡改成分流到點播那條線。
+            if title.startswith(TOPIC_PREFIX):
+                topic = title[len(TOPIC_PREFIX):].strip()
+                print(f"[research] 處理主題點播（{row['timestamp']}）：{topic}")
+                made = _make_topic_report(
+                    topic, row.get("body", ""),
+                    f"主題點播 · Google 表單（{row['timestamp']}）",
+                    today, known_theme_names)
+                if made:
+                    processed += 1
+                    print(f"[research] 主題報告已產出：{made['path'].name}")
+                else:
+                    # 產不出來也要留一筆，不然使用者送出後完全看不到任何回應
+                    _safe(lambda t=topic, ts=row["timestamp"]: db.create_research_note(
+                        submitted_at=today,
+                        source=f"主題點播 · Google 表單（{ts}）", title=t, raw_excerpt=t,
+                        summary="這個主題查不到足夠的外部來源，依站內規則不產出報告。",
+                        verified="unverified",
+                        verification_note="系統實際查證後仍找不到可靠外部來源，"
+                                          "寧可不寫，也不放未經查證的內容。"
+                                          "可以換個更具體的講法再點播一次。",
+                        affected_themes=[], affected_stocks=[]),
+                        None, "研究筆記（點播失敗）")
+                    processed += 1
+                continue
+
+            print(f"[research] 處理表單提交（{row['timestamp']}）：{title}")
             result = _process_research_submission(
-                f"Google 表單提交（{row['timestamp']}）", row["title"], row["body"], today,
+                f"Google 表單提交（{row['timestamp']}）", title, row["body"], today,
                 known_theme_names, row["timestamp"])
             if result:
                 processed += 1
