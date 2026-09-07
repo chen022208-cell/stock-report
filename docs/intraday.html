@@ -527,6 +527,7 @@
   <button data-p="1y" class="on">1年</button>
 </div>
 <div class="iv-dtwrap"><div id="ivRank"></div></div>
+<p class="iv-hint" id="ivCorrected" style="margin-top:8px"></p>
 
 <div class="sheader"><span class="sh-ic">🔄</span>
   <span class="sh-title">類股輪動</span><span class="sh-badge">漲幅中位</span></div>
@@ -540,7 +541,9 @@
 <script>
 (function () {
   var SRC = "https://raw.githubusercontent.com/chen022208-cell/stock-report/intraday-data/docs/data/intraday.json";
-  var REFRESH_MS = 45000;
+  // 後端改成每 60 秒推一次（intraday.yml），前端就沒有理由等 45 秒；
+  // raw.githubusercontent 帶 ?_=<ts> 實測會回源，不吃 5 分鐘快取。
+  var REFRESH_MS = 20000;
   var rankKey = "gainers";
   var highPeriod = "1y";
   var lastData = null;
@@ -659,6 +662,10 @@
     renderFunnel(d.funnel);
     renderRank();
     document.getElementById("ivSectors").innerHTML = sectorTable(d.sectors);
+
+    // 盤中時 intraday.json 本來就是最新的，不要拿盤後端點去蓋；
+    // 收盤／尾盤才用官方收盤價校正那一筆停在 13:29 的盤中價。
+    if (st !== "open" && st !== "pre_open") correctCloses(d.as_of);
   }
 
   var FUNNEL_STEPS = [
@@ -722,6 +729,93 @@
     });
   }
 
+  /* ── 收盤後用證交所官方收盤價校正 ──────────────────────────
+   * 迴圈最後一次推送常常停在 13:29 的盤中最後一筆，而 13:30 收盤集合競價
+   * 往往成交在別的價位。薄量股差很多：2026-09-07 的 1516 川飛，盤中最後一筆
+   * 15.75（+9.76%，漲停），實際收盤 14.75（+2.79%）——整晚到隔天開盤前，
+   * 站上都掛著那筆錯的。
+   *
+   * STOCK_DAY 是**唯一對瀏覽器開放 CORS 的證交所端點**（mis 即時報價、
+   * openapi、TPEx openapi、Yahoo 全部擋），而且回得到當日官方收盤。所以
+   * 收盤後（market_status 不是 open）就拿它逐檔校正畫面上的價與漲跌幅。
+   * 只有上市查得到；上櫃／興櫃沒有 CORS 端點，維持原值並標示。
+   */
+  var dayCache = {};                 // code -> {close, pct} | null（null＝查不到）
+  function rocDate(iso) {            // "2026-09-07" -> "115/09/07"
+    var p = String(iso || "").slice(0, 10).split("-");
+    if (p.length !== 3) return null;
+    return (Number(p[0]) - 1911) + "/" + p[1] + "/" + p[2];
+  }
+  function officialClose(code, iso) {
+    if (dayCache[code] !== undefined) return Promise.resolve(dayCache[code]);
+    var ymd = String(iso || "").slice(0, 10).replace(/-/g, "");
+    var want = rocDate(iso);
+    if (!/^\d{4}$/.test(code) || !ymd || !want) return Promise.resolve(null);
+    return fetch("https://www.twse.com.tw/exchangeReport/STOCK_DAY?response=json&date="
+                 + ymd + "&stockNo=" + code)
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        var row = (j.data || []).filter(function (x) { return x[0] === want; })[0];
+        var out = null;
+        if (row) {
+          var close = parseFloat(String(row[6]).replace(/,/g, ""));
+          var chg = parseFloat(String(row[7]).replace(/[,+X]/g, ""));
+          if (isFinite(close) && isFinite(chg) && close - chg > 0) {
+            out = { close: close, pct: chg / (close - chg) * 100 };
+          }
+        }
+        dayCache[code] = out;
+        return out;
+      })
+      .catch(function () { dayCache[code] = null; return null; });
+  }
+  /* 把畫面上已渲染的節點就地校正。一次最多 4 個併發，避免一口氣打幾十個請求。 */
+  function correctCloses(iso) {
+    var nodes = [].slice.call(document.querySelectorAll(
+      "#ivA .iv-card[data-stock-code], #ivB .iv-card[data-stock-code], #ivRank tr[data-stock-code]"));
+    var seen = {}, queue = [];
+    nodes.forEach(function (n) {
+      var c = n.dataset.stockCode;
+      if (!c || seen[c]) { if (seen[c]) queue.push(n); return; }
+      seen[c] = 1; queue.push(n);
+    });
+    var i = 0, fixed = 0;
+    function next() {
+      if (i >= queue.length) { if (fixed) markCorrected(fixed); return Promise.resolve(); }
+      var node = queue[i++];
+      return officialClose(node.dataset.stockCode, iso).then(function (o) {
+        if (o && applyCorrection(node, o)) fixed++;
+        return next();
+      });
+    }
+    return Promise.all([next(), next(), next(), next()]);
+  }
+  function applyCorrection(node, o) {
+    var txt = (o.pct > 0 ? "+" : "") + o.pct.toFixed(2) + "%";
+    var cls = o.pct >= 0 ? "up" : "down";
+    var changed = false;
+    var chg = node.querySelector(".iv-chg");
+    if (chg && chg.textContent.trim() !== txt) {
+      chg.textContent = txt; chg.className = "iv-chg " + cls;
+      chg.title = "已校正為證交所官方收盤價"; changed = true;
+    }
+    if (node.tagName === "TR") {                    // 排行表：第 2 欄價、第 3 欄漲跌幅
+      var td = node.querySelectorAll("td");
+      if (td.length >= 3) {
+        if (td[1].textContent.trim() !== String(o.close)) { td[1].textContent = o.close; changed = true; }
+        if (td[2].textContent.trim() !== txt) {
+          td[2].textContent = txt; td[2].className = "num " + cls;
+          td[2].title = "已校正為證交所官方收盤價"; changed = true;
+        }
+      }
+    }
+    return changed;
+  }
+  function markCorrected(n) {
+    var el = document.getElementById("ivCorrected");
+    if (el) el.textContent = "已用證交所官方收盤價校正 " + n + " 檔（收盤集合競價常與盤中最後一筆不同；上櫃／興櫃無公開 CORS 端點，維持盤中值）。";
+  }
+
   function fetchJson(u) {
     return fetch(u + "?_=" + Date.now(), { cache: "no-store" })
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
@@ -768,7 +862,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-07 21:56</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-07 22:14</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
