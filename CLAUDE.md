@@ -171,6 +171,33 @@ Claude 帳號」下、吃該帳號訂閱額度，跟你在哪台電腦開發無�
 （只有上市查得到）。**判斷「是不是收盤了」要用 `as_of` 算資料年齡，不要信
 `market_status` 欄位**——那是產檔當下算的，收盤後永遠凍在 `"open"`。
 
+### 報價規則只有一份：`window.TWQuote`（`docs/assets/ui.js`）
+
+**任何跟「現在多少錢／漲跌幾 %」有關的邏輯都寫在那裡，不要在頁面裡自己再寫一份。**
+2026-09-08 踩過：`intraday.html`、`_intraday_strip.html`、`ui.js` 三份各自實作，
+只有第一份做了收盤價校正，結果熱力圖／評分／籌碼上的共用盤中條整晚顯示錯的價
+（1516 川飛 +9.76%，實際收盤 +2.79%），修了一份以為修好、使用者回「沒有改一樣啊」。
+
+`TWQuote` 提供：`ageMin(asOf)`／`isLive(d)`／`statusLabel(d)`／`write(node,price,pct,why)`／
+`correctCloses(nodes,asOf,cb)`／`startLive(key,getTargets,onStatus)`／`stopLive(key)`／
+`fetchIntraday()`／`officialIndex()`。頁面只負責回答「哪些節點要更新」
+（回傳 `[{el, code, ex}]`），其餘一律交給它。
+
+⚠️ **三個一定要記得的陷阱**
+
+1. **不要信 `d.market_status`。** 那是產檔當下算的；收盤後 `intraday.json` 凍在
+   13:29:52，欄位會一直寫著 `"open"`。判斷即時與否一律用 `TWQuote.isLive()`
+   （＝`market_status` 是 open **且** `as_of` 距今 ≤ 5 分鐘）。
+2. **頁面內容區塊裡的 `<script>` 跑在 `ui.js` 之前**（`ui.js` 掛在 body 結尾），
+   所以用到 `TWQuote` 的一定要包在 `DOMContentLoaded` 裡。寫成
+   `if (!window.TWQuote) return;` 會讓整區靜靜地什麼都不做——比沒改還糟。
+3. **收盤後最後一筆不是收盤價。** 迴圈最後一次推送常停在 13:29，13:30 集合競價
+   常成交在別的價位，薄量股差很多。資料一過期就要 `correctCloses()`。
+
+`officialIndex()` 打 FMTQIK（跟 STOCK_DAY 同 host、同樣開 CORS）取官方大盤收盤：
+首頁 hero 的 `data-report-date` 落後於證交所最新交易日時，前端會自己把指數補成
+官方收盤並註明「其他數字仍是 X 日的」——**盤後 Routine 掛掉時首頁不會再停在上週五**。
+
 ## 個股技術圖表／查詢
 
 - 每個出現股票代號的地方（評分頁、盤後報告技術面表格、籌碼頁、熱力圖展開列表、
