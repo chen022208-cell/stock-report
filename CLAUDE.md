@@ -234,6 +234,19 @@ CCR session 自己 clone repo、自己扮演 LLM 服務 `agent_llm_queue/`、沒
 就安靜結束、只有失敗才 PushNotification。雲端環境不一定有 `gh` 登入，程式會
 自動改走 Google 表單 CSV 那條路（不需要 gh），這不算失敗。
 
+
+**2026-09-07 換帳號後：來源改走 GitHub Actions 中繼。** 新帳號的雲端環境
+（`env_01VN256spBKFc2yYwNhVhX3L`）egress proxy 擋掉 `docs.google.com`、沒裝 `gh`，
+而新版 claude.ai 設定頁**找不到**改 Network access 的入口。改成：
+`.github/workflows/research-sync.yml`（GitHub runner 有完整網路）每 15 分鐘
+（台灣 08:00–23:00）＋ `repository_dispatch(research-submitted)` 把表單 CSV ＋
+兩種標籤的 open issue 抓好 commit 進 `data/_intake/`；Routine（新 id
+`trig_01XbHE9QoggAgt96zw93co5J`，cron `8 * * * *`）用
+`RESEARCH_FORM_CSV_FILE` / `RESEARCH_ISSUES_FILE` / `RESEARCH_TOPIC_ISSUES_FILE`
+三個環境變數直接讀那三個檔、不連外。關 issue 改用 GitHub MCP。
+即時觸發要在 repo 加 secret `CCR_RESEARCH_URL` / `CCR_RESEARCH_TOKEN`
+（值＝Apps Script 裡那組 CCR trigger URL/token）；沒加就靠 15 分鐘 schedule。
+若之後找到並改好環境的 Network access，可以把這套中繼拆掉、回到直連。
 ## 重要：一般對話中的股票分析也要同步存回網站
 
 如果使用者在跟你的對話（不是上面那幾個排程 Routine）裡問股票分析、要你查某檔股票
