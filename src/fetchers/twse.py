@@ -27,15 +27,105 @@ HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                          "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"}
 
 
+# openapi.twse.com.tw 會依來源 IP 擋掉部分機房（回 HTTP 200 但內容是
+# 「因為安全性考量，您所執行的頁面無法呈現」的 HTML）。2026-09-07 的雲端盤後
+# 就是這樣整批抓不到資料——網路是通的、只是被證交所擋。
+# www.twse.com.tw/rwd/zh 的同名端點沒有這個限制，所以每一支都準備一條備援路徑，
+# 並把 RWD 的 {fields, data} 轉成跟 openapi 一樣的欄位名，下游 parser 不用改。
+_SECURITY_BLOCK = "FOR SECURITY REASONS"
+
+_RWD_FALLBACK = {
+    # openapi 路徑 → (RWD 路徑, 額外參數, 欄位對應；None＝直接用中文欄位名)
+    "/exchangeReport/FMTQIK": ("/afterTrading/FMTQIK", {}, None),
+    "/exchangeReport/MI_INDEX": ("/afterTrading/MI_INDEX", {"type": "IND"}, None),
+    "/exchangeReport/STOCK_DAY_ALL": (
+        "/afterTrading/MI_INDEX", {"type": "ALLBUT0999"},
+        {"證券代號": "Code", "證券名稱": "Name", "成交股數": "TradeVolume",
+         "成交筆數": "Transaction", "成交金額": "TradeValue", "開盤價": "OpeningPrice",
+         "最高價": "HighestPrice", "最低價": "LowestPrice", "收盤價": "ClosingPrice"}),
+}
+
+
+def _rows_from_rwd(payload: dict, colmap: dict | None) -> list[dict]:
+    """RWD 的 {fields, data} 或 {tables:[{fields,data}]} → list[dict]。
+
+    漲跌在 RWD 是拆成「漲跌(+/-)」與「漲跌價差」兩欄（前者常帶 HTML 顏色標記），
+    合併成 openapi 的單一 Change 欄位，_parse_signed() 才讀得到正負號。
+    """
+    blocks = payload.get("tables")
+    if not isinstance(blocks, list) or not blocks:
+        blocks = [payload]
+    out: list[dict] = []
+    for blk in blocks:
+        fields = blk.get("fields") or []
+        data = blk.get("data") or []
+        if not fields or not data:
+            continue
+        # 多表回應（MI_INDEX）要挑出真的有個股資料的那一張
+        if colmap and not any("證券代號" in str(f) for f in fields):
+            continue
+        for row in data:
+            d = {str(f): row[i] if i < len(row) else "" for i, f in enumerate(fields)}
+            sign = str(d.get("漲跌(+/-)", "") or "")
+            diff = str(d.get("漲跌價差", "") or "")
+            if diff:
+                neg = ("-" in sign) or ("green" in sign.lower())
+                d["Change"] = ("-" if neg else "") + diff.lstrip("+-")
+            if colmap:
+                d.update({en: d.get(zh, "") for zh, en in colmap.items()})
+            out.append(d)
+        if out:
+            break
+    return out
+
+
+def _get_via_rwd(path: str) -> list[dict] | None:
+    spec = _RWD_FALLBACK.get(path)
+    if not spec:
+        return None
+    rwd_path, extra, colmap = spec
+    from datetime import datetime, timedelta, timezone
+    # RWD 要帶日期。用台北時間的今天當起點，但**往前找最近一個有資料的交易日**——
+    # 盤後排程常在台北時間過午夜才跑，直接用「今天」會拿到
+    # 「很抱歉，沒有符合條件的資料!」而不是錯誤，看起來像抓不到東西。
+    day = datetime.now(timezone(timedelta(hours=8)))
+    payload = None
+    for back in range(6):
+        params = {"response": "json", **extra,
+                  "date": (day - timedelta(days=back)).strftime("%Y%m%d")}
+        try:
+            resp = requests.get(f"{RWD}{rwd_path}", params=params,
+                                headers=HEADERS, timeout=TIMEOUT)
+            resp.raise_for_status()
+            got = resp.json()
+        except Exception as exc:
+            print(f"[twse] RWD 備援 {rwd_path} 也失敗：{exc}")
+            return None
+        if got.get("stat") == "OK":
+            payload = got
+            break
+    if payload is None:
+        print(f"[twse] RWD 備援 {rwd_path}：往前 6 天都沒有資料")
+        return None
+    rows = _rows_from_rwd(payload, colmap)
+    if rows:
+        print(f"[twse] {path} 改走 RWD 備援，取得 {len(rows)} 列")
+    return rows or None
+
+
 def _get(path: str) -> list[dict] | None:
     try:
         resp = requests.get(f"{BASE}{path}", headers=HEADERS, timeout=TIMEOUT)
+        # 被證交所擋時是 HTTP 200 + HTML，不是錯誤碼——要看內容才判斷得出來
+        if _SECURITY_BLOCK in resp.text[:600].upper():
+            print(f"[twse] openapi{path} 被來源限制擋下，改走 www.twse.com.tw")
+            return _get_via_rwd(path)
         resp.raise_for_status()
         data = resp.json()
         return data if isinstance(data, list) else None
     except Exception as exc:
         print(f"[twse] {path} 擷取失敗：{exc}")
-        return None
+        return _get_via_rwd(path)
 
 
 def _get_rwd(path: str, params: dict) -> dict | None:

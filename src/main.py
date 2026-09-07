@@ -2140,6 +2140,7 @@ def run_news_monitor() -> None:
     notified = 0
     recorded = 0        # 有寫進 research_notes 的則數（重繪條件）
     news_notify: list[dict] = []      # 這一輪要推的快訊，最後一次寫檔（避免互相覆蓋）
+    digest: list[dict] = []           # 這一輪所有新記錄的筆記（含 unverified），最後發一則彙整
     for it in sorted(candidates, key=lambda x: x["id"]):
         text = f"{it['title']}\n{it['text']}" if it["title"] else it["text"]
         result = _process_research_submission(
@@ -2154,6 +2155,12 @@ def run_news_monitor() -> None:
         # 一路落後好幾十則；直到有人在別處跑 `main site` 才會一次全部冒出來。
         recorded += 1
         affected = result.get("affected_themes", [])
+        digest.append({
+            "title": it.get("title") or (text or "")[:30],
+            "verified": result.get("verified") or "unverified",
+            "summary": (result.get("summary") or "")[:70],
+            "themes": [t["name"] for t in affected],
+        })
         # 以前條件是「verified/conflicting **而且** 有對應到既有題材」才推播。
         # 但一則快訊查證通過、只是還沒被歸進任何題材，本身就值得知道——
         # 使用者回報研究筆記那些內容都沒有 Discord 通知。改成：查證結果明確
@@ -2175,6 +2182,29 @@ def run_news_monitor() -> None:
                 "url": f"{load_config()['site']['base_url']}/research.html",
             })
             notified += 1
+
+    # 研究筆記彙整：使用者反映「研究筆記那些內容都沒有 Discord 通知」。
+    # 但逐則推 unverified 的快訊只會洗版，所以改成**一輪一則彙整**：把這一輪
+    # 新記錄的全部列出來、各自標明查證狀態，重要的（verified／conflicting）
+    # 仍然另外單獨推一則完整內容。
+    if digest:
+        VERD = {"verified": "✅ 已驗證", "conflicting": "⚠️ 與既有資料衝突",
+                "unverified": "❔ 無法獨立驗證"}
+        lines = [f"📝 研究筆記新增 {len(digest)} 則", ""]
+        for x in digest[:12]:
+            lines.append(f"{VERD.get(x['verified'], x['verified'])}　{x['title'][:44]}")
+            if x["summary"]:
+                lines.append(f"　　{x['summary']}")
+            if x["themes"]:
+                lines.append(f"　　題材：{'、'.join(x['themes'][:3])}")
+        if len(digest) > 12:
+            lines.append(f"（另有 {len(digest) - 12} 則，見研究筆記頁）")
+        lines.append("\n只有標「已驗證」的才會回寫題材庫；其餘僅留存不影響報告。")
+        news_notify.append({
+            "title": f"研究筆記新增 {len(digest)} 則",
+            "body": "\n".join(lines),
+            "url": f"{load_config()['site']['base_url']}/research.html",
+        })
 
     if news_notify:
         (render.DOCS_DIR / "_notify_news.json").write_text(
