@@ -39,9 +39,12 @@
 
 {% if market %}
 <div class="card">
-  <div class="stat-tile-label"><span class="dot c-market"></span>加權指數</div>
-  <span class="hero-num">{{ "{:,.0f}".format(market.taiex_close) }}</span><span
-    class="hero-chg {{ 'up' if (market.taiex_change or 0) >= 0 else 'down' }}">{{ '▲' if (market.taiex_change or 0) >= 0 else '▼' }} {{ "%.2f"|format((market.taiex_change or 0)|abs) }}（{{ "%.2f"|format(market.taiex_change_pct or 0) }}%）</span>
+  <div class="stat-tile-label"><span class="dot c-market"></span>加權指數
+    <span class="live-badge">LIVE</span>
+    <span class="mono" data-live="as-of" style="margin-left:auto; color:var(--text-muted); font-size:11px"></span></div>
+  <span class="hero-num" data-live="taiex">{{ "{:,.0f}".format(market.taiex_close) }}</span><span
+    class="hero-chg {{ 'up' if (market.taiex_change or 0) >= 0 else 'down' }}"
+    data-live="taiex-chg" data-live-base="hero-chg">{{ '▲' if (market.taiex_change or 0) >= 0 else '▼' }} {{ "%.2f"|format((market.taiex_change or 0)|abs) }}（{{ "%.2f"|format(market.taiex_change_pct or 0) }}%）</span>
   <div class="card-grid cols-3" style="margin-top:14px">
     {% if market.turnover %}
     <div class="stat-tile c-market"><div class="stat-tile-label">成交值</div>
