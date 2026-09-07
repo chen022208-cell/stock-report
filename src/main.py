@@ -1612,7 +1612,12 @@ def _make_topic_report(topic_title: str, detail: str, source_desc: str,
         prompt_topic = f"{topic}\n補充說明：{detail.strip()}"
 
     gate = load_config().get("research_intake", {}).get("require_investment_topic", True)
-    if gate and not _looks_investment_related(f"{topic} {detail or ''}"):
+    # 分開檢查 topic／detail，不要串成一個字串再判斷：點播表單的 body 常常就是
+    # topic 本身的重複值（例如 topic="金居"、detail="金居"），串起來變成
+    # 「金居 金居」，既不是任何已知公司名稱的精準命中、也不是任何公司名稱的
+    # 前綴，會被誤判成非投資相關（2026-09-07 實際踩到，金居 8358、仁新 6696
+    # 兩筆點播都被這樣擋下）。
+    if gate and not (_looks_investment_related(topic) or _looks_investment_related(detail or "")):
         print(f"[topic] {topic[:20]}：非投資相關，關鍵字粗篩擋下，不處理")
         return None
 
@@ -1869,7 +1874,7 @@ def run_research_intake() -> None:
     for issue in issues:
         title, body, number = issue.get("title", ""), issue.get("body", ""), issue["number"]
         print(f"[research] 處理 Issue #{number}：{title}")
-        if _topic_gate and not _looks_investment_related(f"{title} {body}"):
+        if _topic_gate and not (_looks_investment_related(title) or _looks_investment_related(body)):
             _gh_issue_comment_and_close(
                 number, "這則提交看起來跟台股／投資無關，系統未做分析（提交頁只處理台股、"
                         "個股、投資題材、影響台股的總體經濟等內容）。")
@@ -1947,7 +1952,7 @@ def run_research_intake() -> None:
                 continue
 
             print(f"[research] 處理表單提交（{row['timestamp']}）：{title}")
-            if _topic_gate and not _looks_investment_related(f"{title} {row['body']}"):
+            if _topic_gate and not (_looks_investment_related(title) or _looks_investment_related(row["body"])):
                 print(f"[research] 表單提交（{row['timestamp']}）：非投資相關，關鍵字粗篩擋下，略過")
                 _safe(lambda ts=row["timestamp"]: db.mark_research_note_status(
                     db.create_research_note(
