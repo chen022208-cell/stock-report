@@ -453,5 +453,642 @@
       "https://www.pocket.tw/school/report/SCHOOL/6670/"
     ],
     "updated_at": "2026-09-06"
+  },
+  "2408": {
+    "name": "南亞科技股份有限公司",
+    "company_desc": "南亞科技為專業記憶體（DRAM）製造廠，隸屬台塑集團，主力產品為DDR4／LPDDR4等標準型記憶體，法說會資訊顯示DDR4與LPDDR4合計產能貢獻公司營收逾七成；近期積極推進DDR5放量與車用/AI應用記憶體布局，受惠2026年AI伺服器需求帶動DRAM報價大漲，2026年第二季營收與獲利創歷史新高（單季EPS 14.66元、毛利率擴至79.5%）。",
+    "swot": {
+      "strengths": "受惠AI伺服器帶動記憶體超級循環，DRAM報價急漲推升毛利率至近八成、單季獲利創新高。",
+      "weaknesses": "產品仍集中於標準型DDR4/LPDDR4，先進製程與資本規模較三星、SK海力士、美光等國際大廠小（推論）。",
+      "opportunities": "DDR5放量與AI/伺服器用高階記憶體轉型可望持續墊高單價與毛利（推論，來自法說會展望）。",
+      "threats": "記憶體屬強週期產業，價格一旦反轉恐使獲利大幅回落（推論）。"
+    },
+    "sources": [
+      "https://vocus.cc/article/6a51c230fd89780001919def",
+      "https://news.cnyes.com/news/id/6418612",
+      "https://statementdog.com/news/16193"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2345": {
+    "name": "智邦科技股份有限公司",
+    "company_desc": "智邦科技為網通設備ODM/JDM廠，主力產品為資料中心用交換器（switch），採「白牌」模式直接出貨給Google、Meta等具自研軟體能力的大型雲端業者；近年受惠AI資料中心從400G升級至800G、邁向1.6T高速交換器的資本支出成長，帶動營收與獲利創高。",
+    "swot": {
+      "strengths": "在白牌交換器領域為全球前列ODM/JDM廠，深耕北美大型雲端業者客戶群，受惠AI資料中心資本支出成長。",
+      "weaknesses": "客戶集中於少數大型雲端業者，議價力可能受制於單一大客戶需求波動（推論）。",
+      "opportunities": "800G至1.6T交換器世代升級與AI資料中心建置潮可望持續帶動高階產品出貨（推論，依產業展望）。",
+      "threats": "高速交換器散熱與功耗設計門檻提高，若競爭對手技術追上恐壓縮毛利（推論）。"
+    },
+    "sources": [
+      "https://statementdog.com/analysis/2345",
+      "https://www.stockfeel.com.tw/智邦2345經營策略分析/",
+      "https://www.pocket.tw/school/report/SCHOOL/6349/"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2912": {
+    "name": "統一超商股份有限公司",
+    "company_desc": "統一超商經營台灣7-ELEVEN連鎖便利商店，門市已逾8,000家，是台灣便利商店市占率第一的業者；7-ELEVEN業務貢獻集團營收約六成，近年持續以鮮食、烘焙、咖啡、會員數位服務及展店做為成長動能，並作為統一集團電商與物流的實體據點網絡。",
+    "swot": {
+      "strengths": "全台門市網絡密集、市占率居冠，鮮食與自有品牌毛利貢獻穩定，具規模經濟優勢。",
+      "weaknesses": "台灣便利商店市場已趨飽和，展店空間及同業競爭（全家等）可能限制營收成長速度（推論）。",
+      "opportunities": "鮮食升級、會員數位化與物流據點角色強化可望持續墊高客單價與非商品收入（推論）。",
+      "threats": "人事與租金等營運成本上升、消費力波動可能壓縮零售業毛利（推論）。"
+    },
+    "sources": [
+      "https://udn.com/news/story/7241/7633585",
+      "https://goodinfo.tw/tw/BasicInfo.asp?STOCK_ID=2912",
+      "https://ec.ltn.com.tw/article/breakingnews/5535117"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "1326": {
+    "name": "台灣化學纖維股份有限公司",
+    "company_desc": "台化為台塑集團石化中游廠商，主要生產純對苯二甲酸（PTA）、苯乙烯（SM）、ABS樹脂、聚苯乙烯（PS）、聚丙烯（PP）、合成酚丙酮等石化原料，並具嫘縈棉、耐隆纖維紡紗織布染整一貫作業產能；公開資料顯示台化為全球第二大苯乙烯製造商、全球第三大ABS樹脂與合成酚製造商，在集團內扮演將原油裂解物轉化為高分子中間體、供應集團內外客戶的角色。",
+    "swot": {
+      "strengths": "多項石化產品（苯乙烯、ABS、合成酚）全球市占位居前列，具規模與垂直整合優勢。",
+      "weaknesses": "業務高度依賴國際油價與石化景氣循環，原料成本波動大（推論）。",
+      "opportunities": "若持續推進高值化與新材料轉型，可望降低對傳統石化循環的依賴（推論）。",
+      "threats": "中國大陸及中東大型石化新產能持續開出，可能加劇同業殺價競爭（推論）。"
+    },
+    "sources": [
+      "https://www.cnyes.com/twstock/intro.aspx?code=1326",
+      "https://www.nstock.tw/台化做什麼.html"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "1303": {
+    "name": "南亞塑膠工業股份有限公司",
+    "company_desc": "南亞塑膠為台塑集團旗下塑膠加工與電子材料製造廠，業務涵蓋PVC等塑膠加工品、塑膠原料、電子材料（含銅箔基板、玻纖布）及聚酯纖維產銷與染整加工；公司在塑膠加工領域為國內領導廠商，聚酯纖維產量及銅箔基板產能亦名列前茅，近年並朝高階玻纖布、5G用材料及車用電子基板等高值化電子材料方向發展。",
+    "swot": {
+      "strengths": "產品線橫跨塑膠、纖維、電子材料多元事業體，銅箔基板與玻纖布產能具一定市場地位。",
+      "weaknesses": "傳統塑膠加工與纖維事業毛利率偏低，易受原料價格及景氣循環影響（推論）。",
+      "opportunities": "高階電子材料（車用基板、5G材料）轉型若順利推進，可望提升整體毛利結構（推論）。",
+      "threats": "中國大陸同業產能擴張及塑化景氣下行，可能壓縮傳統事業獲利空間（推論）。"
+    },
+    "sources": [
+      "https://statementdog.com/analysis/1303",
+      "https://www.pocket.tw/school/report/SCHOOL/6015/",
+      "https://www.npc.com.tw/j2npc/zhtw/CompanyProfile.jsp"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2207": {
+    "name": "和泰汽車股份有限公司",
+    "company_desc": "和泰汽車為日本TOYOTA在台灣的總代理，同時代理LEXUS、HINO等品牌，業務涵蓋汽車及零件裝配買賣、特種車輛打造修配、汽車修理保養、租賃及產險等；公開資料顯示TOYOTA與LEXUS品牌合計市占率逼近五成，已連續多年蟬聯台灣車市銷售龍頭，年營收規模已突破2,700億元。",
+    "swot": {
+      "strengths": "TOYOTA/LEXUS品牌代理地位穩固，市占率近五成居台灣車市之冠，並跨足租賃、保養、保險等售後服務創造多元收入。",
+      "weaknesses": "業務高度綁定單一原廠（TOYOTA集團）授權關係，議價力受制於原廠供貨與定價政策（推論）。",
+      "opportunities": "若持續拓展電動化車款代理及售後服務、租賃業務，可望維持市占與獲利穩定（推論）。",
+      "threats": "國內電動車品牌與中國車廠競爭加劇，可能侵蝕傳統燃油車市占（推論）。"
+    },
+    "sources": [
+      "https://www.cw.com.tw/article/5134058",
+      "https://www.hotaimotor.com.tw/About/Company",
+      "https://goodinfo.tw/tw/BasicInfo.asp?STOCK_ID=2207"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2002": {
+    "name": "中國鋼鐵股份有限公司",
+    "company_desc": "中鋼為台灣最大整合性鋼鐵廠，主要從事鋼品設計製造買賣，透過轉投資中龍鋼鐵（兩座高爐、年產能約500萬噸粗鋼）擴大一貫作業產能；公司近年推動「二軸三轉」策略，規劃2030年精緻鋼品銷售占比提升至20%，並投入高爐添加低碳鐵源、噴吹富氫氣體、增用廢鋼等減碳技術，目標2030年減碳25%、2050年達成碳中和。",
+    "swot": {
+      "strengths": "為台灣最大整合性鋼鐵廠，具規模與一貫作業產能優勢，並透過中龍鋼鐵擴大產能布局。",
+      "weaknesses": "鋼鐵業屬高耗能重資產產業，面臨全球產能過剩下的價格壓力（推論）。",
+      "opportunities": "精緻鋼品高值化轉型與減碳布局，若順利推進可望改善產品組合毛利（依公司轉型計畫推論）。",
+      "threats": "中國大陸鋼鐵過剩產能外銷及全球鋼價波動，可能持續壓縮獲利（推論）。"
+    },
+    "sources": [
+      "https://blog.fugle.tw/post/earnings-call-2002-2025-11-25",
+      "https://www.dragonsteel.com.tw/abo/about.html",
+      "https://www.gvm.com.tw/article/122276"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "8299": {
+    "name": "群聯電子股份有限公司",
+    "company_desc": "群聯電子為NAND Flash控制晶片（controller IC）與記憶體模組設計公司，向三星、SK海力士（Kioxia為主要股東）、美光等原廠採購NAND顆粒，結合自研控制器與韌體製成消費、車用、企業級等各類儲存模組；據法說會資訊，公司近年積極轉向企業級SSD（eSSD）與AI儲存應用，非消費/零售產品營收貢獻已超過七成，企業級SSD占營收比重快速提升，2025年第三季合併營收創單季歷史新高（181.37億元）。",
+    "swot": {
+      "strengths": "控制器加韌體的技術優勢使群聯在NAND模組領域具差異化地位，企業級SSD與AI儲存營收占比快速攀升，降低對消費性記憶體景氣循環的依賴。",
+      "weaknesses": "上游NAND顆粒仰賴三星、SK海力士、美光等原廠供應，缺乏自有晶圓產能，受制於原廠報價與供給（推論）。",
+      "opportunities": "AI伺服器與地端AI雲（aiDAPTIV+）應用擴大，企業級SSD占比可望持續提升（依公司法說展望）。",
+      "threats": "NAND Flash價格波動劇烈，若上游漲價幅度超出下游轉嫁能力可能壓縮毛利（推論）。"
+    },
+    "sources": [
+      "https://blog.fugle.tw/post/phison-nand-controller",
+      "https://uanalyze.com.tw/articles/705115670"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2353": {
+    "name": "宏碁股份有限公司",
+    "company_desc": "宏碁（Acer）為全球知名個人電腦與筆記型電腦品牌廠商，旗下亦擁有Gateway、Packard Bell、eMachines等品牌；據公開資料，2024年電腦及顯示器等硬體產品占營收約72%，非電腦業務（含子公司及新事業）占約28%。公司歷經二次改造，將製造代工部門分割獨立為緯創資通，自身轉型為以品牌行銷與通路銷售為主的公司。",
+    "swot": {
+      "strengths": "為全球主要PC/NB品牌廠之一，具多品牌矩陣（Acer、Gateway、Packard Bell等）與全球通路網絡。",
+      "weaknesses": "傳統PC/NB為成熟市場，成長動能有限，毛利率長期偏低（推論）。",
+      "opportunities": "非電腦業務（如顯示器、周邊、新事業）占比提升至近三成，若持續擴大可望分散PC景氣循環風險（依公司財報結構推論）。",
+      "threats": "全球PC出貨成長趨緩、品牌間價格競爭激烈，可能持續壓縮獲利空間（推論）。"
+    },
+    "sources": [
+      "https://statementdog.com/analysis/2353/pb",
+      "https://www.acer.com/corporate/zh/overview/milestones",
+      "https://goodinfo.tw/tw/BasicInfo.asp?STOCK_ID=2353"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2344": {
+    "name": "華邦電子股份有限公司",
+    "company_desc": "華邦電子為專業記憶體IC公司，涵蓋產品設計、晶圓製造、行銷及售後服務，主力產品為利基型（Specialty）DRAM、行動DRAM及NOR/SLC NAND程式碼型快閃記憶體，廣泛應用於通訊、消費電子、工業、車用電子及電腦周邊等領域；公司為全球NOR Flash主要供應商之一，並透過子公司新唐科技（4919）跨足MCU與類比IC等邏輯IC事業，與記憶體本業形成互補生態系。",
+    "swot": {
+      "strengths": "在利基型DRAM及NOR Flash市場具全球領先地位，深耕工業與車用等高可靠度客戶群，並藉子公司新唐延伸MCU生態系。",
+      "weaknesses": "利基型記憶體規模不若三星、美光等標準型DRAM大廠，資本支出與先進製程投資能量相對受限（推論）。",
+      "opportunities": "若CUBE架構與Secure Flash等高階應用如期放量，有助公司從傳統利基記憶體升級至高附加價值市場（依公司說明推論）。",
+      "threats": "NOR Flash市場與旺宏（Macronix）等同業競爭激烈，記憶體景氣循環仍可能影響獲利（推論）。"
+    },
+    "sources": [
+      "https://www.winbond.com/hq/about-winbond/news-and-events/news/winbond-top-nor-flash-memory-supplier-worldwide.html",
+      "https://www.pocket.tw/school/report/SCHOOL/6320/",
+      "https://vocus.cc/article/68d23ea8fd8978000127b787"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2882": {
+    "name": "國泰金融控股股份有限公司",
+    "company_desc": "國泰金控為國內資產規模最大的金融控股集團，旗下核心子公司為國泰人壽（壽險本業）及國泰世華商業銀行（存放款、外幣放款業務為主），另有國泰產險、國泰證券、國泰投信、國泰期貨等子公司。2026年上半年金控稅後純益765.2億元、EPS 4.95元居上市金控獲利之冠，其中國泰世華銀行上半年稅後純益270億元（年增15%），國泰人壽上半年稅後純益462.4億元；金控申報之月營收主要反映壽險投資收益認列時點波動，非單純本業營運指標。",
+    "swot": {
+      "strengths": "集團規模為國內金控之首，銀行放款與存款分別年增14%、15%，壽險與銀行雙引擎上半年獲利同步創同期新高。",
+      "weaknesses": "月營收（多反映壽險投資收益認列）波動極大，單月YoY -69.7%顯示獲利對金融市場（股債利率）及收益認列時點高度敏感（推論）。",
+      "opportunities": "國泰世華銀行外幣放款動能強勁，隨美元利率環境變化及海外業務擴張可望持續貢獻獲利成長。",
+      "threats": "壽險業獲利受股市波動及股票處分損益影響大，市場修正時獲利認列將明顯反轉（推論）。"
+    },
+    "sources": [
+      "https://www.ctee.com.tw/news/20260714701500-430304",
+      "https://news.cnyes.com/news/id/6534397",
+      "https://www.cnyes.com/twstock/intro.aspx?code=2882"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2303": {
+    "name": "聯華電子股份有限公司",
+    "company_desc": "聯華電子（UMC）為全球第三大專業晶圓代工廠，主要提供22/28奈米、65奈米、40奈米等成熟及特殊製程晶圓代工服務，在台灣、中國、日本、新加坡合計設有多座晶圓廠。客戶以IC設計（Fabless）公司為主（約占85%），含德州儀器、聯發科、高通、博通等大廠，區域營收以亞洲為主（約65%），北美約26%。",
+    "swot": {
+      "strengths": "全球晶圓代工市占前三大，客戶群分散且涵蓋多家一線IC設計廠，特殊製程（如22/28nm）具技術差異化。",
+      "weaknesses": "專注成熟製程、未涉入先進製程（7nm以下），在高階AI晶片代工競爭中相對邊緣化（推論）。",
+      "opportunities": "車用、工業與物聯網對成熟製程晶片需求穩定，特殊製程平台可持續帶動單價與毛利提升。",
+      "threats": "中國成熟製程晶圓代工產能持續擴張，價格競爭壓力上升，可能侵蝕聯電既有市占與毛利率（推論）。"
+    },
+    "sources": [
+      "https://statementdog.com/analysis/UMC",
+      "https://www.umc.com/zh-TW/Product/technologies/Index/specialty",
+      "https://en.wikipedia.org/wiki/United_Microelectronics_Corporation"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "1402": {
+    "name": "遠東新世紀股份有限公司",
+    "company_desc": "遠東新世紀（遠紡）由紡織起家，現為國內第一、全球前五大的聚酯化纖廠，業務涵蓋石化（子公司亞東石化生產PTA）、化纖（聚酯棉、絲、粒）、紡織成衣三大本業事業群，並轉投資遠傳電信（持股約38%具控制權）為穩定利潤來源，另持有亞洲水泥、遠東百貨等遠東集團相關事業股權。",
+    "swot": {
+      "strengths": "全球前五大聚酯化纖廠地位，具備從石化原料（PTA）到化纖、紡織的垂直整合產能，遠傳電信轉投資提供穩定業外收益。",
+      "weaknesses": "中國PTA產能過剩、價格競爭激烈，公司已將PTA產能縮減至150萬噸以優先自用，反映本業石化端承壓。",
+      "opportunities": "作為全球主要R-PET（再生聚酯）大廠之一，可望受惠品牌客戶對再生纖維與永續材料需求增加（推論）。",
+      "threats": "石化與化纖為原物料循環型產業，原油價格與中國同業低價競爭將持續影響本業獲利表現。"
+    },
+    "sources": [
+      "https://www.cnyes.com/twstock/1402",
+      "https://uanalyze.com.tw/articles/134497724",
+      "https://zh.wikipedia.org/zh-tw/遠東新世紀"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2618": {
+    "name": "長榮航空股份有限公司",
+    "company_desc": "長榮航空（EVA Air）為國際航線定期／不定期航空客貨運輸業者，現營運機隊含777-300ER、787-9/787-10、A330-300、A321-200等客機及777F貨機，客運營收約占整體合併營收六成，貨運營收占比較疫情高峰明顯下滑；公司另已下單A350-1000及A321neo等新機以擴大機隊。",
+    "swot": {
+      "strengths": "客運營收占比約六成、貨運仍具777F專用機隊，客貨兩用營運模式有助分散景氣循環風險。",
+      "weaknesses": "貨運營收占比已由疫情期間逾三成降至約一成，貨運景氣復甦力道趨緩對整體營收貢獻減弱（推論）。",
+      "opportunities": "國際客運需求持續復甦、新機隊（A350-1000、A321neo）交付後可提升航點覆蓋與座位效率。",
+      "threats": "燃油成本、匯率波動及兩岸／國際航線政策變動為航空業共通風險，直接影響長榮航獲利表現（推論）。"
+    },
+    "sources": [
+      "https://www.evaair.com/zh-tw/about-eva-air/about-us/market-and-sales-overview/fundamental-data/",
+      "https://www.stockfeel.com.tw/長榮航（2618）經營策略分析/",
+      "https://www.bnext.com.tw/article/59062/evaair-converting-their-passenger-jets-into-cargo-planes-"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2610": {
+    "name": "中華航空股份有限公司",
+    "company_desc": "中華航空（China Airlines）經營客運、貨運及郵運業務並提供代理修護、倉儲服務，客運營收占比逾六成，其餘為貨運業務。2026年上半年合併營收創新高達1,208億元，受惠客運載客率提升至83.8%及貨運營收年增24.9%（AI、半導體相關貨物出貨帶動）；公司已與波音簽約採購10架777-9客機及4架777-8F貨機，為台灣首家引進777X機型的航空公司。",
+    "swot": {
+      "strengths": "客運載客率高達83.8%、貨運營收受惠AI／半導體供應鏈出貨動能，2026上半年合併營收創歷史新高。",
+      "weaknesses": "貨運業務占比不若客運，且貨運收入高度依賴電子業（AI伺服器、半導體）出貨週期，波動性較大（推論）。",
+      "opportunities": "777F貨機全數投入運營後整體運力年增9.6%，未來777-9/777-8F新機交付可望進一步提升長程航線競爭力。",
+      "threats": "燃油價格、地緣政治與兩岸航線政策變動為主要外部風險，可能影響載客率與貨運需求（推論）。"
+    },
+    "sources": [
+      "https://vocus.cc/article/6a874ee2fd89780001d4f20f",
+      "https://www.cnyes.com/twstock/2610",
+      "https://zh.wikipedia.org/zh-tw/中華航空"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2354": {
+    "name": "鴻準精密工業股份有限公司",
+    "company_desc": "鴻準精密工業為鴻海集團子公司，主要營業項目為機殼、散熱模組及消費性電子產品之加工製造銷售，長期為蘋果（Apple）供應鏈重要成員，提供iPhone、iPad、MacBook等產品之精密鎂鋁合金機殼及散熱模組，另涉入遊戲機（任天堂相關）機構件代工；公司近年朝邊緣AI、電動車零組件、機器人及伺服器等領域轉型布局。",
+    "swot": {
+      "strengths": "深耕金屬機殼與散熱模組技術，為蘋果全球供應鏈關鍵成員之一，具備量產精密加工經驗。",
+      "weaknesses": "傳統機殼／消費性電子代工業務毛利率偏低，高度依賴單一大客戶（蘋果）訂單表現（推論）。",
+      "opportunities": "積極布局AI伺服器散熱、電動車與機器人機構件市場，若相關營收放量可望改善產品組合與毛利（推論）。",
+      "threats": "蘋果攻入機器人與機殼開發領域，供應鏈競爭與客戶議價力變化可能壓縮鴻準既有代工利潤（推論）。"
+    },
+    "sources": [
+      "https://money.udn.com/money/story/11162/8170073",
+      "https://www.foxconntech.com.tw/about/group-profile/",
+      "https://www.cnyes.com/twstock/intro.aspx?code=2354"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2609": {
+    "name": "陽明海運股份有限公司",
+    "company_desc": "陽明海運主要從事貨櫃運輸業務，並經營船舶、貨櫃及車架之修理、租賃、買賣及船務代理，申報主要業務並含國內外水上貨運客運、倉庫碼頭拖船貨櫃集散場站業務。營收主要來自跨太平洋及歐洲遠洋貨櫃航線，運力規模在全球貨櫃航運業者中排名居前十，國內主要競爭對手為長榮海運。",
+    "swot": {
+      "strengths": "專注遠洋貨櫃航線（跨太平洋、歐洲航線）為主要營收來源，具一定全球運力規模與航線網絡。",
+      "weaknesses": "貨櫃航運為高度景氣循環產業，運價波動劇烈，公司獲利受全球供需及運價指數影響大（推論）。",
+      "opportunities": "若全球貿易量回升或運價維持相對高檔，具規模效益的遠洋航線業者可望受惠（推論）。",
+      "threats": "主要競爭對手長榮海運及其他國際航商運力擴張，加上地緣政治、紅海等航道風險，可能壓抑運價與載貨率（推論）。"
+    },
+    "sources": [
+      "https://www.cnyes.com/twstock/2609",
+      "https://www.stockfeel.com.tw/陽明2609-風雨飄搖的航運巨頭/",
+      "https://vocus.cc/article/674834d2fd89780001ae8511"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2409": {
+    "name": "友達光電股份有限公司",
+    "company_desc": "友達光電（AUO）主要從事薄膜電晶體液晶顯示器（TFT-LCD）之研發、生產與銷售，並依申報業務提供垂直場域及智慧移動解決方案；近年轉型為「顯示科技、智能出行（Mobility Solutions）、垂直場域（智慧醫療、智慧零售）」三支柱布局，2024年併購德國車用顯示廠BHTC後車用客戶數大增，並已簽訂總額150億美元的車用專案，公司亦跨入太陽能模組製造及電廠建置維運。",
+    "swot": {
+      "strengths": "具備完整TFT-LCD及Micro LED技術底蘊，透過併購BHTC切入車用顯示市場並取得大額訂單，為全球前三大醫療影像顯示器供應商之一。",
+      "weaknesses": "傳統面板本業易受供需景氣循環及價格波動影響，公司月營收年增率為負（-2.6%），反映面板價格或需求端壓力。",
+      "opportunities": "車用（Mobility）事業部門目標營收占比持續提升，加上太陽能電廠維運屬經常性收入模式，有助分散面板循環風險。",
+      "threats": "面板產業仍面臨中國同業產能競爭及價格壓力，車用轉型效益能否如期反映在營收結構上仍待觀察（推論）。"
+    },
+    "sources": [
+      "https://www.pocket.tw/school/report/SCHOOL/6461/",
+      "https://uanalyze.com.tw/articles/4370919223",
+      "https://statementdog.com/analysis/2409"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2412": {
+    "name": "中華電信股份有限公司",
+    "company_desc": "中華電信申報業務為電信事業，實際涵蓋行動通信、寬頻／固網及企業客戶資通訊服務三大類。行動業務收入市占率達41%（高於用戶數市占率39~40%，反映ARPU較高），5G滲透率提升帶動寬頻ARPU創新高；企業客戶事業群受惠IDC、大數據、5G專網需求，2026年第一季該事業群營收188.1億元、年增8.5%，並積極布局衛星、AIoT等業務。",
+    "swot": {
+      "strengths": "行動業務營收市占率41%為市場龍頭、ARPU表現優於用戶數市占率，企業資通訊（IDC/大數據/5G專網）業務成長動能強。",
+      "weaknesses": "電信本業為高度成熟市場，成長性有限，需仰賴企業服務與新興業務（衛星、AIoT）挹注成長（推論）。",
+      "opportunities": "衛星通訊、AIoT及大數據等新興業務預期2026年可望合計創造逾百億元營收增量。",
+      "threats": "電信三雄價格競爭及資費戰若加劇，可能壓縮行動與寬頻業務的ARPU與獲利空間（推論）。"
+    },
+    "sources": [
+      "https://money.udn.com/money/story/5612/9306434",
+      "https://www.cht.com.tw/zh-tw/home/cht/messages/2026/0507-1420",
+      "https://vocus.cc/article/69e60f77fd89780001ce9c4b"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "9904": {
+    "name": "寶成工業股份有限公司",
+    "company_desc": "寶成工業為全球最大運動鞋代工廠，申報業務涵蓋各式運動鞋、皮鞋、塑膠鞋及針織成衣製造銷售，實際運作已轉型為產業控股型態，旗下製鞋業務主要由持股51.36%的子公司裕元工業負責，為Nike、Adidas、New Balance等國際品牌代工生產運動鞋，全球市占率逾20%，另有通路事業（寶勝等）為集團第二核心業務。",
+    "swot": {
+      "strengths": "全球製鞋代工市占逾20%，客戶涵蓋Nike、Adidas、New Balance等主要國際運動品牌，具規模化生產優勢。",
+      "weaknesses": "製鞋代工為勞力密集產業，毛利率相對偏低，且高度依賴少數國際品牌客戶下單狀況（推論）。",
+      "opportunities": "通路事業（寶勝等）與轉投資可提供本業以外的獲利來源，有助分散製鞋景氣循環風險。",
+      "threats": "全球運動鞋消費需求波動、品牌客戶砍單或轉單至其他代工廠，以及新興市場工資上漲，均可能影響代工利潤（推論）。"
+    },
+    "sources": [
+      "https://www.money.com.tw/invest/article/181537",
+      "https://zh.wikipedia.org/zh-tw/寶成工業"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2377": {
+    "name": "微星科技股份有限公司",
+    "company_desc": "微星科技為電競硬體與電腦零組件大廠，2025年產品營收結構約為零組件（主機板、顯示卡等）50%、系統（電競筆電、桌機、顯示器）42%、伺服器等其他8%；2025年合併營收創高達2301.96億元，銷售地區以亞洲（40.77%）、美洲（27.44%）、歐洲（26.18%）為主。近年除傳統電競產品外亦跨足AI伺服器與相關零組件應用。",
+    "swot": {
+      "strengths": "全球電競筆電、顯示卡與主機板品牌地位穩固，產品線橫跨零組件與系統雙軌，2025年營收創歷史新高。",
+      "weaknesses": "2026年7月單月營收年增率僅約0%，顯示PC/電競終端需求成長動能相對趨緩（推論）。",
+      "opportunities": "伺服器與AI相關硬體應用比重提升，可望帶動零組件事業毛利結構改善（推論）。",
+      "threats": "消費性PC/筆電、顯示卡市場競爭激烈且需求循環性高，易受品牌大廠與白牌競爭夾擊（推論）。"
+    },
+    "sources": [
+      "https://www.cnyes.com/twstock/intro.aspx?code=2377",
+      "https://statementdog.com/analysis/2377",
+      "https://www.pocket.tw/school/report/SCHOOL/5720/"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2383": {
+    "name": "台光電子材料股份有限公司",
+    "company_desc": "台光電子材料為全球高速／高頻銅箔基板（CCL）市占龍頭，產品線涵蓋銅箔基板、黏合片與多層壓合板，應用涵蓋AI伺服器、高速交換器、低軌衛星與車用雷達等領域。受惠AI伺服器高階CCL需求擴大，2026年第一季營收330.67億元、季增32.66%、年增52.49%，單月及單季營收均創歷史新高。",
+    "swot": {
+      "strengths": "為全球高速／高頻CCL市占冠軍，受惠AI伺服器與高速運算材料升級，近期營收與獲利連續創高。",
+      "weaknesses": "業績高度集中於AI伺服器上游材料景氣，若AI資本支出趨緩恐衝擊高階CCL訂單動能（推論）。",
+      "opportunities": "1.6Tbps交換器、低軌衛星、車用雷達等新應用持續放量，可延伸高階CCL成長動能。",
+      "threats": "銅箔、樹脂等原物料價格波動及同業（如聯茂、台燿）競爭可能壓縮毛利率（推論）。"
+    },
+    "sources": [
+      "https://statementdog.com/news/15914",
+      "https://www.pocket.tw/school/report/SCHOOL/5921/",
+      "https://abmedia.io/pcb-ccl-abf-material-shortage-emc-target-price-5100"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2301": {
+    "name": "光寶科技股份有限公司",
+    "company_desc": "光寶科技主要從事電腦資訊系統及週邊設備、資料儲存設備、網路設備等製造與買賣，近年雲端及物聯網（含AI伺服器電源、雲端運算電能管理）已成為最大營收來源，2026年第一季雲端及物聯網部門占營收53%、單季年增逾七成；光電部門占15%，資訊及消費性電子部門占29%。第一季合併營收434億元、年增19%，EPS 1.66元創近五年同期新高。",
+    "swot": {
+      "strengths": "雲端及物聯網（AI電源、伺服器電源管理）業務占比過半且成長強勁，帶動整體獲利創同期新高。",
+      "weaknesses": "傳統資訊及消費性電子部門成長相對平緩，營運結構轉型過程中各事業體表現分化（推論）。",
+      "opportunities": "AI伺服器、雲端運算對高效電源管理系統需求持續攀升，可望進一步墊高雲端事業占比。",
+      "threats": "雲端電源市場競爭者眾（如台達電等），客戶集中度與匯率波動可能影響毛利（推論）。"
+    },
+    "sources": [
+      "https://www.cnyes.com/twstock/bincome.aspx?code=2301",
+      "https://goodinfo.tw/StockInfo/BasicInfo.asp?STOCK_ID=2301",
+      "https://www.sinotrade.com.tw/richclub/hotstock/光寶科-2301-做什麼"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "3481": {
+    "name": "群創光電股份有限公司",
+    "company_desc": "群創光電主要從事電子零組件（面板）製造及國際貿易業務，傳統IT（筆電、手機）面板需求偏弱、公司採控產策略因應，近年策略轉向提升車用面板、醫療顯示器等高附加價值產品比重；2025年併購Pioneer（CarUX車用顯示業務）後，2026年車用營收預期年增逾兩成，成為營運及獲利成長支撐，並布局FOPLP先進封裝等非顯示新事業。",
+    "swot": {
+      "strengths": "併購Pioneer後車用顯示器（CarUX）產品線與客戶基礎擴大，車用營收占比及毛利貢獻提升。",
+      "weaknesses": "傳統IT面板（筆電、手機）需求疲弱，2026年7月單月營收年減1.9%，顯示核心面板業務仍受景氣循環壓抑。",
+      "opportunities": "車用面板、醫療顯示器等高毛利產品比重提升，加上FOPLP先進封裝新事業，可望降低面板業景氣循環影響（推論）。",
+      "threats": "面板產業長期供需循環及陸廠競爭壓力仍在，資產活化雖挹注獲利但非本業經常性收入（推論）。"
+    },
+    "sources": [
+      "https://www.pocket.tw/school/report/SCHOOL/6121/",
+      "https://blog.wistock.ai/stock-market-insights-main-player-trends/innolux-auo-transition-mini-led-automotive-ai-pc-revenue/",
+      "https://tw.stock.yahoo.com/news/群創2026可望轉盈-資產活化挹注獲利"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2615": {
+    "name": "萬海航運股份有限公司",
+    "company_desc": "萬海航運主要從事船舶運送、船務代理、貨櫃集散站經營及船舶貨櫃出租業務，以亞洲區間及美國線貨櫃運輸為主力。受惠美國線運價回升，2026年7月單月營收186.4億元、月增15.3%、年增50.13%，前七月累計營收951.81億元、年增12.83%；第二季EPS 4.11元、季增51%、年增954%。公司並持續擴充船隊，加購多艘萬TEU級（含雙燃料）貨櫃輪。",
+    "swot": {
+      "strengths": "美國線運價明顯回升帶動2026年營收與獲利大幅成長，第二季EPS年增近10倍。",
+      "weaknesses": "貨櫃航運業績高度連動即期運價與美國線景氣，波動性大、可預測性低（推論）。",
+      "opportunities": "持續加購萬TEU級及雙燃料新船，有助中長期運力擴充與燃油法規因應。",
+      "threats": "全球貨櫃運力供給若增加過快，或美國線需求／運價回落，恐使獲利轉趨保守（推論）。"
+    },
+    "sources": [
+      "https://goodinfo.tw/tw/StockDetail.asp?STOCK_ID=2615",
+      "https://www.cnyes.com/twstock/2615",
+      "https://www.moneydj.com/kmdj/news/newsviewer.aspx?a=8dc0d898-a8fe-47fd-9e84-02d2e9f624d6"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "3017": {
+    "name": "奇鋐科技股份有限公司",
+    "company_desc": "奇鋐科技原為桌機與筆電散熱大廠，近年轉向通訊設備、伺服器散熱及AI伺服器液冷模組。液冷事業占總營收比重從2023年不到2%快速攀升至2024年7%、2025年28%，2025年上半年伺服器＋機箱營收占比達66%；第二季水冷模組良率提升至90%以上，毛利率24.41%較去年同期改善，市場預估其在GB200冷板市占可達近五成。",
+    "swot": {
+      "strengths": "AI伺服器液冷散熱事業快速放量，2025年占營收比重已達28%，帶動毛利率同步改善。",
+      "weaknesses": "傳統桌機／筆電散熱本業成長趨緩，營運轉型高度依賴AI伺服器液冷新產能爬坡順利與否（推論）。",
+      "opportunities": "非輝達陣營ASIC水冷散熱需求興起，GB200/GB300世代持續放量可望延伸成長動能。",
+      "threats": "液冷散熱競爭者（如雙鴻等）同步搶進，技術良率與客戶認證進度可能影響訂單分配（推論）。"
+    },
+    "sources": [
+      "https://uanalyze.com.tw/articles/7490034601",
+      "https://blog.fugle.tw/post/avc-analysis",
+      "https://news.cnyes.com/news/id/6541423"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "3260": {
+    "name": "威剛科技股份有限公司",
+    "company_desc": "威剛科技主要從事電子零組件（記憶體模組）製造及電子材料批發，產品以DRAM模組為主（2026年7月占營收76.6%）、SSD占20.1%、記憶卡/隨身碟等占3.3%。受惠DRAM、NAND Flash價格上漲，2026年7月營收183.8億元、年增331.3%，連續5個月創新高，前七月累計營收826.5億元、年增206.7%，已大幅超越2025全年營收（530.4億元）。",
+    "swot": {
+      "strengths": "記憶體模組營收受惠DRAM/NAND漲價循環大幅成長，連續數月創歷史新高並手握高額庫存卡位漲價行情。",
+      "weaknesses": "營收高度集中於記憶體現貨／模組價格循環，一旦價格反轉，庫存評價與獲利波動風險大（推論）。",
+      "opportunities": "公司與法人預期記憶體缺貨情況將延續至2026年下半年甚至2027年，價格續揚可望支撐營運動能。",
+      "threats": "記憶體現貨市場價格波動劇烈，且高庫存策略若遇需求反轉恐面臨跌價損失風險（推論）。"
+    },
+    "sources": [
+      "https://news.cnyes.com/news/id/6562373",
+      "https://www.ctee.com.tw/news/20260507700131-439901",
+      "https://udn.com/news/story/7252/9656013"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2352": {
+    "name": "佳世達科技股份有限公司",
+    "company_desc": "佳世達主要產品為液晶顯示器、投影機及醫療服務，2025年全年營收2,079億元，其中資訊事業（含顯示器、投影機及IT高附加價值產品）合計占比52%、醫療事業占15%（營收303億元、年增15%）、智慧方案占17%、網路通訊占11%；2026年第一季高附加價值事業（醫療、智能方案、網通及高附加價值資訊）營收占比已達52%，超越傳統資訊事業，反映公司朝醫療與AIoT等高毛利業務轉型。",
+    "swot": {
+      "strengths": "醫療、智慧方案、網通等高附加價值事業占比已過半，醫療事業2025年營收年增15%，轉型成效逐步顯現。",
+      "weaknesses": "傳統顯示器與投影機資訊本業占比雖大但成長相對趨緩，仍受消費性電子景氣循環影響（推論）。",
+      "opportunities": "集團旗下多元子公司（醫療、AIoT）持續整合綜效，若能延續近年成長趨勢有助整體毛利結構改善（推論）。",
+      "threats": "醫療及新事業拓展需持續投入資本支出，短期內獲利貢獻與投資回收期存在不確定性（推論）。"
+    },
+    "sources": [
+      "https://blog.fugle.tw/post/earnings-call-2352-2026-05-08",
+      "https://www.technice.com.tw/techmanage/iot/166838/",
+      "https://leho.com.tw/archives/316121"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2887": {
+    "name": "台新新光金融控股股份有限公司",
+    "company_desc": "台新新光金控為台新金與新光金合併後成立之金融控股公司，主要從事金融控股業務，旗下含台新銀行、新光人壽等子公司；投信、人壽及證券子公司整併已完成，現階段聚焦銀行端合併。2026年前8月合併稅後純益185.4億元、EPS 1.13元，其中台新銀行前8月稅後純益135.6億元創同期新高；子公司新光人壽單月獲利易受股利收入認列時點及資本市場評價影響而波動，使集團單月自結數字呈現較大起伏。",
+    "swot": {
+      "strengths": "銀行子公司台新銀行獲利穩定成長，2026年前8月稅後純益創同期新高，為集團主要獲利引擎。",
+      "weaknesses": "壽險子公司新光人壽獲利受股利認列時點、債券殖利率及資本市場波動影響大，單月獲利易出現大幅起伏（推論）。",
+      "opportunities": "台新與新光合併後投信、證券已整併完成，銀行端整併若順利推進可望釋放更多成本與業務綜效。",
+      "threats": "兩家壽險／銀行合併整合過程仍存執行風險，且壽險業務對利率、匯率及股債市波動敏感度高（推論）。"
+    },
+    "sources": [
+      "https://tw.stock.yahoo.com/news/台新新光金前8月獲利年增二成",
+      "https://news.cnyes.com/news/id/6458507",
+      "https://tw.news.yahoo.com/新壽未實現股票獲利8月回升"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2891": {
+    "name": "中國信託金融控股股份有限公司",
+    "company_desc": "中國信託金融控股主要從事投資金融相關事業，旗下含中國信託商業銀行、台灣人壽等子公司。2026年前5月合併稅後純益347.9億元、EPS 1.78元創同期新高，其中中信銀行前5月稅後獲利269.45億元、年增17%，財富管理收入成長逾四成；子公司台灣人壽獲利則受債券殖利率及匯率波動影響明顯，單月獲利易大幅起伏。",
+    "swot": {
+      "strengths": "中信銀行財富管理、放款及信用卡業務維持雙位數成長，是集團主要獲利支柱，前5月獲利創同期新高。",
+      "weaknesses": "壽險子公司台灣人壽獲利受匯率及債券殖利率波動影響大，單月獲利大幅起伏（推論）。",
+      "opportunities": "台灣人壽新契約保費較去年同期成長逾160%，顯示保單銷售動能強勁，可望支撐中長期保費收入基礎。",
+      "threats": "新台幣匯率及全球債券殖利率波動加大壽險投資與避險成本的不確定性，影響集團獲利穩定性（推論）。"
+    },
+    "sources": [
+      "https://www.investor.com.tw/onlinenews/NewsContent.asp?articleNo=14202606120005",
+      "https://ec.ltn.com.tw/article/breakingnews/5469201",
+      "https://tw.stock.yahoo.com/news/台灣人壽6月虧轉盈賺57億元"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "4958": {
+    "name": "臻鼎科技控股股份有限公司",
+    "company_desc": "臻鼎-KY為鴻海集團旗下、全球最大PCB廠商之一，主要生產軟板(FPC)、硬板、HDI板及IC載板，應用於消費性電子、AI伺服器與光通訊模組。近年積極轉型，AI伺服器、光模組與IC載板三大業務合計營收占比已突破二成，2026上半年AI相關營收占比逼近七成，伺服器與光通訊業務年增逾230%。",
+    "swot": {
+      "strengths": "為全球規模最大PCB廠之一，具軟硬板、HDI、IC載板全製程整合能力，並受惠AI伺服器與光通訊需求快速放量。",
+      "weaknesses": "傳統消費性電子(如智慧型手機)PCB業務占比仍高，易受消費性電子需求循環波動影響（推論）。",
+      "opportunities": "AI伺服器、CPO光通訊模組與IC載板為未來成長引擎，法人預期至2030年三大業務營收占比可望攀升至五成。",
+      "threats": "PCB產業資本支出大、技術迭代快，同業在高階載板領域競爭激烈（推論）。"
+    },
+    "sources": [
+      "https://www.ctee.com.tw/news/20260614700351-430201",
+      "https://www.moneyweekly.com.tw/ArticleData/Info/article/219475",
+      "https://goodinfo.tw/tw/StockDetail.asp?STOCK_ID=4958"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2885": {
+    "name": "元大金融控股股份有限公司",
+    "company_desc": "元大金控為台灣大型金融控股集團，旗下涵蓋元大證券、元大期貨、元大人壽及元大投信等子公司，橫跨證券經紀、期貨、投信資產管理與壽險業務，元大證券為台灣市占率領先的證券商之一。",
+    "swot": {
+      "strengths": "集團證券、期貨、投信、壽險業務線完整，具備跨市場多元收益來源，受惠台股成交量放大時手續費收入同步成長（推論）。",
+      "weaknesses": "獲利對股市成交量與資本市場景氣敏感度高，證券經紀為景氣循環型收入（推論）。",
+      "opportunities": "資產管理規模隨ETF熱潮擴大，集團持續推動財富管理業務深化。",
+      "threats": "台股成交量趨緩或利率環境變化可能壓縮證券及壽險業務獲利空間（推論）。"
+    },
+    "sources": [
+      "https://www.cnyes.com/twstock/2885/company/profile",
+      "https://goodinfo.tw/tw/StockDetail.asp?STOCK_ID=2885",
+      "https://statementdog.com/analysis/2885/nav"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "6285": {
+    "name": "啟碁科技股份有限公司",
+    "company_desc": "啟碁科技為緯創集團旗下網通設備廠，主要生產WiFi路由器、衛星通訊地面終端設備、車用網通及企業網通產品，無線通訊產品占總營收比重達96.85%。公司為SpaceX Starlink用戶終端設備的主要供應商之一，產品包含地面接收站、相位陣列天線與電源設備，2025年全年營收達1,102億元創歷史新高。",
+    "swot": {
+      "strengths": "為Starlink低軌衛星終端設備主要供應商之一，並受惠WiFi 7新規格滲透，系統產品中WiFi 7占比已達二至三成。",
+      "weaknesses": "業務集中於無線通訊產品(占比逾96%)，產品組合相對集中（推論）。",
+      "opportunities": "服務供應商、車用、企業網通三大產品線皆呈雙位數成長，衛星通訊商機隨低軌衛星建設擴大。",
+      "threats": "高度仰賴單一大客戶(如SpaceX)訂單動能，客戶集中度風險（推論）。"
+    },
+    "sources": [
+      "https://news.cnyes.com/news/id/6420591",
+      "https://www.pocket.tw/school/report/SCHOOL/7055/",
+      "https://goodinfo.tw/tw/BasicInfo.asp?STOCK_ID=6285"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "6414": {
+    "name": "樺漢科技股份有限公司",
+    "company_desc": "樺漢科技成立於1999年，為鴻海集團轉投資之專業工業電腦(IPC)ODM廠商，主要產品為嵌入式板卡、控制器及工業電腦系統，應用於POS系統、ATM、工業自動化及車載管理系統。",
+    "swot": {
+      "strengths": "為鴻海集團工業電腦事業代表企業，產品線涵蓋POS、ATM、工業自動化及車用系統，客戶應用領域分散。",
+      "weaknesses": "工業電腦屬少量多樣客製化生產型態，毛利率提升不易（推論）。",
+      "opportunities": "正推動IPC 3.0轉型，發展硬軟整合、雲網結合的訂閱式服務(ESaaS)，邊緣AI應用為新成長點。",
+      "threats": "工業電腦景氣循環與終端庫存調整可能影響訂單能見度（推論）。"
+    },
+    "sources": [
+      "https://www.cnyes.com/twstock/6414",
+      "https://statementdog.com/analysis/6414",
+      "https://uanalyze.com.tw/articles/102994899"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "3037": {
+    "name": "欣興電子股份有限公司",
+    "company_desc": "欣興電子(Unimicron)為全球第二大IC載板廠，市占率約18%，主要生產PCB、HDI板及ABF載板，主要客戶包含Intel、AMD、Apple與Nvidia。曾獲輝達執行長黃仁勳點名為台灣AI供應鏈夥伴之一，是唯一入榜的PCB廠商，高階載板中AI相關業務占比已逾一成，目前於桂林、楊梅擴產並於泰國新廠籌備量產以因應AI/HPC需求。",
+    "swot": {
+      "strengths": "為全球ABF載板龍頭廠商之一，客戶涵蓋Intel、AMD、Apple、Nvidia等大廠，是輝達認可的台灣AI供應鏈夥伴。",
+      "weaknesses": "ABF載板產能利用率(約70-75%)仍低於一般PCB/HDI產線(約80-85%)，反映高階載板需求尚未完全滿載。",
+      "opportunities": "AI伺服器/HPC需求帶動高階載板擴產，泰國新廠可望分散地緣政治風險並貼近客戶需求。",
+      "threats": "ABF載板全球產能集中於台日韓少數大廠，競爭與資本支出壓力大（推論）。"
+    },
+    "sources": [
+      "https://uanalyze.com.tw/articles/635814692",
+      "https://cmnews.com.tw/article/stockmantalk-e959c4f9-d8cb-11ef-9c4c-7b81ea83253e",
+      "https://www.pocket.tw/school/report/SCHOOL/5574/"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "3045": {
+    "name": "台灣大哥大股份有限公司",
+    "company_desc": "台灣大哥大為電信三雄之一，主要業務涵蓋行動通信服務、momo電商、企業服務與新技術電信業務。2026年第一季5G滲透率達44.3%，5G占行動服務營收68%；momo電商GMV年增5%，營收年增1%；企業服務營收年增26%，新技術電信業務營收年增32%，單季稅後淨利年增13%，每股盈餘居電信三雄之冠。",
+    "swot": {
+      "strengths": "電信本業與momo電商雙引擎並行，企業服務及新技術電信業務成長動能強勁(分別年增26%與32%)。",
+      "weaknesses": "momo電商營收成長明顯放緩(年增僅1%)，電商競爭壓力浮現（推論）。",
+      "opportunities": "企業數位轉型需求帶動企業服務營收快速成長，AI相關新技術電信業務為新成長引擎。",
+      "threats": "電信市場資費競爭及電商產業競爭加劇可能壓縮毛利率（推論）。"
+    },
+    "sources": [
+      "https://technews.tw/2026/04/29/2026-taiwan-mobile-ai/",
+      "https://statementdog.com/analysis/3045/e-report",
+      "https://goodinfo.tw/tw/ShowSaleMonChart.asp?STOCK_ID=3045"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2327": {
+    "name": "國巨股份有限公司",
+    "company_desc": "國巨(Yageo)為全球被動元件大廠，產品涵蓋電阻、電容等被動元件及天線、主動元件與相關機器設備，近年透過併購Pulse、KEMET、奇力新(Chilisin)、Heraeus Nexensos、Telemecanique Sensors及日本芝浦電子(Shibaura Electronics)等，從被動元件廠轉型為全球電子元件平台。2026年第一季AI應用占營收約15%，第二季合併營收445億元創歷史新高，季增16.5%、年增35.7%。",
+    "swot": {
+      "strengths": "透過一系列併購建立全球電子元件平台，產品線由被動元件擴大至感測器、電子開關等領域，AI與車用高階應用占比提升。",
+      "weaknesses": "頻繁併購帶來整合風險與商譽攤銷壓力（推論）。",
+      "opportunities": "AI伺服器與車用電子拉貨動能強勁，法人預估2026年合併營收可達1,442億元、年增約9.1%。",
+      "threats": "被動元件產業景氣循環性強，且面臨中國同業低價競爭（推論）。"
+    },
+    "sources": [
+      "https://blog.fugle.tw/post/earnings-call-2327-2026-04-30",
+      "https://www.pocket.tw/school/report/SCHOOL/6147/",
+      "https://blog.wistock.ai/practical-cases-experience-sharing/yage-market-cap-1-28t-ai-server-supercycle-analysis-2026/"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "2312": {
+    "name": "金寶電子工業股份有限公司",
+    "company_desc": "金寶電子為金仁寶集團旗下電子專業製造服務(EMS)廠商，主要從事消費性電子、電腦週邊、網路通訊及影像產品的製造與買賣，近年推動由EMS轉型ODM，並取得美系新創遊戲機訂單，同時在量子電腦、AI伺服器與低軌衛星通訊等領域進行策略性佈局。轉投資子公司通寶半導體獲ARM策略性投資，預計於2026年5月登錄興櫃。",
+    "swot": {
+      "strengths": "具備消費性電子/遊戲機/網通產品長期代工經驗，並切入量子電腦、AI伺服器等新興領域分散業務風險。",
+      "weaknesses": "傳統EMS代工業務毛利率偏低，轉型ODM及新事業效益仍待觀察（推論）。",
+      "opportunities": "通寶半導體引進ARM策略投資並規劃興櫃掛牌，量子電腦與衛星通訊為潛在新成長曲線。",
+      "threats": "消費性電子代工競爭激烈，新事業(量子電腦、衛星通訊)商業化時程與獲利貢獻仍具不確定性（推論）。"
+    },
+    "sources": [
+      "https://www.sinotrade.com.tw/richclub/hotstock/金寶-2312",
+      "https://www.cnyes.com/twstock/2312/company/profile",
+      "https://statementdog.com/analysis/2312"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "1605": {
+    "name": "華新麗華股份有限公司",
+    "company_desc": "華新麗華主要從事電線電纜、海底電纜及不鏽鋼/特殊鋼的生產與銷售，並於印尼布局鎳礦資源作為不鏽鋼原料與電動車高鎳電池供應鏈上游。近年透過併購歐洲鋼廠(如CAS)跨入航太、汽車、能源用高階特殊鋼領域，並跨足離岸風電海纜與電動車充電纜線，同時評估西屋(Westinghouse)小型模組化反應爐(SMR)供應鏈合作機會。",
+    "swot": {
+      "strengths": "產品線橫跨電線電纜、特殊鋼與鎳礦資源，具上下游整合優勢，電纜業務毛利率相對穩定(約12%)。",
+      "weaknesses": "特殊鋼與鎳礦業務受國際原物料價格波動影響大（推論）。",
+      "opportunities": "政府強化電網政策帶動高壓電纜需求，離岸風電海纜、電動車充電纜及SMR供應鏈為潛在新成長點。",
+      "threats": "印尼鎳礦及歐洲鋼廠營運受地緣政治、環保法規與當地政策變動影響（推論）。"
+    },
+    "sources": [
+      "https://www.pocket.tw/school/report/SCHOOL/6310/",
+      "https://tw.stock.yahoo.com/news/電纜股-擴大歐洲不鏽鋼布局-華新",
+      "https://statementdog.com/analysis/1605"
+    ],
+    "updated_at": "2026-09-07"
+  },
+  "1301": {
+    "name": "台灣塑膠工業股份有限公司",
+    "company_desc": "台灣塑膠工業(台塑)主要生產聚氯乙烯(PVC)、聚丙烯、高密度聚乙烯等石化製品，PVC主要銷售地區為中國(32%)、台灣(19%)及印度(19%)。2026年第二季本業轉虧為盈，美國廠低成本優勢單季貢獻逾30億元支撐集團獲利；公司規劃差異化高毛利利基型產品比重逐步提升至60%，並宣示轉型半導體特用化學品，目標2030年前貢獻產值300億元以上。",
+    "swot": {
+      "strengths": "具原油裂解至石化製品垂直整合產能(六輕)，美國廠具成本優勢，2026Q2貢獻逾30億元獲利。",
+      "weaknesses": "PVC等傳統石化產品受原料(乙烯)成本上升侵蝕利潤，客戶端(如印度)庫存偏高、採購保守。",
+      "opportunities": "差異化高毛利產品比重目標提升至60%，並跨足半導體特用化學品開闢新成長曲線。",
+      "threats": "地緣政治(如中東情勢)推升原料成本，且中國PVC等產能過剩、市場競爭壓力仍在（推論）。"
+    },
+    "sources": [
+      "https://vocus.cc/article/6a3e7422fd89780001c394c0",
+      "https://blog.fugle.tw/post/earnings-call-1301-2026-06-26",
+      "https://finance.biggo.com.tw/quote/1301.TW/earnings-call/TW_1301.TW_2026-06-26"
+    ],
+    "updated_at": "2026-09-07"
   }
 }
