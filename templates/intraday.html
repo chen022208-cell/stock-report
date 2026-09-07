@@ -1,116 +1,122 @@
 {% extends "base.html" %}
+{% block section %}strong{% endblock %}
 {% block title %}盤中強勢股 · {{ site_title }}{% endblock %}
 {% block extra_css %}
-  .iv-bar{display:flex; flex-wrap:wrap; gap:14px; align-items:baseline; margin:14px 0 6px;
-    font-size:13px; color:var(--text-secondary);}
-  .iv-bar b{color:var(--text);}
-  .iv-status{font-size:12px; padding:2px 8px; border-radius:10px; background:var(--surface-2);}
-  .iv-status.open{color:var(--c-score); background:rgba(46,160,67,.12);}
-  .iv-delay{font-size:11.5px; color:var(--text-muted);}
-  .iv-sec{margin-top:24px;}
-  .iv-sec h2{font-size:15px; margin-bottom:4px;}
-  .iv-sec .hint{font-size:12px; color:var(--text-muted); margin-bottom:10px;}
+  /* 盤中即時：頂部大字報 */
+  .livebar{background:linear-gradient(180deg, color-mix(in srgb,var(--accent) 14%,var(--surface)), var(--surface) 70%);
+           border:1px solid var(--hairline); border-radius:var(--radius); padding:16px; margin:6px 0 4px;}
+  .livebar .lb-row1{display:flex; align-items:center; gap:10px; margin-bottom:10px;}
+  .lb-status{font-size:11.5px; font-weight:700; padding:3px 10px; border-radius:100px;
+             background:var(--surface-3); color:var(--text-secondary);}
+  .lb-status.open{background:color-mix(in srgb,var(--green) 22%,transparent); color:var(--green);}
+  .lb-asof{font-size:11.5px; color:var(--text-muted); margin-left:auto; font-family:'JetBrains Mono',monospace;}
+  .lb-taiex{display:flex; align-items:baseline; gap:10px;}
+  .lb-taiex .lb-num{font-family:'JetBrains Mono',monospace; font-size:28px; font-weight:700; line-height:1;}
+  .lb-taiex .lb-chg{font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:600;}
+  .lb-meta{display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:10px; font-size:12px; color:var(--text-muted);}
+  .lb-meta b{color:var(--text-secondary); font-family:'JetBrains Mono',monospace;}
+
+  .iv-hint{font-size:12px; color:var(--text-muted); margin-bottom:10px; line-height:1.6;}
+
+  /* A / B 級標的卡 */
   .iv-card{background:var(--surface); border:1px solid var(--hairline); border-radius:var(--radius-sm);
-    padding:11px 13px; margin-bottom:9px; cursor:pointer;}
-  .iv-card:hover{border-color:var(--text-muted);}
+    padding:12px 13px; margin-bottom:9px; cursor:pointer; transition:border-color .15s, background .15s;}
+  .iv-card:hover{border-color:var(--accent);}
+  .iv-card:active{background:var(--surface-2);}
   .iv-card .row1{display:flex; justify-content:space-between; align-items:baseline; gap:10px;}
-  .iv-name{font-weight:600; font-size:14px;}
-  .iv-score{font-size:12px; color:var(--text-muted);}
-  .iv-chg{font-weight:600;}
-  .iv-chg.up{color:var(--c-chip);} .iv-chg.down{color:var(--c-score);}
-  .iv-tags{margin-top:6px; display:flex; flex-wrap:wrap; gap:5px;}
-  .iv-tag{font-size:11px; padding:1px 7px; border-radius:9px; background:var(--surface-2); color:var(--text-secondary);}
-  .iv-tag.hot{background:rgba(219,109,40,.14); color:var(--c-market);}
-  .iv-lowconf{font-size:11px; color:var(--c-market); margin-left:6px;}
-  .iv-tabs{display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap;}
-  .iv-tabs button{font:inherit; font-size:12.5px; padding:4px 11px; border:1px solid var(--hairline);
-    border-radius:14px; background:var(--surface); color:var(--text-secondary); cursor:pointer;
-    /* 標籤文字不准折行或被壓縮——視窗窄的時候整排應該換行，不是把「成交值」
-       擠成看不出字的一團（使用者截圖出現過標籤空白的按鈕） */
-    white-space:nowrap; flex:0 0 auto;}
-  .iv-tabs button.on{background:var(--text); color:var(--bg); border-color:var(--text);}
-  /* 歷史資料不足、算不出這個週期新高的按鈕：停用並降低對比，點不下去 */
-  .iv-tabs button.na{opacity:.4; cursor:not-allowed; text-decoration:line-through;}
+  .iv-name{font-weight:700; font-size:14.5px;}
+  .iv-score{font-size:11.5px; color:var(--text-muted); font-family:'JetBrains Mono',monospace;}
+  .iv-chg{font-weight:700; font-family:'JetBrains Mono',monospace;}
+  .iv-chg.up{color:var(--red);} .iv-chg.down{color:var(--green);}
+  .iv-lowconf{font-size:10.5px; color:var(--gold); margin-left:6px; font-weight:500;}
+  .iv-tags{margin-top:7px; display:flex; flex-wrap:wrap; gap:5px;}
+  .iv-tag{font-size:10.5px; padding:2px 8px; border-radius:100px; background:var(--surface-2);
+          color:var(--text-secondary); white-space:nowrap;}
+  .iv-tag.hot{background:color-mix(in srgb,var(--red) 16%,transparent); color:var(--red);}
+
+  /* 排行分頁：沿用 .seg 樣式（base.html） */
+  #ivRankTabs, #ivHighTabs{margin-bottom:10px;}
+  #ivHighTabs[hidden]{display:none;}
+  #ivHighTabs{background:transparent; border:none; padding:0; gap:7px; flex-wrap:wrap;}
+  #ivHighTabs > button{border:1px solid var(--hairline); background:var(--surface);
+     color:var(--text-secondary); font:inherit; font-size:12px; font-weight:600;
+     padding:6px 12px; border-radius:100px; cursor:pointer; white-space:nowrap;}
+  #ivHighTabs > button.on{background:var(--accent); color:#fff; border-color:var(--accent);}
+  #ivHighTabs > button.na{opacity:.4; cursor:not-allowed; text-decoration:line-through;}
+  .iv-subs-label{font-size:11px; color:var(--text-muted); align-self:center; margin-right:2px;}
+
+  /* 表格：吃 base 的 .dtable，這裡補排序表頭 */
   .iv-table{width:100%; border-collapse:collapse; font-size:13px;}
-  .iv-table th,.iv-table td{text-align:left; padding:7px 9px; border-bottom:1px solid var(--hairline);}
+  .iv-table th,.iv-table td{padding:9px 8px; border-bottom:1px solid var(--hairline); text-align:left;}
   .iv-table th{font-size:11px; color:var(--text-muted); font-weight:500;}
-  .iv-table td.num{text-align:right; font-variant-numeric:tabular-nums;}
+  .iv-table td.num,.iv-table th.num{text-align:right; font-family:'JetBrains Mono',monospace;
+                                    font-variant-numeric:tabular-nums;}
   .iv-table tr{cursor:pointer;}
-  .iv-subtabs{align-items:center;}
-  /* .iv-tabs 是 display:flex，會蓋掉 [hidden] 預設的 display:none，
-     不補這一條的話「創新高週期」那排在沒選創新高時也會一直露出來 */
-  .iv-tabs[hidden]{display:none;}
-  .iv-subs-label{font-size:11.5px; color:var(--text-muted); margin-right:2px;}
-  /* 可排序表頭：點一次由高到低、再點由低到高、第三次回到預設排序 */
   .iv-table th.sortable{cursor:pointer; user-select:none; white-space:nowrap;}
   .iv-table th.sortable:hover{color:var(--text-primary);}
   .iv-table th .iv-arrow{opacity:.45; font-size:9px; margin-left:3px;}
-  .iv-table th.sorted{color:var(--gold);}
+  .iv-table th.sorted{color:var(--accent);}
   .iv-table th.sorted .iv-arrow{opacity:1;}
-  .iv-empty{font-size:13px; color:var(--text-muted); padding:12px 0;}
-  .iv-collapse{margin-top:8px;}
-  .iv-collapse summary{font-size:12.5px; color:var(--text-secondary); cursor:pointer;}
+  .iv-empty{font-size:13px; color:var(--text-muted); padding:14px 0;}
+  .iv-dtwrap{overflow-x:auto; -webkit-overflow-scrolling:touch;}
 {% endblock %}
 {% block content %}
-<header><div class="masthead-label">{{ site_title }}</div>
+<header><div class="masthead-label">{{ site_title }} · 即時</div>
 <h1 class="masthead-date">盤中強勢股</h1></header>
 
-<p class="commentary" style="margin-top:14px">
-盤中每分鐘用量價條件從全市場篩「當下最有動能」的一小群股票——多層漏斗（相對強度→量能→突破）＋加權評分，
-分 A／B 級。<b>這是客觀訊號整理，不是推薦標的</b>，追高風險高，務必自己搭配停損與部位控管。
-資料來自證交所即時報價，公開頁面延遲顯示。</p>
-
-<div class="iv-bar" id="ivBar">
-  <span>載入中…</span>
+<div class="livebar" id="ivLivebar">
+  <div class="lb-row1">
+    <span class="lb-status" id="ivStatus">載入中</span>
+    <span class="lb-asof" id="ivAsof"></span>
+  </div>
+  <div class="lb-taiex">
+    <span class="lb-num" id="ivTaiexNum">–</span>
+    <span class="lb-chg" id="ivTaiexChg"></span>
+  </div>
+  <div class="lb-meta" id="ivMeta"></div>
 </div>
-<div class="iv-delay" id="ivDelay"></div>
+<p class="iv-hint">盤中每分鐘用量價條件從全市場篩「當下最有動能」的一小群股票（相對強度 → 量能 → 突破 ＋ 加權評分，分 A／B 級）。<b>客觀訊號整理，不是推薦標的</b>。公開頁面延遲顯示約 15 分鐘。</p>
 
-<section class="iv-sec">
-  <details class="iv-collapse" id="ivFunnelWrap">
-    <summary>🔻 漏斗選股過程（<span id="ivFunnelPassed">–</span> 檔通過）— 展開</summary>
-    <div class="hint" style="margin-top:8px">每一層各刷掉多少檔。這是「今天為什麼只有這幾檔入選」的完整交代。</div>
-    <div id="ivFunnel" style="margin-top:8px"></div>
-  </details>
-</section>
-
-<section class="iv-sec">
-  <h2>🅰️ A 級（<span id="ivACount">–</span>）</h2>
-  <div class="hint">分數 ≥ 80，動能最集中的一群。點任一檔看 K 線與公司資料。</div>
-  <div id="ivA"><div class="iv-empty">—</div></div>
-</section>
-
-<section class="iv-sec">
-  <details class="iv-collapse" id="ivBWrap">
-    <summary>🅱️ B 級（<span id="ivBCount">–</span>）— 展開</summary>
-    <div id="ivB" style="margin-top:10px"></div>
-  </details>
-</section>
-
-<section class="iv-sec">
-  <h2>📊 排行</h2>
-  <div class="iv-tabs" id="ivRankTabs">
-    <button data-k="gainers" class="on">漲幅</button>
-    <button data-k="volume_ratio">量比</button>
-    <button data-k="turnover">成交值</button>
-    <button data-k="new_high">創新高</button>
+<details class="expand" id="ivFunnelWrap">
+  <summary>漏斗選股過程（<span id="ivFunnelPassed">–</span> 檔通過）</summary>
+  <div class="expand-body">
+    <p class="iv-hint">每一層各刷掉多少檔——「今天為什麼只有這幾檔入選」的完整交代。</p>
+    <div class="iv-dtwrap" id="ivFunnel"></div>
   </div>
-  <!-- 創新高的細分週期：選了「創新高」才出現，再挑要看哪一個週期的新高 -->
-  <div class="iv-tabs iv-subtabs" id="ivHighTabs" hidden>
-    <span class="iv-subs-label">創新高週期</span>
-    <button data-p="5d">5天</button>
-    <button data-p="1m">1月</button>
-    <button data-p="3m">3月</button>
-    <button data-p="6m">半年</button>
-    <button data-p="1y" class="on">1年</button>
-  </div>
-  <div id="ivRank"></div>
-</section>
+</details>
 
-<section class="iv-sec">
-  <h2>🔄 類股輪動</h2>
-  <div class="hint">各產業當下漲幅中位數與「漲逾 3%」家數，看資金流向哪個族群。</div>
-  <div id="ivSectors"></div>
-</section>
+<div class="sheader"><span class="sh-ic">🅰️</span>
+  <span class="sh-title">A 級</span><span class="sh-badge" id="ivACount">–</span></div>
+<p class="iv-hint">分數 ≥ 80，動能最集中的一群。點任一檔看 K 線與公司資料。</p>
+<div id="ivA"><div class="iv-empty">—</div></div>
+
+<details class="expand" id="ivBWrap">
+  <summary>B 級（<span id="ivBCount">–</span>）</summary>
+  <div class="expand-body"><div id="ivB"></div></div>
+</details>
+
+<div class="sheader"><span class="sh-ic">📊</span>
+  <span class="sh-title">盤中排行</span><span class="sh-badge">即時</span></div>
+<div class="seg scroll" id="ivRankTabs">
+  <button data-k="gainers" class="on">漲幅</button>
+  <button data-k="volume_ratio">量比</button>
+  <button data-k="turnover">成交值</button>
+  <button data-k="new_high">創新高</button>
+</div>
+<div class="chips" id="ivHighTabs" hidden>
+  <span class="iv-subs-label">創新高週期</span>
+  <button data-p="5d">5天</button>
+  <button data-p="1m">1月</button>
+  <button data-p="3m">3月</button>
+  <button data-p="6m">半年</button>
+  <button data-p="1y" class="on">1年</button>
+</div>
+<div class="iv-dtwrap"><div id="ivRank"></div></div>
+
+<div class="sheader"><span class="sh-ic">🔄</span>
+  <span class="sh-title">類股輪動</span><span class="sh-badge">漲幅中位</span></div>
+<p class="iv-hint">各產業當下漲幅中位數與「漲逾 3%」家數，看資金流向哪個族群。</p>
+<div class="iv-dtwrap" id="ivSectors"></div>
 
 <p class="commentary" style="margin-top:26px; font-size:12px; color:var(--text-muted)">
 資料來源：證交所基本市況報導（即時報價，公開頁面延遲顯示）。技術指標於瀏覽器端計算，僅供研究參考，不構成投資建議。
@@ -121,8 +127,8 @@
   var SRC = "https://raw.githubusercontent.com/chen022208-cell/stock-report/intraday-data/docs/data/intraday.json";
   var REFRESH_MS = 45000;
   var rankKey = "gainers";
-  var highPeriod = "1y";        // 「創新高」選項下的細分週期
-  var lastData = null;          // 最後一次成功抓到的資料：切標籤／排序時直接重繪，不重抓
+  var highPeriod = "1y";
+  var lastData = null;
 
   function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
     return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
@@ -147,7 +153,6 @@
       + '<div class="iv-tags">' + tags.join("") + '</div></div>';
   }
 
-  // 表頭排序狀態：null = 依後端預設排序，否則 {key, dir}（dir: -1 高→低、1 低→高）
   var sortState = null;
   var RANK_COLS = [
     { key: "name",         label: "個股",   num: false },
@@ -160,10 +165,8 @@
   function sortRows(rows) {
     if (!sortState) return rows;
     var k = sortState.key, dir = sortState.dir;
-    // 複製再排，不要就地改動快取住的原始資料
     return rows.slice().sort(function (a, b) {
       var x = a[k], y = b[k];
-      // 缺值一律沉底（不分升冪降冪），免得「–」浮在最上面看起來像最強的
       if (x == null && y == null) return 0;
       if (x == null) return 1;
       if (y == null) return -1;
@@ -184,7 +187,7 @@
     }).join("");
     var head = RANK_COLS.map(function (c) {
       var on = sortState && sortState.key === c.key;
-      var arrow = on ? (sortState.dir < 0 ? "\u25BC" : "\u25B2") : "\u21C5";
+      var arrow = on ? (sortState.dir < 0 ? "▼" : "▲") : "⇅";
       return '<th class="sortable' + (c.num ? " num" : "") + (on ? " sorted" : "")
         + '" data-sort="' + c.key + '" title="點擊排序，再點一次反向，第三次復原">'
         + c.label + '<span class="iv-arrow">' + arrow + '</span></th>';
@@ -197,7 +200,7 @@
     if (!rows || !rows.length) return '<div class="iv-empty">—</div>';
     var body = rows.map(function (s) {
       return '<tr><td>' + esc(s.industry) + '</td>'
-        + '<td class="num ' + (s.median_change_pct >= 0 ? "" : "") + '">' + pct(s.median_change_pct) + '</td>'
+        + '<td class="num">' + pct(s.median_change_pct) + '</td>'
         + '<td class="num">' + s.strong_count + " / " + s.count + '</td></tr>';
     }).join("");
     return '<table class="iv-table"><thead><tr><th>產業</th><th class="num">漲幅中位數</th>'
@@ -208,20 +211,30 @@
     lastData = d;
     var st = d.market_status;
     var stLabel = { open: "盤中", pre_open: "開盤前", closing: "尾盤", closed: "已收盤" }[st] || st;
-    document.getElementById("ivBar").innerHTML =
-      '<span class="iv-status ' + (st === "open" ? "open" : "") + '">' + stLabel + '</span>'
-      + '<span>資料時間 <b>' + esc(d.as_of) + '</b></span>'
-      + (d.taiex && d.taiex.change_pct != null
-          ? '<span>加權指數 <b>' + (d.taiex.value ? d.taiex.value.toLocaleString() : "–")
-            + '</b> (' + pct(d.taiex.change_pct) + ')</span>' : "")
-      + '<span>掃描 <b>' + (d.counts ? d.counts.scanned : "–") + '</b> 檔'
-      + (d.markets ? '（上市 ' + d.markets.twse + '／上櫃 ' + d.markets.tpex
-                     + '／興櫃 ' + d.markets.esb + '）' : "") + '</span>';
-    document.getElementById("ivDelay").textContent =
-      "公開頁面資料延遲顯示約 " + (d.display_delay_min || 15) + " 分鐘；盤中每分鐘更新一次。";
+    var stEl = document.getElementById("ivStatus");
+    stEl.textContent = stLabel;
+    stEl.className = "lb-status" + (st === "open" ? " open" : "");
+    document.getElementById("ivAsof").textContent = d.as_of || "";
+
+    var tx = d.taiex || {};
+    document.getElementById("ivTaiexNum").textContent =
+      tx.value != null ? Number(tx.value).toLocaleString() : "–";
+    var chgEl = document.getElementById("ivTaiexChg");
+    if (tx.change_pct != null) {
+      var upx = tx.change_pct >= 0;
+      chgEl.className = "lb-chg " + (upx ? "up" : "down");
+      chgEl.textContent = (upx ? "▲ " : "▼ ") + pct(tx.change_pct);
+    } else { chgEl.textContent = ""; }
+
+    var m = [];
+    if (d.counts) m.push('掃描 <b>' + d.counts.scanned + '</b> 檔');
+    if (d.markets) m.push('上市 <b>' + d.markets.twse + '</b>／上櫃 <b>' + d.markets.tpex
+                          + '</b>／興櫃 <b>' + d.markets.esb + '</b>');
+    m.push('延遲顯示約 <b>' + (d.display_delay_min || 15) + '</b> 分鐘');
+    document.getElementById("ivMeta").innerHTML = m.join("");
 
     var A = (d.tiers && d.tiers.A) || [], B = (d.tiers && d.tiers.B) || [];
-    document.getElementById("ivACount").textContent = A.length;
+    document.getElementById("ivACount").textContent = A.length + " 檔";
     document.getElementById("ivBCount").textContent = B.length;
     document.getElementById("ivA").innerHTML = A.length
       ? A.map(card).join("") : '<div class="iv-empty">目前沒有 A 級標的。</div>';
@@ -233,8 +246,6 @@
     document.getElementById("ivSectors").innerHTML = sectorTable(d.sectors);
   }
 
-  // 漏斗各層刷掉的檔數。這些數字以前只存在於 Actions 的 stdout，網站上完全看
-  // 不到，使用者無從判斷「今天沒幾檔」是行情冷還是篩選器壞了。
   var FUNNEL_STEPS = [
     { key: "low_price",   label: "低價股（未達門檻）" },
     { key: "disposition", label: "處置／注意股" },
@@ -263,9 +274,6 @@
       + '<th class="num">刷掉</th></tr></thead><tbody>' + rows.join("") + '</tbody></table>';
   }
 
-  // 排行表獨立重繪：切換排行種類、創新高週期、欄位排序都只重畫這一塊。
-  // 以前這幾個動作都會呼叫 load() 重新發網路請求，網路慢或失敗時整個候選名單
-  // 會先消失（使用者回報「選項點擊候選會不見」），現在改成吃 lastData。
   function renderRank() {
     var el = document.getElementById("ivRank");
     if (!el) return;
@@ -276,9 +284,6 @@
     document.getElementById("ivHighTabs").hidden = (rankKey !== "new_high");
 
     if (rankKey === "new_high") {
-      // 每個週期各有幾檔的歷史「長到足以判斷這個週期」。後端算不出來的週期
-      // 會回 0，這時候要明講資料不足，而不是端出一份其實是漲幅榜的名單——
-      // 2026-09-07 就是這樣：滾動歷史只剩 1 天，五個週期的名單一字不差。
       var elig = (rk._eligible || {})[key];
       markHighTabs(rk._eligible);
       if (elig === 0) {
@@ -291,7 +296,6 @@
     el.innerHTML = rankTable(rows);
   }
 
-  // 資料不足的週期按鈕停用（而不是讓人點下去看到一份錯的名單）
   function markHighTabs(elig) {
     if (!elig) return;
     [].forEach.call(document.querySelectorAll("#ivHighTabs button"), function (b) {
@@ -308,21 +312,21 @@
       .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
   }
   function load() {
-    // 先抓 intraday-data 分支的即時檔；抓不到就退回站上建置時附的那份（可能較舊）
     fetchJson(SRC).catch(function () { return fetchJson("data/intraday.json"); })
       .then(render)
       .catch(function (e) {
-        document.getElementById("ivBar").innerHTML =
-          '<span>盤中資料尚未產生或載入失敗（' + esc(e.message) + '）。非交易時段這是正常的。</span>';
+        document.getElementById("ivStatus").textContent = "載入失敗";
+        document.getElementById("ivMeta").innerHTML =
+          '盤中資料尚未產生或載入失敗（' + esc(e.message) + '）。非交易時段這是正常的。';
       });
   }
 
   document.getElementById("ivRankTabs").addEventListener("click", function (e) {
     var b = e.target.closest("button"); if (!b) return;
     rankKey = b.dataset.k;
-    sortState = null;              // 換一種排行就回到後端的預設排序
+    sortState = null;
     [].forEach.call(this.querySelectorAll("button"), function (x) { x.classList.toggle("on", x === b); });
-    renderRank();                  // 只重繪、不重抓——候選名單不會閃掉
+    renderRank();
   });
 
   document.getElementById("ivHighTabs").addEventListener("click", function (e) {
@@ -332,10 +336,9 @@
     renderRank();
   });
 
-  // 表頭排序：第一次點 = 由高到低，再點 = 由低到高，第三次 = 復原成預設排序
   document.getElementById("ivRank").addEventListener("click", function (e) {
     var th = e.target.closest("th.sortable"); if (!th) return;
-    e.stopPropagation();           // 別讓點擊冒泡到 tr 的個股彈窗
+    e.stopPropagation();
     var k = th.dataset.sort;
     if (!sortState || sortState.key !== k) sortState = { key: k, dir: -1 };
     else if (sortState.dir === -1) sortState.dir = 1;
