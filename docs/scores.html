@@ -450,31 +450,46 @@
   <h2>⚡ 盤中強勢 <a class="ivs-more" href="intraday.html">看完整名單 →</a></h2>
   <div class="ivs-meta" id="ivsMeta">載入盤中資料中…</div>
   <div id="ivsBody"></div>
+  <div class="ivs-note" id="ivsNote"></div>
 </section>
 <style>
   .ivs-block h2{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;}
-  .ivs-more{font-size:12.5px; font-weight:400; color:var(--gold); text-decoration:none;}
-  .ivs-meta{font-size:12px; color:var(--text-muted); margin:-4px 0 12px;}
+  .ivs-more{font-size:12.5px; font-weight:400; color:var(--accent); text-decoration:none;}
+  .ivs-meta{font-size:12px; color:var(--text-muted); margin:-4px 0 12px;
+            display:flex; flex-wrap:wrap; gap:4px 10px; align-items:center;}
+  .ivs-live{font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:100px;
+            color:var(--text-muted);}
+  .ivs-live.on{background:color-mix(in srgb,var(--red) 20%,transparent); color:var(--red);}
+  .ivs-live.on::before{content:"● "; animation:ivspulse 1.4s ease-in-out infinite;}
+  @keyframes ivspulse{0%,100%{opacity:1} 50%{opacity:.25}}
   .ivs-tier{display:inline-flex; align-items:center; gap:5px; font-size:12px;
             background:var(--surface-2); border:1px solid var(--hairline);
             border-radius:999px; padding:3px 10px; margin:0 6px 10px 0;}
-  .ivs-tier b{font-family:'JetBrains Mono',monospace; color:var(--gold);}
+  .ivs-tier b{font-family:'JetBrains Mono',monospace; color:var(--accent);}
   .ivs-chips{display:flex; flex-wrap:wrap; gap:6px;}
   .ivs-chip{display:inline-flex; align-items:center; gap:7px; cursor:pointer;
             font-size:12.5px; background:var(--surface); border:1px solid var(--hairline);
             border-radius:8px; padding:5px 10px;}
-  .ivs-chip:hover{border-color:var(--gold);}
+  .ivs-chip:hover{border-color:var(--accent);}
   .ivs-chip .c{font-family:'JetBrains Mono',monospace; color:var(--text-secondary);}
   .ivs-chip .p{font-family:'JetBrains Mono',monospace;}
   .ivs-chip .p.up{color:var(--red);} .ivs-chip .p.down{color:var(--green);}
   .ivs-empty{font-size:13px; color:var(--text-muted);}
+  .ivs-note{font-size:11.5px; color:var(--text-muted); margin-top:8px; line-height:1.6;}
 </style>
 <script>
-/* 跟 intraday.html 同一份資料源，避免兩邊數字打架 */
+/* ⚠️ 這段 <script> 位在頁面內容裡，解析到就執行——而 window.TWQuote 是
+   assets/ui.js 定義的，那支掛在 </body> 前面。所以**必須等 DOMContentLoaded**，
+   否則 TWQuote 還不存在，整條盤中強勢會靜靜地什麼都不做。 */
 (function () {
-  var SRC = "https://raw.githubusercontent.com/chen022208-cell/stock-report/"
-          + "intraday-data/docs/data/intraday.json";
-  var LOCAL = "data/intraday.json";
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot);
+  } else { boot(); }
+
+  function boot() {
+  var Q = window.TWQuote;
+  var REFRESH_MS = 20000;
+  var last = null;
 
   function esc(s) {
     return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
@@ -484,44 +499,86 @@
   function pct(v) { return (v == null) ? "–" : (v >= 0 ? "+" : "") + v.toFixed(2) + "%"; }
 
   function chip(r) {
-    return '<span class="ivs-chip" data-stock-code="' + esc(r.code)
-      + '" data-stock-name="' + esc(r.name) + '">'
+    // data-ex 讓逐筆即時知道要組 tse_ 還是 otc_ 頻道；data-q-pct 是給 TWQuote.write
+    // 的明確標記，之後改版面也不會因為 class 換名字就寫不進去。
+    return '<span class="ivs-chip" data-stock-code="' + esc(r.code) + '"'
+      + ' data-stock-name="' + esc(r.name) + '" data-ex="' + esc(r.ex || "") + '">'
       + '<span class="c">' + esc(r.code) + '</span>' + esc(r.name)
-      + '<span class="p ' + (r.change_pct >= 0 ? "up" : "down") + '">' + pct(r.change_pct) + '</span>'
+      + '<span class="p ' + (r.change_pct >= 0 ? "up" : "down") + '" data-q-pct>'
+      + pct(r.change_pct) + '</span>'
       + (r.volume_ratio ? '<span class="c">' + r.volume_ratio.toFixed(1) + '×</span>' : "")
       + '</span>';
   }
 
+  function targets() {
+    return [].slice.call(document.querySelectorAll(".ivs-chip[data-stock-code]"))
+      .map(function (el) { return { el: el, code: el.dataset.stockCode, ex: el.dataset.ex }; });
+  }
+  function setLive(on, text) {
+    var el = document.getElementById("ivsLive");
+    if (!el) return;
+    el.textContent = text || "";
+    el.className = "ivs-live" + (on ? " on" : "");
+  }
+
   function render(d) {
+    last = d;
     var A = (d.tiers || {}).A || [], B = (d.tiers || {}).B || [];
-    var st = { open: "盤中", pre_open: "開盤前", closing: "尾盤", closed: "已收盤" }[d.market_status]
-             || d.market_status || "";
+    var live = Q ? Q.isLive(d) : false;
+    var label = Q ? Q.statusLabel(d) : (d.market_status || "");
     document.getElementById("ivsMeta").innerHTML =
-      esc(st) + "　·　資料時間 " + esc(d.as_of || "–")
-      + "　·　掃描 " + ((d.counts || {}).scanned != null ? d.counts.scanned : "–") + " 檔"
-      + "　·　公開頁延遲約 " + (d.display_delay_min || 15) + " 分鐘";
+      "<span>" + esc(label) + "</span>"
+      + '<span class="ivs-live" id="ivsLive"></span>'
+      + "<span>資料時間 " + esc(d.as_of || "–") + "</span>"
+      + "<span>掃描 " + ((d.counts || {}).scanned != null ? d.counts.scanned : "–") + " 檔</span>"
+      + "<span>公開頁延遲約 " + (d.display_delay_min || 15) + " 分鐘</span>";
 
     // A/B 級是「當下最有動能」的一小群，收盤後多半是 0 檔——這時改列漲幅榜，
     // 免得整區空白讓人以為壞掉。
     var list = A.length ? A : (B.length ? B : ((d.rankings || {}).gainers || []).slice(0, 12));
-    var label = A.length ? "A 級" : (B.length ? "B 級" : "今日漲幅前段");
+    var tierLabel = A.length ? "A 級" : (B.length ? "B 級" : "今日漲幅前段");
     var html = '<span class="ivs-tier">A 級 <b>' + A.length + '</b></span>'
              + '<span class="ivs-tier">B 級 <b>' + B.length + '</b></span>'
-             + '<span class="ivs-tier">' + esc(label) + '</span>';
+             + '<span class="ivs-tier">' + esc(tierLabel) + '</span>';
     html += list.length
       ? '<div class="ivs-chips">' + list.slice(0, 12).map(chip).join("") + "</div>"
       : '<div class="ivs-empty">目前沒有盤中訊號。</div>';
     document.getElementById("ivsBody").innerHTML = html;
+
+    var note = document.getElementById("ivsNote");
+    if (note) note.textContent = "";
+    if (!Q) return;
+
+    if (live) {
+      Q.startLive("strip", targets, setLive);
+    } else {
+      Q.stopLive("strip");
+      setLive(false, "");
+      // 資料過期＝收盤後那筆停在 13:29 的盤中價，用官方收盤價校正
+      Q.correctCloses(targets(), d.as_of, function (n) {
+        if (note && n) {
+          note.textContent = "已用證交所官方收盤價校正 " + n
+            + " 檔（收盤集合競價常與盤中最後一筆不同；上櫃／興櫃無公開 CORS 端點，維持盤中值）。";
+        }
+      });
+    }
   }
 
-  function get(u) {
-    return fetch(u + "?_=" + Date.now(), { cache: "no-store" })
-      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); });
+  function load() {
+    if (!Q) return;
+    Q.fetchIntraday().then(render).catch(function () {
+      document.getElementById("ivsMeta").textContent =
+        "盤中資料尚未產生或載入失敗（非交易時段這是正常的）。";
+    });
   }
-  get(SRC).catch(function () { return get(LOCAL); }).then(render).catch(function () {
+  if (!Q) {
     document.getElementById("ivsMeta").textContent =
-      "盤中資料尚未產生或載入失敗（非交易時段這是正常的）。";
-  });
+      "互動元件（assets/ui.js）未載入，盤中資料無法顯示。";
+    return;
+  }
+  load();
+  setInterval(load, REFRESH_MS);
+  }
 })();
 </script>
 
@@ -1428,7 +1485,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-07 23:49</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-08 00:15</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
@@ -1441,9 +1498,9 @@
   }
   window.__rel = "";
 </script>
-<script src="assets/ui.js?v=7d6de4bd"></script>
+<script src="assets/ui.js?v=b873b870"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=7d6de4bd"></script>
+<script src="assets/stock-chart.js?v=b873b870"></script>
 
 <script>
 (function () {

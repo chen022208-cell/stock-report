@@ -382,6 +382,8 @@
 
   .hero-num{font-family:'JetBrains Mono',monospace; font-size:34px; font-weight:500;}
   .hero-chg{font-family:'JetBrains Mono',monospace; font-size:14px; margin-left:8px;}
+  .live-note{font-size:11.5px; color:var(--text-muted); margin-top:8px; line-height:1.6;}
+  .live-note:empty{display:none;}
   .section-title{font-size:12.5px; color:var(--text-muted); text-transform:uppercase;
                  letter-spacing:.04em; margin:22px 0 10px; display:flex;
                  justify-content:space-between; align-items:center;}
@@ -454,13 +456,15 @@
   
 
 
-<div class="card">
+
+<div class="card" data-report-date="2026-09-04">
   <div class="stat-tile-label"><span class="dot c-market"></span>加權指數
     <span class="live-badge">LIVE</span>
     <span class="mono" data-live="as-of" style="margin-left:auto; color:var(--text-muted); font-size:11px"></span></div>
   <span class="hero-num" data-live="taiex">46,551</span><span
     class="hero-chg up"
     data-live="taiex-chg" data-live-base="hero-chg">▲ 693.47（1.51%）</span>
+  <div class="live-note" data-live="note"></div>
   <div class="card-grid cols-3" style="margin-top:14px">
     
     <div class="stat-tile c-market"><div class="stat-tile-label">成交值</div>
@@ -641,7 +645,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-07 23:49</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-08 00:15</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
@@ -654,9 +658,9 @@
   }
   window.__rel = "";
 </script>
-<script src="assets/ui.js?v=7d6de4bd"></script>
+<script src="assets/ui.js?v=b873b870"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=7d6de4bd"></script>
+<script src="assets/stock-chart.js?v=b873b870"></script>
 
 </body>
 </html>
