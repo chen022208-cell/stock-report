@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>盤中強勢股 · 盤後快訊</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>盤後快訊 · 2026年9月8日．週二</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 <meta name="theme-color" content="#060911">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -380,72 +380,80 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  /* 盤中即時：頂部大字報 */
-  .livebar{background:linear-gradient(180deg, color-mix(in srgb,var(--accent) 14%,var(--surface)), var(--surface) 70%);
-           border:1px solid var(--hairline); border-radius:var(--radius); padding:16px; margin:6px 0 4px;}
-  .livebar .lb-row1{display:flex; align-items:center; gap:10px; margin-bottom:10px;}
-  .lb-status{font-size:11.5px; font-weight:700; padding:3px 10px; border-radius:100px;
-             background:var(--surface-3); color:var(--text-secondary);}
-  .lb-status.open{background:color-mix(in srgb,var(--green) 22%,transparent); color:var(--green);}
-  .lb-asof{font-size:11.5px; color:var(--text-muted); margin-left:auto; font-family:'JetBrains Mono',monospace;}
-  .lb-live{font-size:11px; font-weight:700; padding:3px 9px; border-radius:100px;
-           color:var(--text-muted);}
-  .lb-live.on{background:color-mix(in srgb,var(--red) 20%,transparent); color:var(--red);}
-  .lb-live.on::before{content:"● "; animation:lbpulse 1.4s ease-in-out infinite;}
-  @keyframes lbpulse{0%,100%{opacity:1} 50%{opacity:.25}}
-  .lb-taiex{display:flex; align-items:baseline; gap:10px;}
-  .lb-taiex .lb-num{font-family:'JetBrains Mono',monospace; font-size:28px; font-weight:700; line-height:1;}
-  .lb-taiex .lb-chg{font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:600;}
-  .lb-meta{display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:10px; font-size:12px; color:var(--text-muted);}
-  .lb-meta b{color:var(--text-secondary); font-family:'JetBrains Mono',monospace;}
+  .hero-eyebrow{font-size:13px; color:var(--text-muted); margin-bottom:6px;
+               display:flex; align-items:center; gap:6px;}
+  .hero-number{font-family:'JetBrains Mono',monospace; font-size:38px;
+               font-weight:500; letter-spacing:-.01em;}
+  .hero-change{font-family:'JetBrains Mono',monospace; font-size:15px; margin-left:10px;}
 
-  .iv-hint{font-size:12px; color:var(--text-muted); margin-bottom:10px; line-height:1.6;}
+  .watch-hits{background:rgba(227,172,78,.09); border-left:3px solid var(--gold);
+              border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:13px 16px; margin-bottom:18px;}
+  .watch-hits .wh-label{font-size:12px; color:var(--gold); margin-bottom:7px; font-weight:600;}
+  .watch-hits .wh-item{font-size:14px; color:var(--text-secondary); margin-bottom:4px;}
+  .watch-hits .wh-item strong{color:var(--text-primary); font-weight:500;}
 
-  /* A / B 級標的卡 */
-  .iv-card{background:var(--surface); border:1px solid var(--hairline); border-radius:var(--radius-sm);
-    padding:12px 13px; margin-bottom:9px; cursor:pointer; transition:border-color .15s, background .15s;}
-  .iv-card:hover{border-color:var(--accent);}
-  .iv-card:active{background:var(--surface-2);}
-  .iv-card .row1{display:flex; justify-content:space-between; align-items:baseline; gap:10px;}
-  .iv-name{font-weight:700; font-size:14.5px;}
-  .iv-score{font-size:11.5px; color:var(--text-muted); font-family:'JetBrains Mono',monospace;}
-  .iv-chg{font-weight:700; font-family:'JetBrains Mono',monospace;}
-  .iv-chg.up{color:var(--red);} .iv-chg.down{color:var(--green);}
-  .iv-lowconf{font-size:10.5px; color:var(--gold); margin-left:6px; font-weight:500;}
-  .iv-tags{margin-top:7px; display:flex; flex-wrap:wrap; gap:5px;}
-  .iv-tag{font-size:10.5px; padding:2px 8px; border-radius:100px; background:var(--surface-2);
-          color:var(--text-secondary); white-space:nowrap;}
-  .iv-tag.hot{background:color-mix(in srgb,var(--red) 16%,transparent); color:var(--red);}
+  .inst-row{display:flex; align-items:center; gap:10px; margin-bottom:9px; font-size:13.5px;}
+  .inst-row:last-child{margin-bottom:0;}
+  .inst-row .inst-name{width:52px; color:var(--text-secondary); flex-shrink:0;}
+  .inst-row .bar-track{flex:1; height:6px; background:var(--surface-2);
+                       border-radius:3px; position:relative; overflow:hidden;}
+  .inst-row .bar-fill{position:absolute; top:0; bottom:0; border-radius:3px;}
+  .inst-row .bar-fill.up{background:var(--red); left:50%;}
+  .inst-row .bar-fill.down{background:var(--green); right:50%;}
+  .inst-row .inst-value{width:80px; text-align:right;
+                        font-family:'JetBrains Mono',monospace; flex-shrink:0;}
 
-  /* 排行分頁：沿用 .seg 樣式（base.html） */
-  #ivRankTabs, #ivHighTabs{margin-bottom:10px;}
-  #ivHighTabs[hidden]{display:none;}
-  #ivHighTabs{background:transparent; border:none; padding:0; gap:7px; flex-wrap:wrap;}
-  #ivHighTabs > button{border:1px solid var(--hairline); background:var(--surface);
-     color:var(--text-secondary); font:inherit; font-size:12px; font-weight:600;
-     padding:6px 12px; border-radius:100px; cursor:pointer; white-space:nowrap;}
-  #ivHighTabs > button.on{background:var(--accent); color:#fff; border-color:var(--accent);}
-  #ivHighTabs > button.na{opacity:.4; cursor:not-allowed; text-decoration:line-through;}
-  .iv-subs-label{font-size:11px; color:var(--text-muted); align-self:center; margin-right:2px;}
+  .theme-entry{background:var(--surface); border:1px solid var(--hairline);
+              border-left:3px solid var(--c-theme); border-radius:var(--radius-sm);
+              padding:14px 16px; margin-bottom:12px;}
+  .theme-entry:last-child{margin-bottom:0;}
+  .theme-header{display:flex; justify-content:space-between; align-items:baseline;
+                gap:12px; margin-bottom:7px; flex-wrap:wrap;}
+  .theme-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px;}
+  .theme-desc{font-size:14px; color:var(--text-secondary); margin-bottom:7px;}
+  .theme-meta{display:flex; justify-content:space-between; align-items:center;
+              font-size:12.5px; color:var(--text-muted); flex-wrap:wrap; gap:8px;}
+  .theme-link{font-size:12.5px; color:var(--gold); text-decoration:none;
+              display:inline-block; margin-top:7px;}
+  .theme-link:hover{text-decoration:underline;}
 
-  /* 表格：吃 base 的 .dtable，這裡補排序表頭 */
-  .iv-table{width:100%; border-collapse:collapse; font-size:13px;}
-  .iv-table th,.iv-table td{padding:9px 8px; border-bottom:1px solid var(--hairline); text-align:left;}
-  .iv-table th{font-size:11px; color:var(--text-muted); font-weight:500;}
-  .iv-table td.num,.iv-table th.num{text-align:right; font-family:'JetBrains Mono',monospace;
-                                    font-variant-numeric:tabular-nums;}
-  .iv-table tr{cursor:pointer;}
-  .iv-table th.sortable{cursor:pointer; user-select:none; white-space:nowrap;}
-  .iv-table th.sortable:hover{color:var(--text-primary);}
-  .iv-table th .iv-arrow{opacity:.45; font-size:9px; margin-left:3px;}
-  .iv-table th.sorted{color:var(--accent);}
-  .iv-table th.sorted .iv-arrow{opacity:1;}
-  .iv-empty{font-size:13px; color:var(--text-muted); padding:14px 0;}
-  .iv-dtwrap{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+  .darkhorse-entry{background:var(--surface); border:1px solid var(--hairline);
+                   border-left:3px solid var(--c-warn); border-radius:var(--radius-sm);
+                   padding:14px 16px; margin-bottom:10px;}
+  .darkhorse-entry:last-child{margin-bottom:0;}
+  .darkhorse-name{font-family:'Noto Serif TC',serif; font-weight:600;
+                  font-size:16px; margin-bottom:9px;}
+  .darkhorse-grid{display:grid; grid-template-columns:1fr 1fr;
+                  gap:7px 20px; font-size:13px; margin-bottom:10px;}
+  .darkhorse-grid .dh-label{color:var(--text-muted);}
+  .darkhorse-grid .dh-value{font-family:'JetBrains Mono',monospace;}
+  .darkhorse-note{font-size:13px; color:var(--text-secondary);
+                  border-top:1px solid var(--hairline); padding-top:9px;}
+
+  .tech-table{width:100%; border-collapse:collapse;}
+  .tech-table th{text-align:left; font-size:11.5px; font-weight:400;
+                 color:var(--text-muted); padding-bottom:9px;
+                 border-bottom:1px solid var(--hairline);}
+  .tech-table td{padding:10px 0; border-bottom:1px solid var(--hairline);
+                 font-size:13.5px; vertical-align:top;}
+  .tech-table tr:last-child td{border-bottom:none;}
+  .signal-bull{color:var(--red);} .signal-warn{color:var(--gold);}
+  .signal-neutral{color:var(--text-secondary);} .signal-bear{color:var(--green);}
+  .t-note{color:var(--text-muted); font-size:12.5px;}
+
+  .call-item{display:flex; justify-content:space-between; gap:12px;
+             padding:9px 0; border-bottom:1px solid var(--hairline); font-size:13.5px;}
+  .call-item:last-child{border-bottom:none;}
+  .call-note{color:var(--text-muted); font-size:12.5px;}
+
+  @media (max-width:480px){
+    .hero-number{font-size:32px;}
+    .darkhorse-grid{grid-template-columns:1fr;}
+  }
 
 </style>
 </head>
-<body data-section="strong">
+<body data-section="">
 <div class="drawer-backdrop" id="navBackdrop"></div>
 <nav class="drawer" id="navDrawer" aria-label="全站選單">
   <div class="dr-head">
@@ -453,399 +461,153 @@
     <button class="dr-close" id="drClose" aria-label="關閉選單">✕</button>
   </div>
   <h4>市場</h4>
-  <a href="index.html" class=""><span class="dr-ic">🏠</span>最新</a>
-  <a href="heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
-  <a href="chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
-  <a href="scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
-  <a href="picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
-  <a href="intraday.html" class="current"><span class="dr-ic">⚡</span>盤中強勢</a>
-  <a href="lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
-  <a href="disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
+  <a href="../index.html" class=""><span class="dr-ic">🏠</span>最新</a>
+  <a href="../heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
+  <a href="../chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
+  <a href="../scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
+  <a href="../picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
+  <a href="../intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
+  <a href="../lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
+  <a href="../disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
   <h4>研究</h4>
-  <a href="themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
-  <a href="industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
-  <a href="weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
-  <a href="monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
-  <a href="analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
-  <a href="archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
-  <a href="research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
-  <a href="submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
+  <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
+  <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
+  <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
+  <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
+  <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
+  <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
+  <a href="../research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
+  <a href="../submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
 </nav>
 
 <div class="page">
   <div class="topbar">
     <button class="menu-btn" id="menuBtn" aria-label="開啟選單">☰</button>
-    <a href="index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
-    <a href="lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
-    <a href="intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
+    <a href="../index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
+    <a href="../lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
+    <a href="../intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
   </div>
 
   
-<header><div class="masthead-label">盤後快訊 · 即時</div>
-<h1 class="masthead-date">盤中強勢股</h1></header>
+<header style="margin-bottom:14px">
+  <div class="masthead-label">盤後快訊 · 早報 · 國際盤摘要</div>
+  <h1 class="masthead-date">2026年9月8日．週二</h1>
+</header>
 
-<div class="livebar" id="ivLivebar">
-  <div class="lb-row1">
-    <span class="lb-status" id="ivStatus">載入中</span>
-    <span class="lb-live" id="ivLive"></span>
-    <span class="lb-asof" id="ivAsof"></span>
+
+
+
+
+
+
+
+<section class="block">
+  <h2>國際盤摘要</h2>
+  <div class="stat-grid">
+    
+    <div class="stat"><span class="stat-label">道瓊</span>
+      <span class="stat-value down">45,218 -0.32%</span></div>
+    
+    <div class="stat"><span class="stat-label">那斯達克</span>
+      <span class="stat-value up">19,864 +0.58%</span></div>
+    
+    <div class="stat"><span class="stat-label">S&amp;P 500</span>
+      <span class="stat-value up">6,142 +0.21%</span></div>
+    
+    <div class="stat"><span class="stat-label">費半 SOX</span>
+      <span class="stat-value up">5,712 +1.24%</span></div>
+    
+    
+    <div class="stat"><span class="stat-label">美元指數</span>
+      <span class="stat-value mono">102.4</span></div>
+    
+    <div class="stat"><span class="stat-label">VIX</span>
+      <span class="stat-value mono">14.2</span></div>
+    
+    <div class="stat"><span class="stat-label">10年美債殖利率</span>
+      <span class="stat-value mono">4.18%</span></div>
+    
+    <div class="stat"><span class="stat-label">台積電 ADR</span>
+      <span class="stat-value mono">+1.1%</span></div>
+    
   </div>
-  <div class="lb-taiex">
-    <span class="lb-num" id="ivTaiexNum">–</span>
-    <span class="lb-chg" id="ivTaiexChg"></span>
+  <p class="commentary">今天對台股影響最大的訊號是費半SOX逆勢收漲1.24%、台積電ADR同步走揚1.1%，代表儘管Fed九月升息機率因非農數據意外走高，資金仍優先押注半導體動能，跟「升息疑慮應壓抑高本益比科技股」的國際主流敘事出現背離——若台股半導體權值股今天同步走強，顯示內資對AI供應鏈的信心暫時凌駕於利率疑慮之上，值得留意是否延續；反之若開高走低，就是資金開始正視升息風險的訊號。美股本身呈現分化，道瓊下跌0.32%但那斯達克、S&amp;P 500翻紅，反映資金從傳產／金融轉往科技成長股。VIX仍在14.2低檔、10年美債殖利率4.18%，尚未出現系統性避險情緒，市場仍在Fed官員鷹鴿發言間反覆拉扯，等CPI數據定錨方向。另外中東緊張局勢推升油價站上90美元以上，對航運燃油成本、塑化原料端存在傳導壓力，但目前還沒反映在美股類股表現裡，屬於後續要追蹤、而非今天已發生的衝擊。</p>
+</section>
+<hr class="divider">
+
+
+
+
+
+
+
+<section class="block">
+  <h2>國際題材追蹤</h2>
+  <p class="commentary" style="margin-bottom:16px">本週市場圍繞在「強勁就業數據推升9月升息機率」與「Fed官員鴿派發言緩和恐慌」之間反覆拉鋸，公債殖利率走升、中東緊張局勢推升油價，資金氛圍偏向觀望與避險，尚未形成一致方向。</p>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">Fed升息機率意外升溫</span>
+      <span class="tag confidence-mid">一致性：中</span>
+    </div>
+    <p class="theme-desc">8月非農就業數據優於預期，市場對9月升息機率一度拉升至近六成，但Waller等官員的鴿派發言又數度緩和恐慌，股市因此在單週內反覆大漲大跌</p>
+    <div class="theme-meta"><span>推動因素：8月就業報告強於預期、公債殖利率與美元走升、Fed官員（Waller）發言在鷹鴿之間搖擺、市場等待CPI數據確認方向</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：XLF、QQQ、TLT</span>
+      <span class="tag verdict-real">偏真實</span>
+    </div>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：利率敏感的高本益比科技/成長股估值承壓（IC設計、生技），若美元續強不利資金流入台股；金融股（壽險、銀行）若殖利率續升則受惠再投資收益</span></div>
   </div>
-  <div class="lb-meta" id="ivMeta"></div>
-</div>
-<p class="iv-hint">盤中每分鐘用量價條件從全市場篩「當下最有動能」的一小群股票（相對強度 → 量能 → 突破 ＋ 加權評分，分 A／B 級）。<b>客觀訊號整理，不是推薦標的</b>。公開頁面延遲顯示約 15 分鐘。</p>
-
-<details class="expand" id="ivFunnelWrap">
-  <summary>漏斗選股過程（<span id="ivFunnelPassed">–</span> 檔通過）</summary>
-  <div class="expand-body">
-    <p class="iv-hint">每一層各刷掉多少檔——「今天為什麼只有這幾檔入選」的完整交代。</p>
-    <div class="iv-dtwrap" id="ivFunnel"></div>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">中東緊張局勢推升油價</span>
+      <span class="tag confidence-mid">一致性：中</span>
+    </div>
+    <p class="theme-desc">美伊軍事衝突再起（油輪攻擊事件），布蘭特原油報價一度衝上92-95美元，市場擔憂能源成本推升通膨、複雜化Fed決策</p>
+    <div class="theme-meta"><span>推動因素：美國與伊朗軍事對峙升級、油輪遭攻擊事件、油價站上90美元以上</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：XLE、XOM、CVX</span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：航運（散裝/貨櫃）燃油成本上升壓縮毛利、塑化業原料成本波動加大、進口能源成本上升推升國內通膨壓力</span></div>
   </div>
-</details>
-
-<div class="sheader"><span class="sh-ic">🅰️</span>
-  <span class="sh-title">A 級</span><span class="sh-badge" id="ivACount">–</span></div>
-<p class="iv-hint">分數 ≥ 80，動能最集中的一群。點任一檔看 K 線與公司資料。</p>
-<div id="ivA"><div class="iv-empty">—</div></div>
-
-<details class="expand" id="ivBWrap">
-  <summary>B 級（<span id="ivBCount">–</span>）</summary>
-  <div class="expand-body"><div id="ivB"></div></div>
-</details>
-
-<div class="sheader"><span class="sh-ic">📊</span>
-  <span class="sh-title">盤中排行</span><span class="sh-badge">即時</span></div>
-<div class="seg scroll" id="ivRankTabs">
-  <button data-k="gainers" class="on">漲幅</button>
-  <button data-k="volume_ratio">量比</button>
-  <button data-k="turnover">成交值</button>
-  <button data-k="new_high">創新高</button>
-</div>
-<div class="chips" id="ivHighTabs" hidden>
-  <span class="iv-subs-label">創新高週期</span>
-  <button data-p="5d">5天</button>
-  <button data-p="1m">1月</button>
-  <button data-p="3m">3月</button>
-  <button data-p="6m">半年</button>
-  <button data-p="1y" class="on">1年</button>
-</div>
-<div class="iv-dtwrap"><div id="ivRank"></div></div>
-<p class="iv-hint" id="ivCorrected" style="margin-top:8px"></p>
-
-<div class="sheader"><span class="sh-ic">🔄</span>
-  <span class="sh-title">類股輪動</span><span class="sh-badge">漲幅中位</span></div>
-<p class="iv-hint">各產業當下漲幅中位數與「漲逾 3%」家數，看資金流向哪個族群。</p>
-<div class="iv-dtwrap" id="ivSectors"></div>
-
-<p class="commentary" style="margin-top:26px; font-size:12px; color:var(--text-muted)">
-資料來源：證交所基本市況報導（即時報價，公開頁面延遲顯示）。技術指標於瀏覽器端計算，僅供研究參考，不構成投資建議。
-</p>
-
-<script>
-/* ⚠️ 這段在頁面內容區塊裡，瀏覽器解析到就執行；window.TWQuote 由
-   assets/ui.js 定義、掛在 body 結尾。所以必須等 DOMContentLoaded，
-   否則 TWQuote 還不存在，整頁會停在「元件未載入」。
-   （註解裡不要寫 Jinja 標籤字面，會被樣板引擎當成真的標籤解析。） */
-(function () {
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", boot);
-  } else { boot(); }
-  function boot() {
-  // 後端改成每 60 秒推一次（intraday.yml），前端就沒有理由等 45 秒；
-  // raw.githubusercontent 帶 ?_=<ts> 實測會回源，不吃 5 分鐘快取。
-  var REFRESH_MS = 20000;
-
-  var rankKey = "gainers";
-  var highPeriod = "1y";
-  var lastData = null;
-
-  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
-    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
-  function pct(v) { return (v == null) ? "–" : (v > 0 ? "+" : "") + v.toFixed(2) + "%"; }
-  function fmt(v) { return (v == null) ? "–" : Number(v).toLocaleString("en-US"); }
-
-  function card(r) {
-    var tags = [];
-    if (r.breakout_252d) tags.push('<span class="iv-tag hot">創年新高</span>');
-    else if (r.breakout_120d) tags.push('<span class="iv-tag hot">創半年新高</span>');
-    else if (r.breakout_20d) tags.push('<span class="iv-tag">創20日高</span>');
-    if (r.volume_ratio != null) tags.push('<span class="iv-tag">量比 ' + r.volume_ratio.toFixed(1) + '×</span>');
-    tags.push('<span class="iv-tag">領先大盤 ' + pct(r.rs_market) + '</span>');
-    if (r.rs_sector != null) tags.push('<span class="iv-tag">領先同業 ' + pct(r.rs_sector) + '</span>');
-    if (r.industry) tags.push('<span class="iv-tag">' + esc(r.industry) + '</span>');
-    return '<div class="iv-card" data-stock-code="' + esc(r.code) + '" data-stock-name="' + esc(r.name) + '">'
-      + '<div class="row1"><span class="iv-name">' + esc(r.code) + ' ' + esc(r.name)
-      + (r.low_confidence ? '<span class="iv-lowconf">開盤初期，數據波動大</span>' : '')
-      + '</span>'
-      + '<span><span class="iv-chg ' + (r.change_pct >= 0 ? "up" : "down") + '">' + pct(r.change_pct)
-      + '</span> <span class="iv-score">分 ' + r.score + '</span></span></div>'
-      + '<div class="iv-tags">' + tags.join("") + '</div></div>';
-  }
-
-  var sortState = null;
-  var RANK_COLS = [
-    { key: "name",         label: "個股",   num: false },
-    { key: "price",        label: "價",     num: true },
-    { key: "change_pct",   label: "漲跌幅", num: true },
-    { key: "volume",       label: "量(張)", num: true },
-    { key: "volume_ratio", label: "量比",   num: true }
-  ];
-
-  function sortRows(rows) {
-    if (!sortState) return rows;
-    var k = sortState.key, dir = sortState.dir;
-    return rows.slice().sort(function (a, b) {
-      var x = a[k], y = b[k];
-      if (x == null && y == null) return 0;
-      if (x == null) return 1;
-      if (y == null) return -1;
-      if (typeof x === "string") return dir * x.localeCompare(y);
-      return dir * (x - y);
-    });
-  }
-
-  function rankTable(rows) {
-    if (!rows || !rows.length) return '<div class="iv-empty">—</div>';
-    var body = sortRows(rows).map(function (r) {
-      return '<tr data-stock-code="' + esc(r.code) + '" data-stock-name="' + esc(r.name) + '">'
-        + '<td>' + esc(r.code) + ' ' + esc(r.name) + '</td>'
-        + '<td class="num">' + (r.price == null ? "–" : r.price) + '</td>'
-        + '<td class="num">' + pct(r.change_pct) + '</td>'
-        + '<td class="num">' + fmt(r.volume) + '</td>'
-        + '<td class="num">' + (r.volume_ratio == null ? "–" : r.volume_ratio.toFixed(1) + "×") + '</td></tr>';
-    }).join("");
-    var head = RANK_COLS.map(function (c) {
-      var on = sortState && sortState.key === c.key;
-      var arrow = on ? (sortState.dir < 0 ? "▼" : "▲") : "⇅";
-      return '<th class="sortable' + (c.num ? " num" : "") + (on ? " sorted" : "")
-        + '" data-sort="' + c.key + '" title="點擊排序，再點一次反向，第三次復原">'
-        + c.label + '<span class="iv-arrow">' + arrow + '</span></th>';
-    }).join("");
-    return '<table class="iv-table"><thead><tr>' + head + '</tr></thead><tbody>'
-      + body + '</tbody></table>';
-  }
-
-  function sectorTable(rows) {
-    if (!rows || !rows.length) return '<div class="iv-empty">—</div>';
-    var body = rows.map(function (s) {
-      return '<tr><td>' + esc(s.industry) + '</td>'
-        + '<td class="num">' + pct(s.median_change_pct) + '</td>'
-        + '<td class="num">' + s.strong_count + " / " + s.count + '</td></tr>';
-    }).join("");
-    return '<table class="iv-table"><thead><tr><th>產業</th><th class="num">漲幅中位數</th>'
-      + '<th class="num">漲逾3% / 家數</th></tr></thead><tbody>' + body + '</tbody></table>';
-  }
-
-  function render(d) {
-    lastData = d;
-    var st = d.market_status;
-    var stLabel = { open: "盤中", pre_open: "開盤前", closing: "尾盤", closed: "已收盤" }[st] || st;
-    var stEl = document.getElementById("ivStatus");
-    var reallyLive = Q ? Q.isLive(d) : false;
-    stEl.textContent = Q ? Q.statusLabel(d) : stLabel;
-    stEl.className = "lb-status" + (reallyLive ? " open" : "");
-    document.getElementById("ivAsof").textContent = d.as_of || "";
-
-    var tx = d.taiex || {};
-    document.getElementById("ivTaiexNum").textContent =
-      tx.value != null ? Number(tx.value).toLocaleString() : "–";
-    var chgEl = document.getElementById("ivTaiexChg");
-    if (tx.change_pct != null) {
-      var upx = tx.change_pct >= 0;
-      chgEl.className = "lb-chg " + (upx ? "up" : "down");
-      chgEl.textContent = (upx ? "▲ " : "▼ ") + pct(tx.change_pct);
-    } else { chgEl.textContent = ""; }
-
-    var m = [];
-    if (d.counts) m.push('掃描 <b>' + d.counts.scanned + '</b> 檔');
-    if (d.markets) m.push('上市 <b>' + d.markets.twse + '</b>／上櫃 <b>' + d.markets.tpex
-                          + '</b>／興櫃 <b>' + d.markets.esb + '</b>');
-    m.push('延遲顯示約 <b>' + (d.display_delay_min || 15) + '</b> 分鐘');
-    document.getElementById("ivMeta").innerHTML = m.join("");
-
-    var A = (d.tiers && d.tiers.A) || [], B = (d.tiers && d.tiers.B) || [];
-    document.getElementById("ivACount").textContent = A.length + " 檔";
-    document.getElementById("ivBCount").textContent = B.length;
-    document.getElementById("ivA").innerHTML = A.length
-      ? A.map(card).join("") : '<div class="iv-empty">目前沒有 A 級標的。</div>';
-    document.getElementById("ivB").innerHTML = B.length
-      ? B.map(card).join("") : '<div class="iv-empty">目前沒有 B 級標的。</div>';
-
-    renderFunnel(d.funnel);
-    renderRank();
-    document.getElementById("ivSectors").innerHTML = sectorTable(d.sectors);
-
-    // 什麼時候該用官方收盤價校正？
-    // ⚠️ 不能只看 d.market_status——那是「產生這份 JSON 當下」算的，收盤後
-    // 檔案凍在 13:29:52，欄位會一直寫著 "open"，晚上十點看還是 open。
-    // 真正的判斷是「這份資料有多舊」：超過 5 分鐘就不是即時值了，
-    // 這時 STOCK_DAY 的當日官方收盤才是對的。
-    if (!Q) return;
-    if (reallyLive) {
-      Q.startLive("intraday", ivTargets, setLiveBadge);          // 每 3 秒逐筆即時
-    } else if (st !== "pre_open") {
-      Q.stopLive("intraday");
-      setLiveBadge(false, "");
-      Q.correctCloses(ivTargets(), d.as_of, function (n) {       // 收盤價校正
-        var el = document.getElementById("ivCorrected");
-        if (!el) return;
-        el.textContent = n
-          ? "已用證交所官方收盤價校正 " + n + " 檔（收盤集合競價常與盤中最後一筆不同；"
-            + "上櫃／興櫃無公開 CORS 端點，維持盤中值）。"
-          : "";
-      });
-    }
-  }
-
-  var FUNNEL_STEPS = [
-    { key: "low_price",   label: "低價股（未達門檻）" },
-    { key: "disposition", label: "處置／注意股" },
-    { key: "rs_market",   label: "相對大盤強度不足" },
-    { key: "volume_ratio",label: "量能不足（昨量比）" },
-    { key: "momentum",    label: "未站上開盤／昨收" }
-  ];
-  function renderFunnel(f) {
-    var wrap = document.getElementById("ivFunnelWrap");
-    if (!wrap) return;
-    if (!f) { wrap.hidden = true; return; }
-    wrap.hidden = false;
-    document.getElementById("ivFunnelPassed").textContent = f.passed;
-    var left = f.scanned;
-    var rows = ['<tr><td>掃描全市場</td><td class="num">' + fmt(f.scanned) + '</td><td class="num">—</td></tr>'];
-    FUNNEL_STEPS.forEach(function (st) {
-      var cut = f[st.key] || 0;
-      left -= cut;
-      rows.push('<tr><td>' + st.label + '</td><td class="num">' + fmt(left)
-        + '</td><td class="num">−' + fmt(cut) + '</td></tr>');
-    });
-    rows.push('<tr><td><b>通過漏斗</b></td><td class="num"><b>' + fmt(f.passed)
-      + '</b></td><td class="num">—</td></tr>');
-    document.getElementById("ivFunnel").innerHTML =
-      '<table class="iv-table"><thead><tr><th>階段</th><th class="num">剩下</th>'
-      + '<th class="num">刷掉</th></tr></thead><tbody>' + rows.join("") + '</tbody></table>';
-  }
-
-  function renderRank() {
-    var el = document.getElementById("ivRank");
-    if (!el) return;
-    if (!lastData) { el.innerHTML = '<div class="iv-empty">載入中…</div>'; return; }
-    var rk = lastData.rankings || {};
-    var key = rankKey === "new_high" ? "new_high_" + highPeriod : rankKey;
-    var rows = rk[key];
-    document.getElementById("ivHighTabs").hidden = (rankKey !== "new_high");
-
-    if (rankKey === "new_high") {
-      var elig = (rk._eligible || {})[key];
-      markHighTabs(rk._eligible);
-      if (elig === 0) {
-        el.innerHTML = '<div class="iv-empty">這個週期的歷史資料還不足以判斷新高'
-          + '（沒有任何個股累積到足夠的交易日），所以不列名單。'
-          + '參考值每個交易日盤前重算，補齊後會自動出現。</div>';
-        return;
-      }
-    }
-    el.innerHTML = rankTable(rows);
-  }
-
-  function markHighTabs(elig) {
-    if (!elig) return;
-    [].forEach.call(document.querySelectorAll("#ivHighTabs button"), function (b) {
-      var n = elig["new_high_" + b.dataset.p];
-      var bad = (n === 0);
-      b.disabled = bad;
-      b.title = bad ? "歷史資料不足，無法判斷這個週期的新高" : (n + " 檔的歷史足以判斷");
-      b.classList.toggle("na", bad);
-    });
-  }
-
-  /* 報價規則全部委派給 window.TWQuote（assets/ui.js）——狀態文字、收盤價校正、
-     逐筆即時三件事全站只有那一份實作。這頁只負責回答「哪些節點要更新」。
-     2026-09-08 合併：這裡原本自己有一整套，導致熱力圖／評分／籌碼上的
-     共用盤中條沒有校正，整晚顯示收盤前那筆錯的價。 */
-  var Q = window.TWQuote;
-
-  function exMap() {
-    var m = {};
-    if (!lastData) return m;
-    var add = function (arr) {
-      (arr || []).forEach(function (r) { if (r && r.code && r.ex) m[r.code] = r.ex; });
-    };
-    add((lastData.tiers || {}).A); add((lastData.tiers || {}).B);
-    Object.keys(lastData.rankings || {}).forEach(function (k) {
-      if (k.charAt(0) !== "_") add(lastData.rankings[k]);
-    });
-    return m;
-  }
-  function ivTargets() {
-    // 只查看得到的節點：B 級收合時不浪費查詢額度
-    var sel = "#ivA .iv-card[data-stock-code], #ivRank tr[data-stock-code]";
-    var bWrap = document.getElementById("ivBWrap");
-    if (bWrap && bWrap.open) sel += ", #ivB .iv-card[data-stock-code]";
-    var ex = exMap();
-    return [].slice.call(document.querySelectorAll(sel)).map(function (el) {
-      var code = el.dataset.stockCode;
-      return { el: el, code: code, ex: ex[code] };
-    });
-  }
-  function setLiveBadge(on, text) {
-    var el = document.getElementById("ivLive");
-    if (!el) return;
-    el.textContent = text || "";
-    el.className = "lb-live" + (on ? " on" : "");
-  }
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">白宮向Fed施壓降息的政治角力</span>
+      <span class="tag confidence-low">一致性：低</span>
+    </div>
+    <p class="theme-desc">川普公開要求Fed降息、以貿易政策為要脅施壓央行獨立性，為原本的利率路徑討論再添政治不確定性</p>
+    <div class="theme-meta"><span>推動因素：川普公開聲明要脅以貿易關稅手段施壓Fed降息，市場對Fed獨立性受政治干預的疑慮升高</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：DXY、SPY</span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：政策不確定性提高美元與美股波動度，間接影響台股外資風險偏好與新台幣匯率波動，屬情緒面干擾大於基本面衝擊</span></div>
+  </div>
+  
+</section>
+<hr class="divider">
 
 
-  function load() {
-    // 抓檔也走 TWQuote（intraday-data 分支優先、失敗退回站內那份），
-    // 全站只有一個地方知道資料放在哪裡。
-    Q.fetchIntraday()
-      .then(render)
-      .catch(function (e) {
-        document.getElementById("ivStatus").textContent = "載入失敗";
-        document.getElementById("ivMeta").innerHTML =
-          '盤中資料尚未產生或載入失敗（' + esc(e.message) + '）。非交易時段這是正常的。';
-      });
-  }
 
-  document.getElementById("ivRankTabs").addEventListener("click", function (e) {
-    var b = e.target.closest("button"); if (!b) return;
-    rankKey = b.dataset.k;
-    sortState = null;
-    [].forEach.call(this.querySelectorAll("button"), function (x) { x.classList.toggle("on", x === b); });
-    renderRank();
-  });
 
-  document.getElementById("ivHighTabs").addEventListener("click", function (e) {
-    var b = e.target.closest("button"); if (!b) return;
-    highPeriod = b.dataset.p;
-    [].forEach.call(this.querySelectorAll("button"), function (x) { x.classList.toggle("on", x === b); });
-    renderRank();
-  });
 
-  document.getElementById("ivRank").addEventListener("click", function (e) {
-    var th = e.target.closest("th.sortable"); if (!th) return;
-    e.stopPropagation();
-    var k = th.dataset.sort;
-    if (!sortState || sortState.key !== k) sortState = { key: k, dir: -1 };
-    else if (sortState.dir === -1) sortState.dir = 1;
-    else sortState = null;
-    renderRank();
-  });
 
-  if (!Q) {
-    document.getElementById("ivStatus").textContent = "元件未載入";
-    document.getElementById("ivMeta").innerHTML =
-      "互動元件（assets/ui.js）未載入，盤中資料無法顯示。";
-  } else {
-    load();
-    setInterval(load, REFRESH_MS);
-  }
-  }
-})();
-</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   <footer class="site-footer">
@@ -858,13 +620,13 @@
 
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
   }
-  window.__rel = "";
+  window.__rel = "../";
 </script>
-<script src="assets/ui.js?v=b873b870"></script>
+<script src="../assets/ui.js?v=b873b870"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=b873b870"></script>
+<script src="../assets/stock-chart.js?v=b873b870"></script>
 
 </body>
 </html>
