@@ -235,18 +235,30 @@ CCR session 自己 clone repo、自己扮演 LLM 服務 `agent_llm_queue/`、沒
 自動改走 Google 表單 CSV 那條路（不需要 gh），這不算失敗。
 
 
-**2026-09-07 換帳號後：來源改走 GitHub Actions 中繼。** 新帳號的雲端環境
-（`env_01VN256spBKFc2yYwNhVhX3L`）egress proxy 擋掉 `docs.google.com`、沒裝 `gh`，
-而新版 claude.ai 設定頁**找不到**改 Network access 的入口。改成：
-`.github/workflows/research-sync.yml`（GitHub runner 有完整網路）每 15 分鐘
-（台灣 08:00–23:00）＋ `repository_dispatch(research-submitted)` 把表單 CSV ＋
-兩種標籤的 open issue 抓好 commit 進 `data/_intake/`；Routine（新 id
-`trig_01XbHE9QoggAgt96zw93co5J`，cron `8 * * * *`）用
+**2026-09-07 換帳號後（最終狀態）：新建 Full 網路雲端環境，直連。**
+新帳號一開始給的雲端環境（`env_011111111111111111111117` 平台預設、
+`env_01VN256spBKFc2yYwNhVhX3L`）都是 `limited` 網路，egress proxy 擋掉
+`docs.google.com`、沒裝 `gh`，研究提交每輪觸發卻讀不到東西、還照樣 SUCCEEDED。
+
+改網路的入口：claude.ai → Settings → **Claude Code** → 編輯 Routine 的畫面裡
+「Cloud environment」下拉 → **+ Add cloud environment** → **Network access = Full**。
+已建一個叫「台股-開放網路」（`env_01Uqwj835LDb1YCBqa8AbSrv`），
+「台股使用者研究提交處理」（新 id `trig_01XbHE9QoggAgt96zw93co5J`）已改用它，
+prompt 換回直連 `google_sheet_csv_url`／`gh`，**cron 清空、只靠 Apps Script 的
+API trigger 即時觸發**（使用者要求：這支只要及時、不要排程）。實測
+`docs.google.com: 302`、`api.github.com: 200`、當場處理掉兩筆表單提交。
+⚠️ 在 UI 編輯環境會把 cron 清空（多次踩到）——這支本來就要空的，沒差；
+但其他有排程的 Routine 若在 UI 動過環境，記得回頭補 cron。
+
+**其他 7 支 Routine 也應該換到「台股-開放網路」**——早報／盤後要連
+`twse.com.tw`、快訊要連 `api.wallstreetcn.com`、通知要連 `discord.com`，
+現在多半是斷的。換法同上（編輯該 Routine → Cloud environment 選「台股-開放網路」→
+Save → 回頭確認 cron 還在）。
+
+`.github/workflows/research-sync.yml` ＋ `data/_intake/` ＋ 程式裡的
 `RESEARCH_FORM_CSV_FILE` / `RESEARCH_ISSUES_FILE` / `RESEARCH_TOPIC_ISSUES_FILE`
-三個環境變數直接讀那三個檔、不連外。關 issue 改用 GitHub MCP。
-即時觸發要在 repo 加 secret `CCR_RESEARCH_URL` / `CCR_RESEARCH_TOKEN`
-（值＝Apps Script 裡那組 CCR trigger URL/token）；沒加就靠 15 分鐘 schedule。
-若之後找到並改好環境的 Network access，可以把這套中繼拆掉、回到直連。
+支援保留當**備援**（環境網路萬一又被改壞時，GitHub runner 有完整網路可頂上），
+平時不啟用、不影響直連。
 ## 重要：一般對話中的股票分析也要同步存回網站
 
 如果使用者在跟你的對話（不是上面那幾個排程 Routine）裡問股票分析、要你查某檔股票

@@ -1502,18 +1502,54 @@ _INVEST_HINTS = (
 _STOCK_CODE_RE = re.compile(r"(?<!\d)[1-9]\d{3}(?!\d)\s*[（(]?\s*[一-鿿]{1,4}")
 
 
+_STOCK_NAMES_CACHE: set[str] | None = None
+
+
+def _known_stock_names() -> set[str]:
+    """全市場公司的簡稱＋全名（去掉「股份有限公司」尾綴）。
+
+    點播主題常常就是「金居」「仁新」「台積」這種 2～3 字的公司簡稱——比關鍵字
+    清單還前面就被 `len < 4` 擋掉了（2026-09-07 實際發生：金居 8358、仁新 6696
+    兩筆表單提交都被粗篩誤殺）。這份名單讓「輸入是一個真實個股名」也算數。
+    """
+    global _STOCK_NAMES_CACHE
+    if _STOCK_NAMES_CACHE is None:
+        names: set[str] = set()
+        for code, prof in (_safe(db.all_company_profiles, {}, "公司名單") or {}).items():
+            names.add(code)
+            for key in ("short_name", "full_name"):
+                v = (prof.get(key) or "").strip()
+                if v:
+                    names.add(v)
+                    names.add(v.replace("股份有限公司", "").replace("*", "").strip())
+        _STOCK_NAMES_CACHE = {n for n in names if n}
+    return _STOCK_NAMES_CACHE
+
+
 def _looks_investment_related(text: str) -> bool:
     """粗篩：這段文字看起來跟台股／投資有沒有關。
 
     寧可放寬（沾到邊就算 True），真正的把關交給 LLM 的 relevant 欄位；這裡只擋
-    「一個投資關鍵字都沒有」的明顯雜訊。空字串／極短的也擋。
+    「一個投資關鍵字都沒有」的明顯雜訊。
     """
     t = (text or "").strip().lower()
-    if len(t) < 4:
+    if not t:
         return False
     if any(h in t for h in _INVEST_HINTS):
         return True
-    return bool(_STOCK_CODE_RE.search(text or ""))
+    if _STOCK_CODE_RE.search(text or ""):
+        return True
+    # 輸入本身就是一個真實個股名稱（例如「金居」「仁新」）：整串精準命中，
+    # 或整串是某家公司全名的前綴（「台積」→「台積電」）。不做反向 substring
+    # 比對，否則「買樂透明牌」會因為某公司名含「樂透」而誤判。
+    raw = (text or "").strip()
+    if 2 <= len(raw) <= 10:
+        names = _known_stock_names()
+        if raw in names or any(nm.startswith(raw) for nm in names if len(nm) >= len(raw)):
+            return True
+    # 走到這裡：不是關鍵字、不是股號、也不是已知個股名 → 當雜訊擋掉
+    # （跟改動前的行為一致；真正的把關是 LLM 的 relevant 欄位）
+    return False
 
 
 def _topic_notify_text(r: dict) -> str:
