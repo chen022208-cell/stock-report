@@ -85,6 +85,7 @@ intraday:
   volume_ratio_threshold: 1.5      # Layer 2：昨量比（時間校正）≥ 幾倍才算量增
   vol_full_ratio: 3.0             # 評分用：昨量比達 (1+3)=4 倍給滿分
   min_confidence_fraction: 0.05    # 已過盤比例低於此值 → 標記 low_confidence（開盤初期）
+  signal_min_fraction: 0.06        # 已過盤比例低於此值不產生新訊號（開盤暖機，≈16 分鐘）
   tier_a: 80
   tier_b: 60
   list_cap: 40                     # A／B 名單各最多顯示幾檔（JSON 大小與畫面長度）

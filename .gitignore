@@ -22,3 +22,4 @@ chart_snap.log
 
 # 本機執行日誌（另一台 session 曾誤 commit 過 research_run.log）
 *.log
+data/*.bak-*

@@ -236,8 +236,13 @@
   .iv-lowconf{font-size:11px; color:var(--c-market); margin-left:6px;}
   .iv-tabs{display:flex; gap:6px; margin-bottom:10px; flex-wrap:wrap;}
   .iv-tabs button{font:inherit; font-size:12.5px; padding:4px 11px; border:1px solid var(--hairline);
-    border-radius:14px; background:var(--surface); color:var(--text-secondary); cursor:pointer;}
+    border-radius:14px; background:var(--surface); color:var(--text-secondary); cursor:pointer;
+    /* 標籤文字不准折行或被壓縮——視窗窄的時候整排應該換行，不是把「成交值」
+       擠成看不出字的一團（使用者截圖出現過標籤空白的按鈕） */
+    white-space:nowrap; flex:0 0 auto;}
   .iv-tabs button.on{background:var(--text); color:var(--bg); border-color:var(--text);}
+  /* 歷史資料不足、算不出這個週期新高的按鈕：停用並降低對比，點不下去 */
+  .iv-tabs button.na{opacity:.4; cursor:not-allowed; text-decoration:line-through;}
   .iv-table{width:100%; border-collapse:collapse; font-size:13px;}
   .iv-table th,.iv-table td{text-align:left; padding:7px 9px; border-bottom:1px solid var(--hairline);}
   .iv-table th{font-size:11px; color:var(--text-muted); font-weight:500;}
@@ -292,6 +297,14 @@
   <span>載入中…</span>
 </div>
 <div class="iv-delay" id="ivDelay"></div>
+
+<section class="iv-sec">
+  <details class="iv-collapse" id="ivFunnelWrap">
+    <summary>🔻 漏斗選股過程（<span id="ivFunnelPassed">–</span> 檔通過）— 展開</summary>
+    <div class="hint" style="margin-top:8px">每一層各刷掉多少檔。這是「今天為什麼只有這幾檔入選」的完整交代。</div>
+    <div id="ivFunnel" style="margin-top:8px"></div>
+  </details>
+</section>
 
 <section class="iv-sec">
   <h2>🅰️ A 級（<span id="ivACount">–</span>）</h2>
@@ -434,7 +447,9 @@
       + (d.taiex && d.taiex.change_pct != null
           ? '<span>加權指數 <b>' + (d.taiex.value ? d.taiex.value.toLocaleString() : "–")
             + '</b> (' + pct(d.taiex.change_pct) + ')</span>' : "")
-      + '<span>掃描 <b>' + (d.counts ? d.counts.scanned : "–") + '</b> 檔</span>';
+      + '<span>掃描 <b>' + (d.counts ? d.counts.scanned : "–") + '</b> 檔'
+      + (d.markets ? '（上市 ' + d.markets.twse + '／上櫃 ' + d.markets.tpex
+                     + '／興櫃 ' + d.markets.esb + '）' : "") + '</span>';
     document.getElementById("ivDelay").textContent =
       "公開頁面資料延遲顯示約 " + (d.display_delay_min || 15) + " 分鐘；盤中每分鐘更新一次。";
 
@@ -446,8 +461,39 @@
     document.getElementById("ivB").innerHTML = B.length
       ? B.map(card).join("") : '<div class="iv-empty">目前沒有 B 級標的。</div>';
 
+    renderFunnel(d.funnel);
     renderRank();
     document.getElementById("ivSectors").innerHTML = sectorTable(d.sectors);
+  }
+
+  // 漏斗各層刷掉的檔數。這些數字以前只存在於 Actions 的 stdout，網站上完全看
+  // 不到，使用者無從判斷「今天沒幾檔」是行情冷還是篩選器壞了。
+  var FUNNEL_STEPS = [
+    { key: "low_price",   label: "低價股（未達門檻）" },
+    { key: "disposition", label: "處置／注意股" },
+    { key: "rs_market",   label: "相對大盤強度不足" },
+    { key: "volume_ratio",label: "量能不足（昨量比）" },
+    { key: "momentum",    label: "未站上開盤／昨收" }
+  ];
+  function renderFunnel(f) {
+    var wrap = document.getElementById("ivFunnelWrap");
+    if (!wrap) return;
+    if (!f) { wrap.hidden = true; return; }
+    wrap.hidden = false;
+    document.getElementById("ivFunnelPassed").textContent = f.passed;
+    var left = f.scanned;
+    var rows = ['<tr><td>掃描全市場</td><td class="num">' + fmt(f.scanned) + '</td><td class="num">—</td></tr>'];
+    FUNNEL_STEPS.forEach(function (st) {
+      var cut = f[st.key] || 0;
+      left -= cut;
+      rows.push('<tr><td>' + st.label + '</td><td class="num">' + fmt(left)
+        + '</td><td class="num">−' + fmt(cut) + '</td></tr>');
+    });
+    rows.push('<tr><td><b>通過漏斗</b></td><td class="num"><b>' + fmt(f.passed)
+      + '</b></td><td class="num">—</td></tr>');
+    document.getElementById("ivFunnel").innerHTML =
+      '<table class="iv-table"><thead><tr><th>階段</th><th class="num">剩下</th>'
+      + '<th class="num">刷掉</th></tr></thead><tbody>' + rows.join("") + '</tbody></table>';
   }
 
   // 排行表獨立重繪：切換排行種類、創新高週期、欄位排序都只重畫這一塊。
@@ -457,12 +503,37 @@
     var el = document.getElementById("ivRank");
     if (!el) return;
     if (!lastData) { el.innerHTML = '<div class="iv-empty">載入中…</div>'; return; }
+    var rk = lastData.rankings || {};
     var key = rankKey === "new_high" ? "new_high_" + highPeriod : rankKey;
-    var rows = (lastData.rankings || {})[key];
-    // 舊版資料只有 new_high_1y 這個 key，沒有細分週期時退回它，不要整區空白
-    if (!rows && rankKey === "new_high") rows = (lastData.rankings || {}).new_high_1y;
-    el.innerHTML = rankTable(rows);
+    var rows = rk[key];
     document.getElementById("ivHighTabs").hidden = (rankKey !== "new_high");
+
+    if (rankKey === "new_high") {
+      // 每個週期各有幾檔的歷史「長到足以判斷這個週期」。後端算不出來的週期
+      // 會回 0，這時候要明講資料不足，而不是端出一份其實是漲幅榜的名單——
+      // 2026-09-07 就是這樣：滾動歷史只剩 1 天，五個週期的名單一字不差。
+      var elig = (rk._eligible || {})[key];
+      markHighTabs(rk._eligible);
+      if (elig === 0) {
+        el.innerHTML = '<div class="iv-empty">這個週期的歷史資料還不足以判斷新高'
+          + '（沒有任何個股累積到足夠的交易日），所以不列名單。'
+          + '參考值每個交易日盤前重算，補齊後會自動出現。</div>';
+        return;
+      }
+    }
+    el.innerHTML = rankTable(rows);
+  }
+
+  // 資料不足的週期按鈕停用（而不是讓人點下去看到一份錯的名單）
+  function markHighTabs(elig) {
+    if (!elig) return;
+    [].forEach.call(document.querySelectorAll("#ivHighTabs button"), function (b) {
+      var n = elig["new_high_" + b.dataset.p];
+      var bad = (n === 0);
+      b.disabled = bad;
+      b.title = bad ? "歷史資料不足，無法判斷這個週期的新高" : (n + " 檔的歷史足以判斷");
+      b.classList.toggle("na", bad);
+    });
   }
 
   function fetchJson(u) {
@@ -512,7 +583,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-07 14:40</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-07 15:09</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>

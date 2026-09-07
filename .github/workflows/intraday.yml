@@ -66,6 +66,9 @@ jobs:
       - name: 盤中迴圈
         env:
           TZ: Asia/Taipei
+          # 盤中選股訊號直接由本 workflow 送 Discord：迴圈只推 intraday-data 分支，
+          # 而 daily-notify.yml 是靠 main 的 push 觸發的，走不到那條路。
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
           git config user.name "stock-report-intraday"
           git config user.email "noreply@github.com"
@@ -91,7 +94,8 @@ jobs:
             python -m src.main intraday || echo "本輪篩選失敗，續跑"
 
             git add -f docs/data/intraday.json docs/data/intraday_signals.json \
-                       docs/data/intraday_new_signal.json docs/data/intraday_ref.json 2>/dev/null || true
+                       docs/data/intraday_new_signal.json docs/data/intraday_ref.json \
+                       docs/data/intraday_alert.json 2>/dev/null || true
 
             if git diff --cached --quiet; then
               sleep 55; continue
@@ -106,12 +110,39 @@ jobs:
               sleep 55; continue
             fi
 
+            ALERTED=""
+            if git diff --cached --name-only | grep -q 'intraday_alert.json'; then
+              ALERTED="1"
+            fi
+
             git commit -q -m "盤中 $(date +%H:%M) $REASON [skip ci]"
             # intraday-data 只由這支 workflow 寫，直接 force 推最新一版，不留長歷史負擔
             if git push -q --force origin HEAD:intraday-data; then
               LAST_DATA_PUSH=$NOW
+              # 有新的 A 級訊號就直接推播。以前只有雲端 Routine 產出深度快報時才會
+              # 通知，而深度快報一天上限 5 篇，等於絕大多數訊號從來沒有人收到
+              # （使用者實際回報「盤中選股沒有通知分數高的股票」）。
+              if [ -n "$ALERTED" ]; then
+                python scripts/notify_discord.py docs/data/intraday_alert.json || true
+              fi
             else
               echo "推送失敗，下一輪再試"
             fi
             sleep 55
           done
+
+          # ── 收盤定稿 ──────────────────────────────────────────────
+          # 迴圈是「最多每 10 分鐘推一次資料」，所以最後一次推送通常停在收盤前
+          # 好幾分鐘的盤中價（實測 2026-09-07 停在 13:29:52），而 13:30 的收盤
+          # 集合競價常常成交在不同價位（當天 1516 川飛 盤中 15.75、收盤 14.75）。
+          # 那份資料會一直掛在網站上到隔天開盤，使用者看到的就是「價格卡住不動」。
+          # 收工前一定要再跑一輪、無條件推送，讓最後留在站上的是收盤定價。
+          echo "收盤定稿：再跑一輪並強制推送"
+          python -m src.main intraday || echo "收盤定稿那輪失敗，沿用最後一次的資料"
+          git add -f docs/data/intraday.json docs/data/intraday_signals.json \
+                     docs/data/intraday_new_signal.json docs/data/intraday_ref.json \
+                     docs/data/intraday_alert.json 2>/dev/null || true
+          if ! git diff --cached --quiet; then
+            git commit -q -m "盤中收盤定稿 $(date +%H:%M) [skip ci]"
+            git push -q --force origin HEAD:intraday-data || echo "收盤定稿推送失敗"
+          fi

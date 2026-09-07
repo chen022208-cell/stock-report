@@ -394,7 +394,13 @@ def run_intraday_deep_report() -> None:
     sig_stocks = payload.get("stocks", {})
     profiles = db.all_company_profiles()
     batch = []
-    for code in payload.get("new_codes", []):
+    # 每日上限只有幾篇，額度要花在分數最高的標的上。以前是照訊號出現的先後
+    # 順序取前 N 檔——先出現的不一定比較強，實測 2026-09-07 當天 5 篇全部被
+    # 09:01:26 那一批（開盤第 1 分鐘、當時參考值還是壞的）用光，後面真正跑出
+    # 100 分的標的一篇都沒有。改成先依分數由高到低排序再取。
+    ordered = sorted(payload.get("new_codes", []),
+                     key=lambda c: -(sig_stocks.get(c, {}).get("peak_score") or 0))
+    for code in ordered:
         s = sig_stocks.get(code, {})
         if db.intraday_report_exists(code, today):
             continue
@@ -940,9 +946,18 @@ def run_evening() -> None:
     watch_codes = {w["code"] for w in cfg["watchlist"]}
 
     market = _safe(twse.fetch_index_summary, {}, "大盤行情")
-    # 一定要帶今天的日期：不帶的話 TWSE 會回「最新一個有資料的交易日」，
-    # 於是收盤資料還沒落地時，昨天的法人數字會被當成今天的存進去（實際踩過：
-    # 09-04 與 09-05 兩天的外資／投信／自營商完全一樣，週報一加就變兩倍）。
+    # **報告的日期以資料為準，不是以執行時間為準。**
+    # TWSE 的收盤資料集回的是「目前已公布的最新交易日」，不保證等於今天：
+    #   - 週末／假日執行 → 拿到的是上一個交易日
+    #   - 收盤後太早執行 → 當日資料還沒落地，拿到的是前一個交易日
+    # 以前一律用 today_str() 當日期，於是 2026-09-05（週六）被存進一筆其實是
+    # 09-04（週五）的收盤資料，整個評分頁標成「9月5日 週六」而數字停在週五，
+    # 使用者直接反映「價格%數都卡在上禮拜五」。現在改成跟著資料走。
+    data_date = market.get("date") or ""
+    if data_date and data_date != today:
+        print(f"[evening] TWSE 最新收盤資料是 {data_date}、不是執行日 {today}；"
+              f"這份報告以 {data_date} 為準")
+        today = data_date
     inst = _safe(lambda: twse.fetch_institutional_net(date.fromisoformat(today)),
                  {}, "三大法人")
     if inst and inst.get("date") and inst["date"] != today:

@@ -71,8 +71,25 @@ def _num(value: Any) -> float:
         return 0.0
 
 
+def _roc_to_iso(value) -> str:
+    """民國日期字串（1150904）→ ISO（2026-09-04）。看不懂就回空字串。"""
+    text = str(value or "").strip().replace("/", "")
+    if len(text) == 7 and text.isdigit():
+        return f"{int(text[:3]) + 1911}-{text[3:5]}-{text[5:]}"
+    return ""
+
+
 def fetch_index_summary() -> dict:
-    """大盤收盤行情：加權指數、漲跌（含正負號）、漲跌%、成交值。"""
+    """大盤收盤行情：加權指數、漲跌（含正負號）、漲跌%、成交值，**外加資料本身的日期**。
+
+    `date` 這個欄位是必要的，不能靠呼叫端假設「今天跑的就是今天的資料」。
+    FMTQIK 回的是當月已公布的交易日，最後一列是「目前最新一筆」——盤後報告
+    如果在 TWSE 還沒把當日資料落地時執行，最後一列就是**前一個交易日**。
+    2026-09-07 查出來的實際後果：資料庫裡 2026-09-04 那筆存的是 09-03（週四）
+    的收盤 45857.66、2026-09-05（週六，根本沒開盤）那筆存的是 09-04（週五）的
+    46551.13，整個評分頁的日期標籤都往後錯一個交易日，使用者看到的是
+    「日期寫週六、數字停在週五」。
+    """
     if DRY_RUN:
         return mock.index_summary()
 
@@ -82,6 +99,7 @@ def fetch_index_summary() -> dict:
     rows = _get("/exchangeReport/FMTQIK")
     if rows:
         last = rows[-1]
+        result["date"] = _roc_to_iso(last.get("Date") or last.get("日期"))
         close = _num(last.get("TAIEX") or last.get("發行量加權股價指數"))
         change = _parse_signed(last.get("Change") or last.get("漲跌點數"))
         if close > 0:
