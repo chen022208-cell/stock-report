@@ -9,12 +9,20 @@ from __future__ import annotations
 
 import csv
 import io
+import os
 import time
+from pathlib import Path
 
 import requests
 
 from ..config import DRY_RUN
 from . import mock
+
+# 雲端 Routine 的沙盒連不到 docs.google.com（egress proxy 擋一般網站）。
+# 對策：GitHub Actions（runner 有完整網路）盤前／表單觸發時把 CSV 抓好 commit 進
+# repo，Routine 端設這個環境變數指到那份檔案，就完全不需要在沙盒裡連 Google。
+# 沒設、或檔案不存在時照舊走 HTTP（本機開發、Actions 本身都能連）。
+_LOCAL_CSV_ENV = "RESEARCH_FORM_CSV_FILE"
 
 TIMEOUT = 20
 HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
@@ -41,6 +49,18 @@ def fetch_form_responses(csv_url: str) -> list[dict]:
     要不要讓整輪標記成失敗。"""
     if DRY_RUN:
         return mock.research_form_responses()
+
+    local = os.environ.get(_LOCAL_CSV_ENV, "").strip()
+    if local:
+        fp = Path(local)
+        if not fp.exists():
+            # 明確設了要用本機檔卻找不到 → 這是設定錯誤，不能默默當成沒提交
+            raise FormFetchError(f"找不到 {_LOCAL_CSV_ENV} 指定的檔案：{local}")
+        try:
+            return _parse_csv(fp.read_text(encoding="utf-8"))
+        except Exception as exc:
+            raise FormFetchError(f"讀取本機 CSV {local} 失敗：{exc}") from exc
+
     if not csv_url:
         return []
     try:
@@ -55,16 +75,23 @@ def fetch_form_responses(csv_url: str) -> list[dict]:
                                      "Pragma": "no-cache"},
                             timeout=TIMEOUT)
         resp.raise_for_status()
-        reader = csv.reader(io.StringIO(resp.text))
-        rows = list(reader)
-        if len(rows) < 2:
-            return []
-        out = []
-        for row in rows[1:]:
-            if len(row) < 3:
-                continue
-            out.append({"timestamp": row[0].strip(), "title": row[1].strip(), "body": row[2].strip()})
-        return out
+        return _parse_csv(resp.text)
+    except FormFetchError:
+        raise
     except Exception as exc:
         print(f"[google_sheet] 讀取表單回應失敗：{exc}")
         raise FormFetchError(str(exc)) from exc
+
+
+def _parse_csv(text: str) -> list[dict]:
+    """Google 表單「回覆」試算表固定欄序：時間戳記、標題、內容。"""
+    rows = list(csv.reader(io.StringIO(text)))
+    if len(rows) < 2:
+        return []
+    out = []
+    for row in rows[1:]:
+        if len(row) < 3:
+            continue
+        out.append({"timestamp": row[0].strip(), "title": row[1].strip(),
+                    "body": row[2].strip()})
+    return out

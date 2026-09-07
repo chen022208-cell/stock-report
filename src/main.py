@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
@@ -1426,7 +1427,26 @@ def run_import_catalog() -> None:
 RESEARCH_LABEL = "research-submission"
 
 
+def _issues_from_file(env_var: str) -> list[dict] | None:
+    """雲端沙盒沒有 `gh`（也連不出去），改由 GitHub Actions 先把 issue 撈成 JSON
+    commit 進 repo，Routine 端設環境變數指過來。回 None＝沒設，交回原本的 gh 流程。"""
+    path = os.environ.get(env_var, "").strip()
+    if not path:
+        return None
+    try:
+        data = json.loads(open(path, encoding="utf-8").read() or "[]")
+        return data if isinstance(data, list) else []
+    except FileNotFoundError:
+        return []
+    except Exception as exc:
+        print(f"[research] 讀取 {env_var} 指定的 issue 檔失敗：{exc}")
+        return []
+
+
 def _gh_issue_list() -> list[dict]:
+    pre = _issues_from_file("RESEARCH_ISSUES_FILE")
+    if pre is not None:
+        return pre
     try:
         out = subprocess.run(
             ["gh", "issue", "list", "--label", RESEARCH_LABEL, "--state", "open",
@@ -1444,6 +1464,9 @@ TOPIC_LABEL = "topic-request"
 
 def _gh_topic_issue_list() -> list[dict]:
     """讀「點播深度主題」的 Issue（提交研究頁的第三種模式）。"""
+    pre = _issues_from_file("RESEARCH_TOPIC_ISSUES_FILE")
+    if pre is not None:
+        return pre
     try:
         out = subprocess.run(
             ["gh", "issue", "list", "--label", TOPIC_LABEL, "--state", "open",

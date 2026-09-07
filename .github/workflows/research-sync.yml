@@ -1,0 +1,114 @@
+name: 研究提交來源同步（餵給雲端 Routine）
+
+# 為什麼需要這支：
+# 「台股使用者研究提交處理」跑在 Claude Code 雲端沙盒，沙盒的 egress proxy 擋掉
+# 一般網站——連不到 docs.google.com（表單回覆 CSV）、也沒裝 gh（讀 Issue）。
+# 結果 Routine 每輪都觸發、卻讀不到任何提交，等於形同虛設。
+#
+# 這支 workflow 跑在 GitHub 自己的 runner（完整網路），負責把兩個來源抓好、
+# commit 進 repo 的 data/_intake/：
+#   - responses.csv       ← Google 表單「發布到網路」CSV
+#   - issues.json         ← research-submission 標籤的 open issue
+#   - topic_issues.json   ← topic-request 標籤的 open issue
+# 雲端 Routine 端只要設環境變數指到這三個檔（見 Routine prompt），就完全不必
+# 在沙盒裡連外。
+#
+# 觸發：
+#   - schedule：台灣 08:00–23:00 每 15 分鐘一次（保底，Apps Script 沒設也能運作）
+#   - repository_dispatch(research-submitted)：表單送出時 Apps Script 立即打這個
+#     → 幾乎即時（Apps Script 片段見 docs 或問開發者）
+#   - workflow_dispatch：手動
+#
+# 同步完若偵測到「真的有新內容」，且有設 CCR_RESEARCH_URL / CCR_RESEARCH_TOKEN
+# secret，就順手打一次雲端 Routine 讓它馬上處理；沒設就等 Routine 自己那班
+# `8 * * * *` 的 cron。
+
+on:
+  schedule:
+    - cron: '*/15 0-15 * * *'      # 每 15 分鐘（UTC 00–15 ≈ 台灣 08:00–23:xx）
+  repository_dispatch:
+    types: [research-submitted]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: research-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 取出程式碼
+        uses: actions/checkout@v4
+
+      - name: 設定 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 抓表單 CSV ＋ Issue，寫進 data/_intake/
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p data/_intake
+
+          # CSV 網址以 config.yaml 為單一事實來源
+          CSV_URL=$(python -c "import yaml; print(yaml.safe_load(open('config.yaml'))['research_intake']['google_sheet_csv_url'])")
+          echo "CSV: $CSV_URL"
+          # 破快取：Google 這個網址回 Cache-Control: private, max-age=300
+          curl -sSL --fail --retry 3 --retry-delay 2 \
+            -H 'Cache-Control: no-cache' -H 'Pragma: no-cache' \
+            "${CSV_URL}&_cb=$(date +%s)" -o data/_intake/responses.csv
+          echo "CSV 列數：$(wc -l < data/_intake/responses.csv)"
+
+          # Issue 兩種標籤（gh 在 Actions runner 內建，用 GITHUB_TOKEN）
+          gh issue list --repo "${{ github.repository }}" --label research-submission \
+            --state open --json number,title,body,url > data/_intake/issues.json || echo '[]' > data/_intake/issues.json
+          gh issue list --repo "${{ github.repository }}" --label topic-request \
+            --state open --json number,title,body,url > data/_intake/topic_issues.json || echo '[]' > data/_intake/topic_issues.json
+
+      - name: 有變動才 commit
+        id: commit
+        run: |
+          set -euo pipefail
+          git config user.name  "stock-report-intake"
+          git config user.email "noreply@github.com"
+          git add -f data/_intake/responses.csv data/_intake/issues.json data/_intake/topic_issues.json
+          if git diff --cached --quiet; then
+            echo "changed=0" >> "$GITHUB_OUTPUT"
+            echo "來源沒有變動，不 commit"
+          else
+            git commit -q -m "研究提交來源同步 $(date -u +'%Y-%m-%d %H:%M UTC') [skip ci]"
+            # main 會被多個排程同時改，推不上去就 rebase 重試
+            for i in 1 2 3; do
+              if git pull --rebase --autostash -q origin main && git push -q origin main; then
+                echo "changed=1" >> "$GITHUB_OUTPUT"; exit 0
+              fi
+              sleep 3
+            done
+            echo "push 失敗 3 次" >&2; exit 1
+          fi
+
+      - name: 內容有變就立刻叫醒雲端 Routine
+        if: steps.commit.outputs.changed == '1'
+        env:
+          CCR_URL: ${{ secrets.CCR_RESEARCH_URL }}
+          CCR_TOKEN: ${{ secrets.CCR_RESEARCH_TOKEN }}
+        run: |
+          if [ -z "${CCR_URL:-}" ]; then
+            echo "沒有設 CCR_RESEARCH_URL secret，略過即時觸發；等 Routine 自己的 cron"
+            exit 0
+          fi
+          code=$(curl -sS -o /tmp/ccr_resp.txt -w '%{http_code}' -X POST "$CCR_URL" \
+            -H 'anthropic-version: 2023-06-01' \
+            ${CCR_TOKEN:+-H "Authorization: Bearer $CCR_TOKEN"} \
+            -H 'Content-Type: application/json' \
+            -d '{"source":"github-actions","reason":"research-sync"}')
+          echo "CCR 觸發 HTTP $code"
+          head -c 400 /tmp/ccr_resp.txt || true
+          # 觸發失敗不讓整支 workflow 紅——資料已經 commit 進去，cron 那班還是會處理
+          exit 0
