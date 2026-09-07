@@ -686,5 +686,167 @@
         }
       ]
     }
-  }
+  },
+  "gainers": [
+    {
+      "code": "2426",
+      "name": "鼎元",
+      "close": 104.5,
+      "change_pct": 10.0,
+      "turnover": 6273693508.0,
+      "market": "twse"
+    },
+    {
+      "code": "3167",
+      "name": "大量",
+      "close": 803.0,
+      "change_pct": 10.0,
+      "turnover": 3725304965.0,
+      "market": "twse"
+    },
+    {
+      "code": "3354",
+      "name": "律勝",
+      "close": 26.4,
+      "change_pct": 10.0,
+      "turnover": 36228996.0,
+      "market": "tpex"
+    },
+    {
+      "code": "5314",
+      "name": "世紀*",
+      "close": 35.2,
+      "change_pct": 10.0,
+      "turnover": 231542624.0,
+      "market": "tpex"
+    },
+    {
+      "code": "8040",
+      "name": "九暘",
+      "close": 82.5,
+      "change_pct": 10.0,
+      "turnover": 399946363.0,
+      "market": "tpex"
+    },
+    {
+      "code": "5274",
+      "name": "信驊",
+      "close": 19215.0,
+      "change_pct": 9.99,
+      "turnover": 10429488515.0,
+      "market": "tpex"
+    },
+    {
+      "code": "2327",
+      "name": "國巨*",
+      "close": 562.0,
+      "change_pct": 9.98,
+      "turnover": 31856140839.0,
+      "market": "twse"
+    },
+    {
+      "code": "3022",
+      "name": "威強電",
+      "close": 95.9,
+      "change_pct": 9.98,
+      "turnover": 445986224.0,
+      "market": "twse"
+    },
+    {
+      "code": "6271",
+      "name": "同欣電",
+      "close": 237.0,
+      "change_pct": 9.98,
+      "turnover": 3622880650.0,
+      "market": "twse"
+    },
+    {
+      "code": "6173",
+      "name": "信昌電",
+      "close": 286.5,
+      "change_pct": 9.98,
+      "turnover": 3516922327.0,
+      "market": "tpex"
+    },
+    {
+      "code": "7610",
+      "name": "聯友金屬-創",
+      "close": 1820.0,
+      "change_pct": 9.97,
+      "turnover": 719313140.0,
+      "market": "twse"
+    },
+    {
+      "code": "2413",
+      "name": "環科",
+      "close": 45.8,
+      "change_pct": 9.96,
+      "turnover": 199808945.0,
+      "market": "twse"
+    },
+    {
+      "code": "7709",
+      "name": "榮田",
+      "close": 85.0,
+      "change_pct": 9.96,
+      "turnover": 27119760.0,
+      "market": "tpex"
+    },
+    {
+      "code": "6877",
+      "name": "鏵友益",
+      "close": 121.5,
+      "change_pct": 9.95,
+      "turnover": 11876608.0,
+      "market": "tpex"
+    },
+    {
+      "code": "8042",
+      "name": "金山電",
+      "close": 121.5,
+      "change_pct": 9.95,
+      "turnover": 1358384366.0,
+      "market": "tpex"
+    },
+    {
+      "code": "2492",
+      "name": "華新科",
+      "close": 298.5,
+      "change_pct": 9.94,
+      "turnover": 8064570394.0,
+      "market": "twse"
+    },
+    {
+      "code": "3094",
+      "name": "聯傑",
+      "close": 46.5,
+      "change_pct": 9.93,
+      "turnover": 825572807.0,
+      "market": "twse"
+    },
+    {
+      "code": "5464",
+      "name": "霖宏",
+      "close": 76.4,
+      "change_pct": 9.93,
+      "turnover": 57928490.0,
+      "market": "tpex"
+    },
+    {
+      "code": "6907",
+      "name": "雅特力-KY",
+      "close": 199.5,
+      "change_pct": 9.92,
+      "turnover": 810646119.0,
+      "market": "tpex"
+    },
+    {
+      "code": "7711",
+      "name": "永擎",
+      "close": 632.0,
+      "change_pct": 9.91,
+      "turnover": 1431399909.0,
+      "market": "twse"
+    }
+  ]
 }

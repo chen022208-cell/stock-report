@@ -91,7 +91,7 @@ intraday:
   list_cap: 40                     # A／B 名單各最多顯示幾檔（JSON 大小與畫面長度）
   display_delay_min: 15            # 公開頁面顯示的資料延遲（分鐘），避開即時報價轉發爭議
   deep_report_min_score: 82        # A 級且分數 ≥ 此值才進深度快報候選
-  deep_report_daily_cap: 5         # 每日深度快報上限（雲端 Routine 那邊會再擋一次）
+  deep_report_daily_cap: 10        # 每日深度快報上限（雲端 Routine 那邊會再擋一次）
   deep_report_cooldown_hours: 6    # 同一檔幾小時內不重複發快報
   weights:                         # 綜合評分權重（架構書第五節；委買賣力道那 5% 資料源不支援，略）
     rs_market: 25

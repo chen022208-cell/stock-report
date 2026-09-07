@@ -380,6 +380,16 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
+  .news-row{display:flex; align-items:flex-start; gap:10px; padding:11px 0;
+            border-bottom:1px solid var(--hairline); text-decoration:none; color:inherit;}
+  .news-row:last-child{border-bottom:none;}
+  .news-row:active{opacity:.7;}
+  .news-row .nr-main{flex:1; min-width:0;}
+  .news-row .nr-title{font-size:14px; font-weight:600; line-height:1.5;}
+  .news-row .nr-sum{font-size:12px; color:var(--text-muted); margin-top:3px; line-height:1.5;}
+  .tag.v-verified{background:rgba(63,199,126,.16); color:var(--green);}
+  .tag.v-conflicting{background:rgba(244,87,90,.16); color:var(--red);}
+  .tag.v-unverified{background:rgba(154,167,191,.14); color:var(--text-muted);}
   .hero-num{font-family:'JetBrains Mono',monospace; font-size:34px; font-weight:500;}
   .hero-chg{font-family:'JetBrains Mono',monospace; font-size:14px; margin-left:8px;}
   .live-note{font-size:11.5px; color:var(--text-muted); margin-top:8px; line-height:1.6;}
@@ -528,31 +538,48 @@
 
 
 
-<div class="section-title">追蹤中題材 <a href="themes.html">看全部 →</a></div>
+
+<div class="section-title">最新財經快訊 <a href="research.html">看全部 →</a></div>
 <div class="card">
   
-  <a class="theme-row-mini" href="themes.html#theme-3">
-    <div style="flex:1">
-      <div class="trm-name">〔國際〕地緣風險推升油價與能源類股</div>
-      <div class="trm-sum">美伊軍事衝突升溫，原油價格站上92-95美元，帶動能源類股顯著跑贏大盤</div>
+  <a class="news-row" href="research.html">
+    <div class="nr-main">
+      <div class="nr-title">雷军：为造芯片已真金白银投入210个亿</div>
+      <div class="nr-sum">小米董事長雷軍在9月7日秋季新品發表會上表示，小米自研晶片累計已投入人民幣210億元（10年500億計畫的一部分），自研…</div>
     </div>
-    <span class="tag confidence-high">高</span>
+    <span class="tag v-unverified">無法獨立驗證</span>
   </a>
   
-  <a class="theme-row-mini" href="articles/金融股-銀行-金控-輪動.html">
-    <div style="flex:1">
-      <div class="trm-name">金融股(銀行/金控)輪動</div>
-      <div class="trm-sum">玉山金與遠東銀同屬金融類股，同步放量上漲，顯示資金短線輪動至金融族群</div>
+  <a class="news-row" href="research.html">
+    <div class="nr-main">
+      <div class="nr-title">小米18 Fold折叠屏手机售价公布：10999元起</div>
+      <div class="nr-sum">小米18 Fold摺疊屏手機正式公布售價，起售價人民幣10999元，搭載自研玄戒O3 AI旗艦處理器與6000mAh電池…</div>
     </div>
-    <span class="tag confidence-mid">中高</span>
+    <span class="tag v-unverified">無法獨立驗證</span>
   </a>
   
-  <a class="theme-row-mini" href="themes.html#theme-2">
-    <div style="flex:1">
-      <div class="trm-name">〔國際〕Fed升息路徑拉鋸戰</div>
-      <div class="trm-sum">強勁就業數據＋Warsh鷹派發言推升升息押注，但Waller隨後鴿派言論…</div>
+  <a class="news-row" href="research.html">
+    <div class="nr-main">
+      <div class="nr-title">小米发布首款“中折叠”手机小米18 Fold</div>
+      <div class="nr-sum">小米於9月7日晚間發表新款摺疊手機「小米18 Fold」，定位介於大折疊與小折疊之間的「中折疊」產品，是小米目前定位最高…</div>
     </div>
-    <span class="tag confidence-mid">中高</span>
+    <span class="tag v-unverified">無法獨立驗證</span>
+  </a>
+  
+  <a class="news-row" href="research.html">
+    <div class="nr-main">
+      <div class="nr-title">仁新（6696）查證報告：透過美國子公司Belite Bio推進斯特格病變新藥，NDA已…</div>
+      <div class="nr-sum">仁新醫藥（6696）是台灣新藥開發公司，核心價值來自持股41.97%的美國子公司Belite Bio, Inc.，其開發…</div>
+    </div>
+    <span class="tag v-verified">已驗證</span>
+  </a>
+  
+  <a class="news-row" href="research.html">
+    <div class="nr-main">
+      <div class="nr-title">金居（8358）查證報告：台灣HVLP4電解銅箔龍頭，卡位AI伺服器材料供應鏈</div>
+      <div class="nr-sum">金居開發（8358，上櫃）是台灣主要的電子級電解銅箔廠，主力產品從標準銅箔升級到超低粗糙度的HVLP4系列，已通過Int…</div>
+    </div>
+    <span class="tag v-verified">已驗證</span>
   </a>
   
 </div>
@@ -645,7 +672,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-08 02:00</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-08 02:07</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>

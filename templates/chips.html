@@ -31,7 +31,8 @@
 <div class="seg scroll" data-group="chipview">
   <button data-value="inst" class="on">🧑‍🤝‍🧑 法人</button>
   <button data-value="margin">📈 資券</button>
-  <button data-value="rank">🏆 法人排行</button>
+  <button data-value="gainers">📈 漲幅榜</button>
+  <button data-value="rank">🔥 動能股</button>
   <button data-value="big">👑 大戶</button>
 </div>
 
@@ -119,11 +120,46 @@
 {% endif %}
 </div>
 
-<!-- ── 法人排行（強勢股）────────────────────── -->
+<!-- ── 漲幅榜（純照漲幅排，不做量能篩選）──────── -->
+<div class="pane" data-value="gainers" hidden>
+{% if gainers %}
+  <div class="sheader"><span class="sh-ic">📈</span>
+    <span class="sh-title">今日漲幅榜</span><span class="sh-badge">前 {{ gainers|length }} 名</span></div>
+  <p class="commentary" style="font-size:12.5px; margin-bottom:10px">
+    單純照當日漲幅排序，不做量能篩選；只排除股價未達 10 元與成交值未達 1,000 萬的個股
+    （那些實際上不容易成交）。要看「有量能配合」的請切「動能股」。</p>
+  <div class="card">
+    <div class="rank-list">
+    {% for g in gainers %}
+    <div class="rank-row" data-stock-code="{{ g.code }}" data-stock-name="{{ g.name }}"
+         style="--accent: {{ 'var(--red)' if g.change_pct >= 0 else 'var(--green)' }}">
+      <span class="rk-idx">{{ loop.index }}</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">{{ g.name }} <span class="rk-code">{{ g.code }}</span>
+          {% if g.market == 'tpex' %}<span class="market-tag">上櫃</span>{% endif %}</div>
+        <div class="rk-sub">收 {{ g.close }}　成交值 {{ "{:,.0f}".format((g.turnover or 0) / 100000000) if (g.turnover or 0) >= 100000000 else "{:,.0f}".format((g.turnover or 0) / 10000) }}{{ "億" if (g.turnover or 0) >= 100000000 else "萬" }}</div>
+      </div>
+      <span class="rk-right {{ 'up' if g.change_pct >= 0 else 'down' }}">{{ "%+.2f"|format(g.change_pct) }}%</span>
+    </div>
+    {% endfor %}
+    </div>
+  </div>
+{% else %}
+  <p class="commentary" style="margin-top:20px">尚無當日漲幅資料（下一次盤後報告產出後會出現）。</p>
+{% endif %}
+</div>
+
+<!-- ── 動能股（量能倍數 × 漲幅 排序）────────────── -->
 <div class="pane" data-value="rank" hidden>
 {% if strong %}
   <div class="sheader"><span class="sh-ic">🔥</span>
-    <span class="sh-title">強勢股（今日漲幅前段）</span><span class="sh-badge">量能倍數</span></div>
+    <span class="sh-title">動能股</span><span class="sh-badge">量能 × 漲幅</span></div>
+  <p class="commentary" style="font-size:12.5px; margin-bottom:10px">
+    <b>這不是漲幅排行。</b>先篩「漲幅 ≥ 4%、成交值 ≥ 1 億、且成交量達 20 日均量 2 倍以上」，
+    再依<b>量能倍數 × 漲幅</b>排序——所以「漲停但量沒放大」的個股不會出現在這裡
+    （例：2026-09-04 的 2426 鼎元 +10.00%、2327 國巨* +9.98% 都不在榜上）。
+    要看純漲幅請切「漲幅榜」。</p>
   <div class="card">
     <div class="rank-list">
     {% for s in strong %}

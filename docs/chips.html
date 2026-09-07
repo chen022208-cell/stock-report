@@ -581,7 +581,8 @@
 <div class="seg scroll" data-group="chipview">
   <button data-value="inst" class="on">🧑‍🤝‍🧑 法人</button>
   <button data-value="margin">📈 資券</button>
-  <button data-value="rank">🏆 法人排行</button>
+  <button data-value="gainers">📈 漲幅榜</button>
+  <button data-value="rank">🔥 動能股</button>
   <button data-value="big">👑 大戶</button>
 </div>
 
@@ -1002,11 +1003,272 @@
 
 </div>
 
-<!-- ── 法人排行（強勢股）────────────────────── -->
+<!-- ── 漲幅榜（純照漲幅排，不做量能篩選）──────── -->
+<div class="pane" data-value="gainers" hidden>
+
+  <div class="sheader"><span class="sh-ic">📈</span>
+    <span class="sh-title">今日漲幅榜</span><span class="sh-badge">前 20 名</span></div>
+  <p class="commentary" style="font-size:12.5px; margin-bottom:10px">
+    單純照當日漲幅排序，不做量能篩選；只排除股價未達 10 元與成交值未達 1,000 萬的個股
+    （那些實際上不容易成交）。要看「有量能配合」的請切「動能股」。</p>
+  <div class="card">
+    <div class="rank-list">
+    
+    <div class="rank-row" data-stock-code="2426" data-stock-name="鼎元"
+         style="--accent: var(--red)">
+      <span class="rk-idx">1</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">鼎元 <span class="rk-code">2426</span>
+          </div>
+        <div class="rk-sub">收 104.5　成交值 63億</div>
+      </div>
+      <span class="rk-right up">+10.00%</span>
+    </div>
+    
+    <div class="rank-row" data-stock-code="3167" data-stock-name="大量"
+         style="--accent: var(--red)">
+      <span class="rk-idx">2</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">大量 <span class="rk-code">3167</span>
+          </div>
+        <div class="rk-sub">收 803.0　成交值 37億</div>
+      </div>
+      <span class="rk-right up">+10.00%</span>
+    </div>
+    
+    <div class="rank-row" data-stock-code="3354" data-stock-name="律勝"
+         style="--accent: var(--red)">
+      <span class="rk-idx">3</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">律勝 <span class="rk-code">3354</span>
+          <span class="market-tag">上櫃</span></div>
+        <div class="rk-sub">收 26.4　成交值 3,623萬</div>
+      </div>
+      <span class="rk-right up">+10.00%</span>
+    </div>
+    
+    <div class="rank-row" data-stock-code="5314" data-stock-name="世紀*"
+         style="--accent: var(--red)">
+      <span class="rk-idx">4</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">世紀* <span class="rk-code">5314</span>
+          <span class="market-tag">上櫃</span></div>
+        <div class="rk-sub">收 35.2　成交值 2億</div>
+      </div>
+      <span class="rk-right up">+10.00%</span>
+    </div>
+    
+    <div class="rank-row" data-stock-code="8040" data-stock-name="九暘"
+         style="--accent: var(--red)">
+      <span class="rk-idx">5</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">九暘 <span class="rk-code">8040</span>
+          <span class="market-tag">上櫃</span></div>
+        <div class="rk-sub">收 82.5　成交值 4億</div>
+      </div>
+      <span class="rk-right up">+10.00%</span>
+    </div>
+    
+    <div class="rank-row" data-stock-code="5274" data-stock-name="信驊"
+         style="--accent: var(--red)">
+      <span class="rk-idx">6</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">信驊 <span class="rk-code">5274</span>
+          <span class="market-tag">上櫃</span></div>
+        <div class="rk-sub">收 19215.0　成交值 104億</div>
+      </div>
+      <span class="rk-right up">+9.99%</span>
+    </div>
+    
+    <div class="rank-row" data-stock-code="2327" data-stock-name="國巨*"
+         style="--accent: var(--red)">
+      <span class="rk-idx">7</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">國巨* <span class="rk-code">2327</span>
+          </div>
+        <div class="rk-sub">收 562.0　成交值 319億</div>
+      </div>
+      <span class="rk-right up">+9.98%</span>
+    </div>
+    
+    <div class="rank-row" data-stock-code="3022" data-stock-name="威強電"
+         style="--accent: var(--red)">
+      <span class="rk-idx">8</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">威強電 <span class="rk-code">3022</span>
+          </div>
+        <div class="rk-sub">收 95.9　成交值 4億</div>
+      </div>
+      <span class="rk-right up">+9.98%</span>
+    </div>
+    
+    <div class="rank-row" data-stock-code="6271" data-stock-name="同欣電"
+         style="--accent: var(--red)">
+      <span class="rk-idx">9</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">同欣電 <span class="rk-code">6271</span>
+          </div>
+        <div class="rk-sub">收 237.0　成交值 36億</div>
+      </div>
+      <span class="rk-right up">+9.98%</span>
+    </div>
+    
+    <div class="rank-row" data-stock-code="6173" data-stock-name="信昌電"
+         style="--accent: var(--red)">
+      <span class="rk-idx">10</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">信昌電 <span class="rk-code">6173</span>
+          <span class="market-tag">上櫃</span></div>
+        <div class="rk-sub">收 286.5　成交值 35億</div>
+      </div>
+      <span class="rk-right up">+9.98%</span>
+    </div>
+    
+    <div class="rank-row" data-stock-code="7610" data-stock-name="聯友金屬-創"
+         style="--accent: var(--red)">
+      <span class="rk-idx">11</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">聯友金屬-創 <span class="rk-code">7610</span>
+          </div>
+        <div class="rk-sub">收 1820.0　成交值 7億</div>
+      </div>
+      <span class="rk-right up">+9.97%</span>
+    </div>
+    
+    <div class="rank-row" data-stock-code="2413" data-stock-name="環科"
+         style="--accent: var(--red)">
+      <span class="rk-idx">12</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">環科 <span class="rk-code">2413</span>
+          </div>
+        <div class="rk-sub">收 45.8　成交值 2億</div>
+      </div>
+      <span class="rk-right up">+9.96%</span>
+    </div>
+    
+    <div class="rank-row" data-stock-code="7709" data-stock-name="榮田"
+         style="--accent: var(--red)">
+      <span class="rk-idx">13</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">榮田 <span class="rk-code">7709</span>
+          <span class="market-tag">上櫃</span></div>
+        <div class="rk-sub">收 85.0　成交值 2,712萬</div>
+      </div>
+      <span class="rk-right up">+9.96%</span>
+    </div>
+    
+    <div class="rank-row" data-stock-code="6877" data-stock-name="鏵友益"
+         style="--accent: var(--red)">
+      <span class="rk-idx">14</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">鏵友益 <span class="rk-code">6877</span>
+          <span class="market-tag">上櫃</span></div>
+        <div class="rk-sub">收 121.5　成交值 1,188萬</div>
+      </div>
+      <span class="rk-right up">+9.95%</span>
+    </div>
+    
+    <div class="rank-row" data-stock-code="8042" data-stock-name="金山電"
+         style="--accent: var(--red)">
+      <span class="rk-idx">15</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">金山電 <span class="rk-code">8042</span>
+          <span class="market-tag">上櫃</span></div>
+        <div class="rk-sub">收 121.5　成交值 14億</div>
+      </div>
+      <span class="rk-right up">+9.95%</span>
+    </div>
+    
+    <div class="rank-row" data-stock-code="2492" data-stock-name="華新科"
+         style="--accent: var(--red)">
+      <span class="rk-idx">16</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">華新科 <span class="rk-code">2492</span>
+          </div>
+        <div class="rk-sub">收 298.5　成交值 81億</div>
+      </div>
+      <span class="rk-right up">+9.94%</span>
+    </div>
+    
+    <div class="rank-row" data-stock-code="3094" data-stock-name="聯傑"
+         style="--accent: var(--red)">
+      <span class="rk-idx">17</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">聯傑 <span class="rk-code">3094</span>
+          </div>
+        <div class="rk-sub">收 46.5　成交值 8億</div>
+      </div>
+      <span class="rk-right up">+9.93%</span>
+    </div>
+    
+    <div class="rank-row" data-stock-code="5464" data-stock-name="霖宏"
+         style="--accent: var(--red)">
+      <span class="rk-idx">18</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">霖宏 <span class="rk-code">5464</span>
+          <span class="market-tag">上櫃</span></div>
+        <div class="rk-sub">收 76.4　成交值 5,793萬</div>
+      </div>
+      <span class="rk-right up">+9.93%</span>
+    </div>
+    
+    <div class="rank-row" data-stock-code="6907" data-stock-name="雅特力-KY"
+         style="--accent: var(--red)">
+      <span class="rk-idx">19</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">雅特力-KY <span class="rk-code">6907</span>
+          <span class="market-tag">上櫃</span></div>
+        <div class="rk-sub">收 199.5　成交值 8億</div>
+      </div>
+      <span class="rk-right up">+9.92%</span>
+    </div>
+    
+    <div class="rank-row" data-stock-code="7711" data-stock-name="永擎"
+         style="--accent: var(--red)">
+      <span class="rk-idx">20</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">永擎 <span class="rk-code">7711</span>
+          </div>
+        <div class="rk-sub">收 632.0　成交值 14億</div>
+      </div>
+      <span class="rk-right up">+9.91%</span>
+    </div>
+    
+    </div>
+  </div>
+
+</div>
+
+<!-- ── 動能股（量能倍數 × 漲幅 排序）────────────── -->
 <div class="pane" data-value="rank" hidden>
 
   <div class="sheader"><span class="sh-ic">🔥</span>
-    <span class="sh-title">強勢股（今日漲幅前段）</span><span class="sh-badge">量能倍數</span></div>
+    <span class="sh-title">動能股</span><span class="sh-badge">量能 × 漲幅</span></div>
+  <p class="commentary" style="font-size:12.5px; margin-bottom:10px">
+    <b>這不是漲幅排行。</b>先篩「漲幅 ≥ 4%、成交值 ≥ 1 億、且成交量達 20 日均量 2 倍以上」，
+    再依<b>量能倍數 × 漲幅</b>排序——所以「漲停但量沒放大」的個股不會出現在這裡
+    （例：2026-09-04 的 2426 鼎元 +10.00%、2327 國巨* +9.98% 都不在榜上）。
+    要看純漲幅請切「漲幅榜」。</p>
   <div class="card">
     <div class="rank-list">
     
@@ -1386,7 +1648,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-08 02:00</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-08 02:07</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>

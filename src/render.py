@@ -235,6 +235,14 @@ def _read_json(name: str):
         return None
 
 
+def _safe_notes(limit: int = 12) -> list[dict]:
+    try:
+        return db.list_research_notes(limit)
+    except Exception as exc:
+        print(f"[render] 讀研究筆記失敗（首頁快訊區會留空）：{exc}")
+        return []
+
+
 def render_index() -> Path:
     cfg = load_config()
     reports = _collect_reports()
@@ -261,6 +269,28 @@ def render_index() -> Path:
         # 補上 slug，模板才能連到熱力圖對應產業的錨點。
         top_industries = [{**r, "slug": slugify(r["name"])} for r in top_industries]
 
+    # 首頁原本第三塊是「追蹤中題材」——那份資料變動很慢，使用者每天看到的
+    # 都一樣。改成「最新財經快訊」：即時快訊監控每 10 分鐘寫進 research_notes，
+    # 是站上更新最頻繁的內容。只取有摘要的，並帶上查證狀態，不讓未查證的
+    # 內容看起來像已確認的事實。
+    recent_news = []
+    for n in (_safe_notes() or []):
+        if not n.get("summary"):
+            continue
+        src = str(n.get("source") or "")
+        recent_news.append({
+            "title": n.get("title") or "",
+            "summary": n.get("summary") or "",
+            "verified": n.get("verified") or "unverified",
+            "verified_label": {"verified": "已驗證", "conflicting": "與既有資料衝突",
+                               "unverified": "無法獨立驗證"}.get(
+                                   n.get("verified"), "未判定"),
+            "source": src,
+            "is_news": "快訊" in src,
+        })
+        if len(recent_news) >= 5:
+            break
+
     top_score = None
     if scores_data and scores_data.get("rows"):
         scored = [r for r in scores_data["rows"] if r.get("composite") is not None]
@@ -282,6 +312,7 @@ def render_index() -> Path:
         recent_reports=reports[:6],
         active_themes=themes[:10],
         top_themes=themes[:3],
+        recent_news=recent_news,
         market=market,
         top_industries=top_industries,
         institutional=(chips_data or {}).get("institutional"),
@@ -518,7 +549,8 @@ def render_heatmap(industries: list[dict], date_label_str: str) -> Path:
 
 def render_chips(inst: dict, margin_top: list[dict], strong: list[dict],
                  holders: list[dict], date_label_str: str,
-                 inst_rank: dict | None = None) -> Path:
+                 inst_rank: dict | None = None,
+                 gainers: list[dict] | None = None) -> Path:
     cfg = load_config()
     path = DOCS_DIR / "chips.html"
     inst_rank = inst_rank or {}
@@ -527,11 +559,12 @@ def render_chips(inst: dict, margin_top: list[dict], strong: list[dict],
         generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
         rel="", nav_current="chips", date_label=date_label_str,
         inst=inst, margin_top=margin_top, strong=strong, holders=holders,
-        inst_rank=inst_rank,
+        inst_rank=inst_rank, gainers=gainers or [],
     ), encoding="utf-8")
     _write_json("chips", {"date": date_label_str, "institutional": inst,
                           "margin_top": margin_top, "strong": strong,
-                          "holders": holders, "inst_rank": inst_rank})
+                          "holders": holders, "inst_rank": inst_rank,
+                          "gainers": gainers or []})
     return path
 
 
@@ -601,7 +634,8 @@ def rerender_market_pages() -> list[Path]:
         out.append(render_chips(
             chips.get("institutional") or {}, chips.get("margin_top") or [],
             chips.get("strong") or [], chips.get("holders") or [],
-            chips.get("date", ""), inst_rank=chips.get("inst_rank") or {}))
+            chips.get("date", ""), inst_rank=chips.get("inst_rank") or {},
+            gainers=chips.get("gainers") or []))
 
     scores = _read_json("scores")
     if scores and scores.get("rows"):

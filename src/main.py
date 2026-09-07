@@ -1037,6 +1037,22 @@ def run_evening() -> None:
     strong = screener.scan_strong_stocks(all_quotes, cfg, cached_history_fn)
     print(f"[evening] 強勢股 {len(strong)} 檔")
 
+    # 「今日漲幅榜」＝單純照漲幅排，不做任何量能篩選。
+    # 為什麼要另外存一份：scan_strong_stocks() 會用 min_volume_ratio 濾掉
+    # 「漲停但量沒爆」的股票，最後又用「量能倍數 × 漲幅」排序——那是動能排序，
+    # 不是漲幅排序。籌碼頁卻把它標成「今日漲幅前段」，於是 2026-09-04 的
+    # 2426 鼎元（+10.00%、成交值 62 億）、2327 國巨*（+9.98%、318 億）
+    # 這種真正的漲停股完全不在榜上，使用者比對後判定「資料是錯的」。
+    # 篩掉低價與極低量只是為了排除無法實際成交的雜訊，不動排序邏輯。
+    gainers = sorted(
+        (q for q in all_quotes
+         if q.get("change_pct") is not None
+         and (q.get("close") or 0) >= 10
+         and (q.get("turnover") or 0) >= 10_000_000),
+        key=lambda q: -q["change_pct"])[:20]
+    print(f"[evening] 今日漲幅榜 {len(gainers)} 檔"
+          + (f"（第一名 {gainers[0]['code']} {gainers[0]['change_pct']:+.2f}%）" if gainers else ""))
+
     # 起漲點雷達：跟強勢股掃描分開跑，門檻故意放低，抓「剛突破＋爆量」
     # 而不是「已經漲很多」——同樣靠 cached_history_fn 省 API
     breakout_candidates = _safe(
@@ -1088,7 +1104,8 @@ def run_evening() -> None:
                             "個股三大法人買賣超明細")
         inst_rank = render.build_inst_rank(inst_detail) if inst_detail else {}
         render.render_chips(inst, margin_top[:10], strong[:10], holders,
-                            render.date_label(today), inst_rank=inst_rank)
+                            render.date_label(today), inst_rank=inst_rank,
+                            gainers=gainers)
 
     # 第二層：題材聚類（含孤立訊號分流）
     # 帶上題材目錄的既有名稱，讓 LLM 優先套用目錄裡的名字而不是自己發明相似的新名，
@@ -1141,7 +1158,11 @@ def run_evening() -> None:
     # 技術分析：只對入選個股跑，省算力
     # 題材聚類／黑馬都是 LLM 產物，萬一那次呼叫失敗（例如 JSON 解析錯），兩者都會是空的；
     # 用強勢股清單當底，技術面／評分才不會整個開天窗
+    # 評分候選池：動能強勢股之外，也要納入「今日真正漲最多的」。
+    # 只用 strong 的話，因為它被量能門檻縮得很窄，評分頁天天都是同一批名字
+    # （使用者回報「怎麼感覺都是這幾檔」）。
     candidates = {s["code"]: s["name"] for s in strong}
+    candidates.update({g["code"]: g["name"] for g in gainers[:10]})
     candidates.update({s["code"]: s["name"] for t in themes_raw for s in t.get("stocks", [])})
     candidates.update({dh["code"]: dh["name"] for dh in dark_horses})
 
@@ -2133,8 +2154,13 @@ def run_news_monitor() -> None:
         # 一路落後好幾十則；直到有人在別處跑 `main site` 才會一次全部冒出來。
         recorded += 1
         affected = result.get("affected_themes", [])
-        if result.get("verified") in ("verified", "conflicting") and affected:
-            names = "、".join(t["name"] for t in affected)
+        # 以前條件是「verified/conflicting **而且** 有對應到既有題材」才推播。
+        # 但一則快訊查證通過、只是還沒被歸進任何題材，本身就值得知道——
+        # 使用者回報研究筆記那些內容都沒有 Discord 通知。改成：查證結果明確
+        # （verified／conflicting）就推，有沒有對到題材只影響內文怎麼寫。
+        # unverified 仍然不推（那是「無法獨立查證」，推了只是雜訊）。
+        if result.get("verified") in ("verified", "conflicting"):
+            names = "、".join(t["name"] for t in affected) if affected else "尚未歸入既有題材"
             verdict = {"verified": "已驗證", "conflicting": "與既有資料衝突"}.get(
                 result.get("verified"), result.get("verified"))
             # 以前這裡直接呼叫 send_notification()，而那支寫的是
