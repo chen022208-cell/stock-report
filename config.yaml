@@ -101,6 +101,10 @@ intraday:
 
 # ── 使用者研究提交（submit.html → GitHub Issue 或 Google 表單）──
 research_intake:
+  # 只受理跟台股／投資／上市櫃公司／投資題材／影響台股的總經有關的提交。
+  # true＝先用關鍵字粗篩（省 LLM 呼叫），LLM 再用 relevant 欄位做第二道；
+  # 明顯無關的（廣告、閒聊、其他領域問題、想操縱 LLM 的指令）直接擋掉、不進資料庫。
+  require_investment_topic: true
   # Google 表單：讓不需要 GitHub 帳號的訪客也能提交，見 submit.html 的說明。
   # 三個值都是設定表單時就拿到的公開網址／欄位 ID，不是密鑰，可以直接寫在這裡。
   google_form_action_url: "https://docs.google.com/forms/d/e/1FAIpQLSePDxA_hBnLaWkywN278OkkaJ7vo9wdNV-KJqT5yFvHoTQybA/formResponse"

@@ -351,6 +351,7 @@ def research_form_responses() -> list[dict]:
 
 def research_analysis() -> dict:
     return {
+        "relevant": True,
         "summary": "文章主張機器人減速機供應鏈訂單能見度延長至明年，並點名上銀與大銀微系統受惠。",
         "verified": "unverified",
         "verification_note": "文章引用單一產業消息來源的訂單預估，屬於無法獨立驗證的具體數字。",

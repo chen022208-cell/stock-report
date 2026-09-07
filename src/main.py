@@ -15,6 +15,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import subprocess
 import sys
 import traceback
@@ -1443,6 +1444,39 @@ def _gh_topic_issue_list() -> list[dict]:
 TOPIC_PREFIX = "[主題點播]"
 TOPIC_NOTIFY_PATH = "docs/_notify_topic.json"
 
+# 使用者提交頁是公開的，什麼都可能被貼進來（廣告、閒聊、其他領域的問題、想操縱
+# LLM 的指令）。在丟進 LLM 之前先用關鍵字粗篩一層，明顯跟台股／投資無關的直接
+# 擋掉，省一次 LLM 呼叫、也不讓雜訊進資料庫。LLM 那邊還有 relevant 欄位做第二道。
+_INVEST_HINTS = (
+    "投資", "股", "台股", "上市", "上櫃", "興櫃", "加權", "大盤", "指數", "盤中", "盤後",
+    "開盤", "收盤", "財報", "營收", "年增", "月增", "eps", "毛利", "法人", "外資", "投信",
+    "自營", "籌碼", "除權", "除息", "董事會", "股利", "減資", "增資", "產業", "供應鏈",
+    "題材", "概念股", "龍頭", "訂單", "產能", "出貨", "報價", "半導體", "晶片", "晶圓",
+    "封測", "ic設計", "記憶體", "面板", "pcb", "載板", "cowos", "矽光子", "cpo", "散熱",
+    "伺服器", "機器人", "電動車", "生技", "航運", "金融", "鋼鐵", "塑化", "綠能", "重電",
+    "etf", "期貨", "選擇權", "權證", "券商", "融資", "融券", "本益比", "殖利率",
+    "聯準會", "央行", "升息", "降息", "利率", "通膨", "cpi", "gdp", "匯率", "台幣",
+    "美元", "美股", "美債", "那斯達克", "費半", "道瓊", "標普", "關稅", "財政部",
+    "金管會", "證交所", "櫃買", "護國神山", "台積", "聯發科", "鴻海", "nvidia", "tsmc",
+    "stock", "share", "invest", "equity", "earnings", "revenue", "semiconductor",
+    "nasdaq", "s&p", " fed ", "inflation", "tariff", "bond yield",
+)
+_STOCK_CODE_RE = re.compile(r"(?<!\d)[1-9]\d{3}(?!\d)\s*[（(]?\s*[一-鿿]{1,4}")
+
+
+def _looks_investment_related(text: str) -> bool:
+    """粗篩：這段文字看起來跟台股／投資有沒有關。
+
+    寧可放寬（沾到邊就算 True），真正的把關交給 LLM 的 relevant 欄位；這裡只擋
+    「一個投資關鍵字都沒有」的明顯雜訊。空字串／極短的也擋。
+    """
+    t = (text or "").strip().lower()
+    if len(t) < 4:
+        return False
+    if any(h in t for h in _INVEST_HINTS):
+        return True
+    return bool(_STOCK_CODE_RE.search(text or ""))
+
 
 def _topic_notify_text(r: dict) -> str:
     """點播報告的通知內容：主題 ＋ 一句總結 ＋ 相關個股。
@@ -1503,9 +1537,17 @@ def _make_topic_report(topic_title: str, detail: str, source_desc: str,
     if detail and detail.strip() and detail.strip() != topic:
         prompt_topic = f"{topic}\n補充說明：{detail.strip()}"
 
+    gate = load_config().get("research_intake", {}).get("require_investment_topic", True)
+    if gate and not _looks_investment_related(f"{topic} {detail or ''}"):
+        print(f"[topic] {topic[:20]}：非投資相關，關鍵字粗篩擋下，不處理")
+        return None
+
     report = _safe(lambda: llm.write_topic_report(prompt_topic, known), {},
                    f"主題報告 {topic[:20]}")
     if not report or not report.get("sections"):
+        return None
+    if report.get("relevant") is False:
+        print(f"[topic] {topic[:20]}：LLM 判定非投資相關，不產出")
         return None
 
     sources = [x for x in (report.get("sources") or []) if str(x).strip()]
@@ -1621,7 +1663,8 @@ def _gh_issue_comment_and_close(number: int, comment: str) -> None:
 
 
 def _process_research_submission(source: str, title: str, body: str, today: str,
-                                  known_theme_names: list[str], label: str) -> dict | None:
+                                  known_theme_names: list[str], label: str,
+                                  record_off_topic: bool = True) -> dict | None:
     """分析一篇提交＋寫進研究筆記表；回傳結果字典給呼叫端決定要不要留言／關閉
     Issue。抽成共用函式是因為現在有兩個提交來源（GitHub Issue、Google 表單），
     分析與驗證邏輯不該重複兩份。"""
@@ -1661,6 +1704,26 @@ def _process_research_submission(source: str, title: str, body: str, today: str,
                    {}, f"研究分析 {label}")
     if not result:
         return None
+
+    if result.get("relevant") is False:
+        # LLM 判定跟台股／投資無關：留一筆極簡記錄讓提交者看得到「收到但沒處理」，
+        # 不動題材、不產 PDF、不發 Discord。呼叫端看到 off_topic 就當略過。
+        # 即時快訊監控那條路沒有提交者，不需要留筆記（record_off_topic=False）。
+        if record_off_topic:
+            _safe(lambda: db.mark_research_note_status(db.create_research_note(
+                submitted_at=today, source=source,
+                title=title or "（非投資相關提交）", raw_excerpt=body[:300],
+                summary=result.get("summary", "非投資相關，系統未做分析。"),
+                verified="unverified",
+                verification_note=result.get(
+                    "verification_note",
+                    "內容與台股／投資無關，系統未做分析，也未動任何既有資料。"),
+                affected_themes=[], affected_stocks=[]), "pending", [], []),
+                None, "研究筆記（非投資相關）")
+        print(f"[research] {label}：LLM 判定非投資相關，已略過")
+        return {"verified": "unverified", "off_topic": True, "affected_themes": [],
+                "affected_stocks": [], "summary": result.get("summary", ""),
+                "verification_note": result.get("verification_note", "非投資相關")}
 
     verified = result.get("verified", "unverified")
     affected_themes = result.get("affected_themes", [])
@@ -1714,6 +1777,8 @@ def _process_research_submission(source: str, title: str, body: str, today: str,
 
 def run_research_intake() -> None:
     today = today_str()
+    _topic_gate = load_config().get("research_intake", {}).get(
+        "require_investment_topic", True)
     known_theme_names = list(dict.fromkeys(
         _safe(db.catalog_theme_names, [], "題材目錄名單")
         + [t["name"] for t in db.list_all_themes()]
@@ -1729,11 +1794,19 @@ def run_research_intake() -> None:
     for issue in issues:
         title, body, number = issue.get("title", ""), issue.get("body", ""), issue["number"]
         print(f"[research] 處理 Issue #{number}：{title}")
+        if _topic_gate and not _looks_investment_related(f"{title} {body}"):
+            _gh_issue_comment_and_close(
+                number, "這則提交看起來跟台股／投資無關，系統未做分析（提交頁只處理台股、"
+                        "個股、投資題材、影響台股的總體經濟等內容）。")
+            continue
         result = _process_research_submission(
             f"GitHub Issue #{number}（{issue.get('url', '')}）", title, body, today,
             known_theme_names, f"#{number}")
         if not result:
             _gh_issue_comment_and_close(number, "分析失敗（LLM 呼叫或解析出錯），請確認內容格式或稍後再試。")
+            continue
+        if result.get("off_topic"):
+            _gh_issue_comment_and_close(number, "已收到，但系統判定內容與台股／投資無關，未做分析。")
             continue
         processed += 1
         _report_result_to_issue(number, result)
@@ -1793,10 +1866,21 @@ def run_research_intake() -> None:
                 continue
 
             print(f"[research] 處理表單提交（{row['timestamp']}）：{title}")
+            if _topic_gate and not _looks_investment_related(f"{title} {row['body']}"):
+                print(f"[research] 表單提交（{row['timestamp']}）：非投資相關，關鍵字粗篩擋下，略過")
+                _safe(lambda ts=row["timestamp"]: db.mark_research_note_status(
+                    db.create_research_note(
+                        submitted_at=today, source=f"Google 表單提交（{ts}）",
+                        title=title or "（非投資相關提交）", raw_excerpt=row["body"][:300],
+                        summary="非投資相關，系統未做分析。", verified="unverified",
+                        verification_note="內容與台股／投資無關，系統未做分析，也未動任何既有資料。",
+                        affected_themes=[], affected_stocks=[]), "pending", [], []),
+                    None, "研究筆記（非投資相關）")
+                continue
             result = _process_research_submission(
                 f"Google 表單提交（{row['timestamp']}）", title, row["body"], today,
                 known_theme_names, row["timestamp"])
-            if result:
+            if result and not result.get("off_topic"):
                 processed += 1
                 if result.get("report"):
                     submission_reports.append(result["report"])
@@ -1921,8 +2005,8 @@ def run_news_monitor() -> None:
         text = f"{it['title']}\n{it['text']}" if it["title"] else it["text"]
         result = _process_research_submission(
             f"華爾街見聞即時快訊 #{it['id']}", it["title"] or "即時快訊", text, today,
-            known_theme_names, f"news#{it['id']}")
-        if not result:
+            known_theme_names, f"news#{it['id']}", record_off_topic=False)
+        if not result or result.get("off_topic"):
             continue
         affected = result.get("affected_themes", [])
         if result.get("verified") in ("verified", "conflicting") and affected:
