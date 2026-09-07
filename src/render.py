@@ -357,6 +357,20 @@ def render_lookup_page() -> Path:
         return (profiles.get(code, {}).get("market")
                 or snap.get(code, {}).get("market") or "")
 
+    # 興櫃當日漲跌幅：熱力圖不含興櫃（議價市場，刻意不混進去），但個股查詢
+    # 該有。TPEx 的當日行情表一支就拿得到 340+ 檔，抓不到就整批留 None、
+    # 前端顯示「無當日行情」，不會壞掉。
+    # 在函式內 import：render.py 是純樣板層，不該在 import 時就把 fetchers
+    # 整包拉進來（也避免離線建置時因為網路層 import 失敗而整個渲染不了）。
+    esb_pct: dict[str, float] = {}
+    try:
+        from .fetchers import tpex as _tpex
+        for code, row in (_tpex.fetch_esb_pricing() or {}).items():
+            if row.get("change_pct") is not None:
+                esb_pct[code] = row["change_pct"]
+    except Exception as exc:
+        print(f"[render] 興櫃當日行情抓取失敗（個股查詢的興櫃將顯示無行情）：{exc}")
+
     stocks = []
     seen = set()
     if heatmap_data:
@@ -396,7 +410,9 @@ def render_lookup_page() -> Path:
         stocks.append({
             "code": code, "name": name,
             "industry": prof.get("industry", ""),
-            "market": market, "change_pct": None,
+            # 興櫃有自己的當日行情表（TPEx esb pricing），只是不在熱力圖裡。
+            # 補上去之後，個股查詢的興櫃才不會整片顯示「無當日行情」。
+            "market": market, "change_pct": esb_pct.get(code),
             "has_score": code in scored_codes,
         })
 

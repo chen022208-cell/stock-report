@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block title %}個股查詢 · {{ site_title }}{% endblock %}
 {% block extra_css %}
+  .lr-pct.na{color:var(--text-muted); font-size:12px;}
+  .lr-mkt{font-size:11px; color:var(--text-muted); border:1px solid var(--hairline);
+          border-radius:100px; padding:1px 8px; margin-left:6px;}
   .search-box{width:100%; background:var(--surface); border:1px solid var(--hairline);
              border-radius:var(--radius-sm); padding:13px 14px; font-size:15px;
              color:var(--text-primary); margin-bottom:6px;}
@@ -46,6 +49,7 @@
   var rel = "{{ rel }}";
   var stocks = [];
   var swot = {};
+  var MKT = { twse: "上市", tpex: "上櫃", esb: "興櫃" };
 
   fetch(rel + "data/stock_index.json").then(function (r) { return r.json(); }).then(function (data) {
     stocks = data.stocks || [];
@@ -84,14 +88,24 @@
       return;
     }
     results.innerHTML = list.map(function (s) {
-      var pctClass = s.change_pct >= 0 ? "up" : "down";
+      // ⚠️ change_pct 可能是 null（興櫃 366 檔全部、以及當日沒行情的新股，共約
+      // 400 檔）。以前直接 .toFixed(2) 會丟 TypeError，讓整個 render() 中斷——
+      // 搜尋框打任何搜得到興櫃的字就當掉、結果永遠停在預設那 20 檔，
+      // 看起來像「興櫃沒收錄」，其實是一搜到就爆。
+      var hasPct = typeof s.change_pct === "number" && isFinite(s.change_pct);
+      var pctClass = !hasPct ? "na" : (s.change_pct >= 0 ? "up" : "down");
+      var pctText = hasPct
+        ? (s.change_pct >= 0 ? "+" : "") + s.change_pct.toFixed(2) + "%"
+        : "無當日行情";
       var badge = s.has_score
         ? '<a class="lr-analysis-link" href="' + rel + 'scores.html#score-' + s.code + '" onclick="event.stopPropagation()">⭐ 完整分析 →</a>'
         : "";
       return '<div class="lookup-result" data-stock-code="' + s.code + '" data-stock-name="' + s.name + '">' +
         '<div class="lr-head"><span class="lr-name">' + s.code + " " + s.name + ' 📈</span>' +
-        '<span class="lr-pct ' + pctClass + '">' + (s.change_pct >= 0 ? "+" : "") + s.change_pct.toFixed(2) + '%</span></div>' +
-        '<div class="lr-meta"><span>' + s.industry + '</span>' + badge + '</div>' +
+        '<span class="lr-pct ' + pctClass + '">' + pctText + '</span></div>' +
+        '<div class="lr-meta"><span>' + esc(s.industry) + '</span>'
+          + (s.market ? '<span class="lr-mkt">' + MKT[s.market] + '</span>' : "")
+          + badge + '</div>' +
         analysisBlock(s.code) + '</div>';
     }).join("");
   }
