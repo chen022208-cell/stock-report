@@ -418,6 +418,7 @@ def run_once(cfg: dict, ref: dict, disp_codes: set[str]) -> dict:
             "breakout_20d": bo20, "breakout_60d": bo60,
             "breakout_120d": bo120, "breakout_252d": bo252,
             "industry": ind, "score": score, "tier": tier,
+            "ex": q.get("ex") or "",
             "low_confidence": low_confidence,
         })
 
@@ -473,8 +474,12 @@ def _rankings(quotes: dict, ref: dict, frac: float, top: int = 30) -> dict:
             q["_" + field] = r.get(field)
 
     def slim(q):
+        # ex（tse／otc／esb）一定要帶出去：前端要拿它組 MIS 的頻道代號
+        # （tse_2330.tw / otc_6488.tw）才查得到即時報價。沒有這欄的話前端
+        # 只能兩種前綴都猜一次，白白吃掉一半的單次查詢額度。
         return {"code": q["code"], "name": q["name"], "price": q["price"],
                 "change_pct": q["change_pct"], "volume": q["volume"],
+                "ex": q.get("ex") or "",
                 "volume_ratio": round(q["_vr"], 2) if q["_vr"] else None}
 
     up = sorted(vals, key=lambda q: -q["change_pct"])[:top]

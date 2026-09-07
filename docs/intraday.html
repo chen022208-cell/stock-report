@@ -388,6 +388,11 @@
              background:var(--surface-3); color:var(--text-secondary);}
   .lb-status.open{background:color-mix(in srgb,var(--green) 22%,transparent); color:var(--green);}
   .lb-asof{font-size:11.5px; color:var(--text-muted); margin-left:auto; font-family:'JetBrains Mono',monospace;}
+  .lb-live{font-size:11px; font-weight:700; padding:3px 9px; border-radius:100px;
+           color:var(--text-muted);}
+  .lb-live.on{background:color-mix(in srgb,var(--red) 20%,transparent); color:var(--red);}
+  .lb-live.on::before{content:"● "; animation:lbpulse 1.4s ease-in-out infinite;}
+  @keyframes lbpulse{0%,100%{opacity:1} 50%{opacity:.25}}
   .lb-taiex{display:flex; align-items:baseline; gap:10px;}
   .lb-taiex .lb-num{font-family:'JetBrains Mono',monospace; font-size:28px; font-weight:700; line-height:1;}
   .lb-taiex .lb-chg{font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:600;}
@@ -482,6 +487,7 @@
 <div class="livebar" id="ivLivebar">
   <div class="lb-row1">
     <span class="lb-status" id="ivStatus">載入中</span>
+    <span class="lb-live" id="ivLive"></span>
     <span class="lb-asof" id="ivAsof"></span>
   </div>
   <div class="lb-taiex">
@@ -544,6 +550,16 @@
   // 後端改成每 60 秒推一次（intraday.yml），前端就沒有理由等 45 秒；
   // raw.githubusercontent 帶 ?_=<ts> 實測會回源，不吃 5 分鐘快取。
   var REFRESH_MS = 20000;
+
+  /* 逐筆即時報價：走使用者自己的 Cloudflare Worker 中繼。
+   * 證交所 MIS（唯一有逐筆即時的端點）對瀏覽器擋 CORS，Worker 在伺服器端
+   * 轉發並補上 CORS 標頭；它自己會做 3 秒快取、只在交易時段放行、鎖來源網域。
+   * 興櫃（esb）不納入——實測 MIS 各種前綴都查不到興櫃。 */
+  var LIVE_QUOTE = "https://twse-quote.chen022208.workers.dev/";
+  var LIVE_MS = 3000;
+  var LIVE_MAX = 60;              // 跟 Worker 的單次上限一致
+  var liveTimer = null;
+  var liveOn = false;
   var rankKey = "gainers";
   var highPeriod = "1y";
   var lastData = null;
@@ -673,7 +689,11 @@
     // 真正的判斷是「這份資料有多舊」：超過 5 分鐘就不是即時值了，
     // 這時 STOCK_DAY 的當日官方收盤才是對的。
     if (st !== "pre_open" && (st !== "open" || dataAgeMin(d.as_of) > 5)) {
+      stopLive();
       correctCloses(d.as_of);
+    } else if (st === "open") {
+      // 後端還在推（資料 ≤5 分鐘）＝ 真的在盤中，開逐筆即時覆寫
+      startLive();
     }
   }
 
@@ -808,30 +828,138 @@
     }
     return Promise.all([next(), next(), next(), next()]);
   }
-  function applyCorrection(node, o) {
-    var txt = (o.pct > 0 ? "+" : "") + o.pct.toFixed(2) + "%";
-    var cls = o.pct >= 0 ? "up" : "down";
+  /* 把價與漲跌幅寫進已渲染的節點。收盤校正與逐筆即時共用同一段 DOM 寫入，
+     免得兩邊各寫一份、選擇器改了只改到一半。 */
+  function writeQuote(node, price, pct, why) {
+    var txt = (pct > 0 ? "+" : "") + pct.toFixed(2) + "%";
+    var cls = pct >= 0 ? "up" : "down";
     var changed = false;
     var chg = node.querySelector(".iv-chg");
     if (chg && chg.textContent.trim() !== txt) {
       chg.textContent = txt; chg.className = "iv-chg " + cls;
-      chg.title = "已校正為證交所官方收盤價"; changed = true;
+      chg.title = why; changed = true;
     }
     if (node.tagName === "TR") {                    // 排行表：第 2 欄價、第 3 欄漲跌幅
       var td = node.querySelectorAll("td");
       if (td.length >= 3) {
-        if (td[1].textContent.trim() !== String(o.close)) { td[1].textContent = o.close; changed = true; }
+        if (price != null && td[1].textContent.trim() !== String(price)) {
+          td[1].textContent = price; changed = true;
+        }
         if (td[2].textContent.trim() !== txt) {
           td[2].textContent = txt; td[2].className = "num " + cls;
-          td[2].title = "已校正為證交所官方收盤價"; changed = true;
+          td[2].title = why; changed = true;
         }
       }
     }
     return changed;
   }
+  function applyCorrection(node, o) {
+    return writeQuote(node, o.close, o.pct, "已校正為證交所官方收盤價");
+  }
   function markCorrected(n) {
     var el = document.getElementById("ivCorrected");
     if (el) el.textContent = "已用證交所官方收盤價校正 " + n + " 檔（收盤集合競價常與盤中最後一筆不同；上櫃／興櫃無公開 CORS 端點，維持盤中值）。";
+  }
+
+  /* ── 逐筆即時覆寫 ────────────────────────────────────────
+   * intraday.json 是後端每 60 秒推一次，最舊會差一分鐘。交易時段直接跟
+   * Worker 要 MIS 的逐筆報價（每 3 秒），把畫面上的價與漲跌幅換成當下的值。
+   * 抓不到／收盤就靜默停用，維持後端那份，不會把畫面清空。
+   */
+  function exPrefix(ex) {
+    // 後端帶的是 tse／otc／esb；MIS 的頻道前綴只有 tse_ 與 otc_
+    if (ex === "tse") return "tse";
+    if (ex === "otc") return "otc";
+    return null;                   // esb（興櫃）與未知一律跳過
+  }
+  function liveTargets() {
+    // 畫面上真的看得到的節點才查，收合起來的 B 級不浪費額度
+    var sel = "#ivA .iv-card[data-stock-code], #ivRank tr[data-stock-code]";
+    var bWrap = document.getElementById("ivBWrap");
+    if (bWrap && bWrap.open) sel += ", #ivB .iv-card[data-stock-code]";
+    var nodes = [].slice.call(document.querySelectorAll(sel));
+    var byCode = {}, order = [];
+    nodes.forEach(function (n) {
+      var c = n.dataset.stockCode;
+      if (!c) return;
+      if (!byCode[c]) { byCode[c] = []; order.push(c); }
+      byCode[c].push(n);
+    });
+    return { byCode: byCode, order: order };
+  }
+  function exMap() {
+    // code -> ex，從 lastData 的各區塊彙整
+    var m = {};
+    if (!lastData) return m;
+    var add = function (arr) {
+      (arr || []).forEach(function (r) { if (r && r.code && r.ex) m[r.code] = r.ex; });
+    };
+    add((lastData.tiers || {}).A); add((lastData.tiers || {}).B);
+    Object.keys(lastData.rankings || {}).forEach(function (k) {
+      if (k.charAt(0) !== "_") add(lastData.rankings[k]);
+    });
+    return m;
+  }
+  function num(v) {
+    var f = parseFloat(String(v == null ? "" : v).replace(/,/g, ""));
+    return isFinite(f) ? f : null;
+  }
+  function pollLive() {
+    if (!lastData) return Promise.resolve();
+    var t = liveTargets(), ex = exMap();
+    // 舊版 intraday.json 沒有 ex 欄位（後端 2026-09-07 才加）。整份都查不到
+    // 市場別時，退回「兩種前綴都送」——MIS 只會回真的存在的那個，代價是
+    // 每檔吃掉兩格額度，所以檔數上限砍半。
+    var noEx = Object.keys(ex).length === 0;
+    var cap = noEx ? Math.floor(LIVE_MAX / 2) : LIVE_MAX;
+    var chans = [], codes = [];
+    for (var i = 0; i < t.order.length && codes.length < cap; i++) {
+      var code = t.order[i];
+      if (!/^\d{4}$/.test(code)) continue;
+      var pre = exPrefix(ex[code]);
+      if (pre) { chans.push(pre + "_" + code + ".tw"); }
+      else if (noEx) { chans.push("tse_" + code + ".tw", "otc_" + code + ".tw"); }
+      else { continue; }          // 有 ex 但是興櫃/未知 → 跳過
+      codes.push(code);
+    }
+    if (!chans.length) return Promise.resolve();
+    return fetch(LIVE_QUOTE + "?ex_ch=" + encodeURIComponent(chans.join("|")), { cache: "no-store" })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (j.closed) { setLiveBadge(false, "已收盤"); return; }
+        var arr = j.msgArray || [];
+        var n = 0, at = "";
+        arr.forEach(function (a) {
+          var price = num(a.z);
+          if (price == null || price <= 0) price = num(a.pz);   // 無成交時退回參考價
+          var prev = num(a.y);
+          if (price == null || prev == null || prev <= 0) return;
+          var pct = (price - prev) / prev * 100;
+          (t.byCode[a.c] || []).forEach(function (node) {
+            writeQuote(node, price, pct, "即時報價 " + (a.t || ""));
+          });
+          if (a.t) at = a.t;
+          n++;
+        });
+        setLiveBadge(n > 0, n > 0 ? ("即時 " + n + " 檔" + (at ? " · " + at : "")) : "即時報價無回應");
+      })
+      .catch(function () { setLiveBadge(false, "即時報價連線失敗"); });
+  }
+  function setLiveBadge(on, text) {
+    var el = document.getElementById("ivLive");
+    if (!el) return;
+    el.textContent = text || "";
+    el.className = "lb-live" + (on ? " on" : "");
+  }
+  function startLive() {
+    if (liveOn) return;
+    liveOn = true;
+    pollLive();
+    liveTimer = setInterval(pollLive, LIVE_MS);
+  }
+  function stopLive() {
+    liveOn = false;
+    if (liveTimer) { clearInterval(liveTimer); liveTimer = null; }
   }
 
   function fetchJson(u) {
@@ -880,7 +1008,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-07 22:16</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-07 23:49</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
