@@ -1,50 +1,63 @@
 {% extends "base.html" %}
+{% block section %}score{% endblock %}
 {% block title %}五面向評分 · {{ site_title }}{% endblock %}
 {% block extra_css %}
-  .meta{font-size:13px; color:var(--text-muted); margin:10px 0 20px;}
-  .score-card{background:var(--surface); border-radius:8px; padding:16px 18px; margin-bottom:12px;}
-  .score-head{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px;}
-  .score-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px;}
-  .score-composite{font-family:'JetBrains Mono',monospace; font-size:22px; color:var(--gold);}
-  .axis-row{display:flex; align-items:center; gap:10px; margin-bottom:6px; font-size:13px;}
-  .axis-label{width:56px; color:var(--text-muted); flex-shrink:0;}
-  .axis-track{flex:1; height:6px; background:var(--surface-2); border-radius:3px; overflow:hidden;}
-  .axis-fill{height:100%; background:var(--gold); border-radius:3px;}
-  .axis-value{width:34px; text-align:right; font-family:'JetBrains Mono',monospace; color:var(--text-secondary); flex-shrink:0;}
-  .axis-na{color:var(--text-muted); font-size:12px; width:34px; text-align:right;}
-  .analysis-toggle{margin-top:12px; border-top:1px solid var(--hairline); padding-top:10px;}
-  .analysis-none{font-size:12.5px; color:var(--text-muted); line-height:1.7; margin:0;}
-  .analysis-none a{color:var(--gold);}
-  .analysis-toggle summary{cursor:pointer; font-size:12.5px; color:var(--gold); list-style:none;}
-  .analysis-toggle summary::-webkit-details-marker{display:none;}
+  .meta{font-size:13px; color:var(--text-muted); margin:8px 0 16px; line-height:1.7;}
+  .meta a{color:var(--accent);}
+  .sc-controls{position:sticky; top:0; z-index:20; background:linear-gradient(var(--bg),var(--bg) 70%,transparent);
+               padding:8px 0 10px; margin-bottom:6px;}
+  .sc-controls .seg{margin-bottom:8px;}
+  .sc-count{font-size:12px; color:var(--text-muted); margin:2px 4px 12px;}
   .analysis-body{margin-top:12px; display:flex; flex-direction:column; gap:12px;}
-  .analysis-block-label{font-size:12px; color:var(--text-muted); text-transform:uppercase;
-                        letter-spacing:.03em; margin-bottom:4px;}
-  .analysis-text{font-size:13.5px; color:var(--text-secondary); line-height:1.6;}
+  .analysis-block-label{font-size:11.5px; color:var(--text-muted); letter-spacing:.03em; margin-bottom:4px;}
+  .analysis-text{font-size:13.5px; color:var(--text-secondary); line-height:1.65;}
   .swot-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
   @media(max-width:480px){.swot-grid{grid-template-columns:1fr;}}
-  .swot-cell{background:var(--surface-2); border-radius:8px; padding:9px 11px;}
-  .swot-cell .sc-label{font-size:11.5px; font-weight:600; margin-bottom:4px;}
-  .swot-cell.s .sc-label{color:var(--c-score);}
-  .swot-cell.w .sc-label{color:var(--c-warn);}
+  .swot-cell{background:var(--surface-2); border-radius:9px; padding:9px 11px;}
+  .swot-cell .sc-label{font-size:11.5px; font-weight:700; margin-bottom:4px;}
+  .swot-cell.s .sc-label{color:var(--green);}
+  .swot-cell.w .sc-label{color:var(--red);}
   .swot-cell.o .sc-label{color:var(--c-market);}
   .swot-cell.t .sc-label{color:var(--c-chip);}
   .swot-cell .sc-text{font-size:12.5px; color:var(--text-secondary); line-height:1.5;}
+  .analysis-none{font-size:12.5px; color:var(--text-muted); line-height:1.7; margin:10px 0 0;}
+  .analysis-none a{color:var(--accent);}
+  .no-hits{font-size:13px; color:var(--text-muted); padding:24px 4px;}
 {% endblock %}
 {% block content %}
 <header><div class="masthead-label">{{ site_title }}</div>
 <h1 class="masthead-date">五面向評分排行</h1></header>
-<p class="meta">{{ date_label }} · 技術／籌碼／基本／題材四軸皆為規則計算；新聞面尚未評分<br>
-想查不在這張排行裡的個股 → <a href="{{ rel }}lookup.html" style="color:var(--gold)">個股查詢</a>　·　選股訊號 → <a href="{{ rel }}picks.html" style="color:var(--gold)">選股雷達</a></p>
+<p class="meta">{{ date_label }}．技術／籌碼／基本／題材四軸為規則計算，新聞面尚未評分。<br>
+不在榜上的個股 → <a href="{{ rel }}lookup.html">個股查詢</a>　·　選股訊號 → <a href="{{ rel }}picks.html">選股雷達</a></p>
 
 {% include "_intraday_strip.html" %}
 
 {% if rows %}
+<div class="sc-controls">
+  <div class="seg" data-group="order">
+    <button data-value="strong" class="on">📈 強勢排行</button>
+    <button data-value="weak">📉 弱勢排行</button>
+  </div>
+  <div class="chips" data-group="scope">
+    <button data-value="all" class="on">全部</button>
+    <button data-value="verified">🔎 已查證分析</button>
+    <span class="chips-sep"></span>
+    <button data-value="expand-all" data-action="expand">全部展開</button>
+  </div>
+</div>
+<div class="sc-count" id="scCount"></div>
+
+<div id="scList">
 {% for r in rows %}
-<div class="score-card" id="score-{{ r.code }}">
-  <div class="score-head">
-    <span class="score-name" data-stock-code="{{ r.code }}" data-stock-name="{{ r.name.split(' ', 1)[-1] }}">{{ r.name }} 📈</span>
-    <span class="score-composite">{{ r.composite if r.composite is not none else '—' }}</span>
+{% set comp = r.composite if r.composite is not none else 0 %}
+<div class="scorecard" id="score-{{ r.code }}" data-composite="{{ comp }}"
+     data-verified="{{ '1' if r.analysis else '0' }}"
+     style="--sc-tint: {{ 'var(--red)' if comp >= 80 else 'var(--c-market)' if comp >= 60 else 'var(--text-muted)' }};">
+  <div class="sc-top">
+    <span class="sc-medal" data-medal>{{ loop.index }}</span>
+    <span class="sc-code">{{ r.code }}</span>
+    <span class="sc-nm" data-stock-code="{{ r.code }}" data-stock-name="{{ r.name.split(' ', 1)[-1] }}">{{ r.name.split(' ', 1)[-1] }}</span>
+    <span class="sc-big">{{ r.composite if r.composite is not none else '—' }}</span>
   </div>
   {% for label, key in [('技術面','technical'),('籌碼面','chip'),('基本面','fundamental'),('題材面','theme'),('新聞面','news')] %}
   <div class="axis-row">
@@ -60,9 +73,9 @@
   </div>
   {% endfor %}
   {% if r.analysis %}
-  <details class="analysis-toggle">
-    <summary>📊 公司介紹／SWOT／漲跌原因 →</summary>
-    <div class="analysis-body">
+  <details class="expand">
+    <summary>公司介紹／SWOT／漲跌原因</summary>
+    <div class="expand-body analysis-body">
       <div>
         <div class="analysis-block-label">公司介紹</div>
         <p class="analysis-text">{{ r.analysis.company_desc }}</p>
@@ -80,18 +93,72 @@
     </div>
   </details>
   {% else %}
-  {# 沒有 LLM 分析的個股，不要整區消失——那會讓同一張排行裡有些檔看得到公司介紹、
-     有些什麼都沒有，像是漏資料。改成明講「還沒逐檔查證」並指到個股頁，
-     那裡一定有申報主要經營業務＋月營收＋同產業個股這些事實層資料。 #}
-  <div class="analysis-toggle">
-    <p class="analysis-none">尚未逐檔查證公司分析（本站只放查證過的判讀，不用股票名稱推測）。
-      公司申報營業項目、月營收與同產業個股見
-      <a href="{{ rel }}stock.html?code={{ r.code }}">個股資料頁 →</a></p>
-  </div>
+  <p class="analysis-none">尚未逐檔查證公司分析（本站只放查證過的判讀，不用股票名稱推測）。
+    申報營業項目、月營收與同產業個股見 <a href="{{ rel }}stock.html?code={{ r.code }}">個股資料頁 →</a></p>
   {% endif %}
 </div>
 {% endfor %}
+</div>
+<p class="no-hits" id="scNoHits" hidden>沒有符合的個股。</p>
 {% else %}
 <p class="commentary" style="margin-top:24px">今天還沒有資料，下一次盤後報告產出後這裡會更新。</p>
 {% endif %}
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+  var list = document.getElementById("scList");
+  if (!list) return;
+  var cards = Array.prototype.slice.call(list.querySelectorAll(".scorecard"));
+  var countEl = document.getElementById("scCount");
+  var noHits = document.getElementById("scNoHits");
+  var order = "strong", scope = "all";
+
+  function num(c) { return parseFloat(c.dataset.composite) || 0; }
+
+  function render() {
+    var sorted = cards.slice().sort(function (a, b) {
+      return order === "weak" ? num(a) - num(b) : num(b) - num(a);
+    });
+    var shown = 0;
+    sorted.forEach(function (c) {
+      list.appendChild(c);                       // 重排 DOM
+      var ok = scope === "all" || c.dataset.verified === "1";
+      c.hidden = !ok;
+      if (ok) {
+        shown++;
+        var medal = c.querySelector("[data-medal]");
+        if (medal) medal.textContent = ["🥇", "🥈", "🥉"][shown - 1] || shown;
+      }
+    });
+    if (countEl) countEl.textContent = shown + " 檔" +
+      (scope === "verified" ? "（僅顯示已查證）" : "") +
+      (order === "weak" ? "，由弱到強" : "，由強到弱");
+    if (noHits) noHits.hidden = shown > 0;
+  }
+
+  document.addEventListener("uichange", function (e) {
+    if (e.detail.group === "order") { order = e.detail.value; render(); }
+    if (e.detail.group === "scope") {
+      if (e.detail.value === "expand-all") {
+        var anyClosed = cards.some(function (c) {
+          var d = c.querySelector("details.expand"); return d && !d.open;
+        });
+        cards.forEach(function (c) {
+          var d = c.querySelector("details.expand"); if (d) d.open = anyClosed;
+        });
+        // 這顆是動作鈕，不改 scope，把 .on 還給目前的 scope 值
+        document.querySelectorAll(".chips[data-group='scope'] > button").forEach(function (b) {
+          b.classList.toggle("on", b.dataset.value === scope);
+        });
+        return;
+      }
+      scope = e.detail.value; render();
+    }
+  });
+
+  render();
+})();
+</script>
 {% endblock %}

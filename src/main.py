@@ -954,10 +954,19 @@ def run_evening() -> None:
     # 以前一律用 today_str() 當日期，於是 2026-09-05（週六）被存進一筆其實是
     # 09-04（週五）的收盤資料，整個評分頁標成「9月5日 週六」而數字停在週五，
     # 使用者直接反映「價格%數都卡在上禮拜五」。現在改成跟著資料走。
-    data_date = market.get("date") or ""
-    if data_date and data_date != today:
-        print(f"[evening] TWSE 最新收盤資料是 {data_date}、不是執行日 {today}；"
-              f"這份報告以 {data_date} 為準")
+    # 報告日期一律以「資料本身的日期」為準，不是執行時間。TWSE 收盤資料集回的是
+    # 「已公布的最新交易日」，週末/假日執行、或收盤後太早執行都會拿到前一個交易日。
+    # market.date 缺席時（FMTQIK 掛了走 MI_INDEX 備援那條）退回「往前找最近的平日」，
+    # 也不要用可能是週六的執行日。這樣只要盤後有跑，頁面日期就自動跟著交易日走，
+    # 不用等人回報「日期卡在上禮拜」。
+    data_date = (market.get("date") or "").strip()
+    if not data_date:
+        d = date.fromisoformat(today)
+        while d.weekday() >= 5:            # 5=六 6=日
+            d = d.fromordinal(d.toordinal() - 1)
+        data_date = d.isoformat()
+    if data_date != today:
+        print(f"[evening] 報告日期以資料日 {data_date} 為準（執行日 {today}）")
         today = data_date
     inst = _safe(lambda: twse.fetch_institutional_net(date.fromisoformat(today)),
                  {}, "三大法人")

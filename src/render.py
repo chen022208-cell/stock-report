@@ -27,10 +27,12 @@ def _asset_version() -> str:
     stock-chart.js 這種靜態資源被瀏覽器／GitHub Pages CDN 快取後，改了程式碼
     使用者卻看不到更新，就是靠這個 query string 逼瀏覽器重新抓最新版本。"""
     import hashlib
-    js_path = DOCS_DIR / "assets" / "stock-chart.js"
-    if not js_path.exists():
-        return "0"
-    return hashlib.md5(js_path.read_bytes()).hexdigest()[:8]
+    h = hashlib.md5()
+    for name in ("stock-chart.js", "ui.js"):
+        p = DOCS_DIR / "assets" / name
+        if p.exists():
+            h.update(p.read_bytes())
+    return h.hexdigest()[:8] or "0"
 
 
 def _env() -> Environment:
