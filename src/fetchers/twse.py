@@ -109,23 +109,36 @@ def _get_via_rwd(path: str) -> list[dict] | None:
         return None
     rows = _rows_from_rwd(payload, colmap)
     if rows:
-        print(f"[twse] {path} 改走 RWD 備援，取得 {len(rows)} 列")
+        print(f"[twse] {path} 走 www.twse.com.tw，取得 {len(rows)} 列")
     return rows or None
 
 
 def _get(path: str) -> list[dict] | None:
+    """證交所盤後資料。**有 RWD 對應的一律優先走 www.twse.com.tw。**
+
+    ⚠️ `openapi.twse.com.tw` 穩定落後一個交易日（2026-09-08 實測：openapi 的
+    FMTQIK 末筆是 1150904、STOCK_DAY_ALL 也是 1150904，而 www.twse.com.tw 的
+    同名端點已經有 115/09/07）。以前主走 openapi，於是每天的盤後報告都比實際
+    market 慢一天——使用者反覆回報「資料都是舊的」「沒有跟著更新」，真正的根因
+    在這裡，不只是排程沒跑。openapi 保留當備援（RWD 偶爾維護時頂上）。
+    """
+    if path in _RWD_FALLBACK:
+        rows = _get_via_rwd(path)
+        if rows:
+            return rows
+        print(f"[twse] RWD 沒取到 {path}，改試 openapi（可能落後一個交易日）")
     try:
         resp = requests.get(f"{BASE}{path}", headers=HEADERS, timeout=TIMEOUT)
         # 被證交所擋時是 HTTP 200 + HTML，不是錯誤碼——要看內容才判斷得出來
         if _SECURITY_BLOCK in resp.text[:600].upper():
-            print(f"[twse] openapi{path} 被來源限制擋下，改走 www.twse.com.tw")
-            return _get_via_rwd(path)
+            print(f"[twse] openapi{path} 被來源限制擋下")
+            return None
         resp.raise_for_status()
         data = resp.json()
         return data if isinstance(data, list) else None
     except Exception as exc:
         print(f"[twse] {path} 擷取失敗：{exc}")
-        return _get_via_rwd(path)
+        return None if path in _RWD_FALLBACK else _get_via_rwd(path)
 
 
 def _get_rwd(path: str, params: dict) -> dict | None:
