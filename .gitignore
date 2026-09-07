@@ -19,3 +19,6 @@ agent_llm_queue/
 docs/data/tpex_hist/
 chart_snap.log
 .claude/launch.json
+
+# 本機執行日誌（另一台 session 曾誤 commit 過 research_run.log）
+*.log

@@ -21,10 +21,24 @@ HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                          "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36"}
 
 
+class FormFetchError(RuntimeError):
+    """連不到／讀不到表單 CSV。
+
+    刻意跟「表單是空的」分開：兩者以前都回傳 `[]`，呼叫端無從分辨，結果就是
+    雲端環境被網路政策擋住時（`Tunnel connection failed: 403`），整條管線照樣
+    exit 0、Routine 照樣 SUCCEEDED，使用者送了表單卻永遠等不到報告，而且沒有
+    任何人會知道。2026-09-07 換 Claude 帳號後實際踩到（新帳號的雲端環境
+    network access 是預設的 Trusted，擋掉 docs.google.com）。
+    """
+
+
 def fetch_form_responses(csv_url: str) -> list[dict]:
     """回傳 [{"timestamp":, "title":, "body":}, ...]，依 Google 表單「回覆」試算表
-    固定欄位順序（時間戳記、標題、內容）解析；抓不到或格式跑掉就回傳空清單，
-    絕不讓這個外部依賴弄壞整條研究提交管線。"""
+    固定欄位順序（時間戳記、標題、內容）解析。
+
+    沒設網址、或試算表本身沒有任何回覆 → 回傳 `[]`（正常的「沒有東西」）。
+    連線／HTTP 失敗 → 丟 `FormFetchError`（異常的「讀不到」），由呼叫端決定
+    要不要讓整輪標記成失敗。"""
     if DRY_RUN:
         return mock.research_form_responses()
     if not csv_url:
@@ -53,4 +67,4 @@ def fetch_form_responses(csv_url: str) -> list[dict]:
         return out
     except Exception as exc:
         print(f"[google_sheet] 讀取表單回應失敗：{exc}")
-        return []
+        raise FormFetchError(str(exc)) from exc

@@ -27,7 +27,16 @@
    - 同一個人（chen022208@gmail.com）的另一個訂閱 → 綁的還是同一個 GitHub，通常直接可用。
    - 別人的帳號 → 先在 repo Settings → Collaborators 加他，並在他的
      claude.ai → Settings → Claude Code → Cloud 接上他自己的 GitHub。
-3. 新帳號「Default」雲端環境的 **Network access 不要設 Trusted**（會擋 twse.com.tw / discord.com）。
+3. 新帳號「Default」雲端環境的 **Network access 不要設 Trusted**（會擋 twse.com.tw /
+   discord.com / docs.google.com）。**2026-09-07 已實測踩到**：新帳號的
+   `environment_id` 是 `env_011111111111111111111117`（平台預設環境，不是舊帳號那個
+   `env_014xwk8aXGAakucHHKt3G6hW`），network access 是全新的預設值＝Trusted，
+   「台股使用者研究提交處理」跑起來連 `docs.google.com` 都是
+   `CONNECT tunnel failed, response 403` / `ProxyError: Tunnel connection failed`，
+   Google 表單那條路（研究提交＋主題點播的唯一入口，因為雲端沒裝 `gh`）整條讀不到
+   任何資料，程式仍 exit 0、Routine 仍算 SUCCEEDED——**不會失敗，只會靜靜地什麼都沒做**。
+   搬完第一件事就是去 claude.ai → Settings → Claude Code → Cloud → 該環境齒輪 →
+   Network access 改掉，不要等到發現「表單送了沒反應」才回頭查。
 4. 記下新帳號的 `environment_id`：用 `/schedule` 建第一支時它會列出來（舊帳號是
    `env_014xwk8aXGAakucHHKt3G6hW`，新帳號一定不一樣）。
 5. `mcp_connections`（Claude_Code_Remote）平台會自動加，**不要手動填**。
@@ -517,7 +526,8 @@ https://claude.ai/code/routines（**舊帳號登入**）→ 每支點進去 → 
 - [ ] 每支 Run now 測過、run log 沒報錯（休市日略過正常）
 - [ ] 研究提交那支的 API trigger 建好、Apps Script `TRIGGER_URL` 指向它、測試回 200
 - [ ] 新帳號雲端環境能 push（看某支 Run now 有沒有成功 commit）
-- [ ] 新帳號 Default 環境 Network access 不是 Trusted
+- [ ] 新帳號 Default 環境（`env_011111111111111111111117`）Network access 不是 Trusted
+      （驗收方法：Run now 之後看 run log 有沒有 `Tunnel connection failed: 403`）
 - [ ] **舊帳號 10 支全部 Disable**
 - [ ] `CLAUDE.md` / `ROUTINES.md` 裡寫死的舊 trigger id 換成新的
 

@@ -1786,6 +1786,7 @@ def run_research_intake() -> None:
     processed = 0
     topic_made: list[dict] = []      # 點播成功的，最後統一寫進獨立的推播檔
     topic_failed: list[str] = []
+    source_errors: list[str] = []    # 「來源讀不到」，跟「來源是空的」分開記
     topic_seen: set[str] = set()     # 本輪已處理的主題（大小寫無關），用來去重
     submission_reports: list[dict] = []   # 貼連結／貼文章分析出來、有產 PDF 的，也發 Discord
 
@@ -1821,7 +1822,13 @@ def run_research_intake() -> None:
     cfg = load_config()
     csv_url = cfg.get("research_intake", {}).get("google_sheet_csv_url", "")
     if csv_url:
-        rows = _safe(lambda: google_sheet.fetch_form_responses(csv_url), [], "讀取使用者研究提交（表單）")
+        # 讀不到（網路被擋、Google 掛掉）跟「沒有新提交」是完全不同的兩件事，
+        # 不能都當成空清單靜靜跳過——見 FormFetchError 的說明。
+        try:
+            rows = google_sheet.fetch_form_responses(csv_url)
+        except google_sheet.FormFetchError as exc:
+            rows = []
+            source_errors.append(f"Google 表單：{exc}")
         last_count = int(db.get_state("research_form_row_count", "0"))
         new_rows = rows[last_count:]
         for row in new_rows:
@@ -1916,6 +1923,7 @@ def run_research_intake() -> None:
 
     if processed == 0:
         print("[research] 目前沒有待處理的使用者研究提交")
+        _raise_if_sources_broken(source_errors)
         return
     render.render_site()
     print(f"[research] 本批處理 {processed} 篇提交")
@@ -1947,6 +1955,27 @@ def run_research_intake() -> None:
             f"驗證結果與是否回寫題材，見研究筆記頁：\n"
             f"{load_config()['site']['base_url']}/research.html"),
             None, "研究提交通知")
+
+    # 有做完的事都做完、通知都送出去了，最後才讓整輪失敗——這樣「部分來源掛掉」
+    # 不會連帶把另一個來源已經處理好的東西吞掉。
+    _raise_if_sources_broken(source_errors)
+
+
+def _raise_if_sources_broken(errors: list[str]) -> None:
+    """有提交來源根本讀不到時，讓這一輪以非 0 結束。
+
+    這支程式被雲端 Routine 叫起來跑，Routine 的規則是「跑順且沒有新提交就安靜
+    結束、只有失敗才通知」。所以「來源讀不到」一定要真的失敗——否則它看起來
+    就跟「今天沒人提交」一模一樣，使用者送出表單後只會得到永遠的沉默。
+    """
+    if not errors:
+        return
+    for e in errors:
+        print(f"[research] ⚠ 提交來源讀取失敗：{e}")
+    raise SystemExit(
+        "研究提交來源讀不到（見上方 ⚠），這一輪無法確認有沒有新提交。"
+        "若錯誤是 Tunnel connection failed / 403，多半是雲端環境的 Network access "
+        "被設成 Trusted，見 CLAUDE.md 與 MIGRATION.md。")
 
 
 def _report_result_to_issue(number: int, result: dict) -> None:
@@ -2000,6 +2029,7 @@ def run_news_monitor() -> None:
         + [t["name"] for t in db.list_all_themes()]
     ))
     notified = 0
+    recorded = 0        # 有寫進 research_notes 的則數（重繪條件）
     news_notify: list[dict] = []      # 這一輪要推的快訊，最後一次寫檔（避免互相覆蓋）
     for it in sorted(candidates, key=lambda x: x["id"]):
         text = f"{it['title']}\n{it['text']}" if it["title"] else it["text"]
@@ -2008,6 +2038,12 @@ def run_news_monitor() -> None:
             known_theme_names, f"news#{it['id']}", record_off_topic=False)
         if not result or result.get("off_topic"):
             continue
+        # 每一則有分析出結果的快訊都會被 _process_research_submission() 寫進
+        # research_notes 表，不管最後有沒有推播——所以要重繪的條件是「有寫入」，
+        # 不是「有推播」。以前用 notified 當條件，導致絕大多數快訊（unverified、
+        # 或沒對到題材的）只進了 market.db 卻沒重繪 research.html，研究筆記頁
+        # 一路落後好幾十則；直到有人在別處跑 `main site` 才會一次全部冒出來。
+        recorded += 1
         affected = result.get("affected_themes", [])
         if result.get("verified") in ("verified", "conflicting") and affected:
             names = "、".join(t["name"] for t in affected)
@@ -2032,9 +2068,9 @@ def run_news_monitor() -> None:
         print(f"[news] 已寫入推播內容 _notify_news.json（{len(news_notify)} 則）")
 
     db.set_state("news_monitor_last_id", str(max(it["id"] for it in feed)))
-    if notified:
+    if recorded:
         render.render_site()
-    print(f"[news] 檢查 {len(candidates)} 則重要快訊，推播 {notified} 則")
+    print(f"[news] 檢查 {len(candidates)} 則重要快訊，記錄 {recorded} 則、推播 {notified} 則")
 
 
 # ── 自動分支（排程呼叫這個） ───────────────────────────
