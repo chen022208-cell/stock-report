@@ -630,8 +630,12 @@
     var st = d.market_status;
     var stLabel = { open: "盤中", pre_open: "開盤前", closing: "尾盤", closed: "已收盤" }[st] || st;
     var stEl = document.getElementById("ivStatus");
-    stEl.textContent = stLabel;
-    stEl.className = "lb-status" + (st === "open" ? " open" : "");
+    var ageMin = dataAgeMin(d.as_of);
+    var reallyLive = (st === "open" && ageMin <= 5);
+    // 資料超過 5 分鐘還掛著「盤中」是騙人的——收盤後檔案凍住，欄位不會自己改。
+    stEl.textContent = reallyLive ? stLabel
+      : (st === "open" ? "已收盤（資料 " + Math.round(ageMin) + " 分鐘前）" : stLabel);
+    stEl.className = "lb-status" + (reallyLive ? " open" : "");
     document.getElementById("ivAsof").textContent = d.as_of || "";
 
     var tx = d.taiex || {};
@@ -663,9 +667,14 @@
     renderRank();
     document.getElementById("ivSectors").innerHTML = sectorTable(d.sectors);
 
-    // 盤中時 intraday.json 本來就是最新的，不要拿盤後端點去蓋；
-    // 收盤／尾盤才用官方收盤價校正那一筆停在 13:29 的盤中價。
-    if (st !== "open" && st !== "pre_open") correctCloses(d.as_of);
+    // 什麼時候該用官方收盤價校正？
+    // ⚠️ 不能只看 d.market_status——那是「產生這份 JSON 當下」算的，收盤後
+    // 檔案凍在 13:29:52，欄位會一直寫著 "open"，晚上十點看還是 open。
+    // 真正的判斷是「這份資料有多舊」：超過 5 分鐘就不是即時值了，
+    // 這時 STOCK_DAY 的當日官方收盤才是對的。
+    if (st !== "pre_open" && (st !== "open" || dataAgeMin(d.as_of) > 5)) {
+      correctCloses(d.as_of);
+    }
   }
 
   var FUNNEL_STEPS = [
@@ -740,6 +749,15 @@
    * 收盤後（market_status 不是 open）就拿它逐檔校正畫面上的價與漲跌幅。
    * 只有上市查得到；上櫃／興櫃沒有 CORS 端點，維持原值並標示。
    */
+  function dataAgeMin(asOf) {
+    // as_of 是台北時間的 "YYYY-MM-DD HH:MM:SS"（沒有時區標記）。用 +08:00
+    // 明確解析，不要交給瀏覽器猜——不同時區的使用者會算出完全不同的年齡。
+    var m = /^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2}):(\d{2})/.exec(String(asOf || ""));
+    if (!m) return Infinity;
+    var t = Date.parse(m[1] + "-" + m[2] + "-" + m[3] + "T" + m[4] + ":" + m[5] + ":" + m[6] + "+08:00");
+    return isFinite(t) ? (Date.now() - t) / 60000 : Infinity;
+  }
+
   var dayCache = {};                 // code -> {close, pct} | null（null＝查不到）
   function rocDate(iso) {            // "2026-09-07" -> "115/09/07"
     var p = String(iso || "").slice(0, 10).split("-");
@@ -862,7 +880,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-07 22:14</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-07 22:16</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
