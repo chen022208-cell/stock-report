@@ -26,9 +26,11 @@
 
   /* ---- 1. seg / chips 切換 ---- */
   function panesFor(el, group) {
-    var p = el.closest("[data-panes='" + group + "']") ||
-            doc.querySelector("[data-panes='" + group + "']");
-    return p;
+    // 找承載 .pane 的容器；不要挑到 .seg / .chips 控制本身
+    // （即使有人在控制上也標了 data-panes）。
+    var sel = "[data-panes='" + group + "']:not([data-group])";
+    return el.closest(sel) || doc.querySelector(sel) ||
+           doc.querySelector("[data-panes='" + group + "']");
   }
   function applyPanes(container, value) {
     if (!container) return;

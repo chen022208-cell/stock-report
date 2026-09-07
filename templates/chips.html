@@ -1,146 +1,177 @@
 {% extends "base.html" %}
+{% block section %}chips{% endblock %}
 {% block title %}籌碼儀表板 · {{ site_title }}{% endblock %}
 {% block extra_css %}
-  .meta{font-size:13px; color:var(--text-muted); margin:10px 0 20px;}
-  .inst-row{display:flex; align-items:center; gap:12px; margin-bottom:10px; font-size:14px;}
-  .inst-row .inst-name{width:56px; color:var(--text-secondary); flex-shrink:0;}
-  .inst-row .bar-track{flex:1; height:6px; background:var(--surface-2);
-                       border-radius:3px; position:relative; overflow:hidden;}
-  .inst-row .bar-fill{position:absolute; top:0; bottom:0; border-radius:3px;}
+  .meta{font-size:13px; color:var(--text-muted); margin:8px 0 14px;}
+  .inst-row{display:flex; align-items:center; gap:12px; margin-bottom:11px; font-size:14px;}
+  .inst-row .inst-name{width:52px; color:var(--text-secondary); flex-shrink:0;}
+  .inst-row .bar-track{flex:1; height:7px; background:var(--surface-3);
+                       border-radius:4px; position:relative; overflow:hidden;}
+  .inst-row .bar-fill{position:absolute; top:0; bottom:0; border-radius:4px;}
   .inst-row .bar-fill.up{background:var(--red); left:50%;}
   .inst-row .bar-fill.down{background:var(--green); right:50%;}
   .inst-row .inst-value{width:88px; text-align:right;
-                        font-family:'JetBrains Mono',monospace; flex-shrink:0;}
-  .tech-table{width:100%; border-collapse:collapse; margin-bottom:8px;}
-  .tech-table th{text-align:left; font-size:12.5px; font-weight:400;
-                 color:var(--text-muted); padding-bottom:10px;
-                 border-bottom:1px solid var(--hairline);}
-  .tech-table td{padding:10px 0; border-bottom:1px solid var(--hairline);
-                 font-size:14px; vertical-align:top;}
-  .tech-table tr:last-child td{border-bottom:none;}
-  .mono{font-family:'JetBrains Mono',monospace;}
-  .up{color:var(--red);} .down{color:var(--green);}
+                        font-family:'JetBrains Mono',monospace; flex-shrink:0; font-weight:600;}
   .market-tag{font-size:11px; color:var(--text-muted); margin-left:4px;}
-  .inst-rank-h{font-size:14px; color:var(--gold); margin:18px 0 6px; font-weight:600;}
-  .inst-rank-grid{display:grid; grid-template-columns:1fr 1fr; gap:20px;}
-  @media (max-width:640px){ .inst-rank-grid{grid-template-columns:1fr; gap:0;} }
+  .rank-cols{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
+  @media (max-width:640px){ .rank-cols{grid-template-columns:1fr; gap:0;} }
+  .rank-cols h4{font-size:12.5px; color:var(--text-muted); font-weight:600; margin:14px 0 2px;}
+  .minirow{display:flex; justify-content:space-between; gap:10px; padding:9px 2px;
+           border-bottom:1px solid var(--hairline); font-size:13.5px;}
+  .minirow .mr-code{font-family:'JetBrains Mono',monospace; color:var(--text-muted); font-size:12px;}
+  .minirow .mr-val{font-family:'JetBrains Mono',monospace; font-weight:600;}
 {% endblock %}
 {% block content %}
 <header><div class="masthead-label">{{ site_title }}</div>
 <h1 class="masthead-date">籌碼儀表板</h1></header>
-<p class="meta">{{ date_label }}</p>
+<p class="meta">{{ date_label }}．單位：張／億元．點個股看 K 線與公司資料</p>
 
 {% include "_intraday_strip.html" %}
 
+<div class="seg scroll" data-group="chipview">
+  <button data-value="inst" class="on">🧑‍🤝‍🧑 法人</button>
+  <button data-value="margin">📈 資券</button>
+  <button data-value="rank">🏆 法人排行</button>
+  <button data-value="big">👑 大戶</button>
+</div>
+
+<div data-panes="chipview">
+
+<!-- ── 法人 ─────────────────────────────────── -->
+<div class="pane" data-value="inst">
 {% if inst %}
-<section class="block">
-  <h2>三大法人（大盤）</h2>
-  {# None ＝ 當日尚未公布，不要當成 0 畫成空長條 #}
-  {% for row in [('外資', inst.foreign_net), ('投信', inst.trust_net), ('自營商', inst.dealer_net)] %}
-  <div class="inst-row">
-    <span class="inst-name">{{ row[0] }}</span>
-    <div class="bar-track">
-      <div class="bar-fill {{ 'up' if row[1] >= 0 else 'down' }}"
-           style="width:{{ (row[1]|abs / 200 * 50)|round(1) if (row[1]|abs) < 200 else 50 }}%"></div>
+  <div class="sheader"><span class="sh-ic">🧑‍🤝‍🧑</span>
+    <span class="sh-title">三大法人（大盤）</span><span class="sh-badge">買賣超</span></div>
+  <div class="card">
+    {% for row in [('外資', inst.foreign_net), ('投信', inst.trust_net), ('自營商', inst.dealer_net)] %}
+    {% if row[1] is not none %}
+    <div class="inst-row">
+      <span class="inst-name">{{ row[0] }}</span>
+      <div class="bar-track">
+        <div class="bar-fill {{ 'up' if row[1] >= 0 else 'down' }}"
+             style="width:{{ (row[1]|abs / 200 * 50)|round(1) if (row[1]|abs) < 200 else 50 }}%"></div>
+      </div>
+      <span class="inst-value {{ 'up' if row[1] >= 0 else 'down' }}">{{ "%+.1f"|format(row[1]) }}億</span>
     </div>
-    <span class="inst-value mono {{ 'up' if row[1] >= 0 else 'down' }}">{{ "%+.1f"|format(row[1]) }}億</span>
-  </div>
-  {% endfor %}
-</section>
-<hr class="divider">
-{% endif %}
-
-{% if margin_top %}
-<section class="block">
-  <h2>融資增減幅前 10</h2>
-  <table class="tech-table">
-    <tr><th>股票</th><th>融資餘額</th><th>今日增減</th></tr>
-    {% for m in margin_top %}
-    <tr>
-      <td data-stock-code="{{ m.code }}" data-stock-name="{{ m.name }}">{{ m.code }} {{ m.name }}{% if m.market == 'tpex' %}<span class="market-tag">上櫃</span>{% endif %}</td>
-      <td class="mono">{{ "{:,.0f}".format(m.margin_balance) }} 張</td>
-      <td class="mono {{ 'up' if m.margin_change >= 0 else 'down' }}">{{ "{:+,.0f}".format(m.margin_change) }}</td>
-    </tr>
+    {% else %}
+    <div class="inst-row"><span class="inst-name">{{ row[0] }}</span>
+      <div class="bar-track"></div><span class="inst-value muted">尚未公布</span></div>
+    {% endif %}
     {% endfor %}
-  </table>
-</section>
-<hr class="divider">
+  </div>
+{% else %}
+  <p class="commentary" style="margin-top:20px">法人資料尚未公布。</p>
 {% endif %}
-
 {% if inst_rank %}
-<section class="block">
-  <h2>三大法人當日買賣超個股排行</h2>
-  <p class="commentary" style="font-size:13px; margin-bottom:14px">
-    資料來源：TWSE T86 個股三大法人買賣超（上市）。外資已含外資自營商，
-    自營商含自行買賣與避險。單位：張。點個股看 K 線與公司資料。</p>
+  <div class="sheader"><span class="sh-ic">🎯</span>
+    <span class="sh-title">當日買賣超個股</span><span class="sh-badge">T86 上市</span></div>
+  <p class="commentary" style="font-size:12.5px; margin-bottom:10px">
+    外資已含外資自營商；自營商含自行買賣與避險。</p>
   {% for grp, label in [('foreign','外資'), ('trust','投信'), ('dealer','自營商')] %}
   {% set r = inst_rank.get(grp) %}
   {% if r and (r.buy or r.sell) %}
-  <h3 class="inst-rank-h">{{ label }}</h3>
-  <div class="inst-rank-grid">
-    <div>
-      <table class="tech-table">
-        <tr><th>買超前 {{ r.buy|length }}</th><th style="text-align:right">張</th></tr>
+  <div class="card" style="margin-bottom:12px">
+    <div class="rank-cols">
+      <div>
+        <h4>{{ label }}買超前 {{ r.buy|length }}</h4>
         {% for x in r.buy %}
-        <tr>
-          <td data-stock-code="{{ x.code }}" data-stock-name="{{ x.name }}">{{ x.code }} {{ x.name }}</td>
-          <td class="mono up" style="text-align:right">{{ "{:,.0f}".format(x.lots) }}</td>
-        </tr>
+        <div class="minirow"><span data-stock-code="{{ x.code }}" data-stock-name="{{ x.name }}">
+          <span class="mr-code">{{ x.code }}</span> {{ x.name }}</span>
+          <span class="mr-val up">{{ "{:,.0f}".format(x.lots) }}</span></div>
         {% endfor %}
-      </table>
-    </div>
-    <div>
-      <table class="tech-table">
-        <tr><th>賣超前 {{ r.sell|length }}</th><th style="text-align:right">張</th></tr>
+      </div>
+      <div>
+        <h4>{{ label }}賣超前 {{ r.sell|length }}</h4>
         {% for x in r.sell %}
-        <tr>
-          <td data-stock-code="{{ x.code }}" data-stock-name="{{ x.name }}">{{ x.code }} {{ x.name }}</td>
-          <td class="mono down" style="text-align:right">{{ "{:,.0f}".format(x.lots) }}</td>
-        </tr>
+        <div class="minirow"><span data-stock-code="{{ x.code }}" data-stock-name="{{ x.name }}">
+          <span class="mr-code">{{ x.code }}</span> {{ x.name }}</span>
+          <span class="mr-val down">{{ "{:,.0f}".format(x.lots) }}</span></div>
         {% endfor %}
-      </table>
+      </div>
     </div>
   </div>
   {% endif %}
   {% endfor %}
-</section>
-<hr class="divider">
 {% endif %}
+</div>
 
+<!-- ── 資券 ─────────────────────────────────── -->
+<div class="pane" data-value="margin" hidden>
+{% if margin_top %}
+  <div class="sheader"><span class="sh-ic">📈</span>
+    <span class="sh-title">融資增減幅前 10</span><span class="sh-badge">單位：張</span></div>
+  <div class="card">
+    <div class="dtable-wrap"><table class="dtable">
+      <thead><tr><th>股票</th><th>融資餘額</th><th>今日增減</th></tr></thead>
+      <tbody>
+      {% for m in margin_top %}
+      <tr>
+        <td data-stock-code="{{ m.code }}" data-stock-name="{{ m.name }}">{{ m.code }} {{ m.name }}{% if m.market == 'tpex' %}<span class="market-tag">上櫃</span>{% endif %}</td>
+        <td>{{ "{:,.0f}".format(m.margin_balance) }}</td>
+        <td class="{{ 'up' if m.margin_change >= 0 else 'down' }}">{{ "{:+,.0f}".format(m.margin_change) }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table></div>
+  </div>
+{% else %}
+  <p class="commentary" style="margin-top:20px">資券資料尚未公布。</p>
+{% endif %}
+</div>
+
+<!-- ── 法人排行（強勢股）────────────────────── -->
+<div class="pane" data-value="rank" hidden>
 {% if strong %}
-<section class="block">
-  <h2>強勢股（今日漲幅前段）</h2>
-  <table class="tech-table">
-    <tr><th>股票</th><th>漲幅</th><th>量能倍數</th></tr>
+  <div class="sheader"><span class="sh-ic">🔥</span>
+    <span class="sh-title">強勢股（今日漲幅前段）</span><span class="sh-badge">量能倍數</span></div>
+  <div class="card">
+    <div class="rank-list">
     {% for s in strong %}
-    <tr>
-      <td data-stock-code="{{ s.code }}" data-stock-name="{{ s.name }}">{{ s.code }} {{ s.name }}{% if s.market == 'tpex' %}<span class="market-tag">上櫃</span>{% endif %}</td>
-      <td class="mono up">{{ "%+.2f"|format(s.change_pct) }}%</td>
-      <td class="mono">{{ s.volume_ratio if s.volume_ratio else '—' }}</td>
-    </tr>
+    <div class="rank-row" data-stock-code="{{ s.code }}" data-stock-name="{{ s.name }}"
+         style="--accent: {{ 'var(--red)' if s.change_pct >= 0 else 'var(--green)' }}">
+      <span class="rk-idx">{{ loop.index }}</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main">
+        <div class="rk-name">{{ s.name }} <span class="rk-code">{{ s.code }}</span>
+          {% if s.market == 'tpex' %}<span class="market-tag">上櫃</span>{% endif %}</div>
+        <div class="rk-sub">量能 {{ s.volume_ratio if s.volume_ratio else '—' }}×</div>
+      </div>
+      <span class="rk-right {{ 'up' if s.change_pct >= 0 else 'down' }}">{{ "%+.2f"|format(s.change_pct) }}%</span>
+    </div>
     {% endfor %}
-  </table>
-</section>
+    </div>
+  </div>
+{% else %}
+  <p class="commentary" style="margin-top:20px">尚無強勢股資料。</p>
 {% endif %}
+</div>
 
+<!-- ── 大戶 ─────────────────────────────────── -->
+<div class="pane" data-value="big" hidden>
 {% if holders %}
-<section class="block">
-  <h2>大戶持股集中度（千張大戶佔集保庫存比例）</h2>
-  <table class="tech-table">
-    <tr><th>股票</th><th>大戶持股比例</th></tr>
+  <div class="sheader"><span class="sh-ic">👑</span>
+    <span class="sh-title">大戶持股集中度</span><span class="sh-badge">千張大戶佔集保</span></div>
+  <div class="card">
+    <div class="rank-list">
     {% for h in holders %}
-    <tr>
-      <td data-stock-code="{{ h.code }}" data-stock-name="{{ h.name }}">{{ h.code }} {{ h.name }}</td>
-      <td class="mono">{{ "%.1f"|format(h.pct) }}%</td>
-    </tr>
+    <div class="rank-row" data-stock-code="{{ h.code }}" data-stock-name="{{ h.name }}">
+      <span class="rk-idx">{{ loop.index }}</span>
+      <span class="rk-bar"></span>
+      <div class="rk-main"><div class="rk-name">{{ h.name }} <span class="rk-code">{{ h.code }}</span></div></div>
+      <span class="rk-right">{{ "%.1f"|format(h.pct) }}%</span>
+    </div>
     {% endfor %}
-  </table>
-</section>
-<hr class="divider">
+    </div>
+  </div>
+{% else %}
+  <p class="commentary" style="margin-top:20px">尚無大戶持股資料。</p>
 {% endif %}
+</div>
+
+</div>
 
 {% if not inst and not margin_top and not strong and not holders and not inst_rank %}
 <p class="commentary" style="margin-top:24px">今天還沒有資料，下一次盤後報告產出後這裡會更新。</p>
 {% endif %}
-<p class="commentary" style="margin-top:20px; font-size:13px">五面向評分 → <a href="{{ rel }}scores.html" style="color:var(--gold)">scores.html</a>　·　選股訊號（起漲點／新掛牌／黑馬）→ <a href="{{ rel }}picks.html" style="color:var(--gold)">選股雷達</a>　·　查任一個股 → <a href="{{ rel }}lookup.html" style="color:var(--gold)">個股查詢</a></p>
+<p class="commentary" style="margin-top:20px; font-size:13px">五面向評分 → <a href="{{ rel }}scores.html">評分</a>　·　選股訊號 → <a href="{{ rel }}picks.html">選股雷達</a>　·　查任一個股 → <a href="{{ rel }}lookup.html">個股查詢</a></p>
 {% endblock %}
