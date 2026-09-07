@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>電機機械業深度分析：重電五虎接單滿到2030年，精密機械廠切入人形機器人供應鏈 · 盤後快訊</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
+<meta name="theme-color" content="#1C1B19">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#171615; --surface:#221F1D; --surface-2:#2A2725; --surface-3:#332F2B;
+    --text-primary:#F2EEE6; --text-secondary:#ABA398; --text-muted:#786F63;
+    --red:#E15C4F; --green:#4FB07A; --gold:#E3AC4E; --hairline:#38332E;
+    /* 分類色：跟紅漲綠跌語意分開，只用來標「這是哪一種資訊」 */
+    --c-market:#6C93F5; --c-theme:#B48CE8; --c-chip:#EC9A5C; --c-score:#43BFAE;
+    --c-warn:#E15C4F;
+    --radius:14px; --radius-sm:10px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{-webkit-tap-highlight-color:transparent;}
+  body{background:var(--bg); color:var(--text-primary);
+       font-family:'Noto Sans TC',sans-serif; line-height:1.65;
+       -webkit-font-smoothing:antialiased;}
+  .page{max-width:720px; margin:0 auto; padding:20px 16px 72px;}
+  a{color:inherit;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  /* 台股慣例：紅漲綠跌。切勿套用美股配色，會讓人看反方向 */
+  .up{color:var(--red);} .down{color:var(--green);}
+  hr.divider{border:none; border-top:1px solid var(--hairline); margin:22px 0;}
+
+  /* 頂部像 App 的水平捲動分類籤條，取代原本會換行的純文字導覽 */
+  .nav{display:flex; gap:8px; margin-bottom:20px; overflow-x:auto;
+       -webkit-overflow-scrolling:touch; scrollbar-width:none; padding-bottom:2px;}
+  .nav::-webkit-scrollbar{display:none;}
+  /* 手機用滑動手勢捲動，隱藏捲軸沒問題；桌機滑鼠沒有對應手勢，捲軸又被隱藏，
+     後面的項目會卡死點不到——桌機寬度夠，直接讓導覽列換行，不用捲動 */
+  @media (min-width:700px){
+    .nav{flex-wrap:wrap; overflow-x:visible;}
+  }
+  .nav a{flex-shrink:0; text-decoration:none; font-size:13px; font-weight:500;
+        color:var(--text-secondary); background:var(--surface);
+        padding:9px 14px; border-radius:100px; border:1px solid var(--hairline);
+        white-space:nowrap; transition:background .15s,color .15s;}
+  .nav a:hover,.nav a:focus-visible{color:var(--text-primary); background:var(--surface-2);}
+  .nav a.current{color:#171615; background:var(--gold); border-color:var(--gold); font-weight:600;}
+
+  .masthead-label{font-size:13px; color:var(--text-muted); margin-bottom:4px;}
+  .masthead-date{font-family:'Noto Serif TC',serif; font-weight:600; font-size:24px;}
+
+  .block{margin-bottom:4px;}
+  .block h2{font-family:'Noto Serif TC',serif; font-weight:600;
+            font-size:18px; margin-bottom:14px;}
+  .commentary{font-size:14.5px; color:var(--text-secondary); line-height:1.8;}
+
+  .tag{font-size:11.5px; padding:3px 9px; border-radius:100px; white-space:nowrap;
+      font-weight:500;}
+  .tag.confidence-high{background:rgba(227,172,78,.18); color:var(--gold);}
+  .tag.confidence-mid{background:rgba(171,163,152,.16); color:var(--text-secondary);}
+  .tag.confidence-low{background:rgba(120,111,99,.18); color:var(--text-muted);}
+  .tag.verdict-real{background:rgba(79,176,122,.18); color:var(--green);}
+  .tag.verdict-watch{background:rgba(225,92,79,.18); color:var(--red);}
+  .tag.watchlist{background:rgba(227,172,78,.22); color:var(--gold);}
+
+  /* 通用卡片元件：儀表板／格狀資訊都吃這組，密度比原本文章式排版高 */
+  .card{background:var(--surface); border-radius:var(--radius); padding:16px;
+       border:1px solid var(--hairline);}
+  .card-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
+  .card-grid.cols-3{grid-template-columns:repeat(3,1fr);}
+  .stat-tile{background:var(--surface); border-radius:var(--radius-sm);
+            padding:13px 14px; border-left:3px solid var(--hairline);}
+  .stat-tile.c-market{border-left-color:var(--c-market);}
+  .stat-tile.c-theme{border-left-color:var(--c-theme);}
+  .stat-tile.c-chip{border-left-color:var(--c-chip);}
+  .stat-tile.c-score{border-left-color:var(--c-score);}
+  .stat-tile.c-warn{border-left-color:var(--c-warn);}
+  .stat-tile .stat-tile-label{font-size:11.5px; color:var(--text-muted); margin-bottom:5px;
+                              display:flex; align-items:center; gap:5px;}
+  .stat-tile .stat-tile-value{font-family:'JetBrains Mono',monospace; font-size:19px;
+                              font-weight:500; line-height:1.2;}
+  .stat-tile .stat-tile-sub{font-size:12px; color:var(--text-secondary); margin-top:3px;}
+  .dot{width:7px; height:7px; border-radius:50%; flex-shrink:0; display:inline-block;}
+  .dot.c-market{background:var(--c-market);} .dot.c-theme{background:var(--c-theme);}
+  .dot.c-chip{background:var(--c-chip);} .dot.c-score{background:var(--c-score);}
+  .dot.c-warn{background:var(--c-warn);}
+
+  /* 快速連結格：首頁用，取代純文字清單 */
+  .quicklink-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
+  .quicklink{display:block; background:var(--surface); border:1px solid var(--hairline);
+            border-radius:var(--radius-sm); padding:13px 14px; text-decoration:none;
+            transition:background .15s, transform .1s;}
+  .quicklink:active{transform:scale(.98);}
+  .quicklink:hover{background:var(--surface-2);}
+  .quicklink .ql-title{font-size:14px; font-weight:600; color:var(--text-primary);
+                       display:flex; align-items:center; gap:7px; margin-bottom:3px;}
+  .quicklink .ql-desc{font-size:12px; color:var(--text-muted);}
+
+  footer.site-footer{margin-top:36px; padding-top:18px;
+                     border-top:1px solid var(--hairline);}
+  footer.site-footer p{font-size:12px; color:var(--text-muted);
+                       margin-bottom:6px; line-height:1.6;}
+
+  @media (max-width:480px){
+    .page{padding:14px 12px 64px;}
+    .masthead-date{font-size:21px;}
+    .card-grid.cols-3{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
+
+  /* 個股點擊變成可互動連結：底下虛線點出「可以點」，不是死文字 */
+  [data-stock-code]{cursor:pointer; text-decoration:underline dotted var(--text-muted);
+                    text-underline-offset:3px;}
+  [data-stock-code]:hover{color:var(--gold);}
+
+  /* 個股 K 線／技術指標彈窗 */
+  .sc-modal{position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:200;
+            display:none; align-items:flex-start; justify-content:center;
+            padding:24px 12px; overflow-y:auto;}
+  .sc-modal.open{display:flex;}
+  .sc-modal-inner{background:var(--surface); border-radius:var(--radius);
+                  max-width:820px; width:100%; padding:20px; position:relative;}
+  .sc-tf-tabs{display:flex; gap:6px; margin-bottom:10px; align-items:center; flex-wrap:wrap;}
+  .sc-tf{background:var(--surface-2); border:1px solid var(--hairline); color:var(--text-secondary);
+        border-radius:var(--radius-sm); padding:6px 16px; font-size:13px; cursor:pointer;}
+  .sc-tf.active{background:var(--gold); color:#171615; border-color:var(--gold); font-weight:600;}
+  .sc-zoom-group{display:flex; gap:4px; margin-left:auto;}
+  .sc-zoom{background:var(--surface-2); border:1px solid var(--hairline); color:var(--text-secondary);
+          border-radius:var(--radius-sm); width:32px; height:32px; font-size:15px;
+          line-height:1; cursor:pointer;}
+  .sc-zoom:hover{border-color:var(--gold); color:var(--gold);}
+  .sc-chart-container{width:100%; height:460px; margin-bottom:8px;}
+  .sc-info-bar{font-size:12px; font-family:'JetBrains Mono',monospace; color:var(--text-secondary);
+              background:var(--surface-2); border-radius:var(--radius-sm); padding:8px 10px;
+              margin-bottom:8px; min-height:20px; display:flex; flex-wrap:wrap;
+              gap:2px 10px; align-items:center;}
+  .sc-info-bar > span, .sc-info-bar > b{white-space:nowrap;}
+  .sc-info-date{font-family:'Noto Sans TC',sans-serif; color:var(--text-muted);}
+  .sc-info-marker{color:var(--gold); font-family:'Noto Sans TC',sans-serif;}
+  .sc-close{position:absolute; top:12px; right:12px; background:var(--surface-2);
+            border:none; color:var(--text-primary); width:32px; height:32px;
+            border-radius:50%; font-size:16px; cursor:pointer;}
+  .sc-title{font-family:'Noto Serif TC',serif; font-size:17px; margin-bottom:10px;}
+  .sc-loading, .sc-empty{color:var(--text-muted); font-size:13.5px; padding:20px 0;}
+  .sc-price-row{display:flex; align-items:baseline; gap:10px; margin-bottom:8px; flex-wrap:wrap;}
+  .sc-price{font-size:24px; font-weight:600;}
+  .sc-chg{font-size:14px;}
+  .sc-date{font-size:12px; color:var(--text-muted); margin-left:auto;}
+  .sc-svg{width:100%; height:auto; display:block; margin:10px 0;}
+  .sc-grid{stroke:var(--hairline); stroke-width:1;}
+  .sc-grid-dash{stroke:var(--hairline); stroke-width:1; stroke-dasharray:3,3;}
+  .sc-axis{fill:var(--text-muted); font-size:9px; font-family:'JetBrains Mono',monospace;}
+  .sc-legend{display:flex; gap:14px; flex-wrap:wrap; font-size:11.5px;
+             color:var(--text-secondary); margin-bottom:12px;}
+  .sc-legend span{display:flex; align-items:center; gap:5px;}
+  .sc-dot{width:8px; height:8px; border-radius:50%; display:inline-block;}
+  .sc-line{width:12px; height:2px; display:inline-block;}
+  .sc-grade{display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap;}
+  .sc-notes{font-size:12.5px; color:var(--text-secondary);}
+  .sc-disclaimer{font-size:11.5px; color:var(--text-muted); line-height:1.5;}
+  .sc-sec{margin:14px 0 4px; border-top:1px solid var(--hairline); padding-top:12px;}
+  .sc-sec-h{font-family:'Noto Serif TC',serif; font-size:14px; margin-bottom:8px;
+            color:var(--text-primary); display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .sc-src{font-family:'Noto Sans TC',sans-serif; font-size:10.5px; font-weight:400;
+          color:var(--text-muted); border:1px solid var(--hairline);
+          border-radius:999px; padding:1px 8px;}
+  .sc-src-warn{color:var(--gold); border-color:var(--gold);}
+  .sc-biz{font-size:13px; color:var(--text-secondary); line-height:1.7; margin-bottom:10px;}
+  .sc-kv-grid{display:grid; grid-template-columns:1fr 1fr; gap:4px 14px;}
+  .sc-kv{display:flex; gap:8px; font-size:12px; line-height:1.7;}
+  .sc-kv span{color:var(--text-muted); white-space:nowrap;}
+  .sc-kv b{color:var(--text-secondary); font-weight:400; word-break:break-all;}
+  .sc-kv a{color:var(--gold);}
+  .sc-fund-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:8px;}
+  .sc-fund-cell{background:var(--surface-2); border-radius:var(--radius-sm); padding:8px 6px; text-align:center;}
+  .sc-fund-cell h5{font-size:11px; margin:0 0 4px; color:var(--text-muted); font-weight:400;}
+  .sc-fund-cell p{font-size:13px; margin:0; font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
+  .sc-fullpage{position:absolute; top:14px; right:52px; font-size:12px; color:var(--gold);
+               text-decoration:none; border:1px solid var(--hairline);
+               border-radius:999px; padding:3px 10px; background:var(--surface-2);}
+  .sc-fullpage:hover{border-color:var(--gold);}
+  @media (max-width:560px){ .sc-fullpage{display:none;} }
+  .sc-theme-tags{display:flex; flex-wrap:wrap; gap:6px;}
+  /* 同產業個股：可點，跟不可點的題材標籤要看得出差別 */
+  .stat-tile-value.muted{color:var(--text-muted); font-size:15px;}
+  .sc-peer{cursor:pointer; font-family:'JetBrains Mono',monospace;}
+  .sc-ind-link{color:var(--gold); text-decoration:none; font-weight:600;}
+  .sc-ind-link:hover{text-decoration:underline;}
+  .sc-peer:hover{border-color:var(--gold); color:var(--gold);}
+  .sc-theme-tag{font-size:12px; background:var(--surface-2); border:1px solid var(--hairline);
+                border-radius:999px; padding:3px 10px; color:var(--text-secondary);}
+  @media (max-width:560px){
+    .sc-kv-grid{grid-template-columns:1fr;}
+    .sc-fund-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  .sc-swot{margin:14px 0 4px; border-top:1px solid var(--hairline); padding-top:12px;}
+  .sc-swot-h{font-family:'Noto Serif TC',serif; font-size:14px; margin-bottom:6px; color:var(--text-primary);}
+  .sc-swot-desc{font-size:13px; color:var(--text-secondary); line-height:1.65; margin-bottom:10px;}
+  .sc-swot-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .sc-swot-cell{background:var(--surface-2); border-radius:var(--radius-sm); padding:8px 10px;}
+  .sc-swot-cell h5{font-size:12px; margin:0 0 3px; color:var(--gold);}
+  .sc-swot-cell p{font-size:12px; color:var(--text-secondary); line-height:1.55; margin:0;}
+  .sc-swot-updated{font-size:11px; color:var(--text-muted); margin-top:8px;}
+  .sc-quote-row{display:flex; flex-wrap:wrap; gap:4px 14px; font-size:12px;
+                color:var(--text-secondary); background:var(--surface-2);
+                border-radius:var(--radius-sm); padding:8px 10px; margin-bottom:8px;}
+  .sc-quote-row b{font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
+  .sc-snapshot-note{font-size:12px; color:var(--text-secondary); background:var(--surface-2);
+                    border-left:3px solid var(--gold); border-radius:var(--radius-sm);
+                    padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
+  @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
+
+  .ir-meta{font-size:12.5px; color:var(--text-muted); margin:8px 0 18px;}
+  .ir-stat{display:inline-flex; align-items:baseline; gap:5px; background:var(--surface);
+           border:1px solid var(--hairline); border-radius:999px; padding:4px 12px;
+           margin:0 8px 8px 0; font-size:12.5px;}
+  .ir-stat b{font-family:'JetBrains Mono',monospace; color:var(--text-primary); font-size:14px;}
+  .ir-summary{font-size:15px; line-height:1.85; color:var(--text-primary);
+              background:var(--surface); border-left:3px solid var(--gold);
+              border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:26px;}
+  .ir-sec{margin-bottom:26px;}
+  .ir-sec h2{font-size:17px; margin:0 0 10px;}
+  .ir-sec p{font-size:14.5px; line-height:1.9; color:var(--text-secondary); margin:0;}
+  .ir-stage{background:var(--surface); border-radius:var(--radius-sm);
+            padding:12px 15px; margin-bottom:10px;}
+  .ir-stage h4{margin:0 0 4px; font-size:14px; color:var(--gold);}
+  .ir-stage .note{font-size:13px; color:var(--text-secondary); line-height:1.7; margin:0 0 8px;}
+  .ir-codes{display:flex; flex-wrap:wrap; gap:6px;}
+  .ir-code{cursor:pointer; font-size:12px; font-family:'JetBrains Mono',monospace;
+           background:var(--surface-2); border:1px solid var(--hairline);
+           border-radius:999px; padding:3px 10px; color:var(--text-secondary);}
+  .ir-code:hover{border-color:var(--gold); color:var(--gold);}
+  .ir-leaders{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  @media (max-width:640px){ .ir-leaders{grid-template-columns:1fr;} }
+  .ir-leader{cursor:pointer; background:var(--surface); border:1px solid var(--hairline);
+             border-radius:var(--radius-sm); padding:10px 13px;}
+  .ir-leader:hover{border-color:var(--gold);}
+  .ir-leader b{font-family:'JetBrains Mono',monospace;}
+  .ir-leader span{display:block; font-size:12.5px; color:var(--text-muted);
+                  margin-top:4px; line-height:1.6;}
+  .ir-risk{background:var(--surface); border-left:3px solid var(--c-warn);
+           border-radius:var(--radius-sm); padding:12px 15px; font-size:14px;
+           line-height:1.85; color:var(--text-secondary);}
+  .ir-out{background:var(--surface); border-left:3px solid var(--c-market);
+          border-radius:var(--radius-sm); padding:12px 15px; font-size:14px;
+          line-height:1.85; color:var(--text-secondary);}
+  .ir-src{font-size:12.5px; color:var(--text-muted); line-height:1.9;
+          border-top:1px solid var(--hairline); padding-top:14px; margin-top:26px;}
+  .ir-src a{color:var(--gold); word-break:break-all;}
+
+</style>
+</head>
+<body>
+<div class="page">
+  <nav class="nav">
+    <a href="../index.html" class="">最新</a>
+    <a href="../heatmap.html" class="">🔥 熱力圖</a>
+    <a href="../chips.html" class="">💰 籌碼</a>
+    <a href="../scores.html" class="">⭐ 評分</a>
+    <a href="../picks.html" class="">🎯 選股雷達</a>
+    <a href="../intraday.html" class="">⚡ 盤中強勢</a>
+    <a href="../lookup.html" class="">🔍 個股查詢</a>
+    <a href="../disposition.html" class="">⚠️ 處置</a>
+    <a href="../themes.html" class="">題材庫</a>
+    <a href="../archive.html" class="">歷史</a>
+    <a href="../weekly/index.html" class="">📅 週報</a>
+    <a href="../monthly-deep/index.html" class="">🌍 深度月報</a>
+    <a href="../research.html" class="">📥 研究筆記</a>
+    <a href="../submit.html" class="">📤 提交研究</a>
+  </nav>
+
+  
+<header>
+  <div class="masthead-label">盤後快訊</div>
+  <h1 class="masthead-date">電機機械業深度分析：重電五虎接單滿到2030年，精密機械廠切入人形機器人供應鏈</h1>
+</header>
+<p class="ir-meta">
+  <span class="ir-stat">公司家數 <b>118</b></span>
+  <span class="ir-stat">合計月營收 <b>562</b> 億</span>
+  <span class="ir-stat">2026-09-07 產出</span>
+  <br>產業別依公開資訊觀測站申報分類；公司「在做什麼」以申報主要經營業務為準。
+</p>
+
+<div class="ir-summary">電機機械業涵蓋重電（變壓器、配電盤等電網設備）與精密自動化（工具機、滾珠螺桿、氣動元件、機器人零組件）兩條主線，另有汽機車零組件及金屬加工等傳統製造業者。2026年最受矚目的是重電族群：台電「強韌電網計畫」與全球AI資料中心搶電雙重助攻下，中興電、華城、士電、亞力等重電廠訂單能見度普遍延伸至2027至2030年，變壓器交期已拉長至約兩年半。精密機械端則以上銀為代表，滾珠螺桿等精密運動元件切入人形機器人供應鏈，機器人產品線營收占比已攀升至12%。清單中家數加權平均年增+24.2%，但個股間表現分化明顯，重電族群與部分精密機械廠成長顯著超越傳統零組件加工業者。</div>
+
+
+<section class="ir-sec">
+  <h2>產業範疇：重電設備與精密自動化兩條主線</h2>
+  <p>電機機械業實際涵蓋兩類業務模式差異大的公司：一是重電設備業者，生產變壓器、配電盤、氣體絕緣開關（GIS）等電網關鍵組件，訂單來自台電及大型用電客戶（東元、士電、中興電、華城、亞力、大同）；二是精密自動化與工具機業者，生產伺服馬達、滾珠螺桿、氣動元件、CNC工具機及智慧製造控制器（亞德客-KY、新代、上銀、東台、羅昇）。此外還有一批以汽機車零組件、金屬加工、研磨材料為主的傳統製造業者（精確、豐祥-KY、永冠-KY、廣隆、時碩工業、皇田、大量、中砂、伸興、高力、勤美、中宇、朋程、瑞智），業務性質與前兩類完全不同，不宜混為一談比較成長性。</p>
+</section>
+
+<section class="ir-sec">
+  <h2>重電產業：台電強韌電網計畫與AI資料中心搶電雙重助攻</h2>
+  <p>2026年2月台電釋出約94億元電力設備標案，鎖定變壓器與氣體絕緣開關（GIS）等關鍵核心組件，由中興電、華城、士電、亞力等業者分食，加速推動「強韌電網建設計畫」。在台電10年5,645億元強韌電網計畫，以及全球AI資料中心引爆的變壓器缺貨潮雙重助攻下，重電四雄（華城、士電、中興電、亞力）在手訂單能見度普遍延伸至2027至2028年，部分業者甚至看到2030年，營收與獲利雙創歷史新高。大型電力變壓器交期已延長至約兩年半，取向矽鋼片等關鍵原料供應緊俏，全球變壓器市場仍存在約三成供需缺口，制造端瓶頸短期內難以紓解。</p>
+</section>
+
+<section class="ir-sec">
+  <h2>精密機械：上銀等業者切入人形機器人供應鏈</h2>
+  <p>2026年被市場視為人形機器人「商用化元年」，帶動台灣精密機械供應鏈積極卡位。以上銀為代表，其滾珠螺桿、交叉滾柱軸承是機器人關節的標準配置，公司將人形機器人拆解為線性致動模組（「肌肉」）、旋轉致動模組（「關節」）、行星式滾柱螺桿（「肌腱」）三大精密機械次系統，展現台灣長年累積的精密機械能力如何切入人形機器人供應鏈。上銀機器人產品線營收占比已首度攀升至12%，代表公司從零組件供應商跨入系統集成與高端精密模組；公司並表示人形機器人關鍵元件仍在送樣階段，若進展順利，2026年出貨數量可望呈現倍數成長。（推論）目前多數人形機器人零組件訂單仍處於送樣或初期量產階段，實際放量時程與規模仍待觀察，不宜視為已兌現的營收貢獻。</p>
+</section>
+
+<section class="ir-sec">
+  <h2>傳統零組件加工業者：景氣分化明顯</h2>
+  <p>（推論）汽機車零組件、金屬加工、研磨材料等傳統製造業者（如精確、豐祥-KY、廣隆、伸興等）的成長動能與重電、精密機械兩大主線關聯度較低，主要受個別終端市場（汽車後市場、家用電器、工業零組件）景氣循環影響，部分公司如大量（+152.9%）、精確（+77.5%）年增率雖高，但需留意其基期與客戶集中度，不宜直接歸因於電機機械業整體趨勢。</p>
+</section>
+
+<section class="ir-sec">
+  <h2>風險與後續觀察</h2>
+  <p>（推論）主要風險包括：重電族群雖訂單能見度長，但矽鋼片等關鍵原料供應緊俏、產能擴充速度能否跟上訂單成長仍待觀察；人形機器人相關營收貢獻目前仍處早期階段，實際放量時程存在不確定性；傳統零組件加工業者受景氣循環與原物料價格波動影響大。後續觀察重點：台電後續電網標案釋出節奏、大型變壓器交期能否縮短、上銀等精密機械廠人形機器人零組件是否如期在2026年放量出貨。</p>
+</section>
+
+
+
+<section class="ir-sec">
+  <h2>上下游結構</h2>
+  
+  <div class="ir-stage">
+    <h4>重電設備：變壓器、配電盤與電網系統</h4>
+    <p class="note">生產變壓器、配電盤、氣體絕緣開關（GIS）等電網關鍵組件，訂單來自台電及大型用電客戶</p>
+    
+    <div class="ir-codes">
+      
+      <span class="ir-code" data-stock-code="1504">1504</span>
+      
+      <span class="ir-code" data-stock-code="1503">1503</span>
+      
+      <span class="ir-code" data-stock-code="1513">1513</span>
+      
+      <span class="ir-code" data-stock-code="1519">1519</span>
+      
+      <span class="ir-code" data-stock-code="1514">1514</span>
+      
+      <span class="ir-code" data-stock-code="2371">2371</span>
+      
+    </div>
+    
+  </div>
+  
+  <div class="ir-stage">
+    <h4>精密自動化：工具機、滾珠螺桿與機器人零組件</h4>
+    <p class="note">伺服馬達、滾珠螺桿、氣動元件、CNC工具機及智慧製造控制器，部分業者切入人形機器人供應鏈</p>
+    
+    <div class="ir-codes">
+      
+      <span class="ir-code" data-stock-code="1590">1590</span>
+      
+      <span class="ir-code" data-stock-code="7750">7750</span>
+      
+      <span class="ir-code" data-stock-code="2049">2049</span>
+      
+      <span class="ir-code" data-stock-code="4526">4526</span>
+      
+      <span class="ir-code" data-stock-code="8374">8374</span>
+      
+    </div>
+    
+  </div>
+  
+  <div class="ir-stage">
+    <h4>汽機車與工業精密零組件加工</h4>
+    <p class="note">汽機車零配件、精密金屬零件之鑄造、鍛造及CNC加工</p>
+    
+    <div class="ir-codes">
+      
+      <span class="ir-code" data-stock-code="3162">3162</span>
+      
+      <span class="ir-code" data-stock-code="5288">5288</span>
+      
+      <span class="ir-code" data-stock-code="1589">1589</span>
+      
+      <span class="ir-code" data-stock-code="1537">1537</span>
+      
+      <span class="ir-code" data-stock-code="4566">4566</span>
+      
+      <span class="ir-code" data-stock-code="9951">9951</span>
+      
+    </div>
+    
+  </div>
+  
+  <div class="ir-stage">
+    <h4>金屬加工、研磨材料與其他傳統製造</h4>
+    <p class="note">各式研磨品、切削刀具、板式熱交換器、金屬成型及家用工業縫紉機等傳統製造業務</p>
+    
+    <div class="ir-codes">
+      
+      <span class="ir-code" data-stock-code="3167">3167</span>
+      
+      <span class="ir-code" data-stock-code="1560">1560</span>
+      
+      <span class="ir-code" data-stock-code="1558">1558</span>
+      
+      <span class="ir-code" data-stock-code="8996">8996</span>
+      
+      <span class="ir-code" data-stock-code="1532">1532</span>
+      
+      <span class="ir-code" data-stock-code="1535">1535</span>
+      
+      <span class="ir-code" data-stock-code="8255">8255</span>
+      
+      <span class="ir-code" data-stock-code="4532">4532</span>
+      
+    </div>
+    
+  </div>
+  
+</section>
+
+
+
+<section class="ir-sec">
+  <h2>代表性公司</h2>
+  <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:10px">
+    定位說明須對應該公司的申報營業項目。點任一檔看 K 線與公司資料。</p>
+  <div class="ir-leaders">
+    
+    <div class="ir-leader" data-stock-code="1513" data-stock-name="中興電">
+      <b>1513 中興電</b>
+      <span>重電五虎之一：申報業務為綠能／輸配電力設備暨工程，經查證接單能見度延伸至2027至2028年，並入列台電94億元電力設備標案</span>
+    </div>
+    
+    <div class="ir-leader" data-stock-code="1519" data-stock-name="華城">
+      <b>1519 華城</b>
+      <span>變壓器與配電盤大廠：申報業務為變壓器及配電盤、配電器材及統包工程，經查證訂單能見度部分延伸至2030年</span>
+    </div>
+    
+    <div class="ir-leader" data-stock-code="2049" data-stock-name="上銀">
+      <b>2049 上銀</b>
+      <span>精密機械龍頭：申報業務為機械設備製造業，經查證滾珠螺桿、交叉滾柱軸承已切入人形機器人關節應用，機器人產品線營收占比已達12%</span>
+    </div>
+    
+    <div class="ir-leader" data-stock-code="1590" data-stock-name="亞德客-KY">
+      <b>1590 亞德客-KY</b>
+      <span>氣動元件龍頭：申報業務為氣動控制元件、氣動執行元件、氣源處理元件及氣動輔助元件之研發生產銷售</span>
+    </div>
+    
+    <div class="ir-leader" data-stock-code="7750" data-stock-name="新代">
+      <b>7750 新代</b>
+      <span>工具機控制器大廠：申報業務為自有品牌精密設備控制器軟硬體研發製造，並提供智慧製造工業4.0整合應用服務</span>
+    </div>
+    
+    <div class="ir-leader" data-stock-code="1503" data-stock-name="士電">
+      <b>1503 士電</b>
+      <span>重電五虎之一：申報業務為重電機械類、電器機器類，經查證接單能見度延伸至2027至2028年</span>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="ir-sec"><h2>風險</h2><div class="ir-risk">（推論）重電族群雖訂單能見度長，但矽鋼片等關鍵原料供應緊俏，產能擴充速度能否跟上訂單成長仍待觀察；人形機器人相關營收貢獻目前仍處早期送樣階段，實際放量時程與規模存在不確定性；傳統汽機車零組件與金屬加工業者受景氣循環、原物料價格波動及客戶集中度影響大，部分個股高年增率可能受基期因素影響，不宜直接視為產業趨勢。</div></section>
+
+
+<section class="ir-sec"><h2>後續觀察重點</h2><div class="ir-out">後續觀察重點：台電後續強韌電網計畫標案釋出節奏與金額；大型電力變壓器交期（目前約兩年半）能否隨產能擴充縮短；上銀等精密機械廠人形機器人關鍵零組件是否如期於2026年放量出貨；重電族群訂單能見度是否持續延伸。</div></section>
+
+
+<div class="ir-src">
+  <b>查證來源</b>（本站規則：沒有外部來源就不產出這份報告）：<br>
+  永豐金證券豐雲學堂 sinotrade.com.tw（台電近百億標案開榜！重電五虎中興電、華城、士電、亞力全數入列）　·　
+  理財周刊 moneyweekly.com.tw（重電四雄狂潮引爆：台電5,645億強網，AI資料中心搶電，訂單能見度直奔2028年）　·　
+  數位時代 bnext.com.tw（2026機器人展：人形機器人出貨年增700%，上銀如何卡位實體AI）　·　
+  鉅亨網 news.cnyes.com（上銀法說：卓文恒談晶圓機器人貢獻營收擴大，人形機器人關鍵元件送樣中）
+  
+  <p style="margin-top:10px">產業層為系統綜合判讀，標「（推論）」者為推論而非查證事實；
+  個別公司的營業項目以公開資訊觀測站申報值為準。僅供研究參考，不構成投資建議。</p>
+</div>
+<p style="margin-top:20px; font-size:13px">
+  ← 回 <a href="index.html" style="color:var(--gold)">產業分析清單</a>　·
+  <a href="../heatmap.html" style="color:var(--gold)">產業熱力圖</a></p>
+
+
+  <footer class="site-footer">
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-07 12:21</p>
+    <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
+  </footer>
+</div>
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
+  }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
+<script src="../assets/stock-chart.js?v=da241156"></script>
+
+</body>
+</html>
