@@ -53,13 +53,14 @@ def fetch_form_responses(csv_url: str) -> list[dict]:
     local = os.environ.get(_LOCAL_CSV_ENV, "").strip()
     if local:
         fp = Path(local)
-        if not fp.exists():
-            # 明確設了要用本機檔卻找不到 → 這是設定錯誤，不能默默當成沒提交
-            raise FormFetchError(f"找不到 {_LOCAL_CSV_ENV} 指定的檔案：{local}")
-        try:
-            return _parse_csv(fp.read_text(encoding="utf-8"))
-        except Exception as exc:
-            raise FormFetchError(f"讀取本機 CSV {local} 失敗：{exc}") from exc
+        if fp.exists():
+            try:
+                return _parse_csv(fp.read_text(encoding="utf-8"))
+            except Exception as exc:
+                raise FormFetchError(f"讀取本機 CSV {local} 失敗：{exc}") from exc
+        # 設了但檔案還沒生成（中繼 workflow 尚未跑過）→ 退回直連 HTTP，
+        # 讓「網路開放的環境」自己抓，不要因為備援檔缺席就整輪失敗
+        print(f"[google_sheet] {_LOCAL_CSV_ENV}={local} 不存在，改用直連")
 
     if not csv_url:
         return []
