@@ -140,6 +140,37 @@ Claude 帳號」下、吃該帳號訂閱額度，跟你在哪台電腦開發無�
   一次、只有 `intraday_new_signal.json` 變動才立即 push。**快報形式、非深度查證**，
   跟 `lookup.html` 的逐檔人工查證分析（`verify-stocks`）是兩回事。
 
+## 盤中即時報價（Cloudflare Worker 中繼）
+
+**證交所 MIS（`mis.twse.com.tw/stock/api/getStockInfo.jsp`）是唯一有逐筆即時的
+端點，但對瀏覽器擋 CORS。** 2026-09-07 從正式站台 origin 實測，能不能直接 fetch：
+
+| 端點 | 瀏覽器 | 備註 |
+|---|---|---|
+| `www.twse.com.tw/exchangeReport/STOCK_DAY` | ✅ 200 | **唯一開放的**，有當日官方收盤 |
+| `mis.twse.com.tw`（逐筆即時） | ❌ | |
+| `openapi.twse.com.tw` | ❌ | |
+| `tpex.org.tw/openapi` | ❌ | |
+| `query1.finance.yahoo.com` | ❌ | |
+
+所以要即時只能靠伺服器中繼。使用者自己在 Cloudflare Workers（免費額度
+10 萬次/天）部署了 **`https://twse-quote.chen022208.workers.dev/`**：
+`?ex_ch=tse_2330.tw|otc_6488.tw` → 轉發 MIS 並補 CORS 標頭。Worker 內建
+3 秒快取（多人共用一次上游）、只在台北時間平日 08:45–13:35 放行（其餘回
+`{"closed":true}`）、`Access-Control-Allow-Origin` 鎖在 GitHub Pages 網域、
+單次上限 60 檔。**要改來源網域或上限就去 Cloudflare 改那支 Worker。**
+
+`intraday.html` 交易時段每 3 秒打它覆寫畫面上的價與漲跌幅；收盤或連不上
+就靜默停用、維持後端那份。`intraday.json` 的每一列都帶 `ex`（tse／otc／esb）
+供前端組頻道代號——**興櫃沒有即時報價**（MIS 各種前綴實測都查不到）。
+
+⚠️ **收盤後那筆不是收盤價**：盤中迴圈最後一次推送常停在 13:29，而 13:30 收盤
+集合競價往往成交在別的價位。薄量股差很多——2026-09-07 的 1516 川飛盤中最後
+一筆 15.75（+9.76%、漲停），實際收盤 14.75（+2.79%）。`intraday.html` 的
+`correctCloses()` 會在資料超過 5 分鐘時逐檔打 STOCK_DAY 取官方收盤價校正
+（只有上市查得到）。**判斷「是不是收盤了」要用 `as_of` 算資料年齡，不要信
+`market_status` 欄位**——那是產檔當下算的，收盤後永遠凍在 `"open"`。
+
 ## 個股技術圖表／查詢
 
 - 每個出現股票代號的地方（評分頁、盤後報告技術面表格、籌碼頁、熱力圖展開列表、
