@@ -719,6 +719,7 @@ def render_industry_index() -> Path:
 def render_site() -> list[Path]:
     """重建所有索引頁。每次跑完報告都要呼叫，索引才會包含最新內容。"""
     return [render_index(), render_archive(), render_themes_page(), render_lookup_page(),
+            render_watchlist_page(),
             render_submit_page(), render_research_notes(),
             render_weekly_index(), render_monthly_deep_index(), render_picks_page(),
             render_intraday_page(), render_intraday_report_index(), render_stock_page(),
@@ -1070,6 +1071,25 @@ def render_submit_page() -> Path:
         form_action_url=ri.get("google_form_action_url", ""),
         form_entry_title=ri.get("google_form_entry_title", ""),
         form_entry_body=ri.get("google_form_entry_body", ""),
+    ), encoding="utf-8")
+    return path
+
+
+def render_watchlist_page() -> Path:
+    """自選股頁。功能對照 Yahoo 股市「我的投資組合」：多群組、加/刪/排序、
+    可排序報價表、盤中即時。
+
+    刻意**不做後端**：清單存在使用者瀏覽器的 localStorage，這個站是純靜態站，
+    沒有帳號系統也不該為了自選股去收集使用者資料。報價一律走
+    `TWQuote`（ui.js）那一套共用邏輯——盤中打 Worker 中繼的 MIS 逐筆、
+    收盤後改抓證交所 STOCK_DAY 官方收盤價，不要在這頁再寫第二份抓取程式。
+    所以這裡的 render 只負責產出殼，沒有任何個股資料要塞進去。"""
+    cfg = load_config()
+    path = DOCS_DIR / "watchlist.html"
+    path.write_text(_env().get_template("watchlist.html").render(
+        site_title=cfg["site"]["title"],
+        generated_at=now_tpe().strftime("%Y-%m-%d %H:%M"),
+        rel="", nav_current="watchlist",
     ), encoding="utf-8")
     return path
 

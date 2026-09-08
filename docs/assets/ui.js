@@ -200,11 +200,18 @@
                  + ymd + "&stockNo=" + code)
       .then(function (r) { return r.json(); })
       .then(function (j) {
+        // STOCK_DAY 欄位：0 日期 1 成交股數 2 成交金額 3 開 4 高 5 低 6 收 7 漲跌價差 8 筆數
         var row = (j.data || []).filter(function (x) { return x[0] === want; })[0], out = null;
         if (row) {
           var close = num(row[6]), chg = num(String(row[7]).replace(/[+X]/g, ""));
           if (close != null && chg != null && close - chg > 0) {
-            out = { close: close, pct: chg / (close - chg) * 100 };
+            out = {
+              close: close, pct: chg / (close - chg) * 100, change: chg,
+              open: num(row[3]), high: num(row[4]), low: num(row[5]),
+              // row[1] 是「股」，MIS 的 v 是「張」。全站統一用張，這裡先除以 1000，
+              // 免得自選股表格上市那幾列的數字比上櫃大一千倍。
+              vol: num(row[1]) != null ? num(row[1]) / 1000 : null
+            };
           }
         }
         dayCache[k] = out; return out;
@@ -231,44 +238,72 @@
 
   /* ── 逐筆即時（Worker 中繼 MIS）── */
   function exPrefix(ex) { return ex === "tse" ? "tse" : ex === "otc" ? "otc" : null; }
-  function pollQuotes(nodes, onStatus) {
-    // nodes：[{el, code, ex}]
-    var list = (nodes || []).filter(function (n) { return n && /^\d{4}$/.test(n.code); });
+
+  /* 只負責「打 Worker、把 MIS 欄位翻成好懂的物件」，不碰 DOM。
+   * pollQuotes（排行頁那種只要覆寫價/漲跌幅的場合）和自選股頁（要開高低量）
+   * 都走這一支，避免像之前那樣同一段抓取邏輯散在三個檔案裡各改各的。
+   * 回傳 {closed, at, quotes:{ "2330": {price, prev, pct, open, high, low, vol, time, name} }} */
+  function rawQuotes(items) {
+    var list = (items || []).filter(function (n) { return n && /^\d{4}$/.test(n.code); });
     var noEx = !list.some(function (n) { return n.ex; });
     var cap = noEx ? Math.floor(LIVE_MAX / 2) : LIVE_MAX;
-    var chans = [], byCode = {}, n = 0;
+    var chans = [], seen = {}, n = 0;
     for (var i = 0; i < list.length && n < cap; i++) {
       var it = list[i], pre = exPrefix(it.ex);
-      if (!byCode[it.code]) {
-        if (pre) chans.push(pre + "_" + it.code + ".tw");
-        else if (noEx) chans.push("tse_" + it.code + ".tw", "otc_" + it.code + ".tw");
-        else continue;                       // 有 ex 但是興櫃／未知 → MIS 查不到
-        byCode[it.code] = []; n++;
-      }
-      byCode[it.code].push(it.el);
+      if (seen[it.code]) continue;
+      if (pre) chans.push(pre + "_" + it.code + ".tw");
+      else if (noEx) chans.push("tse_" + it.code + ".tw", "otc_" + it.code + ".tw");
+      else continue;                         // 有 ex 但是興櫃／未知 → MIS 查不到
+      seen[it.code] = 1; n++;
     }
-    if (!chans.length) return Promise.resolve(0);
+    if (!chans.length) return Promise.resolve({ closed: false, at: "", quotes: {} });
     return fetch(QUOTE_PROXY + "?ex_ch=" + encodeURIComponent(chans.join("|")), { cache: "no-store" })
       .then(function (r) { return r.json(); })
       .then(function (j) {
-        if (j.closed) { if (onStatus) onStatus(0, "已收盤"); return 0; }
-        var hit = 0, at = "";
+        if (j.closed) return { closed: true, at: "", quotes: {} };
+        var out = {}, at = "";
         (j.msgArray || []).forEach(function (a) {
           var price = num(a.z);
           if (price == null || price <= 0) price = num(a.pz);   // 無成交退回參考價
           var prev = num(a.y);
           if (price == null || prev == null || prev <= 0) return;
-          var pct = (price - prev) / prev * 100;
-          (byCode[a.c] || []).forEach(function (el) {
-            write(el, price, pct, "逐筆即時 " + (a.t || ""));
-          });
+          out[a.c] = {
+            price: price, prev: prev, pct: (price - prev) / prev * 100,
+            open: num(a.o), high: num(a.h), low: num(a.l),
+            vol: num(a.v), time: a.t || "", name: a.n || ""
+          };
           if (a.t) at = a.t;
-          hit++;
         });
-        if (onStatus) onStatus(hit, hit ? ("即時 " + hit + " 檔" + (at ? " · " + at : "")) : "即時報價無回應");
-        return hit;
+        return { closed: false, at: at, quotes: out };
       })
-      .catch(function () { if (onStatus) onStatus(0, "即時報價連線失敗"); return 0; });
+      .catch(function () { return { closed: false, at: "", quotes: null }; });
+  }
+
+  function pollQuotes(nodes, onStatus) {
+    // nodes：[{el, code, ex}]
+    var list = (nodes || []).filter(function (n) { return n && /^\d{4}$/.test(n.code); });
+    if (!list.length) return Promise.resolve(0);
+    var byCode = {};
+    list.forEach(function (it) {
+      (byCode[it.code] = byCode[it.code] || []).push(it.el);
+    });
+    return rawQuotes(list).then(function (res) {
+      if (res.quotes === null) { if (onStatus) onStatus(0, "即時報價連線失敗"); return 0; }
+      if (res.closed) { if (onStatus) onStatus(0, "已收盤"); return 0; }
+      var hit = 0;
+      Object.keys(res.quotes).forEach(function (code) {
+        var q = res.quotes[code];
+        (byCode[code] || []).forEach(function (el) {
+          write(el, q.price, q.pct, "逐筆即時 " + q.time);
+        });
+        hit++;
+      });
+      if (onStatus) {
+        onStatus(hit, hit ? ("即時 " + hit + " 檔" + (res.at ? " · " + res.at : ""))
+                          : "即時報價無回應");
+      }
+      return hit;
+    });
   }
   /* getTargets 每次呼叫要回傳當下畫面上的 [{el, code, ex}]（名單會隨排行切換而變） */
   function startLive(key, getTargets, onStatus) {
@@ -322,10 +357,61 @@
       .catch(function () { idxCache = null; return null; });
   }
 
+  /* 上櫃／興櫃的盤後價：TWSE 的 STOCK_DAY 只涵蓋上市，tpex.org.tw 又完全不給
+   * CORS，所以只能讀本站盤後產的日K快照（推在 chart-data 分支）。
+   * 規則跟 stock-chart.js 一致，不要在這裡自己另訂一套：
+   *   興櫃的 K 棒收盤欄是「日均價」，看盤講的股價是當日行情表的「成交」
+   *   （snap.latest.price）——2026-09-05 拿日均價當股價顯示被抓到過。
+   * 回 {price, prev, pct, date, high, low, open, vol} 或 null。 */
+  var SNAP_CDN = "https://raw.githubusercontent.com/chen022208-cell/stock-report/"
+               + "chart-data/docs/data/tpex_hist/";
+  var snapCache = {};
+  function snapshotClose(code) {
+    if (snapCache[code] !== undefined) return Promise.resolve(snapCache[code]);
+    var local = REL + "data/tpex_hist/" + code + ".json";
+    return fetch(SNAP_CDN + code + ".json")
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .catch(function () { return null; })
+      .then(function (s) {
+        if (s && s.bars && s.bars.length) return s;
+        return fetch(local).then(function (r) { return r.ok ? r.json() : null; })
+                           .catch(function () { return null; });
+      })
+      .then(function (s) {
+        var out = null;
+        if (s && s.bars && s.bars.length) {
+          var b = s.bars[s.bars.length - 1], p = s.bars[s.bars.length - 2];
+          var g = function (bar, i, k) {
+            return bar ? (Array.isArray(bar) ? bar[i] : bar[k]) : null;
+          };
+          var close = g(b, 4, "close"), prev = g(p, 4, "close");
+          var vol = g(b, 5, "volume");
+          out = { date: g(b, 0, "date"), price: close, prev: prev,
+                  open: g(b, 1, "open"), high: g(b, 2, "high"),
+                  low: g(b, 3, "low"),
+                  vol: (vol != null) ? vol / 1000 : null,   // 快照存的是股，統一換成張
+                  pct: (prev && prev > 0 && close != null) ? (close - prev) / prev * 100 : null };
+          var q = s.latest;
+          var avgOnly = s.market === "esb" && s.source !== "yahoo";
+          if (q && q.price && (avgOnly || (q.date && q.date > out.date))) {
+            out.price = q.price; out.date = q.date || out.date;
+            out.pct = (typeof q.change_pct === "number") ? q.change_pct : out.pct;
+            out.prev = (q.price != null && typeof q.change === "number")
+                     ? q.price - q.change : out.prev;
+            if (q.high != null) out.high = q.high;
+            if (q.low != null) out.low = q.low;
+            out.open = null;                 // 興櫃是議價市場，沒有開盤價
+          }
+        }
+        snapCache[code] = out; return out;
+      });
+  }
+
   window.TWQuote = {
     ageMin: ageMin, isLive: isLive, statusLabel: statusLabel,
-    write: write, correctCloses: correctCloses,
+    write: write, correctCloses: correctCloses, snapshotClose: snapshotClose,
     startLive: startLive, stopLive: stopLive, pollQuotes: pollQuotes,
+    rawQuotes: rawQuotes, officialClose: officialClose,
     fetchIntraday: fetchIntraday, officialIndex: officialIndex, num: num,
     STALE_MIN: STALE_MIN, LIVE_MS: LIVE_MS
   };

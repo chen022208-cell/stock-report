@@ -18,12 +18,38 @@ jobs:
     steps:
       - name: 取出程式碼
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0        # 要比對 before..sha，淺 clone 會拿不到前一個 commit
+
+      # 這一步是「重複通知」的解法。以前不管哪個檔案觸發，下一步都會把四個
+      # _notify_*.json 全部重送一遍——而這些檔案送完不會被刪掉，就一直躺在 repo 裡。
+      # 於是每次「即時快訊」或「研究提交」push（一天好幾十次），昨天的盤中焦點股
+      # 快報就被原封不動再發一次（使用者在 06:37 / 07:38 收到兩份一模一樣的
+      # 2026-09-07 快報）。改成只送「這次 push 真的有改動到」的那幾個檔案。
+      - name: 找出這次 push 真正改動的通知檔
+        id: changed
+        run: |
+          BEFORE="${{ github.event.before }}"
+          FILES="docs/_notify_payload.json docs/_notify_intraday.json docs/_notify_topic.json docs/_notify_news.json"
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ] \
+             || ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            # 分支初次建立或 force push，比對基準不存在：這種情況少見，
+            # 寧可不送也不要把四份舊通知全部重播一次。
+            echo "無法比對 $BEFORE，略過本次推播"
+            echo "list=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          CHANGED=$(git diff --name-only "$BEFORE" "${{ github.sha }}" -- $FILES | tr '\n' ' ')
+          echo "本次異動的通知檔：${CHANGED:-（無）}"
+          echo "list=$CHANGED" >> "$GITHUB_OUTPUT"
 
       - name: 讀取暫存檔並送出推播
+        if: steps.changed.outputs.list != ''
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          CHANGED_FILES: ${{ steps.changed.outputs.list }}
         run: |
           python3 <<'PYEOF'
           import json, os, urllib.request
@@ -63,10 +89,15 @@ jobs:
           # 使用者點播的主題報告用 _notify_topic.json——**獨立於每日報告那個通道**：
           # 點播是使用者自己要的東西，內容直接送出，也不會被當天的例行報告蓋掉。
           # 它是「陣列」，一次跑出多篇會逐篇送出。
+          #
+          # ⚠️ 只跑上一步算出來的「這次真的有改動」的檔案。不要再遍歷四個固定檔名，
+          # 那樣會把留在 repo 裡的舊通知一再重播。
+          targets = [f for f in os.environ.get("CHANGED_FILES", "").split() if f]
           any_sent = False
-          for fname in ("docs/_notify_payload.json", "docs/_notify_intraday.json",
-                        "docs/_notify_topic.json", "docs/_notify_news.json"):
+          seen = set()          # 同一輪內若兩個檔案內容一樣，也只送一次
+          for fname in targets:
               if not os.path.exists(fname):
+                  print(f"{fname} 這次被刪除，略過")
                   continue
               payload = json.load(open(fname, encoding="utf-8"))
               for p in (payload if isinstance(payload, list) else [payload]):
@@ -76,8 +107,12 @@ jobs:
                       # 點播的 url 是那份報告本身的網址（.html 或 .pdf），不要再補斜線
                       tail = "" if url.endswith((".html", ".pdf")) else "/"
                       text += f"\n\n完整報告：{url}{tail}"
+                  if text in seen:
+                      print("內容重複，略過")
+                      continue
+                  seen.add(text)
                   send(text)
                   any_sent = True
           if not any_sent:
-              print("沒有找到通知暫存檔，略過")
+              print("這次 push 沒有新的通知內容，略過")
           PYEOF
