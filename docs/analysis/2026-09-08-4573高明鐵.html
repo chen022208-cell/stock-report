@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>個股資料 · 盤後快訊</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>高明鐵（4573）：從彰化模具廠到矽光子耦光設備商的轉型軌跡 · 盤後快訊</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 <meta name="theme-color" content="#060911">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -380,20 +380,32 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  /* 這一頁把彈窗裡那份內容攤成整頁，所以要把彈窗版面裡「因為在小框框裡」
-     才需要的限制拿掉：不要 max-width、標題可以大一點。 */
-  .sp-wrap{margin-top:8px;}
-  .sp-wrap .sc-title{font-size:26px; margin:0 0 6px;}
-  .sp-back{font-size:13px; color:var(--gold); text-decoration:none;}
-  .sp-search{display:flex; gap:8px; margin:14px 0 6px; flex-wrap:wrap;}
-  .sp-search input{flex:1; min-width:180px; background:var(--surface-2);
-                   border:1px solid var(--hairline); border-radius:var(--radius-sm);
-                   color:var(--text-primary); padding:9px 12px; font:inherit; font-size:14px;}
-  .sp-search button{background:var(--gold); color:#171615; border:0; font:inherit;
-                    font-weight:600; border-radius:var(--radius-sm); padding:9px 18px;
-                    cursor:pointer;}
-  .sp-hint{font-size:12.5px; color:var(--text-muted); margin:0 0 18px;}
-  .sp-empty{font-size:14px; color:var(--text-secondary); margin:24px 0;}
+  .tr-meta{font-size:12.5px; color:var(--text-muted); margin:8px 0 20px;}
+  .tr-badge{display:inline-block; font-size:11.5px; background:var(--surface-2);
+            border:1px solid var(--hairline); border-radius:999px; padding:2px 9px;
+            color:var(--c-theme); margin-right:8px;}
+  .tr-pdf{margin:0 0 18px;}
+  .tr-pdf a{font-size:13.5px; color:var(--gold); text-decoration:none;
+            border:1px solid var(--hairline); border-radius:999px; padding:6px 14px;}
+  .tr-pdf a:hover{border-color:var(--gold);}
+  .tr-summary{font-size:15px; line-height:1.85; color:var(--text-primary);
+              background:var(--surface); border-left:3px solid var(--gold);
+              border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:24px;}
+  .tr-sec{margin-bottom:26px;}
+  .tr-sec h2{font-size:17px; margin:0 0 10px;}
+  .tr-sec p{font-size:14.5px; line-height:1.9; color:var(--text-secondary); margin:0;}
+  .tr-stocks{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;}
+  .tr-stock{cursor:pointer; background:var(--surface); border:1px solid var(--hairline);
+            border-radius:var(--radius-sm); padding:8px 12px; font-size:13px; max-width:340px;}
+  .tr-stock:hover{border-color:var(--gold);}
+  .tr-stock b{font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
+  .tr-stock span{display:block; color:var(--text-muted); font-size:12px; margin-top:3px;}
+  .tr-risk{background:var(--surface); border-left:3px solid var(--c-warn);
+           border-radius:var(--radius-sm); padding:12px 15px; font-size:14px;
+           line-height:1.85; color:var(--text-secondary);}
+  .tr-src{font-size:12.5px; color:var(--text-muted); line-height:1.9;
+          border-top:1px solid var(--hairline); padding-top:14px; margin-top:26px;}
+  .tr-src a{color:var(--gold); word-break:break-all;}
 
 </style>
 </head>
@@ -405,55 +417,118 @@
     <button class="dr-close" id="drClose" aria-label="關閉選單">✕</button>
   </div>
   <h4>市場</h4>
-  <a href="index.html" class=""><span class="dr-ic">🏠</span>最新</a>
-  <a href="heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
-  <a href="chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
-  <a href="scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
-  <a href="picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
-  <a href="intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
-  <a href="lookup.html" class="current"><span class="dr-ic">🔍</span>個股查詢</a>
-  <a href="watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
-  <a href="disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
+  <a href="../index.html" class=""><span class="dr-ic">🏠</span>最新</a>
+  <a href="../heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
+  <a href="../chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
+  <a href="../scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
+  <a href="../picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
+  <a href="../intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
+  <a href="../lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
+  <a href="../watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
+  <a href="../disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
   <h4>研究</h4>
-  <a href="themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
-  <a href="industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
-  <a href="weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
-  <a href="monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
-  <a href="analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
-  <a href="archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
-  <a href="research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
-  <a href="submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
+  <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
+  <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
+  <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
+  <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
+  <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
+  <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
+  <a href="../research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
+  <a href="../submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
 </nav>
 
 <div class="page">
   <div class="topbar">
     <button class="menu-btn" id="menuBtn" aria-label="開啟選單">☰</button>
-    <a href="index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
-    <a href="lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
-    <a href="watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
-    <a href="intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
+    <a href="../index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
+    <a href="../lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
+    <a href="../watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
+    <a href="../intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
   </div>
 
   
 <header>
   <div class="masthead-label">盤後快訊</div>
-  <h1 class="masthead-date">個股資料</h1>
+  <h1 class="masthead-date">高明鐵（4573）：從彰化模具廠到矽光子耦光設備商的轉型軌跡</h1>
 </header>
-<p class="sp-hint">
-  技術圖＋公司基本資料＋月營收＋題材＋同產業個股。上市走 TWSE 即時資料，
-  上櫃／興櫃走本站每日盤後快照。<a class="sp-back" href="lookup.html">← 回個股查詢</a>
+<p class="tr-meta">
+  <span class="tr-badge">🎯 使用者點播主題</span>
+  2026-09-08 產出　·　原始點播：4573高明鐵
 </p>
 
-<form class="sp-search" id="spForm" autocomplete="off">
-  <input id="spInput" type="text" placeholder="輸入股票代號，例如 2330／6488／7686" aria-label="股票代號">
-  <button type="submit">查詢</button>
-</form>
 
-<div class="sp-wrap" id="spBody"></div>
+<p class="tr-pdf"><a href="2026-09-08-4573高明鐵.pdf" target="_blank" rel="noopener">📄 下載 PDF 版報告</a></p>
+
+
+<div class="tr-summary">高明鐵原是彰化的沖壓模具與自動化傳動零組件廠，2019年主要客戶華為遭斷單後轉向光通訊設備，目前核心產品是應用在800G／1.6T光模組與CPO（共同封裝光學）製程的矽光子耦光設備。2026年以來營收與訂單能見度明顯轉強，公司主動把光通訊／半導體營收占比目標拉高到七成。目前查證到的資料看不到高明鐵與人形機器人、滾珠螺桿供應鏈有實質業務關聯，該產品線是公司較早期的業務型態，不宜和現在的核心營收來源混為一談。</div>
+
+
+<section class="tr-sec">
+  <h2>沿革：模具廠 → 自動化傳動元件 → 光通訊設備</h2>
+  <p>根據數位時代（BusinessNext）的報導，高明鐵成立於1994年，起家是彰化的模具機械五金行，生產沖壓模具零件。2005年前後模具產業大量外移中國，公司轉向生產線性傳動元件（滾珠螺桿、線性滑軌、交叉滾子軸承等精密運動控制零組件），切入電子業自動化設備供應鏈。2019年公司主要客戶華為遭美國實體清單斷單，訂單出現缺口，促使公司再次轉型，這次轉向光通訊設備領域，是目前营收结构的主要来源。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>現在的核心產品：矽光子耦光設備在做什麼</h2>
+  <p>依經濟日報對高明鐵在OFC 2026（光通訊業界指標展會）攤位的報導，公司目前的主力產品是矽光子（SiPh）耦光設備，核心工程概念是「找光、對準、鎖光」三個步驟的工程化與標準化，目的是讓光通訊模組的耦光製程能夠量產化。展出項目包括六軸主動對位平台、雙LD鏡頭主動耦光對位系統（定位精度達±50奈米）、矽光晶圓級測試系統（支援O-O、O-E、E-O三種測試架構）、六軸並聯史都華平台，以及線性精度±0.05微米、旋轉精度±3微弧度的高精度堆疊式六軸平台。這些設備用於一般光模組耦光、晶圓級光學檢測、FAU（光纖陣列單元）與MLA（微透鏡陣列）精密組裝，以及NPO（近封裝光學）與CPO（共同封裝光學）的封裝測試。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>對應題材：矽光子與CPO、高速光模組（800G/1.6T）</h2>
+  <p>以上產品定位跟本站題材知識庫追蹤中的「矽光子與CPO」「高速光模組（800G/1.6T）」兩個題材直接對應——高明鐵的耦光與封裝測試設備，客戶端應用正是AI資料中心用的800G到1.6T世代高速光收發模組，以及矽光子／共同封裝光學交換器的製造與測試量產環節。這是設備／製程端的角色（幫下游模組廠把耦光與封裝良率做起來），跟模組本身或雷射晶片廠是不同環節，屬於這波AI資料中心高速傳輸升級裡相對上游、較少人談到的設備供應商角色。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>財務與訂單能見度</h2>
+  <p>依財報狗與Yahoo奇摩股市報導的月營收數字，高明鐵2026年5月營收為1億5,433萬9千元，年增207.59%；7月營收進一步放大到2億元，年增298.5%；累計前7月營收9.03億元，年增168.2%。上半年稅後淨利1.21億元，每股盈餘2.9元。董事長陳志忻在受訪時形容目前狀態是「被訂單追著跑」，訂單能見度已看到隔年第一季，預期到第二季底光通訊與半導體相關營收占比會拉高到七成。公司同時在2026年6月完成現金增資，募得約13億元資金，並規劃逾1億元資本支出擴充彰化廠產能，目標明年產能較現在倍增。股價從2023年的11.1元一路上漲到2026年4月的682元，這段漲幅本身反映的是市場對這個轉型故事的重新定價，不是公司基本面數字，讀者查詢當下股價仍應自行核對即時報價。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>跟人形機器人、滾珠螺桿題材的關係（查證後排除）</h2>
+  <p>高明鐵歷史上确实生产过滾珠螺桿、線性滑軌等精密傳動零組件（如前段沿革所述，是2005年之後、光通訊轉型之前的業務型態），但目前查到的所有近期報導（OFC 2026展出内容、月營收結構、董事長受訪內容）都指向公司現在的營收重心已高度集中在光通訊／半導體設備，沒有查到任何資料顯示這些傳動零組件業務仍是目前主要營收來源，也沒有查到高明鐵跟人形機器人供應鏈（減速機、伺服馬達等）有客戶關係或訂單往來的報導。因此本篇不把高明鐵歸入「人形機器人」「滾珠螺桿／線性滑軌」題材，避免用舊業務型態或股票代號聯想去套用現在其實已經轉型的公司。</p>
+</section>
+
+
+
+<section class="tr-sec">
+  <h2>相關個股</h2>
+  <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:8px">
+    只列出查證過、確定與本主題相關的個股。點任一檔看 K 線與公司資料。</p>
+  <div class="tr-stocks">
+    
+    <div class="tr-stock" data-stock-code="4573" data-stock-name="高明鐵">
+      <b>4573 高明鐵</b>
+      <span>矽光子耦光設備供應商，產品應用於800G/1.6T光模組與CPO共同封裝光學的量產耦光、晶圓級測試與封裝製程，對應「矽光子與CPO」「高速光模組（800G/1.6T）」題材。</span>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="tr-sec">
+  <h2>風險與觀察重點</h2>
+  <div class="tr-risk">（推論）目前營收與股價漲幅高度集中反映CPO／矽光子單一轉型故事，若下游光模組廠或資料中心資本支出成長不如預期，訂單能見度可能隨之修正；公司近兩年營收結構變動快（模具→自動化零組件→光通訊），顯示對單一大客戶或單一技術世代的依賴度可能偏高，過去2019年華為斷單已是先例。股價從11.1元漲到682元（60倍）的漲幅本身即隱含市場高度樂觀預期，查證來源均未提供本益比或評價面資訊，這部分需要讀者自行查證最新財報與同業比較，本文不做買賣建議。</div>
+</section>
+
+
+<div class="tr-src">
+  <b>查證來源</b>（本報告依站內規則，沒有外部來源就不產出）：<br>
+  <a href="https://www.bnext.com.tw/article/91936/gmt-4573-cpo-coupling-equipment" target="_blank" rel="noopener">https://www.bnext.com.tw/article/91936/gmt-4573-cpo-coupling-equipment</a>　·　
+  <a href="https://money.udn.com/money/story/5735/9391953" target="_blank" rel="noopener">https://money.udn.com/money/story/5735/9391953</a>　·　
+  <a href="https://tw.stock.yahoo.com/news/%E9%AB%98%E6%98%8E%E9%90%B5-%E8%A2%AB%E8%A8%82%E5%96%AE%E8%BF%BD%E8%91%97%E8%B7%91-%E5%85%89%E9%80%9A%E8%A8%8A%E5%8F%8A%E5%8D%8A%E5%B0%8E%E9%AB%94%E6%AF%94%E9%87%8D%E6%94%80%E8%87%B37%E6%88%90-%E4%BB%8A%E5%B9%B4%E5%8F%AF%E6%9C%9B%E8%BD%89%E7%9B%88-034549549.html" target="_blank" rel="noopener">https://tw.stock.yahoo.com/news/%E9%AB%98%E6%98%8E%E9%90%B5-%E8%A2%AB%E8%A8%82%E5%96%AE%E8%BF%BD%E8%91%97%E8%B7%91-%E5%85%89%E9%80%9A%E8%A8%8A%E5%8F%8A%E5%8D%8A%E5%B0%8E%E9%AB%94%E6%AF%94%E9%87%8D%E6%94%80%E8%87%B37%E6%88%90-%E4%BB%8A%E5%B9%B4%E5%8F%AF%E6%9C%9B%E8%BD%89%E7%9B%88-034549549.html</a>　·　
+  <a href="https://statementdog.com/analysis/4573/monthly-revenue-growth-rate" target="_blank" rel="noopener">https://statementdog.com/analysis/4573/monthly-revenue-growth-rate</a>
+  
+  <p style="margin-top:10px">本頁為系統依使用者點播主題自動整理之資訊，明確標示「（推論）」者為推論而非查證事實；
+  僅供研究參考，不構成投資建議。</p>
+</div>
+<p style="margin-top:20px; font-size:13px">
+  ← 回 <a href="index.html" style="color:var(--gold)">分析清單</a>　·
+  <a href="../submit.html" style="color:var(--gold)">再點播一個主題</a></p>
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-08 09:59</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-08 09:57</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
@@ -462,60 +537,13 @@
 
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
   }
-  window.__rel = "";
+  window.__rel = "../";
 </script>
-<script src="assets/ui.js?v=12ed3d4a"></script>
+<script src="../assets/ui.js?v=12ed3d4a"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=12ed3d4a"></script>
-
-<script>
-/* 獨立個股頁：跟彈窗共用 stock-chart.js 的 renderInto()，版面與資料完全一致，
-   差別只在這裡有自己的網址（stock.html?code=2330），可以分享、可以加書籤，
-   而不是只能從別的頁面點出一個彈窗。 */
-(function () {
-  document.body.setAttribute("data-stock-page", "1");   // 讓事件委派改成換頁而不是開彈窗
-
-  function codeFromUrl() {
-    var m = /[?&]code=([^&#]+)/.exec(location.search);
-    return m ? decodeURIComponent(m[1]).trim() : "";
-  }
-
-  function nameFor(code) {
-    return fetch("data/stock_info/" + encodeURIComponent(code) + ".json")
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (info) { return (info && info.name) || ""; })
-      .catch(function () { return ""; });
-  }
-
-  function show(code) {
-    var body = document.getElementById("spBody");
-    if (!code) {
-      body.innerHTML = '<p class="sp-empty">請在上面輸入股票代號，'
-        + '或從<a href="lookup.html" style="color:var(--gold)">個股查詢</a>挑一檔。</p>';
-      return;
-    }
-    document.getElementById("spInput").value = code;
-    nameFor(code).then(function (name) {
-      document.title = code + (name ? " " + name : "") + " · 盤後快訊";
-      window.StockChart.renderInto(body, code, name);
-    });
-  }
-
-  document.getElementById("spForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    var v = document.getElementById("spInput").value.trim();
-    if (!v) return;
-    // 用 pushState 換網址，這樣上一頁／分享連結都還是對的
-    history.pushState({}, "", "stock.html?code=" + encodeURIComponent(v));
-    show(v);
-  });
-  window.addEventListener("popstate", function () { show(codeFromUrl()); });
-
-  show(codeFromUrl());
-})();
-</script>
+<script src="../assets/stock-chart.js?v=12ed3d4a"></script>
 
 </body>
 </html>

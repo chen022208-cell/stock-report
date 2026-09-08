@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>個股資料 · 盤後快訊</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>華安醫學（6657）：以AMPK能量代謝平台切入多項罕見與慢性疾病新藥的臨床階段生技股 · 盤後快訊</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 <meta name="theme-color" content="#060911">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -380,20 +380,32 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  /* 這一頁把彈窗裡那份內容攤成整頁，所以要把彈窗版面裡「因為在小框框裡」
-     才需要的限制拿掉：不要 max-width、標題可以大一點。 */
-  .sp-wrap{margin-top:8px;}
-  .sp-wrap .sc-title{font-size:26px; margin:0 0 6px;}
-  .sp-back{font-size:13px; color:var(--gold); text-decoration:none;}
-  .sp-search{display:flex; gap:8px; margin:14px 0 6px; flex-wrap:wrap;}
-  .sp-search input{flex:1; min-width:180px; background:var(--surface-2);
-                   border:1px solid var(--hairline); border-radius:var(--radius-sm);
-                   color:var(--text-primary); padding:9px 12px; font:inherit; font-size:14px;}
-  .sp-search button{background:var(--gold); color:#171615; border:0; font:inherit;
-                    font-weight:600; border-radius:var(--radius-sm); padding:9px 18px;
-                    cursor:pointer;}
-  .sp-hint{font-size:12.5px; color:var(--text-muted); margin:0 0 18px;}
-  .sp-empty{font-size:14px; color:var(--text-secondary); margin:24px 0;}
+  .tr-meta{font-size:12.5px; color:var(--text-muted); margin:8px 0 20px;}
+  .tr-badge{display:inline-block; font-size:11.5px; background:var(--surface-2);
+            border:1px solid var(--hairline); border-radius:999px; padding:2px 9px;
+            color:var(--c-theme); margin-right:8px;}
+  .tr-pdf{margin:0 0 18px;}
+  .tr-pdf a{font-size:13.5px; color:var(--gold); text-decoration:none;
+            border:1px solid var(--hairline); border-radius:999px; padding:6px 14px;}
+  .tr-pdf a:hover{border-color:var(--gold);}
+  .tr-summary{font-size:15px; line-height:1.85; color:var(--text-primary);
+              background:var(--surface); border-left:3px solid var(--gold);
+              border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:24px;}
+  .tr-sec{margin-bottom:26px;}
+  .tr-sec h2{font-size:17px; margin:0 0 10px;}
+  .tr-sec p{font-size:14.5px; line-height:1.9; color:var(--text-secondary); margin:0;}
+  .tr-stocks{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;}
+  .tr-stock{cursor:pointer; background:var(--surface); border:1px solid var(--hairline);
+            border-radius:var(--radius-sm); padding:8px 12px; font-size:13px; max-width:340px;}
+  .tr-stock:hover{border-color:var(--gold);}
+  .tr-stock b{font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
+  .tr-stock span{display:block; color:var(--text-muted); font-size:12px; margin-top:3px;}
+  .tr-risk{background:var(--surface); border-left:3px solid var(--c-warn);
+           border-radius:var(--radius-sm); padding:12px 15px; font-size:14px;
+           line-height:1.85; color:var(--text-secondary);}
+  .tr-src{font-size:12.5px; color:var(--text-muted); line-height:1.9;
+          border-top:1px solid var(--hairline); padding-top:14px; margin-top:26px;}
+  .tr-src a{color:var(--gold); word-break:break-all;}
 
 </style>
 </head>
@@ -405,51 +417,109 @@
     <button class="dr-close" id="drClose" aria-label="關閉選單">✕</button>
   </div>
   <h4>市場</h4>
-  <a href="index.html" class=""><span class="dr-ic">🏠</span>最新</a>
-  <a href="heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
-  <a href="chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
-  <a href="scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
-  <a href="picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
-  <a href="intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
-  <a href="lookup.html" class="current"><span class="dr-ic">🔍</span>個股查詢</a>
-  <a href="watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
-  <a href="disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
+  <a href="../index.html" class=""><span class="dr-ic">🏠</span>最新</a>
+  <a href="../heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
+  <a href="../chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
+  <a href="../scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
+  <a href="../picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
+  <a href="../intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
+  <a href="../lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
+  <a href="../watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
+  <a href="../disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
   <h4>研究</h4>
-  <a href="themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
-  <a href="industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
-  <a href="weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
-  <a href="monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
-  <a href="analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
-  <a href="archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
-  <a href="research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
-  <a href="submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
+  <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
+  <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
+  <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
+  <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
+  <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
+  <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
+  <a href="../research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
+  <a href="../submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
 </nav>
 
 <div class="page">
   <div class="topbar">
     <button class="menu-btn" id="menuBtn" aria-label="開啟選單">☰</button>
-    <a href="index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
-    <a href="lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
-    <a href="watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
-    <a href="intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
+    <a href="../index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
+    <a href="../lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
+    <a href="../watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
+    <a href="../intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
   </div>
 
   
 <header>
   <div class="masthead-label">盤後快訊</div>
-  <h1 class="masthead-date">個股資料</h1>
+  <h1 class="masthead-date">華安醫學（6657）：以AMPK能量代謝平台切入多項罕見與慢性疾病新藥的臨床階段生技股</h1>
 </header>
-<p class="sp-hint">
-  技術圖＋公司基本資料＋月營收＋題材＋同產業個股。上市走 TWSE 即時資料，
-  上櫃／興櫃走本站每日盤後快照。<a class="sp-back" href="lookup.html">← 回個股查詢</a>
+<p class="tr-meta">
+  <span class="tr-badge">🎯 使用者點播主題</span>
+  2026-09-08 產出　·　原始點播：6657
 </p>
 
-<form class="sp-search" id="spForm" autocomplete="off">
-  <input id="spInput" type="text" placeholder="輸入股票代號，例如 2330／6488／7686" aria-label="股票代號">
-  <button type="submit">查詢</button>
-</form>
 
-<div class="sp-wrap" id="spBody"></div>
+<p class="tr-pdf"><a href="2026-09-08-6657.pdf" target="_blank" rel="noopener">📄 下載 PDF 版報告</a></p>
+
+
+<div class="tr-summary">華安醫學（Energenesis Biomedical）是一家專注新藥研發的生技公司，核心技術是透過活化細胞能量調節酵素AMPK的小分子化合物平台「ENERGI」，同時推進落髮、糖尿病足潰瘍、下肢靜脈潰瘍、遺傳性表皮分解性水皰症（泡泡龍）與帕金森氏症等多項臨床產品線。公司目前仍處於研發投入期，尚無實質營收，2025全年營收僅0.08億元、持續虧損。對應本站題材知識庫的「新藥研發」題材。</div>
+
+
+<section class="tr-sec">
+  <h2>公司背景與技術平台</h2>
+  <p>根據台灣公司網登記資料，華安醫學股份有限公司於2012年8月經經濟部核准設立，2015年取得經濟部生技新藥公司資格，2023年6月起在台灣證券交易所掛牌上市。公司自有的「ENERGI」藥物開發平台，是以活化細胞能量調節的關鍵酵素AMPK（AMP活化蛋白激酶）為核心機轉，透過小分子化合物提升細胞ATP能量狀態，以此為手段開發治療多種疾病的新藥候選物，這是公司多條產品線共用的技術主軸，而不是每個產品線各自獨立的機轉。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>產品管線：從落髮、慢性傷口到罕見疾病</h2>
+  <p>公司目前公開揭露的臨床產品線橫跨多個適應症。ENERGI-F701鎖定落髮／生髮，已於2020年3月完成美國與台灣的二期臨床試驗，規劃申請三期臨床。ENERGI-F703DFU針對糖尿病足潰瘍，公司規劃啟動歐洲三期臨床試驗，作為後續在美國、歐洲申請藥證的全球法規策略基礎。ENERGI-F703VLU是治療下肢靜脈潰瘍的凝膠劑型，已被納入與歐洲夥伴的授權合作範圍——GeneOnline的報導提到華安與瑞士的Medvisis簽署合作，計畫以瑞士為據點拓展歐洲市場。ENERGI-F705PD是治療帕金森氏症的口服新藥，已完成一期臨床24名受試者收案，初步數據原規劃於當年第三季公布。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>泡泡龍新藥：兩項孤兒藥認證是目前管線中較明確的差異化資產</h2>
+  <p>產品線中進度與法規認證最具體的是ENERGI-F703EB，一款治療遺傳性表皮分解性水皰症（俗稱「泡泡龍」）的外用乳膏。這是一種現行治療仍以症狀控制為主、基因療法費用高昂的罕見遺傳性皮膚病。華安醫學已取得美國FDA孤兒藥認證（ODD）、美國FDA兒科罕見疾病認證（RPD，2023年1月核准）以及歐盟EMA孤兒藥認證（ODD），衛生福利部也已同意公司在台執行人體二期臨床試驗。孤兒藥與罕見兒科疾病認證通常伴隨市場獨占期與審查加速等法規誘因，是這條管線目前相對可查證、具體的進度指標；市場端有報導引用泡泡龍疾病的全球市場規模估計為24億美元，這個數字屬於產業推估，並非公司自身財測，讀者應區分「疾病市場總量」與「公司實際能拿到的營收」是兩回事。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>財務現況：仍是研發投入期、無實質營收</h2>
+  <p>公司財務數字反映其仍處在臨床前期到早期臨床階段、尚未有藥物上市貢獻營收的階段：2025年全年營收僅0.08億元，2026年上半年累計營收0.03億元，2026年7月單月營收約61.4萬元，規模極小，推測主要來自檢測分析服務及試劑銷售等非新藥本業的零星收入，而非藥物銷售。獲利方面，2025全年每股盈餘為負2.92元，2026年第二季單季每股盈餘為負1.57元，顯示公司目前仍以虧損支應臨床試驗與研發支出，這是臨床階段生技股常見的財務型態，本身不構成利多或利空判斷，需要對照公司現金水位與後續增資、授權收入等資訊才能完整評估。</p>
+</section>
+
+
+
+<section class="tr-sec">
+  <h2>相關個股</h2>
+  <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:8px">
+    只列出查證過、確定與本主題相關的個股。點任一檔看 K 線與公司資料。</p>
+  <div class="tr-stocks">
+    
+    <div class="tr-stock" data-stock-code="6657" data-stock-name="華安">
+      <b>6657 華安</b>
+      <span>生技新藥公司，以AMPK能量代謝平台「ENERGI」開發多項適應症新藥（落髮、糖尿病足潰瘍、下肢靜脈潰瘍、泡泡龍、帕金森氏症），對應「新藥研發」題材；目前仍處臨床階段、無實質營收。</span>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="tr-sec">
+  <h2>風險與觀察重點</h2>
+  <div class="tr-risk">公司目前無實質營收，財務表現完全取決於研發進度與未來授權/藥證進展，屬於典型臨床階段生技股的高不確定性型態——任一條管線的臨床試驗結果不如預期，都可能對股價造成大幅影響，這是查證到的公開資訊本身就隱含的風險，非本文推論。（推論）多條產品線同時推進，可能分散公司財務與人力資源，實際資源分配優先順序、各管線確切時間表，仍需以公司法說會或重大訊息公告為準；本文查證到的臨床階段描述多來自新聞報導與公司網站，部分時間點（如F705PD一期數據公布時程）可能已隨時間更新，建議讀者查詢公司最新重大訊息或法說會資料以取得即時進度，本文不做投資建議。</div>
+</section>
+
+
+<div class="tr-src">
+  <b>查證來源</b>（本報告依站內規則，沒有外部來源就不產出）：<br>
+  <a href="https://www.cnyes.com/twstock/6657/company/profile" target="_blank" rel="noopener">https://www.cnyes.com/twstock/6657/company/profile</a>　·　
+  <a href="https://geneonline.news/energenesis-biomedical-partners-with-medvisis-aiming-to-expand-into-the-european-market-from-switzerland/" target="_blank" rel="noopener">https://geneonline.news/energenesis-biomedical-partners-with-medvisis-aiming-to-expand-into-the-european-market-from-switzerland/</a>　·　
+  <a href="https://www.biotech-edu.com/energenesis-oral-new-drugs-clinical/" target="_blank" rel="noopener">https://www.biotech-edu.com/energenesis-oral-new-drugs-clinical/</a>　·　
+  <a href="https://www.twincn.com/item.aspx?no=53726093" target="_blank" rel="noopener">https://www.twincn.com/item.aspx?no=53726093</a>
+  
+  <p style="margin-top:10px">本頁為系統依使用者點播主題自動整理之資訊，明確標示「（推論）」者為推論而非查證事實；
+  僅供研究參考，不構成投資建議。</p>
+</div>
+<p style="margin-top:20px; font-size:13px">
+  ← 回 <a href="index.html" style="color:var(--gold)">分析清單</a>　·
+  <a href="../submit.html" style="color:var(--gold)">再點播一個主題</a></p>
 
 
   <footer class="site-footer">
@@ -462,60 +532,13 @@
 
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
   }
-  window.__rel = "";
+  window.__rel = "../";
 </script>
-<script src="assets/ui.js?v=12ed3d4a"></script>
+<script src="../assets/ui.js?v=12ed3d4a"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=12ed3d4a"></script>
-
-<script>
-/* 獨立個股頁：跟彈窗共用 stock-chart.js 的 renderInto()，版面與資料完全一致，
-   差別只在這裡有自己的網址（stock.html?code=2330），可以分享、可以加書籤，
-   而不是只能從別的頁面點出一個彈窗。 */
-(function () {
-  document.body.setAttribute("data-stock-page", "1");   // 讓事件委派改成換頁而不是開彈窗
-
-  function codeFromUrl() {
-    var m = /[?&]code=([^&#]+)/.exec(location.search);
-    return m ? decodeURIComponent(m[1]).trim() : "";
-  }
-
-  function nameFor(code) {
-    return fetch("data/stock_info/" + encodeURIComponent(code) + ".json")
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (info) { return (info && info.name) || ""; })
-      .catch(function () { return ""; });
-  }
-
-  function show(code) {
-    var body = document.getElementById("spBody");
-    if (!code) {
-      body.innerHTML = '<p class="sp-empty">請在上面輸入股票代號，'
-        + '或從<a href="lookup.html" style="color:var(--gold)">個股查詢</a>挑一檔。</p>';
-      return;
-    }
-    document.getElementById("spInput").value = code;
-    nameFor(code).then(function (name) {
-      document.title = code + (name ? " " + name : "") + " · 盤後快訊";
-      window.StockChart.renderInto(body, code, name);
-    });
-  }
-
-  document.getElementById("spForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    var v = document.getElementById("spInput").value.trim();
-    if (!v) return;
-    // 用 pushState 換網址，這樣上一頁／分享連結都還是對的
-    history.pushState({}, "", "stock.html?code=" + encodeURIComponent(v));
-    show(v);
-  });
-  window.addEventListener("popstate", function () { show(codeFromUrl()); });
-
-  show(codeFromUrl());
-})();
-</script>
+<script src="../assets/stock-chart.js?v=12ed3d4a"></script>
 
 </body>
 </html>
