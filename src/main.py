@@ -19,6 +19,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 import traceback
 from datetime import date, timedelta
 from pathlib import Path
@@ -1560,6 +1561,12 @@ def _gh_topic_issue_list() -> list[dict]:
 
 
 TOPIC_PREFIX = "[主題點播]"
+
+# Google「發布到網路」CSV 的重新產生延遲。秒觸發時常常還讀不到剛送出的那一筆，
+# 這支又沒有 cron 會補，所以列數沒增加時要多等幾次。
+# 4 次嘗試 × 40 秒＝最多多等 2 分鐘；讀到新資料就立刻停止等待。
+_FORM_LAG_RETRIES = 4
+_FORM_LAG_WAIT_SEC = 40
 TOPIC_NOTIFY_PATH = "docs/_notify_topic.json"
 
 # 使用者提交頁是公開的，什麼都可能被貼進來（廣告、閒聊、其他領域的問題、想操縱
@@ -2079,12 +2086,29 @@ def run_research_intake() -> None:
     if csv_url:
         # 讀不到（網路被擋、Google 掛掉）跟「沒有新提交」是完全不同的兩件事，
         # 不能都當成空清單靜靜跳過——見 FormFetchError 的說明。
-        try:
-            rows = google_sheet.fetch_form_responses(csv_url)
-        except google_sheet.FormFetchError as exc:
-            rows = []
-            source_errors.append(f"Google 表單：{exc}")
         last_count = int(db.get_state("research_form_row_count", "0"))
+        # ⚠️ Google 的「發布到網路」CSV 是一份**自己排程重新產生的快照**，
+        # 跟 HTTP 快取標頭無關——破快取破不了它，因為來源本身還沒重新產生。
+        # 表單送出後用 API trigger 秒觸發這支 Routine，往往會讀到「還沒有那一筆」
+        # 的版本，於是判定沒有新提交、安靜結束，使用者看到的就是「我發了但他沒做」。
+        # 2026-09-08 實測：02:07:24 那輪回報「目前沒有待處理的使用者研究提交」，
+        # 但同一筆 6916 在約一分鐘後就讀得到了。
+        # 這支沒有 cron（使用者要求只靠即時觸發），沒有下一輪會補，所以這裡要等。
+        # 只有「列數沒有增加」才重試；一旦讀到新資料就立刻往下走，不浪費時間。
+        rows: list[dict] = []
+        for attempt in range(_FORM_LAG_RETRIES):
+            try:
+                rows = google_sheet.fetch_form_responses(csv_url)
+            except google_sheet.FormFetchError as exc:
+                rows = []
+                source_errors.append(f"Google 表單：{exc}")
+                break                       # 讀不到是另一回事，不要用重試蓋掉
+            if len(rows) > last_count or attempt == _FORM_LAG_RETRIES - 1:
+                break
+            print(f"[research] 表單目前 {len(rows)} 列、已處理 {last_count} 列，"
+                  f"可能是發布快照還沒更新，{_FORM_LAG_WAIT_SEC} 秒後重讀"
+                  f"（第 {attempt + 1}/{_FORM_LAG_RETRIES - 1} 次）")
+            time.sleep(_FORM_LAG_WAIT_SEC)
         new_rows = rows[last_count:]
         for row in new_rows:
             title = (row.get("title") or "").strip()
