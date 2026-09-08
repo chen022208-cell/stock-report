@@ -269,7 +269,11 @@
     // 真正的判斷是「這份資料有多舊」：超過 5 分鐘就不是即時值了，
     // 這時 STOCK_DAY 的當日官方收盤才是對的。
     if (!Q) return;
-    if (reallyLive) {
+    // 只要台北時鐘說現在是盤中就開逐筆輪詢，不管這份快照新不新鮮。
+    // 後端迴圈（GitHub Actions）沒被觸發時 reallyLive 會一直是 false，
+    // 以前就直接停掉即時、改拿昨天的收盤價校正，市場開著畫面卻卡在昨天
+    // （2026-09-08 開盤實際發生）。逐筆走的是公開 Worker，不需要等後端。
+    if (reallyLive || Q.marketOpenNow()) {
       Q.startLive("intraday", ivTargets, setLiveBadge);          // 每 3 秒逐筆即時
     } else if (st !== "pre_open") {
       Q.stopLive("intraday");

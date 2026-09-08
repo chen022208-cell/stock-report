@@ -142,11 +142,35 @@
   function isLive(d) {
     return !!d && d.market_status === "open" && ageMin(d.as_of) <= STALE_MIN;
   }
+
+  /* 「現在是不是盤中」——用台北時鐘判斷，不看任何檔案。
+   *
+   * 為什麼需要這支：isLive() 問的是「這份 intraday.json 新不新鮮」，那是在問
+   * **後端迴圈還活著嗎**。2026-09-08 開盤後 cron 沒觸發、intraday-data 從前一天
+   * 13:29 就沒再更新，於是 isLive() 永遠 false，前端跟著停掉即時輪詢、改拿昨天
+   * 的收盤價校正——市場明明開著，畫面卻卡在昨天。後端掛掉不該讓前端一起癱瘓：
+   * 逐筆報價走的是公開的 Worker 中繼，前端本來就不需要等後端。
+   *
+   * 國定假日這支會誤判成開盤，但沒關係——真正的確認是 MIS 回不回得出報價，
+   * 假日 rawQuotes 會回 closed／空，呼叫端自然退回收盤模式。 */
+  function marketOpenNow() {
+    var d = new Date(Date.now() + 8 * 3600 * 1000);      // 轉成台北時間
+    var dow = d.getUTCDay();
+    if (dow === 0 || dow === 6) return false;
+    var mins = d.getUTCHours() * 60 + d.getUTCMinutes();
+    return mins >= 9 * 60 && mins <= 13 * 60 + 35;       // 09:00–13:35（收盤競價留緩衝）
+  }
   function statusLabel(d) {
     var base = { open: "盤中", pre_open: "開盤前", closing: "尾盤", closed: "已收盤" };
     if (!d) return "";
     if (isLive(d)) return base[d.market_status] || d.market_status;
     var a = ageMin(d.as_of);
+    // 盤中但快照過期＝後端迴圈沒在推，價格改由逐筆直連補上。要講清楚，
+    // 不能顯示「已收盤」——市場開著卻寫已收盤是最容易誤導人的一種說法。
+    if (marketOpenNow()) {
+      return "盤中（後端快照停更 " + (isFinite(a) ? Math.round(a) + " 分鐘" : "") +
+             "，價格為逐筆直連）";
+    }
     if (d.market_status === "open" && isFinite(a)) {
       return "已收盤（資料 " + Math.round(a) + " 分鐘前）";
     }
@@ -409,6 +433,7 @@
 
   window.TWQuote = {
     ageMin: ageMin, isLive: isLive, statusLabel: statusLabel,
+    marketOpenNow: marketOpenNow,
     write: write, correctCloses: correctCloses, snapshotClose: snapshotClose,
     startLive: startLive, stopLive: stopLive, pollQuotes: pollQuotes,
     rawQuotes: rawQuotes, officialClose: officialClose,
@@ -455,20 +480,62 @@
     });
   }
 
+  /* 盤中大盤指數：MIS 的 tse_t00.tw 就是「發行量加權股價指數」，跟個股走同一個
+     Worker 中繼（實測 09:17 回 47212.55／昨收 47326.27）。後端迴圈沒在推
+     intraday.json 時，首頁靠這支拿到即時指數，而不是退回 FMTQIK 的
+     「上一個交易日收盤」——市場開著卻顯示昨天的收盤是會誤導人的。 */
+  function liveIndex() {
+    return fetch(QUOTE_PROXY + "?ex_ch=" + encodeURIComponent("tse_t00.tw"),
+                 { cache: "no-store" })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        var a = (j.msgArray || [])[0];
+        if (!a) return null;
+        var v = num(a.z), prev = num(a.y);
+        if (v == null || v <= 0) v = num(a.pz);
+        if (v == null || prev == null || prev <= 0) return null;
+        return { value: v, prev: prev, change: v - prev,
+                 pct: (v - prev) / prev * 100, time: a.t || "" };
+      })
+      .catch(function () { return null; });
+  }
+
   function paintLive(d) {
-    if (!d || !d.taiex) return;
     // ⚠️ 用 isLive() 而不是 d.market_status——收盤後那個欄位永遠是 "open"，
     // 直接信它會把凍住的 13:29 指數一直當成現在的盤中值在畫。
     var live = isLive(d);
-    doc.body.classList.toggle("mkt-live", live);
-    if (!live) { patchStaleIndex(); return; }
-    var t = d.taiex;
-    var pts = (t.value != null && t.prev_close != null) ? (t.value - t.prev_close) : null;
-    paintIndexNums(t.value, t.change_pct, pts, "盤中 " + (t.trade_time || d.as_of || ""));
+    if (live && d && d.taiex) {
+      doc.body.classList.add("mkt-live");
+      var t = d.taiex;
+      var pts = (t.value != null && t.prev_close != null) ? (t.value - t.prev_close) : null;
+      paintIndexNums(t.value, t.change_pct, pts, "盤中 " + (t.trade_time || d.as_of || ""));
+      return;
+    }
+    doc.body.classList.remove("mkt-live");
+    // 快照不新鮮，但時鐘說現在是盤中 → 直接跟 MIS 要即時指數。
+    // 這條路不依賴後端迴圈，intraday.json 整份抓不到（d 是 null）也照樣能畫。
+    if (marketOpenNow()) {
+      liveIndex().then(function (o) {
+        if (!o) { patchStaleIndex(); return; }
+        doc.body.classList.add("mkt-live");
+        paintIndexNums(o.value, o.pct, o.change, "盤中 " + o.time);
+        var note = doc.querySelector('[data-live="note"]');
+        if (note) {
+          note.textContent = "指數為證交所盤中逐筆即時（" + o.time
+            + "）；同卡片其他數字仍是最近一份盤後報告的值。";
+        }
+      });
+      return;
+    }
+    patchStaleIndex();
   }
   if (doc.querySelector("[data-live]")) {
-    var pull = function () { fetchIntraday().then(paintLive).catch(function () {}); };
+    // intraday.json 抓不到時也要走 paintLive(null)，盤中才有指數可畫
+    var pull = function () {
+      fetchIntraday().then(paintLive).catch(function () { paintLive(null); });
+    };
     pull();
-    setInterval(pull, 40000);
+    // 盤中 10 秒、其餘 40 秒。指數只有一個 channel，成本很低。
+    setInterval(pull, marketOpenNow() ? 10000 : 40000);
   }
 })();

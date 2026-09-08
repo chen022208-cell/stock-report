@@ -996,9 +996,19 @@ def run_evening() -> None:
         拖到 8 分鐘以上的主因。快取每天靠 save_quotes() 多長一天，即時抓的檔數
         會隨快取累積而遞減。
         """
+        # 「快取夠不夠」要看是誰在問，不能用一個固定門檻。
+        # 量能倍數（scan_strong_stocks，days=25）只需要 ~21 天；
+        # 起漲點雷達（scan_breakout_candidates，days=90）要 65 天以上才算得出
+        # 月線／季線與 20 日均量。
+        # 以前一律拿 11 當門檻，於是：強勢股掃描先跑 → fetch_stock_history(code, 25)
+        # 截斷成 25 筆寫進快取 → 之後起漲點雷達要 90 天時，25 >= 11 成立、直接回那
+        # 25 筆 → detect_fresh_breakout 需要 65 筆 → 永遠回「歷史資料不足」。
+        # 「起漲點雷達 0 檔」每天都是 0 就是這樣來的（2026-09-07 實測：27 檔預篩
+        # 候選裡有 16 檔卡在這個死區，快取剛好都是 25 筆）。
         if not DRY_RUN:
+            need = 11 if days <= 30 else 65
             cached = prices_db.get_history(code, today, limit=days)
-            if len(cached) >= 11:
+            if len(cached) >= need:
                 return cached
         hist = twse.fetch_stock_history(code, days)
         if hist and not DRY_RUN:

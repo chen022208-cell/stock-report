@@ -108,7 +108,8 @@
     if (note) note.textContent = "";
     if (!Q) return;
 
-    if (live) {
+    // 同 intraday.html：盤中與否以台北時鐘為準，後端快照停更不該讓即時一起停。
+    if (live || Q.marketOpenNow()) {
       Q.startLive("strip", targets, setLive);
     } else {
       Q.stopLive("strip");
