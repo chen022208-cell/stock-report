@@ -263,6 +263,13 @@
   /* ── 逐筆即時（Worker 中繼 MIS）── */
   function exPrefix(ex) { return ex === "tse" ? "tse" : ex === "otc" ? "otc" : null; }
 
+  /* MIS 的五檔是底線串起來的字串："190.0000_189.5000_189.0000_..."，取第一檔 */
+  function bestQuote(s) {
+    var first = String(s == null ? "" : s).split("_")[0];
+    var v = num(first);
+    return (v != null && v > 0) ? v : null;
+  }
+
   /* 只負責「打 Worker、把 MIS 欄位翻成好懂的物件」，不碰 DOM。
    * pollQuotes（排行頁那種只要覆寫價/漲跌幅的場合）和自選股頁（要開高低量）
    * 都走這一支，避免像之前那樣同一段抓取邏輯散在三個檔案裡各改各的。
@@ -287,14 +294,26 @@
         if (j.closed) return { closed: true, at: "", quotes: {} };
         var out = {}, at = "";
         (j.msgArray || []).forEach(function (a) {
-          var price = num(a.z);
-          if (price == null || price <= 0) price = num(a.pz);   // 無成交退回參考價
+          var price = num(a.z), src = "成交";
+          if (price == null || price <= 0) {
+            price = num(a.pz); src = "前一筆成交";       // 無成交退回參考價
+          }
+          if (price == null || price <= 0) {
+            // MIS 的快照常常 z 與 pz **都是 "-"**（實測 09:38 連 2330 都是），
+            // 但委買 b／委賣 a 五檔一直都在。以前這種情況直接 return，那一檔就
+            // 整列空白——使用者看到 2344 華邦電、6770 力積電從頭到尾都是「—」
+            // 就是這樣。改成取最佳買賣中價當現價，並標明來源不是成交價。
+            var bid = bestQuote(a.b), ask = bestQuote(a.a);
+            if (bid != null && ask != null) { price = (bid + ask) / 2; src = "買賣中價"; }
+            else if (bid != null) { price = bid; src = "最佳委買"; }
+            else if (ask != null) { price = ask; src = "最佳委賣"; }
+          }
           var prev = num(a.y);
           if (price == null || prev == null || prev <= 0) return;
           out[a.c] = {
             price: price, prev: prev, pct: (price - prev) / prev * 100,
             open: num(a.o), high: num(a.h), low: num(a.l),
-            vol: num(a.v), time: a.t || "", name: a.n || ""
+            vol: num(a.v), time: a.t || "", name: a.n || "", src: src
           };
           if (a.t) at = a.t;
         });
@@ -318,7 +337,7 @@
       Object.keys(res.quotes).forEach(function (code) {
         var q = res.quotes[code];
         (byCode[code] || []).forEach(function (el) {
-          write(el, q.price, q.pct, "逐筆即時 " + q.time);
+          write(el, q.price, q.pct, "逐筆即時 " + q.time + "（" + (q.src || "成交") + "）");
         });
         hit++;
       });

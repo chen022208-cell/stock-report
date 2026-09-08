@@ -342,7 +342,10 @@
         live = true;
         Object.keys(res.quotes).forEach(function (c) {
           quotes[c] = res.quotes[c];
-          quotes[c].why = "逐筆即時 " + res.quotes[c].time;
+          // 標明這個價是成交、前一筆成交、還是買賣中價——MIS 常常整個快照
+          // 都沒有成交價，那時顯示的是五檔推出來的參考價，不該講成成交價。
+          quotes[c].why = "逐筆即時 " + res.quotes[c].time
+                        + "（" + (res.quotes[c].src || "成交") + "）";
         });
         setStatus("盤中即時" + (res.at ? " · " + res.at : "") + "（每 3 秒更新）", true);
         paintRows();
