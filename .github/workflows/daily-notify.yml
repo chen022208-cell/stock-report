@@ -8,6 +8,15 @@ on:
       - 'docs/_notify_intraday.json'
       - 'docs/_notify_topic.json'
       - 'docs/_notify_news.json'
+  # 手動重送：推播沒收到時（密鑰失效、Discord 當下擋掉、或那次 push 判斷有誤）
+  # 需要一個不必先改檔案就能重發的入口。改檔案才能重發的話，內容一樣時
+  # git 根本沒有 diff，新的「只送有異動的檔案」邏輯會判定沒東西可送。
+  workflow_dispatch:
+    inputs:
+      files:
+        description: '要重送哪幾份（空白＝四份都送，可用空白分隔多個）'
+        required: false
+        default: 'docs/_notify_topic.json'
 
 permissions:
   contents: read
@@ -31,6 +40,14 @@ jobs:
         run: |
           BEFORE="${{ github.event.before }}"
           FILES="docs/_notify_payload.json docs/_notify_intraday.json docs/_notify_topic.json docs/_notify_news.json"
+          # 手動重送：直接用輸入指定的檔案，不做 diff（重送的前提就是內容沒變）
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            PICK="${{ github.event.inputs.files }}"
+            [ -z "$PICK" ] && PICK="$FILES"
+            echo "手動重送：$PICK"
+            echo "list=$PICK" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ] \
              || ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
             # 分支初次建立或 force push，比對基準不存在：這種情況少見，
@@ -54,16 +71,29 @@ jobs:
           python3 <<'PYEOF'
           import json, os, urllib.request
 
+          # ⚠️ 這裡以前有一個看不見的失敗模式：DISCORD_WEBHOOK_URL 沒設定或失效時，
+          # `if webhook:` 直接跳過、連一行紀錄都不留，workflow 照樣顯示 success。
+          # 於是「使用者沒收到推播」跟「根本沒送」在外面完全分不出來
+          # （2026-09-08 查了半天無從判斷）。現在一律記錄結果，並在最後
+          # 「一則都沒送成功」時讓這一步真的失敗。
+          ok_count = 0
+          fail_count = 0
+
           def send(text):
+              global ok_count, fail_count
+              sent_any = False
               webhook = os.environ.get("DISCORD_WEBHOOK_URL")
-              if webhook:
+              if not webhook:
+                  print("⚠ 未設定 DISCORD_WEBHOOK_URL，Discord 這條沒有送出")
+              else:
                   try:
                       req = urllib.request.Request(
                           webhook, data=json.dumps({"content": text[:2000]}).encode("utf-8"),
                           headers={"Content-Type": "application/json",
                                    "User-Agent": "Mozilla/5.0 (compatible; stock-report-notify/1.0)"})
-                      urllib.request.urlopen(req, timeout=30)
-                      print("Discord 推播成功")
+                      resp = urllib.request.urlopen(req, timeout=30)
+                      print(f"Discord 推播成功（HTTP {resp.status}）")
+                      sent_any = True
                   except Exception as exc:
                       detail = ""
                       if hasattr(exc, "read"):
@@ -71,7 +101,7 @@ jobs:
                               detail = "｜" + exc.read().decode("utf-8", "replace")[:300]
                           except Exception:
                               pass
-                      print(f"Discord 推播失敗（不影響 workflow 結果）：{exc}{detail}")
+                      print(f"Discord 推播失敗：{exc}{detail}")
               bot_token = os.environ.get("TELEGRAM_BOT_TOKEN")
               chat_id = os.environ.get("TELEGRAM_CHAT_ID")
               if bot_token and chat_id:
@@ -82,8 +112,13 @@ jobs:
                           headers={"Content-Type": "application/json"})
                       urllib.request.urlopen(req, timeout=30)
                       print("Telegram 推播成功")
+                      sent_any = True
                   except Exception as exc:
-                      print(f"Telegram 推播失敗（不影響 workflow 結果）：{exc}")
+                      print(f"Telegram 推播失敗：{exc}")
+              if sent_any:
+                  ok_count += 1
+              else:
+                  fail_count += 1
 
           # 每日報告用 _notify_payload.json；盤中焦點股快報用 _notify_intraday.json；
           # 使用者點播的主題報告用 _notify_topic.json——**獨立於每日報告那個通道**：
@@ -115,4 +150,10 @@ jobs:
                   any_sent = True
           if not any_sent:
               print("這次 push 沒有新的通知內容，略過")
+          print(f"=== 送出結果：成功 {ok_count} 則、失敗 {fail_count} 則 ===")
+          # 有內容要送、卻一則都沒送成功 → 讓這一步真的失敗。
+          # 「使用者沒收到」不該再是一件從外面看不出來的事。
+          if any_sent and ok_count == 0:
+              raise SystemExit("有通知要送，但沒有任何一個管道送成功——"
+                               "檢查 DISCORD_WEBHOOK_URL 這個 repo secret 是否還有效")
           PYEOF
