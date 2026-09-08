@@ -27,10 +27,32 @@ API_URL = "https://api.anthropic.com/v1/messages"
 # 不需要另外複製一份 prompt 邏輯給 agent，agent 收到的 system/user 跟真的打 API 時完全一樣。
 AGENT_QUEUE_DIR = Path("agent_llm_queue")
 AGENT_POLL_SECONDS = 3
-AGENT_TIMEOUT_SECONDS = 20 * 60
+AGENT_TIMEOUT_SECONDS = int(os.environ.get("LLM_AGENT_TIMEOUT", 20 * 60))
+
+# ⚠️ 熔斷。這裡踩過一個很貴的坑（2026-09-07 盤後）：
+# 雲端 CCR session 是「一邊跑 Python、一邊自己扮演 LLM 服務 agent_llm_queue/」。
+# session 的 Monitor 一逾時、它就不再回覆佇列，但 Python 這端還活著。
+# run_evening 有七、八個 LLM 呼叫點（題材聚類、新聞分類、個股深度分析、評論，
+# 再加上每個題材一篇深度報告），**每一個都各自等滿 20 分鐘**才被 _safe() 接住，
+# 下一個再等 20 分鐘……累加起來好幾個小時都跑不完，那天的盤後就是這樣
+# 從 20:04 idle 到天亮，熱力圖與評分停在 09-04。
+# 一旦確定 agent 不回應了，後面每一個呼叫都要立刻失敗，讓 _safe() 直接降級——
+# 熱力圖／評分／籌碼全是規則計算，沒有 LLM 照樣產得出當天的資料（已實測）。
+_agent_down_reason: str | None = None
+
+
+def reset_agent_circuit() -> None:
+    """測試或長駐流程要重試 agent 時呼叫。正常一輪跑完就結束，不需要用到。"""
+    global _agent_down_reason
+    _agent_down_reason = None
 
 
 def _call_via_agent_queue(system: str, user: str, max_tokens: int | None) -> str:
+    global _agent_down_reason
+    if _agent_down_reason:
+        raise RuntimeError(f"agent 佇列已停止回應（{_agent_down_reason}），"
+                           "本輪後續 LLM 呼叫一律跳過")
+
     AGENT_QUEUE_DIR.mkdir(exist_ok=True)
     req_id = uuid.uuid4().hex
     req_path = AGENT_QUEUE_DIR / f"{req_id}.request.json"
@@ -47,7 +69,12 @@ def _call_via_agent_queue(system: str, user: str, max_tokens: int | None) -> str
         time.sleep(AGENT_POLL_SECONDS)
         waited += AGENT_POLL_SECONDS
         if waited >= AGENT_TIMEOUT_SECONDS:
+            _agent_down_reason = f"等待 {AGENT_TIMEOUT_SECONDS // 60} 分鐘未獲回覆"
             req_path.unlink(missing_ok=True)
+            # 不要在這裡放 emoji：Windows 主控台是 cp950，print 會丟
+            # UnicodeEncodeError 把原本要拋的 TimeoutError 換掉，錯誤訊息就失真了。
+            print("[agent-queue] agent 逾時未回覆，本輪剩下的 LLM 步驟全部跳過，"
+                  f"改用規則計算的部分產出報告：{req_path}", flush=True)
             raise TimeoutError(f"agent 逾時未回覆：{req_path}")
 
     text = resp_path.read_text(encoding="utf-8")
