@@ -1787,7 +1787,13 @@ def _make_topic_report(topic_title: str, detail: str, source_desc: str,
     # 「金居 金居」，既不是任何已知公司名稱的精準命中、也不是任何公司名稱的
     # 前綴，會被誤判成非投資相關（2026-09-07 實際踩到，金居 8358、仁新 6696
     # 兩筆點播都被這樣擋下）。
-    if gate and not (_looks_investment_related(topic) or _looks_investment_related(detail or "")):
+    # 對得到申報基本資料＝這就是一家真實的上市櫃公司，本身即為投資相關，
+    # 不必再過關鍵字粗篩——粗篩比對的是「已知公司名稱」清單，碰到
+    # 「捷立康 深度報告」這種帶後綴的寫法會整串比不中而誤擋
+    # （2026-09-08 實際踩到：使用者點播後只得到「查不到足夠的外部來源」，
+    # 但 7686 捷立康生物科技明明就在 company_profile 裡）。
+    if gate and not company and not (
+            _looks_investment_related(topic) or _looks_investment_related(detail or "")):
         print(f"[topic] {topic[:20]}：非投資相關，關鍵字粗篩擋下，不處理")
         return None
 
