@@ -1,6 +1,48 @@
 {
   "date_label": "2026年9月7日．週一",
-  "breakout": [],
+  "breakout": [
+    {
+      "is_breakout": true,
+      "reason": "今天剛站上月線、季線，量能達 20 日均量 2.86 倍",
+      "volume_ratio": 2.86,
+      "crossed": [
+        {
+          "period": 20,
+          "label": "月線",
+          "days_ago": 0
+        },
+        {
+          "period": 60,
+          "label": "季線",
+          "days_ago": 0
+        }
+      ],
+      "days_ago": 0,
+      "already_extended": false,
+      "code": "2436",
+      "name": "偉詮電",
+      "close": 71.7,
+      "change_pct": 9.97
+    },
+    {
+      "is_breakout": true,
+      "reason": "1 天前站上季線，量能達 20 日均量 2.94 倍",
+      "volume_ratio": 2.94,
+      "crossed": [
+        {
+          "period": 60,
+          "label": "季線",
+          "days_ago": 1
+        }
+      ],
+      "days_ago": 1,
+      "already_extended": false,
+      "code": "2409",
+      "name": "友達",
+      "close": 28.7,
+      "change_pct": 7.09
+    }
+  ],
   "new_listings": [
     {
       "code": "3718",

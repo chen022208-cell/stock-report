@@ -230,9 +230,26 @@ def _esb_quotes(codes: set[str]) -> dict[str, dict]:
       這是 TPEx 自己行情表的定義，照用並在前端標明，不要偷換成收盤價。
     - 成交量單位是股，÷1000 換成張。
     """
+    # ⚠️ TPEx 的興櫃「當日行情表」是**盤後才發布的日表，沒有盤中值**。
+    # 2026-09-08 09:32 實測：343 檔全部 date=2026-09-07。以前不檢查日期就照收，
+    # 於是每天開盤後整份昨天的興櫃行情被當成即時報價灌進盤中排行——
+    # A 級 34 檔裡有 27 檔是興櫃，全部用昨天的漲跌幅排序（7686 掛著 +43.23%
+    # 就是 09-07 的數字），使用者一眼看出「這些都是舊資料」。
+    # 興櫃盤中沒有任何公開即時來源（MIS 也沒有這個市場），所以正確做法是
+    # **盤中就不要有興櫃**，而不是拿昨天的頂替。盤後那一輪日期會對上，自然會回來。
+    today = now_tpe().strftime("%Y-%m-%d")
+    raw = tpex.fetch_esb_pricing() or {}
+    stale = sum(1 for r in raw.values() if r.get("date") and r["date"] != today)
+    if stale:
+        print(f"[intraday] 興櫃當日行情表還是 {next(iter(raw.values())).get('date')} 的資料"
+              f"（{stale}/{len(raw)} 檔），盤中不採用——興櫃沒有盤中即時來源")
+
     out: dict[str, dict] = {}
-    for code, row in (tpex.fetch_esb_pricing() or {}).items():
+    for code, row in raw.items():
         if code not in codes or not row.get("price"):
+            continue
+        # 日期對不上就整筆丟掉，不要讓昨天的數字混進盤中排行
+        if row.get("date") and row["date"] != today:
             continue
         out[code] = {
             "code": code, "name": row.get("name", ""), "price": row["price"],
