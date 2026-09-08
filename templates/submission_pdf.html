@@ -4,10 +4,26 @@
 <meta charset="utf-8">
 <title>{{ r.title }}</title>
 <style>
+  /* 內嵌繁體字型，理由與 topic_report_pdf.html 相同：雲端沙箱沒裝中文字型，
+     只指名 font-family 會退到簡體取向的文泉驛，繁體字形不對。 */
+  {% if font_regular %}
+  @font-face {
+    font-family: "NotoSansTC-Embedded";
+    font-weight: 400;
+    src: url("{{ font_regular }}") format("woff2");
+  }
+  {% endif %}
+  {% if font_bold %}
+  @font-face {
+    font-family: "NotoSansTC-Embedded";
+    font-weight: 700;
+    src: url("{{ font_bold }}") format("woff2");
+  }
+  {% endif %}
   @page { size: A4; margin: 20mm 18mm; }
   * { box-sizing: border-box; }
-  body { font-family: "Noto Sans CJK TC", "Noto Sans TC", "Microsoft JhengHei",
-         "PingFang TC", "Heiti TC", sans-serif;
+  body { font-family: "NotoSansTC-Embedded", "Noto Sans CJK TC", "Noto Sans TC",
+         "Microsoft JhengHei", "PingFang TC", "Heiti TC", sans-serif;
          color: #1a1a1a; line-height: 1.75; font-size: 11pt; margin: 0; }
   h1 { font-size: 18pt; margin: 0 0 4px; line-height: 1.3; }
   .meta { color: #666; font-size: 9pt; margin-bottom: 16px; word-break: break-all; }

@@ -911,6 +911,30 @@ def render_topic_report(slug: str, row: dict) -> Path:
     return path
 
 
+def _pdf_font_urls() -> dict[str, str]:
+    """PDF 用的內嵌字型（file:// 絕對路徑）。
+
+    產 PDF 的雲端沙箱只有 `pip install weasyprint`，**沒有裝任何中文字型**，
+    樣板裡指名的 "Noto Sans CJK TC" / "Microsoft JhengHei" 一個都不存在，
+    WeasyPrint 只好退到系統裡唯一有 CJK 的文泉驛正黑——那是簡體取向的字型，
+    排繁體字形不對，使用者回報「PDF 文字怪怪的」（2026-09-08）。
+    所以把 Noto Sans TC 收進 repo（docs/assets/fonts/），用絕對路徑餵給
+    @font-face，跟沙箱裝了什麼、有沒有外網都無關。
+
+    ⚠️ 用 file:// 絕對路徑而不是相對路徑：`HTML(string=...)` 沒有 base_url，
+    相對路徑會解不到，而且解不到時 WeasyPrint 是**靜默**退回系統字型，
+    不會報錯——那正是這個 bug 難發現的原因。
+    檔案不在就回空字串，樣板會跳過 @font-face、退回原本的 font-family。
+    """
+    d = DOCS_DIR / "assets" / "fonts"
+    out = {}
+    for key, name in (("font_regular", "NotoSansTC-Regular.woff2"),
+                      ("font_bold", "NotoSansTC-Bold.woff2")):
+        p = d / name
+        out[key] = p.resolve().as_uri() if p.exists() else ""
+    return out
+
+
 def render_topic_pdf(slug: str, row: dict) -> Path | None:
     """主題點播報告的 PDF 版 → docs/analysis/<date>-<slug>.pdf。
 
@@ -930,6 +954,7 @@ def render_topic_pdf(slug: str, row: dict) -> Path | None:
     pdf_path = out_dir / f"{row['date']}-{slug}.pdf"
     html = _env().get_template("topic_report_pdf.html").render(
         site_title=cfg["site"]["title"], r={**row, "slug": slug},
+        **_pdf_font_urls(),
     )
     try:
         HTML(string=html).write_pdf(str(pdf_path))
@@ -955,7 +980,7 @@ def render_submission_pdf(slug: str, row: dict) -> Path | None:
     out_dir = DOCS_DIR / "analysis"
     out_dir.mkdir(parents=True, exist_ok=True)
     pdf_path = out_dir / f"{row['date']}-sub-{slug}.pdf"
-    html = _env().get_template("submission_pdf.html").render(r=row)
+    html = _env().get_template("submission_pdf.html").render(r=row, **_pdf_font_urls())
     try:
         HTML(string=html).write_pdf(str(pdf_path))
     except Exception as exc:

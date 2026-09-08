@@ -4,3 +4,8 @@ Jinja2>=3.1.0
 PyYAML>=6.0
 yfinance>=0.2.40
 lxml>=5.0.0
+# 主題點播 PDF 用：WeasyPrint 透過 fontTools 解 @font-face 的 woff2 字型時
+# 需要 brotli，沒有它就會靜靜載入失敗、退回系統字型（＝簡體取向的文泉驛，
+# 繁體字形不對）。weasyprint 本身不放這裡，因為它要 pango/cairo、
+# 只在雲端沙箱裝得起來，本機缺它會讓整份 requirements 裝不完。
+brotli>=1.1.0
