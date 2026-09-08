@@ -1343,7 +1343,47 @@ def run_evening() -> None:
 
     render.render_site()
     print(f"[evening] 完成：{path}")
-    send_notification(f"盤後報告已產出：{render.date_label(today)}", commentary)
+    # commentary 是 LLM 寫的；LLM 不可用時（沒有 API key、雲端 session 卡住）它是空字串，
+    # 那樣推播出去就只有一行標題，等於在洗版。改用手上現成的規則計算數字組一段
+    # 摘要——這些全是申報值／官方行情，不是推論，沒有 LLM 也講得出當天發生什麼事。
+    send_notification(f"盤後報告已產出：{render.date_label(today)}",
+                      commentary or _evening_fallback_body(market, gainers, strong, score_rows))
+
+
+def _evening_fallback_body(market: dict, gainers: list[dict], strong: list[dict],
+                           score_rows: list[dict]) -> str:
+    """LLM 沒產出評論時的推播內文，全部由當日行情直接算出來。
+
+    刻意只寫「事實」：指數、漲跌家數、漲幅榜、評分最高的幾檔。不做任何解讀
+    （為什麼漲、後續看法），因為那需要查證過的依據——沒有 LLM 就沒有那一層，
+    寧可少講也不要猜。
+    """
+    lines: list[str] = []
+    close = market.get("taiex_close")
+    if close:
+        chg = market.get("taiex_change") or 0
+        pct = market.get("taiex_change_pct") or 0
+        lines.append(f"加權指數 {close:,.0f}（{chg:+.0f}／{pct:+.2f}%）"
+                     + (f"，成交值 {market['turnover'] / 100000000:,.0f} 億"
+                        if market.get("turnover") else ""))
+    adv, dec = market.get("advancers"), market.get("decliners")
+    if adv or dec:
+        lines.append(f"上漲 {adv or 0} 檔、下跌 {dec or 0} 檔")
+    if gainers:
+        top = "、".join(f"{g['code']} {g['name']} {g['change_pct']:+.2f}%"
+                        for g in gainers[:5])
+        lines.append(f"漲幅榜：{top}")
+    if strong:
+        lines.append(f"量能配合的強勢股 {len(strong)} 檔")
+    scored = [r for r in score_rows if r.get("composite") is not None][:3]
+    if scored:
+        top = "、".join(f"{r['code']} {r['name'].split(' ', 1)[-1]}（{r['composite']:.1f}）"
+                       for r in scored)
+        lines.append(f"五面向評分最高：{top}")
+    if not lines:
+        return ""
+    lines.append("（本則為當日行情統計，未含個股解讀）")
+    return "\n".join(lines)
 
 
 # ── 月報：含事後驗證 ───────────────────────────────────

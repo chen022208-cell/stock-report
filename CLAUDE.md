@@ -92,6 +92,14 @@ Claude 帳號」下、吃該帳號訂閱額度，跟你在哪台電腦開發無�
   瀏覽器樣式 User-Agent，Discord/Cloudflare 會擋掉預設 UA，見 `send_discord()`）；
   週報/月報的新 PDF 則由 `deep-report-notify.yml` 偵測
   `docs/weekly/*.pdf`、`docs/monthly-deep/*.pdf` 新增直接送 Discord。
+  ⚠️ **`daily-notify.yml` 一定要只送「這次 push 真的有改動」的那幾個檔案**
+  （2026-09-08 修）。它監看四個 `_notify_*.json`，本來不管誰觸發都把四個檔案
+  全部重送一遍；而這些檔案送完不會被刪，就一直躺在 repo 裡。於是每次即時快訊
+  （每 10 分鐘）或研究提交 push，昨天的盤中焦點股快報就被原封不動再發一次，
+  使用者連續收到一模一樣的通知。現在用
+  `git diff --name-only ${{ github.event.before }} ${{ github.sha }}` 取出異動
+  清單（所以 checkout 要 `fetch-depth: 0`），只送那幾個，同一輪內容重複的也去重。
+  **之後如果新增第五個通知通道，記得同時加進 `on.push.paths` 和那一步的 `FILES`**。
 - **即時快訊監控**：`python -m src.main news`（`run_news_monitor()`）打
   `api.wallstreetcn.com` 的公開 JSON API（不是 wallstreetcn.com 網頁本身，
   那是前端渲染的 SPA，純 HTTP 抓不到內容）抓即時快訊，先用來源自己的
@@ -223,6 +231,19 @@ Claude 帳號」下、吃該帳號訂閱額度，跟你在哪台電腦開發無�
   ⚠️ `stock_index.json` 混了 ETF／權證而且**沒有市場別欄位**，不要拿它當
   「全市場公司清單」用——那是 `main._all_market_codes()`（讀申報基本資料
   t187ap03 三個資料集）的工作，那份才有正確的 twse／tpex／esb 市場別。
+- 自選股頁 `watchlist.html`（`render.render_watchlist_page()`，2026-09-08 新增）：
+  功能對照 Yahoo 股市「我的投資組合」——多群組、搜尋加入、上下移、點欄位排序、
+  匯出／匯入。**清單只存瀏覽器 localStorage（`tw_watchlist_v1`）**，這是純靜態站，
+  沒有帳號系統也不該為自選股去收集使用者資料；render 只產出殼，不塞任何個股資料。
+  報價一律走 `ui.js` 的 `TWQuote`，**不要在這頁再寫第二份抓取邏輯**（之前同一段
+  抓取程式散在三個檔案各改各的，使用者回報「沒有改一樣啊」就是這樣來的）：
+  - 盤中 → `TWQuote.rawQuotes()`（Worker 中繼 MIS 逐筆，有開高低量）
+  - 盤後 → 上市 `TWQuote.officialClose()`（STOCK_DAY 官方收盤價）；
+    上櫃／興櫃 `TWQuote.snapshotClose()`（本站盤後快照，沿用「興櫃看成交價、
+    不是日均價」那條規則）
+  判斷盤中或盤後**看 MIS 回不回得出東西，不看時鐘**；盤後交易日用 FMTQIK 最後
+  一列決定，不要用「今天」——開盤前抓今天 STOCK_DAY 還沒有這一天，實測每一檔
+  都落空。成交量統一換算成**張**（STOCK_DAY 與快照存的是股，MIS 是張）。
 
 ### 個股資料三層（`docs/data/stock_info/<code>.json`，每檔一個小檔案）
 
