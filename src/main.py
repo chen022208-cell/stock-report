@@ -1675,6 +1675,81 @@ def _write_topic_notify(entries: list[dict]) -> None:
     print(f"[topic] 已寫入推播內容 {path.name}（{len(entries)} 篇）")
 
 
+def _resolve_topic_company(text: str) -> dict | None:
+    """把點播主題對到站內的申報基本資料（`company_profile`）。
+
+    為什麼需要：點播只給一個字串，LLM 拿到「捷立康」三個字就得自己上網查，
+    查不夠就依規則放棄——2026-09-08 實際發生，`捷立康 深度報告` 被判「查不到
+    足夠的外部來源」而不產出。但 7686 捷立康生物科技本來就在 company_profile
+    裡，申報營業項目寫得清清楚楚（醫療器材製造業／精密化學材料製造業／
+    研究發展服務業）。站內已經有的權威事實不該讓 LLM 從零猜起。
+
+    比對順序：主題裡出現的 4 碼代號 → 簡稱完全相同 → 簡稱是主題的子字串。
+    最後一條要求簡稱至少 2 個字且真的包含在主題裡，避免「台」這種一個字
+    亂命中一堆公司。回 {code, name, full_name, market, business} 或 None。
+    """
+    t = (text or "").strip()
+    if not t:
+        return None
+    try:
+        profiles = db.all_company_profiles()
+    except Exception as exc:
+        print(f"[topic] 讀申報基本資料失敗，略過公司對應：{exc}")
+        return None
+
+    def short_of(p: dict) -> str:
+        """company_profile 的 `name` 欄位多半是空的，只有 full_name
+        （例如「捷立康生物科技股份有限公司」）。去掉法人格式後綴才比得到簡稱。"""
+        s = (p.get("name") or "").strip()
+        if s:
+            return s
+        s = (p.get("full_name") or "").strip()
+        for suffix in ("股份有限公司", "有限公司", "公司"):
+            if s.endswith(suffix):
+                s = s[: -len(suffix)]
+                break
+        return s.strip()
+
+    def pack(code: str, p: dict) -> dict:
+        return {"code": code, "name": short_of(p) or (p.get("full_name") or ""),
+                "full_name": p.get("full_name") or "", "market": p.get("market") or "",
+                "business": p.get("business") or ""}
+
+    for code in re.findall(r"\d{4}", t):
+        if code in profiles:
+            return pack(code, profiles[code])
+
+    # 申報全名推不出俗稱（「台灣積體電路製造」推不到「台積電」），而
+    # stock_index.json 存的正是看盤用的俗稱。兩份合起來比才涵蓋得完整。
+    aliases: dict[str, str] = {}          # 名稱 → 代號
+    try:
+        idx = json.loads(
+            (render.DOCS_DIR / "data" / "stock_index.json").read_text(encoding="utf-8"))
+        for s in idx.get("stocks", []):
+            nm = str(s.get("name") or "").strip()
+            if len(nm) >= 2 and str(s.get("code") or "") in profiles:
+                aliases.setdefault(nm, s["code"])
+    except Exception:
+        pass                               # 沒有這份檔案就只靠申報全名，不算錯
+    for code, p in profiles.items():
+        nm = short_of(p)
+        if len(nm) >= 2:
+            aliases.setdefault(nm, code)
+
+    # 主題可能是「捷立康」也可能是「捷立康 深度報告」，所以整串和每個詞都要試。
+    # 取命中字數最長的，避免短字串誤命中（「新」之類）。
+    cands = [t] + [w for w in re.split(r"[\s,，、/／]+", t) if len(w) >= 2]
+    best_code, best_len = None, 0
+    for cand in cands:
+        for nm, code in aliases.items():
+            if nm == cand:
+                return pack(code, profiles[code])
+            hit = nm if nm in cand else (cand if nm.startswith(cand) else "")
+            if hit and len(hit) > best_len:
+                best_code, best_len = code, len(hit)
+    return pack(best_code, profiles[best_code]) if best_code else None
+
+
 def _make_topic_report(topic_title: str, detail: str, source_desc: str,
                        today: str, known: list[str]) -> dict | None:
     """產出一篇主題點播報告：查證 → 寫表 → 產頁 → 寫研究筆記。
@@ -1690,6 +1765,21 @@ def _make_topic_report(topic_title: str, detail: str, source_desc: str,
     prompt_topic = topic
     if detail and detail.strip() and detail.strip() != topic:
         prompt_topic = f"{topic}\n補充說明：{detail.strip()}"
+
+    # 站內已經有申報基本資料的話，把代號／全名／申報營業項目一起給出去。
+    # 這是公開資訊觀測站的申報值（事實層），不是推論——給了之後 LLM 才知道
+    # 要查哪一家、用什麼關鍵字查，不會因為只拿到一個簡稱就查不到而放棄。
+    company = _resolve_topic_company(f"{topic} {detail or ''}")
+    if company:
+        print(f"[topic] 主題對應到 {company['code']} {company['name']}"
+              f"（{company['market']}），附上申報營業項目一起查證")
+        prompt_topic += (
+            f"\n\n【站內已有的申報基本資料（公開資訊觀測站申報值，屬於已查證事實）】"
+            f"\n股票代號：{company['code']}"
+            f"\n公司全名：{company['full_name'] or company['name']}"
+            f"\n市場別：{company['market']}"
+            f"\n主要經營業務（申報）：{company['business'] or '（申報資料未載明）'}"
+            f"\n以上為申報值，可直接引用；其餘內容仍須自行查證外部來源。")
 
     gate = load_config().get("research_intake", {}).get("require_investment_topic", True)
     # 分開檢查 topic／detail，不要串成一個字串再判斷：點播表單的 body 常常就是
