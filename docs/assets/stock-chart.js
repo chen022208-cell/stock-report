@@ -797,8 +797,14 @@
       .then(function (snap) {
         // 只有 1 根也照畫（剛掛牌的個股）：圖表本身會顯示「資料不足」，
         // 但價格、公司基本資料與題材照樣看得到，比整頁「查無股價資料」有用。
-        if (snap && snap.bars && snap.bars.length >= 1) {
-          var esb = snap.market === "esb";
+        if (!snap || !snap.bars || !snap.bars.length) {
+          showNoPrice(body, code, name);
+          return;
+        }
+        var esb = snap.market === "esb";
+        // 上櫃盤中一樣補今天那根（MIS 有 otc_ 頻道）；
+        // 興櫃沒有逐筆端點，維持盤後快照（appendLiveBar 會原樣退回）。
+        return appendLiveBar(code, snap.bars, esb ? "esb" : "tpex").then(function (bars) {
           // source==="yahoo" 的快照是真的開高低收（連興櫃都有），可以直接畫 K 棒。
           // 只有舊的 TPEx 興櫃快照才是「日均價當收盤」，那種要標註成均價走勢。
           var avgOnly = esb && snap.source !== "yahoo";
@@ -807,21 +813,63 @@
               + (esb ? "，興櫃成交價與 TPEx 當日行情表一致" : "")
             : (esb ? "資料來源：TPEx 興櫃當日行情表＋歷史行情"
                    : "資料來源：TPEx 上櫃每日成交資訊");
-          renderReport(body, code, name || snap.name, snap.bars, {
+          src += bars.liveTime
+            ? "；最後一根為今日盤中逐筆即時（" + bars.liveTime + "，尚未收盤）"
+            : "，本站盤後快照（非即時，更新於 "
+              + String(snap.updated || "").slice(0, 10) + "）";
+          renderReport(body, code, name || snap.name, bars, {
             avgPriceNote: avgOnly,
-            latest: snap.latest,
-            source: src + "，本站盤後快照（非即時，更新於 "
-              + String(snap.updated || "").slice(0, 10) + "）",
+            // 盤中已經有逐筆現價了，就不要再用盤後快照的 latest 覆蓋標題價格
+            latest: bars.liveTime ? null : snap.latest,
+            source: src,
           });
-        } else {
-          showNoPrice(body, code, name);
-        }
+        });
       })
       .catch(function () { showNoPrice(body, code, name); });
   }
 
   // 把「把某一檔畫進某個容器」抽出來，彈窗與獨立個股頁（stock.html）共用同一套
   // 流程，不會出現兩邊資料或版面不一致。body 可以是彈窗內容區，也可以是整頁的容器。
+  /* 盤中補上「今天」這根 K 棒。
+   *
+   * TWSE STOCK_DAY 只有**已結束的交易日**，所以開盤後彈窗裡最後一根還是昨天，
+   * 標題價格也還是昨收——使用者回報「都是過去的資料，沒有開盤的資料」就是這件事
+   * （那個圖是用 TradingView 的 lightweight-charts 畫的，但行情不是 TradingView 的，
+   * 是 TWSE 的，所以沒有盤中）。MIS 逐筆有今天的開／高／低／現價／量，補一根進去。
+   *
+   * ⚠️ 只加在要畫的那份複本上，**不要寫回 cache／localStorage**：那邊用
+   * 「最後一根的日期 >= 今天」判斷今天補過了，把未收盤的暫時值存進去，
+   * 收盤後就再也不會去抓當天真正的收盤價了。 */
+  function appendLiveBar(code, daily, market) {
+    var Q = window.TWQuote;
+    if (!Q || !Q.marketOpenNow || !Q.marketOpenNow() || !Q.rawQuotes) {
+      return Promise.resolve(daily);
+    }
+    // 興櫃是議價／搓合市場，MIS 完全沒有它的頻道——不要拿 tse_ 去問，
+    // 那只會白打一次請求還可能撈到同代號的別檔。
+    if (market === "esb") return Promise.resolve(daily);
+    var ex = market === "tpex" ? "otc" : "tse";
+    return Q.rawQuotes([{ code: code, ex: ex }]).then(function (res) {
+      var q = res && res.quotes && res.quotes[code];
+      if (!q || q.price == null) return daily;
+      var t = todayIso();
+      var bar = {
+        date: t,
+        open: q.open != null ? q.open : q.price,
+        high: q.high != null ? q.high : q.price,
+        low: q.low != null ? q.low : q.price,
+        close: q.price,
+        // K 棒的 volume 沿用 STOCK_DAY 的單位（股），MIS 的 v 是張
+        volume: q.vol != null ? q.vol * 1000 : 0
+      };
+      var out = daily.slice();
+      if (out.length && out[out.length - 1].date === t) out[out.length - 1] = bar;
+      else out.push(bar);
+      out.liveTime = q.time;
+      return out;
+    }).catch(function () { return daily; });
+  }
+
   function renderInto(body, code, name) {
     body.innerHTML = '<h3 class="sc-title">' + esc(code) + ' ' + esc(name || "") + '</h3>'
       + '<p class="sc-loading">讀取股價資料中…</p>';
@@ -832,11 +880,15 @@
         return openFromSnapshot(body, code, name);
       }
       return fetchHistory(code).then(function (daily) {
-        if (daily.length) {
-          renderReport(body, code, name, daily, {});
-          return;
-        }
-        return openFromSnapshot(body, code, name);
+        if (!daily.length) return openFromSnapshot(body, code, name);
+        return appendLiveBar(code, daily, market).then(function (bars) {
+          var live = bars.liveTime && bars.length
+                     && bars[bars.length - 1].date === todayIso();
+          renderReport(body, code, name, bars, live ? {
+            source: "資料來源：TWSE 每日收盤行情；最後一根為今日盤中逐筆即時（"
+                    + bars.liveTime + "，尚未收盤，收盤後才是定案值）"
+          } : {});
+        });
       });
     }).catch(function (exc) {
       body.innerHTML = '<h3 class="sc-title">' + esc(code) + ' ' + esc(name || "") + '</h3>'
