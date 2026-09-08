@@ -341,6 +341,19 @@ API trigger 即時觸發**（使用者要求：這支只要及時、不要排程
 ⚠️ 在 UI 編輯環境會把 cron 清空（多次踩到）——這支本來就要空的，沒差；
 但其他有排程的 Routine 若在 UI 動過環境，記得回頭補 cron。
 
+⚠️⚠️ **換帳號重建 Routine 之後，一定要回頭改 Apps Script 裡的 trigger id**
+（2026-09-08 踩到，卡了 10 小時）。這支的 cron 是空的、**完全**靠 Apps Script
+打 API 觸發，所以那個網址一錯就沒有任何備援，提交會無聲卡住。實際症狀：
+表單 CSV 一直有新列進來（`research_form_row_count=9`，CSV 已經 12 列），
+但 `list_runs` 顯示最後一次執行停在前一天、當天一次都沒跑。
+根因是舊 id `trig_01WCoQ9PpAkkwE6PgAWEzR9H` 隨舊帳號一起被刪（API 回 404），
+Apps Script 還在打它；**Apps Script 若沒檢查 response code，404 看起來就像送出成功**，
+所以完全沒有錯誤提示。新 id 是 `trig_01XbHE9QoggAgt96zw93co5J`。
+排查順序：先 `RemoteTrigger list_runs` 看當天有沒有 run（沒有＝根本沒被觸發，
+不是程式問題），再去 Apps Script 的「執行項目」看回應碼——404 是 id 錯、
+401 是 token 過期。**臨時要處理積壓的提交，直接 `RemoteTrigger run` 手動觸發即可**，
+程式端用 `research_form_row_count` 記進度，不會重複處理已經做過的列。
+
 **其他 7 支 Routine 也應該換到「台股-開放網路」**——早報／盤後要連
 `twse.com.tw`、快訊要連 `api.wallstreetcn.com`、通知要連 `discord.com`，
 現在多半是斷的。換法同上（編輯該 Routine → Cloud environment 選「台股-開放網路」→
