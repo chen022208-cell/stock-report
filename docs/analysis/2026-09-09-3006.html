@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>個股資料 · 盤後快訊</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>晶豪科技（3006）：AI排擠效應下的利基型記憶體受惠股 · 盤後快訊</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 <meta name="theme-color" content="#060911">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -380,20 +380,32 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  /* 這一頁把彈窗裡那份內容攤成整頁，所以要把彈窗版面裡「因為在小框框裡」
-     才需要的限制拿掉：不要 max-width、標題可以大一點。 */
-  .sp-wrap{margin-top:8px;}
-  .sp-wrap .sc-title{font-size:26px; margin:0 0 6px;}
-  .sp-back{font-size:13px; color:var(--gold); text-decoration:none;}
-  .sp-search{display:flex; gap:8px; margin:14px 0 6px; flex-wrap:wrap;}
-  .sp-search input{flex:1; min-width:180px; background:var(--surface-2);
-                   border:1px solid var(--hairline); border-radius:var(--radius-sm);
-                   color:var(--text-primary); padding:9px 12px; font:inherit; font-size:14px;}
-  .sp-search button{background:var(--gold); color:#171615; border:0; font:inherit;
-                    font-weight:600; border-radius:var(--radius-sm); padding:9px 18px;
-                    cursor:pointer;}
-  .sp-hint{font-size:12.5px; color:var(--text-muted); margin:0 0 18px;}
-  .sp-empty{font-size:14px; color:var(--text-secondary); margin:24px 0;}
+  .tr-meta{font-size:12.5px; color:var(--text-muted); margin:8px 0 20px;}
+  .tr-badge{display:inline-block; font-size:11.5px; background:var(--surface-2);
+            border:1px solid var(--hairline); border-radius:999px; padding:2px 9px;
+            color:var(--c-theme); margin-right:8px;}
+  .tr-pdf{margin:0 0 18px;}
+  .tr-pdf a{font-size:13.5px; color:var(--gold); text-decoration:none;
+            border:1px solid var(--hairline); border-radius:999px; padding:6px 14px;}
+  .tr-pdf a:hover{border-color:var(--gold);}
+  .tr-summary{font-size:15px; line-height:1.85; color:var(--text-primary);
+              background:var(--surface); border-left:3px solid var(--gold);
+              border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:24px;}
+  .tr-sec{margin-bottom:26px;}
+  .tr-sec h2{font-size:17px; margin:0 0 10px;}
+  .tr-sec p{font-size:14.5px; line-height:1.9; color:var(--text-secondary); margin:0;}
+  .tr-stocks{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;}
+  .tr-stock{cursor:pointer; background:var(--surface); border:1px solid var(--hairline);
+            border-radius:var(--radius-sm); padding:8px 12px; font-size:13px; max-width:340px;}
+  .tr-stock:hover{border-color:var(--gold);}
+  .tr-stock b{font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
+  .tr-stock span{display:block; color:var(--text-muted); font-size:12px; margin-top:3px;}
+  .tr-risk{background:var(--surface); border-left:3px solid var(--c-warn);
+           border-radius:var(--radius-sm); padding:12px 15px; font-size:14px;
+           line-height:1.85; color:var(--text-secondary);}
+  .tr-src{font-size:12.5px; color:var(--text-muted); line-height:1.9;
+          border-top:1px solid var(--hairline); padding-top:14px; margin-top:26px;}
+  .tr-src a{color:var(--gold); word-break:break-all;}
 
 </style>
 </head>
@@ -405,51 +417,122 @@
     <button class="dr-close" id="drClose" aria-label="關閉選單">✕</button>
   </div>
   <h4>市場</h4>
-  <a href="index.html" class=""><span class="dr-ic">🏠</span>最新</a>
-  <a href="heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
-  <a href="chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
-  <a href="scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
-  <a href="picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
-  <a href="intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
-  <a href="lookup.html" class="current"><span class="dr-ic">🔍</span>個股查詢</a>
-  <a href="watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
-  <a href="disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
+  <a href="../index.html" class=""><span class="dr-ic">🏠</span>最新</a>
+  <a href="../heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
+  <a href="../chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
+  <a href="../scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
+  <a href="../picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
+  <a href="../intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
+  <a href="../lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
+  <a href="../watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
+  <a href="../disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
   <h4>研究</h4>
-  <a href="themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
-  <a href="industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
-  <a href="weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
-  <a href="monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
-  <a href="analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
-  <a href="archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
-  <a href="research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
-  <a href="submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
+  <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
+  <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
+  <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
+  <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
+  <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
+  <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
+  <a href="../research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
+  <a href="../submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
 </nav>
 
 <div class="page">
   <div class="topbar">
     <button class="menu-btn" id="menuBtn" aria-label="開啟選單">☰</button>
-    <a href="index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
-    <a href="lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
-    <a href="watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
-    <a href="intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
+    <a href="../index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
+    <a href="../lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
+    <a href="../watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
+    <a href="../intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
   </div>
 
   
 <header>
   <div class="masthead-label">盤後快訊</div>
-  <h1 class="masthead-date">個股資料</h1>
+  <h1 class="masthead-date">晶豪科技（3006）：AI排擠效應下的利基型記憶體受惠股</h1>
 </header>
-<p class="sp-hint">
-  技術圖＋公司基本資料＋月營收＋題材＋同產業個股。上市走 TWSE 即時資料，
-  上櫃／興櫃走本站每日盤後快照。<a class="sp-back" href="lookup.html">← 回個股查詢</a>
+<p class="tr-meta">
+  <span class="tr-badge">🎯 使用者點播主題</span>
+  2026-09-09 產出　·　原始點播：3006
 </p>
 
-<form class="sp-search" id="spForm" autocomplete="off">
-  <input id="spInput" type="text" placeholder="輸入股票代號，例如 2330／6488／7686" aria-label="股票代號">
-  <button type="submit">查詢</button>
-</form>
 
-<div class="sp-wrap" id="spBody"></div>
+<p class="tr-pdf"><a href="2026-09-09-3006.pdf" target="_blank" rel="noopener">📄 下載 PDF 版報告</a></p>
+
+
+<div class="tr-summary">晶豪科技是台灣專攻利基型記憶體（DRAM/SRAM/Flash）與類比／混合訊號IC的無晶圓廠設計公司。2026年在AI伺服器排擠傳統記憶體產能的大缺貨潮下，月營收年增率屢創新高、第二季獲利創歷史紀錄，但獲利彈性大也伴隨較高的景氣波動風險。</div>
+
+
+<section class="tr-sec">
+  <h2>公司定位與產品線</h2>
+  <p>根據公開資訊觀測站申報資料，晶豪科技（英文名 Elite Semiconductor Microelectronics Technology Inc.，简称ESMT）主要經營動態／靜態隨機存取記憶體（DRAM/SRAM）、快閃記憶體（FLASH）、類比積體電路、類比與數位混合積體電路，以及相關產品設計研發技術服務。公司官網（esmt.com.tw）進一步說明產品線涵蓋DRAM、LPDRAM、PSRAM、Flash、多晶片記憶體（Multi-Chip Memory）與已知良品晶粒（KGD），另有Class D放大器與AD/DA轉換器，應用範圍包括消費性電子、工業控制、物聯網、車用系統與AI邊緣運算裝置。晶豪科屬於IC設計公司，本身不擁有晶圓廠，產品委外晶圓代工生產，這點與同業南亞科、華邦電（兩者皆為擁有自有晶圓廠的IDM廠）在商業模式上有本質差異。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>2026年營收與獲利表現</h2>
+  <p>晶豪科2026年單月營收年增率持續維持三位數以上的高成長：3月營收30.26億元（年增188.11%）、4月46.34億元（年增349.21%）、5月44.67億元（年增296.81%）、6月48.45億元（年增328.35%）、8月更跳升至79.05億元（年增605.24%），累計前8月營收359.03億元、年增324.38%（鉅亨網營收速報）。獲利面同樣創高：Digitimes報導指出，晶豪科2026年第二季在利基型記憶體合約價上漲帶動下，單季稅後淨利達58.08億元、每股盈餘20.21元，雙雙創下該公司歷史新高紀錄。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>產業背景：AI排擠效應下的記憶體大缺貨</h2>
+  <p>晶豪科這波營收獲利爆發的根本原因是2026年全球記憶體產業的結構性缺貨潮。多篇報導指出，三星、SK海力士、美光等國際大廠因AI伺服器對HBM、DDR5等高階記憶體需求急遽成長，將資本支出與先進製程產能大舉轉向HBM/DDR5，直接排擠約二成的傳統成熟製程記憶體產能，導致DDR4、DDR3與NAND Flash等「利基型」品項出現嚴重缺貨（商業周刊整理）。TrendForce於2026年7月預估，傳統型DRAM合約價在2026年第三季將再漲15%至18%；摩根士丹利研究團隊則估計，DRAM價格從2024年初到2026年底累計漲幅可能超過四倍。晶豪科本身也對外表示，這波供給缺口預期將延續整個2026年，受影響品項包括DDR4、DDR3、DDR2以及NOR Flash、SLC NAND等利基型記憶體與快閃記憶體。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>競爭格局：與南亞科、華邦電的定位差異</h2>
+  <p>台灣記憶體供應鏈涵蓋設計（晶豪科、群聯）、製造（南亞科、華邦電、旺宏）到封測（華東）等環節。市場分析指出，南亞科策略聚焦主流DRAM，景氣向上時受惠幅度與營收爆發力最強；華邦電則走「避開紅海、開拓藍海」路線，產品多用於車用與工控市場，客戶對價格敏感度較低、營運穩定性較高。晶豪科作為無晶圓廠的利基型記憶體IC設計龍頭，在DRAM報價上漲時獲利彈性大，但相對地波動度也較高——這也呼應公司近期股價與獲利雙雙出現大幅波動的走勢（理財周刊、Yahoo股市報導皆提及晶豪科、南亞科、華邦電同步受惠本輪記憶體超級循環，惟個股漲跌互有領先落後）。</p>
+</section>
+
+
+
+<section class="tr-sec">
+  <h2>相關個股</h2>
+  <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:8px">
+    只列出查證過、確定與本主題相關的個股。點任一檔看 K 線與公司資料。</p>
+  <div class="tr-stocks">
+    
+    <div class="tr-stock" data-stock-code="3006" data-stock-name="晶豪科技">
+      <b>3006 晶豪科技</b>
+      <span>本主題主角，無晶圓廠利基型記憶體IC設計公司，2026年受惠DDR4/DDR3/NOR Flash缺貨與報價上漲，營收年增率與單季獲利均創新高（鉅亨網、Digitimes查證）。</span>
+    </div>
+    
+    <div class="tr-stock" data-stock-code="2408" data-stock-name="南亞科">
+      <b>2408 南亞科</b>
+      <span>同業對照組，擁有自有晶圓廠的DRAM製造IDM廠，主流DRAM景氣上行時營收爆發力受市場報導點名為三者中最強（Yahoo股市查證）。</span>
+    </div>
+    
+    <div class="tr-stock" data-stock-code="2344" data-stock-name="華邦電">
+      <b>2344 華邦電</b>
+      <span>同業對照組，兼具DRAM與NOR Flash自有產能的IDM廠，產品線側重車用與工控、營運波動度相對較低（Yahoo股市查證）。</span>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="tr-sec">
+  <h2>風險與觀察重點</h2>
+  <div class="tr-risk">本輪利基型記憶體漲價潮的核心驅動力是國際大廠將產能轉向HBM/DDR5排擠傳統製程，若後續大廠恢復擴充成熟製程產能、或AI伺服器資本支出成長趨緩，缺貨與漲價力道可能反轉，晶豪科獲利彈性大、對應下行風險同樣偏高。此外，晶豪科為無晶圓廠設計公司，晶圓代工產能與價格由委外代工夥伴掌握，屬於成本端變數；目前查證到的資料以2026年第二季（至6月）與8月營收為主，7月單月數據與第三季完整財報表現未在本次查證來源中找到，讀者查閱財報時應留意季度間的完整性。以上為公開新聞與公司公告內容整理，不構成任何投資建議。</div>
+</section>
+
+
+<div class="tr-src">
+  <b>查證來源</b>（本報告依站內規則，沒有外部來源就不產出）：<br>
+  <a href="https://news.cnyes.com/news/id/6595429" target="_blank" rel="noopener">https://news.cnyes.com/news/id/6595429</a>　·　
+  <a href="https://news.cnyes.com/news/id/6520458" target="_blank" rel="noopener">https://news.cnyes.com/news/id/6520458</a>　·　
+  <a href="https://news.cnyes.com/news/id/6480928" target="_blank" rel="noopener">https://news.cnyes.com/news/id/6480928</a>　·　
+  <a href="https://www.esmt.com.tw/en" target="_blank" rel="noopener">https://www.esmt.com.tw/en</a>　·　
+  <a href="https://www.digitimes.com/news/a20260731PD221/esmt-profit-2026-earnings-niche-memory.html" target="_blank" rel="noopener">https://www.digitimes.com/news/a20260731PD221/esmt-profit-2026-earnings-niche-memory.html</a>　·　
+  <a href="https://www.businessweekly.com.tw/business/blog/3021561" target="_blank" rel="noopener">https://www.businessweekly.com.tw/business/blog/3021561</a>　·　
+  <a href="https://tw.stock.yahoo.com/news/%E5%AE%98%E8%82%A1%E7%BA%8C%E6%8E%A8-%E8%A8%98%E6%86%B6%E9%AB%94%E8%B6%85%E7%B4%9A%E5%BE%AA%E7%92%B0-%E5%8D%97%E4%BA%9E%E7%A7%91-%E8%8F%AF%E9%82%A6%E9%9B%BB-%E6%99%B6%E8%B1%AA%E7%A7%91-055730033.html" target="_blank" rel="noopener">https://tw.stock.yahoo.com/news/%E5%AE%98%E8%82%A1%E7%BA%8C%E6%8E%A8-%E8%A8%98%E6%86%B6%E9%AB%94%E8%B6%85%E7%B4%9A%E5%BE%AA%E7%92%B0-%E5%8D%97%E4%BA%9E%E7%A7%91-%E8%8F%AF%E9%82%A6%E9%9B%BB-%E6%99%B6%E8%B1%AA%E7%A7%91-055730033.html</a>
+  
+  <p style="margin-top:10px">本頁為系統依使用者點播主題自動整理之資訊，明確標示「（推論）」者為推論而非查證事實；
+  僅供研究參考，不構成投資建議。</p>
+</div>
+<p style="margin-top:20px; font-size:13px">
+  ← 回 <a href="index.html" style="color:var(--gold)">分析清單</a>　·
+  <a href="../submit.html" style="color:var(--gold)">再點播一個主題</a></p>
 
 
   <footer class="site-footer">
@@ -462,60 +545,13 @@
 
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
   }
-  window.__rel = "";
+  window.__rel = "../";
 </script>
-<script src="assets/ui.js?v=12ed3d4a"></script>
+<script src="../assets/ui.js?v=12ed3d4a"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=12ed3d4a"></script>
-
-<script>
-/* 獨立個股頁：跟彈窗共用 stock-chart.js 的 renderInto()，版面與資料完全一致，
-   差別只在這裡有自己的網址（stock.html?code=2330），可以分享、可以加書籤，
-   而不是只能從別的頁面點出一個彈窗。 */
-(function () {
-  document.body.setAttribute("data-stock-page", "1");   // 讓事件委派改成換頁而不是開彈窗
-
-  function codeFromUrl() {
-    var m = /[?&]code=([^&#]+)/.exec(location.search);
-    return m ? decodeURIComponent(m[1]).trim() : "";
-  }
-
-  function nameFor(code) {
-    return fetch("data/stock_info/" + encodeURIComponent(code) + ".json")
-      .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (info) { return (info && info.name) || ""; })
-      .catch(function () { return ""; });
-  }
-
-  function show(code) {
-    var body = document.getElementById("spBody");
-    if (!code) {
-      body.innerHTML = '<p class="sp-empty">請在上面輸入股票代號，'
-        + '或從<a href="lookup.html" style="color:var(--gold)">個股查詢</a>挑一檔。</p>';
-      return;
-    }
-    document.getElementById("spInput").value = code;
-    nameFor(code).then(function (name) {
-      document.title = code + (name ? " " + name : "") + " · 盤後快訊";
-      window.StockChart.renderInto(body, code, name);
-    });
-  }
-
-  document.getElementById("spForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    var v = document.getElementById("spInput").value.trim();
-    if (!v) return;
-    // 用 pushState 換網址，這樣上一頁／分享連結都還是對的
-    history.pushState({}, "", "stock.html?code=" + encodeURIComponent(v));
-    show(v);
-  });
-  window.addEventListener("popstate", function () { show(codeFromUrl()); });
-
-  show(codeFromUrl());
-})();
-</script>
+<script src="../assets/stock-chart.js?v=12ed3d4a"></script>
 
 </body>
 </html>
