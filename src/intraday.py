@@ -529,10 +529,20 @@ def _rankings(quotes: dict, ref: dict, frac: float, top: int = 30) -> dict:
 
 
 def _sector_rotation(quotes: dict, ref: dict) -> list[dict]:
+    """產業輪動：只統計「今天真的有成交」的個股。
+
+    ⚠️ 一定要濾掉沒成交的。MIS 在個股無成交時 `z` 是 "-"，`_parse_row()` 會退回
+    參考價 `pz`（通常就等於昨收），於是 change_pct 算出來是 0.0——那是「沒有交易」，
+    不是「平盤」。台股冷門股很多，把它們當成 0% 計入中位數的結果是：
+    2026-09-09 盤中 20 個產業裡有 14 個中位數剛好是 0.00%（鋼鐵 45 檔、生技 153 檔、
+    電腦及週邊 105 檔全都 0.00%），整頁看起來像壞掉的假資料，使用者回報
+    「資料幾乎都是錯的」。改成用成交量>0 當「有交易」的判準。
+    `count` 也跟著只算有成交的家數，這樣「3 / 97」那種顯示才對得上實際交易的檔數。
+    """
     by_ind: dict[str, list[float]] = {}
     for code, q in quotes.items():
         ind = (ref.get(code, {}) or {}).get("industry") or ""
-        if ind:
+        if ind and (q.get("volume") or 0) > 0:
             by_ind.setdefault(ind, []).append(q["change_pct"])
     out = []
     for ind, chgs in by_ind.items():
