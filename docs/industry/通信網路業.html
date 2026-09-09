@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>通信網路業：電信三雄、網通設備 ODM 與 AI 資料中心光通訊三個子族群 · 盤後快訊</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
+<meta name="theme-color" content="#060911">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;600;700&family=Noto+Sans+TC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* 科技感：近黑底、電光青主色、玻璃卡、微發光。台股紅漲綠跌不變。 */
+    --bg:#060911; --bg-2:#0A0F1C; --grid:rgba(120,160,220,.05);
+    --surface:rgba(20,27,44,.72); --surface-solid:#131A2C;
+    --surface-2:rgba(30,40,64,.7); --surface-3:#222D48;
+    --hairline:rgba(120,150,210,.16); --hairline-2:rgba(120,150,210,.28);
+    --text-primary:#EAF1FF; --text-secondary:#93A4C4; --text-muted:#5C6B8C;
+    --red:#FF5470; --green:#2FE0A6; --gold:#F5C451;
+    --accent:#22D3EE;                       /* 電光青 */
+    --accent-2:#3B82F6;
+    --glow:0 0 0 1px color-mix(in srgb,var(--accent) 40%,transparent),
+           0 0 22px -6px color-mix(in srgb,var(--accent) 55%,transparent);
+    --c-market:#38BDF8; --c-theme:#C084FC; --c-chip:#FB923C;
+    --c-score:#2DD4BF; --c-warn:#FF5470;
+    --radius:16px; --radius-sm:11px; --radius-xs:9px;
+  }
+  body[data-section="chips"]  {--accent:#C084FC;}
+  body[data-section="strong"] {--accent:#FF5470;}
+  body[data-section="score"]  {--accent:#38BDF8;}
+  body[data-section="big"]    {--accent:#F5C451;}
+  body[data-section="warn"]   {--accent:#FB923C;}
+  body[data-section="theme"]  {--accent:#A78BFA;}
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{-webkit-tap-highlight-color:transparent;}
+  body{color:var(--text-primary); font-family:'Noto Sans TC',sans-serif;
+       line-height:1.6; -webkit-font-smoothing:antialiased;
+       background:
+         linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 100% 44px,
+         radial-gradient(120% 55% at 50% -10%, color-mix(in srgb,var(--accent) 9%,transparent), transparent 60%),
+         linear-gradient(180deg, var(--bg-2), var(--bg));
+       background-attachment:fixed;}
+  .page{max-width:760px; margin:0 auto; padding:14px 14px 96px;}
+  a{color:inherit;}
+  .mono{font-family:'JetBrains Mono',monospace; font-variant-numeric:tabular-nums;}
+  .up{color:var(--red);} .down{color:var(--green);}
+  .muted{color:var(--text-muted);}
+  hr.divider{border:none; border-top:1px solid var(--hairline); margin:22px 0;}
+
+  /* ── 頂部品牌列 ───────────────────────────────── */
+  .topbar{display:flex; align-items:center; gap:10px; margin-bottom:16px;}
+  .topbar .menu-btn{width:40px; height:40px; border-radius:12px; border:1px solid var(--hairline);
+    background:var(--surface); backdrop-filter:blur(8px); color:var(--text-primary);
+    font-size:17px; cursor:pointer; flex-shrink:0; display:flex; align-items:center; justify-content:center;}
+  .topbar .menu-btn:hover{border-color:var(--accent); box-shadow:var(--glow);}
+  .topbar .brand{font-family:'Noto Serif TC',serif; font-weight:700; font-size:18px;
+    letter-spacing:.01em; flex:1; text-decoration:none; color:var(--text-primary);}
+  .topbar .brand small{display:block; font-family:'Noto Sans TC',sans-serif;
+    font-size:10.5px; font-weight:400; color:var(--text-muted); letter-spacing:.02em;}
+  .topbar .brand .live-dot{display:none; width:7px; height:7px; border-radius:50%;
+    background:var(--green); box-shadow:0 0 8px var(--green); margin-left:7px;
+    vertical-align:middle; animation:pulse 1.6s ease-in-out infinite;}
+  body.mkt-live .topbar .brand .live-dot{display:inline-block;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.35;}}
+  .iconbtn{width:40px; height:40px; border-radius:12px; border:1px solid var(--hairline);
+    background:var(--surface); backdrop-filter:blur(8px); color:var(--text-secondary);
+    display:flex; align-items:center; justify-content:center; font-size:16px; cursor:pointer;
+    text-decoration:none; flex-shrink:0; transition:border-color .15s,color .15s,box-shadow .15s;}
+  .iconbtn:hover{border-color:var(--accent); color:var(--text-primary); box-shadow:var(--glow);}
+
+  /* ── 側邊抽屜選單 ─────────────────────────────── */
+  .drawer-backdrop{position:fixed; inset:0; background:rgba(3,6,12,.66); z-index:180;
+    opacity:0; pointer-events:none; transition:opacity .2s; backdrop-filter:blur(2px);}
+  .drawer-backdrop.open{opacity:1; pointer-events:auto;}
+  .drawer{position:fixed; top:0; left:0; bottom:0; width:270px; max-width:82vw; z-index:181;
+    background:var(--surface-solid); border-right:1px solid var(--hairline-2);
+    transform:translateX(-102%); transition:transform .24s cubic-bezier(.2,.8,.2,1);
+    overflow-y:auto; padding:18px 14px calc(24px + env(safe-area-inset-bottom));
+    box-shadow:24px 0 60px -30px #000;}
+  .drawer.open{transform:translateX(0);}
+  .drawer .dr-head{display:flex; align-items:center; gap:10px; margin-bottom:14px;}
+  .drawer .dr-head .dr-title{font-family:'Noto Serif TC',serif; font-weight:700; font-size:16px; flex:1;}
+  .drawer .dr-close{width:32px; height:32px; border-radius:9px; border:1px solid var(--hairline);
+    background:var(--surface-2); color:var(--text-primary); font-size:15px; cursor:pointer;}
+  .drawer h4{font-size:11px; color:var(--text-muted); letter-spacing:.08em; text-transform:uppercase;
+    margin:16px 6px 6px;}
+  .drawer a{display:flex; align-items:center; gap:10px; text-decoration:none; color:var(--text-secondary);
+    font-size:14px; font-weight:600; padding:10px 10px; border-radius:10px; transition:background .13s,color .13s;}
+  .drawer a .dr-ic{width:20px; text-align:center; font-size:15px;}
+  .drawer a:hover{background:var(--surface-2); color:var(--text-primary);}
+  .drawer a.current{color:var(--accent); background:color-mix(in srgb,var(--accent) 12%,transparent);}
+  .drawer a.current::after{content:""; margin-left:auto; width:6px; height:6px; border-radius:50%;
+    background:var(--accent); box-shadow:0 0 8px var(--accent);}
+
+  /* 桌機：抽屜常駐，內容右移 */
+  @media (min-width:1040px){
+    .drawer{transform:translateX(0); box-shadow:none;}
+    .drawer-backdrop{display:none;}
+    .page{margin-left:290px; max-width:820px;}
+    .topbar .menu-btn{display:none;}
+    .fab{display:none;}
+  }
+
+  /* ── 頁首 ───────────────────────────────────── */
+  .masthead-label{font-size:12px; color:var(--text-muted); margin-bottom:4px;
+    letter-spacing:.08em; text-transform:uppercase;}
+  .masthead-date{font-family:'Noto Serif TC',serif; font-weight:600; font-size:24px;}
+  header{margin-bottom:8px;}
+
+  .block{margin-bottom:4px;}
+  .block h2{font-family:'Noto Serif TC',serif; font-weight:600; font-size:18px; margin-bottom:14px;}
+  .commentary{font-size:14.5px; color:var(--text-secondary); line-height:1.8;}
+
+  .section-title{font-size:12px; color:var(--text-muted); letter-spacing:.05em;
+    margin:22px 0 10px; display:flex; justify-content:space-between; align-items:center;}
+  .section-title a{font-size:12.5px; color:var(--accent); text-decoration:none;}
+
+  /* ── 卡片（玻璃）─────────────────────────────── */
+  .card{background:var(--surface); backdrop-filter:blur(10px);
+    border-radius:var(--radius); padding:16px; border:1px solid var(--hairline);}
+  .card + .card{margin-top:12px;}
+  .card-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
+  .card-grid.cols-3{grid-template-columns:repeat(3,1fr);}
+
+  .sheader{display:flex; align-items:center; gap:12px; margin:20px 0 12px;}
+  .sheader .sh-ic{width:40px; height:40px; border-radius:12px; flex-shrink:0;
+    background:color-mix(in srgb, var(--accent) 16%, transparent);
+    border:1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+    color:var(--accent); display:flex; align-items:center; justify-content:center; font-size:19px;}
+  .sheader .sh-title{font-family:'Noto Serif TC',serif; font-weight:700; font-size:19px; flex:1;}
+  .sheader .sh-badge{font-size:11.5px; color:var(--text-secondary); border:1px solid var(--hairline);
+    border-radius:100px; padding:4px 11px; white-space:nowrap;}
+
+  .stat-tile{background:var(--surface-2); border-radius:var(--radius-sm);
+    padding:13px 14px; border-left:3px solid var(--hairline);}
+  .stat-tile.c-market{border-left-color:var(--c-market);}
+  .stat-tile.c-theme{border-left-color:var(--c-theme);}
+  .stat-tile.c-chip{border-left-color:var(--c-chip);}
+  .stat-tile.c-score{border-left-color:var(--c-score);}
+  .stat-tile.c-warn{border-left-color:var(--c-warn);}
+  .stat-tile .stat-tile-label{font-size:11.5px; color:var(--text-muted); margin-bottom:5px;
+    display:flex; align-items:center; gap:5px;}
+  .stat-tile .stat-tile-value{font-family:'JetBrains Mono',monospace; font-size:19px;
+    font-weight:700; line-height:1.2; font-variant-numeric:tabular-nums;}
+  .stat-tile .stat-tile-value.muted{color:var(--text-muted); font-size:15px;}
+  .stat-tile .stat-tile-sub{font-size:12px; color:var(--text-secondary); margin-top:3px;}
+  .dot{width:7px; height:7px; border-radius:50%; flex-shrink:0; display:inline-block;}
+  .dot.c-market{background:var(--c-market);} .dot.c-theme{background:var(--c-theme);}
+  .dot.c-chip{background:var(--c-chip);} .dot.c-score{background:var(--c-score);}
+  .dot.c-warn{background:var(--c-warn);}
+
+  /* ── 即時徽章 ───────────────────────────────── */
+  .live-badge{display:none; align-items:center; gap:5px; font-size:11px; font-weight:700;
+    color:var(--green); border:1px solid color-mix(in srgb,var(--green) 45%,transparent);
+    border-radius:100px; padding:2px 9px; letter-spacing:.06em; vertical-align:middle;}
+  .live-badge::before{content:""; width:6px; height:6px; border-radius:50%;
+    background:var(--green); box-shadow:0 0 7px var(--green); animation:pulse 1.6s ease-in-out infinite;}
+  body.mkt-live .live-badge{display:inline-flex;}
+
+  /* ── 分段控制 ───────────────────────────────── */
+  .seg{display:flex; gap:6px; background:var(--surface); backdrop-filter:blur(8px);
+    border:1px solid var(--hairline); border-radius:14px; padding:5px;}
+  .seg > button{flex:1; border:none; background:transparent; color:var(--text-secondary);
+    font:inherit; font-size:13.5px; font-weight:700; padding:10px 8px; border-radius:10px;
+    cursor:pointer; display:flex; align-items:center; justify-content:center; gap:6px;
+    transition:background .15s,color .15s,box-shadow .15s; white-space:nowrap;}
+  .seg > button.on{background:color-mix(in srgb,var(--accent) 18%,transparent);
+    color:var(--accent); box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--accent) 45%,transparent);}
+  .seg > button:disabled{opacity:.4; cursor:not-allowed;}
+  .seg.scroll{overflow-x:auto; scrollbar-width:none;}
+  .seg.scroll::-webkit-scrollbar{display:none;}
+  .seg.scroll > button{flex:0 0 auto;}
+
+  .chips{display:flex; gap:7px; flex-wrap:wrap; align-items:center;}
+  .chips.nowrap{flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none;}
+  .chips.nowrap::-webkit-scrollbar{display:none;}
+  .chips > button{border:1px solid var(--hairline); background:var(--surface);
+    color:var(--text-secondary); font:inherit; font-size:12.5px; font-weight:700;
+    padding:7px 13px; border-radius:100px; cursor:pointer; white-space:nowrap;
+    transition:background .15s,color .15s,border-color .15s;}
+  .chips > button.on{background:color-mix(in srgb,var(--accent) 16%,transparent);
+    color:var(--accent); border-color:color-mix(in srgb,var(--accent) 50%,transparent);}
+  .chips .chips-sep{flex:1;}
+  .chips .chips-note{font-size:12px; color:var(--text-muted);}
+
+  .datescrub{display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding:2px 0;}
+  .datescrub::-webkit-scrollbar{display:none;}
+  .datescrub > button{flex:0 0 auto; border:1px solid var(--hairline); background:var(--surface);
+    color:var(--text-secondary); font:inherit; font-size:12.5px; font-weight:700;
+    padding:8px 14px; border-radius:100px; cursor:pointer; white-space:nowrap;}
+  .datescrub > button.on{background:color-mix(in srgb,var(--accent) 16%,transparent);
+    color:var(--accent); border-color:color-mix(in srgb,var(--accent) 50%,transparent);}
+
+  /* ── 排行列 ─────────────────────────────────── */
+  .rank-list{border-top:1px solid var(--hairline);}
+  .rank-row{display:flex; align-items:center; gap:12px; padding:13px 2px;
+    border-bottom:1px solid var(--hairline); text-decoration:none; color:inherit;}
+  .rank-row .rk-idx{width:20px; text-align:center; font-size:12px; color:var(--text-muted);
+    flex-shrink:0; font-family:'JetBrains Mono',monospace;}
+  .rank-row .rk-bar{width:3px; align-self:stretch; border-radius:2px; background:var(--accent);
+    box-shadow:0 0 8px -1px var(--accent); flex-shrink:0;}
+  .rank-row .rk-main{flex:1; min-width:0;}
+  .rank-row .rk-name{font-size:15px; font-weight:700; display:flex; align-items:baseline; gap:8px;}
+  .rank-row .rk-code{font-size:12.5px; color:var(--text-muted); font-family:'JetBrains Mono',monospace;}
+  .rank-row .rk-price{font-family:'JetBrains Mono',monospace; font-weight:600;}
+  .rank-row .rk-sub{font-size:11.5px; color:var(--text-muted); margin-top:3px;}
+  .rank-row .rk-right{font-family:'JetBrains Mono',monospace; font-size:15px; font-weight:700;
+    text-align:right; flex-shrink:0;}
+  .rank-row:active{background:var(--surface-2);}
+
+  /* ── 五面向評分卡 ───────────────────────────── */
+  .scorecard{position:relative; border-radius:var(--radius); padding:16px 16px 14px;
+    margin-bottom:12px; border:1px solid var(--hairline); overflow:hidden;
+    background:linear-gradient(180deg, color-mix(in srgb, var(--sc-tint,var(--accent)) 14%, var(--surface-solid)),
+                                       var(--surface-solid) 62%);}
+  .scorecard::before{content:""; position:absolute; left:0; top:14px; bottom:14px; width:3px;
+    border-radius:2px; background:var(--sc-tint,var(--accent));
+    box-shadow:0 0 12px -1px var(--sc-tint,var(--accent));}
+  .scorecard .sc-top{display:flex; align-items:center; gap:10px; margin-bottom:12px;}
+  .scorecard .sc-medal{font-size:17px; flex-shrink:0; font-family:'JetBrains Mono',monospace;}
+  .scorecard .sc-code{font-family:'JetBrains Mono',monospace; font-weight:600; color:var(--text-secondary);}
+  .scorecard .sc-nm{font-size:17px; font-weight:700;}
+  .scorecard .sc-big{margin-left:auto; font-family:'JetBrains Mono',monospace; font-size:30px;
+    font-weight:700; line-height:1; color:var(--sc-tint,var(--accent));
+    text-shadow:0 0 18px color-mix(in srgb,var(--sc-tint,var(--accent)) 55%,transparent);}
+  .scorecard .axis-row{display:flex; align-items:center; gap:10px; margin-bottom:7px; font-size:12.5px;}
+  .scorecard .axis-label{width:52px; color:var(--text-secondary); flex-shrink:0;}
+  .scorecard .axis-track{flex:1; height:7px; background:var(--surface-3); border-radius:4px; overflow:hidden;}
+  .scorecard .axis-fill{height:100%; border-radius:4px; background:var(--sc-tint,var(--accent));
+    box-shadow:0 0 10px -2px var(--sc-tint,var(--accent));}
+  .scorecard .axis-value{width:36px; text-align:right; font-family:'JetBrains Mono',monospace;
+    color:var(--text-secondary); flex-shrink:0;}
+  .scorecard .axis-na{width:36px; text-align:right; font-size:11.5px; color:var(--text-muted); flex-shrink:0;}
+  .scorecard .sc-foot{display:flex; align-items:center; gap:12px; margin-top:12px;
+    padding-top:10px; border-top:1px solid var(--hairline);}
+  .scorecard .sc-foot .sc-time{font-size:11.5px; color:var(--text-muted); flex:1;}
+
+  .expand{border-top:1px solid var(--hairline); margin-top:12px;}
+  .expand > summary{cursor:pointer; list-style:none; padding:10px 0 2px; font-size:13px;
+    font-weight:700; color:var(--accent); display:flex; align-items:center; gap:6px;}
+  .expand > summary::-webkit-details-marker{display:none;}
+  .expand > summary::before{content:"›"; display:inline-block; font-size:16px;
+    transition:transform .18s; color:var(--text-muted);}
+  .expand[open] > summary::before{transform:rotate(90deg);}
+  .expand .expand-body{padding:10px 0 4px;}
+
+  .dtable{width:100%; border-collapse:collapse; font-size:13px;}
+  .dtable th,.dtable td{padding:9px 8px; border-bottom:1px solid var(--hairline); text-align:right;}
+  .dtable th{font-size:11px; color:var(--text-muted); font-weight:500;}
+  .dtable td:first-child,.dtable th:first-child{text-align:left;}
+  .dtable td{font-family:'JetBrains Mono',monospace; font-variant-numeric:tabular-nums;}
+  .dtable-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+
+  .tag{font-size:11.5px; padding:3px 9px; border-radius:100px; white-space:nowrap; font-weight:700;}
+  .tag.confidence-high{background:rgba(245,196,81,.16); color:var(--gold);}
+  .tag.confidence-mid{background:rgba(147,164,196,.14); color:var(--text-secondary);}
+  .tag.confidence-low{background:rgba(92,107,140,.16); color:var(--text-muted);}
+  .tag.verdict-real{background:rgba(47,224,166,.14); color:var(--green);}
+  .tag.verdict-watch{background:rgba(255,84,112,.14); color:var(--red);}
+  .tag.watchlist{background:rgba(245,196,81,.18); color:var(--gold);}
+
+  .quicklink-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:10px;}
+  .quicklink{display:block; background:var(--surface); backdrop-filter:blur(8px);
+    border:1px solid var(--hairline); border-radius:var(--radius-sm); padding:14px;
+    text-decoration:none; transition:background .15s,transform .1s,border-color .15s,box-shadow .15s;}
+  .quicklink:active{transform:scale(.98);}
+  .quicklink:hover{background:var(--surface-2); border-color:var(--accent); box-shadow:var(--glow);}
+  .quicklink .ql-title{font-size:14px; font-weight:700; color:var(--text-primary);
+    display:flex; align-items:center; gap:7px; margin-bottom:3px;}
+  .quicklink .ql-desc{font-size:12px; color:var(--text-muted);}
+
+  /* ── 浮動選單鈕（手機）───────────────────────── */
+  .fab{position:fixed; right:18px; bottom:calc(18px + env(safe-area-inset-bottom));
+    width:54px; height:54px; border-radius:16px; border:1px solid color-mix(in srgb,var(--accent) 50%,transparent);
+    z-index:150; background:var(--surface-solid); color:var(--accent); font-size:20px; cursor:pointer;
+    box-shadow:var(--glow), 0 12px 30px -10px #000;
+    display:flex; align-items:center; justify-content:center; transition:transform .15s;}
+  .fab:active{transform:scale(.92);}
+
+  footer.site-footer{margin-top:36px; padding-top:18px; border-top:1px solid var(--hairline);}
+  footer.site-footer p{font-size:12px; color:var(--text-muted); margin-bottom:6px; line-height:1.6;}
+
+  @media (max-width:480px){
+    .page{padding:12px 12px 92px;}
+    .masthead-date{font-size:21px;}
+    .card-grid.cols-3{grid-template-columns:repeat(2,1fr);}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important;}}
+
+  [data-stock-code]{cursor:pointer; text-decoration:underline dotted var(--text-muted);
+    text-underline-offset:3px;}
+  [data-stock-code]:hover{color:var(--accent);}
+
+  /* ── 個股 K 線彈窗 ─────────────────────────── */
+  .sc-modal{position:fixed; inset:0; background:rgba(3,6,12,.82); z-index:200;
+    display:none; align-items:flex-start; justify-content:center; padding:24px 12px; overflow-y:auto;}
+  .sc-modal.open{display:flex;}
+  .sc-modal-inner{background:var(--surface-solid); border-radius:var(--radius);
+    max-width:820px; width:100%; padding:20px; position:relative; border:1px solid var(--hairline-2);}
+  .sc-tf-tabs{display:flex; gap:6px; margin-bottom:10px; align-items:center; flex-wrap:wrap;}
+  .sc-tf{background:var(--surface-2); border:1px solid var(--hairline); color:var(--text-secondary);
+    border-radius:var(--radius-sm); padding:6px 16px; font-size:13px; cursor:pointer;}
+  .sc-tf.active{background:color-mix(in srgb,var(--accent) 18%,transparent); color:var(--accent);
+    border-color:color-mix(in srgb,var(--accent) 45%,transparent); font-weight:700;}
+  .sc-zoom-group{display:flex; gap:4px; margin-left:auto;}
+  .sc-zoom{background:var(--surface-2); border:1px solid var(--hairline); color:var(--text-secondary);
+    border-radius:var(--radius-sm); width:32px; height:32px; font-size:15px; line-height:1; cursor:pointer;}
+  .sc-zoom:hover{border-color:var(--accent); color:var(--accent);}
+  .sc-chart-container{width:100%; height:460px; margin-bottom:8px;}
+  .sc-info-bar{font-size:12px; font-family:'JetBrains Mono',monospace; color:var(--text-secondary);
+    background:var(--surface-2); border-radius:var(--radius-sm); padding:8px 10px;
+    margin-bottom:8px; min-height:20px; display:flex; flex-wrap:wrap; gap:2px 10px; align-items:center;}
+  .sc-info-bar > span, .sc-info-bar > b{white-space:nowrap;}
+  .sc-info-date{font-family:'Noto Sans TC',sans-serif; color:var(--text-muted);}
+  .sc-info-marker{color:var(--accent); font-family:'Noto Sans TC',sans-serif;}
+  .sc-close{position:absolute; top:12px; right:12px; background:var(--surface-2);
+    border:none; color:var(--text-primary); width:32px; height:32px; border-radius:50%; font-size:16px; cursor:pointer;}
+  .sc-title{font-family:'Noto Serif TC',serif; font-size:17px; margin-bottom:10px;}
+  .sc-loading, .sc-empty{color:var(--text-muted); font-size:13.5px; padding:20px 0;}
+  .sc-price-row{display:flex; align-items:baseline; gap:10px; margin-bottom:8px; flex-wrap:wrap;}
+  .sc-price{font-size:24px; font-weight:600;}
+  .sc-chg{font-size:14px;}
+  .sc-date{font-size:12px; color:var(--text-muted); margin-left:auto;}
+  .sc-svg{width:100%; height:auto; display:block; margin:10px 0;}
+  .sc-grid{stroke:var(--hairline); stroke-width:1;}
+  .sc-grid-dash{stroke:var(--hairline); stroke-width:1; stroke-dasharray:3,3;}
+  .sc-axis{fill:var(--text-muted); font-size:9px; font-family:'JetBrains Mono',monospace;}
+  .sc-legend{display:flex; gap:14px; flex-wrap:wrap; font-size:11.5px; color:var(--text-secondary); margin-bottom:12px;}
+  .sc-legend span{display:flex; align-items:center; gap:5px;}
+  .sc-dot{width:8px; height:8px; border-radius:50%; display:inline-block;}
+  .sc-line{width:12px; height:2px; display:inline-block;}
+  .sc-grade{display:flex; align-items:center; gap:10px; margin-bottom:10px; flex-wrap:wrap;}
+  .sc-notes{font-size:12.5px; color:var(--text-secondary);}
+  .sc-disclaimer{font-size:11.5px; color:var(--text-muted); line-height:1.5;}
+  .sc-sec{margin:14px 0 4px; border-top:1px solid var(--hairline); padding-top:12px;}
+  .sc-sec-h{font-family:'Noto Serif TC',serif; font-size:14px; margin-bottom:8px;
+    color:var(--text-primary); display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+  .sc-src{font-family:'Noto Sans TC',sans-serif; font-size:10.5px; font-weight:400;
+    color:var(--text-muted); border:1px solid var(--hairline); border-radius:999px; padding:1px 8px;}
+  .sc-src-warn{color:var(--gold); border-color:var(--gold);}
+  .sc-biz{font-size:13px; color:var(--text-secondary); line-height:1.7; margin-bottom:10px;}
+  .sc-kv-grid{display:grid; grid-template-columns:1fr 1fr; gap:4px 14px;}
+  .sc-kv{display:flex; gap:8px; font-size:12px; line-height:1.7;}
+  .sc-kv span{color:var(--text-muted); white-space:nowrap;}
+  .sc-kv b{color:var(--text-secondary); font-weight:400; word-break:break-all;}
+  .sc-kv a{color:var(--accent);}
+  .sc-fund-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:8px;}
+  .sc-fund-cell{background:var(--surface-2); border-radius:var(--radius-sm); padding:8px 6px; text-align:center;}
+  .sc-fund-cell h5{font-size:11px; margin:0 0 4px; color:var(--text-muted); font-weight:400;}
+  .sc-fund-cell p{font-size:13px; margin:0; font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
+  .sc-fullpage{position:absolute; top:14px; right:52px; font-size:12px; color:var(--accent);
+    text-decoration:none; border:1px solid var(--hairline); border-radius:999px; padding:3px 10px; background:var(--surface-2);}
+  .sc-fullpage:hover{border-color:var(--accent);}
+  @media (max-width:560px){ .sc-fullpage{display:none;} }
+  .sc-theme-tags{display:flex; flex-wrap:wrap; gap:6px;}
+  .stat-tile-value.muted{color:var(--text-muted); font-size:15px;}
+  .sc-peer{cursor:pointer; font-family:'JetBrains Mono',monospace;}
+  .sc-ind-link{color:var(--accent); text-decoration:none; font-weight:600;}
+  .sc-ind-link:hover{text-decoration:underline;}
+  .sc-peer:hover{border-color:var(--accent); color:var(--accent);}
+  .sc-theme-tag{font-size:12px; background:var(--surface-2); border:1px solid var(--hairline);
+    border-radius:999px; padding:3px 10px; color:var(--text-secondary);}
+  @media (max-width:560px){ .sc-kv-grid{grid-template-columns:1fr;} .sc-fund-grid{grid-template-columns:repeat(2,1fr);} }
+  .sc-swot{margin:14px 0 4px; border-top:1px solid var(--hairline); padding-top:12px;}
+  .sc-swot-h{font-family:'Noto Serif TC',serif; font-size:14px; margin-bottom:6px; color:var(--text-primary);}
+  .sc-swot-desc{font-size:13px; color:var(--text-secondary); line-height:1.65; margin-bottom:10px;}
+  .sc-swot-grid{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .sc-swot-cell{background:var(--surface-2); border-radius:var(--radius-sm); padding:8px 10px;}
+  .sc-swot-cell h5{font-size:12px; margin:0 0 3px; color:var(--gold);}
+  .sc-swot-cell p{font-size:12px; color:var(--text-secondary); line-height:1.55; margin:0;}
+  .sc-swot-updated{font-size:11px; color:var(--text-muted); margin-top:8px;}
+  .sc-quote-row{display:flex; flex-wrap:wrap; gap:4px 14px; font-size:12px; color:var(--text-secondary);
+    background:var(--surface-2); border-radius:var(--radius-sm); padding:8px 10px; margin-bottom:8px;}
+  .sc-quote-row b{font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
+  .sc-snapshot-note{font-size:12px; color:var(--text-secondary); background:var(--surface-2);
+    border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
+  @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
+
+  .ir-meta{font-size:12.5px; color:var(--text-muted); margin:8px 0 18px;}
+  .ir-stat{display:inline-flex; align-items:baseline; gap:5px; background:var(--surface);
+           border:1px solid var(--hairline); border-radius:999px; padding:4px 12px;
+           margin:0 8px 8px 0; font-size:12.5px;}
+  .ir-stat b{font-family:'JetBrains Mono',monospace; color:var(--text-primary); font-size:14px;}
+  .ir-summary{font-size:15px; line-height:1.85; color:var(--text-primary);
+              background:var(--surface); border-left:3px solid var(--gold);
+              border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:26px;}
+  .ir-sec{margin-bottom:26px;}
+  .ir-sec h2{font-size:17px; margin:0 0 10px;}
+  .ir-sec p{font-size:14.5px; line-height:1.9; color:var(--text-secondary); margin:0;}
+  .ir-stage{background:var(--surface); border-radius:var(--radius-sm);
+            padding:12px 15px; margin-bottom:10px;}
+  .ir-stage h4{margin:0 0 4px; font-size:14px; color:var(--gold);}
+  .ir-stage .note{font-size:13px; color:var(--text-secondary); line-height:1.7; margin:0 0 8px;}
+  .ir-codes{display:flex; flex-wrap:wrap; gap:6px;}
+  .ir-code{cursor:pointer; font-size:12px; font-family:'JetBrains Mono',monospace;
+           background:var(--surface-2); border:1px solid var(--hairline);
+           border-radius:999px; padding:3px 10px; color:var(--text-secondary);}
+  .ir-code:hover{border-color:var(--gold); color:var(--gold);}
+  .ir-leaders{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  @media (max-width:640px){ .ir-leaders{grid-template-columns:1fr;} }
+  .ir-leader{cursor:pointer; background:var(--surface); border:1px solid var(--hairline);
+             border-radius:var(--radius-sm); padding:10px 13px;}
+  .ir-leader:hover{border-color:var(--gold);}
+  .ir-leader b{font-family:'JetBrains Mono',monospace;}
+  .ir-leader span{display:block; font-size:12.5px; color:var(--text-muted);
+                  margin-top:4px; line-height:1.6;}
+  .ir-risk{background:var(--surface); border-left:3px solid var(--c-warn);
+           border-radius:var(--radius-sm); padding:12px 15px; font-size:14px;
+           line-height:1.85; color:var(--text-secondary);}
+  .ir-out{background:var(--surface); border-left:3px solid var(--c-market);
+          border-radius:var(--radius-sm); padding:12px 15px; font-size:14px;
+          line-height:1.85; color:var(--text-secondary);}
+  .ir-src{font-size:12.5px; color:var(--text-muted); line-height:1.9;
+          border-top:1px solid var(--hairline); padding-top:14px; margin-top:26px;}
+  .ir-src a{color:var(--gold); word-break:break-all;}
+
+</style>
+</head>
+<body data-section="">
+<div class="drawer-backdrop" id="navBackdrop"></div>
+<nav class="drawer" id="navDrawer" aria-label="全站選單">
+  <div class="dr-head">
+    <span class="dr-title">盤後快訊</span>
+    <button class="dr-close" id="drClose" aria-label="關閉選單">✕</button>
+  </div>
+  <h4>市場</h4>
+  <a href="../index.html" class=""><span class="dr-ic">🏠</span>最新</a>
+  <a href="../heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
+  <a href="../chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
+  <a href="../scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
+  <a href="../picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
+  <a href="../intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
+  <a href="../lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
+  <a href="../watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
+  <a href="../disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
+  <h4>研究</h4>
+  <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
+  <a href="../industry/index.html" class="current"><span class="dr-ic">🏭</span>產業深度分析</a>
+  <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
+  <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
+  <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
+  <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
+  <a href="../research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
+  <a href="../submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
+</nav>
+
+<div class="page">
+  <div class="topbar">
+    <button class="menu-btn" id="menuBtn" aria-label="開啟選單">☰</button>
+    <a href="../index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
+    <a href="../lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
+    <a href="../watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
+    <a href="../intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
+  </div>
+
+  
+<header>
+  <div class="masthead-label">盤後快訊</div>
+  <h1 class="masthead-date">通信網路業：電信三雄、網通設備 ODM 與 AI 資料中心光通訊三個子族群</h1>
+</header>
+<p class="ir-meta">
+  <span class="ir-stat">公司家數 <b>103</b></span>
+  <span class="ir-stat">合計月營收 <b>1,473</b> 億</span>
+  <span class="ir-stat">2026-09-09 產出</span>
+  <br>產業別依公開資訊觀測站申報分類；公司「在做什麼」以申報主要經營業務為準。
+</p>
+
+<div class="ir-summary">「通信網路業」103 檔公司合計月營收 1,473 億元、家數加權年增率 +50.6%，但這個高成長率主要來自網通設備與光通訊零組件廠商（尤其對接 AI 資料中心需求的智邦、華星光等），跟中華電、台灣大、遠傳三家電信服務業者的個位數成長完全是不同的成長邏輯，不能混為一談。實質上可拆成三個子族群：受監管的電信服務業者、對電信商／企業／家用市場出貨的網通設備 ODM／白牌交換器廠、以及對接 AI 資料中心與 5G 基礎建設的光通訊與化合物半導體磊晶廠。</div>
+
+
+<section class="ir-sec">
+  <h2>三個子族群，成長邏輯完全不同</h2>
+  <p>「通信網路業」是證交所電子相關產業裡專門收納通訊與網路相關公司的分類，但這 103 檔公司實際上分屬三種完全不同的商業模式：一是受主管機關特許經營、營收穩定成長緩慢的電信服務業者（2412 中華電申報「電信事業」、3045 台灣大申報「通訊業」、4904 遠傳申報「行動電話業務」），二是把網通設備賣給電信商、企業或一般消費者的設備製造／ODM 廠，三是替上述設備供應光通訊模組、化合物半導體磊晶片等關鍵零組件的廠商。用單一的「+50.6%」年增率去理解這個分類，會把電信三雄的個位數成長跟設備／零組件廠的數倍成長混在一起，失去意義。</p>
+</section>
+
+<section class="ir-sec">
+  <h2>電信三雄：受監管的公用事業型成長</h2>
+  <p>中華電、台灣大、遠傳三家申報業務都是電信／行動電話業務本身，月營收分別為 198.8 億、161.7 億、92.5 億元，年增率 +3.7%、+7.1%、+14.9%，明顯低於同分類其他設備廠。這個子族群的商業模式是向終端消費者與企業收取月租與資費，營收成長主要跟用戶數、資費方案調整、以及新業務（如企業數位轉型、雲端服務）的滲透率有關，跟半導體或 AI 資本支出周期沒有直接連動，是這份清單裡少數屬於公用事業型、股利穩定的子族群。</p>
+</section>
+
+<section class="ir-sec">
+  <h2>網通設備 ODM 與白牌交換器：這份清單裡規模最大的子族群</h2>
+  <p>2345 智邦申報業務含「電腦網路系統、用戶端通訊電子設備、光電通訊設備」之研發製造銷售，月營收 394.7 億元、年增 +71.7%，是這份清單裡規模最大、也是白牌網路交換器（white-box switch）的代表業者，出貨對象包含雲端資料中心業者。6285 啟碁（網路通訊系列產品）、5388 中磊（有線／無線網路產品）、3596 智易（無線區域網路產品、數位家庭多媒體閘道器）、4906 正文（無線區域網路產品）、3558 神準（Wi-Fi 與 Switch 網路系統產品）、8059 凱碩（寬頻纜線終端設備、Mesh Wi-Fi、ONT）、2332 友訊（自有品牌網路產品）、6143 振曜（電腦網路週邊產品）、2419 仲琦（通訊、電信產品）、6245 立端（電腦及週邊設備）、3694 海華（無線網路通訊模組）等，則是替電信商（家用寬頻路由器、Mesh Wi-Fi）或企業客戶代工／設計網通終端設備的 ODM 廠，出貨規模與成長率因客戶結構（電信商資費方案汰換週期、企業採購週期）而分化，其中立端年增 +102.5% 特別突出。3704 合勤控申報業務為「一般投資業」，本身沒有資訊量——經 WebSearch 查證台灣集中保管結算所（TDCC）投資人關係平台資料，其子公司合勤科技（Zyxel）是跨國寬頻連網設備商，核心產品涵蓋電信商用網通設備、企業網通設備、Wi-Fi 7 用戶端設備、乙太網路交換器、資安設備等（（來源：irplatform.tdcc.com.tw 合勤控投資人關係平台）。</p>
+</section>
+
+<section class="ir-sec">
+  <h2>光通訊與化合物半導體磊晶：對接 AI 資料中心需求</h2>
+  <p>4979 華星光申報業務為「電子零組件製造業及電子材料批發業等相關產業」，描述本身偏產業泛稱——經 WebSearch 查證，其實際產品為光通訊主動元件與光收發模組（含 400G、800G 光收發模組），應用於資料中心、電信網路與 5G 基礎設施，公司法說會資料顯示 800G 需求已於近年啟動、1.6T 需求預計自 2026 年起步（（來源：vocus.cc 華星光通法說會摘要），是這份清單裡跟 AI 資料中心光模組需求連結最直接的公司。6442 光聖申報業務含「各種光纖及光纖連合器等之製造組立加工及買賣」「通訊光電介面產品及通信網路設備之加工裝配」，屬光纖連接器與介面產品供應商；3081 聯亞申報業務含「雷射磊晶片」「檢光器磊晶片」之研發設計生產銷售，屬化合物半導體磊晶片供應商，年增 +176.5% 是這份清單裡成長率最高的公司之一。</p>
+</section>
+
+<section class="ir-sec">
+  <h2>通訊零組件、材料與通路</h2>
+  <p>2439 美律申報業務含「娛樂性產品、揚聲器、電池產品、免持聽筒、及其他電子零件」，屬聲學零組件供應商；6190 萬泰科申報業務為「區域網路線、電子線、汽機車用線、電源線、電腦線」等各類線材；3380 明泰申報業務為「電信管制射頻器材製造業、無線通信機械器材製造業」；6863 永道-KY 申報業務為「RFID電子標籤」；7689 大鵬科CLMX 申報業務為「無線安防與長照警報系統研發與製造」，屬利基型無線應用產品。2450 神腦申報業務為「通訊產品之代理及買賣、行動電話及相關配件之代理及買賣」，是手機與通訊產品的通路／代理商，不生產設備，商業模式跟前述製造業者不同，營收連動終端手機銷售量與電信商合約補貼政策。</p>
+</section>
+
+<section class="ir-sec">
+  <h2>競爭格局與進入門檻</h2>
+  <p>電信三雄的進入門檻來自電信執照與基礎建設的資本密集度，是寡占市場，新進者極少；網通設備 ODM 這個子族群競爭者眾多、產品同質性較高，價格與客戶關係是主要競爭手段，容易受單一大客戶訂單波動影響；光通訊與化合物半導體磊晶的進入門檻最高，需要磊晶片、光學次模組到模組封裝的垂直整合能力與良率控制，客戶認證週期長，是這份清單裡技術門檻最高、但也最受惠於 AI 資料中心資本支出周期的子族群。</p>
+</section>
+
+
+
+<section class="ir-sec">
+  <h2>上下游結構</h2>
+  
+  <div class="ir-stage">
+    <h4>電信服務業者</h4>
+    <p class="note">受主管機關特許經營，向終端用戶收取月租與資費</p>
+    
+    <div class="ir-codes">
+      
+      <span class="ir-code" data-stock-code="2412">2412</span>
+      
+      <span class="ir-code" data-stock-code="3045">3045</span>
+      
+      <span class="ir-code" data-stock-code="4904">4904</span>
+      
+    </div>
+    
+  </div>
+  
+  <div class="ir-stage">
+    <h4>網通設備 ODM／白牌交換器</h4>
+    <p class="note">替電信商、企業、雲端資料中心業者製造網通終端設備與交換器</p>
+    
+    <div class="ir-codes">
+      
+      <span class="ir-code" data-stock-code="2345">2345</span>
+      
+      <span class="ir-code" data-stock-code="6285">6285</span>
+      
+      <span class="ir-code" data-stock-code="5388">5388</span>
+      
+      <span class="ir-code" data-stock-code="3596">3596</span>
+      
+      <span class="ir-code" data-stock-code="4906">4906</span>
+      
+      <span class="ir-code" data-stock-code="3558">3558</span>
+      
+      <span class="ir-code" data-stock-code="8059">8059</span>
+      
+      <span class="ir-code" data-stock-code="2332">2332</span>
+      
+      <span class="ir-code" data-stock-code="6143">6143</span>
+      
+      <span class="ir-code" data-stock-code="2419">2419</span>
+      
+      <span class="ir-code" data-stock-code="6245">6245</span>
+      
+      <span class="ir-code" data-stock-code="3694">3694</span>
+      
+      <span class="ir-code" data-stock-code="3704">3704</span>
+      
+    </div>
+    
+  </div>
+  
+  <div class="ir-stage">
+    <h4>光通訊與化合物半導體磊晶</h4>
+    <p class="note">供應 AI 資料中心與 5G 基礎設施所需的光收發模組、光纖連接器、磊晶片</p>
+    
+    <div class="ir-codes">
+      
+      <span class="ir-code" data-stock-code="4979">4979</span>
+      
+      <span class="ir-code" data-stock-code="6442">6442</span>
+      
+      <span class="ir-code" data-stock-code="3081">3081</span>
+      
+    </div>
+    
+  </div>
+  
+  <div class="ir-stage">
+    <h4>通訊零組件與材料</h4>
+    <p class="note">聲學零組件、線材、射頻器材、RFID、無線利基應用產品</p>
+    
+    <div class="ir-codes">
+      
+      <span class="ir-code" data-stock-code="2439">2439</span>
+      
+      <span class="ir-code" data-stock-code="6190">6190</span>
+      
+      <span class="ir-code" data-stock-code="3380">3380</span>
+      
+      <span class="ir-code" data-stock-code="6863">6863</span>
+      
+      <span class="ir-code" data-stock-code="7689">7689</span>
+      
+    </div>
+    
+  </div>
+  
+  <div class="ir-stage">
+    <h4>通訊產品通路／代理</h4>
+    <p class="note">手機與通訊產品代理買賣，不生產設備</p>
+    
+    <div class="ir-codes">
+      
+      <span class="ir-code" data-stock-code="2450">2450</span>
+      
+    </div>
+    
+  </div>
+  
+</section>
+
+
+
+<section class="ir-sec">
+  <h2>代表性公司</h2>
+  <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:10px">
+    定位說明須對應該公司的申報營業項目。點任一檔看 K 線與公司資料。</p>
+  <div class="ir-leaders">
+    
+    <div class="ir-leader" data-stock-code="2345" data-stock-name="智邦">
+      <b>2345 智邦</b>
+      <span>電腦網路系統、用戶端通訊電子設備研發製造，白牌網路交換器代表業者，本分類營收規模最大</span>
+    </div>
+    
+    <div class="ir-leader" data-stock-code="2412" data-stock-name="中華電">
+      <b>2412 中華電</b>
+      <span>電信事業，電信三雄之一，受監管的公用事業型電信服務業者</span>
+    </div>
+    
+    <div class="ir-leader" data-stock-code="6285" data-stock-name="啟碁">
+      <b>6285 啟碁</b>
+      <span>網路通訊系列產品研發製造，網通設備 ODM 代表業者</span>
+    </div>
+    
+    <div class="ir-leader" data-stock-code="4979" data-stock-name="華星光">
+      <b>4979 華星光</b>
+      <span>光通訊主動元件與光收發模組（400G/800G），對接 AI 資料中心需求</span>
+    </div>
+    
+    <div class="ir-leader" data-stock-code="3081" data-stock-name="聯亞">
+      <b>3081 聯亞</b>
+      <span>雷射磊晶片、檢光器磊晶片研發設計生產，化合物半導體磊晶供應商</span>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="ir-sec"><h2>風險</h2><div class="ir-risk">把電信三雄的個位數成長跟網通設備／光通訊零組件廠的數倍成長用同一個「+50.6%」年增率呈現，容易誤導讀者高估整個分類的成長動能。網通設備 ODM 子族群普遍出口導向，需留意美國關稅政策與主要客戶（電信商、雲端業者）資本支出決策的波動；光通訊與化合物半導體磊晶子族群雖對接 AI 資料中心需求，但 800G／1.6T 等新規格的實際放量時程仍有不確定性，公司法說會揭露的展望屬公司自身預期，不代表已實現的訂單。3704 合勤控申報業務為「一般投資業」，本報告依 WebSearch 查證的子公司業務描述其集團定位，實際合併營收結構仍應以公司財報揭露為準。</div></section>
+
+
+<section class="ir-sec"><h2>後續觀察重點</h2><div class="ir-out">後續觀察重點包括：AI 資料中心對白牌交換器與 800G/1.6T 光模組的實際拉貨節奏（華星光法說會提及 1.6T 需求預計自 2026 年起步）；5G FWA、Wi-Fi 7 等新一代網通終端設備在電信商與零售通路的汰換週期；以及電信三雄在傳統電信業務外，企業數位轉型與雲端服務業務的滲透進度。</div></section>
+
+
+<div class="ir-src">
+  <b>查證來源</b>（本站規則：沒有外部來源就不產出這份報告）：<br>
+  <a href="https://irplatform.tdcc.com.tw/ir/zh/contact/detail/CF636B4C-519A-4237-AB48-EE3DD61F19F4" target="_blank" rel="noopener">https://irplatform.tdcc.com.tw/ir/zh/contact/detail/CF636B4C-519A-4237-AB48-EE3DD61F19F4</a>　·　
+  <a href="https://vocus.cc/article/68a2f390fd897800015924b4" target="_blank" rel="noopener">https://vocus.cc/article/68a2f390fd897800015924b4</a>　·　
+  <a href="https://www.nstock.tw/%E8%8F%AF%E6%98%9F%E5%85%89%E5%81%9A%E4%BB%80%E9%BA%BC.html" target="_blank" rel="noopener">https://www.nstock.tw/%E8%8F%AF%E6%98%9F%E5%85%89%E5%81%9A%E4%BB%80%E9%BA%BC.html</a>
+  
+  <p style="margin-top:10px">產業層為系統綜合判讀，標「（推論）」者為推論而非查證事實；
+  個別公司的營業項目以公開資訊觀測站申報值為準。僅供研究參考，不構成投資建議。</p>
+</div>
+<p style="margin-top:20px; font-size:13px">
+  ← 回 <a href="index.html" style="color:var(--gold)">產業分析清單</a>　·
+  <a href="../heatmap.html" style="color:var(--gold)">產業熱力圖</a></p>
+
+
+  <footer class="site-footer">
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-09 12:15</p>
+    <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
+  </footer>
+</div>
+
+<button class="fab" id="navFab" aria-label="開啟選單">☰</button>
+
+<script>
+  if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
+  }
+  window.__rel = "../";
+</script>
+<script src="../assets/ui.js?v=12ed3d4a"></script>
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
+<script src="../assets/stock-chart.js?v=12ed3d4a"></script>
+
+</body>
+</html>
