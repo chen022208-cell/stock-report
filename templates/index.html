@@ -45,6 +45,19 @@
   .top-score-card .tsc-sub{font-size:12px; color:var(--text-muted);}
   .top-score-card .tsc-num{font-family:'JetBrains Mono',monospace; font-size:26px;
                            color:var(--c-score); font-weight:600;}
+  .watch-note{font-size:12.5px; color:var(--text-muted); margin:-4px 0 10px; line-height:1.6;}
+  .watch-list{display:flex; flex-direction:column; gap:8px;}
+  .watch-card{display:flex; justify-content:space-between; align-items:center; gap:12px;
+              text-decoration:none; color:inherit; transition:background .15s;}
+  .watch-card:hover{background:var(--surface-2);}
+  .watch-card:active{transform:scale(.98);}
+  .watch-card .wc-main{min-width:0;}
+  .watch-card .wc-name{font-size:15px; font-weight:600; margin-bottom:3px;}
+  .watch-card .wc-code{font-family:'JetBrains Mono',monospace; font-size:12px;
+                       color:var(--text-muted); font-weight:400;}
+  .watch-card .wc-note{font-size:12px; color:var(--text-muted); line-height:1.5;}
+  .watch-card .wc-pct{font-family:'JetBrains Mono',monospace; font-size:17px;
+                      font-weight:600; flex-shrink:0;}
   .ql-icon{font-size:15px;}
 {% endblock %}
 {% block content %}
@@ -100,15 +113,34 @@
 </div>
 {% endif %}
 
-{% if top_score %}
-<div class="section-title">今日焦點個股 <a href="{{ rel }}scores.html">看排行 →</a></div>
-<a href="{{ rel }}scores.html#score-{{ top_score.code }}" class="card top-score-card">
-  <div>
-    <div class="tsc-name" data-stock-code="{{ top_score.code }}" data-stock-name="{{ top_score.name.split(' ', 1)[-1] }}">{{ top_score.name }}</div>
-    <div class="tsc-sub">綜合分最高 · 五面向評分</div>
-  </div>
-  <div class="tsc-num">{{ top_score.composite }}</div>
-</a>
+{# 本來這裡只放「綜合分最高」那一檔，但綜合分高多半是今天已經漲完的股票，
+   跟標題講的「焦點」不是同一件事。改成優先顯示選股雷達的「起漲點」——剛站上
+   月線／季線、量能放大，且排除已經噴出去的——那才是「接下來值得留意」。
+   沒有起漲點訊號的日子才退回綜合分，並在副標明講是哪一種，不要混為一談。 #}
+{% if watchlist %}
+<div class="section-title">
+  {% if watchlist_kind == 'breakout' %}值得關注 · 起漲點{% else %}值得關注 · 評分最高{% endif %}
+  <a href="{{ rel }}{{ 'picks.html' if watchlist_kind == 'breakout' else 'scores.html' }}">看全部 →</a>
+</div>
+<div class="watch-note">
+  {% if watchlist_kind == 'breakout' %}剛站上月線／季線且量能放大的個股，已經漲多的不列入。這是觀察名單，不是買進建議。
+  {% else %}今天沒有出現起漲點訊號，改列五面向綜合分最高的幾檔供參考。{% endif %}
+</div>
+<div class="watch-list">
+  {% for w in watchlist %}
+  <a href="{{ rel }}{{ 'picks.html' if watchlist_kind == 'breakout' else 'scores.html#score-' ~ w.code }}" class="card watch-card">
+    <div class="wc-main">
+      <div class="wc-name" data-stock-code="{{ w.code }}" data-stock-name="{{ w.name.split(' ', 1)[-1] }}">
+        {{ w.name }} <span class="wc-code">{{ w.code }}</span>
+      </div>
+      <div class="wc-note">{{ w.note }}</div>
+    </div>
+    {% if w.change_pct is not none %}
+    <div class="wc-pct {{ 'up' if w.change_pct >= 0 else 'down' }}">{{ "%+.2f"|format(w.change_pct) }}%</div>
+    {% endif %}
+  </a>
+  {% endfor %}
+</div>
 {% endif %}
 
 {# 這一塊原本是「追蹤中題材」——題材變動慢，每天看到的都一樣。改成即時快訊

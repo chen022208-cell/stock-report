@@ -126,15 +126,23 @@ def sync_ref(keep_days: int = 260) -> Path:
     就整個略過，不會拿短歷史冒充長週期新高。
     """
     DATA_DIR.mkdir(parents=True, exist_ok=True)
-    # 統一成交量單位為「張」：TWSE STOCK_DAY_ALL 的 TradeVolume 是「股」要 ÷1000；
-    # TPEx TradingShares 已是「張」；興櫃 TransactionVolume 是「股」要 ÷1000；
-    # 盤中 MIS 的 v 也是「張」——四邊對齊才算得對量比。
+    # 統一成交量單位為「張」：盤中 MIS 的 v 是「張」，日行情三個來源全都是「股」，
+    # 所以三邊都要 ÷1000 才算得對量比。
+    # ⚠️ 這裡本來寫著「TPEx TradingShares 已是張」而漏掉上櫃那條除法——**那是錯的**，
+    # 欄位名稱 TradingShares 本身就是「股」。後果是**每一檔上櫃股的量比都被除以 1000**：
+    # 2026-09-09 實測 3680 家登 prev_vol 存成 2,196,819（實際是 2,197 張），
+    # 盤中成交 6,620 張算出來的量比是 0.0×；5314 世紀* 48,844 張算成 0.01×。
+    # 症狀是「上櫃股量比全是 0.0×、上市股卻正常」，而且因為量比是漏斗的一層，
+    # 這些股票也永遠篩不進 A/B 級名單。判斷方式：上市股的 prev_vol 有小數
+    # （÷1000 的結果），壞掉的上櫃股是整數。
     quotes: list[dict] = []
     for q in (twse.fetch_daily_quotes() or []):
         q["volume"] = (q.get("volume") or 0) / 1000
         quotes.append(q)
-    quotes += tpex.fetch_daily_quotes() or []
-    quotes += _esb_daily_rows()
+    for q in (tpex.fetch_daily_quotes() or []):
+        q["volume"] = (q.get("volume") or 0) / 1000
+        quotes.append(q)
+    quotes += _esb_daily_rows()          # 這條本來就有 ÷1000
     today = now_tpe().strftime("%Y-%m-%d")
     conn = _hist_conn()
     conn.executemany(

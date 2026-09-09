@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>週報：全球總經＋台股深度研究 · 盤後快訊</title>
+<title>盤後快訊 · 2026年9月9日．週三</title>
 <link rel="manifest" href="../manifest.json">
 <link rel="icon" href="../icons/icon-192.png">
 <link rel="apple-touch-icon" href="../icons/icon-192.png">
@@ -380,6 +380,77 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
+  .hero-eyebrow{font-size:13px; color:var(--text-muted); margin-bottom:6px;
+               display:flex; align-items:center; gap:6px;}
+  .hero-number{font-family:'JetBrains Mono',monospace; font-size:38px;
+               font-weight:500; letter-spacing:-.01em;}
+  .hero-change{font-family:'JetBrains Mono',monospace; font-size:15px; margin-left:10px;}
+
+  .watch-hits{background:rgba(227,172,78,.09); border-left:3px solid var(--gold);
+              border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:13px 16px; margin-bottom:18px;}
+  .watch-hits .wh-label{font-size:12px; color:var(--gold); margin-bottom:7px; font-weight:600;}
+  .watch-hits .wh-item{font-size:14px; color:var(--text-secondary); margin-bottom:4px;}
+  .watch-hits .wh-item strong{color:var(--text-primary); font-weight:500;}
+
+  .inst-row{display:flex; align-items:center; gap:10px; margin-bottom:9px; font-size:13.5px;}
+  .inst-row:last-child{margin-bottom:0;}
+  .inst-row .inst-name{width:52px; color:var(--text-secondary); flex-shrink:0;}
+  .inst-row .bar-track{flex:1; height:6px; background:var(--surface-2);
+                       border-radius:3px; position:relative; overflow:hidden;}
+  .inst-row .bar-fill{position:absolute; top:0; bottom:0; border-radius:3px;}
+  .inst-row .bar-fill.up{background:var(--red); left:50%;}
+  .inst-row .bar-fill.down{background:var(--green); right:50%;}
+  .inst-row .inst-value{width:80px; text-align:right;
+                        font-family:'JetBrains Mono',monospace; flex-shrink:0;}
+
+  .theme-entry{background:var(--surface); border:1px solid var(--hairline);
+              border-left:3px solid var(--c-theme); border-radius:var(--radius-sm);
+              padding:14px 16px; margin-bottom:12px;}
+  .theme-entry:last-child{margin-bottom:0;}
+  .theme-header{display:flex; justify-content:space-between; align-items:baseline;
+                gap:12px; margin-bottom:7px; flex-wrap:wrap;}
+  .theme-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px;}
+  .theme-desc{font-size:14px; color:var(--text-secondary); margin-bottom:7px;}
+  .theme-meta{display:flex; justify-content:space-between; align-items:center;
+              font-size:12.5px; color:var(--text-muted); flex-wrap:wrap; gap:8px;}
+  .theme-link{font-size:12.5px; color:var(--gold); text-decoration:none;
+              display:inline-block; margin-top:7px;}
+  .theme-link:hover{text-decoration:underline;}
+
+  .darkhorse-entry{background:var(--surface); border:1px solid var(--hairline);
+                   border-left:3px solid var(--c-warn); border-radius:var(--radius-sm);
+                   padding:14px 16px; margin-bottom:10px;}
+  .darkhorse-entry:last-child{margin-bottom:0;}
+  .darkhorse-name{font-family:'Noto Serif TC',serif; font-weight:600;
+                  font-size:16px; margin-bottom:9px;}
+  .darkhorse-grid{display:grid; grid-template-columns:1fr 1fr;
+                  gap:7px 20px; font-size:13px; margin-bottom:10px;}
+  .darkhorse-grid .dh-label{color:var(--text-muted);}
+  .darkhorse-grid .dh-value{font-family:'JetBrains Mono',monospace;}
+  .darkhorse-note{font-size:13px; color:var(--text-secondary);
+                  border-top:1px solid var(--hairline); padding-top:9px;}
+
+  .tech-table{width:100%; border-collapse:collapse;}
+  .tech-table th{text-align:left; font-size:11.5px; font-weight:400;
+                 color:var(--text-muted); padding-bottom:9px;
+                 border-bottom:1px solid var(--hairline);}
+  .tech-table td{padding:10px 0; border-bottom:1px solid var(--hairline);
+                 font-size:13.5px; vertical-align:top;}
+  .tech-table tr:last-child td{border-bottom:none;}
+  .signal-bull{color:var(--red);} .signal-warn{color:var(--gold);}
+  .signal-neutral{color:var(--text-secondary);} .signal-bear{color:var(--green);}
+  .t-note{color:var(--text-muted); font-size:12.5px;}
+
+  .call-item{display:flex; justify-content:space-between; gap:12px;
+             padding:9px 0; border-bottom:1px solid var(--hairline); font-size:13.5px;}
+  .call-item:last-child{border-bottom:none;}
+  .call-note{color:var(--text-muted); font-size:12.5px;}
+
+  @media (max-width:480px){
+    .hero-number{font-size:32px;}
+    .darkhorse-grid{grid-template-columns:1fr;}
+  }
+
 </style>
 </head>
 <body data-section="">
@@ -402,7 +473,7 @@
   <h4>研究</h4>
   <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
   <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
-  <a href="../weekly/index.html" class="current"><span class="dr-ic">📅</span>每週深度週報</a>
+  <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
   <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
   <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
   <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
@@ -420,27 +491,228 @@
   </div>
 
   
-<header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">週報：全球總經＋台股深度研究</h1></header>
-<p class="commentary" style="margin-top:14px">每週五盤後產出，涵蓋全球總體經濟與台股市場的深度研究，由 Claude 排程 agent 產出。分析文章形式，明確區分已驗證事實與推論，不構成投資建議。</p>
+<header style="margin-bottom:14px">
+  <div class="masthead-label">盤後快訊 · 早報 · 國際盤摘要</div>
+  <h1 class="masthead-date">2026年9月9日．週三</h1>
+</header>
 
-<div class="section-head">本週報告</div>
 
 
-<a href="2026-09-05.pdf" class="card" style="display:block; text-decoration:none; margin-bottom:14px;">
-  <div style="display:flex; justify-content:space-between; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:8px;">
-    <span class="theme-name">2026-09-05 週報</span>
-    <span class="tag confidence-mid">PDF</span>
+
+
+
+
+
+<section class="block">
+  <h2>國際盤摘要</h2>
+  <div class="stat-grid">
+    
+    <div class="stat"><span class="stat-label">道瓊</span>
+      <span class="stat-value down">45,218 -0.32%</span></div>
+    
+    <div class="stat"><span class="stat-label">那斯達克</span>
+      <span class="stat-value up">19,864 +0.58%</span></div>
+    
+    <div class="stat"><span class="stat-label">S&amp;P 500</span>
+      <span class="stat-value up">6,142 +0.21%</span></div>
+    
+    <div class="stat"><span class="stat-label">費半 SOX</span>
+      <span class="stat-value up">5,712 +1.24%</span></div>
+    
+    
+    <div class="stat"><span class="stat-label">美元指數</span>
+      <span class="stat-value mono">102.4</span></div>
+    
+    <div class="stat"><span class="stat-label">VIX</span>
+      <span class="stat-value mono">14.2</span></div>
+    
+    <div class="stat"><span class="stat-label">10年美債殖利率</span>
+      <span class="stat-value mono">4.18%</span></div>
+    
+    <div class="stat"><span class="stat-label">台積電 ADR</span>
+      <span class="stat-value mono">+1.1%</span></div>
+    
   </div>
-  <p class="theme-sum">Fed 內部 Warsh 鷹派、Waller 鴿派與川普施壓三方拉鋸，疊加美伊衝突推升油價、全球公債殖利率齊揚，AI 硬體／軟體分歧持續發酵；台股本週走出逾 1,300 點振幅的 M 型週，以法人買超、電子供應鏈全面走強作收，但處置股名單擴大顯示籌碼過熱風險正在累積。</p>
-  <div class="theme-meta">2026年9月5日．全球總經＋台股深度研究</div>
-</a>
+  <p class="commentary">費半SOX大漲1.24%、台積電ADR同步收高1.1%，即使聯準會9月升息預期升溫、殖利率走揚的鷹派敘事主導近日國際財經頭條，那斯達克與費半仍未被壓抑，顯示AI／半導體供應鏈買盤暫時蓋過升息疑慮，這正是「鷹派升息」題材與實際資金流向出現背離的訊號，台股電子權值股今早可望承接偏多開盤氣氛。VIX僅14.2、位處相對低檔，代表市場尚未真正把升息風險完全定價，一旦後續就業或CPI數據再度強化升息預期，波動率可能快速回升，目前的平靜未必能持續。中東地緣風險推升油價逼近百元大關，對台股影響仍偏間接，散裝／貨櫃航運族群的燃油成本壓力值得留意，但目前尚未反映在類股價格上。川普公開施壓Fed降息、並以貿易戰要脅的言論目前仍屬政治雜音，未見具體政策落地，對出口導向的電子供應鏈影響有限，暫不宜過度解讀。整體來看，今天觀察重點在半導體權值股能否延續費半動能，以及美債殖利率走升是否開始壓抑成長股評價。</p>
+</section>
+<hr class="divider">
 
+
+
+
+
+
+
+<section class="block">
+  <h2>國際題材追蹤</h2>
+  <p class="commentary" style="margin-bottom:16px">強於預期的就業數據把聯準會9月升息機率推高，公債殖利率與美元走升，股市在升息／降息預期反覆拉鋸下劇烈震盪，中東緊張情勢同步把油價推向100美元大關。</p>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">聯準會鷹派升息預期升溫</span>
+      <span class="tag confidence-mid">一致性：中</span>
+    </div>
+    <p class="theme-desc">8月非農就業數據遠優於預期，市場對9月升息機率的定價快速拉高，殖利率與美元同步走揚</p>
+    <div class="theme-meta"><span>推動因素：8月非農就業數據大幅優於預期、Fed理事Waller談話忽鷹忽鴿造成股市多次反轉、2年期公債殖利率升至2025年1月以來新高</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：SPY、TLT、XLF</span>
+      <span class="tag verdict-real">偏真實</span>
+    </div>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：資金緊縮預期升高將壓抑對利率敏感的高本益比科技成長股評價，台幣兌美元易面臨貶值壓力，權值科技股與整體風險性資產短線波動加大</span></div>
+  </div>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">中東地緣風險推升油價</span>
+      <span class="tag confidence-mid">一致性：中</span>
+    </div>
+    <p class="theme-desc">美伊油輪衝突與伊朗緊張情勢升溫，帶動油價逼近100美元，強化通膨與Fed鷹派立場的疑慮</p>
+    <div class="theme-meta"><span>推動因素：美伊油輪攻擊事件頻傳、伊朗緊張情勢升溫、原油價格逼近波段高點100美元</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：XLE、USO</span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：油價上漲推升塑化原料成本與航運燃油成本，能源通膨若持續將強化Fed鷹派立場，間接壓抑台股風險性資產評價；散裝／貨櫃航運族群燃油成本壓力值得留意</span></div>
+  </div>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">川普施壓Fed與貿易政策不確定性</span>
+      <span class="tag confidence-low">一致性：低</span>
+    </div>
+    <p class="theme-desc">川普公開要求Fed降息、並以對特定國家發動貿易戰為要脅，政治介入央行獨立性引發市場不安</p>
+    <div class="theme-meta"><span>推動因素：川普公開喊話要Fed降息否則以貿易逆差為由對相關國家加徵貿易限制、市場質疑Fed決策獨立性</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：UUP</span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：目前僅屬政治言論階段、尚未反映在類股價格或具體政策上；若真的轉為對特定出口國的貿易限制，以出口為導向的台灣電子供應鏈將首當其衝，需持續觀察後續是否落地為政策</span></div>
+  </div>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">比特幣與避險資產訊號分歧</span>
+      <span class="tag confidence-low">一致性：低</span>
+    </div>
+    <p class="theme-desc">部分報導稱Fed偏鴿訊號帶動比特幣反彈，同時亦有報導稱升息疑慮打壓比特幣與黃金，兩種敘事互相矛盾</p>
+    <div class="theme-meta"><span>推動因素：報導數量零星且方向互相矛盾，缺乏一致的價格面佐證，訊號混亂難以定調</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：BITO</span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：台股中挖礦機／伺服器供應鏈概念股短線情緒可能隨比特幣價格連動，但目前訊號不明朗，暫不具明確、可信的傳導效果</span></div>
+  </div>
+  
+</section>
+<hr class="divider">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="block">
+  <h2>今日法說會</h2>
+  
+  <div class="call-item">
+    <span>2301 光寶科 · 10:50</span>
+    <span class="call-note">元大2026第三季投資論壇</span>
+  </div>
+  
+  <div class="call-item">
+    <span>2351 順德 · 13:30</span>
+    <span class="call-note">本公司受邀參加元大證券舉辦之投資人說明會</span>
+  </div>
+  
+  <div class="call-item">
+    <span>2608 嘉里大榮 · 14:30</span>
+    <span class="call-note">115年上半年業績發表會</span>
+  </div>
+  
+  <div class="call-item">
+    <span>2637 慧洋-KY · 13:30</span>
+    <span class="call-note">本公司受邀參加元大證券舉辦之2026年第三季投資論壇， 就本公司財務及業務狀況做說明。</span>
+  </div>
+  
+  <div class="call-item">
+    <span>2891 中信金 · 14:00</span>
+    <span class="call-note">本公司參加第一金證券舉辦之投資人說明會</span>
+  </div>
+  
+  <div class="call-item">
+    <span>3413 京鼎 · 15:00</span>
+    <span class="call-note">本公司受邀參加元大證券舉辦之「2026 年第三季投資論壇」，會中將說明本公司 2026 年第二季營運及財務成果。</span>
+  </div>
+  
+  <div class="call-item">
+    <span>3715 定穎投控 · 15:00</span>
+    <span class="call-note">本公司受邀參加元大證券舉辦之2026第三季投資論壇。</span>
+  </div>
+  
+  <div class="call-item">
+    <span>4739 康普 · 16:00</span>
+    <span class="call-note">就本公司已公開之財務業務資訊作說明。</span>
+  </div>
+  
+  <div class="call-item">
+    <span>4770 上品 · 09:30</span>
+    <span class="call-note">本公司受邀參加元大證券所舉辦之「2026年第三季投資論壇」，將於會中說明本公司財務及業務相關資訊。</span>
+  </div>
+  
+  <div class="call-item">
+    <span>4958 臻鼎-KY · 09:30</span>
+    <span class="call-note">本公司受邀參加元大證券舉辦之2026第三季投資論壇，說明PCB產業展望、公司營運績效相關資訊。</span>
+  </div>
+  
+  <div class="call-item">
+    <span>6526 達發 · 10:50</span>
+    <span class="call-note">公告本公司115年09月09日受邀參加元大證券於台北舉辦之第三季投資論壇， 簡報資料請參閱公開資訊觀測站。</span>
+  </div>
+  
+  <div class="call-item">
+    <span>6890 來億-KY · 13:30</span>
+    <span class="call-note">本公司受邀參加元大證券辦理之2026年第三季投資論壇，會中說明本公司115年第二季業績狀況及營運展望。</span>
+  </div>
+  
+  <div class="call-item">
+    <span>6902 GOGOLOOK · 14:00</span>
+    <span class="call-note">本公司受邀參加宏遠證券舉辦之「2026年趨勢產業論壇」，說明本公司營運狀況。</span>
+  </div>
+  
+  <div class="call-item">
+    <span>6937 天虹 · 15:00</span>
+    <span class="call-note">本公司受邀參加元大證券舉辦之「2026 年第三季投資論壇」，說明本公司營運概況。</span>
+  </div>
+  
+  <div class="call-item">
+    <span>7768 頌勝科技 · 15:00</span>
+    <span class="call-note">受邀參加元大證券辦理之第三季投資論壇。</span>
+  </div>
+  
+  <div class="call-item">
+    <span>7799 禾榮科 · 14:30</span>
+    <span class="call-note">本公司受邀參加富邦證券舉辦之法人說明會，會中就公司業務狀況等說明。</span>
+  </div>
+  
+</section>
 
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-09 13:31</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-09 07:16</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>

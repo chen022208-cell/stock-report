@@ -264,7 +264,12 @@ def render_index() -> Path:
     top_industries = []
     if heatmap_data and heatmap_data.get("industries"):
         rows = [r for r in heatmap_data["industries"] if r.get("name") != "其他"]
-        top_industries = sorted(rows, key=lambda r: abs(r["avg_change_pct"]), reverse=True)[:4]
+        # ⚠️ 這裡本來是 `key=abs(...)`——依「變動幅度絕對值」排序。大盤下跌日
+        # 絕對值最大的自然全是重挫的產業，於是首頁這排永遠只看得到綠的
+        # （2026-09-09 使用者回報「怎麼只有跌的，我要上漲的」）。
+        # 改成由高到低排，先看到今天最強的產業；真的全盤皆墨時仍會顯示
+        # 「相對最抗跌」的那幾個，那也是有意義的資訊，不會變成空區塊。
+        top_industries = sorted(rows, key=lambda r: r["avg_change_pct"], reverse=True)[:4]
         # 首頁這排本來是純 div、點了完全沒反應，使用者以為是「沒資料」。
         # 補上 slug，模板才能連到熱力圖對應產業的錨點。
         top_industries = [{**r, "slug": slugify(r["name"])} for r in top_industries]
@@ -291,11 +296,37 @@ def render_index() -> Path:
         if len(recent_news) >= 5:
             break
 
+    # 首頁這一塊本來只放「綜合分最高」那一檔，標題卻寫「今日焦點個股」——
+    # 綜合分高多半是**今天已經漲完**的，使用者要的是「接下來可能會動、值得先
+    # 留意」的（2026-09-09：「焦點個股是要未來可能會漲的，要關注」）。
+    # 改成優先用選股雷達的「起漲點」：剛站上月線／季線且量能放大，而且
+    # `already_extended` 會把已經噴出去的排除掉——那才是前瞻訊號。
+    # 沒有起漲點訊號的日子（盤整期很常見）才退回綜合分最高那幾檔，並在畫面上
+    # 據實標示是哪一種，不要讓兩者看起來是同一回事。
+    picks_data = _read_json("picks")
+    watchlist, watchlist_kind = [], ""
+    breakout = [b for b in ((picks_data or {}).get("breakout") or [])
+                if not b.get("already_extended")]
+    if breakout:
+        watchlist_kind = "breakout"
+        watchlist = [{
+            "code": b["code"], "name": b.get("name") or b["code"],
+            "change_pct": b.get("change_pct"),
+            "note": b.get("reason") or "",
+        } for b in breakout[:3]]
+
     top_score = None
     if scores_data and scores_data.get("rows"):
         scored = [r for r in scores_data["rows"] if r.get("composite") is not None]
         if scored:
             top_score = max(scored, key=lambda r: r["composite"])
+            if not watchlist:
+                watchlist_kind = "score"
+                watchlist = [{
+                    "code": r["code"], "name": r.get("name") or r["code"],
+                    "change_pct": r.get("change_pct"),
+                    "note": f"五面向綜合分 {r['composite']}",
+                } for r in sorted(scored, key=lambda r: -r["composite"])[:3]]
 
     disposition_count = 0
     if disposition_data:
@@ -318,6 +349,7 @@ def render_index() -> Path:
         institutional=(chips_data or {}).get("institutional"),
         top_strong=((chips_data or {}).get("strong") or [])[:3],
         top_score=top_score,
+        watchlist=watchlist, watchlist_kind=watchlist_kind,
         disposition_count=disposition_count,
     ), encoding="utf-8")
     return path

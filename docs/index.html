@@ -424,6 +424,19 @@
   .top-score-card .tsc-sub{font-size:12px; color:var(--text-muted);}
   .top-score-card .tsc-num{font-family:'JetBrains Mono',monospace; font-size:26px;
                            color:var(--c-score); font-weight:600;}
+  .watch-note{font-size:12.5px; color:var(--text-muted); margin:-4px 0 10px; line-height:1.6;}
+  .watch-list{display:flex; flex-direction:column; gap:8px;}
+  .watch-card{display:flex; justify-content:space-between; align-items:center; gap:12px;
+              text-decoration:none; color:inherit; transition:background .15s;}
+  .watch-card:hover{background:var(--surface-2);}
+  .watch-card:active{transform:scale(.98);}
+  .watch-card .wc-main{min-width:0;}
+  .watch-card .wc-name{font-size:15px; font-weight:600; margin-bottom:3px;}
+  .watch-card .wc-code{font-family:'JetBrains Mono',monospace; font-size:12px;
+                       color:var(--text-muted); font-weight:400;}
+  .watch-card .wc-note{font-size:12px; color:var(--text-muted); line-height:1.5;}
+  .watch-card .wc-pct{font-family:'JetBrains Mono',monospace; font-size:17px;
+                      font-weight:600; flex-shrink:0;}
   .ql-icon{font-size:15px;}
 
 </style>
@@ -501,72 +514,76 @@
 <div class="section-title">產業熱力 <a href="heatmap.html">看全部 →</a></div>
 <div class="industry-strip">
   
-  <a class="industry-chip" href="heatmap.html#ind-橡膠工業">
-    <div class="ic-name">橡膠工業</div>
-    <div class="ic-pct down">-1.1%</div>
-    <div class="ic-count">11 檔 →</div>
+  <a class="industry-chip" href="heatmap.html#ind-半導體業">
+    <div class="ic-name">半導體業</div>
+    <div class="ic-pct up">+0.7%</div>
+    <div class="ic-count">96 檔 →</div>
   </a>
   
-  <a class="industry-chip" href="heatmap.html#ind-電腦及週邊設備業">
-    <div class="ic-name">電腦及週邊設備業</div>
-    <div class="ic-pct down">-1.1%</div>
-    <div class="ic-count">64 檔 →</div>
+  <a class="industry-chip" href="heatmap.html#ind-油電燃氣業">
+    <div class="ic-name">油電燃氣業</div>
+    <div class="ic-pct up">+0.7%</div>
+    <div class="ic-count">8 檔 →</div>
   </a>
   
-  <a class="industry-chip" href="heatmap.html#ind-造紙工業">
-    <div class="ic-name">造紙工業</div>
-    <div class="ic-pct down">-1.1%</div>
-    <div class="ic-count">7 檔 →</div>
+  <a class="industry-chip" href="heatmap.html#ind-電子零組件業">
+    <div class="ic-name">電子零組件業</div>
+    <div class="ic-pct up">+0.6%</div>
+    <div class="ic-count">104 檔 →</div>
   </a>
   
-  <a class="industry-chip" href="heatmap.html#ind-光電業">
-    <div class="ic-name">光電業</div>
-    <div class="ic-pct down">-0.8%</div>
-    <div class="ic-count">68 檔 →</div>
+  <a class="industry-chip" href="heatmap.html#ind-數位雲端">
+    <div class="ic-name">數位雲端</div>
+    <div class="ic-pct up">+0.5%</div>
+    <div class="ic-count">13 檔 →</div>
   </a>
   
 </div>
 
 
 
-<div class="section-title">今日焦點個股 <a href="scores.html">看排行 →</a></div>
-<a href="scores.html#score-2436" class="card top-score-card">
-  <div>
-    <div class="tsc-name" data-stock-code="2436" data-stock-name="偉詮電">2436 偉詮電</div>
-    <div class="tsc-sub">綜合分最高 · 五面向評分</div>
-  </div>
-  <div class="tsc-num">80.1</div>
-</a>
+
+<div class="section-title">
+  值得關注 · 起漲點
+  <a href="picks.html">看全部 →</a>
+</div>
+<div class="watch-note">
+  剛站上月線／季線且量能放大的個股，已經漲多的不列入。這是觀察名單，不是買進建議。
+  
+</div>
+<div class="watch-list">
+  
+  <a href="picks.html" class="card watch-card">
+    <div class="wc-main">
+      <div class="wc-name" data-stock-code="2436" data-stock-name="偉詮電">
+        偉詮電 <span class="wc-code">2436</span>
+      </div>
+      <div class="wc-note">今天剛站上月線、季線，量能達 20 日均量 2.86 倍</div>
+    </div>
+    
+    <div class="wc-pct up">+9.97%</div>
+    
+  </a>
+  
+  <a href="picks.html" class="card watch-card">
+    <div class="wc-main">
+      <div class="wc-name" data-stock-code="2409" data-stock-name="友達">
+        友達 <span class="wc-code">2409</span>
+      </div>
+      <div class="wc-note">1 天前站上季線，量能達 20 日均量 2.94 倍</div>
+    </div>
+    
+    <div class="wc-pct up">+7.09%</div>
+    
+  </a>
+  
+</div>
 
 
 
 
 <div class="section-title">最新財經快訊 <a href="research.html">看全部 →</a></div>
 <div class="card">
-  
-  <a class="news-row" href="research.html">
-    <div class="nr-main">
-      <div class="nr-title">南亞科（2408）：DDR4供給排擠效應下的記憶體超級循環受惠股</div>
-      <div class="nr-sum">南亞科技申報主業為電子零組件製造，實際上是台灣主要DRAM廠，本次查證聚焦其2026年營收獲利大幅成長的原因。核心邏輯是…</div>
-    </div>
-    <span class="tag v-verified">已驗證</span>
-  </a>
-  
-  <a class="news-row" href="research.html">
-    <div class="nr-main">
-      <div class="nr-title">6819</div>
-      <div class="nr-sum">使用者提交的內容僅有「6819研究報告」幾個字，除了一個股票代號外沒有任何實質研究內容、數據或論述可供分析。</div>
-    </div>
-    <span class="tag v-unverified">無法獨立驗證</span>
-  </a>
-  
-  <a class="news-row" href="research.html">
-    <div class="nr-main">
-      <div class="nr-title">慧友電子（5484）：從監視器代工轉型機器人視覺，NVIDIA／Qualcomm雙平台布…</div>
-      <div class="nr-sum">慧友電子（5484）申報主要業務為CCD電子攝影機與影像處理器，過去以安控監視器為主力，近期查證顯示公司已切入機器人視覺…</div>
-    </div>
-    <span class="tag v-verified">已驗證</span>
-  </a>
   
   <a class="news-row" href="research.html">
     <div class="nr-main">
@@ -580,6 +597,30 @@
     <div class="nr-main">
       <div class="nr-title">即時快訊</div>
       <div class="nr-sum">中國公布 8 月 CPI 年增率為 0.8%，較前值 0.5% 上升，顯示消費者物價通膨略有升溫。</div>
+    </div>
+    <span class="tag v-unverified">無法獨立驗證</span>
+  </a>
+  
+  <a class="news-row" href="research.html">
+    <div class="nr-main">
+      <div class="nr-title">即時快訊</div>
+      <div class="nr-sum">中國公布 8 月 PPI 年增率為 3.8%，較前值 3.5% 略為上升，顯示出廠物價通膨壓力略有回溫。</div>
+    </div>
+    <span class="tag v-unverified">無法獨立驗證</span>
+  </a>
+  
+  <a class="news-row" href="research.html">
+    <div class="nr-main">
+      <div class="nr-title">即時快訊</div>
+      <div class="nr-sum">陸股早盤集體上漲：上證指數開盤 3943.92 點（+0.09%）、深證成指 13788.94 點（+0.63%）、創業…</div>
+    </div>
+    <span class="tag v-unverified">無法獨立驗證</span>
+  </a>
+  
+  <a class="news-row" href="research.html">
+    <div class="nr-main">
+      <div class="nr-title">华尔街见闻早餐 | 2026年9月9日</div>
+      <div class="nr-sum">2026年9月9日華爾街見聞晨報：美股大盤兩連跌但晶片與AI基礎設施股逆勢走高（英特爾漲逾9%、AMD漲近6%），日圓升…</div>
     </div>
     <span class="tag v-unverified">無法獨立驗證</span>
   </a>
@@ -644,6 +685,21 @@
 <div class="card" style="padding:6px 16px">
   
   <div class="theme-row-mini">
+    <a href="reports/2026-09-09-morning.html" style="flex:1; text-decoration:none">2026年9月9日．週三　早報</a>
+    <span class="mono" style="font-size:12px; color:var(--text-muted)">2026-09-09</span>
+  </div>
+  
+  <div class="theme-row-mini">
+    <a href="reports/2026-09-08-morning.html" style="flex:1; text-decoration:none">2026年9月8日．週二　早報</a>
+    <span class="mono" style="font-size:12px; color:var(--text-muted)">2026-09-08</span>
+  </div>
+  
+  <div class="theme-row-mini">
+    <a href="reports/2026-09-08-evening.html" style="flex:1; text-decoration:none">2026年9月8日．週二　盤後</a>
+    <span class="mono" style="font-size:12px; color:var(--text-muted)">2026-09-08</span>
+  </div>
+  
+  <div class="theme-row-mini">
     <a href="reports/2026-09-07-holiday.html" style="flex:1; text-decoration:none">2026年9月7日．週一　假日功課</a>
     <span class="mono" style="font-size:12px; color:var(--text-muted)">2026-09-07</span>
   </div>
@@ -658,28 +714,13 @@
     <span class="mono" style="font-size:12px; color:var(--text-muted)">2026-09-05</span>
   </div>
   
-  <div class="theme-row-mini">
-    <a href="reports/2026-09-05-evening.html" style="flex:1; text-decoration:none">2026年9月5日．週六　盤後</a>
-    <span class="mono" style="font-size:12px; color:var(--text-muted)">2026-09-05</span>
-  </div>
-  
-  <div class="theme-row-mini">
-    <a href="reports/2026-09-04-morning.html" style="flex:1; text-decoration:none">2026年9月4日．週五　早報</a>
-    <span class="mono" style="font-size:12px; color:var(--text-muted)">2026-09-04</span>
-  </div>
-  
-  <div class="theme-row-mini">
-    <a href="reports/2026-09-04-evening.html" style="flex:1; text-decoration:none">2026年9月4日．週五　盤後</a>
-    <span class="mono" style="font-size:12px; color:var(--text-muted)">2026-09-04</span>
-  </div>
-  
 </div>
 
 
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-09 11:43</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-09 13:31</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
