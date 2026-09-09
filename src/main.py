@@ -2151,6 +2151,35 @@ def run_research_intake() -> None:
                     processed += 1
                 continue
 
+            # 使用者常常在「提交研究」欄位只填一個股票代號或公司名（沒有帶
+            # 「[主題點播]」前綴），例如 2026-09-09 的 `6819`。那不是一篇可以
+            # 做真偽查證的文章——沒有原文可比對，走分析那條路只會產出一筆
+            # 「unverified」的空筆記，使用者看了等於沒回應。實際上他要的是點播。
+            # 判準：內容很短、body 沒有比 title 多講什麼，而且 title 對得到
+            # 一家真實的上市櫃公司 → 當成點播處理。
+            body_txt = (row.get("body") or "").strip()
+            looks_bare = len(title) <= 30 and (not body_txt or body_txt == title)
+            bare_company = _resolve_topic_company(title) if looks_bare else None
+            if bare_company:
+                print(f"[research] 表單提交「{title}」只有代號／名稱、沒有文章內容，"
+                      f"對應到 {bare_company['code']} {bare_company['name']}，改走主題點播")
+                if title.casefold() in topic_seen:
+                    print(f"[research] 主題「{title}」本輪已處理過，略過重複提交")
+                    continue
+                topic_seen.add(title.casefold())
+                made = _make_topic_report(
+                    title, body_txt,
+                    f"主題點播 · Google 表單（{row['timestamp']}）",
+                    today, known_theme_names)
+                if made:
+                    processed += 1
+                    topic_made.append(made)
+                    print(f"[research] 主題報告已產出：{made['path'].name}")
+                else:
+                    topic_failed.append(title)
+                    processed += 1
+                continue
+
             print(f"[research] 處理表單提交（{row['timestamp']}）：{title}")
             if _topic_gate and not (_looks_investment_related(title) or _looks_investment_related(row["body"])):
                 print(f"[research] 表單提交（{row['timestamp']}）：非投資相關，關鍵字粗篩擋下，略過")
