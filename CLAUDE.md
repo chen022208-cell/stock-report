@@ -391,3 +391,40 @@ repo 的排程 Routine session 對話，兩邊有時候會拿到一樣的指示�
 `git fetch && git log --oneline origin/main -10` 看一下遠端是不是已經有其他
 session 剛推上來的相關改動，避免重工或衝突；真的衝突時優先保留「已經驗證真的
 能動」的那個版本。
+
+## ⚠️ Routine 的產出會被推到 `claude/xxx` 分支，不是 main（2026-09-09 踩到）
+
+**症狀**：Routine 回報 SUCCEEDED、報告也真的產出來了，但網站上完全看不到。
+使用者回報「盤後盤前盤中的報告都不見了」時，09-08 盤後、09-08／09-09 早報、
+09-09 產業深度分析全都躺在分支上，main 一份都沒有。
+
+**根因**：每支 Routine 的設定裡有 `session_request.config.outcomes[].git_info.branches`，
+把 session 綁在一個工作分支上，而 prompt 的推送步驟又只寫裸的 `git push`：
+
+| Routine | 綁定分支 |
+|---|---|
+| 台股每日盤後 | `claude/clever-cray` |
+| 台股每日早報 | `claude/nice-euler` |
+| 台股產業深度分析 | `claude/confident-dijkstra` |
+| 台股個股逐檔查證 | `claude/compassionate-allen` |
+| 台股即時快訊監控 | `claude/compassionate-hawking` |
+| 台股盤中焦點股深度快報 | `claude/inspiring-pascal` |
+| 台股週報／月報 | `claude/festive-keller`／`claude/keen-thompson` |
+| **台股使用者研究提交處理** | **（無）← 所以它一直都正常推 main** |
+
+**那個 branches 欄位用 RemoteTrigger API 改不掉**——送 `{"outcomes": []}` 回應
+HTTP 200 但欄位原封不動。所以只能從兩邊夾：
+
+1. **prompt 改成 `git push origin HEAD:main`**（不管在哪個分支都推 main），
+   並在推完用 `git log --oneline origin/main -1` 自我確認。改一支 Routine 的
+   prompt 用 `RemoteTrigger update`，body 帶 `{"cron_expression": ..., "prompt": ...}`
+   ——**cron 一定要一起帶**，只送 prompt 會不會清掉 cron 沒驗證過，帶著最保險。
+2. **`.github/workflows/rescue-branch-reports.yml` 當安全網**：推到 `claude/**`
+   就自動把純新增的報告類產出（`docs/reports`／`articles`／`industry`／`analysis`）
+   搬回 main 並重跑 `python -m src.main site` 重繪索引。只取新增檔案
+   （`--diff-filter=A`）、只取那幾個路徑——**絕對不要連 `data/*.json`、
+   `market.db`、`docs/*.html` 一起搬**，那些在 main 上已經往前走，覆蓋等於倒退。
+
+**排查方式**：`git branch -r` 看有沒有一堆 `claude/*`，再用
+`git log --oneline <分支> --not origin/main` 看那條分支上有什麼是 main 沒有的。
+救回來只 `git checkout <commit> -- <檔案>` 那些新增的產出，然後重跑 site。

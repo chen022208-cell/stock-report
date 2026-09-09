@@ -1,0 +1,96 @@
+name: 把誤推到 claude/** 分支的報告搬回 main
+
+# 為什麼需要這支（2026-09-09 踩到）：
+# 每支雲端 Routine 的設定裡有一個 outcomes.git_info.branches，把 session 綁在
+# 一個 `claude/xxx` 工作分支上（盤後→claude/clever-cray、早報→claude/nice-euler、
+# 產業分析→claude/confident-dijkstra…）。Routine 的 prompt 又只寫裸的 `git push`，
+# 於是整份報告推到那個分支。GitHub Pages 是從 main 部署，結果就是報告產出成功、
+# 網站上卻完全看不到——使用者回報「盤後盤前盤中的報告都不見了」，實際上
+# 09-08 盤後、09-08／09-09 早報、09-09 產業分析全都躺在分支上。
+#
+# 那個 branches 欄位用 API 改不掉（送 outcomes:[] 會被忽略），所以改在這裡收尾：
+# 只要有東西推到 claude/**，就把「純新增的報告類產出」搬回 main 再重繪索引。
+#
+# 安全設計：
+# - **只取新增檔案**（--diff-filter=A），不取修改、不取刪除
+# - **只取報告類路徑**，絕不碰 data/*.json、market.db、docs/*.html 那些會被
+#   每日流程往前推進的檔案——覆蓋它們等於把 main 上較新的資料倒退回去
+# - 索引頁不是複製過來的，是搬完之後重跑 `python -m src.main site` 重新產生
+#   （_collect_reports() 直接 glob docs/reports/*.html，不查資料庫）
+
+on:
+  push:
+    branches: ['claude/**']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: rescue-branch-reports        # 同時被多個分支觸發時排隊，避免互相打架
+  cancel-in-progress: false
+
+jobs:
+  rescue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 取出 main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: 找出這次推送新增的報告類產出
+        id: pick
+        run: |
+          git fetch origin "${{ github.ref_name }}" --depth=50
+          BEFORE="${{ github.event.before }}"
+          if [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ] \
+             || ! git cat-file -e "$BEFORE^{commit}" 2>/dev/null; then
+            # 分支剛建立、或比對基準取不到：改跟 main 比，一樣只會挑出新增檔
+            BEFORE="origin/main"
+          fi
+          PATHS="docs/reports docs/articles docs/industry docs/analysis"
+          FILES=$(git diff --diff-filter=A --name-only "$BEFORE" "${{ github.sha }}" -- $PATHS || true)
+          if [ -z "$FILES" ]; then
+            echo "這次推送沒有新增報告類檔案，不用搬"
+            echo "any=0" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "$FILES" | sed 's/^/  搬運：/'
+          echo "any=1" >> "$GITHUB_OUTPUT"
+          # 檔名含中文，用 NUL 分隔存檔，後面 xargs -0 讀
+          git diff --diff-filter=A --name-only -z "$BEFORE" "${{ github.sha }}" -- $PATHS > /tmp/files.z
+
+      - name: 把檔案搬到 main
+        if: steps.pick.outputs.any == '1'
+        run: |
+          xargs -0 -a /tmp/files.z -I{} git checkout "${{ github.sha }}" -- "{}"
+          git status --short | head -30
+
+      - uses: actions/setup-python@v5
+        if: steps.pick.outputs.any == '1'
+        with:
+          python-version: '3.12'
+
+      - name: 重繪索引與封存頁
+        if: steps.pick.outputs.any == '1'
+        run: |
+          pip install -q -r requirements.txt
+          python -m src.main site
+
+      - name: 提交回 main
+        if: steps.pick.outputs.any == '1'
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "重繪後沒有差異，不用 commit"
+            exit 0
+          fi
+          git commit             -m "從 ${{ github.ref_name }} 搬回報告產出"             -m "Routine 把產出推到工作分支而不是 main，GitHub Pages 只看 main。由 rescue-branch-reports.yml 自動搬運純新增的報告檔並重繪索引。"
+          for i in 1 2 3; do
+            git pull --rebase origin main && git push origin HEAD:main && exit 0
+            echo "第 $i 次推送失敗，重試"
+          done
+          exit 1
