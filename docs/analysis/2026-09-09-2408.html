@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>處置股預警 · 盤後快訊</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>南亞科（2408）：DDR4供給排擠效應下的記憶體超級循環受惠股 · 盤後快訊</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 <meta name="theme-color" content="#060911">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -380,16 +380,32 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  .meta{font-size:13px; color:var(--text-muted); margin:10px 0 20px;}
-  .card{background:var(--surface); border-radius:8px; padding:16px 18px; margin-bottom:12px;
-       border-left:2px solid var(--red);}
-  .card.watch{border-left-color:var(--gold);}
-  .card.today{border-left-color:var(--text-secondary);}
-  .card-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px; margin-bottom:6px;}
-  .card-detail{font-size:13.5px; color:var(--text-secondary); line-height:1.7;}
-  .card-tag{display:inline-block; font-size:11.5px; color:var(--text-muted); margin-bottom:6px;}
-  .section-head{font-family:'Noto Serif TC',serif; font-size:16px;
-                color:var(--text-secondary); margin:28px 0 12px;}
+  .tr-meta{font-size:12.5px; color:var(--text-muted); margin:8px 0 20px;}
+  .tr-badge{display:inline-block; font-size:11.5px; background:var(--surface-2);
+            border:1px solid var(--hairline); border-radius:999px; padding:2px 9px;
+            color:var(--c-theme); margin-right:8px;}
+  .tr-pdf{margin:0 0 18px;}
+  .tr-pdf a{font-size:13.5px; color:var(--gold); text-decoration:none;
+            border:1px solid var(--hairline); border-radius:999px; padding:6px 14px;}
+  .tr-pdf a:hover{border-color:var(--gold);}
+  .tr-summary{font-size:15px; line-height:1.85; color:var(--text-primary);
+              background:var(--surface); border-left:3px solid var(--gold);
+              border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:24px;}
+  .tr-sec{margin-bottom:26px;}
+  .tr-sec h2{font-size:17px; margin:0 0 10px;}
+  .tr-sec p{font-size:14.5px; line-height:1.9; color:var(--text-secondary); margin:0;}
+  .tr-stocks{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;}
+  .tr-stock{cursor:pointer; background:var(--surface); border:1px solid var(--hairline);
+            border-radius:var(--radius-sm); padding:8px 12px; font-size:13px; max-width:340px;}
+  .tr-stock:hover{border-color:var(--gold);}
+  .tr-stock b{font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
+  .tr-stock span{display:block; color:var(--text-muted); font-size:12px; margin-top:3px;}
+  .tr-risk{background:var(--surface); border-left:3px solid var(--c-warn);
+           border-radius:var(--radius-sm); padding:12px 15px; font-size:14px;
+           line-height:1.85; color:var(--text-secondary);}
+  .tr-src{font-size:12.5px; color:var(--text-muted); line-height:1.9;
+          border-top:1px solid var(--hairline); padding-top:14px; margin-top:26px;}
+  .tr-src a{color:var(--gold); word-break:break-all;}
 
 </style>
 </head>
@@ -401,112 +417,115 @@
     <button class="dr-close" id="drClose" aria-label="關閉選單">✕</button>
   </div>
   <h4>市場</h4>
-  <a href="index.html" class=""><span class="dr-ic">🏠</span>最新</a>
-  <a href="heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
-  <a href="chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
-  <a href="scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
-  <a href="picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
-  <a href="intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
-  <a href="lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
-  <a href="watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
-  <a href="disposition.html" class="current"><span class="dr-ic">⚠️</span>處置股預警</a>
+  <a href="../index.html" class=""><span class="dr-ic">🏠</span>最新</a>
+  <a href="../heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
+  <a href="../chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
+  <a href="../scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
+  <a href="../picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
+  <a href="../intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
+  <a href="../lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
+  <a href="../watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
+  <a href="../disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
   <h4>研究</h4>
-  <a href="themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
-  <a href="industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
-  <a href="weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
-  <a href="monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
-  <a href="analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
-  <a href="archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
-  <a href="research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
-  <a href="submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
+  <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
+  <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
+  <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
+  <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
+  <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
+  <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
+  <a href="../research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
+  <a href="../submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
 </nav>
 
 <div class="page">
   <div class="topbar">
     <button class="menu-btn" id="menuBtn" aria-label="開啟選單">☰</button>
-    <a href="index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
-    <a href="lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
-    <a href="watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
-    <a href="intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
+    <a href="../index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
+    <a href="../lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
+    <a href="../watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
+    <a href="../intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
   </div>
 
   
-<header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">處置股預警</h1></header>
-<p class="meta">2026年9月7日．週一 · 資料源：TWSE 公布注意／處置交易資訊，官方原文照登</p>
+<header>
+  <div class="masthead-label">盤後快訊</div>
+  <h1 class="masthead-date">南亞科（2408）：DDR4供給排擠效應下的記憶體超級循環受惠股</h1>
+</header>
+<p class="tr-meta">
+  <span class="tr-badge">🎯 使用者點播主題</span>
+  2026-09-09 產出　·　原始點播：2408
+</p>
 
-<div class="section-head">處置中（7）</div>
+
+<p class="tr-pdf"><a href="2026-09-09-2408.pdf" target="_blank" rel="noopener">📄 下載 PDF 版報告</a></p>
 
 
-<div class="card">
-  <div class="card-tag">處置期間 115/09/07～115/09/15 · 第二次處置</div>
-  <div class="card-name">2455 全新</div>
-  <div class="card-detail">連續五次及當日沖銷標準</div>
+<div class="tr-summary">南亞科技申報主業為電子零組件製造，實際上是台灣主要DRAM廠，本次查證聚焦其2026年營收獲利大幅成長的原因。核心邏輯是國際大廠（美光、三星、SK海力士）將產能轉向HBM與DDR5，使成熟製程DDR4供給緊縮，讓專攻DDR4的南亞科受惠漲價與供給排擠效應，並大舉調高資本支出擴產。本站題材庫中最相關的是「記憶體｜DRAM 與模組」。</div>
+
+
+<section class="tr-sec">
+  <h2>公司背景與申報業務</h2>
+  <p>公開資訊觀測站申報值顯示南亞科主要經營業務為電子零組件製造業、國際貿易業、其他顧問服務業，此為官方申報事實，字面上未直接寫明DRAM，但根據財報狗、富果、cmoney等多篇報導查證，南亞科是台灣本土主要DRAM（動態隨機存取記憶體）製造廠，與本站題材知識庫中的「記憶體｜DRAM 與模組」題材屬於同一件事。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>2026年營收爆發式成長</h2>
+  <p>根據財報狗與Yahoo股市報導查證，南亞科2026年8月自結合併營收達446.90億元，年增560.85%，為連續第9個月改寫歷史新高；累計前8月營收2201.93億元，年增638.19%。另有報導指出2月營收年增達586.71%、獲利年增高達1256%，顯示2026年是南亞科營運明顯轉折的一年，成長幅度在台股中相當罕見。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>成長驅動因素：DDR4供給排擠效應</h2>
+  <p>查證多篇報導（cmoney哲翰科技戰情室、口袋學堂等）指出，成長的核心邏輯是美光等國際記憶體大廠將產能轉往HBM（高頻寬記憶體，用於NVIDIA等AI晶片）與DDR5等高階規格，導致市場上DDR4等成熟製程產品供給被排擠、供給收緊。南亞科主攻DDR4成熟製程，因此在這波供給排擠效應中受惠，帶動報價與出貨同步走高。需注意：查證資料顯示南亞科目前並未被明確報導為HBM的實際供應商（HBM市場主要由三星、SK海力士、美光供應），南亞科的受惠邏輯是「成熟製程供給吃緊」而非「直接參與HBM生產」，這點在報告中需明確區分，避免與HBM題材混淆。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>法說會展望與資本支出</h2>
+  <p>根據2026年法說會相關報導（富果、vocus等）查證，南亞科在4月法說會提到毛利率一度飆破67%創歷史新高；公司預期2026年在AI與一般伺服器雙重驅動下，DRAM需求將持續強勁，且因供應商優先滿足關鍵客戶、預估2026至2027年上半年新增產能有限，DDR5、LPDDR5、DDR4、LPDDR4及DDR3等多種產品預期將持續缺貨。南亞科董事會並決議將2026年資本支出預算由原訂520億元調高至不超過697億元（增幅約34%），核准2026至2029年總資本支出上限為3,466億元，顯示公司對本波記憶體景氣的擴產態度積極。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>市場疑慮：DDR4漲幅是否隨時腰斬</h2>
+  <p>查證到Yahoo股市一篇報導提及法人對南亞科評等出現分歧，部分中立派法人擔憂「DDR4漲幅隨時腰斬」的隱憂，顯示市場對這波記憶體行情的持續性存在不同看法，並非所有法人都一致樂觀。這屬於已查證存在的市場觀點分歧，本報告如實呈現，不代表本站對後市的判斷。</p>
+</section>
+
+
+
+<section class="tr-sec">
+  <h2>相關個股</h2>
+  <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:8px">
+    只列出查證過、確定與本主題相關的個股。點任一檔看 K 線與公司資料。</p>
+  <div class="tr-stocks">
+    
+    <div class="tr-stock" data-stock-code="2408" data-stock-name="南亞科技">
+      <b>2408 南亞科技</b>
+      <span>申報主業電子零組件製造，查證後確認為台灣主要DRAM廠，主攻DDR4成熟製程；2026年因國際大廠產能轉向HBM/DDR5造成DDR4供給排擠效應，營收獲利連續多月創新高，並大舉調高資本支出擴產。</span>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="tr-sec">
+  <h2>風險與觀察重點</h2>
+  <div class="tr-risk">1）市場已出現法人對DDR4漲幅能否延續的分歧看法（部分擔憂漲幅隨時腰斬），這波景氣循環的持續時間存在不確定性；2）南亞科的受惠邏輯建立在其他大廠產能排擠效應上，而非自身取得HBM等高階產品的技術突破，一旦國際大廠恢復成熟製程產能配置，排擠效應可能減弱；3）公司大幅調高資本支出（2026年至697億元、四年上限3,466億元）代表擴產週期拉長，須留意未來新增產能開出時點是否與市場需求錯配、造成產業循環反轉時的庫存風險；4）本報告未查證南亞科具體客戶結構、實際訂單能見度與存貨水位等細節，建議另行以最新財報或法說會逐項確認。</div>
+</section>
+
+
+<div class="tr-src">
+  <b>查證來源</b>（本報告依站內規則，沒有外部來源就不產出）：<br>
+  <a href="https://statementdog.com/analysis/2408/monthly-revenue" target="_blank" rel="noopener">https://statementdog.com/analysis/2408/monthly-revenue</a>　·　
+  <a href="https://blog.fugle.tw/post/earnings-call-2408" target="_blank" rel="noopener">https://blog.fugle.tw/post/earnings-call-2408</a>　·　
+  <a href="https://vocus.cc/article/69dcd809fd8978000199887c" target="_blank" rel="noopener">https://vocus.cc/article/69dcd809fd8978000199887c</a>　·　
+  <a href="https://cmnews.com.tw/article/zhouzhehan-a4cf6910-9cfc-11f1-b873-fa4dc250956d" target="_blank" rel="noopener">https://cmnews.com.tw/article/zhouzhehan-a4cf6910-9cfc-11f1-b873-fa4dc250956d</a>　·　
+  <a href="https://tw.stock.yahoo.com/news/4%E5%AE%B6%E8%A9%95%E7%AD%891%E8%A1%A8%E7%9C%8B-%E5%8D%97%E4%BA%9E%E7%A7%91%E6%B3%95%E8%AA%AA%E5%BC%95%E7%88%86%E6%B3%95%E4%BA%BA%E5%A4%A7%E4%BA%82%E9%AC%A5%E7%8B%82%E9%96%8B%E5%A4%A9%E5%83%B96xx%E5%85%83-%E4%B8%AD%E7%AB%8B%E6%B4%BE%E5%8D%BB%E9%A9%9A%E5%90%90-%E9%80%99%E9%9A%B1%E6%86%82-ddr4%E6%BC%B2%E5%B9%85%E9%9A%A8%E6%99%82%E8%85%B0%E6%96%AC-024719729.html" target="_blank" rel="noopener">https://tw.stock.yahoo.com/news/4%E5%AE%B6%E8%A9%95%E7%AD%891%E8%A1%A8%E7%9C%8B-%E5%8D%97%E4%BA%9E%E7%A7%91%E6%B3%95%E8%AA%AA%E5%BC%95%E7%88%86%E6%B3%95%E4%BA%BA%E5%A4%A7%E4%BA%82%E9%AC%A5%E7%8B%82%E9%96%8B%E5%A4%A9%E5%83%B96xx%E5%85%83-%E4%B8%AD%E7%AB%8B%E6%B4%BE%E5%8D%BB%E9%A9%9A%E5%90%90-%E9%80%99%E9%9A%B1%E6%86%82-ddr4%E6%BC%B2%E5%B9%85%E9%9A%A8%E6%99%82%E8%85%B0%E6%96%AC-024719729.html</a>
+  
+  <p style="margin-top:10px">本頁為系統依使用者點播主題自動整理之資訊，明確標示「（推論）」者為推論而非查證事實；
+  僅供研究參考，不構成投資建議。</p>
 </div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/03～115/09/09 · 第一次處置</div>
-  <div class="card-name">3008 大立光</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/02～115/09/08 · 第一次處置</div>
-  <div class="card-name">3406 玉晶光</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/03～115/09/11 · 第二次處置</div>
-  <div class="card-name">3450 聯鈞</div>
-  <div class="card-detail">連續五次及當日沖銷標準</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/02～115/09/08 · 第一次處置</div>
-  <div class="card-name">6805 富世達</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/07～115/09/11 · 第二次處置</div>
-  <div class="card-name">6933 AMAX-KY</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/02～115/09/08 · 第一次處置</div>
-  <div class="card-name">6933 AMAX-KY</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-
-
-<div class="section-head">注意累計次數接近處置門檻（3）</div>
-
-
-<div class="card watch">
-  <div class="card-name">2426 鼎元</div>
-  <div class="card-detail">115年8月26日至115年9月7日等九個營業日已有五次</div>
-</div>
-
-<div class="card watch">
-  <div class="card-name">7711 永擎</div>
-  <div class="card-detail">115年9月4日至115年9月7日連續二次</div>
-</div>
-
-<div class="card watch">
-  <div class="card-name">8021 尖點</div>
-  <div class="card-detail">115年8月26日至115年9月7日等九個營業日已有五次</div>
-</div>
-
-
-
-<div class="section-head">今日新公布注意股票（0）</div>
-
-<p class="commentary">今天沒有新公布的注意股票。</p>
-
-<p class="commentary" style="margin-top:20px; font-size:13px">選股訊號（起漲點／新掛牌／黑馬）→ <a href="picks.html" style="color:var(--gold)">選股雷達</a>　·　查任一個股 → <a href="lookup.html" style="color:var(--gold)">個股查詢</a></p>
+<p style="margin-top:20px; font-size:13px">
+  ← 回 <a href="index.html" style="color:var(--gold)">分析清單</a>　·
+  <a href="../submit.html" style="color:var(--gold)">再點播一個主題</a></p>
 
 
   <footer class="site-footer">
@@ -519,13 +538,13 @@
 
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
   }
-  window.__rel = "";
+  window.__rel = "../";
 </script>
-<script src="assets/ui.js?v=12ed3d4a"></script>
+<script src="../assets/ui.js?v=12ed3d4a"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=12ed3d4a"></script>
+<script src="../assets/stock-chart.js?v=12ed3d4a"></script>
 
 </body>
 </html>

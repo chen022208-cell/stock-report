@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>處置股預警 · 盤後快訊</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>慧友電子（5484）：從監視器代工轉型機器人視覺，NVIDIA／Qualcomm雙平台布局 · 盤後快訊</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 <meta name="theme-color" content="#060911">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -380,16 +380,32 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  .meta{font-size:13px; color:var(--text-muted); margin:10px 0 20px;}
-  .card{background:var(--surface); border-radius:8px; padding:16px 18px; margin-bottom:12px;
-       border-left:2px solid var(--red);}
-  .card.watch{border-left-color:var(--gold);}
-  .card.today{border-left-color:var(--text-secondary);}
-  .card-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px; margin-bottom:6px;}
-  .card-detail{font-size:13.5px; color:var(--text-secondary); line-height:1.7;}
-  .card-tag{display:inline-block; font-size:11.5px; color:var(--text-muted); margin-bottom:6px;}
-  .section-head{font-family:'Noto Serif TC',serif; font-size:16px;
-                color:var(--text-secondary); margin:28px 0 12px;}
+  .tr-meta{font-size:12.5px; color:var(--text-muted); margin:8px 0 20px;}
+  .tr-badge{display:inline-block; font-size:11.5px; background:var(--surface-2);
+            border:1px solid var(--hairline); border-radius:999px; padding:2px 9px;
+            color:var(--c-theme); margin-right:8px;}
+  .tr-pdf{margin:0 0 18px;}
+  .tr-pdf a{font-size:13.5px; color:var(--gold); text-decoration:none;
+            border:1px solid var(--hairline); border-radius:999px; padding:6px 14px;}
+  .tr-pdf a:hover{border-color:var(--gold);}
+  .tr-summary{font-size:15px; line-height:1.85; color:var(--text-primary);
+              background:var(--surface); border-left:3px solid var(--gold);
+              border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:24px;}
+  .tr-sec{margin-bottom:26px;}
+  .tr-sec h2{font-size:17px; margin:0 0 10px;}
+  .tr-sec p{font-size:14.5px; line-height:1.9; color:var(--text-secondary); margin:0;}
+  .tr-stocks{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;}
+  .tr-stock{cursor:pointer; background:var(--surface); border:1px solid var(--hairline);
+            border-radius:var(--radius-sm); padding:8px 12px; font-size:13px; max-width:340px;}
+  .tr-stock:hover{border-color:var(--gold);}
+  .tr-stock b{font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
+  .tr-stock span{display:block; color:var(--text-muted); font-size:12px; margin-top:3px;}
+  .tr-risk{background:var(--surface); border-left:3px solid var(--c-warn);
+           border-radius:var(--radius-sm); padding:12px 15px; font-size:14px;
+           line-height:1.85; color:var(--text-secondary);}
+  .tr-src{font-size:12.5px; color:var(--text-muted); line-height:1.9;
+          border-top:1px solid var(--hairline); padding-top:14px; margin-top:26px;}
+  .tr-src a{color:var(--gold); word-break:break-all;}
 
 </style>
 </head>
@@ -401,116 +417,119 @@
     <button class="dr-close" id="drClose" aria-label="關閉選單">✕</button>
   </div>
   <h4>市場</h4>
-  <a href="index.html" class=""><span class="dr-ic">🏠</span>最新</a>
-  <a href="heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
-  <a href="chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
-  <a href="scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
-  <a href="picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
-  <a href="intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
-  <a href="lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
-  <a href="watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
-  <a href="disposition.html" class="current"><span class="dr-ic">⚠️</span>處置股預警</a>
+  <a href="../index.html" class=""><span class="dr-ic">🏠</span>最新</a>
+  <a href="../heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
+  <a href="../chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
+  <a href="../scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
+  <a href="../picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
+  <a href="../intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
+  <a href="../lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
+  <a href="../watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
+  <a href="../disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
   <h4>研究</h4>
-  <a href="themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
-  <a href="industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
-  <a href="weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
-  <a href="monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
-  <a href="analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
-  <a href="archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
-  <a href="research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
-  <a href="submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
+  <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
+  <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
+  <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
+  <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
+  <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
+  <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
+  <a href="../research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
+  <a href="../submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
 </nav>
 
 <div class="page">
   <div class="topbar">
     <button class="menu-btn" id="menuBtn" aria-label="開啟選單">☰</button>
-    <a href="index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
-    <a href="lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
-    <a href="watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
-    <a href="intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
+    <a href="../index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
+    <a href="../lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
+    <a href="../watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
+    <a href="../intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
   </div>
 
   
-<header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">處置股預警</h1></header>
-<p class="meta">2026年9月7日．週一 · 資料源：TWSE 公布注意／處置交易資訊，官方原文照登</p>
+<header>
+  <div class="masthead-label">盤後快訊</div>
+  <h1 class="masthead-date">慧友電子（5484）：從監視器代工轉型機器人視覺，NVIDIA／Qualcomm雙平台布局</h1>
+</header>
+<p class="tr-meta">
+  <span class="tr-badge">🎯 使用者點播主題</span>
+  2026-09-09 產出　·　原始點播：5484
+</p>
 
-<div class="section-head">處置中（7）</div>
+
+<p class="tr-pdf"><a href="2026-09-09-5484.pdf" target="_blank" rel="noopener">📄 下載 PDF 版報告</a></p>
 
 
-<div class="card">
-  <div class="card-tag">處置期間 115/09/07～115/09/15 · 第二次處置</div>
-  <div class="card-name">2455 全新</div>
-  <div class="card-detail">連續五次及當日沖銷標準</div>
+<div class="tr-summary">慧友電子（5484）申報主要業務為CCD電子攝影機與影像處理器，過去以安控監視器為主力，近期查證顯示公司已切入機器人視覺與邊緣AI相機領域，成為NVIDIA Jetson/Thor與Qualcomm平台的合作夥伴之一。2026年營收與獲利明顯回升，第一季EPS由虧轉盈，市場解讀與AI機器人視覺題材的訂單放量有關，但機器人業務占營收比重目前仍偏小。</div>
+
+
+<section class="tr-sec">
+  <h2>公司背景與申報業務</h2>
+  <p>根據公開資訊觀測站申報值，慧友電子主要經營業務為CCD電子攝影機、影像處理器；此為官方申報事實。根據財報狗、鉅亨網等資料進一步查證，公司傳統上以安全監控（監視器/CCD攝影機）產品線起家，並有建案收入等其他業務項目（推論：可能與工程建置型的安控案有關，未逐項查證細節）。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>機器人視覺與AI相機轉型</h2>
+  <p>查證多篇報導（鉅亨網、MoneyDJ理財網、蕃新聞等）指出，慧友近年投入機器人視覺與邊緣AI模組開發，產品線包含MIPI/GMOS Camera與TOF（Time-of-Flight）Camera，用以配合機器人與視覺感測系統需求。公司同時導入NVIDIA與Qualcomm兩大平台，推出AI Camera產品，目標鎖定智慧工廠等應用場景。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>NVIDIA合作進展</h2>
+  <p>根據鉅亨網報導，慧友自2025年起成為NVIDIA Jetson AGX Orin計畫的合作夥伴之一，後續擴展至Orin系列及更高階的Thor平台；報導並指出慧友被NVIDIA點名列入其物理AI（Physical AI）布局的台廠合作名單（報導提及18家台廠之一）。這代表其AI視覺產品已進入實際客戶導入階段，而非僅止於概念驗證，但實際出貨規模與客戶名單未在本次查證的公開資料中取得逐一確認（推論：合作夥伴身分已查證，但具體訂單金額與客戶結構仍待更完整財報揭露）。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>應用場域與業務占比</h2>
+  <p>報導（MoneyDJ理財網）指出慧友機器人相關業務已切入歐洲四足機器人、無人挖土機及AMR（自主移動機器人）等領域，並預估機器人業務占營收比重估明年約10%~15%（此為報導引述公司說法之預估數字，屬公司自估、非本站驗證的財報實績，需標註為推論／待驗證）。另有報導提及公司持續強化車用（車用監視/影像應用）與AI監視器、機器狗運算新品，顯示公司仍以傳統安控/車用市場為基本盤，機器人視覺為成長題材而非目前營收主力。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>近期營運與財務表現</h2>
+  <p>根據財報狗資料查證，2026年第一季營收約1.7988億元，季增1.66%、年增109.9%；同期每股盈餘（EPS）為0.33元，季增267%、年增152%，相較2025年全年EPS為-0.6元的虧損狀態明顯轉正。另查證月營收數字，2026年6月單月營收1.33億元，月增63.88%、年增224.33%，累計上半年營收4.47億元、年增118.45%。這些數字均為財報狗整理之財報／申報數據，可視為已查證事實；但單月營收波動幅度大，需留意是否有集中出貨或一次性訂單的影響（推論）。</p>
+</section>
+
+
+
+<section class="tr-sec">
+  <h2>相關個股</h2>
+  <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:8px">
+    只列出查證過、確定與本主題相關的個股。點任一檔看 K 線與公司資料。</p>
+  <div class="tr-stocks">
+    
+    <div class="tr-stock" data-stock-code="5484" data-stock-name="慧友電子">
+      <b>5484 慧友電子</b>
+      <span>申報主業CCD攝影機與影像處理器，查證後確認公司近年投入機器人視覺／AI相機（MIPI/GMOS、TOF Camera），並為NVIDIA Jetson/Thor與Qualcomm平台合作夥伴之一，切入歐洲四足機器人、無人挖土機、AMR等應用；2026年營收獲利明顯回升。</span>
+    </div>
+    
+  </div>
+</section>
+
+
+
+<section class="tr-sec">
+  <h2>風險與觀察重點</h2>
+  <div class="tr-risk">1）機器人視覺業務占整體營收比重目前偏低（公司自估明年約10-15%），短期營運仍受傳統安控/監視器與車用業務景氣影響；2）與NVIDIA/Qualcomm的平台合作代表技術認證與客戶導入機會，不等於已鎖定的長期訂單量，實際出貨規模、毛利率與客戶集中度未在本次查證資料中取得逐一數字；3）2026年單月營收增幅（如6月月增63.88%）波動較大，需留意是否有集中出貨、比較基期偏低（2025年虧損）等因素墊高年增率；4）本報告未查證公司資本支出、產能規劃與具體客戶名單，相關細節建議另行以最新法說會或年報資料補充查證。</div>
+</section>
+
+
+<div class="tr-src">
+  <b>查證來源</b>（本報告依站內規則，沒有外部來源就不產出）：<br>
+  <a href="https://statementdog.com/analysis/5484" target="_blank" rel="noopener">https://statementdog.com/analysis/5484</a>　·　
+  <a href="https://news.cnyes.com/news/id/6581500" target="_blank" rel="noopener">https://news.cnyes.com/news/id/6581500</a>　·　
+  <a href="https://today.line.me/tw/v3/article/NvVjoGk" target="_blank" rel="noopener">https://today.line.me/tw/v3/article/NvVjoGk</a>　·　
+  <a href="https://n.yam.com/Article/20260528748060" target="_blank" rel="noopener">https://n.yam.com/Article/20260528748060</a>　·　
+  <a href="https://www.cnyes.com/twstock/5484/company/profile" target="_blank" rel="noopener">https://www.cnyes.com/twstock/5484/company/profile</a>
+  
+  <p style="margin-top:10px">本頁為系統依使用者點播主題自動整理之資訊，明確標示「（推論）」者為推論而非查證事實；
+  僅供研究參考，不構成投資建議。</p>
 </div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/03～115/09/09 · 第一次處置</div>
-  <div class="card-name">3008 大立光</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/02～115/09/08 · 第一次處置</div>
-  <div class="card-name">3406 玉晶光</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/03～115/09/11 · 第二次處置</div>
-  <div class="card-name">3450 聯鈞</div>
-  <div class="card-detail">連續五次及當日沖銷標準</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/02～115/09/08 · 第一次處置</div>
-  <div class="card-name">6805 富世達</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/07～115/09/11 · 第二次處置</div>
-  <div class="card-name">6933 AMAX-KY</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/02～115/09/08 · 第一次處置</div>
-  <div class="card-name">6933 AMAX-KY</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-
-
-<div class="section-head">注意累計次數接近處置門檻（3）</div>
-
-
-<div class="card watch">
-  <div class="card-name">2426 鼎元</div>
-  <div class="card-detail">115年8月26日至115年9月7日等九個營業日已有五次</div>
-</div>
-
-<div class="card watch">
-  <div class="card-name">7711 永擎</div>
-  <div class="card-detail">115年9月4日至115年9月7日連續二次</div>
-</div>
-
-<div class="card watch">
-  <div class="card-name">8021 尖點</div>
-  <div class="card-detail">115年8月26日至115年9月7日等九個營業日已有五次</div>
-</div>
-
-
-
-<div class="section-head">今日新公布注意股票（0）</div>
-
-<p class="commentary">今天沒有新公布的注意股票。</p>
-
-<p class="commentary" style="margin-top:20px; font-size:13px">選股訊號（起漲點／新掛牌／黑馬）→ <a href="picks.html" style="color:var(--gold)">選股雷達</a>　·　查任一個股 → <a href="lookup.html" style="color:var(--gold)">個股查詢</a></p>
+<p style="margin-top:20px; font-size:13px">
+  ← 回 <a href="index.html" style="color:var(--gold)">分析清單</a>　·
+  <a href="../submit.html" style="color:var(--gold)">再點播一個主題</a></p>
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-09 11:43</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-09 11:41</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
@@ -519,13 +538,13 @@
 
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
   }
-  window.__rel = "";
+  window.__rel = "../";
 </script>
-<script src="assets/ui.js?v=12ed3d4a"></script>
+<script src="../assets/ui.js?v=12ed3d4a"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=12ed3d4a"></script>
+<script src="../assets/stock-chart.js?v=12ed3d4a"></script>
 
 </body>
 </html>
