@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>盤後快訊</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>盤後快訊 · 2026年9月10日．週四</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 <meta name="theme-color" content="#060911">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -380,64 +380,76 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  .news-row{display:flex; align-items:flex-start; gap:10px; padding:11px 0;
-            border-bottom:1px solid var(--hairline); text-decoration:none; color:inherit;}
-  .news-row:last-child{border-bottom:none;}
-  .news-row:active{opacity:.7;}
-  .news-row .nr-main{flex:1; min-width:0;}
-  .news-row .nr-title{font-size:14px; font-weight:600; line-height:1.5;}
-  .news-row .nr-sum{font-size:12px; color:var(--text-muted); margin-top:3px; line-height:1.5;}
-  .tag.v-verified{background:rgba(63,199,126,.16); color:var(--green);}
-  .tag.v-conflicting{background:rgba(244,87,90,.16); color:var(--red);}
-  .tag.v-unverified{background:rgba(154,167,191,.14); color:var(--text-muted);}
-  .hero-num{font-family:'JetBrains Mono',monospace; font-size:34px; font-weight:500;}
-  .hero-chg{font-family:'JetBrains Mono',monospace; font-size:14px; margin-left:8px;}
-  .live-note{font-size:11.5px; color:var(--text-muted); margin-top:8px; line-height:1.6;}
-  .live-note:empty{display:none;}
-  .section-title{font-size:12.5px; color:var(--text-muted); text-transform:uppercase;
-                 letter-spacing:.04em; margin:22px 0 10px; display:flex;
-                 justify-content:space-between; align-items:center;}
-  .section-title a{font-size:12px; color:var(--gold); text-decoration:none;
-                   text-transform:none; letter-spacing:0;}
-  .industry-strip{display:flex; gap:8px; overflow-x:auto; -webkit-overflow-scrolling:touch;
-                  scrollbar-width:none; padding-bottom:2px;}
-  .industry-strip::-webkit-scrollbar{display:none;}
-  .industry-chip{flex-shrink:0; min-width:104px; background:var(--surface);
-                 border-radius:var(--radius-sm); padding:11px 13px; border:1px solid var(--hairline);}
-  .industry-chip .ic-name{font-size:12.5px; color:var(--text-secondary); margin-bottom:5px;}
-  .industry-chip .ic-pct{font-family:'JetBrains Mono',monospace; font-size:16px; font-weight:600;}
-  .industry-chip .ic-count{font-size:11px; color:var(--text-muted); margin-top:4px;}
-  a.industry-chip{text-decoration:none; transition:background .15s, border-color .15s;}
-  a.industry-chip:hover{background:var(--surface-2); border-color:var(--gold);}
-  .theme-row-mini{display:flex; align-items:center; gap:10px; padding:11px 0;
-                  border-bottom:1px solid var(--hairline);}
-  .theme-row-mini:last-child{border-bottom:none;}
-  a.theme-row-mini{text-decoration:none; color:inherit;}
-  a.theme-row-mini:active{opacity:.7;}
-  .theme-row-mini .trm-name{flex:1; font-size:14px; font-weight:500;}
-  .theme-row-mini .trm-sum{font-size:12px; color:var(--text-muted); margin-top:2px;}
-  .top-score-card{display:flex; justify-content:space-between; align-items:center;
-                 text-decoration:none; color:inherit; transition:background .15s;}
-  .top-score-card:hover{background:var(--surface-2);}
-  .top-score-card:active{transform:scale(.98);}
-  .top-score-card .tsc-name{font-size:15px; font-weight:600; margin-bottom:3px;}
-  .top-score-card .tsc-sub{font-size:12px; color:var(--text-muted);}
-  .top-score-card .tsc-num{font-family:'JetBrains Mono',monospace; font-size:26px;
-                           color:var(--c-score); font-weight:600;}
-  .watch-note{font-size:12.5px; color:var(--text-muted); margin:-4px 0 10px; line-height:1.6;}
-  .watch-list{display:flex; flex-direction:column; gap:8px;}
-  .watch-card{display:flex; justify-content:space-between; align-items:center; gap:12px;
-              text-decoration:none; color:inherit; transition:background .15s;}
-  .watch-card:hover{background:var(--surface-2);}
-  .watch-card:active{transform:scale(.98);}
-  .watch-card .wc-main{min-width:0;}
-  .watch-card .wc-name{font-size:15px; font-weight:600; margin-bottom:3px;}
-  .watch-card .wc-code{font-family:'JetBrains Mono',monospace; font-size:12px;
-                       color:var(--text-muted); font-weight:400;}
-  .watch-card .wc-note{font-size:12px; color:var(--text-muted); line-height:1.5;}
-  .watch-card .wc-pct{font-family:'JetBrains Mono',monospace; font-size:17px;
-                      font-weight:600; flex-shrink:0;}
-  .ql-icon{font-size:15px;}
+  .hero-eyebrow{font-size:13px; color:var(--text-muted); margin-bottom:6px;
+               display:flex; align-items:center; gap:6px;}
+  .hero-number{font-family:'JetBrains Mono',monospace; font-size:38px;
+               font-weight:500; letter-spacing:-.01em;}
+  .hero-change{font-family:'JetBrains Mono',monospace; font-size:15px; margin-left:10px;}
+
+  .watch-hits{background:rgba(227,172,78,.09); border-left:3px solid var(--gold);
+              border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:13px 16px; margin-bottom:18px;}
+  .watch-hits .wh-label{font-size:12px; color:var(--gold); margin-bottom:7px; font-weight:600;}
+  .watch-hits .wh-item{font-size:14px; color:var(--text-secondary); margin-bottom:4px;}
+  .watch-hits .wh-item strong{color:var(--text-primary); font-weight:500;}
+
+  .inst-row{display:flex; align-items:center; gap:10px; margin-bottom:9px; font-size:13.5px;}
+  .inst-row:last-child{margin-bottom:0;}
+  .inst-row .inst-name{width:52px; color:var(--text-secondary); flex-shrink:0;}
+  .inst-row .bar-track{flex:1; height:6px; background:var(--surface-2);
+                       border-radius:3px; position:relative; overflow:hidden;}
+  .inst-row .bar-fill{position:absolute; top:0; bottom:0; border-radius:3px;}
+  .inst-row .bar-fill.up{background:var(--red); left:50%;}
+  .inst-row .bar-fill.down{background:var(--green); right:50%;}
+  .inst-row .inst-value{width:80px; text-align:right;
+                        font-family:'JetBrains Mono',monospace; flex-shrink:0;}
+
+  .theme-entry{background:var(--surface); border:1px solid var(--hairline);
+              border-left:3px solid var(--c-theme); border-radius:var(--radius-sm);
+              padding:14px 16px; margin-bottom:12px;}
+  .theme-entry:last-child{margin-bottom:0;}
+  .theme-header{display:flex; justify-content:space-between; align-items:baseline;
+                gap:12px; margin-bottom:7px; flex-wrap:wrap;}
+  .theme-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px;}
+  .theme-desc{font-size:14px; color:var(--text-secondary); margin-bottom:7px;}
+  .theme-meta{display:flex; justify-content:space-between; align-items:center;
+              font-size:12.5px; color:var(--text-muted); flex-wrap:wrap; gap:8px;}
+  .theme-link{font-size:12.5px; color:var(--gold); text-decoration:none;
+              display:inline-block; margin-top:7px;}
+  .theme-link:hover{text-decoration:underline;}
+
+  .darkhorse-entry{background:var(--surface); border:1px solid var(--hairline);
+                   border-left:3px solid var(--c-warn); border-radius:var(--radius-sm);
+                   padding:14px 16px; margin-bottom:10px;}
+  .darkhorse-entry:last-child{margin-bottom:0;}
+  .darkhorse-name{font-family:'Noto Serif TC',serif; font-weight:600;
+                  font-size:16px; margin-bottom:9px;}
+  .darkhorse-grid{display:grid; grid-template-columns:1fr 1fr;
+                  gap:7px 20px; font-size:13px; margin-bottom:10px;}
+  .darkhorse-grid .dh-label{color:var(--text-muted);}
+  .darkhorse-grid .dh-value{font-family:'JetBrains Mono',monospace;}
+  .darkhorse-note{font-size:13px; color:var(--text-secondary);
+                  border-top:1px solid var(--hairline); padding-top:9px;}
+
+  .tech-table{width:100%; border-collapse:collapse;}
+  .tech-table th{text-align:left; font-size:11.5px; font-weight:400;
+                 color:var(--text-muted); padding-bottom:9px;
+                 border-bottom:1px solid var(--hairline);}
+  .tech-table td{padding:10px 0; border-bottom:1px solid var(--hairline);
+                 font-size:13.5px; vertical-align:top;}
+  .tech-table tr:last-child td{border-bottom:none;}
+  .signal-bull{color:var(--red);} .signal-warn{color:var(--gold);}
+  .signal-neutral{color:var(--text-secondary);} .signal-bear{color:var(--green);}
+  .t-note{color:var(--text-muted); font-size:12.5px;}
+
+  .call-item{display:flex; justify-content:space-between; gap:12px;
+             padding:9px 0; border-bottom:1px solid var(--hairline); font-size:13.5px;}
+  .call-item:last-child{border-bottom:none;}
+  .call-note{color:var(--text-muted); font-size:12.5px;}
+
+  @media (max-width:480px){
+    .hero-number{font-size:32px;}
+    .darkhorse-grid{grid-template-columns:1fr;}
+  }
 
 </style>
 </head>
@@ -449,266 +461,159 @@
     <button class="dr-close" id="drClose" aria-label="關閉選單">✕</button>
   </div>
   <h4>市場</h4>
-  <a href="index.html" class="current"><span class="dr-ic">🏠</span>最新</a>
-  <a href="heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
-  <a href="chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
-  <a href="scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
-  <a href="picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
-  <a href="intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
-  <a href="lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
-  <a href="watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
-  <a href="disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
+  <a href="../index.html" class=""><span class="dr-ic">🏠</span>最新</a>
+  <a href="../heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
+  <a href="../chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
+  <a href="../scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
+  <a href="../picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
+  <a href="../intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
+  <a href="../lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
+  <a href="../watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
+  <a href="../disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
   <h4>研究</h4>
-  <a href="themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
-  <a href="industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
-  <a href="weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
-  <a href="monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
-  <a href="analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
-  <a href="archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
-  <a href="research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
-  <a href="submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
+  <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
+  <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
+  <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
+  <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
+  <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
+  <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
+  <a href="../research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
+  <a href="../submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
 </nav>
 
 <div class="page">
   <div class="topbar">
     <button class="menu-btn" id="menuBtn" aria-label="開啟選單">☰</button>
-    <a href="index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
-    <a href="lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
-    <a href="watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
-    <a href="intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
+    <a href="../index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
+    <a href="../lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
+    <a href="../watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
+    <a href="../intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
   </div>
 
   
+<header style="margin-bottom:14px">
+  <div class="masthead-label">盤後快訊 · 早報 · 國際盤摘要</div>
+  <h1 class="masthead-date">2026年9月10日．週四</h1>
+</header>
 
 
 
-<div class="card" data-report-date="2026-09-09">
-  <div class="stat-tile-label"><span class="dot c-market"></span>加權指數
-    <span class="live-badge">LIVE</span>
-    <span class="mono" data-live="as-of" style="margin-left:auto; color:var(--text-muted); font-size:11px"></span></div>
-  <span class="hero-num" data-live="taiex">47,183</span><span
-    class="hero-chg up"
-    data-live="taiex-chg" data-live-base="hero-chg">▲ 77.58（0.16%）</span>
-  <div class="live-note" data-live="note"></div>
-  <div class="card-grid cols-3" style="margin-top:14px">
+
+
+
+
+
+<section class="block">
+  <h2>國際盤摘要</h2>
+  <div class="stat-grid">
     
-    <div class="stat-tile c-market"><div class="stat-tile-label">成交值</div>
-      <div class="stat-tile-value">8,160億</div></div>
+    <div class="stat"><span class="stat-label">道瓊</span>
+      <span class="stat-value down">45,218 -0.32%</span></div>
+    
+    <div class="stat"><span class="stat-label">那斯達克</span>
+      <span class="stat-value up">19,864 +0.58%</span></div>
+    
+    <div class="stat"><span class="stat-label">S&amp;P 500</span>
+      <span class="stat-value up">6,142 +0.21%</span></div>
+    
+    <div class="stat"><span class="stat-label">費半 SOX</span>
+      <span class="stat-value up">5,712 +1.24%</span></div>
     
     
-    <div class="stat-tile c-chip"><div class="stat-tile-label">三大法人</div>
-      
-      
-      <div class="stat-tile-value up">+221億</div>
-      
-    </div>
+    <div class="stat"><span class="stat-label">美元指數</span>
+      <span class="stat-value mono">102.4</span></div>
     
-    <div class="stat-tile c-market"><div class="stat-tile-label">漲跌家數</div>
-      <div class="stat-tile-value" style="font-size:14px">1114/876</div></div>
+    <div class="stat"><span class="stat-label">VIX</span>
+      <span class="stat-value mono">14.2</span></div>
+    
+    <div class="stat"><span class="stat-label">10年美債殖利率</span>
+      <span class="stat-value mono">4.18%</span></div>
+    
+    <div class="stat"><span class="stat-label">台積電 ADR</span>
+      <span class="stat-value mono">+1.1%</span></div>
     
   </div>
-</div>
-
-
-
-<div class="section-title">產業熱力 <a href="heatmap.html">看全部 →</a></div>
-<div class="industry-strip">
-  
-  <a class="industry-chip" href="heatmap.html#ind-半導體業">
-    <div class="ic-name">半導體業</div>
-    <div class="ic-pct up">+0.7%</div>
-    <div class="ic-count">96 檔 →</div>
-  </a>
-  
-  <a class="industry-chip" href="heatmap.html#ind-油電燃氣業">
-    <div class="ic-name">油電燃氣業</div>
-    <div class="ic-pct up">+0.7%</div>
-    <div class="ic-count">8 檔 →</div>
-  </a>
-  
-  <a class="industry-chip" href="heatmap.html#ind-電子零組件業">
-    <div class="ic-name">電子零組件業</div>
-    <div class="ic-pct up">+0.6%</div>
-    <div class="ic-count">104 檔 →</div>
-  </a>
-  
-  <a class="industry-chip" href="heatmap.html#ind-數位雲端">
-    <div class="ic-name">數位雲端</div>
-    <div class="ic-pct up">+0.5%</div>
-    <div class="ic-count">13 檔 →</div>
-  </a>
-  
-</div>
+  <p class="commentary">隔夜最值得留意的是費半SOX大漲1.24%、台積電ADR同步收紅1.1%，半導體族群走勢明顯優於大盤(道瓊-0.32%、那斯達克+0.58%)，呈現族群內部輪動而非全面性風險偏好回升。真正主導資金情緒的仍是Fed在9/16 FOMC是否升息的不確定性——就業數據優於預期推升升息機率、官員談話反覆牽動美債殖利率，這條「Fed升息路徑不確定性」題材信心度高且已在股債價格面獲得驗證，對台股電子權值股(2330台積電、2317鴻海)部位與新台幣匯率的連動值得持續觀察。中東地緣風險推升油價逼近百元，是另一條同樣獲得驗證的題材，對台塑集團、航空類股的成本壓力較大，但目前多集中在原物料面、尚未看到台股相關個股明顯反應。相對地，川普施壓Fed獨立性這條題材仍停留在觀察階段，缺乏價格面佐證，與前兩者已獲驗證的狀態不同，解讀時宜區分對待。整體而言，今日盤面觀察重點在台積電ADR領漲能否延續到台股本地權值股，而非單純跟隨道瓊、那指漲跌方向。</p>
+</section>
+<hr class="divider">
 
 
 
 
-<div class="section-title">
-  值得關注 · 起漲點
-  <a href="picks.html">看全部 →</a>
-</div>
-<div class="watch-note">
-  剛站上月線／季線且量能放大的個股，已經漲多的不列入。這是觀察名單，不是買進建議。
+
+
+
+<section class="block">
+  <h2>國際題材追蹤</h2>
+  <p class="commentary" style="margin-bottom:16px">本週資金氛圍被「Fed 是否升息」主導、多空拉鋸：強勁就業數據推升升息預期使股市承壓，但 Waller 偏鴿發言又一度反手拉抬,加上中東緊張推油價逼近百元,市場情緒偏向觀望防禦。</p>
   
-</div>
-<div class="watch-list">
-  
-  <a href="picks.html" class="card watch-card">
-    <div class="wc-main">
-      <div class="wc-name" data-stock-code="6116" data-stock-name="彩晶">
-        彩晶 <span class="wc-code">6116</span>
-      </div>
-      <div class="wc-note">2 天前站上月線，量能達 20 日均量 2.51 倍</div>
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">Fed 升息路徑不確定性</span>
+      <span class="tag confidence-high">一致性：高</span>
     </div>
-    
-    <div class="wc-pct up">+2.45%</div>
-    
-  </a>
-  
-</div>
-
-
-
-
-<div class="section-title">最新財經快訊 <a href="research.html">看全部 →</a></div>
-<div class="card">
-  
-  <a class="news-row" href="research.html">
-    <div class="nr-main">
-      <div class="nr-title">华尔街见闻早餐 | 2026年9月10日</div>
-      <div class="nr-sum">2026年9月10日華爾街見聞晨報彙整多則消息：伊朗宣布劃設新的海上「制裁區域」並襲擊美軍基地、美軍反擊打擊伊朗油輪，中…</div>
+    <p class="theme-desc">強勁就業報告推升 9/16 FOMC 升息機率,股債市隨每則官員談話劇烈擺盪。</p>
+    <div class="theme-meta"><span>推動因素：就業數據優於預期、2年期公債殖利率創2025年1月來新高、Waller等官員發言反覆牽動市場</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：SPY、TLT、XLF、KRE</span>
+      <span class="tag verdict-real">偏真實</span>
     </div>
-    <span class="tag v-unverified">無法獨立驗證</span>
-  </a>
-  
-  <a class="news-row" href="research.html">
-    <div class="nr-main">
-      <div class="nr-title">即時快訊</div>
-      <div class="nr-sum">報導指特朗普的顧問（包括副總統萬斯與國務卿盧比奧）已向他提出警告，伊朗戰爭可能會持續到他的任期結束，暗示中東衝突短期內難…</div>
-    </div>
-    <span class="tag v-unverified">無法獨立驗證</span>
-  </a>
-  
-  <a class="news-row" href="research.html">
-    <div class="nr-main">
-      <div class="nr-title">提醒：日内请重点关注（以下均为北京时间）</div>
-      <div class="nr-sum">今日重要經濟行事曆提醒，包含台積電8月營收公告、歐洲央行與土耳其央行利率決議、美國8月PPI與成屋銷售年化數據、OPEC…</div>
-    </div>
-    <span class="tag v-verified">已驗證</span>
-  </a>
-  
-  <a class="news-row" href="research.html">
-    <div class="nr-main">
-      <div class="nr-title">即時快訊</div>
-      <div class="nr-sum">布蘭特原油期貨盤中大漲4.0%，報每桶101.85美元，漲幅顯著。此波動時間點與伊朗格什姆島傳出爆炸聲的消息相近，市場可…</div>
-    </div>
-    <span class="tag v-unverified">無法獨立驗證</span>
-  </a>
-  
-  <a class="news-row" href="research.html">
-    <div class="nr-main">
-      <div class="nr-title">伊朗方面称格什姆岛传出爆炸声</div>
-      <div class="nr-sum">中國央視轉引伊朗方面消息，稱伊朗格什姆島當地凌晨傳出巨大爆炸聲，尚不清楚聲音來自海上或島內，當地官方尚未發表正式聲明。這…</div>
-    </div>
-    <span class="tag v-unverified">無法獨立驗證</span>
-  </a>
-  
-</div>
-
-
-
-<div class="section-title">風險提醒</div>
-<a href="disposition.html" class="quicklink" style="display:block">
-  <div class="ql-title">⚠️ 10 檔處置中或接近門檻</div>
-  <div class="ql-desc">點看完整名單與處置措施</div>
-</a>
-
-
-<div class="section-title">快速前往</div>
-<div class="quicklink-grid">
-  <a href="heatmap.html" class="quicklink">
-    <div class="ql-title"><span class="ql-icon">🔥</span>產業熱力圖</div>
-    <div class="ql-desc">依產業別當日漲跌</div>
-  </a>
-  <a href="chips.html" class="quicklink">
-    <div class="ql-title"><span class="ql-icon">💰</span>籌碼儀表板</div>
-    <div class="ql-desc">法人／資券／大戶</div>
-  </a>
-  <a href="scores.html" class="quicklink">
-    <div class="ql-title"><span class="ql-icon">⭐</span>五面向評分</div>
-    <div class="ql-desc">技術/籌碼/基本/題材/新聞</div>
-  </a>
-  <a href="picks.html" class="quicklink">
-    <div class="ql-title"><span class="ql-icon">🎯</span>選股雷達</div>
-    <div class="ql-desc">起漲點／新掛牌興櫃／黑馬</div>
-  </a>
-  <a href="disposition.html" class="quicklink">
-    <div class="ql-title"><span class="ql-icon">⚠️</span>處置股預警</div>
-    <div class="ql-desc">處置中／接近門檻</div>
-  </a>
-  <a href="themes.html" class="quicklink">
-    <div class="ql-title"><span class="ql-icon">📚</span>題材知識庫</div>
-    <div class="ql-desc">追蹤中／休眠題材</div>
-  </a>
-  <a href="archive.html" class="quicklink">
-    <div class="ql-title"><span class="ql-icon">🗂️</span>歷史報告</div>
-    <div class="ql-desc">每日／週／月報存檔</div>
-  </a>
-  <a href="lookup.html" class="quicklink">
-    <div class="ql-title"><span class="ql-icon">🔍</span>個股查詢</div>
-    <div class="ql-desc">搜尋任一股票即時圖表</div>
-  </a>
-  <a href="research.html" class="quicklink">
-    <div class="ql-title"><span class="ql-icon">📥</span>研究筆記</div>
-    <div class="ql-desc">已提交研究的驗證結果</div>
-  </a>
-  <a href="submit.html" class="quicklink">
-    <div class="ql-title"><span class="ql-icon">📤</span>提交研究</div>
-    <div class="ql-desc">貼文章或連結給系統分析</div>
-  </a>
-</div>
-
-
-<div class="section-title">近期報告 <a href="archive.html">看全部 →</a></div>
-<div class="card" style="padding:6px 16px">
-  
-  <div class="theme-row-mini">
-    <a href="reports/2026-09-10-morning.html" style="flex:1; text-decoration:none">2026年9月10日．週四　早報</a>
-    <span class="mono" style="font-size:12px; color:var(--text-muted)">2026-09-10</span>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：外資對利率敏感的電子權值股(2330台積電、2317鴻海)部位隨美債殖利率波動調整,新台幣匯率與外資資金流向同步受牽動。</span></div>
   </div>
   
-  <div class="theme-row-mini">
-    <a href="reports/2026-09-09-morning.html" style="flex:1; text-decoration:none">2026年9月9日．週三　早報</a>
-    <span class="mono" style="font-size:12px; color:var(--text-muted)">2026-09-09</span>
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">中東地緣風險推升油價</span>
+      <span class="tag confidence-high">一致性：高</span>
+    </div>
+    <p class="theme-desc">伊朗與油輪衝突升溫,布蘭特原油逼近甚至觸及百元大關。</p>
+    <div class="theme-meta"><span>推動因素：Iran tanker攻擊事件、Brent原油接近$100、亞股連動下跌</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：XLE、USO、CVX、XOM</span>
+      <span class="tag verdict-real">偏真實</span>
+    </div>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：原物料與塑化成本上升壓縮台塑集團(6505台塑化)、航空業(2610華航)獲利空間,能源進口成本墊高影響通膨與台幣購買力。</span></div>
   </div>
   
-  <div class="theme-row-mini">
-    <a href="reports/2026-09-09-evening.html" style="flex:1; text-decoration:none">2026年9月9日．週三　盤後</a>
-    <span class="mono" style="font-size:12px; color:var(--text-muted)">2026-09-09</span>
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">川普施壓Fed獨立性</span>
+      <span class="tag confidence-mid">一致性：中</span>
+    </div>
+    <p class="theme-desc">川普公開要求Fed降息、以貿易關稅施壓,對Fed人事(Warsh)也表態,增添政策不確定性。</p>
+    <div class="theme-meta"><span>推動因素：川普多次公開喊話要求降息與貿易威脅、對Fed理事人選表態,但尚未反映在具體政策或價格面</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：DXY、TLT</span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：美元政策不確定性放大新台幣匯率波動風險,外資對新興市場(含台股)資金配置更趨謹慎觀望。</span></div>
   </div>
   
-  <div class="theme-row-mini">
-    <a href="reports/2026-09-08-morning.html" style="flex:1; text-decoration:none">2026年9月8日．週二　早報</a>
-    <span class="mono" style="font-size:12px; color:var(--text-muted)">2026-09-08</span>
-  </div>
-  
-  <div class="theme-row-mini">
-    <a href="reports/2026-09-08-evening.html" style="flex:1; text-decoration:none">2026年9月8日．週二　盤後</a>
-    <span class="mono" style="font-size:12px; color:var(--text-muted)">2026-09-08</span>
-  </div>
-  
-  <div class="theme-row-mini">
-    <a href="reports/2026-09-07-holiday.html" style="flex:1; text-decoration:none">2026年9月7日．週一　假日功課</a>
-    <span class="mono" style="font-size:12px; color:var(--text-muted)">2026-09-07</span>
-  </div>
-  
-</div>
+</section>
+<hr class="divider">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-10 07:38</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-10 07:14</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
@@ -717,13 +622,13 @@
 
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
   }
-  window.__rel = "";
+  window.__rel = "../";
 </script>
-<script src="assets/ui.js?v=12ed3d4a"></script>
+<script src="../assets/ui.js?v=12ed3d4a"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=12ed3d4a"></script>
+<script src="../assets/stock-chart.js?v=12ed3d4a"></script>
 
 </body>
 </html>
