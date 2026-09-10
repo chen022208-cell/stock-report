@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>提交研究 · 盤後快訊</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>Fed 升息路徑不確定性：就業數據意外強勁，市場在官員發言間反覆押注 · 盤後快訊</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 <meta name="theme-color" content="#060911">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -380,35 +380,56 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  .rs-form{display:flex; flex-direction:column; gap:12px; max-width:640px;}
-  .rs-form label{font-size:13px; color:var(--text-muted);}
-  .rs-form input, .rs-form textarea{width:100%; background:var(--surface); color:var(--text-primary);
-    border:1px solid var(--hairline); border-radius:var(--radius-sm); padding:10px 12px;
-    font-family:inherit; font-size:14px; resize:vertical;}
-  .rs-form textarea{min-height:220px;}
-  .rs-count{font-size:12px; color:var(--text-muted); text-align:right;}
-  .rs-count.warn{color:var(--gold);}
-  .rs-submit{align-self:flex-start; background:var(--gold); color:#1a1512; border:none;
-    border-radius:var(--radius-sm); padding:10px 22px; font-size:14px; font-weight:600; cursor:pointer;}
-  .rs-submit:disabled{opacity:.5; cursor:not-allowed;}
-  .rs-steps{font-size:13px; color:var(--text-secondary); line-height:1.8; margin:16px 0 24px;
-    padding:14px 16px; background:var(--surface); border-radius:var(--radius-sm);}
-  .rs-steps b{color:var(--gold);}
-  .rs-note{font-size:12.5px; color:var(--text-muted); margin-top:20px;}
-  .rs-mode-tabs{display:flex; gap:6px;}
-  .rs-mode-tabs{flex-wrap:wrap;}
-  .rs-topic-hint{font-size:12.5px; color:var(--text-muted); line-height:1.8; margin-top:8px;}
-  .rs-topic-hint a{color:var(--gold);}
-  .rs-mode-tab{background:var(--surface); border:1px solid var(--hairline); color:var(--text-secondary);
-    border-radius:var(--radius-sm); padding:8px 16px; font-size:13px; cursor:pointer;}
-  .rs-mode-tab.active{background:var(--gold); color:#1a1512; border-color:var(--gold); font-weight:600;}
-  .rs-success{display:none; padding:14px 16px; background:rgba(79,176,122,.16); color:var(--green);
-    border-radius:var(--radius-sm); font-size:14px; margin-top:10px;}
-  .rs-success.show{display:block;}
-  .rs-gh-toggle{font-size:12.5px; color:var(--text-muted); margin-top:18px;}
-  .rs-gh-toggle a{color:var(--gold); cursor:pointer; text-decoration:underline;}
-  .rs-gh-box{display:none; margin-top:12px;}
-  .rs-gh-box.show{display:block;}
+  body{font-family:'Noto Serif TC',serif;}
+  .meta-label{font-family:'Noto Sans TC',sans-serif; font-size:13px;
+              color:var(--gold); margin-bottom:14px;}
+  h1.title{font-size:30px; font-weight:700; line-height:1.4; margin-bottom:16px;}
+  .byline{font-family:'Noto Sans TC',sans-serif; font-size:13px; color:var(--text-muted);
+          padding-bottom:28px; border-bottom:1px solid var(--hairline); margin-bottom:28px;}
+  .summary-box{background:var(--surface); border-radius:8px;
+               padding:22px 24px; margin-bottom:36px;}
+  .summary-box .summary-label{font-family:'Noto Sans TC',sans-serif;
+                              font-size:12.5px; color:var(--gold); margin-bottom:12px;}
+  .summary-box ul{list-style:none;}
+  .summary-box li{font-family:'Noto Sans TC',sans-serif; font-size:14.5px;
+                  color:var(--text-secondary); padding-left:16px; position:relative;
+                  margin-bottom:10px; line-height:1.6;}
+  .summary-box li:last-child{margin-bottom:0;}
+  .summary-box li::before{content:""; position:absolute; left:0; top:8px;
+                          width:5px; height:5px; border-radius:50%; background:var(--gold);}
+  article h2{font-size:19px; font-weight:600; margin:36px 0 14px;}
+  article p{font-size:16px; line-height:1.9; color:var(--text-secondary); margin-bottom:16px;}
+  .pull-stat{display:flex; gap:28px; padding:20px 0; margin:22px 0;
+             border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline);
+             flex-wrap:wrap;}
+  .pull-stat .item{min-width:110px;}
+  .pull-stat .item-value{font-family:'JetBrains Mono',monospace; font-size:24px;}
+  .pull-stat .item-label{font-family:'Noto Sans TC',sans-serif; font-size:12.5px;
+                         color:var(--text-muted); margin-top:4px;}
+  .callout{border-left:2px solid var(--red); padding:16px 20px; background:var(--surface);
+           border-radius:0 6px 6px 0; margin:24px 0;}
+  .callout .callout-label{font-family:'Noto Sans TC',sans-serif; font-size:12.5px;
+                          color:var(--red); margin-bottom:8px;}
+  .callout p{font-size:14.5px; margin-bottom:0;}
+  .tracking-list{font-family:'Noto Sans TC',sans-serif;}
+  .track-item{padding:10px 0; border-bottom:1px solid var(--hairline);
+              font-size:14px; color:var(--text-secondary);}
+  .track-item:last-child{border-bottom:none;}
+  .chain-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr));
+             gap:12px; margin:16px 0 8px; font-family:'Noto Sans TC',sans-serif;}
+  .chain-segment{background:var(--surface); border-radius:8px; padding:14px 16px;}
+  .chain-label{font-size:12.5px; color:var(--gold); margin-bottom:10px;}
+  .chain-company{font-size:14px; color:var(--text-secondary); padding:6px 0;
+                 border-bottom:1px solid var(--hairline); display:flex;
+                 justify-content:space-between; align-items:center;}
+  .chain-company:last-child{border-bottom:none;}
+  .chain-company.core{color:var(--text-primary);}
+  .chain-role{font-size:11px; padding:2px 7px; border-radius:100px; flex-shrink:0;
+             background:rgba(217,164,65,.16); color:var(--gold);}
+  .chain-company.peripheral .chain-role{background:rgba(114,108,96,.16); color:var(--text-muted);}
+  .chain-peers{font-family:'Noto Sans TC',sans-serif; font-size:13px;
+               color:var(--text-muted); margin-top:10px;}
+  @media (max-width:480px){h1.title{font-size:24px;}}
 
 </style>
 </head>
@@ -420,150 +441,134 @@
     <button class="dr-close" id="drClose" aria-label="關閉選單">✕</button>
   </div>
   <h4>市場</h4>
-  <a href="index.html" class=""><span class="dr-ic">🏠</span>最新</a>
-  <a href="heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
-  <a href="chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
-  <a href="scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
-  <a href="picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
-  <a href="intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
-  <a href="lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
-  <a href="watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
-  <a href="disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
+  <a href="../index.html" class=""><span class="dr-ic">🏠</span>最新</a>
+  <a href="../heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
+  <a href="../chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
+  <a href="../scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
+  <a href="../picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
+  <a href="../intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
+  <a href="../lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
+  <a href="../watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
+  <a href="../disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
   <h4>研究</h4>
-  <a href="themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
-  <a href="industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
-  <a href="weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
-  <a href="monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
-  <a href="analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
-  <a href="archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
-  <a href="research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
-  <a href="submit.html" class="current"><span class="dr-ic">📤</span>提交研究</a>
+  <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
+  <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
+  <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
+  <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
+  <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
+  <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
+  <a href="../research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
+  <a href="../submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
 </nav>
 
 <div class="page">
   <div class="topbar">
     <button class="menu-btn" id="menuBtn" aria-label="開啟選單">☰</button>
-    <a href="index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
-    <a href="lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
-    <a href="watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
-    <a href="intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
+    <a href="../index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
+    <a href="../lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
+    <a href="../watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
+    <a href="../intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
   </div>
 
   
-<header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">提交研究文章</h1></header>
+<div class="meta-label">深度報告 · 題材知識庫 #122</div>
+<h1 class="title">Fed 升息路徑不確定性：就業數據意外強勁，市場在官員發言間反覆押注</h1>
+<div class="byline">首次建檔 2026-09-10　·　最後更新 2026-09-10　·　第 1 次更新</div>
 
 
-<div class="rs-steps">
-  貼上文章全文或連結，按「送出」就完成了——<b>不用登入、不會跳頁</b>。
-  系統會用 LLM 分析內容、嚴格驗證真偽，只有驗證通過的部分才會回寫進題材知識庫；
-  結果會出現在 <a href="research.html">研究筆記</a> 頁面。
+<div class="summary-box">
+  <div class="summary-label">摘要</div>
+  <ul><li>8月就業報告優於市場預期，推升9/16 FOMC升息（或維持限制性利率更久）的機率，2年期美債殖利率創2025年1月以來新高</li><li>Fed官員發言立場不一（如Waller偏鴿、部分官員偏鷹），使股債市在同一週內多次因單一講話大幅擺盪，顯示市場對政策路徑缺乏共識、對消息面極度敏感</li><li>傳導至台股目前仍停留在匯率與資金流向層面的推論，尚未看到台股個股或類股層級的直接驗證數據，需與後續美元指數、外資買賣超同步觀察</li></ul>
 </div>
 
-<div class="rs-mode-tabs" id="rs-mode-tabs">
-  <button type="button" class="rs-mode-tab active" data-mode="text">貼文字內容</button>
-  <button type="button" class="rs-mode-tab" data-mode="url">貼連結網址</button>
-  <button type="button" class="rs-mode-tab" data-mode="topic">🎯 點播深度主題</button>
-</div>
 
-<form class="rs-form" id="rs-form" onsubmit="return false;" style="margin-top:14px">
-  <div>
-    <label for="rs-title">標題（可留空）</label>
-    <input id="rs-title" type="text" placeholder="例如：文章來源或主題">
+<article>
+  <div class="pull-stat">
+    <div class="item"><div class="item-value">4</div>
+      <div class="item-label">相關供應鏈個股</div></div>
+    <div class="item"><div class="item-value">1</div>
+      <div class="item-label">累積更新次數</div></div>
+    <div class="item"><div class="item-value">高</div>
+      <div class="item-label">目前信心度</div></div>
   </div>
-  <div id="rs-text-field">
-    <label for="rs-body">內容（貼上文章全文或你整理的重點）</label>
-    <textarea id="rs-body" placeholder="貼在這裡..."></textarea>
-    <div class="rs-count" id="rs-count">0 字</div>
-  </div>
-  <div id="rs-url-field" style="display:none">
-    <label for="rs-url">文章網址</label>
-    <input id="rs-url" type="url" placeholder="https://...">
-  </div>
-  <div id="rs-topic-field" style="display:none">
-    <label for="rs-topic">想研究的主題</label>
-    <input id="rs-topic" type="text" placeholder="例如：矽光子 CPO 在台廠的實際進度">
-    <div class="rs-topic-hint">
-      這個模式不用貼文章——你只要給題目，系統會自己上網查證後寫一份深度報告，
-      產出後會列在 <a href="analysis/">分析清單</a> 頁。
-      <b>查不到可靠外部來源的主題不會產出報告</b>（寧可不寫，也不放沒查證的內容）。
+
+  
+  <h2>事件背景</h2>
+  <p>這個題材的起點是9月上旬公布的美國就業報告，數據優於市場原先預期，打破了此前市場對Fed在9/16 FOMC會議上會維持鴿派立場、甚至討論降息的預期。就業市場的韌性重新點燃了「Fed是否需要維持更長時間限制性利率、甚至不排除進一步緊縮」的辯論。這個議題本身並不是全新事件，而是自2025年下半年以來反覆出現的「數據依賴（data-dependent）」敘事的延續——每一次關鍵經濟數據公布，市場都會重新定價Fed路徑，而這次的差異在於，就業數據的強度足以讓2年期公債殖利率（對Fed政策最敏感的期限）創下2025年1月以來的新高，顯示這次的預期修正幅度並非小幅微調。與此同時，Fed內部官員的公開發言出現明顯分歧：部分官員（如Waller）傾向鴿派、暗示仍有降息空間；但也有官員在同一週內發表偏鷹立場的言論。這種官員發言的反覆，使得原本應該由數據驅動的市場定價，疊加了「解讀哪位官員代表主流意見」的額外不確定性，也是這個題材被列為「high confidence／real」的原因——它不是單一新聞的曇花一現，而是有實際利率市場數據佐證、且持續一週以上反覆驗證的真實現象。</p>
+  
+  <h2>市場數據驗證</h2>
+  <p>從可查證的市場數據來看，這個題材的真實性主要建立在利率市場的反應上：2年期美債殖利率創2025年1月以來新高，是最直接、最不受敘事干擾的驗證指標，因為2年期公債對短期政策利率預期的敏感度遠高於長天期公債或股市情緒。相關個股／ETF方面，追蹤名單包含SPY（美股大盤）、TLT（長期公債）、XLF（金融股）、KRE（區域銀行股），這組標的的選擇本身就反映了這個題材的傳導邏輯：TLT作為長債價格的代理指標，若升息預期升溫，理論上應承壓；XLF與KRE則是對利率環境最敏感的類股，銀行淨利差與資產負債表在不同利率路徑下表現差異明顯。目前追蹤軌跡中列出的法人資金淨流向（inst_net）為0.0，也就是說，截至目前這個題材尚未觀察到SPY、TLT、XLF、KRE這組標的出現明確方向一致的資金流向數據，這點需要老實標註為「尚待觀察」，而不是假設資金已經因為這個題材出現系統性移動。換言之，殖利率端的驗證是紮實的（已驗證事實），但資金流向端目前仍是空白，屬於需要持續追蹤、暫時無法下結論的部分。</p>
+  
+  <h2>對台股與科技供應鏈的傳導路徑</h2>
+  <p>這是國際總經題材，對台股的影響機制主要透過兩條間接路徑，而非直接對應到特定個股，這裡需要明確區分「已知的傳導機制」與「尚待驗證的推論」。第一條路徑是匯率：美債殖利率上升通常伴隨美元走強的傾向，若這個趨勢延續，新台幣兌美元可能面臨貶值壓力，這對出口占比高、以美元計價收入的電子代工與IC設計類股，理論上是匯兌收益的順風（推論，尚未有本期具體匯率數據佐證）。第二條路徑是資金面：若Fed升息路徑不確定性導致美股（尤其是對利率敏感的成長股與AI相關硬體股）估值承壓，外資對新興市場（包含台股）的風險偏好可能同步收縮，過去的歷史模式顯示，美股大盤波動加大時，外資在台股的買賣超往往會同向放大波動，但這一機制目前也缺乏本期台股外資買賣超與這個題材直接掛鉉的驗證數據——換言之，「Fed升息不確定性→外資賣超台股」目前仍是產業觀察上的合理推論，而不是已經被資金流向數據證實的因果關係。特別需要提醒的是，這個題材目前完全沒有連結到任何台股個股或類股，追蹤名單也只有美股ETF，所以任何「這代表哪個台股族群會受益或受害」的推論，都必須明確標注為推論性質，不宜為了讓報告看起來完整而硬指名特定個股。</p>
+  
+  <h2>風險與觀察重點</h2>
+  <p>這個題材要轉弱或改變方向，主要有幾種情境。第一，若後續公布的通膨數據（如CPI、PCE）明顯降溫，會削弱「就業強勁支撐鷹派立場」的敘事基礎，市場可能重新轉向定價降息。第二，若Fed官員的發言立場逐漸收斂、不再出現同週內鷹鴿互打的情況，代表市場對政策路徑的不確定性正在消退，這個題材的「反覆擺盪」特徵會自然淡化。第三，需留意這個題材與另一個同時在追蹤中的〔國際〕中東地緣風險推升油價題材之間的交互作用——若油價持續上升推升通膨預期，可能與就業數據強勁的效果疊加，進一步強化鷹派敘事，兩個題材可能不是獨立事件，而需要合併觀察對整體利率路徑的影響。</p>
+  
+
+  
+  <h2>供應鏈結構</h2>
+  <div class="chain-grid">
+    
+    
+    
+    
+    <div class="chain-segment">
+      <div class="chain-label">利率預期直接反映資產（公債／大盤）</div>
+      
+      <div class="chain-company core">
+        TLT TLT
+        <span class="chain-role">核心</span>
+      </div>
+      
+      <div class="chain-company peripheral">
+        SPY SPY
+        <span class="chain-role">邊緣</span>
+      </div>
+      
     </div>
-    <label for="rs-topic-note" style="margin-top:10px">補充說明（可留空）</label>
-    <textarea id="rs-topic-note" style="min-height:90px"
-              placeholder="想特別看哪個角度？例如：只想看上游材料端、或想知道有沒有實際出貨"></textarea>
+    
+    
+    
+    <div class="chain-segment">
+      <div class="chain-label">利率敏感終端類股（金融／區域銀行）</div>
+      
+      <div class="chain-company core">
+        XLF XLF
+        <span class="chain-role">核心</span>
+      </div>
+      
+      <div class="chain-company core">
+        KRE KRE
+        <span class="chain-role">核心</span>
+      </div>
+      
+    </div>
+    
+    
   </div>
-  <button class="rs-submit" id="rs-submit" type="button" disabled>送出 →</button>
-  <div class="rs-success" id="rs-success">✓ 已送出，系統會盡快分析並更新到研究筆記頁面。</div>
-</form>
-<p class="rs-note">內容太長時建議先貼重點摘要。系統只會把「驗證通過」的內容回寫進真實報告，
-未經驗證或跟既有資料衝突的部分只會留在研究筆記裡，不影響正式資料。</p>
+  
+  
 
-<div class="rs-gh-toggle">
-  比較熟悉 GitHub 的話，也可以 <a id="rs-gh-link">改用 GitHub Issue 提交</a>。
-</div>
-<div class="rs-gh-box" id="rs-gh-box">
-  <form class="rs-form" id="rs-gh-form" onsubmit="return false;">
-  <div>
-    <label for="rs-gh-title">標題（可留空）</label>
-    <input id="rs-gh-title" type="text" placeholder="例如：文章來源或主題">
+  
+  <h2>風險與觀察重點</h2>
+  <div class="callout">
+    <div class="callout-label">風險提示</div>
+    <p>目前的驗證僅限於2年期公債殖利率這一項指標，資金流向（inst_net）尚未出現對應數據，若後續殖利率走勢反轉或官員發言轉趨一致鴿派，這個題材可能快速降溫；對台股的傳導路徑目前完全建立在匯率與外資風險偏好的推論之上，尚無本地實證數據支持，若誤把推論當作已驗證事實解讀個股，容易產生誤判。</p>
   </div>
-  <div>
-    <label for="rs-gh-body">內容（貼上文章全文、你整理的重點，或一個網址）</label>
-    <textarea id="rs-gh-body" placeholder="貼在這裡..."></textarea>
-    <div class="rs-count" id="rs-gh-count">0 字</div>
+  
+
+  
+  <h2>後續追蹤指標</h2>
+  <div class="tracking-list">
+    <div class="track-item">9/16 FOMC 會議聲明與點陣圖（dot plot）是否上修或下修後續升息／降息路徑</div><div class="track-item">後續CPI、PCE等通膨數據是否延續或推翻「就業強勁支撐鷹派」的敘事</div><div class="track-item">2年期美債殖利率是否持續創新高或開始回落</div><div class="track-item">SPY、TLT、XLF、KRE資金流向（inst_net）是否開始出現方向一致的變化</div><div class="track-item">新台幣兌美元匯率走勢，以及台股外資買賣超是否與這個題材出現同步變化</div>
   </div>
-  <button class="rs-submit" id="rs-gh-submit" type="button" disabled>送出到 GitHub Issue →</button>
-</form>
-<p class="rs-note">會開一個新分頁到 GitHub，確認內容後按「Submit new issue」即完成——
-需要你有 GitHub 帳號並登入。<br>
-標題以 <code>[主題點播]</code> 開頭的話，會改走「點播深度主題」流程：
-系統自己上網查證後產出一份報告，而不是驗證你貼的內容。</p>
-<script>
-(function () {
-  var titleEl = document.getElementById("rs-gh-title");
-  var bodyEl = document.getElementById("rs-gh-body");
-  var countEl = document.getElementById("rs-gh-count");
-  var btn = document.getElementById("rs-gh-submit");
-  var repo = "chen022208-cell/stock-report";
-
-  function update() {
-    var n = bodyEl.value.length;
-    countEl.textContent = n.toLocaleString() + " 字";
-    countEl.classList.toggle("warn", n > 5000);
-    btn.disabled = n === 0;
-  }
-  bodyEl.addEventListener("input", update);
-  update();
-
-  btn.addEventListener("click", function () {
-    var title = titleEl.value.trim() || "使用者研究提交";
-    var body = bodyEl.value.trim();
-    if (!body || !repo) return;
-    // 標題以「[主題點播]」開頭 → 掛 topic-request 標籤，交給 run_topic_requests
-    // 處理（系統自己查證後寫報告）；否則照舊走 research-submission（驗證使用者
-    // 貼的內容）。兩條流程的產出位置與規則都不一樣，不能混。
-    var isTopic = /^\s*\[主題點播\]/.test(title);
-    var label = isTopic ? "topic-request" : "research-submission";
-    var url = "https://github.com/" + repo + "/issues/new?labels=" + label
-      + "&title=" + encodeURIComponent(title) + "&body=" + encodeURIComponent(body);
-    window.open(url, "_blank");
-  });
-})();
-</script>
-</div>
-
-<!-- 隱藏 iframe + 表單：送出後目標是這個 iframe，頁面本身不會跳轉 -->
-<iframe name="rs-hidden-iframe" id="rs-hidden-iframe" style="display:none"></iframe>
-<form id="rs-gform" action="https://docs.google.com/forms/d/e/1FAIpQLSePDxA_hBnLaWkywN278OkkaJ7vo9wdNV-KJqT5yFvHoTQybA/formResponse" method="POST" target="rs-hidden-iframe" style="display:none">
-  <input type="text" name="entry.222984700" id="rs-gform-title">
-  <textarea name="entry.1647972263" id="rs-gform-body"></textarea>
-</form>
-
-
+  
+</article>
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-10 19:31</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-10 19:28</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
@@ -572,98 +577,13 @@
 
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
   }
-  window.__rel = "";
+  window.__rel = "../";
 </script>
-<script src="assets/ui.js?v=12ed3d4a"></script>
+<script src="../assets/ui.js?v=12ed3d4a"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=12ed3d4a"></script>
-
-<script>
-(function () {
-  var mode = "text";
-  // 參數名不要叫 btn——下面那個 btn 是「送出」按鈕，同名會被這裡的分頁按鈕遮蔽，
-  // 結果是點分頁時把分頁自己的字改成「送出點播 →」。
-  document.querySelectorAll(".rs-mode-tab").forEach(function (tab) {
-    tab.addEventListener("click", function () {
-      document.querySelectorAll(".rs-mode-tab").forEach(function (b) { b.classList.remove("active"); });
-      tab.classList.add("active");
-      mode = tab.getAttribute("data-mode");
-      document.getElementById("rs-text-field").style.display = mode === "text" ? "" : "none";
-      document.getElementById("rs-url-field").style.display = mode === "url" ? "" : "none";
-      document.getElementById("rs-topic-field").style.display = mode === "topic" ? "" : "none";
-      // 三種模式送出的東西不一樣，按鈕文案也跟著換，免得使用者以為只是換欄位
-      btn.textContent = mode === "topic" ? "送出點播 →" : "送出 →";
-      document.getElementById("rs-title").parentNode.style.display =
-        mode === "topic" ? "none" : "";
-      updateBtn();
-    });
-  });
-
-  var titleEl = document.getElementById("rs-title");
-  var bodyEl = document.getElementById("rs-body");
-  var urlEl = document.getElementById("rs-url");
-  var topicEl = document.getElementById("rs-topic");
-  var topicNoteEl = document.getElementById("rs-topic-note");
-  var countEl = document.getElementById("rs-count");
-  var btn = document.getElementById("rs-submit");
-  var successEl = document.getElementById("rs-success");
-
-  function currentContent() {
-    if (mode === "url") return urlEl.value.trim();
-    if (mode === "topic") return topicEl.value.trim();
-    return bodyEl.value.trim();
-  }
-  function updateBtn() {
-    var n = bodyEl.value.length;
-    countEl.textContent = n.toLocaleString() + " 字";
-    countEl.classList.toggle("warn", n > 5000);
-    btn.disabled = currentContent().length === 0;
-  }
-  bodyEl.addEventListener("input", updateBtn);
-  urlEl.addEventListener("input", updateBtn);
-  topicEl.addEventListener("input", updateBtn);
-  updateBtn();
-
-  btn.addEventListener("click", function () {
-    var content = currentContent();
-    if (!content) return;
-    // 主題點播走的是不同的處理流程（run_topic_requests），後端靠標題前綴分流：
-    // Google 表單那條路沒有 label 可用，所以用「[主題點播]」當標記。
-    var title, body;
-    if (mode === "topic") {
-      title = "[主題點播] " + content;
-      body = topicNoteEl.value.trim() || content;
-    } else {
-      title = titleEl.value.trim() || "使用者研究提交";
-      body = content;
-    }
-    document.getElementById("rs-gform-title").value = title;
-    document.getElementById("rs-gform-body").value = body;
-    document.getElementById("rs-gform").submit();
-
-    btn.disabled = true;
-    successEl.textContent = mode === "topic"
-      ? "✓ 已送出點播，系統查證後會把報告放到分析清單頁。"
-      : "✓ 已送出，系統會盡快分析並更新到研究筆記頁面。";
-    successEl.classList.add("show");
-    titleEl.value = ""; bodyEl.value = "";
-    if (urlEl) urlEl.value = "";
-    if (topicEl) topicEl.value = "";
-    if (topicNoteEl) topicNoteEl.value = "";
-    updateBtn();
-    setTimeout(function () { successEl.classList.remove("show"); }, 6000);
-  });
-
-  var ghLink = document.getElementById("rs-gh-link");
-  if (ghLink) {
-    ghLink.addEventListener("click", function () {
-      document.getElementById("rs-gh-box").classList.add("show");
-    });
-  }
-})();
-</script>
+<script src="../assets/stock-chart.js?v=12ed3d4a"></script>
 
 </body>
 </html>

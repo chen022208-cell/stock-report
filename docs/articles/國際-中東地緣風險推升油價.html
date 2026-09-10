@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>提交研究 · 盤後快訊</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>中東地緣風險推升油價：伊朗油輪衝突升溫，布蘭特原油逼近百元大關 · 盤後快訊</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 <meta name="theme-color" content="#060911">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -380,35 +380,56 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  .rs-form{display:flex; flex-direction:column; gap:12px; max-width:640px;}
-  .rs-form label{font-size:13px; color:var(--text-muted);}
-  .rs-form input, .rs-form textarea{width:100%; background:var(--surface); color:var(--text-primary);
-    border:1px solid var(--hairline); border-radius:var(--radius-sm); padding:10px 12px;
-    font-family:inherit; font-size:14px; resize:vertical;}
-  .rs-form textarea{min-height:220px;}
-  .rs-count{font-size:12px; color:var(--text-muted); text-align:right;}
-  .rs-count.warn{color:var(--gold);}
-  .rs-submit{align-self:flex-start; background:var(--gold); color:#1a1512; border:none;
-    border-radius:var(--radius-sm); padding:10px 22px; font-size:14px; font-weight:600; cursor:pointer;}
-  .rs-submit:disabled{opacity:.5; cursor:not-allowed;}
-  .rs-steps{font-size:13px; color:var(--text-secondary); line-height:1.8; margin:16px 0 24px;
-    padding:14px 16px; background:var(--surface); border-radius:var(--radius-sm);}
-  .rs-steps b{color:var(--gold);}
-  .rs-note{font-size:12.5px; color:var(--text-muted); margin-top:20px;}
-  .rs-mode-tabs{display:flex; gap:6px;}
-  .rs-mode-tabs{flex-wrap:wrap;}
-  .rs-topic-hint{font-size:12.5px; color:var(--text-muted); line-height:1.8; margin-top:8px;}
-  .rs-topic-hint a{color:var(--gold);}
-  .rs-mode-tab{background:var(--surface); border:1px solid var(--hairline); color:var(--text-secondary);
-    border-radius:var(--radius-sm); padding:8px 16px; font-size:13px; cursor:pointer;}
-  .rs-mode-tab.active{background:var(--gold); color:#1a1512; border-color:var(--gold); font-weight:600;}
-  .rs-success{display:none; padding:14px 16px; background:rgba(79,176,122,.16); color:var(--green);
-    border-radius:var(--radius-sm); font-size:14px; margin-top:10px;}
-  .rs-success.show{display:block;}
-  .rs-gh-toggle{font-size:12.5px; color:var(--text-muted); margin-top:18px;}
-  .rs-gh-toggle a{color:var(--gold); cursor:pointer; text-decoration:underline;}
-  .rs-gh-box{display:none; margin-top:12px;}
-  .rs-gh-box.show{display:block;}
+  body{font-family:'Noto Serif TC',serif;}
+  .meta-label{font-family:'Noto Sans TC',sans-serif; font-size:13px;
+              color:var(--gold); margin-bottom:14px;}
+  h1.title{font-size:30px; font-weight:700; line-height:1.4; margin-bottom:16px;}
+  .byline{font-family:'Noto Sans TC',sans-serif; font-size:13px; color:var(--text-muted);
+          padding-bottom:28px; border-bottom:1px solid var(--hairline); margin-bottom:28px;}
+  .summary-box{background:var(--surface); border-radius:8px;
+               padding:22px 24px; margin-bottom:36px;}
+  .summary-box .summary-label{font-family:'Noto Sans TC',sans-serif;
+                              font-size:12.5px; color:var(--gold); margin-bottom:12px;}
+  .summary-box ul{list-style:none;}
+  .summary-box li{font-family:'Noto Sans TC',sans-serif; font-size:14.5px;
+                  color:var(--text-secondary); padding-left:16px; position:relative;
+                  margin-bottom:10px; line-height:1.6;}
+  .summary-box li:last-child{margin-bottom:0;}
+  .summary-box li::before{content:""; position:absolute; left:0; top:8px;
+                          width:5px; height:5px; border-radius:50%; background:var(--gold);}
+  article h2{font-size:19px; font-weight:600; margin:36px 0 14px;}
+  article p{font-size:16px; line-height:1.9; color:var(--text-secondary); margin-bottom:16px;}
+  .pull-stat{display:flex; gap:28px; padding:20px 0; margin:22px 0;
+             border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline);
+             flex-wrap:wrap;}
+  .pull-stat .item{min-width:110px;}
+  .pull-stat .item-value{font-family:'JetBrains Mono',monospace; font-size:24px;}
+  .pull-stat .item-label{font-family:'Noto Sans TC',sans-serif; font-size:12.5px;
+                         color:var(--text-muted); margin-top:4px;}
+  .callout{border-left:2px solid var(--red); padding:16px 20px; background:var(--surface);
+           border-radius:0 6px 6px 0; margin:24px 0;}
+  .callout .callout-label{font-family:'Noto Sans TC',sans-serif; font-size:12.5px;
+                          color:var(--red); margin-bottom:8px;}
+  .callout p{font-size:14.5px; margin-bottom:0;}
+  .tracking-list{font-family:'Noto Sans TC',sans-serif;}
+  .track-item{padding:10px 0; border-bottom:1px solid var(--hairline);
+              font-size:14px; color:var(--text-secondary);}
+  .track-item:last-child{border-bottom:none;}
+  .chain-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr));
+             gap:12px; margin:16px 0 8px; font-family:'Noto Sans TC',sans-serif;}
+  .chain-segment{background:var(--surface); border-radius:8px; padding:14px 16px;}
+  .chain-label{font-size:12.5px; color:var(--gold); margin-bottom:10px;}
+  .chain-company{font-size:14px; color:var(--text-secondary); padding:6px 0;
+                 border-bottom:1px solid var(--hairline); display:flex;
+                 justify-content:space-between; align-items:center;}
+  .chain-company:last-child{border-bottom:none;}
+  .chain-company.core{color:var(--text-primary);}
+  .chain-role{font-size:11px; padding:2px 7px; border-radius:100px; flex-shrink:0;
+             background:rgba(217,164,65,.16); color:var(--gold);}
+  .chain-company.peripheral .chain-role{background:rgba(114,108,96,.16); color:var(--text-muted);}
+  .chain-peers{font-family:'Noto Sans TC',sans-serif; font-size:13px;
+               color:var(--text-muted); margin-top:10px;}
+  @media (max-width:480px){h1.title{font-size:24px;}}
 
 </style>
 </head>
@@ -420,150 +441,134 @@
     <button class="dr-close" id="drClose" aria-label="關閉選單">✕</button>
   </div>
   <h4>市場</h4>
-  <a href="index.html" class=""><span class="dr-ic">🏠</span>最新</a>
-  <a href="heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
-  <a href="chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
-  <a href="scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
-  <a href="picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
-  <a href="intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
-  <a href="lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
-  <a href="watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
-  <a href="disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
+  <a href="../index.html" class=""><span class="dr-ic">🏠</span>最新</a>
+  <a href="../heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
+  <a href="../chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
+  <a href="../scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
+  <a href="../picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
+  <a href="../intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
+  <a href="../lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
+  <a href="../watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
+  <a href="../disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
   <h4>研究</h4>
-  <a href="themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
-  <a href="industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
-  <a href="weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
-  <a href="monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
-  <a href="analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
-  <a href="archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
-  <a href="research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
-  <a href="submit.html" class="current"><span class="dr-ic">📤</span>提交研究</a>
+  <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
+  <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
+  <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
+  <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
+  <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
+  <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
+  <a href="../research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
+  <a href="../submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
 </nav>
 
 <div class="page">
   <div class="topbar">
     <button class="menu-btn" id="menuBtn" aria-label="開啟選單">☰</button>
-    <a href="index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
-    <a href="lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
-    <a href="watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
-    <a href="intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
+    <a href="../index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
+    <a href="../lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
+    <a href="../watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
+    <a href="../intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
   </div>
 
   
-<header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">提交研究文章</h1></header>
+<div class="meta-label">深度報告 · 題材知識庫 #123</div>
+<h1 class="title">中東地緣風險推升油價：伊朗油輪衝突升溫，布蘭特原油逼近百元大關</h1>
+<div class="byline">首次建檔 2026-09-10　·　最後更新 2026-09-10　·　第 1 次更新</div>
 
 
-<div class="rs-steps">
-  貼上文章全文或連結，按「送出」就完成了——<b>不用登入、不會跳頁</b>。
-  系統會用 LLM 分析內容、嚴格驗證真偽，只有驗證通過的部分才會回寫進題材知識庫；
-  結果會出現在 <a href="research.html">研究筆記</a> 頁面。
+<div class="summary-box">
+  <div class="summary-label">摘要</div>
+  <ul><li>伊朗與油輪衝突事件升溫，布蘭特原油價格逼近甚至觸及每桶100美元，能源類股（XLE）與原油相關ETF（USO）同步走揚，屬有具體價格數據支撐的真實事件</li><li>亞股同步走跌，顯示這波地緣風險已從單純的能源類股行情，擴散為對整體風險資產情緒的壓抑</li><li>對台股的傳導路徑（航空、航運燃油成本、石化業原料/價差）目前仍是產業邏輯上的推論，尚無本期台股個股層級的財務或籌碼數據驗證</li></ul>
 </div>
 
-<div class="rs-mode-tabs" id="rs-mode-tabs">
-  <button type="button" class="rs-mode-tab active" data-mode="text">貼文字內容</button>
-  <button type="button" class="rs-mode-tab" data-mode="url">貼連結網址</button>
-  <button type="button" class="rs-mode-tab" data-mode="topic">🎯 點播深度主題</button>
-</div>
 
-<form class="rs-form" id="rs-form" onsubmit="return false;" style="margin-top:14px">
-  <div>
-    <label for="rs-title">標題（可留空）</label>
-    <input id="rs-title" type="text" placeholder="例如：文章來源或主題">
+<article>
+  <div class="pull-stat">
+    <div class="item"><div class="item-value">4</div>
+      <div class="item-label">相關供應鏈個股</div></div>
+    <div class="item"><div class="item-value">1</div>
+      <div class="item-label">累積更新次數</div></div>
+    <div class="item"><div class="item-value">高</div>
+      <div class="item-label">目前信心度</div></div>
   </div>
-  <div id="rs-text-field">
-    <label for="rs-body">內容（貼上文章全文或你整理的重點）</label>
-    <textarea id="rs-body" placeholder="貼在這裡..."></textarea>
-    <div class="rs-count" id="rs-count">0 字</div>
-  </div>
-  <div id="rs-url-field" style="display:none">
-    <label for="rs-url">文章網址</label>
-    <input id="rs-url" type="url" placeholder="https://...">
-  </div>
-  <div id="rs-topic-field" style="display:none">
-    <label for="rs-topic">想研究的主題</label>
-    <input id="rs-topic" type="text" placeholder="例如：矽光子 CPO 在台廠的實際進度">
-    <div class="rs-topic-hint">
-      這個模式不用貼文章——你只要給題目，系統會自己上網查證後寫一份深度報告，
-      產出後會列在 <a href="analysis/">分析清單</a> 頁。
-      <b>查不到可靠外部來源的主題不會產出報告</b>（寧可不寫，也不放沒查證的內容）。
+
+  
+  <h2>事件背景</h2>
+  <p>這個題材的觸發點是伊朗與油輪之間的衝突事件升溫，地緣政治風險透過原油運輸安全的實際威脅，直接反映在原油現貨與期貨價格上——布蘭特原油逼近、甚至一度觸及每桶100美元的心理關卡。這類中東地緣衝突推升油價的敘事並非首次出現，過去每逢霍爾木茲海峽周邊或油輪運輸路線出現軍事衝突，市場都會迅速將「供給中斷風險」反映到油價上，這次的特徵是衝突已從口頭威脅升級為實際的油輪攻擊事件，使得風險溢價的計入更為直接、也更難在短期內證偽或證實會否進一步升級。與上一個追蹤中的Fed升息路徑題材相比，這個題材的性質更偏向供給端衝擊，而非需求端或政策預期的反覆拉鋸，因此兩者若同時發生，理論上會產生疊加效應——油價上升推升通膨預期，可能反過來強化市場對Fed維持限制性利率更長時間的預期，這點在後續觀察時值得交叉比對。</p>
+  
+  <h2>市場數據驗證</h2>
+  <p>從可查證的市場數據來看，這個題材的真實性建立在原油價格本身這個最直接的指標上：布蘭特原油逼近百元大關是有具體報價數據支撐的事實，不是敘事性的猜測。追蹤名單中的四檔標的——XLE（能源類股ETF）、USO（原油期貨追蹤ETF）、CVX（雪佛龍）、XOM（埃克森美孚）——組合邏輯清晰：XLE與USO是對油價變動最直接的價格代理，CVX、XOM則是產業內具體公司層級的驗證，若這個題材為真，理論上這四者應呈現同向走揚。目前追蹤軌跡記錄的重點是「Brent原油接近100美元、亞股連動下跌」，這裡有一個值得留意的細節：油價上升通常對能源類股是正面消息，但同一時間亞股卻是下跌，這代表市場此刻的解讀重心並非「能源類股受惠」，而是「油價上升＝通膨與成本上升風險＝對非能源類風險資產不利」，這是判斷這個題材屬性時的重要線索——目前這更像是一個「風險規避」事件，而不是單純的能源類股輪動行情。法人資金淨流向（inst_net）目前記錄為0.0，也就是說這四檔標的的資金流向數據尚未被記錄或觀察到明確方向，這部分仍待後續更新才能進一步驗證資金是否真的往能源類股移動。</p>
+  
+  <h2>對台股與科技供應鏈的傳導路徑</h2>
+  <p>這是國際總經題材，目前追蹤名單完全由美股能源類標的組成，沒有任何台股個股被列入，因此這裡談的傳導路徑必須明確定性為產業邏輯上的推論，而非已有數據驗證的因果關係。第一條可能的傳導路徑是成本端：油價上升會直接提高使用燃油作為主要成本項目的產業的營運成本，這類產業在台股包含航空業（燃油成本占營運成本比重高）與航運業（燃油成本影響運價與毛利），理論上會承受成本上升的壓力，但這個推論還需要搭配實際運價、艙位需求等其他變數才能判斷淨影響，不能單純假設「油價漲＝航空航運股跌」。第二條路徑是石化業：以原油／輕油為原料的石化業者，油價上升同時影響原料成本與下游產品報價，最終對毛利率的影響方向要看價差（spread）能否同步反映到終端售價，這也是需要實際財報數據才能驗證的部分，目前沒有本期任何台灣石化股的營收或籌碼資料可供佐證。第三條路徑則更間接：若油價上升推升整體通膨預期，並與Fed升息路徑題材產生共振，可能透過美元、資金風險偏好等宏觀管道影響外資對台股（尤其是科技權值股）的配置意願，但這條路徑目前同樣停留在邏輯推論層級，需要後續觀察外資買賣超數據是否真的與油價走勢同步變化，才能升級為已驗證的傳導關係。</p>
+  
+  <h2>風險與觀察重點</h2>
+  <p>這個題材要轉弱，最直接的情境是伊朗與油輪衝突降溫、或有外交斡旋介入使地緣風險溢價從油價中釋出，屆時布蘭特原油若明顯回落，會是題材降溫最直接的訊號。另一個需要留意的風險是，若後續衝突進一一步升級到影響實際原油運輸量（而非僅是風險溢價），油價可能出現更劇烈的波動，這時題材的性質會從「風險溢價推升」轉變為「實際供給短缺」，衝擊力道與傳導範圍都會不同，需要重新評估。此外，這個題材與Fed升息路徑題材的交互作用也是觀察重點——若油價推升的通膨壓力反過來強化Fed鷹派立場，兩個題材可能會同步發展，形成「油價上升＋利率維持高檔」的雙重壓力情境，這種組合對風險資產的影響通常比單一題材更值得留意。</p>
+  
+
+  
+  <h2>供應鏈結構</h2>
+  <div class="chain-grid">
+    
+    
+    
+    
+    <div class="chain-segment">
+      <div class="chain-label">原油價格代理（期貨／現貨追蹤）</div>
+      
+      <div class="chain-company core">
+        USO USO
+        <span class="chain-role">核心</span>
+      </div>
+      
     </div>
-    <label for="rs-topic-note" style="margin-top:10px">補充說明（可留空）</label>
-    <textarea id="rs-topic-note" style="min-height:90px"
-              placeholder="想特別看哪個角度？例如：只想看上游材料端、或想知道有沒有實際出貨"></textarea>
+    
+    
+    
+    <div class="chain-segment">
+      <div class="chain-label">能源公司與能源類股</div>
+      
+      <div class="chain-company core">
+        CVX CVX
+        <span class="chain-role">核心</span>
+      </div>
+      
+      <div class="chain-company core">
+        XOM XOM
+        <span class="chain-role">核心</span>
+      </div>
+      
+      <div class="chain-company peripheral">
+        XLE XLE
+        <span class="chain-role">邊緣</span>
+      </div>
+      
+    </div>
+    
+    
   </div>
-  <button class="rs-submit" id="rs-submit" type="button" disabled>送出 →</button>
-  <div class="rs-success" id="rs-success">✓ 已送出，系統會盡快分析並更新到研究筆記頁面。</div>
-</form>
-<p class="rs-note">內容太長時建議先貼重點摘要。系統只會把「驗證通過」的內容回寫進真實報告，
-未經驗證或跟既有資料衝突的部分只會留在研究筆記裡，不影響正式資料。</p>
+  
+  
 
-<div class="rs-gh-toggle">
-  比較熟悉 GitHub 的話，也可以 <a id="rs-gh-link">改用 GitHub Issue 提交</a>。
-</div>
-<div class="rs-gh-box" id="rs-gh-box">
-  <form class="rs-form" id="rs-gh-form" onsubmit="return false;">
-  <div>
-    <label for="rs-gh-title">標題（可留空）</label>
-    <input id="rs-gh-title" type="text" placeholder="例如：文章來源或主題">
+  
+  <h2>風險與觀察重點</h2>
+  <div class="callout">
+    <div class="callout-label">風險提示</div>
+    <p>目前驗證僅限於布蘭特原油價格本身這一項數據，XLE/USO/CVX/XOM的資金流向（inst_net）尚未有明確方向的記錄；對台股航空、航運、石化業的傳導路徑完全是產業邏輯推論，尚無本期任何台股個股的營收、籌碼或股價數據可供驗證，若將推論當作已驗證事實解讀特定台股個股，容易產生誤判。</p>
   </div>
-  <div>
-    <label for="rs-gh-body">內容（貼上文章全文、你整理的重點，或一個網址）</label>
-    <textarea id="rs-gh-body" placeholder="貼在這裡..."></textarea>
-    <div class="rs-count" id="rs-gh-count">0 字</div>
+  
+
+  
+  <h2>後續追蹤指標</h2>
+  <div class="tracking-list">
+    <div class="track-item">布蘭特原油價格是否持續逼近或跌破100美元關卡，以及伊朗油輪衝突是否有降溫或升級的具體事件</div><div class="track-item">XLE、USO、CVX、XOM的資金流向（inst_net）是否開始出現方向一致的變化</div><div class="track-item">油價與Fed升息路徑題材的通膨預期是否出現共振，觀察美債殖利率與油價的同步性</div><div class="track-item">台股航空、航運、石化類股後續是否出現與油價連動的股價或籌碼變化，作為傳導路徑是否成立的驗證</div>
   </div>
-  <button class="rs-submit" id="rs-gh-submit" type="button" disabled>送出到 GitHub Issue →</button>
-</form>
-<p class="rs-note">會開一個新分頁到 GitHub，確認內容後按「Submit new issue」即完成——
-需要你有 GitHub 帳號並登入。<br>
-標題以 <code>[主題點播]</code> 開頭的話，會改走「點播深度主題」流程：
-系統自己上網查證後產出一份報告，而不是驗證你貼的內容。</p>
-<script>
-(function () {
-  var titleEl = document.getElementById("rs-gh-title");
-  var bodyEl = document.getElementById("rs-gh-body");
-  var countEl = document.getElementById("rs-gh-count");
-  var btn = document.getElementById("rs-gh-submit");
-  var repo = "chen022208-cell/stock-report";
-
-  function update() {
-    var n = bodyEl.value.length;
-    countEl.textContent = n.toLocaleString() + " 字";
-    countEl.classList.toggle("warn", n > 5000);
-    btn.disabled = n === 0;
-  }
-  bodyEl.addEventListener("input", update);
-  update();
-
-  btn.addEventListener("click", function () {
-    var title = titleEl.value.trim() || "使用者研究提交";
-    var body = bodyEl.value.trim();
-    if (!body || !repo) return;
-    // 標題以「[主題點播]」開頭 → 掛 topic-request 標籤，交給 run_topic_requests
-    // 處理（系統自己查證後寫報告）；否則照舊走 research-submission（驗證使用者
-    // 貼的內容）。兩條流程的產出位置與規則都不一樣，不能混。
-    var isTopic = /^\s*\[主題點播\]/.test(title);
-    var label = isTopic ? "topic-request" : "research-submission";
-    var url = "https://github.com/" + repo + "/issues/new?labels=" + label
-      + "&title=" + encodeURIComponent(title) + "&body=" + encodeURIComponent(body);
-    window.open(url, "_blank");
-  });
-})();
-</script>
-</div>
-
-<!-- 隱藏 iframe + 表單：送出後目標是這個 iframe，頁面本身不會跳轉 -->
-<iframe name="rs-hidden-iframe" id="rs-hidden-iframe" style="display:none"></iframe>
-<form id="rs-gform" action="https://docs.google.com/forms/d/e/1FAIpQLSePDxA_hBnLaWkywN278OkkaJ7vo9wdNV-KJqT5yFvHoTQybA/formResponse" method="POST" target="rs-hidden-iframe" style="display:none">
-  <input type="text" name="entry.222984700" id="rs-gform-title">
-  <textarea name="entry.1647972263" id="rs-gform-body"></textarea>
-</form>
-
-
+  
+</article>
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-10 19:31</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-10 19:29</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
@@ -572,98 +577,13 @@
 
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
   }
-  window.__rel = "";
+  window.__rel = "../";
 </script>
-<script src="assets/ui.js?v=12ed3d4a"></script>
+<script src="../assets/ui.js?v=12ed3d4a"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=12ed3d4a"></script>
-
-<script>
-(function () {
-  var mode = "text";
-  // 參數名不要叫 btn——下面那個 btn 是「送出」按鈕，同名會被這裡的分頁按鈕遮蔽，
-  // 結果是點分頁時把分頁自己的字改成「送出點播 →」。
-  document.querySelectorAll(".rs-mode-tab").forEach(function (tab) {
-    tab.addEventListener("click", function () {
-      document.querySelectorAll(".rs-mode-tab").forEach(function (b) { b.classList.remove("active"); });
-      tab.classList.add("active");
-      mode = tab.getAttribute("data-mode");
-      document.getElementById("rs-text-field").style.display = mode === "text" ? "" : "none";
-      document.getElementById("rs-url-field").style.display = mode === "url" ? "" : "none";
-      document.getElementById("rs-topic-field").style.display = mode === "topic" ? "" : "none";
-      // 三種模式送出的東西不一樣，按鈕文案也跟著換，免得使用者以為只是換欄位
-      btn.textContent = mode === "topic" ? "送出點播 →" : "送出 →";
-      document.getElementById("rs-title").parentNode.style.display =
-        mode === "topic" ? "none" : "";
-      updateBtn();
-    });
-  });
-
-  var titleEl = document.getElementById("rs-title");
-  var bodyEl = document.getElementById("rs-body");
-  var urlEl = document.getElementById("rs-url");
-  var topicEl = document.getElementById("rs-topic");
-  var topicNoteEl = document.getElementById("rs-topic-note");
-  var countEl = document.getElementById("rs-count");
-  var btn = document.getElementById("rs-submit");
-  var successEl = document.getElementById("rs-success");
-
-  function currentContent() {
-    if (mode === "url") return urlEl.value.trim();
-    if (mode === "topic") return topicEl.value.trim();
-    return bodyEl.value.trim();
-  }
-  function updateBtn() {
-    var n = bodyEl.value.length;
-    countEl.textContent = n.toLocaleString() + " 字";
-    countEl.classList.toggle("warn", n > 5000);
-    btn.disabled = currentContent().length === 0;
-  }
-  bodyEl.addEventListener("input", updateBtn);
-  urlEl.addEventListener("input", updateBtn);
-  topicEl.addEventListener("input", updateBtn);
-  updateBtn();
-
-  btn.addEventListener("click", function () {
-    var content = currentContent();
-    if (!content) return;
-    // 主題點播走的是不同的處理流程（run_topic_requests），後端靠標題前綴分流：
-    // Google 表單那條路沒有 label 可用，所以用「[主題點播]」當標記。
-    var title, body;
-    if (mode === "topic") {
-      title = "[主題點播] " + content;
-      body = topicNoteEl.value.trim() || content;
-    } else {
-      title = titleEl.value.trim() || "使用者研究提交";
-      body = content;
-    }
-    document.getElementById("rs-gform-title").value = title;
-    document.getElementById("rs-gform-body").value = body;
-    document.getElementById("rs-gform").submit();
-
-    btn.disabled = true;
-    successEl.textContent = mode === "topic"
-      ? "✓ 已送出點播，系統查證後會把報告放到分析清單頁。"
-      : "✓ 已送出，系統會盡快分析並更新到研究筆記頁面。";
-    successEl.classList.add("show");
-    titleEl.value = ""; bodyEl.value = "";
-    if (urlEl) urlEl.value = "";
-    if (topicEl) topicEl.value = "";
-    if (topicNoteEl) topicNoteEl.value = "";
-    updateBtn();
-    setTimeout(function () { successEl.classList.remove("show"); }, 6000);
-  });
-
-  var ghLink = document.getElementById("rs-gh-link");
-  if (ghLink) {
-    ghLink.addEventListener("click", function () {
-      document.getElementById("rs-gh-box").classList.add("show");
-    });
-  }
-})();
-</script>
+<script src="../assets/stock-chart.js?v=12ed3d4a"></script>
 
 </body>
 </html>
