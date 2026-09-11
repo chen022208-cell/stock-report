@@ -428,3 +428,27 @@ HTTP 200 但欄位原封不動。所以只能從兩邊夾：
 **排查方式**：`git branch -r` 看有沒有一堆 `claude/*`，再用
 `git log --oneline <分支> --not origin/main` 看那條分支上有什麼是 main 沒有的。
 救回來只 `git checkout <commit> -- <檔案>` 那些新增的產出，然後重跑 site。
+
+⚠️ **2026-09-11 實際踩到「即時快訊監控」也是這個問題，而且救回的方式把 main
+的 git 歷史整段重寫了**。這支 Routine 的 prompt 當時還是裸的 `git push`（沒有
+`HEAD:main`），連續好幾天每小時各自產生一個 `claude/compassionate-hawking-*`
+分支、從未進 main——查的時候 `git ls-remote` 一次數出 70 幾條這種孤兒分支。
+同一時間某支別的 Routine（推測是週報，因為它同樣共用容器裡累積的舊分支狀態）
+也踩到同一個「裸 push」問題、但它用 `git push origin HEAD:main` 修正時，
+把容器裡累積的那條大 merge 鏈（跨多支 Routine、含好幾天的即時快訊與報告內容）
+一次性 force push 上 main——這條鏈的根commit 是某個時間點直接用當時工作目錄
+內容建的（無父 commit），跟舊 main（一路回溯到很早的 `dff1232`）完全沒有共同
+祖先。結果：main 的 HEAD 檔案內容基本上是新的、更完整的（甚至比舊 main 多幾天
+的修法紀錄），但 `git log`／`git blame` 回溯到某個點就斷了，舊 main 那條線的
+commit 全部從 main 的祖先鏈裡消失（還留在孤兒分支上，沒被刪，只是 main 不再
+經過它們）。**如果你的 session 在這之後才 `git fetch`，會發現本地基於舊 main
+做的 commit 用 `git rebase origin/main` 完全 rebase 不動**（一大堆不相關檔案
+`add/add` 衝突）——那不是你的 commit 有問題，是兩條歷史根本不共祖先，直接
+`git rebase --abort`，改成：重新從新的 `origin/main` 開一個乾淨分支，把你那次
+的實際工作（例如即時快訊這次要寫的 `news_monitor_last_id`／`research_notes`）
+在新 main 上重做一次（不要嘗試合併兩條無共同祖先的歷史），確認
+`git merge-base --is-ancestor <你commit的parent> origin/main` 為真、push 前
+`git fetch origin main` 再比一次，才 `git push origin HEAD:main`。
+**這支 Routine 的 prompt 本身也已經需要照第 1 點的做法補上 `HEAD:main`**——
+本檔到目前為止只列了其他 7 支，這支當時被漏掉，是這次孤兒分支囤積到 70 幾條
+的根本原因。
