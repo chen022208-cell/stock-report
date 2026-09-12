@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>提交研究 · 盤後快訊</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>晶豪科技（3006）：記憶體超級週期下的利基型 DRAM 供應商 · 盤後快訊</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 <meta name="theme-color" content="#060911">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -380,35 +380,32 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  .rs-form{display:flex; flex-direction:column; gap:12px; max-width:640px;}
-  .rs-form label{font-size:13px; color:var(--text-muted);}
-  .rs-form input, .rs-form textarea{width:100%; background:var(--surface); color:var(--text-primary);
-    border:1px solid var(--hairline); border-radius:var(--radius-sm); padding:10px 12px;
-    font-family:inherit; font-size:14px; resize:vertical;}
-  .rs-form textarea{min-height:220px;}
-  .rs-count{font-size:12px; color:var(--text-muted); text-align:right;}
-  .rs-count.warn{color:var(--gold);}
-  .rs-submit{align-self:flex-start; background:var(--gold); color:#1a1512; border:none;
-    border-radius:var(--radius-sm); padding:10px 22px; font-size:14px; font-weight:600; cursor:pointer;}
-  .rs-submit:disabled{opacity:.5; cursor:not-allowed;}
-  .rs-steps{font-size:13px; color:var(--text-secondary); line-height:1.8; margin:16px 0 24px;
-    padding:14px 16px; background:var(--surface); border-radius:var(--radius-sm);}
-  .rs-steps b{color:var(--gold);}
-  .rs-note{font-size:12.5px; color:var(--text-muted); margin-top:20px;}
-  .rs-mode-tabs{display:flex; gap:6px;}
-  .rs-mode-tabs{flex-wrap:wrap;}
-  .rs-topic-hint{font-size:12.5px; color:var(--text-muted); line-height:1.8; margin-top:8px;}
-  .rs-topic-hint a{color:var(--gold);}
-  .rs-mode-tab{background:var(--surface); border:1px solid var(--hairline); color:var(--text-secondary);
-    border-radius:var(--radius-sm); padding:8px 16px; font-size:13px; cursor:pointer;}
-  .rs-mode-tab.active{background:var(--gold); color:#1a1512; border-color:var(--gold); font-weight:600;}
-  .rs-success{display:none; padding:14px 16px; background:rgba(79,176,122,.16); color:var(--green);
-    border-radius:var(--radius-sm); font-size:14px; margin-top:10px;}
-  .rs-success.show{display:block;}
-  .rs-gh-toggle{font-size:12.5px; color:var(--text-muted); margin-top:18px;}
-  .rs-gh-toggle a{color:var(--gold); cursor:pointer; text-decoration:underline;}
-  .rs-gh-box{display:none; margin-top:12px;}
-  .rs-gh-box.show{display:block;}
+  .tr-meta{font-size:12.5px; color:var(--text-muted); margin:8px 0 20px;}
+  .tr-badge{display:inline-block; font-size:11.5px; background:var(--surface-2);
+            border:1px solid var(--hairline); border-radius:999px; padding:2px 9px;
+            color:var(--c-theme); margin-right:8px;}
+  .tr-pdf{margin:0 0 18px;}
+  .tr-pdf a{font-size:13.5px; color:var(--gold); text-decoration:none;
+            border:1px solid var(--hairline); border-radius:999px; padding:6px 14px;}
+  .tr-pdf a:hover{border-color:var(--gold);}
+  .tr-summary{font-size:15px; line-height:1.85; color:var(--text-primary);
+              background:var(--surface); border-left:3px solid var(--gold);
+              border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:24px;}
+  .tr-sec{margin-bottom:26px;}
+  .tr-sec h2{font-size:17px; margin:0 0 10px;}
+  .tr-sec p{font-size:14.5px; line-height:1.9; color:var(--text-secondary); margin:0;}
+  .tr-stocks{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px;}
+  .tr-stock{cursor:pointer; background:var(--surface); border:1px solid var(--hairline);
+            border-radius:var(--radius-sm); padding:8px 12px; font-size:13px; max-width:340px;}
+  .tr-stock:hover{border-color:var(--gold);}
+  .tr-stock b{font-family:'JetBrains Mono',monospace; color:var(--text-primary);}
+  .tr-stock span{display:block; color:var(--text-muted); font-size:12px; margin-top:3px;}
+  .tr-risk{background:var(--surface); border-left:3px solid var(--c-warn);
+           border-radius:var(--radius-sm); padding:12px 15px; font-size:14px;
+           line-height:1.85; color:var(--text-secondary);}
+  .tr-src{font-size:12.5px; color:var(--text-muted); line-height:1.9;
+          border-top:1px solid var(--hairline); padding-top:14px; margin-top:26px;}
+  .tr-src a{color:var(--gold); word-break:break-all;}
 
 </style>
 </head>
@@ -420,150 +417,114 @@
     <button class="dr-close" id="drClose" aria-label="關閉選單">✕</button>
   </div>
   <h4>市場</h4>
-  <a href="index.html" class=""><span class="dr-ic">🏠</span>最新</a>
-  <a href="heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
-  <a href="chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
-  <a href="scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
-  <a href="picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
-  <a href="intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
-  <a href="lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
-  <a href="watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
-  <a href="disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
+  <a href="../index.html" class=""><span class="dr-ic">🏠</span>最新</a>
+  <a href="../heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
+  <a href="../chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
+  <a href="../scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
+  <a href="../picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
+  <a href="../intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
+  <a href="../lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
+  <a href="../watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
+  <a href="../disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
   <h4>研究</h4>
-  <a href="themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
-  <a href="industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
-  <a href="weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
-  <a href="monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
-  <a href="analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
-  <a href="archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
-  <a href="research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
-  <a href="submit.html" class="current"><span class="dr-ic">📤</span>提交研究</a>
+  <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
+  <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
+  <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
+  <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
+  <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
+  <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
+  <a href="../research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
+  <a href="../submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
 </nav>
 
 <div class="page">
   <div class="topbar">
     <button class="menu-btn" id="menuBtn" aria-label="開啟選單">☰</button>
-    <a href="index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
-    <a href="lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
-    <a href="watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
-    <a href="intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
+    <a href="../index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
+    <a href="../lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
+    <a href="../watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
+    <a href="../intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
   </div>
 
   
-<header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">提交研究文章</h1></header>
+<header>
+  <div class="masthead-label">盤後快訊</div>
+  <h1 class="masthead-date">晶豪科技（3006）：記憶體超級週期下的利基型 DRAM 供應商</h1>
+</header>
+<p class="tr-meta">
+  <span class="tr-badge">🎯 使用者點播主題</span>
+  2026-09-12 產出　·　原始點播：3006
+</p>
 
 
-<div class="rs-steps">
-  貼上文章全文或連結，按「送出」就完成了——<b>不用登入、不會跳頁</b>。
-  系統會用 LLM 分析內容、嚴格驗證真偽，只有驗證通過的部分才會回寫進題材知識庫；
-  結果會出現在 <a href="research.html">研究筆記</a> 頁面。
-</div>
+<p class="tr-pdf"><a href="2026-09-12-3006.pdf" target="_blank" rel="noopener">📄 下載 PDF 版報告</a></p>
 
-<div class="rs-mode-tabs" id="rs-mode-tabs">
-  <button type="button" class="rs-mode-tab active" data-mode="text">貼文字內容</button>
-  <button type="button" class="rs-mode-tab" data-mode="url">貼連結網址</button>
-  <button type="button" class="rs-mode-tab" data-mode="topic">🎯 點播深度主題</button>
-</div>
 
-<form class="rs-form" id="rs-form" onsubmit="return false;" style="margin-top:14px">
-  <div>
-    <label for="rs-title">標題（可留空）</label>
-    <input id="rs-title" type="text" placeholder="例如：文章來源或主題">
-  </div>
-  <div id="rs-text-field">
-    <label for="rs-body">內容（貼上文章全文或你整理的重點）</label>
-    <textarea id="rs-body" placeholder="貼在這裡..."></textarea>
-    <div class="rs-count" id="rs-count">0 字</div>
-  </div>
-  <div id="rs-url-field" style="display:none">
-    <label for="rs-url">文章網址</label>
-    <input id="rs-url" type="url" placeholder="https://...">
-  </div>
-  <div id="rs-topic-field" style="display:none">
-    <label for="rs-topic">想研究的主題</label>
-    <input id="rs-topic" type="text" placeholder="例如：矽光子 CPO 在台廠的實際進度">
-    <div class="rs-topic-hint">
-      這個模式不用貼文章——你只要給題目，系統會自己上網查證後寫一份深度報告，
-      產出後會列在 <a href="analysis/">分析清單</a> 頁。
-      <b>查不到可靠外部來源的主題不會產出報告</b>（寧可不寫，也不放沒查證的內容）。
+<div class="tr-summary">晶豪科技是台灣專注利基型 DRAM／Flash 的 IC 設計公司，2026 年隨記憶體報價全面走揚，8 月營收年增逾 600%。公司主力在成熟製程的 DDR3/DDR4 與 LPDRAM/PSRAM，切入消費性、工控、車用與 AI 邊緣運算等多元應用，是本站「記憶體｜DRAM 與模組」題材的核心成員之一，但漲價力道能否延續、AI 需求是否降溫是後續觀察重點。</div>
+
+
+<section class="tr-sec">
+  <h2>公司概況與產品線</h2>
+  <p>晶豪科技（ESMT）1998 年 6 月成立於新竹科學工業園區，主要經營業務為動、靜態隨機存取記憶體（DRAM/SRAM）、快閃記憶體（FLASH）、類比積體電路與類比數位混合積體電路（公開資訊觀測站申報值）。公司官網進一步說明產品線涵蓋 DRAM（自傳統 SDRAM 到 DDR、DDR2、DDR3、DDR4）、LPDRAM、PSRAM、Flash、Multi-Chip Memory 與 KGD（Known Good Die），是市場上利基型 DRAM 產品組合最完整的供應商之一（來源：ESMT 官網）。應用端則橫跨消費性電子、工業控制、網通設備、PC 周邊、物聯網與車用電子（來源：ESMT 官網）。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>記憶體超級週期下的營收表現</h2>
+  <p>2026 年記憶體現貨與合約價全面回升，晶豪科單月營收出現爆發性成長：8 月營收達新台幣 79.05 億元，年增率 605.24%、月增 16.51%，前 8 月累計營收 359.03 億元、年增 324.38%（來源：鉅亨網／TradingView 營收速報）。往前看，4 月單月營收 46.34 億元、年增 349.21%，第一季毛利率達 47.52%、單季獲利 20.64 億元（來源：口袋學堂財報整理）。公司表示看好 2026 上半年營運優於 2021 年歷史同期高點，主要動能是 AI 相關需求排擠既有產能，使利基型 DRAM 與 Flash 市場出現結構性供給缺口，價格自 2025 下半年起回升並延續至今（來源：口袋學堂）。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>產品結構與「外溢效應」</h2>
+  <p>值得留意的是，晶豪科目前 DDR4 僅占營收約 5%，公司自身的成長動能主要不是來自 DDR4/DDR5 本身，而是市場報導所稱的「外溢效應」：當主流的 DDR4、DDR5 報價領先上漲、產能被優先分配給高階規格時，客戶會被迫延長 DDR3、成熟製程 Flash 等舊世代產品的使用周期，使這類供給逐步收斂的利基產品出現「晚到但更急促」的補漲行情（來源：口袋學堂記憶體報價分析）。這是理解晶豪科獲利結構的關鍵：其漲價彈性與主流記憶體大廠（如 DDR5／HBM 供應商）的漲價邏輯並不完全同步，而是跟隨產能排擠的傳導時間差。</p>
+</section>
+
+<section class="tr-sec">
+  <h2>車用與 AI 邊緣運算布局</h2>
+  <p>在應用面的多元化上，公司官網指出其車用記憶體已導入全球一線汽車供應鏈，應用於車載導航、車載娛樂資訊系統與電子控制單元（ECU）等（來源：ESMT 官網）。2026 年公司也參與台北 Computex，展示車用記憶體、高規格音訊與次世代智慧鑰匙等解決方案（來源：ESMT 官網／蕃新聞報導）。整體產品線也對應消費性、工控、物聯網與 AI 邊緣運算等多元應用需求，顯示公司並非單一依賴消費性電子景氣循環。</p>
+</section>
+
+
+
+<section class="tr-sec">
+  <h2>相關個股</h2>
+  <p style="font-size:12.5px; color:var(--text-muted); margin-bottom:8px">
+    只列出查證過、確定與本主題相關的個股。點任一檔看 K 線與公司資料。</p>
+  <div class="tr-stocks">
+    
+    <div class="tr-stock" data-stock-code="3006" data-stock-name="晶豪科技">
+      <b>3006 晶豪科技</b>
+      <span>本題材主體公司，利基型 DRAM/Flash IC 設計廠，2026 年受惠記憶體超級週期與 DDR3/成熟製程 Flash 外溢效應，營收大幅成長（已查證，見上述來源）</span>
     </div>
-    <label for="rs-topic-note" style="margin-top:10px">補充說明（可留空）</label>
-    <textarea id="rs-topic-note" style="min-height:90px"
-              placeholder="想特別看哪個角度？例如：只想看上游材料端、或想知道有沒有實際出貨"></textarea>
+    
   </div>
-  <button class="rs-submit" id="rs-submit" type="button" disabled>送出 →</button>
-  <div class="rs-success" id="rs-success">✓ 已送出，系統會盡快分析並更新到研究筆記頁面。</div>
-</form>
-<p class="rs-note">內容太長時建議先貼重點摘要。系統只會把「驗證通過」的內容回寫進真實報告，
-未經驗證或跟既有資料衝突的部分只會留在研究筆記裡，不影響正式資料。</p>
+</section>
 
-<div class="rs-gh-toggle">
-  比較熟悉 GitHub 的話，也可以 <a id="rs-gh-link">改用 GitHub Issue 提交</a>。
+
+
+<section class="tr-sec">
+  <h2>風險與觀察重點</h2>
+  <div class="tr-risk">多篇報導共同提到的風險是：晶豪科近期股價的強勢表現，已經反映市場對 2026 年報價持續上漲的預期，一旦終端需求不如預期、或漲價力道趨緩，可能出現評價修正壓力（來源：口袋學堂）。更根本的風險在於，公司這波成長高度依賴「AI 排擠既有產能」帶來的結構性供給缺口——若 AI 相關資本支出放緩、伺服器拉貨力道降溫，記憶體整體行情可能隨之轉弱，連帶影響晶豪科這類利基型供應商的漲價空間（來源：口袋學堂）。此外，「外溢效應」本質上是產能排擠帶來的時間差紅利，而非需求結構性擴大，一旦上游主流規格（DDR5/HBM）產能調整完成，外溢效應可能減弱，須持續觀察各季報價與稼動率變化，而非假設漲勢線性延續。本站題材知識庫中的「記憶體｜DRAM 與模組」題材可與此對照追蹤。</div>
+</section>
+
+
+<div class="tr-src">
+  <b>查證來源</b>（本報告依站內規則，沒有外部來源就不產出）：<br>
+  <a href="https://tw.tradingview.com/news/cnyes:32c57ffb0acdf:0/" target="_blank" rel="noopener">https://tw.tradingview.com/news/cnyes:32c57ffb0acdf:0/</a>　·　
+  <a href="https://www.esmt.com.tw/zh-tw" target="_blank" rel="noopener">https://www.esmt.com.tw/zh-tw</a>　·　
+  <a href="https://www.esmt.com.tw/tw/product/category/memory" target="_blank" rel="noopener">https://www.esmt.com.tw/tw/product/category/memory</a>　·　
+  <a href="https://www.pocket.tw/school/report/perspective/6887/" target="_blank" rel="noopener">https://www.pocket.tw/school/report/perspective/6887/</a>　·　
+  <a href="https://www.pocket.tw/school/report/SCHOOL/7089/" target="_blank" rel="noopener">https://www.pocket.tw/school/report/SCHOOL/7089/</a>
+  
+  <p style="margin-top:10px">本頁為系統依使用者點播主題自動整理之資訊，明確標示「（推論）」者為推論而非查證事實；
+  僅供研究參考，不構成投資建議。</p>
 </div>
-<div class="rs-gh-box" id="rs-gh-box">
-  <form class="rs-form" id="rs-gh-form" onsubmit="return false;">
-  <div>
-    <label for="rs-gh-title">標題（可留空）</label>
-    <input id="rs-gh-title" type="text" placeholder="例如：文章來源或主題">
-  </div>
-  <div>
-    <label for="rs-gh-body">內容（貼上文章全文、你整理的重點，或一個網址）</label>
-    <textarea id="rs-gh-body" placeholder="貼在這裡..."></textarea>
-    <div class="rs-count" id="rs-gh-count">0 字</div>
-  </div>
-  <button class="rs-submit" id="rs-gh-submit" type="button" disabled>送出到 GitHub Issue →</button>
-</form>
-<p class="rs-note">會開一個新分頁到 GitHub，確認內容後按「Submit new issue」即完成——
-需要你有 GitHub 帳號並登入。<br>
-標題以 <code>[主題點播]</code> 開頭的話，會改走「點播深度主題」流程：
-系統自己上網查證後產出一份報告，而不是驗證你貼的內容。</p>
-<script>
-(function () {
-  var titleEl = document.getElementById("rs-gh-title");
-  var bodyEl = document.getElementById("rs-gh-body");
-  var countEl = document.getElementById("rs-gh-count");
-  var btn = document.getElementById("rs-gh-submit");
-  var repo = "chen022208-cell/stock-report";
-
-  function update() {
-    var n = bodyEl.value.length;
-    countEl.textContent = n.toLocaleString() + " 字";
-    countEl.classList.toggle("warn", n > 5000);
-    btn.disabled = n === 0;
-  }
-  bodyEl.addEventListener("input", update);
-  update();
-
-  btn.addEventListener("click", function () {
-    var title = titleEl.value.trim() || "使用者研究提交";
-    var body = bodyEl.value.trim();
-    if (!body || !repo) return;
-    // 標題以「[主題點播]」開頭 → 掛 topic-request 標籤，交給 run_topic_requests
-    // 處理（系統自己查證後寫報告）；否則照舊走 research-submission（驗證使用者
-    // 貼的內容）。兩條流程的產出位置與規則都不一樣，不能混。
-    var isTopic = /^\s*\[主題點播\]/.test(title);
-    var label = isTopic ? "topic-request" : "research-submission";
-    var url = "https://github.com/" + repo + "/issues/new?labels=" + label
-      + "&title=" + encodeURIComponent(title) + "&body=" + encodeURIComponent(body);
-    window.open(url, "_blank");
-  });
-})();
-</script>
-</div>
-
-<!-- 隱藏 iframe + 表單：送出後目標是這個 iframe，頁面本身不會跳轉 -->
-<iframe name="rs-hidden-iframe" id="rs-hidden-iframe" style="display:none"></iframe>
-<form id="rs-gform" action="https://docs.google.com/forms/d/e/1FAIpQLSePDxA_hBnLaWkywN278OkkaJ7vo9wdNV-KJqT5yFvHoTQybA/formResponse" method="POST" target="rs-hidden-iframe" style="display:none">
-  <input type="text" name="entry.222984700" id="rs-gform-title">
-  <textarea name="entry.1647972263" id="rs-gform-body"></textarea>
-</form>
-
-
+<p style="margin-top:20px; font-size:13px">
+  ← 回 <a href="index.html" style="color:var(--gold)">分析清單</a>　·
+  <a href="../submit.html" style="color:var(--gold)">再點播一個主題</a></p>
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-12 18:49</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-12 18:48</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
@@ -572,98 +533,13 @@
 
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
   }
-  window.__rel = "";
+  window.__rel = "../";
 </script>
-<script src="assets/ui.js?v=12ed3d4a"></script>
+<script src="../assets/ui.js?v=12ed3d4a"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=12ed3d4a"></script>
-
-<script>
-(function () {
-  var mode = "text";
-  // 參數名不要叫 btn——下面那個 btn 是「送出」按鈕，同名會被這裡的分頁按鈕遮蔽，
-  // 結果是點分頁時把分頁自己的字改成「送出點播 →」。
-  document.querySelectorAll(".rs-mode-tab").forEach(function (tab) {
-    tab.addEventListener("click", function () {
-      document.querySelectorAll(".rs-mode-tab").forEach(function (b) { b.classList.remove("active"); });
-      tab.classList.add("active");
-      mode = tab.getAttribute("data-mode");
-      document.getElementById("rs-text-field").style.display = mode === "text" ? "" : "none";
-      document.getElementById("rs-url-field").style.display = mode === "url" ? "" : "none";
-      document.getElementById("rs-topic-field").style.display = mode === "topic" ? "" : "none";
-      // 三種模式送出的東西不一樣，按鈕文案也跟著換，免得使用者以為只是換欄位
-      btn.textContent = mode === "topic" ? "送出點播 →" : "送出 →";
-      document.getElementById("rs-title").parentNode.style.display =
-        mode === "topic" ? "none" : "";
-      updateBtn();
-    });
-  });
-
-  var titleEl = document.getElementById("rs-title");
-  var bodyEl = document.getElementById("rs-body");
-  var urlEl = document.getElementById("rs-url");
-  var topicEl = document.getElementById("rs-topic");
-  var topicNoteEl = document.getElementById("rs-topic-note");
-  var countEl = document.getElementById("rs-count");
-  var btn = document.getElementById("rs-submit");
-  var successEl = document.getElementById("rs-success");
-
-  function currentContent() {
-    if (mode === "url") return urlEl.value.trim();
-    if (mode === "topic") return topicEl.value.trim();
-    return bodyEl.value.trim();
-  }
-  function updateBtn() {
-    var n = bodyEl.value.length;
-    countEl.textContent = n.toLocaleString() + " 字";
-    countEl.classList.toggle("warn", n > 5000);
-    btn.disabled = currentContent().length === 0;
-  }
-  bodyEl.addEventListener("input", updateBtn);
-  urlEl.addEventListener("input", updateBtn);
-  topicEl.addEventListener("input", updateBtn);
-  updateBtn();
-
-  btn.addEventListener("click", function () {
-    var content = currentContent();
-    if (!content) return;
-    // 主題點播走的是不同的處理流程（run_topic_requests），後端靠標題前綴分流：
-    // Google 表單那條路沒有 label 可用，所以用「[主題點播]」當標記。
-    var title, body;
-    if (mode === "topic") {
-      title = "[主題點播] " + content;
-      body = topicNoteEl.value.trim() || content;
-    } else {
-      title = titleEl.value.trim() || "使用者研究提交";
-      body = content;
-    }
-    document.getElementById("rs-gform-title").value = title;
-    document.getElementById("rs-gform-body").value = body;
-    document.getElementById("rs-gform").submit();
-
-    btn.disabled = true;
-    successEl.textContent = mode === "topic"
-      ? "✓ 已送出點播，系統查證後會把報告放到分析清單頁。"
-      : "✓ 已送出，系統會盡快分析並更新到研究筆記頁面。";
-    successEl.classList.add("show");
-    titleEl.value = ""; bodyEl.value = "";
-    if (urlEl) urlEl.value = "";
-    if (topicEl) topicEl.value = "";
-    if (topicNoteEl) topicNoteEl.value = "";
-    updateBtn();
-    setTimeout(function () { successEl.classList.remove("show"); }, 6000);
-  });
-
-  var ghLink = document.getElementById("rs-gh-link");
-  if (ghLink) {
-    ghLink.addEventListener("click", function () {
-      document.getElementById("rs-gh-box").classList.add("show");
-    });
-  }
-})();
-</script>
+<script src="../assets/stock-chart.js?v=12ed3d4a"></script>
 
 </body>
 </html>
