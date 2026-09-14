@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>處置股預警 · 盤後快訊</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>盤後快訊 · 2026年9月14日．週一</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 <meta name="theme-color" content="#060911">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -380,16 +380,76 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  .meta{font-size:13px; color:var(--text-muted); margin:10px 0 20px;}
-  .card{background:var(--surface); border-radius:8px; padding:16px 18px; margin-bottom:12px;
-       border-left:2px solid var(--red);}
-  .card.watch{border-left-color:var(--gold);}
-  .card.today{border-left-color:var(--text-secondary);}
-  .card-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px; margin-bottom:6px;}
-  .card-detail{font-size:13.5px; color:var(--text-secondary); line-height:1.7;}
-  .card-tag{display:inline-block; font-size:11.5px; color:var(--text-muted); margin-bottom:6px;}
-  .section-head{font-family:'Noto Serif TC',serif; font-size:16px;
-                color:var(--text-secondary); margin:28px 0 12px;}
+  .hero-eyebrow{font-size:13px; color:var(--text-muted); margin-bottom:6px;
+               display:flex; align-items:center; gap:6px;}
+  .hero-number{font-family:'JetBrains Mono',monospace; font-size:38px;
+               font-weight:500; letter-spacing:-.01em;}
+  .hero-change{font-family:'JetBrains Mono',monospace; font-size:15px; margin-left:10px;}
+
+  .watch-hits{background:rgba(227,172,78,.09); border-left:3px solid var(--gold);
+              border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:13px 16px; margin-bottom:18px;}
+  .watch-hits .wh-label{font-size:12px; color:var(--gold); margin-bottom:7px; font-weight:600;}
+  .watch-hits .wh-item{font-size:14px; color:var(--text-secondary); margin-bottom:4px;}
+  .watch-hits .wh-item strong{color:var(--text-primary); font-weight:500;}
+
+  .inst-row{display:flex; align-items:center; gap:10px; margin-bottom:9px; font-size:13.5px;}
+  .inst-row:last-child{margin-bottom:0;}
+  .inst-row .inst-name{width:52px; color:var(--text-secondary); flex-shrink:0;}
+  .inst-row .bar-track{flex:1; height:6px; background:var(--surface-2);
+                       border-radius:3px; position:relative; overflow:hidden;}
+  .inst-row .bar-fill{position:absolute; top:0; bottom:0; border-radius:3px;}
+  .inst-row .bar-fill.up{background:var(--red); left:50%;}
+  .inst-row .bar-fill.down{background:var(--green); right:50%;}
+  .inst-row .inst-value{width:80px; text-align:right;
+                        font-family:'JetBrains Mono',monospace; flex-shrink:0;}
+
+  .theme-entry{background:var(--surface); border:1px solid var(--hairline);
+              border-left:3px solid var(--c-theme); border-radius:var(--radius-sm);
+              padding:14px 16px; margin-bottom:12px;}
+  .theme-entry:last-child{margin-bottom:0;}
+  .theme-header{display:flex; justify-content:space-between; align-items:baseline;
+                gap:12px; margin-bottom:7px; flex-wrap:wrap;}
+  .theme-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px;}
+  .theme-desc{font-size:14px; color:var(--text-secondary); margin-bottom:7px;}
+  .theme-meta{display:flex; justify-content:space-between; align-items:center;
+              font-size:12.5px; color:var(--text-muted); flex-wrap:wrap; gap:8px;}
+  .theme-link{font-size:12.5px; color:var(--gold); text-decoration:none;
+              display:inline-block; margin-top:7px;}
+  .theme-link:hover{text-decoration:underline;}
+
+  .darkhorse-entry{background:var(--surface); border:1px solid var(--hairline);
+                   border-left:3px solid var(--c-warn); border-radius:var(--radius-sm);
+                   padding:14px 16px; margin-bottom:10px;}
+  .darkhorse-entry:last-child{margin-bottom:0;}
+  .darkhorse-name{font-family:'Noto Serif TC',serif; font-weight:600;
+                  font-size:16px; margin-bottom:9px;}
+  .darkhorse-grid{display:grid; grid-template-columns:1fr 1fr;
+                  gap:7px 20px; font-size:13px; margin-bottom:10px;}
+  .darkhorse-grid .dh-label{color:var(--text-muted);}
+  .darkhorse-grid .dh-value{font-family:'JetBrains Mono',monospace;}
+  .darkhorse-note{font-size:13px; color:var(--text-secondary);
+                  border-top:1px solid var(--hairline); padding-top:9px;}
+
+  .tech-table{width:100%; border-collapse:collapse;}
+  .tech-table th{text-align:left; font-size:11.5px; font-weight:400;
+                 color:var(--text-muted); padding-bottom:9px;
+                 border-bottom:1px solid var(--hairline);}
+  .tech-table td{padding:10px 0; border-bottom:1px solid var(--hairline);
+                 font-size:13.5px; vertical-align:top;}
+  .tech-table tr:last-child td{border-bottom:none;}
+  .signal-bull{color:var(--red);} .signal-warn{color:var(--gold);}
+  .signal-neutral{color:var(--text-secondary);} .signal-bear{color:var(--green);}
+  .t-note{color:var(--text-muted); font-size:12.5px;}
+
+  .call-item{display:flex; justify-content:space-between; gap:12px;
+             padding:9px 0; border-bottom:1px solid var(--hairline); font-size:13.5px;}
+  .call-item:last-child{border-bottom:none;}
+  .call-note{color:var(--text-muted); font-size:12.5px;}
+
+  @media (max-width:480px){
+    .hero-number{font-size:32px;}
+    .darkhorse-grid{grid-template-columns:1fr;}
+  }
 
 </style>
 </head>
@@ -401,112 +461,416 @@
     <button class="dr-close" id="drClose" aria-label="關閉選單">✕</button>
   </div>
   <h4>市場</h4>
-  <a href="index.html" class=""><span class="dr-ic">🏠</span>最新</a>
-  <a href="heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
-  <a href="chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
-  <a href="scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
-  <a href="picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
-  <a href="intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
-  <a href="lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
-  <a href="watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
-  <a href="disposition.html" class="current"><span class="dr-ic">⚠️</span>處置股預警</a>
+  <a href="../index.html" class=""><span class="dr-ic">🏠</span>最新</a>
+  <a href="../heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
+  <a href="../chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
+  <a href="../scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
+  <a href="../picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
+  <a href="../intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
+  <a href="../lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
+  <a href="../watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
+  <a href="../disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
   <h4>研究</h4>
-  <a href="themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
-  <a href="industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
-  <a href="weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
-  <a href="monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
-  <a href="analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
-  <a href="archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
-  <a href="research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
-  <a href="submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
+  <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
+  <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
+  <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
+  <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
+  <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
+  <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
+  <a href="../research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
+  <a href="../submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
 </nav>
 
 <div class="page">
   <div class="topbar">
     <button class="menu-btn" id="menuBtn" aria-label="開啟選單">☰</button>
-    <a href="index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
-    <a href="lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
-    <a href="watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
-    <a href="intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
+    <a href="../index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
+    <a href="../lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
+    <a href="../watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
+    <a href="../intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
   </div>
 
   
-<header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">處置股預警</h1></header>
-<p class="meta">2026年9月7日．週一 · 資料源：TWSE 公布注意／處置交易資訊，官方原文照登</p>
+<header style="margin-bottom:14px">
+  <div class="masthead-label">盤後快訊 · 盤後 · 每日市場摘要</div>
+  <h1 class="masthead-date">2026年9月14日．週一</h1>
+</header>
 
-<div class="section-head">處置中（7）</div>
 
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/07～115/09/15 · 第二次處置</div>
-  <div class="card-name">2455 全新</div>
-  <div class="card-detail">連續五次及當日沖銷標準</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/03～115/09/09 · 第一次處置</div>
-  <div class="card-name">3008 大立光</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/02～115/09/08 · 第一次處置</div>
-  <div class="card-name">3406 玉晶光</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/03～115/09/11 · 第二次處置</div>
-  <div class="card-name">3450 聯鈞</div>
-  <div class="card-detail">連續五次及當日沖銷標準</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/02～115/09/08 · 第一次處置</div>
-  <div class="card-name">6805 富世達</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/07～115/09/11 · 第二次處置</div>
-  <div class="card-name">6933 AMAX-KY</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/09/02～115/09/08 · 第一次處置</div>
-  <div class="card-name">6933 AMAX-KY</div>
-  <div class="card-detail">連續三次</div>
+<div class="card" style="margin-bottom:16px">
+  <div class="hero-eyebrow"><span class="dot c-market"></span>加權指數</div>
+  <span class="hero-number mono">45,862.52</span><span
+    class="hero-change mono down">▼ 322.33（-0.7%）</span>
+  <div class="card-grid cols-3" style="margin-top:14px">
+    
+    <div class="stat-tile c-market"><div class="stat-tile-label">成交值</div>
+      <div class="stat-tile-value" style="font-size:15px">6,653億</div></div>
+    
+    
+    <div class="stat-tile c-chip"><div class="stat-tile-label">三大法人</div>
+      <div class="stat-tile-value down" style="font-size:15px">賣超497.0億</div></div>
+    
+    
+    <div class="stat-tile c-market"><div class="stat-tile-label">漲跌家數</div>
+      <div class="stat-tile-value" style="font-size:15px">449/811</div></div>
+    
+  </div>
 </div>
 
 
 
-<div class="section-head">注意累計次數接近處置門檻（3）</div>
-
-
-<div class="card watch">
-  <div class="card-name">2426 鼎元</div>
-  <div class="card-detail">115年8月26日至115年9月7日等九個營業日已有五次</div>
-</div>
-
-<div class="card watch">
-  <div class="card-name">7711 永擎</div>
-  <div class="card-detail">115年9月4日至115年9月7日連續二次</div>
-</div>
-
-<div class="card watch">
-  <div class="card-name">8021 尖點</div>
-  <div class="card-detail">115年8月26日至115年9月7日等九個營業日已有五次</div>
-</div>
 
 
 
-<div class="section-head">今日新公布注意股票（0）</div>
 
-<p class="commentary">今天沒有新公布的注意股票。</p>
 
-<p class="commentary" style="margin-top:20px; font-size:13px">選股訊號（起漲點／新掛牌／黑馬）→ <a href="picks.html" style="color:var(--gold)">選股雷達</a>　·　查任一個股 → <a href="lookup.html" style="color:var(--gold)">個股查詢</a></p>
+
+
+
+
+
+
+
+<section class="block">
+  <h2>三大法人動向</h2>
+  
+  
+  <div class="inst-row">
+    <span class="inst-name">外資</span>
+    <div class="bar-track">
+      <div class="bar-fill down"
+           style="width:50%"></div>
+    </div>
+    <span class="inst-value mono down">-369.6億</span>
+  </div>
+  
+  <div class="inst-row">
+    <span class="inst-name">投信</span>
+    <div class="bar-track">
+      <div class="bar-fill up"
+           style="width:5.9%"></div>
+    </div>
+    <span class="inst-value mono up">+23.5億</span>
+  </div>
+  
+  <div class="inst-row">
+    <span class="inst-name">自營商</span>
+    <div class="bar-track">
+      <div class="bar-fill down"
+           style="width:37.7%"></div>
+    </div>
+    <span class="inst-value mono down">-150.9億</span>
+  </div>
+  
+  <p class="commentary" style="margin-top:14px">台股今日收45862.52點，下跌322.33點（-0.7%），成交量6653億元，下跌811家遠多於上漲449家，賣壓偏廣泛而非個股性。三大法人合計賣超497億元，外資淨賣369.64億元、自營商淨賣150.93億元，僅投信小幅買超23.53億元，內外資同步轉守，籌碼面偏空。國際上，聯準會升息路徑本週數據與官員發言反覆拉鋸（強勁就業與Warsh鷹派發言 vs Waller鴿派言論），加上中東油輪衝突推升油價逼近甚至突破百美元，政策與輸入性通膨的雙重不確定性，較可能是今日台股廣泛下跌的外部背景，而非單一台股利空。今日盤面未形成明確族群性題材聚焦，觀察名單中惠特（綜合70分）與順德（68.3分）都是籌碼軸滿分70分帶動、技術面僅中等55分，顯示三大法人買超先於技術面轉強確立；全友技術面僅30分卻仍靠籌碼支撐擠進觀察名單，籌碼與技術面出現明顯落差。國際上AI硬體（半導體）與軟體股近期出現利率敏感度分歧走勢，但今日台股強勢股集中在資安、精密零組件等非AI核心族群，與這道國際敘事並未同步呼應。今日無個股列入處置或接近處置門檻。</p>
+  <p class="t-note" style="margin-top:10px">完整籌碼儀表板（法人／資券／大戶）→ <a href="../chips.html" style="color:var(--gold)">chips.html</a></p>
+</section>
+<hr class="divider">
+
+
+
+<section class="block">
+  <h2>今日值得關注</h2>
+  <table class="tech-table">
+    <tr><th>股票</th><th>綜合分</th><th>強項</th></tr>
+    
+    <tr>
+      <td data-stock-code="6706" data-stock-name="惠特">6706 惠特</td>
+      <td class="mono">70.0</td>
+      <td class="t-note">籌碼 70.0、技術 55.0</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="2351" data-stock-name="順德">2351 順德</td>
+      <td class="mono">68.3</td>
+      <td class="t-note">籌碼 70.0、技術 55.0</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7765" data-stock-name="中華資安">7765 中華資安</td>
+      <td class="mono">58.3</td>
+      <td class="t-note">籌碼 70.0、技術 55.0</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="1528" data-stock-name="恩德">1528 恩德</td>
+      <td class="mono">58.3</td>
+      <td class="t-note">籌碼 70.0、技術 55.0</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="2305" data-stock-name="全友">2305 全友</td>
+      <td class="mono">58.3</td>
+      <td class="t-note">籌碼 70.0、技術 30.0</td>
+    </tr>
+    
+  </table>
+  <p class="t-note" style="margin-top:10px">完整五面向評分 → <a href="../scores.html" style="color:var(--gold)">scores.html</a></p>
+</section>
+<hr class="divider">
+
+
+
+
+
+
+
+<section class="block">
+  <h2>🐎 起漲點雷達</h2>
+  <p class="commentary" style="margin-bottom:12px">剛站上月線或季線、且量能明顯放大的個股——重點是「剛開始」，
+  近期已經漲多的會被排除，不是看到上漲就抓。</p>
+  
+  <div class="darkhorse-entry">
+    <div class="darkhorse-name" data-stock-code="7765" data-stock-name="中華資安">7765 中華資安 📈</div>
+    <div class="darkhorse-grid">
+      <div><span class="dh-label">今日漲幅</span><br>
+        <span class="dh-value up">+9.84%</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">6.59 倍</span></div>
+      <div><span class="dh-label">突破天數</span><br>
+        <span class="dh-value">今天</span></div>
+      <div><span class="dh-label">突破均線</span><br>
+        <span class="dh-value">月線、季線</span></div>
+    </div>
+    <div class="darkhorse-note">今天剛站上月線、季線，量能達 20 日均量 6.59 倍</div>
+  </div>
+  
+  <p class="t-note" style="margin-top:10px">起漲點／新掛牌／黑馬完整名單 → <a href="../picks.html" style="color:var(--gold)">選股雷達</a></p>
+</section>
+<hr class="divider">
+
+
+
+
+
+<section class="block">
+  <h2>黑馬觀察</h2>
+  
+  <div class="darkhorse-entry">
+    <div class="darkhorse-name" data-stock-code="6112" data-stock-name="邁達特">6112 邁達特</div>
+    <div class="darkhorse-grid">
+      <div><span class="dh-label">今日漲幅</span><br>
+        <span class="dh-value up">+9.88%</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">30.1 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">高</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
+    </div>
+    <div class="darkhorse-note">IC 設計委託服務類股，今日強勢股中找不到其他同族群個股同步表態，量能雖放大但屬單一個股噴出，無法確認是否為題材性行情　建議列為觀察而非追蹤標的。</div>
+  </div>
+  
+  <div class="darkhorse-entry">
+    <div class="darkhorse-name" data-stock-code="6706" data-stock-name="惠特">6706 惠特</div>
+    <div class="darkhorse-grid">
+      <div><span class="dh-label">今日漲幅</span><br>
+        <span class="dh-value up">+9.82%</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">13.01 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">高</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
+    </div>
+    <div class="darkhorse-note">屬半導體後段測試設備／探針卡供應鏈，今日清單中無其他測試設備族群個股同步表態，找不到上下游呼應　建議列為觀察而非追蹤標的。</div>
+  </div>
+  
+  <div class="darkhorse-entry">
+    <div class="darkhorse-name" data-stock-code="1528" data-stock-name="恩德">1528 恩德</div>
+    <div class="darkhorse-grid">
+      <div><span class="dh-label">今日漲幅</span><br>
+        <span class="dh-value up">+9.91%</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">9.84 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">高</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
+    </div>
+    <div class="darkhorse-note">射出成型機／傳統機械設備類股，清單中無同族群個股共同表態，且無明確對應的產業鏈題材　建議列為觀察而非追蹤標的。</div>
+  </div>
+  
+  <div class="darkhorse-entry">
+    <div class="darkhorse-name" data-stock-code="2305" data-stock-name="全友">2305 全友</div>
+    <div class="darkhorse-grid">
+      <div><span class="dh-label">今日漲幅</span><br>
+        <span class="dh-value up">+9.99%</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">3.34 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">高</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
+    </div>
+    <div class="darkhorse-note">掃描器／精密儀器類股單一個股表態，找不到同族群呼應，無法判斷是否有基本面支撐　建議列為觀察而非追蹤標的。</div>
+  </div>
+  
+  <div class="darkhorse-entry">
+    <div class="darkhorse-name" data-stock-code="2351" data-stock-name="順德">2351 順德</div>
+    <div class="darkhorse-grid">
+      <div><span class="dh-label">今日漲幅</span><br>
+        <span class="dh-value up">+9.83%</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">2.12 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">中</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
+    </div>
+    <div class="darkhorse-note">精密零組件類股單一個股表態，清單中無同族群個股同步呼應　建議列為觀察而非追蹤標的。</div>
+  </div>
+  
+  <div class="darkhorse-entry">
+    <div class="darkhorse-name" data-stock-code="6176" data-stock-name="瑞儀">6176 瑞儀</div>
+    <div class="darkhorse-grid">
+      <div><span class="dh-label">今日漲幅</span><br>
+        <span class="dh-value up">+5.29%</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">2.74 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">中</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
+    </div>
+    <div class="darkhorse-note">背光模組供應鏈個股，但漲幅（5.29%）與量能（2.74 倍）皆相對溫和，且清單中無其他面板／背光族群個股同步表態，不足以判定為族群性題材行情　建議列為觀察而非追蹤標的。</div>
+  </div>
+  
+  <div class="darkhorse-entry">
+    <div class="darkhorse-name" data-stock-code="6689" data-stock-name="伊雲谷">6689 伊雲谷</div>
+    <div class="darkhorse-grid">
+      <div><span class="dh-label">今日漲幅</span><br>
+        <span class="dh-value up">+9.98%</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">19.47 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">高</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
+    </div>
+    <div class="darkhorse-note">雲端服務代理商，今日清單中無其他雲端／SaaS 個股同步表態，缺乏族群呼應　建議列為觀察而非追蹤標的。</div>
+  </div>
+  
+  <div class="darkhorse-entry">
+    <div class="darkhorse-name" data-stock-code="7765" data-stock-name="中華資安">7765 中華資安</div>
+    <div class="darkhorse-grid">
+      <div><span class="dh-label">今日漲幅</span><br>
+        <span class="dh-value up">+9.84%</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">9.17 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">高</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
+    </div>
+    <div class="darkhorse-note">資安服務類股，今日清單中無其他資安個股同步表態，屬單一個股表態　建議列為觀察而非追蹤標的。</div>
+  </div>
+  
+  <div class="darkhorse-entry">
+    <div class="darkhorse-name" data-stock-code="2453" data-stock-name="凌群">2453 凌群</div>
+    <div class="darkhorse-grid">
+      <div><span class="dh-label">今日漲幅</span><br>
+        <span class="dh-value up">+4.93%</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">0 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">中</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
+    </div>
+    <div class="darkhorse-note">系統整合（SI）類股，漲幅相對溫和（4.93%），清單中無其他 SI 或雲端服務個股形成明確呼應　建議列為觀察而非追蹤標的。</div>
+  </div>
+  
+  <p class="t-note" style="margin-top:10px">起漲點／新掛牌／黑馬完整名單 → <a href="../picks.html" style="color:var(--gold)">選股雷達</a></p>
+</section>
+<hr class="divider">
+
+
+
+<section class="block">
+  <h2>技術面觀察名單</h2>
+  <table class="tech-table">
+    <tr><th>股票</th><th>訊號</th><th>備註</th></tr>
+    
+    <tr>
+      <td data-stock-code="7765" data-stock-name="中華資安">7765 中華資安</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="6112" data-stock-name="邁達特">6112 邁達特</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="6706" data-stock-name="惠特">6706 惠特</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="1528" data-stock-name="恩德">1528 恩德</td>
+      <td class="signal-neutral">區間整理</td>
+      <td class="t-note">均線糾結，方向未明，站上季線，RSI 73.0 進入超買區，量增價漲（量能 6.68 倍）</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="2305" data-stock-name="全友">2305 全友</td>
+      <td class="signal-warn">過熱警訊</td>
+      <td class="t-note">均線糾結，方向未明，站上季線，RSI 87.9 進入超買區，KD 高檔鈍化風險，量增價漲（量能 2.91 倍）</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="2351" data-stock-name="順德">2351 順德</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="6176" data-stock-name="瑞儀">6176 瑞儀</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="6689" data-stock-name="伊雲谷">6689 伊雲谷</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="2453" data-stock-name="凌群">2453 凌群</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="6226" data-stock-name="光鼎">6226 光鼎</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="2468" data-stock-name="華經">2468 華經</td>
+      <td class="signal-neutral">區間整理</td>
+      <td class="t-note">均線糾結，方向未明，站上季線，RSI 74.1 進入超買區，量增價漲（量能 4.49 倍）</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="6230" data-stock-name="尼得科超眾">6230 尼得科超眾</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+  </table>
+  <p class="t-note" style="margin-top:10px">五面向評分排行 → <a href="../scores.html" style="color:var(--gold)">scores.html</a>　·　查任一個股 → <a href="../lookup.html" style="color:var(--gold)">個股查詢</a></p>
+</section>
+<hr class="divider">
+
+
+
 
 
   <footer class="site-footer">
@@ -519,13 +883,13 @@
 
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
   }
-  window.__rel = "";
+  window.__rel = "../";
 </script>
-<script src="assets/ui.js?v=12ed3d4a"></script>
+<script src="../assets/ui.js?v=12ed3d4a"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=12ed3d4a"></script>
+<script src="../assets/stock-chart.js?v=12ed3d4a"></script>
 
 </body>
 </html>
