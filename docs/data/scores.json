@@ -1,104 +1,164 @@
 {
-  "date": "2026年9月14日．週一",
+  "date": "2026年9月15日．週二",
   "rows": [
     {
       "technical": 55.0,
-      "chip": 70.0,
+      "chip": null,
       "fundamental": null,
       "theme": null,
       "news": 85.0,
       "composite": 70.0,
-      "code": "6706",
-      "name": "6706 惠特",
+      "code": "7913",
+      "name": "7913 通寶半導體",
       "analysis": {
-        "company_desc": "惠特科技主要生產半導體測試用探針卡與測試介面板（Interface Board），近期新聞顯示其產品線已延伸至CPO（共同封裝光學）與矽光子相關測試應用。",
+        "company_desc": "為半導體相關廠商，據報導8月營收年增579%，並取得美系客戶採用其PQC（後量子密碼）資安晶片，屬資安晶片相關業務（依單一新聞來源，待進一步查證）。",
         "swot": {
-          "strengths": "具備半導體後段測試介面技術門檻，8月營收年增逾一倍，顯示新產品線已開始放量出貨。",
-          "weaknesses": "測試介面產品客戶與應用集中度可能偏高，營收易受單一大客戶或特定終端規格導入時程影響（推論）。",
-          "opportunities": "CPO與矽光子為AI伺服器高速互連新興應用，相關測試需求若持續放大，可望帶動訂單能見度提升。",
-          "threats": "若同業測試介面廠商同步跟進新規格產品，價格與市占競爭恐加劇（推論）。"
+          "strengths": "取得美系客戶採用PQC資安晶片訂單，具備新興資安晶片技術切入點（依報導）。",
+          "weaknesses": "僅單一新聞來源佐證，客戶集中度與訂單規模細節不明，缺乏財報數據交叉驗證。",
+          "opportunities": "後量子密碼（PQC）為資安產業新興趨勢，若持續拓展美系客戶可望受惠此波換機潮（推論）。",
+          "threats": "資安晶片市場競爭者眾，單一新聞來源的營收成長數字需留意波動性與基期效應。"
         },
-        "price_reason": "股價連日走揚並一度亮燈漲停，主因8月營收年增逾一倍驗證CPO／MicroLED新產品已逐步出貨，加上三大法人合計買超215張、法人連日轉買同步表態，屬於「營收超預期＋法人買超＋題材帶動」三重因素疊加，技術面歷史資料不足以進一步確認。"
+        "price_reason": "8月營收年增579%及取得美系客戶PQC資安晶片訂單為目前可辨識的主要利多因素；惟籌碼面與技術面資料不足，無法進一步確認法人是否同步表態。"
       }
     },
     {
       "technical": 55.0,
-      "chip": 70.0,
+      "chip": 69.7,
       "fundamental": null,
       "theme": null,
       "news": 80.0,
-      "composite": 68.3,
-      "code": "2351",
-      "name": "2351 順德",
+      "composite": 68.2,
+      "code": "6218",
+      "name": "6218 豪勉",
       "analysis": {
-        "company_desc": "順德工業主要生產精密金屬零組件與導線架（Lead Frame），近期新聞顯示其產品應用已延伸至AI伺服器相關導線架與均熱片（Vapor Chamber）散熱元件。",
+        "company_desc": "據報導業務橫跨矽光子與資安領域，並涉及探針卡與Micro LED相關產品（依論壇與即時新聞報導，待公開申報資料交叉驗證）。",
         "swot": {
-          "strengths": "具備精密金屬加工與模具設計能力，切入AI伺服器導線架與均熱片題材，產品應用面擴大。",
-          "weaknesses": "傳統精密零組件毛利率通常偏中低，若AI相關新應用占營收比重仍小，對整體獲利貢獻有限（推論）。",
-          "opportunities": "兆豐證券已將目標價調高至410元，顯示法人對其AI相關新應用成長性轉趨樂觀。",
-          "threats": "散熱與導線架領域競爭廠商眾多，若新應用未如期放量，題材性行情恐難有基本面支撐（推論）。"
+          "strengths": "當日三大法人合計買超590張、融資無增加，報導稱主力回補且月營收成長，籌碼面與消息面同步偏多。",
+          "weaknesses": "多則消息來自論壇貼文語氣誇張（如「瘋鹿概念股」），需留意消息面過熱風險。",
+          "opportunities": "若矽光子、資安、探針卡、Micro LED等題材布局屬實，具備多重產業趨勢受惠可能（推論）。",
+          "threats": "多題材類股同步帶量上攻，需留意資金退潮後的獲利了結賣壓（推論）。"
         },
-        "price_reason": "股價上漲近6%，主要受「AI導線架與均熱片」題材帶動，加上三大法人合計買超73張，以及兆豐證券調高目標價至410元的具體法人喊多動作，屬於題材與法人偏多雙重驅動，技術面歷史資料不足以進一步確認。"
+        "price_reason": "報導指出月營收成長及主力回補為近期股價走強的主要因素，加上資安、雲端概念股族群當日集體亮燈漲停的題材帶動，當日三大法人合計買超590張亦與此方向一致，研判為題材面＋法人買盤同步驅動。"
       }
     },
     {
       "technical": 55.0,
-      "chip": 70.0,
+      "chip": 70.1,
       "fundamental": null,
       "theme": null,
-      "news": 50.0,
-      "composite": 58.3,
-      "code": "7765",
-      "name": "7765 中華資安",
+      "news": 78.0,
+      "composite": 67.7,
+      "code": "6148",
+      "name": "6148 驊宏資",
       "analysis": {
-        "company_desc": "中華資安科技為中華電信集團旗下資安服務公司，主要提供資安健診、資安監控（SOC）與滲透測試等服務，客戶多為政府機關與大型企業。",
+        "company_desc": "現有資料未提供具體業務說明，據報導與資安、雲端及AI系統整合題材相關，實際主要業務待查證。",
         "swot": {
-          "strengths": "背靠中華電信集團客戶與通路資源，長期承接電信體系與政府資安相關業務，具備穩定合作關係。",
-          "weaknesses": "營運高度仰賴母集團與標案型收入，訂單規模與時程易受標案週期影響，波動性較大（推論）。",
-          "opportunities": "近期國際資安事件頻傳、AI應用普及帶動企業與政府資安防護預算成長，資安服務需求看升。",
-          "threats": "資安服務市場競爭者眾（含外商與本土業者），客戶對價格與服務品質比較敏感，議價空間可能受壓（推論）。"
+          "strengths": "當日三大法人合計買超20張、融資無增加，報導稱受惠雲端與AI系統整合題材，股價亮燈漲停。",
+          "weaknesses": "僅有題材面消息佐證，缺乏具體營收或財報數據交叉驗證。",
+          "opportunities": "若雲端、AI系統整合相關業務布局屬實，可望受惠相關產業成長趨勢（推論）。",
+          "threats": "題材帶動的漲停若缺乏基本面數據支撐，需留意消息面退燒後的回檔風險（推論）。"
         },
-        "price_reason": "今日領漲主要受「AI巨頭示警網路資安風險」帶動資安類股族群同步走強，加上三大法人小幅買超78張表態偏多，屬於產業題材帶動而非公司個別基本面消息，歷史技術資料不足以進一步確認技術面訊號。"
+        "price_reason": "報導指出受惠雲端與AI系統整合題材發酵，加上資安題材買盤集中，為股價亮燈漲停的主要驅動因素；當日三大法人合計買超20張方向一致但規模不大，顯示個股買盤可能以非法人資金為主。"
       }
     },
     {
       "technical": 55.0,
-      "chip": 70.0,
-      "fundamental": null,
-      "theme": null,
-      "news": 50.0,
-      "composite": 58.3,
-      "code": "1528",
-      "name": "1528 恩德",
-      "analysis": {
-        "company_desc": "恩德工業主要生產射出成型機與工業用機械設備，屬傳統機械設備製造商。",
-        "swot": {
-          "strengths": "深耕射出成型機領域多年，具備機械設計與製造經驗（推論）。",
-          "weaknesses": "傳統機械設備產業成長性相對有限，訂單能見度易受下游客戶資本支出景氣影響（推論）。",
-          "opportunities": "若下游塑膠加工或電子代工客戶資本支出回升，有機會帶動設備訂單成長（推論）。",
-          "threats": "機械設備業競爭者眾，產品汰換週期長，需求波動較大（推論）。"
-        },
-        "price_reason": "技術面站上季線、RSI 73.0 進入超買區且量增價漲（量能6.68倍），加上三大法人合計買超794張，顯示短線由技術面轉強與法人買超共同帶動；惟新聞則數僅2則且內容多屬概覽性質，訊號不足，暫無法判斷是否有具體基本面消息支撐，須留意超買後拉回風險。"
-      }
-    },
-    {
-      "technical": 30.0,
-      "chip": 70.0,
+      "chip": 70.2,
       "fundamental": null,
       "theme": null,
       "news": 75.0,
-      "composite": 58.3,
-      "code": "2305",
-      "name": "2305 全友",
+      "composite": 66.7,
+      "code": "6683",
+      "name": "6683 雍智科技",
       "analysis": {
-        "company_desc": "全友電腦傳統主力產品為影像掃描器，近期新聞顯示其亦切入光通訊裝置相關訂單與AI需求題材。",
+        "company_desc": "現有資料未提供具體業務說明，據報導與AI測試介面、探針卡相關產品有關，實際主要業務待查證。",
         "swot": {
-          "strengths": "具備影像感測與光學元件製造經驗，可望延伸應用至光通訊裝置領域（推論）。",
-          "weaknesses": "掃描器為成熟型產品，本業成長動能有限，若光通訊新業務占比仍小，對營收貢獻有限（推論）。",
-          "opportunities": "AI伺服器帶動光通訊裝置需求成長，若成功切入相關訂單，有機會開啟第二成長曲線。",
-          "threats": "光通訊為技術與資本密集產業，若無法取得規模訂單，恐難與專業光通訊廠商競爭（推論）。"
+          "strengths": "當日三大法人合計買超410張、融資無增加，報導稱受惠AI測試載板與探針卡成長題材，法人低檔回補。",
+          "weaknesses": "僅有題材面消息佐證，缺乏具體營收或財報數據交叉驗證。",
+          "opportunities": "若AI測試介面、探針卡相關業務布局屬實，可望受惠AI相關資本支出成長趨勢（推論）。",
+          "threats": "報導提及屬「千金股」（高價股），股性可能偏向高波動，需留意追高風險（推論）。"
         },
-        "price_reason": "股價一度漲停且盤中多次走揚，主要受「光通訊裝置與AI訂單題材」新聞帶動，加上三大法人合計買超748張、技術面均線多頭排列；惟RSI已達87.9、KD高檔鈍化風險偏高，屬於題材＋法人買超帶動的短線強勢，須留意超買風險。"
+        "price_reason": "報導指出受惠AI測試載板與探針卡成長題材，加上法人低檔回補及技術面反彈結構，為股價走強的主要驅動因素；當日三大法人合計買超410張方向一致，顯示法人買盤確有回補動作。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 69.9,
+      "fundamental": null,
+      "theme": null,
+      "news": 72.0,
+      "composite": 65.6,
+      "code": "2221",
+      "name": "2221 大甲",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，據報導與半導體潔淨級訂單、半導體擴產題材相關，實際主要業務待查證。",
+        "swot": {
+          "strengths": "當日三大法人合計買超576張、融資減少，報導稱受惠營收連月成長與半導體擴產題材，技術面多頭排列。",
+          "weaknesses": "同期資料顯示該股亦曾出現在三大法人賣超前二十名榜單，籌碼面呈現日內或跨日波動，非單純單向買超。",
+          "opportunities": "若半導體潔淨級訂單需求持續，可望受惠半導體產業擴產趨勢（推論）。",
+          "threats": "籌碼面買賣超榜單交替出現，需留意資金進出不穩定的波動風險。"
+        },
+        "price_reason": "報導指出受惠營收連月成長與半導體擴產題材，加上技術面多頭排列、主力與外資買盤同步偏多，為股價走強的主要驅動因素；當日三大法人合計買超576張方向一致，可視為題材面＋法人買盤同步驅動。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 70.0,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 62.5,
+      "code": "7839",
+      "name": "7839 達人網",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "當日三大法人合計買超僅2張，規模極小，不具參考意義。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 61.7,
+      "fundamental": null,
+      "theme": null,
+      "news": 68.0,
+      "composite": 61.6,
+      "code": "6147",
+      "name": "6147 頎邦",
+      "analysis": {
+        "company_desc": "頎邦科技主要提供驅動IC（Driver IC）與CMOS影像感測元件的金凸塊（Gold Bumping）及COF/COG構裝測試服務，為面板驅動IC供應鏈中游的封裝測試廠商。",
+        "swot": {
+          "strengths": "在驅動IC金凸塊構裝領域具備長期技術與產能基礎，當日三大法人合計買超高達22285張，法人買盤動能明顯強勁。",
+          "weaknesses": "業務集中於驅動IC相關封裝測試，客戶與應用領域相對集中，毛利率易受面板產業景氣循環影響（推論）。",
+          "opportunities": "報導指出受惠AI高速光通訊相關題材與月營收創高，若能延伸至CMOS影像感測器或先進構裝應用，具備跨入新應用領域的成長空間。",
+          "threats": "報導同時提及短線承接買盤對抗法人與主力調節，顯示股價已上漲一段、面臨獲利了結賣壓；驅動IC封測產業競爭者眾，需留意訂單稼動率波動風險。"
+        },
+        "price_reason": "報導指出月營收創高及AI高速光通訊題材是股價上漲的主要支撐，且當日三大法人合計買超高達22285張，籌碼面與消息面方向一致，顯示法人買盤為明確的驅動因素；惟報導同時提及短線買盤正對抗法人與主力調節，顯示漲勢中已伴隨部分獲利了結賣壓。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 70.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 58.0,
+      "composite": 61.0,
+      "code": "2427",
+      "name": "2427 三商電",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，據報導與金融裝置、系統整合業務相關，實際主要業務待查證。",
+        "swot": {
+          "strengths": "當日三大法人合計買超129張，報導稱金融裝置與系統整合動能受關注，籌碼面與消息面方向一致。",
+          "weaknesses": "部分同期新聞為技術分析報告，內容與本股票關聯性不明，需留意消息面雜訊。",
+          "opportunities": "若金融裝置、系統整合業務布局屬實，可望受惠相關產業需求（推論）。",
+          "threats": "系統整合業務通常面臨專案型收入波動風險（產業推論）。"
+        },
+        "price_reason": "報導指出金融裝置與系統整合動能受關注為股價走強的可能因素，當日三大法人合計買超129張方向一致，惟訊息強度有限，判斷信心中等。"
       }
     },
     {
@@ -108,17 +168,17 @@
       "theme": null,
       "news": 50.0,
       "composite": 58.3,
-      "code": "6689",
-      "name": "6689 伊雲谷",
+      "code": "6945",
+      "name": "6945 圓祥生技",
       "analysis": {
-        "company_desc": "伊雲谷為雲端服務代理商，主要代理Google Cloud、AWS等國際雲端平台，協助企業客戶導入雲端與AI應用服務。",
+        "company_desc": "名稱顯示屬生技相關公司，惟現有資料未提供具體產品或客戶說明，待查證。",
         "swot": {
-          "strengths": "具備代理國際大型雲端平台之通路優勢，可直接受惠企業導入生成式AI與雲端服務的需求成長。",
-          "weaknesses": "代理商業模式毛利率通常低於自有產品廠商，獲利能力易受上游雲端廠商政策與價格影響（推論）。",
-          "opportunities": "生成式AI與代理型AI應用普及，帶動企業雲端運算與相關導入服務需求成長。",
-          "threats": "雲端代理市場競爭者多，客戶亦可能直接向雲端原廠採購，存在議價與轉單風險（推論）。"
+          "strengths": "當日三大法人合計買超273張，具一定籌碼面關注度。",
+          "weaknesses": "現有新聞均為制式的法人買賣揭露表與庫藏股公告彙整，缺乏公司自身具體營運消息佐證。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "生技類股常見臨床或法規進度不確定性風險（產業推論，非個股專屬）。"
         },
-        "price_reason": "股價開盤即亮燈漲停，主因「生成式AI與代理型AI題材」新聞帶動，加上外資與主力連日偏多、三大法人買超56張，屬於題材帶動為主；惟新聞則數僅2則、技術面歷史資料不足，訊號不足，暫無法進一步確認基本面驅動力道。"
+        "price_reason": "當日三大法人合計買超273張為可辨識的籌碼面訊號，惟缺乏對應的營收或產業消息佐證，無法確認是否為基本面驅動。"
       }
     },
     {
@@ -128,17 +188,17 @@
       "theme": null,
       "news": 50.0,
       "composite": 58.3,
-      "code": "2468",
-      "name": "2468 華經",
+      "code": "7842",
+      "name": "7842 天能綠電",
       "analysis": {
-        "company_desc": "華經企業主要從事系統整合（SI）與商用軟體服務，近期新聞聚焦其雲端服務相關業務發展。",
+        "company_desc": "名稱顯示屬綠電相關業務，惟現有資料未提供具體產品或客戶說明，待查證。",
         "swot": {
-          "strengths": "具備系統整合與企業軟體導入經驗，可望受惠企業數位轉型需求（推論）。",
-          "weaknesses": "系統整合業務毛利率普遍偏低，案件型收入波動較大（推論）。",
-          "opportunities": "若美國商用軟體與雲服務成長趨勢延伸帶動台灣系統整合需求，有助訂單成長。",
-          "threats": "系統整合市場競爭激烈，客戶採購決策週期長，訂單能見度有限（推論）。"
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "當日三大法人合計買超僅8張，規模極小，籌碼面訊號不明顯。",
+          "opportunities": "若屬綠電相關業務，可望受惠能源轉型政策趨勢（推論）。",
+          "threats": "綠電產業常見政策補貼與電力躉購費率變動風險（產業推論，非個股專屬）。"
         },
-        "price_reason": "股價開盤即亮燈漲停，主要受惠「美國商用軟體與雲服務成長」帶動系統整合題材，加上三大法人合計買超247張、技術面站上季線且量增價漲；惟RSI已達74.1進入超買區，屬於題材＋法人買超帶動的短線強勢行情。"
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素（籌碼與新聞均無明顯訊號）。"
       }
     },
     {
@@ -148,17 +208,17 @@
       "theme": null,
       "news": 50.0,
       "composite": 58.3,
-      "code": "6230",
-      "name": "6230 尼得科超眾",
+      "code": "6870",
+      "name": "6870 騰雲",
       "analysis": {
-        "company_desc": "尼得科超眾（原建準電機）主要生產散熱風扇與散熱模組，客戶涵蓋伺服器與PC相關供應鏈。",
+        "company_desc": "現有資料未提供具體業務說明，查無實質新聞報導（僅有制式法人買賣揭露表與股東會公告），實際主要業務待查證。",
         "swot": {
-          "strengths": "深耕散熱風扇與模組製造多年，具備伺服器與PC客戶合作基礎（推論）。",
-          "weaknesses": "散熱風扇為相對成熟產品，毛利率易受原物料與匯率波動影響（推論）。",
-          "opportunities": "AI伺服器對散熱需求提升，若能切入高階伺服器散熱訂單，有機會受惠產業趨勢。",
-          "threats": "散熱模組競爭廠商眾多，客戶議價能力強，價格競爭壓力存在（推論）。"
+          "strengths": "當日三大法人合計買超59張，惟規模不大，訊號有限。",
+          "weaknesses": "缺乏具體營運消息佐證籌碼面買超原因。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
         },
-        "price_reason": "所附新聞標題實際內容為光寶科法說會相關報導，與尼得科超眾營運無直接關聯，加上技術面歷史資料不足、三大法人買超僅22張規模有限，訊號不足，暫無法判斷今日股價變動的主要驅動因素。"
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素（僅有小幅法人買超，缺乏對應消息佐證）。"
       }
     },
     {
@@ -166,19 +226,799 @@
       "chip": 70.0,
       "fundamental": null,
       "theme": null,
-      "news": 30.0,
-      "composite": 51.7,
-      "code": "6226",
-      "name": "6226 光鼎",
+      "news": 50.0,
+      "composite": 58.3,
+      "code": "3580",
+      "name": "3580 友威科",
       "analysis": {
-        "company_desc": "光鼎現有新聞多集中於股價波動與處置股相關訊息，未提供明確產業與產品線資訊，暫以現有籌碼面與交易面資料呈現，不強行推論其主要業務內容。",
+        "company_desc": "現有資料未提供具體業務說明，查無實質新聞報導（僅有制式法人買賣揭露表），實際主要業務待查證。",
         "swot": {
-          "strengths": "現有資料不足以判斷具體競爭優勢，需以公司後續公開資訊為準（推論）。",
-          "weaknesses": "股票已被列為處置股，顯示近期交易過熱、波動劇烈，籌碼穩定性較低。",
-          "opportunities": "現有資料不足以識別具體成長機會（推論）。",
-          "threats": "處置股制度下若成交量能萎縮或多空交戰加劇，股價恐出現大幅波動甚至跌停風險。"
+          "strengths": "當日三大法人合計買超268張，具一定籌碼面關注度。",
+          "weaknesses": "缺乏具體營運消息佐證籌碼面買超原因。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
         },
-        "price_reason": "股價上漲7.67%但當日呈現多空交戰格局，新聞顯示主力籌碼偏空轉弱、市場對後續走勢分歧（含跌停疑慮與軋空猜測），儘管三大法人合計買超達2044張規模不小，籌碼面訊號仍屬矛盾，訊號不足，暫無法判斷單一主導因素。"
+        "price_reason": "當日三大法人合計買超268張為可辨識的籌碼面訊號，惟缺乏對應的營收或產業消息佐證，無法確認是否為基本面驅動。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 60.0,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 57.5,
+      "code": "7819",
+      "name": "7819 精誠金融",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "當日三大法人合計買超僅1張，規模極小，不具參考意義。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 70.2,
+      "fundamental": null,
+      "theme": null,
+      "news": 42.0,
+      "composite": 55.7,
+      "code": "3718",
+      "name": "3718 中光電投控",
+      "analysis": {
+        "company_desc": "為光電相關控股公司，現有資料未提供具體轉投資業務明細，網路討論多聚焦於本益比評價與籌碼流向，實際主要業務待查證。",
+        "swot": {
+          "strengths": "當日三大法人合計買超1470張，顯示一定程度法人資金關注。",
+          "weaknesses": "網路討論呈現正反分歧（部分留言質疑「拉抬出貨」疑慮），需留意消息面雜訊干擾。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "控股公司股價易受轉投資子公司表現及市場情緒波動影響（產業推論）。"
+        },
+        "price_reason": "當日三大法人合計買超1470張為可辨識的籌碼面正向訊號，惟缺乏對應的營收或產業消息佐證，無法確認是否為基本面驅動。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7934",
+      "name": "7934 鋒霈環境科技",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "6950",
+      "name": "6950 科科科技-KY",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7686",
+      "name": "7686 捷立康",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7945",
+      "name": "7945 廣盛科技",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7944",
+      "name": "7944 睿禾金碳",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7943",
+      "name": "7943 鴻璟科技",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7925",
+      "name": "7925 健生",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "3194",
+      "name": "3194 圓方科技",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7939",
+      "name": "7939 技宸",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7422",
+      "name": "7422 鴻林堂",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7933",
+      "name": "7933 威旭",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "6992",
+      "name": "6992 萬勝發科技",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7935",
+      "name": "7935 安富",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7936",
+      "name": "7936 寰聖",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7930",
+      "name": "7930 威世波",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7931",
+      "name": "7931 續升綠能",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7418",
+      "name": "7418 香繼光",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7894",
+      "name": "7894 瀚軒",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7928",
+      "name": "7928 合聖科技*",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7929",
+      "name": "7929 碩通",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7926",
+      "name": "7926 中華立鼎",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7927",
+      "name": "7927 連距電機",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "3644",
+      "name": "3644 凌嘉科",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7898",
+      "name": "7898 乾瞻",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7921",
+      "name": "7921 台普威",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7922",
+      "name": "7922 源點*",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7920",
+      "name": "7920 瀚陽*",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7919",
+      "name": "7919 禾蒼",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7918",
+      "name": "7918 創鉅材料",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7784",
+      "name": "7784 安邦生技*",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7915",
+      "name": "7915 廌家",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7907",
+      "name": "7907 錸恩帕斯",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7912",
+      "name": "7912 新聿科",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "6028",
+      "name": "6028 公勝保經",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7811",
+      "name": "7811 民盛",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7909",
+      "name": "7909 鈺祥",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 70.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 35.0,
+      "composite": 53.3,
+      "code": "3485",
+      "name": "3485 敘豐",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，網路討論聚焦於股價技術面（年線支撐）議題，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "網路討論提及股價未能站穩年線，技術面偏弱。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "技術面跌破年線可能加深短線賣壓（依討論區訊息，需留意非正式來源可信度）。"
+        },
+        "price_reason": "當日三大法人合計買超僅12張，規模極小，加上網路討論提及技術面「年線不守」，訊號偏弱且不足以判斷明確驅動因素。"
       }
     },
     {
@@ -186,10 +1026,310 @@
       "chip": 30.0,
       "fundamental": null,
       "theme": null,
-      "news": 52.0,
-      "composite": 45.7,
-      "code": "6176",
-      "name": "6176 瑞儀"
+      "news": 75.0,
+      "composite": 53.3,
+      "code": "7828",
+      "name": "7828 創新服務",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，據報導財務表現強勁並曾召開法人說明會，實際主要業務待查證。",
+        "swot": {
+          "strengths": "據報導財務表現強勁，且有公開法說會揭露財報亮點（依報導，待財報數據交叉驗證）。",
+          "weaknesses": "當日三大法人合計賣超65張，與「財務表現強勁」的報導方向不一致，需留意兩者背離。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司財報亮點若缺乏後續動能延續，易面臨股價回檔風險（推論）。"
+        },
+        "price_reason": "訊號不足以判斷：報導稱財務表現強勁，但當日三大法人反而合計賣超65張，兩者方向不一致，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 30.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 75.0,
+      "composite": 53.3,
+      "code": "2468",
+      "name": "2468 華經"
+    },
+    {
+      "technical": 55.0,
+      "chip": 70.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 35.0,
+      "composite": 53.3,
+      "code": "6226",
+      "name": "6226 光鼎"
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": 50.0,
+      "composite": 52.5,
+      "code": "7932",
+      "name": "7932 昱鐳應材",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無實質新聞報導（僅有制式股價資訊頁面），實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": 50.0,
+      "composite": 52.5,
+      "code": "7942",
+      "name": "7942 東佑達",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無實質新聞報導（僅有制式股價資訊頁面），實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": 50.0,
+      "composite": 52.5,
+      "code": "7917",
+      "name": "7917 源傑科技",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無實質新聞報導（唯一標題與美國生技指數、藥廠新聞相關，與本公司營運無直接關聯），實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素（提供的新聞內容與本公司營運無直接關聯）。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": 50.0,
+      "composite": 52.5,
+      "code": "7924",
+      "name": "7924 TLC-KY",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無實質新聞報導（僅有制式股價資訊頁面），實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": 50.0,
+      "composite": 52.5,
+      "code": "7415",
+      "name": "7415 元澄半導體",
+      "analysis": {
+        "company_desc": "由名稱與報導推測屬半導體相關業務，且與「合聖」公司技術路線有所比較，具體產品與客戶結構現有資料不足以說明，待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "半導體中小型廠商普遍面臨技術路線競爭與資本支出壓力（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": 50.0,
+      "composite": 52.5,
+      "code": "7735",
+      "name": "7735 台智雲",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無實質新聞報導（僅有制式股價資訊頁面），實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": 50.0,
+      "composite": 52.5,
+      "code": "7873",
+      "name": "7873 瑞峰",
+      "analysis": {
+        "company_desc": "據報導與漢民集團具投資關係，帶有半導體相關業務色彩（依單一論壇貼文，待進一步查證，未經財報或公開申報資料交叉驗證）。",
+        "swot": {
+          "strengths": "據報導有漢民集團投資背景，若屬實可能具備半導體供應鏈資源（依單一來源，待查證）。",
+          "weaknesses": "僅單一論壇貼文佐證，缺乏財報或公開申報資料交叉驗證，可信度有限。",
+          "opportunities": "若確實具備半導體集團資源挹注，可望受惠產業擴產趨勢（推論）。",
+          "threats": "資料不足，無法具體判斷；單一來源訊息需留意可信度風險。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素（僅有單一論壇貼文，缺乏籌碼面與技術面數據佐證）。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": 50.0,
+      "composite": 52.5,
+      "code": "7911",
+      "name": "7911 阿波羅電力",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無實質個別新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "資料不足，無法具體判斷。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 30.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 65.0,
+      "composite": 50.0,
+      "code": "1528",
+      "name": "1528 恩德"
+    },
+    {
+      "technical": 55.0,
+      "chip": 41.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 50.0,
+      "composite": 48.7,
+      "code": "6983",
+      "name": "6983 華洋精機",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無實質新聞報導（僅有制式法人買賣揭露表），實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "當日三大法人合計賣超僅1張，規模極小，不具參考意義。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 30.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 60.0,
+      "composite": 48.3,
+      "code": "7825",
+      "name": "7825 和亞智慧",
+      "analysis": {
+        "company_desc": "據報導業務涉及半導體與無人載具相關商機（依論壇報導，待公開申報資料交叉驗證）。",
+        "swot": {
+          "strengths": "股價一度上漲逾4%，報導指出有法人買盤回流之技術面／消息面關注。",
+          "weaknesses": "當日三大法人合計卻為賣超195張，與報導所稱「法人買盤迴流」方向不一致。",
+          "opportunities": "若半導體與無人載具相關業務布局屬實，可望受惠相關產業成長趨勢（推論）。",
+          "threats": "消息面與籌碼面出現背離，需留意追高風險。"
+        },
+        "price_reason": "報導稱受惠上櫃題材與短線動能，惟當日三大法人實際合計賣超195張，籌碼面與消息面方向不一致，判斷上主要仍屬短線技術面／題材面帶動，非法人買盤實際驅動。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 40.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 50.0,
+      "composite": 48.3,
+      "code": "7794",
+      "name": "7794 宏碁智新",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，提供的新聞標題實際與其他公司（8442威宏-KY）相關，非本公司自身消息，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "當日三大法人合計賣超僅1張，規模極小，不具參考意義。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素（提供的新聞內容與本公司無直接關聯）。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 40.0,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 47.5,
+      "code": "7814",
+      "name": "7814 海昌生技",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "當日三大法人合計賣超僅1張，規模極小，不具參考意義。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 30.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 55.0,
+      "composite": 46.7,
+      "code": "7772",
+      "name": "7772 耀穎",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，據報導與先進封裝、光學鏡片族群消息面相關，實際主要業務待查證。",
+        "swot": {
+          "strengths": "報導稱受惠營收爆發與先進封裝題材支撐，股價當日上漲3.66%。",
+          "weaknesses": "當日三大法人合計賣超4張，且報導提及技術指標轉弱、主力與外資同步調節，籌碼面轉偏空。",
+          "opportunities": "若先進封裝題材延續，可望持續吸引資金關注（推論）。",
+          "threats": "報導提及短線評價偏高、法人調節賣壓，需留意獲利了結風險。"
+        },
+        "price_reason": "報導指出股價上漲受營收爆發與先進封裝題材支撐，但同時提及短線評價偏高、技術指標轉弱，且主力與外資同步調節（三大法人當日合計賣超4張），研判為題材面帶動但伴隨法人調節賣壓的混合訊號。"
+      }
     },
     {
       "technical": 55.0,
@@ -198,8 +1338,38 @@
       "theme": null,
       "news": 50.0,
       "composite": 45.0,
-      "code": "6112",
-      "name": "6112 邁達特"
+      "code": "6986",
+      "name": "6986 和迅",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無實質新聞報導（僅有制式法人買賣揭露表），實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "當日三大法人合計賣超僅2張，規模極小，不具參考意義。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 30.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 50.0,
+      "composite": 45.0,
+      "code": "7820",
+      "name": "7820 立盈",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無實質新聞報導（僅有制式庫藏股公告彙整），實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "當日三大法人合計賣超僅4張，規模極小，不具參考意義。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
     },
     {
       "technical": 55.0,
@@ -208,8 +1378,28 @@
       "theme": null,
       "news": null,
       "composite": 42.5,
-      "code": "2453",
-      "name": "2453 凌群"
+      "code": "1780",
+      "name": "1780 立弘",
+      "analysis": {
+        "company_desc": "現有資料未提供具體業務說明，查無相關新聞報導，實際主要業務待查證。",
+        "swot": {
+          "strengths": "資料不足，無法具體判斷。",
+          "weaknesses": "當日三大法人合計賣超僅2張，規模極小，不具參考意義。",
+          "opportunities": "資料不足，無法具體判斷成長機會。",
+          "threats": "中小型公司普遍面臨產業景氣循環與資金能見度不足的風險（產業推論，非個股專屬）。"
+        },
+        "price_reason": "訊號不足，暫無法判斷主要驅動因素。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 29.8,
+      "fundamental": null,
+      "theme": null,
+      "news": 40.0,
+      "composite": 41.6,
+      "code": "3441",
+      "name": "3441 聯一光"
     }
   ]
 }
