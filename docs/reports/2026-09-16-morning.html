@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>週報：全球總經＋台股深度研究 · 盤後快訊</title>
+<title>盤後快訊 · 2026年9月16日．週三</title>
 <link rel="manifest" href="../manifest.json">
 <link rel="icon" href="../icons/icon-192.png">
 <link rel="apple-touch-icon" href="../icons/icon-192.png">
@@ -380,6 +380,77 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
+  .hero-eyebrow{font-size:13px; color:var(--text-muted); margin-bottom:6px;
+               display:flex; align-items:center; gap:6px;}
+  .hero-number{font-family:'JetBrains Mono',monospace; font-size:38px;
+               font-weight:500; letter-spacing:-.01em;}
+  .hero-change{font-family:'JetBrains Mono',monospace; font-size:15px; margin-left:10px;}
+
+  .watch-hits{background:rgba(227,172,78,.09); border-left:3px solid var(--gold);
+              border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:13px 16px; margin-bottom:18px;}
+  .watch-hits .wh-label{font-size:12px; color:var(--gold); margin-bottom:7px; font-weight:600;}
+  .watch-hits .wh-item{font-size:14px; color:var(--text-secondary); margin-bottom:4px;}
+  .watch-hits .wh-item strong{color:var(--text-primary); font-weight:500;}
+
+  .inst-row{display:flex; align-items:center; gap:10px; margin-bottom:9px; font-size:13.5px;}
+  .inst-row:last-child{margin-bottom:0;}
+  .inst-row .inst-name{width:52px; color:var(--text-secondary); flex-shrink:0;}
+  .inst-row .bar-track{flex:1; height:6px; background:var(--surface-2);
+                       border-radius:3px; position:relative; overflow:hidden;}
+  .inst-row .bar-fill{position:absolute; top:0; bottom:0; border-radius:3px;}
+  .inst-row .bar-fill.up{background:var(--red); left:50%;}
+  .inst-row .bar-fill.down{background:var(--green); right:50%;}
+  .inst-row .inst-value{width:80px; text-align:right;
+                        font-family:'JetBrains Mono',monospace; flex-shrink:0;}
+
+  .theme-entry{background:var(--surface); border:1px solid var(--hairline);
+              border-left:3px solid var(--c-theme); border-radius:var(--radius-sm);
+              padding:14px 16px; margin-bottom:12px;}
+  .theme-entry:last-child{margin-bottom:0;}
+  .theme-header{display:flex; justify-content:space-between; align-items:baseline;
+                gap:12px; margin-bottom:7px; flex-wrap:wrap;}
+  .theme-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px;}
+  .theme-desc{font-size:14px; color:var(--text-secondary); margin-bottom:7px;}
+  .theme-meta{display:flex; justify-content:space-between; align-items:center;
+              font-size:12.5px; color:var(--text-muted); flex-wrap:wrap; gap:8px;}
+  .theme-link{font-size:12.5px; color:var(--gold); text-decoration:none;
+              display:inline-block; margin-top:7px;}
+  .theme-link:hover{text-decoration:underline;}
+
+  .darkhorse-entry{background:var(--surface); border:1px solid var(--hairline);
+                   border-left:3px solid var(--c-warn); border-radius:var(--radius-sm);
+                   padding:14px 16px; margin-bottom:10px;}
+  .darkhorse-entry:last-child{margin-bottom:0;}
+  .darkhorse-name{font-family:'Noto Serif TC',serif; font-weight:600;
+                  font-size:16px; margin-bottom:9px;}
+  .darkhorse-grid{display:grid; grid-template-columns:1fr 1fr;
+                  gap:7px 20px; font-size:13px; margin-bottom:10px;}
+  .darkhorse-grid .dh-label{color:var(--text-muted);}
+  .darkhorse-grid .dh-value{font-family:'JetBrains Mono',monospace;}
+  .darkhorse-note{font-size:13px; color:var(--text-secondary);
+                  border-top:1px solid var(--hairline); padding-top:9px;}
+
+  .tech-table{width:100%; border-collapse:collapse;}
+  .tech-table th{text-align:left; font-size:11.5px; font-weight:400;
+                 color:var(--text-muted); padding-bottom:9px;
+                 border-bottom:1px solid var(--hairline);}
+  .tech-table td{padding:10px 0; border-bottom:1px solid var(--hairline);
+                 font-size:13.5px; vertical-align:top;}
+  .tech-table tr:last-child td{border-bottom:none;}
+  .signal-bull{color:var(--red);} .signal-warn{color:var(--gold);}
+  .signal-neutral{color:var(--text-secondary);} .signal-bear{color:var(--green);}
+  .t-note{color:var(--text-muted); font-size:12.5px;}
+
+  .call-item{display:flex; justify-content:space-between; gap:12px;
+             padding:9px 0; border-bottom:1px solid var(--hairline); font-size:13.5px;}
+  .call-item:last-child{border-bottom:none;}
+  .call-note{color:var(--text-muted); font-size:12.5px;}
+
+  @media (max-width:480px){
+    .hero-number{font-size:32px;}
+    .darkhorse-grid{grid-template-columns:1fr;}
+  }
+
 </style>
 </head>
 <body data-section="">
@@ -402,7 +473,7 @@
   <h4>研究</h4>
   <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
   <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
-  <a href="../weekly/index.html" class="current"><span class="dr-ic">📅</span>每週深度週報</a>
+  <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
   <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
   <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
   <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
@@ -420,30 +491,143 @@
   </div>
 
   
-<header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">週報：全球總經＋台股深度研究</h1></header>
-<p class="commentary" style="margin-top:14px">每週五盤後產出，涵蓋全球總體經濟與台股市場的深度研究，由 Claude 排程 agent 產出。分析文章形式，明確區分已驗證事實與推論，不構成投資建議。</p>
+<header style="margin-bottom:14px">
+  <div class="masthead-label">盤後快訊 · 早報 · 國際盤摘要</div>
+  <h1 class="masthead-date">2026年9月16日．週三</h1>
+</header>
 
-<div class="section-head">本週報告</div>
 
 
-<a href="2026-09-11.pdf" class="card" style="display:block; text-decoration:none; margin-bottom:14px;">
-  <div style="display:flex; justify-content:space-between; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:8px;">
-    <span class="theme-name">2026-09-11 週報</span>
-    <span class="tag confidence-mid">PDF</span>
+
+
+
+
+
+<section class="block">
+  <h2>國際盤摘要</h2>
+  <div class="stat-grid">
+    
+    <div class="stat"><span class="stat-label">道瓊</span>
+      <span class="stat-value down">52,093 -0.63%</span></div>
+    
+    <div class="stat"><span class="stat-label">那斯達克</span>
+      <span class="stat-value down">25,982 -0.78%</span></div>
+    
+    <div class="stat"><span class="stat-label">S&amp;P 500</span>
+      <span class="stat-value down">7,586 -0.45%</span></div>
+    
+    <div class="stat"><span class="stat-label">費半 SOX</span>
+      <span class="stat-value up">11,176 +0.40%</span></div>
+    
+    
+    <div class="stat"><span class="stat-label">美元指數</span>
+      <span class="stat-value mono">99.61（+0.15%）</span></div>
+    
+    <div class="stat"><span class="stat-label">西德州原油</span>
+      <span class="stat-value mono">105.34（+3.90%）</span></div>
+    
+    <div class="stat"><span class="stat-label">黃金</span>
+      <span class="stat-value mono">4,333.1（-0.43%）</span></div>
+    
+    <div class="stat"><span class="stat-label">10年美債殖利率</span>
+      <span class="stat-value mono">5.00%（+0.71%）</span></div>
+    
+    <div class="stat"><span class="stat-label">VIX 波動率</span>
+      <span class="stat-value mono">17.20（+0.58%）</span></div>
+    
+    <div class="stat"><span class="stat-label">台積電 ADR</span>
+      <span class="stat-value mono">413.75（-1.02%）</span></div>
+    
   </div>
-  <p class="theme-sum">PPI意外走高、Fed升息機率升溫，胡塞武裝完全掌控曼德海峽推升油價單週近一成、美債殖利率創2023年來新高；台股先攻後守，加權指數週一急拉逾700點後漸失動能、週五重挫755點收黑，外資買盤集中週一單日、週五幾乎全數回吐，本期新增產業題材多數仍停留在watch等級。</p>
-  <div class="theme-meta">2026年9月11日．全球總經＋台股深度研究</div>
-</a>
+  <p class="commentary">今天對台股影響最大的訊號是10年期美債殖利率衝上5%，市場罕見押注本週聯準會升息而非降息，道瓊、那斯達克、S&amp;P全面收黑（-0.45%~-0.78%），資金氣氛明顯轉守。值得留意的是費半SOX逆勢收紅0.4%，跟近一週半導體類股（SMH）重挫5.5%、市場熱議「AI資本支出泡沫」的敘事出現背離，但台積電ADR仍小跌1.02%，顯示外資對台股AI權值股的態度比美股半導體同業更謹慎，若今日盤面AI供應鏈股同步走弱，等於呼應這個背離訊號。西德州原油大漲3.9%，與升息預期互為因果（能源分項推升通膨疑慮），航運、塑化等原物料成本敏感族群短線可能承壓。整體來看，隔夜是「升息陰霾主導、AI股評價修正」的組合，而非單一利多或利空事件，台股開盤宜留意外資對台積電、記憶體族群的實際動作是否跟上ADR跌幅。</p>
+</section>
+<hr class="divider">
 
-<a href="2026-09-05.pdf" class="card" style="display:block; text-decoration:none; margin-bottom:14px;">
-  <div style="display:flex; justify-content:space-between; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:8px;">
-    <span class="theme-name">2026-09-05 週報</span>
-    <span class="tag confidence-mid">PDF</span>
+
+
+
+
+
+
+<section class="block">
+  <h2>國際題材追蹤</h2>
+  <p class="commentary" style="margin-bottom:16px">市場高度聚焦本週聯準會利率決策（升息機率一度衝上90%），公債殖利率走高、油價回升，資金從半導體/生技轉向能源與軟體防禦性族群</p>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">聯準會升息路徑不確定</span>
+      <span class="tag confidence-high">一致性：高</span>
+    </div>
+    <p class="theme-desc">市場罕見押注本週會議升息而非降息，10年期公債殖利率一度觸及5%，金融股表現分歧</p>
+    <div class="theme-meta"><span>推動因素：核心CPI月增溫、就業數據偏強，多家券商（高盛、花旗、美銀）齊發升息示警，Polymarket升息機率報83-90%</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：XLF、TLT</span>
+      <span class="tag verdict-real">偏真實</span>
+    </div>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：台幣走勢與外資對台股資金流向需留意，升息預期升溫可能壓抑高本益比科技股評價，壽險/金融股受惠於利差擴大</span></div>
   </div>
-  <p class="theme-sum">Fed 內部 Warsh 鷹派、Waller 鴿派與川普施壓三方拉鋸，疊加美伊衝突推升油價、全球公債殖利率齊揚，AI 硬體／軟體分歧持續發酵；台股本週走出逾 1,300 點振幅的 M 型週，以法人買超、電子供應鏈全面走強作收，但處置股名單擴大顯示籌碼過熱風險正在累積。</p>
-  <div class="theme-meta">2026年9月5日．全球總經＋台股深度研究</div>
-</a>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">AI資本支出疑慮／半導體重挫</span>
+      <span class="tag confidence-high">一致性：高</span>
+    </div>
+    <p class="theme-desc">輝達、美光、Sandisk等AI供應鏈股重挫，市場開始討論「AI泡沫是否見頂」，SMH近5日大跌5.5%明顯落後大盤</p>
+    <div class="theme-meta"><span>推動因素：Fortune等媒體提出「late-stage AI bubble」論述，Dow Jones Futures報導AI概念股重挫，資金轉向防禦</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：NVDA、AVGO、MU</span>
+      <span class="tag verdict-real">偏真實</span>
+    </div>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：台積電、AI伺服器供應鏈（廣達、緯創、鴻海）、記憶體族群（南亞科、華邦電）短線評價修正風險上升，需觀察外資是否同步調節台股AI權值股</span></div>
+  </div>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">油價回升帶動能源股走強</span>
+      <span class="tag confidence-mid">一致性：中</span>
+    </div>
+    <p class="theme-desc">原油價格反彈支撐能源類股逆勢走強，同時也是升息預期升溫的推手之一</p>
+    <div class="theme-meta"><span>推動因素：CPI報告顯示能源分項走高，Oracle財報優於預期部分抵銷油價上漲的負面情緒</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：XLE</span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：台塑化、中油相關供應鏈、absolute能源成本敏感產業（航運、塑化）可能受惠或受壓，需留意油價對通膨與升息預期的連動</span></div>
+  </div>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">軟體股相對抗跌</span>
+      <span class="tag confidence-mid">一致性：中</span>
+    </div>
+    <p class="theme-desc">在半導體與生技重挫之際，軟體類股逆勢上漲2.8%，顯示資金轉向現金流穩定、較不受利率敏感的雲端/SaaS族群</p>
+    <div class="theme-meta"><span>推動因素：Oracle財報優於預期激勵軟體類股，市場在升息陰霾下轉向防禦性成長股</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：IGV</span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：對台股傳導有限，台灣軟體/雲端服務類股比重小，可留意與美股連動較高的資安、雲端代理股是否同步表現較抗跌</span></div>
+  </div>
+  
+</section>
+<hr class="divider">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
