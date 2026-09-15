@@ -1,0 +1,217 @@
+{
+  "date": "2026-09-15",
+  "at": "2026-09-15 13:38:41",
+  "new_codes": [
+    "6590",
+    "6870",
+    "6221",
+    "6945",
+    "3467",
+    "8038",
+    "6218",
+    "6560",
+    "6226",
+    "6148",
+    "2468"
+  ],
+  "stocks": {
+    "6590": {
+      "code": "6590",
+      "name": "普鴻",
+      "tier": "A",
+      "peak_score": 100.0,
+      "first_seen": "2026-09-15 13:38:41",
+      "last_seen": "2026-09-15 13:38:41",
+      "signals": {
+        "change_pct": 9.92,
+        "rs_market": 10.69,
+        "rs_sector": 9.55,
+        "volume_ratio": 4.76,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "資訊服務業"
+      }
+    },
+    "6870": {
+      "code": "6870",
+      "name": "騰雲",
+      "tier": "A",
+      "peak_score": 91.8,
+      "first_seen": "2026-09-15 13:38:41",
+      "last_seen": "2026-09-15 13:38:41",
+      "signals": {
+        "change_pct": 8.05,
+        "rs_market": 8.82,
+        "rs_sector": 8.85,
+        "volume_ratio": 3.07,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "數位雲端"
+      }
+    },
+    "6221": {
+      "code": "6221",
+      "name": "晉泰",
+      "tier": "A",
+      "peak_score": 89.9,
+      "first_seen": "2026-09-15 13:38:41",
+      "last_seen": "2026-09-15 13:38:41",
+      "signals": {
+        "change_pct": 9.96,
+        "rs_market": 10.73,
+        "rs_sector": 9.59,
+        "volume_ratio": 3.33,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": false,
+        "industry": "資訊服務業"
+      }
+    },
+    "6945": {
+      "code": "6945",
+      "name": "圓祥生技",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-09-15 13:38:41",
+      "last_seen": "2026-09-15 13:38:41",
+      "signals": {
+        "change_pct": 9.72,
+        "rs_market": 10.49,
+        "rs_sector": 9.72,
+        "volume_ratio": 5.89,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "生技醫療業"
+      }
+    },
+    "3467": {
+      "code": "3467",
+      "name": "台灣精材",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-09-15 13:38:41",
+      "last_seen": "2026-09-15 13:38:41",
+      "signals": {
+        "change_pct": 9.94,
+        "rs_market": 10.71,
+        "rs_sector": 11.46,
+        "volume_ratio": 4.86,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "半導體業"
+      }
+    },
+    "8038": {
+      "code": "8038",
+      "name": "長園科",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-09-15 13:38:41",
+      "last_seen": "2026-09-15 13:38:41",
+      "signals": {
+        "change_pct": 10.0,
+        "rs_market": 10.77,
+        "rs_sector": 11.14,
+        "volume_ratio": 6.01,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "電子零組件業"
+      }
+    },
+    "6218": {
+      "code": "6218",
+      "name": "豪勉",
+      "tier": "A",
+      "peak_score": 87.7,
+      "first_seen": "2026-09-15 13:38:41",
+      "last_seen": "2026-09-15 13:38:41",
+      "signals": {
+        "change_pct": 9.93,
+        "rs_market": 10.7,
+        "rs_sector": 10.84,
+        "volume_ratio": 2.6,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "通信網路業"
+      }
+    },
+    "6560": {
+      "code": "6560",
+      "name": "欣普羅",
+      "tier": "A",
+      "peak_score": 86.9,
+      "first_seen": "2026-09-15 13:38:41",
+      "last_seen": "2026-09-15 13:38:41",
+      "signals": {
+        "change_pct": 3.75,
+        "rs_market": 4.52,
+        "rs_sector": 5.02,
+        "volume_ratio": 50.44,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "光電業"
+      }
+    },
+    "6226": {
+      "code": "6226",
+      "name": "光鼎",
+      "tier": "A",
+      "peak_score": 86.1,
+      "first_seen": "2026-09-15 13:38:41",
+      "last_seen": "2026-09-15 13:38:41",
+      "signals": {
+        "change_pct": 10.0,
+        "rs_market": 10.77,
+        "rs_sector": 11.27,
+        "volume_ratio": 2.42,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "光電業"
+      }
+    },
+    "6148": {
+      "code": "6148",
+      "name": "驊宏資",
+      "tier": "A",
+      "peak_score": 85.4,
+      "first_seen": "2026-09-15 13:38:41",
+      "last_seen": "2026-09-15 13:38:41",
+      "signals": {
+        "change_pct": 9.97,
+        "rs_market": 10.74,
+        "rs_sector": 9.6,
+        "volume_ratio": 3.54,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "資訊服務業"
+      }
+    },
+    "2468": {
+      "code": "2468",
+      "name": "華經",
+      "tier": "A",
+      "peak_score": 83.0,
+      "first_seen": "2026-09-15 13:38:41",
+      "last_seen": "2026-09-15 13:38:41",
+      "signals": {
+        "change_pct": 9.91,
+        "rs_market": 10.68,
+        "rs_sector": 9.54,
+        "volume_ratio": 3.26,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "資訊服務業"
+      }
+    }
+  }
+}
