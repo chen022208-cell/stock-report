@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>盤後快訊</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>盤後快訊 · 2026年9月17日．週四</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 <meta name="theme-color" content="#060911">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -380,64 +380,76 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  .news-row{display:flex; align-items:flex-start; gap:10px; padding:11px 0;
-            border-bottom:1px solid var(--hairline); text-decoration:none; color:inherit;}
-  .news-row:last-child{border-bottom:none;}
-  .news-row:active{opacity:.7;}
-  .news-row .nr-main{flex:1; min-width:0;}
-  .news-row .nr-title{font-size:14px; font-weight:600; line-height:1.5;}
-  .news-row .nr-sum{font-size:12px; color:var(--text-muted); margin-top:3px; line-height:1.5;}
-  .tag.v-verified{background:rgba(63,199,126,.16); color:var(--green);}
-  .tag.v-conflicting{background:rgba(244,87,90,.16); color:var(--red);}
-  .tag.v-unverified{background:rgba(154,167,191,.14); color:var(--text-muted);}
-  .hero-num{font-family:'JetBrains Mono',monospace; font-size:34px; font-weight:500;}
-  .hero-chg{font-family:'JetBrains Mono',monospace; font-size:14px; margin-left:8px;}
-  .live-note{font-size:11.5px; color:var(--text-muted); margin-top:8px; line-height:1.6;}
-  .live-note:empty{display:none;}
-  .section-title{font-size:12.5px; color:var(--text-muted); text-transform:uppercase;
-                 letter-spacing:.04em; margin:22px 0 10px; display:flex;
-                 justify-content:space-between; align-items:center;}
-  .section-title a{font-size:12px; color:var(--gold); text-decoration:none;
-                   text-transform:none; letter-spacing:0;}
-  .industry-strip{display:flex; gap:8px; overflow-x:auto; -webkit-overflow-scrolling:touch;
-                  scrollbar-width:none; padding-bottom:2px;}
-  .industry-strip::-webkit-scrollbar{display:none;}
-  .industry-chip{flex-shrink:0; min-width:104px; background:var(--surface);
-                 border-radius:var(--radius-sm); padding:11px 13px; border:1px solid var(--hairline);}
-  .industry-chip .ic-name{font-size:12.5px; color:var(--text-secondary); margin-bottom:5px;}
-  .industry-chip .ic-pct{font-family:'JetBrains Mono',monospace; font-size:16px; font-weight:600;}
-  .industry-chip .ic-count{font-size:11px; color:var(--text-muted); margin-top:4px;}
-  a.industry-chip{text-decoration:none; transition:background .15s, border-color .15s;}
-  a.industry-chip:hover{background:var(--surface-2); border-color:var(--gold);}
-  .theme-row-mini{display:flex; align-items:center; gap:10px; padding:11px 0;
-                  border-bottom:1px solid var(--hairline);}
-  .theme-row-mini:last-child{border-bottom:none;}
-  a.theme-row-mini{text-decoration:none; color:inherit;}
-  a.theme-row-mini:active{opacity:.7;}
-  .theme-row-mini .trm-name{flex:1; font-size:14px; font-weight:500;}
-  .theme-row-mini .trm-sum{font-size:12px; color:var(--text-muted); margin-top:2px;}
-  .top-score-card{display:flex; justify-content:space-between; align-items:center;
-                 text-decoration:none; color:inherit; transition:background .15s;}
-  .top-score-card:hover{background:var(--surface-2);}
-  .top-score-card:active{transform:scale(.98);}
-  .top-score-card .tsc-name{font-size:15px; font-weight:600; margin-bottom:3px;}
-  .top-score-card .tsc-sub{font-size:12px; color:var(--text-muted);}
-  .top-score-card .tsc-num{font-family:'JetBrains Mono',monospace; font-size:26px;
-                           color:var(--c-score); font-weight:600;}
-  .watch-note{font-size:12.5px; color:var(--text-muted); margin:-4px 0 10px; line-height:1.6;}
-  .watch-list{display:flex; flex-direction:column; gap:8px;}
-  .watch-card{display:flex; justify-content:space-between; align-items:center; gap:12px;
-              text-decoration:none; color:inherit; transition:background .15s;}
-  .watch-card:hover{background:var(--surface-2);}
-  .watch-card:active{transform:scale(.98);}
-  .watch-card .wc-main{min-width:0;}
-  .watch-card .wc-name{font-size:15px; font-weight:600; margin-bottom:3px;}
-  .watch-card .wc-code{font-family:'JetBrains Mono',monospace; font-size:12px;
-                       color:var(--text-muted); font-weight:400;}
-  .watch-card .wc-note{font-size:12px; color:var(--text-muted); line-height:1.5;}
-  .watch-card .wc-pct{font-family:'JetBrains Mono',monospace; font-size:17px;
-                      font-weight:600; flex-shrink:0;}
-  .ql-icon{font-size:15px;}
+  .hero-eyebrow{font-size:13px; color:var(--text-muted); margin-bottom:6px;
+               display:flex; align-items:center; gap:6px;}
+  .hero-number{font-family:'JetBrains Mono',monospace; font-size:38px;
+               font-weight:500; letter-spacing:-.01em;}
+  .hero-change{font-family:'JetBrains Mono',monospace; font-size:15px; margin-left:10px;}
+
+  .watch-hits{background:rgba(227,172,78,.09); border-left:3px solid var(--gold);
+              border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:13px 16px; margin-bottom:18px;}
+  .watch-hits .wh-label{font-size:12px; color:var(--gold); margin-bottom:7px; font-weight:600;}
+  .watch-hits .wh-item{font-size:14px; color:var(--text-secondary); margin-bottom:4px;}
+  .watch-hits .wh-item strong{color:var(--text-primary); font-weight:500;}
+
+  .inst-row{display:flex; align-items:center; gap:10px; margin-bottom:9px; font-size:13.5px;}
+  .inst-row:last-child{margin-bottom:0;}
+  .inst-row .inst-name{width:52px; color:var(--text-secondary); flex-shrink:0;}
+  .inst-row .bar-track{flex:1; height:6px; background:var(--surface-2);
+                       border-radius:3px; position:relative; overflow:hidden;}
+  .inst-row .bar-fill{position:absolute; top:0; bottom:0; border-radius:3px;}
+  .inst-row .bar-fill.up{background:var(--red); left:50%;}
+  .inst-row .bar-fill.down{background:var(--green); right:50%;}
+  .inst-row .inst-value{width:80px; text-align:right;
+                        font-family:'JetBrains Mono',monospace; flex-shrink:0;}
+
+  .theme-entry{background:var(--surface); border:1px solid var(--hairline);
+              border-left:3px solid var(--c-theme); border-radius:var(--radius-sm);
+              padding:14px 16px; margin-bottom:12px;}
+  .theme-entry:last-child{margin-bottom:0;}
+  .theme-header{display:flex; justify-content:space-between; align-items:baseline;
+                gap:12px; margin-bottom:7px; flex-wrap:wrap;}
+  .theme-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px;}
+  .theme-desc{font-size:14px; color:var(--text-secondary); margin-bottom:7px;}
+  .theme-meta{display:flex; justify-content:space-between; align-items:center;
+              font-size:12.5px; color:var(--text-muted); flex-wrap:wrap; gap:8px;}
+  .theme-link{font-size:12.5px; color:var(--gold); text-decoration:none;
+              display:inline-block; margin-top:7px;}
+  .theme-link:hover{text-decoration:underline;}
+
+  .darkhorse-entry{background:var(--surface); border:1px solid var(--hairline);
+                   border-left:3px solid var(--c-warn); border-radius:var(--radius-sm);
+                   padding:14px 16px; margin-bottom:10px;}
+  .darkhorse-entry:last-child{margin-bottom:0;}
+  .darkhorse-name{font-family:'Noto Serif TC',serif; font-weight:600;
+                  font-size:16px; margin-bottom:9px;}
+  .darkhorse-grid{display:grid; grid-template-columns:1fr 1fr;
+                  gap:7px 20px; font-size:13px; margin-bottom:10px;}
+  .darkhorse-grid .dh-label{color:var(--text-muted);}
+  .darkhorse-grid .dh-value{font-family:'JetBrains Mono',monospace;}
+  .darkhorse-note{font-size:13px; color:var(--text-secondary);
+                  border-top:1px solid var(--hairline); padding-top:9px;}
+
+  .tech-table{width:100%; border-collapse:collapse;}
+  .tech-table th{text-align:left; font-size:11.5px; font-weight:400;
+                 color:var(--text-muted); padding-bottom:9px;
+                 border-bottom:1px solid var(--hairline);}
+  .tech-table td{padding:10px 0; border-bottom:1px solid var(--hairline);
+                 font-size:13.5px; vertical-align:top;}
+  .tech-table tr:last-child td{border-bottom:none;}
+  .signal-bull{color:var(--red);} .signal-warn{color:var(--gold);}
+  .signal-neutral{color:var(--text-secondary);} .signal-bear{color:var(--green);}
+  .t-note{color:var(--text-muted); font-size:12.5px;}
+
+  .call-item{display:flex; justify-content:space-between; gap:12px;
+             padding:9px 0; border-bottom:1px solid var(--hairline); font-size:13.5px;}
+  .call-item:last-child{border-bottom:none;}
+  .call-note{color:var(--text-muted); font-size:12.5px;}
+
+  @media (max-width:480px){
+    .hero-number{font-size:32px;}
+    .darkhorse-grid{grid-template-columns:1fr;}
+  }
 
 </style>
 </head>
@@ -449,260 +461,159 @@
     <button class="dr-close" id="drClose" aria-label="關閉選單">✕</button>
   </div>
   <h4>市場</h4>
-  <a href="index.html" class="current"><span class="dr-ic">🏠</span>最新</a>
-  <a href="heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
-  <a href="chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
-  <a href="scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
-  <a href="picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
-  <a href="intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
-  <a href="lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
-  <a href="watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
-  <a href="disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
+  <a href="../index.html" class=""><span class="dr-ic">🏠</span>最新</a>
+  <a href="../heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
+  <a href="../chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
+  <a href="../scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
+  <a href="../picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
+  <a href="../intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
+  <a href="../lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
+  <a href="../watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
+  <a href="../disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
   <h4>研究</h4>
-  <a href="themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
-  <a href="industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
-  <a href="weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
-  <a href="monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
-  <a href="analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
-  <a href="archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
-  <a href="research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
-  <a href="submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
+  <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
+  <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
+  <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
+  <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
+  <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
+  <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
+  <a href="../research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
+  <a href="../submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
 </nav>
 
 <div class="page">
   <div class="topbar">
     <button class="menu-btn" id="menuBtn" aria-label="開啟選單">☰</button>
-    <a href="index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
-    <a href="lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
-    <a href="watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
-    <a href="intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
+    <a href="../index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
+    <a href="../lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
+    <a href="../watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
+    <a href="../intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
   </div>
 
   
+<header style="margin-bottom:14px">
+  <div class="masthead-label">盤後快訊 · 早報 · 國際盤摘要</div>
+  <h1 class="masthead-date">2026年9月17日．週四</h1>
+</header>
 
 
 
-<div class="card" data-report-date="2026-09-16">
-  <div class="stat-tile-label"><span class="dot c-market"></span>加權指數
-    <span class="live-badge">LIVE</span>
-    <span class="mono" data-live="as-of" style="margin-left:auto; color:var(--text-muted); font-size:11px"></span></div>
-  <span class="hero-num" data-live="taiex">45,849</span><span
-    class="hero-chg up"
-    data-live="taiex-chg" data-live-base="hero-chg">▲ 337.41（0.74%）</span>
-  <div class="live-note" data-live="note"></div>
-  <div class="card-grid cols-3" style="margin-top:14px">
+
+
+
+
+
+<section class="block">
+  <h2>國際盤摘要</h2>
+  <div class="stat-grid">
     
-    <div class="stat-tile c-market"><div class="stat-tile-label">成交值</div>
-      <div class="stat-tile-value">6,760億</div></div>
+    <div class="stat"><span class="stat-label">道瓊</span>
+      <span class="stat-value down">51,462 -1.21%</span></div>
+    
+    <div class="stat"><span class="stat-label">那斯達克</span>
+      <span class="stat-value down">25,978 -0.01%</span></div>
+    
+    <div class="stat"><span class="stat-label">S&amp;P 500</span>
+      <span class="stat-value down">7,552 -0.45%</span></div>
+    
+    <div class="stat"><span class="stat-label">費半 SOX</span>
+      <span class="stat-value up">11,246 +0.63%</span></div>
     
     
-    <div class="stat-tile c-chip"><div class="stat-tile-label">三大法人</div>
-      
-      
-      <div class="stat-tile-value down">-214億</div>
-      
-    </div>
+    <div class="stat"><span class="stat-label">美元指數</span>
+      <span class="stat-value mono">100.34（+0.69%）</span></div>
     
-    <div class="stat-tile c-market"><div class="stat-tile-label">漲跌家數</div>
-      <div class="stat-tile-value" style="font-size:14px">1470/498</div></div>
+    <div class="stat"><span class="stat-label">西德州原油</span>
+      <span class="stat-value mono">101.94（-3.68%）</span></div>
+    
+    <div class="stat"><span class="stat-label">黃金</span>
+      <span class="stat-value mono">4,305.2（-0.64%）</span></div>
+    
+    <div class="stat"><span class="stat-label">10年美債殖利率</span>
+      <span class="stat-value mono">5.01%（+0.20%）</span></div>
+    
+    <div class="stat"><span class="stat-label">VIX 波動率</span>
+      <span class="stat-value mono">17.71（+2.97%）</span></div>
+    
+    <div class="stat"><span class="stat-label">台積電 ADR</span>
+      <span class="stat-value mono">417.72（+0.96%）</span></div>
     
   </div>
-</div>
-
-
-
-<div class="section-title">產業熱力 <a href="heatmap.html">看全部 →</a></div>
-<div class="industry-strip">
-  
-  <a class="industry-chip" href="heatmap.html#ind-半導體業">
-    <div class="ic-name">半導體業</div>
-    <div class="ic-pct up">+0.7%</div>
-    <div class="ic-count">96 檔 →</div>
-  </a>
-  
-  <a class="industry-chip" href="heatmap.html#ind-油電燃氣業">
-    <div class="ic-name">油電燃氣業</div>
-    <div class="ic-pct up">+0.7%</div>
-    <div class="ic-count">8 檔 →</div>
-  </a>
-  
-  <a class="industry-chip" href="heatmap.html#ind-電子零組件業">
-    <div class="ic-name">電子零組件業</div>
-    <div class="ic-pct up">+0.6%</div>
-    <div class="ic-count">104 檔 →</div>
-  </a>
-  
-  <a class="industry-chip" href="heatmap.html#ind-數位雲端">
-    <div class="ic-name">數位雲端</div>
-    <div class="ic-pct up">+0.5%</div>
-    <div class="ic-count">13 檔 →</div>
-  </a>
-  
-</div>
+  <p class="commentary">隔夜最大變數是10年美債殖利率一口氣衝破5%、創逾十餘年新高，Fed升息一碼並暗示年內還有一次的鷹派訊號主導整體氣氛，道瓊重挫1.21%領跌、VIX同步彈升近3%反映資金轉趨防禦。不過台股連動的關鍵指標明顯背離：費半SOX逆勢收紅0.63%、台積電ADR更上漲0.96%，跟殖利率飆升理應壓抑高本益比半導體股評價的邏輯不一致，顯示外資對AI核心供應鏈的評價修正疑慮目前仍停留在價格面敘事，尚未反映在隔夜實際交易上。那斯達克幾乎持平（-0.01%）也印證這波賣壓集中在道瓊代表的傳產與金融類股，並非全面性科技拋售，跟近5日SMH重挫5%的中期修正走勢形成短期與中期的落差，值得觀察是否只是技術性反彈。原油同步重挫3.68%反映需求面疑慮，黃金同步下跌0.64%顯示升息預期升溫壓抑無息資產，美元指數走升0.69%則進一步收緊新興市場資金環境。整體而言，隔夜盤面表面利空（殖利率破5%、VIX走升），但台股權值指標（SOX、台積電ADR）不跌反漲，今天開盤能否延續這股逆勢抗跌力道，是判斷外資對台股半導體供應鏈態度是否真正轉弱的關鍵觀察點。</p>
+</section>
+<hr class="divider">
 
 
 
 
-<div class="section-title">
-  值得關注 · 起漲點
-  <a href="picks.html">看全部 →</a>
-</div>
-<div class="watch-note">
-  剛站上月線／季線且量能放大的個股，已經漲多的不列入。這是觀察名單，不是買進建議。
+
+
+
+<section class="block">
+  <h2>國際題材追蹤</h2>
+  <p class="commentary" style="margin-bottom:16px">Fed如市場預期鷹派升息並暗示年內還有一次，10年期公債殖利率衝上逾十年新高，帶動美股普遍走弱，高估值半導體跌幅最深、軟體逆勢抗跌，金融與能源同步下滑顯示資金氛圍偏防禦。</p>
   
-</div>
-<div class="watch-list">
-  
-  <a href="picks.html" class="card watch-card">
-    <div class="wc-main">
-      <div class="wc-name" data-stock-code="5269" data-stock-name="祥碩">
-        祥碩 <span class="wc-code">5269</span>
-      </div>
-      <div class="wc-note">今天剛站上月線、季線，量能達 20 日均量 3.33 倍</div>
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">Fed鷹派升息、殖利率走高衝擊估值</span>
+      <span class="tag confidence-high">一致性：高</span>
     </div>
-    
-    <div class="wc-pct up">+7.66%</div>
-    
-  </a>
-  
-</div>
-
-
-
-
-<div class="section-title">最新財經快訊 <a href="research.html">看全部 →</a></div>
-<div class="card">
-  
-  <a class="news-row" href="research.html">
-    <div class="nr-main">
-      <div class="nr-title">即時快訊</div>
-      <div class="nr-sum">巴西央行宣布降息25個基點，基準利率降至13.75%。</div>
+    <p class="theme-desc">Fed升息一碼並釋出年內還有一次升息訊號，10年期公債殖利率升破2007年以來新高，美股類股全面走弱</p>
+    <div class="theme-meta"><span>推動因素：Fed FOMC決議升息、會後聲明偏鷹、10年期公債殖利率觸及約5%（逾十餘年新高）、核心通膨數據升溫推升再升息機率</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：SPY、TLT、XLF</span>
+      <span class="tag verdict-real">偏真實</span>
     </div>
-    <span class="tag v-unverified">無法獨立驗證</span>
-  </a>
-  
-  <a class="news-row" href="research.html">
-    <div class="nr-main">
-      <div class="nr-title">即時快訊</div>
-      <div class="nr-sum">美聯社報導，美軍參謋長聯席會議主席丹·凱恩表示，美軍除了要為地球軌道作戰做準備，也需要為月球周邊空間的作戰做好準備，屬於…</div>
-    </div>
-    <span class="tag v-unverified">無法獨立驗證</span>
-  </a>
-  
-  <a class="news-row" href="research.html">
-    <div class="nr-main">
-      <div class="nr-title">标普500创下2018年以来最长“美联储决议日”连跌纪录</div>
-      <div class="nr-sum">9月16日標普500指數下跌0.45%，是聯準會利率決議公布後連續第六次下跌，彭博數據顯示這是2018年以來（當年連跌七…</div>
-    </div>
-    <span class="tag v-unverified">無法獨立驗證</span>
-  </a>
-  
-  <a class="news-row" href="research.html">
-    <div class="nr-main">
-      <div class="nr-title">7月外国持有美债降至9个月低点</div>
-      <div class="nr-sum">根據美國財政部TIC報告，7月外國持有美債總量降至9個月低點。日本當月持有美債減少128億美元至1.1兆美元（同月干預匯…</div>
-    </div>
-    <span class="tag v-unverified">無法獨立驗證</span>
-  </a>
-  
-  <a class="news-row" href="research.html">
-    <div class="nr-main">
-      <div class="nr-title">特朗普称美国利率应降至1%以下，敦促美联储快速降息</div>
-      <div class="nr-sum">美國總統川普在社群媒體上表示美國利率應降至1%以下，並再次要求聯準會加速降息，理由是美國信用最佳、經濟正在吸引投資。他同…</div>
-    </div>
-    <span class="tag v-unverified">無法獨立驗證</span>
-  </a>
-  
-</div>
-
-
-
-<div class="section-title">風險提醒</div>
-<a href="disposition.html" class="quicklink" style="display:block">
-  <div class="ql-title">⚠️ 10 檔處置中或接近門檻</div>
-  <div class="ql-desc">點看完整名單與處置措施</div>
-</a>
-
-
-<div class="section-title">快速前往</div>
-<div class="quicklink-grid">
-  <a href="heatmap.html" class="quicklink">
-    <div class="ql-title"><span class="ql-icon">🔥</span>產業熱力圖</div>
-    <div class="ql-desc">依產業別當日漲跌</div>
-  </a>
-  <a href="chips.html" class="quicklink">
-    <div class="ql-title"><span class="ql-icon">💰</span>籌碼儀表板</div>
-    <div class="ql-desc">法人／資券／大戶</div>
-  </a>
-  <a href="scores.html" class="quicklink">
-    <div class="ql-title"><span class="ql-icon">⭐</span>五面向評分</div>
-    <div class="ql-desc">技術/籌碼/基本/題材/新聞</div>
-  </a>
-  <a href="picks.html" class="quicklink">
-    <div class="ql-title"><span class="ql-icon">🎯</span>選股雷達</div>
-    <div class="ql-desc">起漲點／新掛牌興櫃／黑馬</div>
-  </a>
-  <a href="disposition.html" class="quicklink">
-    <div class="ql-title"><span class="ql-icon">⚠️</span>處置股預警</div>
-    <div class="ql-desc">處置中／接近門檻</div>
-  </a>
-  <a href="themes.html" class="quicklink">
-    <div class="ql-title"><span class="ql-icon">📚</span>題材知識庫</div>
-    <div class="ql-desc">追蹤中／休眠題材</div>
-  </a>
-  <a href="archive.html" class="quicklink">
-    <div class="ql-title"><span class="ql-icon">🗂️</span>歷史報告</div>
-    <div class="ql-desc">每日／週／月報存檔</div>
-  </a>
-  <a href="lookup.html" class="quicklink">
-    <div class="ql-title"><span class="ql-icon">🔍</span>個股查詢</div>
-    <div class="ql-desc">搜尋任一股票即時圖表</div>
-  </a>
-  <a href="research.html" class="quicklink">
-    <div class="ql-title"><span class="ql-icon">📥</span>研究筆記</div>
-    <div class="ql-desc">已提交研究的驗證結果</div>
-  </a>
-  <a href="submit.html" class="quicklink">
-    <div class="ql-title"><span class="ql-icon">📤</span>提交研究</div>
-    <div class="ql-desc">貼文章或連結給系統分析</div>
-  </a>
-</div>
-
-
-<div class="section-title">近期報告 <a href="archive.html">看全部 →</a></div>
-<div class="card" style="padding:6px 16px">
-  
-  <div class="theme-row-mini">
-    <a href="reports/2026-09-17-morning.html" style="flex:1; text-decoration:none">2026年9月17日．週四　早報</a>
-    <span class="mono" style="font-size:12px; color:var(--text-muted)">2026-09-17</span>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：台股高本益比成長股（半導體、AI供應鏈）估值面臨壓力，外資在美元利率走升下對新興市場部位轉趨謹慎，金融股雖利差擴大但海外債券部位有評價損失風險</span></div>
   </div>
   
-  <div class="theme-row-mini">
-    <a href="reports/2026-09-16-morning.html" style="flex:1; text-decoration:none">2026年9月16日．週三　早報</a>
-    <span class="mono" style="font-size:12px; color:var(--text-muted)">2026-09-16</span>
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">半導體估值修正、資金duration敏感度升高</span>
+      <span class="tag confidence-mid">一致性：中</span>
+    </div>
+    <p class="theme-desc">SMH近5日重挫5%、明顯落後大盤，但頭條缺乏針對半導體產業的具體利空敘事，較像是殖利率上升下的評價面連動修正</p>
+    <div class="theme-meta"><span>推動因素：殖利率飆升壓抑高本益比、長存續期成長股評價，AI資本支出疑慮目前僅止於價格面領先反應、未見對應頭條佐證</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：NVDA、AVGO、SMH</span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：台積電及設備／材料供應鏈若外資因美債殖利率上升而調節AI相關持股部位，短線評價恐承壓，但先進製程需求基本面尚未出現頭條層級利空，需留意是否僅為短期資金面修正</span></div>
   </div>
   
-  <div class="theme-row-mini">
-    <a href="reports/2026-09-16-evening.html" style="flex:1; text-decoration:none">2026年9月16日．週三　盤後</a>
-    <span class="mono" style="font-size:12px; color:var(--text-muted)">2026-09-16</span>
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">軟體股逆勢抗跌</span>
+      <span class="tag confidence-low">一致性：低</span>
+    </div>
+    <p class="theme-desc">IGV近5日逆勢上漲3.1%、相對大盤超額報酬達4.2pt，與整體風險趨避氛圍背離，但頭條並無對應軟體產業敘事支撐</p>
+    <div class="theme-meta"><span>推動因素：頭條缺乏軟體類股具體驅動事件，可能反映個別成分股財報／防禦性資金輪動，證據力不足，須待更多頭條佐證才能判斷是否為趨勢性輪動</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：IGV、MSFT、CRM</span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：台灣雲端／軟體服務相關個股非本波風險趨避的主要受影響族群，傳導路徑有限，可觀察後續是否出現資金由硬體轉往軟體的輪動跡象</span></div>
   </div>
   
-  <div class="theme-row-mini">
-    <a href="reports/2026-09-15-morning.html" style="flex:1; text-decoration:none">2026年9月15日．週二　早報</a>
-    <span class="mono" style="font-size:12px; color:var(--text-muted)">2026-09-15</span>
-  </div>
-  
-  <div class="theme-row-mini">
-    <a href="reports/2026-09-15-evening.html" style="flex:1; text-decoration:none">2026年9月15日．週二　盤後</a>
-    <span class="mono" style="font-size:12px; color:var(--text-muted)">2026-09-15</span>
-  </div>
-  
-  <div class="theme-row-mini">
-    <a href="reports/2026-09-14-holiday.html" style="flex:1; text-decoration:none">2026年9月14日．週一　假日功課</a>
-    <span class="mono" style="font-size:12px; color:var(--text-muted)">2026-09-14</span>
-  </div>
-  
-</div>
+</section>
+<hr class="divider">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -717,13 +628,13 @@
 
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
   }
-  window.__rel = "";
+  window.__rel = "../";
 </script>
-<script src="assets/ui.js?v=12ed3d4a"></script>
+<script src="../assets/ui.js?v=12ed3d4a"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=12ed3d4a"></script>
+<script src="../assets/stock-chart.js?v=12ed3d4a"></script>
 
 </body>
 </html>
