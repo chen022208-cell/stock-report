@@ -537,14 +537,6 @@
       "has_score": true
     },
     {
-      "code": "7934",
-      "name": "鋒霈環境科技",
-      "industry": "",
-      "market": "esb",
-      "change_pct": 0.12,
-      "has_score": true
-    },
-    {
       "code": "7935",
       "name": "安富",
       "industry": "通信網路業",
@@ -598,14 +590,6 @@
       "industry": "電腦及週邊設備業",
       "market": "esb",
       "change_pct": -2.6,
-      "has_score": true
-    },
-    {
-      "code": "7947",
-      "name": "補丁科",
-      "industry": "",
-      "market": "esb",
-      "change_pct": -10.25,
       "has_score": true
     },
     {
