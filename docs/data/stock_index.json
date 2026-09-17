@@ -1,6 +1,30 @@
 {
   "stocks": [
     {
+      "code": "1314",
+      "name": "中石化",
+      "industry": "塑膠工業",
+      "market": "twse",
+      "change_pct": -0.25,
+      "has_score": true
+    },
+    {
+      "code": "1560",
+      "name": "中砂",
+      "industry": "電機機械",
+      "market": "twse",
+      "change_pct": 5.04,
+      "has_score": true
+    },
+    {
+      "code": "1727",
+      "name": "中華化",
+      "industry": "化學工業",
+      "market": "twse",
+      "change_pct": -3.91,
+      "has_score": true
+    },
+    {
       "code": "1780",
       "name": "立弘",
       "industry": "其他",
@@ -9,27 +33,11 @@
       "has_score": true
     },
     {
-      "code": "2061",
-      "name": "風青",
-      "industry": "其他",
-      "market": "tpex",
-      "change_pct": -3.15,
-      "has_score": true
-    },
-    {
-      "code": "2302",
-      "name": "麗正",
-      "industry": "半導體業",
+      "code": "2493",
+      "name": "揚博",
+      "industry": "電子零組件業",
       "market": "twse",
-      "change_pct": 0.46,
-      "has_score": true
-    },
-    {
-      "code": "2338",
-      "name": "光罩",
-      "industry": "半導體業",
-      "market": "twse",
-      "change_pct": -0.13,
+      "change_pct": 1.38,
       "has_score": true
     },
     {
@@ -38,6 +46,14 @@
       "industry": "居家生活",
       "market": "esb",
       "change_pct": null,
+      "has_score": true
+    },
+    {
+      "code": "3138",
+      "name": "耀登",
+      "industry": "通信網路業",
+      "market": "twse",
+      "change_pct": -1.99,
       "has_score": true
     },
     {
@@ -73,35 +89,19 @@
       "has_score": true
     },
     {
-      "code": "4540",
-      "name": "全球傳動",
-      "industry": "電機機械",
+      "code": "4916",
+      "name": "事欣科",
+      "industry": "電腦及週邊設備業",
       "market": "twse",
-      "change_pct": -1.64,
+      "change_pct": -0.21,
       "has_score": true
     },
     {
-      "code": "4956",
-      "name": "光鋐",
+      "code": "4960",
+      "name": "誠美材",
       "industry": "光電業",
       "market": "twse",
-      "change_pct": -6.77,
-      "has_score": true
-    },
-    {
-      "code": "5269",
-      "name": "祥碩",
-      "industry": "半導體業",
-      "market": "twse",
-      "change_pct": 0.7,
-      "has_score": true
-    },
-    {
-      "code": "5464",
-      "name": "霖宏",
-      "industry": "其他",
-      "market": "tpex",
-      "change_pct": 9.93,
+      "change_pct": -0.47,
       "has_score": true
     },
     {
@@ -113,6 +113,14 @@
       "has_score": true
     },
     {
+      "code": "6133",
+      "name": "金橋",
+      "industry": "電子零組件業",
+      "market": "twse",
+      "change_pct": 4.42,
+      "has_score": true
+    },
+    {
       "code": "6168",
       "name": "宏齊",
       "industry": "光電業",
@@ -121,35 +129,11 @@
       "has_score": true
     },
     {
-      "code": "6291",
-      "name": "沛亨",
-      "industry": "其他",
-      "market": "tpex",
-      "change_pct": -3.07,
-      "has_score": true
-    },
-    {
-      "code": "6588",
-      "name": "東典光電",
-      "industry": "其他",
-      "market": "tpex",
-      "change_pct": 8.76,
-      "has_score": true
-    },
-    {
-      "code": "6683",
-      "name": "雍智科技",
-      "industry": "其他",
-      "market": "tpex",
-      "change_pct": 3.68,
-      "has_score": true
-    },
-    {
-      "code": "6715",
-      "name": "嘉基",
-      "industry": "電子零組件業",
+      "code": "6933",
+      "name": "AMAX-KY",
+      "industry": "電腦及週邊設備業",
       "market": "twse",
-      "change_pct": 5.94,
+      "change_pct": -1.26,
       "has_score": true
     },
     {
@@ -166,6 +150,14 @@
       "industry": "數位雲端",
       "market": "esb",
       "change_pct": -1.81,
+      "has_score": true
+    },
+    {
+      "code": "6957",
+      "name": "裕慶-KY",
+      "industry": "其他業",
+      "market": "twse",
+      "change_pct": 0.68,
       "has_score": true
     },
     {
@@ -545,6 +537,14 @@
       "has_score": true
     },
     {
+      "code": "7934",
+      "name": "鋒霈環境科技",
+      "industry": "",
+      "market": "esb",
+      "change_pct": 0.12,
+      "has_score": true
+    },
+    {
       "code": "7935",
       "name": "安富",
       "industry": "通信網路業",
@@ -598,6 +598,14 @@
       "industry": "電腦及週邊設備業",
       "market": "esb",
       "change_pct": -2.6,
+      "has_score": true
+    },
+    {
+      "code": "7947",
+      "name": "補丁科",
+      "industry": "",
+      "market": "esb",
+      "change_pct": -10.25,
       "has_score": true
     },
     {
@@ -3009,14 +3017,6 @@
       "has_score": false
     },
     {
-      "code": "1314",
-      "name": "中石化",
-      "industry": "塑膠工業",
-      "market": "twse",
-      "change_pct": -0.25,
-      "has_score": false
-    },
-    {
       "code": "1315",
       "name": "達新",
       "industry": "塑膠工業",
@@ -3793,14 +3793,6 @@
       "has_score": false
     },
     {
-      "code": "1560",
-      "name": "中砂",
-      "industry": "電機機械",
-      "market": "twse",
-      "change_pct": 5.04,
-      "has_score": false
-    },
-    {
       "code": "1563",
       "name": "巧新",
       "industry": "汽車工業",
@@ -4206,14 +4198,6 @@
       "industry": "化學工業",
       "market": "twse",
       "change_pct": 0.52,
-      "has_score": false
-    },
-    {
-      "code": "1727",
-      "name": "中華化",
-      "industry": "化學工業",
-      "market": "twse",
-      "change_pct": -3.91,
       "has_score": false
     },
     {
@@ -4769,6 +4753,14 @@
       "has_score": false
     },
     {
+      "code": "2061",
+      "name": "風青",
+      "industry": "其他",
+      "market": "tpex",
+      "change_pct": -3.15,
+      "has_score": false
+    },
+    {
       "code": "2062",
       "name": "橋椿",
       "industry": "38",
@@ -5177,6 +5169,14 @@
       "has_score": false
     },
     {
+      "code": "2302",
+      "name": "麗正",
+      "industry": "半導體業",
+      "market": "twse",
+      "change_pct": 0.46,
+      "has_score": false
+    },
+    {
       "code": "2303",
       "name": "聯電",
       "industry": "半導體業",
@@ -5318,6 +5318,14 @@
       "industry": "半導體業",
       "market": "twse",
       "change_pct": 2.47,
+      "has_score": false
+    },
+    {
+      "code": "2338",
+      "name": "光罩",
+      "industry": "半導體業",
+      "market": "twse",
+      "change_pct": -0.13,
       "has_score": false
     },
     {
@@ -6206,14 +6214,6 @@
       "industry": "電子零組件業",
       "market": "twse",
       "change_pct": 8.21,
-      "has_score": false
-    },
-    {
-      "code": "2493",
-      "name": "揚博",
-      "industry": "電子零組件業",
-      "market": "twse",
-      "change_pct": 1.38,
       "has_score": false
     },
     {
@@ -8198,14 +8198,6 @@
       "industry": "半導體業",
       "market": "twse",
       "change_pct": 0.0,
-      "has_score": false
-    },
-    {
-      "code": "3138",
-      "name": "耀登",
-      "industry": "通信網路業",
-      "market": "twse",
-      "change_pct": -1.99,
       "has_score": false
     },
     {
@@ -10913,6 +10905,14 @@
       "has_score": false
     },
     {
+      "code": "4540",
+      "name": "全球傳動",
+      "industry": "電機機械",
+      "market": "twse",
+      "change_pct": -1.64,
+      "has_score": false
+    },
+    {
       "code": "4541",
       "name": "晟田",
       "industry": "其他",
@@ -11665,14 +11665,6 @@
       "has_score": false
     },
     {
-      "code": "4916",
-      "name": "事欣科",
-      "industry": "電腦及週邊設備業",
-      "market": "twse",
-      "change_pct": -0.21,
-      "has_score": false
-    },
-    {
       "code": "4919",
       "name": "新唐",
       "industry": "半導體業",
@@ -11833,19 +11825,19 @@
       "has_score": false
     },
     {
+      "code": "4956",
+      "name": "光鋐",
+      "industry": "光電業",
+      "market": "twse",
+      "change_pct": -6.77,
+      "has_score": false
+    },
+    {
       "code": "4958",
       "name": "臻鼎-KY",
       "industry": "電子零組件業",
       "market": "twse",
       "change_pct": 8.21,
-      "has_score": false
-    },
-    {
-      "code": "4960",
-      "name": "誠美材",
-      "industry": "光電業",
-      "market": "twse",
-      "change_pct": -0.47,
       "has_score": false
     },
     {
@@ -12297,6 +12289,14 @@
       "has_score": false
     },
     {
+      "code": "5269",
+      "name": "祥碩",
+      "industry": "半導體業",
+      "market": "twse",
+      "change_pct": 0.7,
+      "has_score": false
+    },
+    {
       "code": "5271",
       "name": "紘通",
       "industry": "電子零組件業",
@@ -12742,6 +12742,14 @@
       "industry": "其他",
       "market": "tpex",
       "change_pct": -0.31,
+      "has_score": false
+    },
+    {
+      "code": "5464",
+      "name": "霖宏",
+      "industry": "其他",
+      "market": "tpex",
+      "change_pct": 9.93,
       "has_score": false
     },
     {
@@ -13518,14 +13526,6 @@
       "industry": "其他",
       "market": "tpex",
       "change_pct": 0.96,
-      "has_score": false
-    },
-    {
-      "code": "6133",
-      "name": "金橋",
-      "industry": "電子零組件業",
-      "market": "twse",
-      "change_pct": 4.42,
       "has_score": false
     },
     {
@@ -14497,6 +14497,14 @@
       "has_score": false
     },
     {
+      "code": "6291",
+      "name": "沛亨",
+      "industry": "其他",
+      "market": "tpex",
+      "change_pct": -3.07,
+      "has_score": false
+    },
+    {
       "code": "6292",
       "name": "迅德",
       "industry": "其他",
@@ -15385,6 +15393,14 @@
       "has_score": false
     },
     {
+      "code": "6588",
+      "name": "東典光電",
+      "industry": "其他",
+      "market": "tpex",
+      "change_pct": 8.76,
+      "has_score": false
+    },
+    {
       "code": "6589",
       "name": "台康生技",
       "industry": "生技醫療業",
@@ -15921,6 +15937,14 @@
       "has_score": false
     },
     {
+      "code": "6683",
+      "name": "雍智科技",
+      "industry": "其他",
+      "market": "tpex",
+      "change_pct": 3.68,
+      "has_score": false
+    },
+    {
       "code": "6684",
       "name": "安格",
       "industry": "其他",
@@ -16062,6 +16086,14 @@
       "industry": "其他",
       "market": "tpex",
       "change_pct": -1.27,
+      "has_score": false
+    },
+    {
+      "code": "6715",
+      "name": "嘉基",
+      "industry": "電子零組件業",
+      "market": "twse",
+      "change_pct": 5.94,
       "has_score": false
     },
     {
@@ -17377,14 +17409,6 @@
       "has_score": false
     },
     {
-      "code": "6933",
-      "name": "AMAX-KY",
-      "industry": "電腦及週邊設備業",
-      "market": "twse",
-      "change_pct": -1.26,
-      "has_score": false
-    },
-    {
       "code": "6934",
       "name": "心誠鎂",
       "industry": "生技醫療業",
@@ -17502,14 +17526,6 @@
       "industry": "生技醫療業",
       "market": "twse",
       "change_pct": 0.0,
-      "has_score": false
-    },
-    {
-      "code": "6957",
-      "name": "裕慶-KY",
-      "industry": "其他業",
-      "market": "twse",
-      "change_pct": 0.68,
       "has_score": false
     },
     {
