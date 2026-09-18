@@ -1034,7 +1034,19 @@ def run_evening() -> None:
         db.save_market_snapshot(today, {**market, **inst})
 
     # 產業熱力圖：上市公司基本資料的產業別 + 全市場今日漲跌
+    # 產業別：先打 TWSE，拿不到就用站內申報基本資料補。
+    # ⚠️ 2026-09-18 發現 heatmap.json 從 09-07 就停住——fetch_industry_map() 走的是
+    # openapi 的 /opendata/t187ap03_L，而 openapi 會擋機房 IP（RWD 備援表沒有涵蓋
+    # 這支）。拿不到就 `if industry_map` 整段跳過，熱力圖不會報錯、只是安靜地不更新，
+    # 而首頁的「產業熱力」讀的正是這份。
+    # company_profile 本來就存著全市場 2345 檔的申報產業別（37 類，含上櫃興櫃），
+    # 比那支 openapi 只有 1094 檔上市還完整，拿來當備援反而更好。
     industry_map = _safe(twse.fetch_industry_map, {}, "產業分類")
+    if not industry_map:
+        industry_map = {c: (v.get("industry") or "").strip()
+                        for c, v in db.all_company_profiles().items()
+                        if (v.get("industry") or "").strip()}
+        print(f"[evening] TWSE 產業分類拿不到，改用站內申報資料 {len(industry_map)} 檔")
     heatmap_rows = industry.aggregate_by_industry(all_quotes, industry_map) if industry_map else []
     if heatmap_rows:
         render.render_heatmap(heatmap_rows, render.date_label(today))

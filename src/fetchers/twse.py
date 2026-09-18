@@ -43,6 +43,23 @@ _RWD_FALLBACK = {
         {"證券代號": "Code", "證券名稱": "Name", "成交股數": "TradeVolume",
          "成交筆數": "Transaction", "成交金額": "TradeValue", "開盤價": "OpeningPrice",
          "最高價": "HighestPrice", "最低價": "LowestPrice", "收盤價": "ClosingPrice"}),
+    # 處置／注意三支公告。2026-09-18 發現 disposition.json 從 09-07 就沒再更新過——
+    # 這三支只走 openapi，沒有列在這張表裡，所以 openapi 一擋就整段沒資料，
+    # 而處置股預警頁不會報錯、只是安靜地停在舊資料。RWD 這三支實測都 200 且有內容。
+    "/announcement/punish": (
+        "/announcement/punish", {},
+        {"證券代號": "Code", "證券名稱": "Name",
+         "處置起迄時間": "DispositionPeriod", "處置措施": "DispositionMeasures",
+         "處置條件": "ReasonsOfDisposition"}),
+    "/announcement/notetrans": (
+        "/announcement/notetrans", {},
+        {"證券代號": "Code", "證券名稱": "Name",
+         "近期達本公司「公布注意交易資訊」標準之情形":
+             "RecentlyMetAttentionSecuritiesCriteria"}),
+    "/announcement/notice": (
+        "/announcement/notice", {},
+        {"證券代號": "Code", "證券名稱": "Name",
+         "注意交易資訊": "TradingInfoForAttention"}),
 }
 
 
