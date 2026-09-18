@@ -222,6 +222,14 @@
     return isNaN(n) ? null : n;
   }
 
+  function parseChange(s) {
+    var t = String(s == null ? "" : s).replace(/<[^>]*>/g, "").replace(/,/g, "").trim();
+    var neg = t.indexOf("-") === 0;
+    t = t.replace(/^[X+\-]+/, "");
+    var n = parseFloat(t);
+    return isNaN(n) ? null : (neg ? -n : n);
+  }
+
   function rocToIso(roc) {
     var parts = roc.split("/");
     return (parseInt(parts[0], 10) + 1911) + "-" + parts[1] + "-" + parts[2];
@@ -239,6 +247,9 @@
           volume: parseNum(row[1]),
           open: parseNum(row[3]), high: parseNum(row[4]),
           low: parseNum(row[5]), close: parseNum(row[6]),
+          // 官方「漲跌價差」（"+5.00"／"-3.50"／除權息日 "X0.00"）。漲跌一律用這欄，
+          // 不要拿前一根收盤自己算——除權息日的參考價不是昨天收盤價。
+          change: parseChange(row[7]),
         };
       }).filter(function (r) { return r.close !== null; });
     }).catch(function () { return []; });
@@ -592,8 +603,9 @@
     function showInfo(idx) {
       if (idx == null || !bars[idx]) { infoEl.innerHTML = ""; return; }
       var r = bars[idx];
-      var chg = idx > 0 ? r.close - bars[idx - 1].close : 0;
-      var pct = idx > 0 && bars[idx - 1].close ? chg / bars[idx - 1].close * 100 : 0;
+      var chg = (r.change != null) ? r.change : (idx > 0 ? r.close - bars[idx - 1].close : 0);
+      var ref0 = r.close - chg;
+      var pct = ref0 > 0 ? chg / ref0 * 100 : 0;
       var cls = chg >= 0 ? "up" : "down";
       var extra = markerByTime[r.date]
         ? '<span class="sc-info-marker">' + markerByTime[r.date].join('、') + '</span>' : "";
@@ -660,8 +672,18 @@
     opts = opts || {};
     var last = daily[daily.length - 1];
     var prev = daily.length > 1 ? daily[daily.length - 2] : null;
-    var chg = prev ? last.close - prev.close : 0;
-    var chgPct = prev && prev.close ? (chg / prev.close * 100) : 0;
+    // 漲跌的唯一規則：用資料來源自己給的值，不從 K 線推算（除權息日參考價≠昨收）。
+    //   上市 → STOCK_DAY 官方漲跌價差（last.change）
+    //   上櫃／興櫃 → 快照裡 Yahoo 的現價／昨收（opts.quote，下面覆蓋）
+    //   盤中即時那根 → MIS 的參考價（appendLiveBar 已放進 last.change）
+    // 以上都沒有才退回前一根收盤，那是最後手段。
+    var chg = (last.change != null) ? last.change : (prev ? last.close - prev.close : 0);
+    var ref = last.close - chg;
+    var chgPct = ref > 0 ? (chg / ref * 100) : 0;
+    var yq = opts.quote;
+    if (yq && typeof yq.change_pct === "number" && (!yq.date || yq.date >= last.date)) {
+      chg = yq.change; chgPct = yq.change_pct;
+    }
     var headPrice = last.close, headDate = last.date;
     var q = opts.latest;
     // 興櫃：看盤說的股價是「成交（最後成交價）」，不是日均價。
@@ -821,6 +843,7 @@
             avgPriceNote: avgOnly,
             // 盤中已經有逐筆現價了，就不要再用盤後快照的 latest 覆蓋標題價格
             latest: bars.liveTime ? null : snap.latest,
+            quote: bars.liveTime ? null : snap.quote,
             source: src,
           });
         });
@@ -859,6 +882,8 @@
         high: q.high != null ? q.high : q.price,
         low: q.low != null ? q.low : q.price,
         close: q.price,
+        // MIS 的 y 是官方參考價（除權息日已調整），漲跌用它，不用前一根收盤
+        change: (q.prev != null) ? q.price - q.prev : null,
         // K 棒的 volume 沿用 STOCK_DAY 的單位（股），MIS 的 v 是張
         volume: q.vol != null ? q.vol * 1000 : 0
       };

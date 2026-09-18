@@ -22,10 +22,10 @@ def scan_strong_stocks(quotes: list[dict], cfg: dict, history_fn=None) -> list[d
 
     pre = [
         q for q in quotes
-        if q.get("change_pct", 0) >= s["min_change_pct"]
+        if (q.get("change_pct") or 0) >= s["min_change_pct"]
         and q.get("turnover", 0) >= s["min_turnover"]
     ]
-    pre.sort(key=lambda x: x.get("change_pct", 0), reverse=True)
+    pre.sort(key=lambda x: (x.get("change_pct") or 0), reverse=True)
     # 限制實際要抓歷史的檔數，避免對 TWSE 發出過多請求
     pre = pre[: max(s["top_n"] * 3, 40)]
 
@@ -39,7 +39,7 @@ def scan_strong_stocks(quotes: list[dict], cfg: dict, history_fn=None) -> list[d
             continue
         picked.append(q)
 
-    picked.sort(key=lambda x: (x.get("volume_ratio") or 0) * x.get("change_pct", 0), reverse=True)
+    picked.sort(key=lambda x: (x.get("volume_ratio") or 0) * (x.get("change_pct") or 0), reverse=True)
     return picked[: s["top_n"]]
 
 
@@ -71,7 +71,7 @@ def scan_breakout_candidates(quotes: list[dict], cfg: dict, history_fn) -> list[
     b = cfg.get("breakout", {})
     pre = [
         q for q in quotes
-        if q.get("change_pct", 0) >= b.get("min_change_pct", 1.5)
+        if (q.get("change_pct") or 0) >= b.get("min_change_pct", 1.5)
         and q.get("turnover", 0) >= b.get("min_turnover", 30000000)
     ]
     pre.sort(key=lambda x: x.get("turnover", 0), reverse=True)
@@ -86,7 +86,7 @@ def scan_breakout_candidates(quotes: list[dict], cfg: dict, history_fn) -> list[
         result = technical.detect_fresh_breakout(hist, cfg)
         if result.get("is_breakout"):
             picked.append({**result, "code": q["code"], "name": q.get("name", ""),
-                          "close": q.get("close", 0), "change_pct": q.get("change_pct", 0)})
+                          "close": q.get("close", 0), "change_pct": q.get("change_pct")})
 
     picked.sort(key=lambda x: (x["days_ago"], -x["volume_ratio"]))
     return picked[: b.get("top_n", 10)]
@@ -112,7 +112,7 @@ def find_new_listings(quotes_by_code: dict[str, dict], listing_dates: dict[str, 
             continue
         results.append({
             "code": code, "name": q.get("name", ""), "close": q.get("close", 0),
-            "change_pct": q.get("change_pct", 0), "days_listed": days_listed,
+            "change_pct": q.get("change_pct"), "days_listed": days_listed,
             "listed_date": listed_date.isoformat(), "market": q.get("market", "twse"),
         })
     results.sort(key=lambda x: x["days_listed"])
@@ -146,7 +146,7 @@ def identify_dark_horses(
             "name": orphan.get("name") or quote.get("name", ""),
             "reason": orphan.get("reason", ""),
             "volume_ratio": ratio,
-            "change_pct": quote.get("change_pct", 0),
+            "change_pct": quote.get("change_pct"),
             "close": quote.get("close", 0),
             "risk_flags": risk_flags,
             "risk_level": "高" if ratio >= dh_cfg["volume_ratio"] else "中",
