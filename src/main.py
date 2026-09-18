@@ -89,6 +89,8 @@ def run_morning() -> None:
     cfg = load_config()
     today = today_str()
     print(f"[morning] 產出國際盤報告 {today}")
+    # 清晨拿到的是證交所修正後的定版法人數字，回頭覆寫前幾天的初版（見函式說明）
+    _safe(refresh_recent_institutional, 0, "回頭修正法人數字")
 
     intl = _safe(international.fetch_international, {}, "國際盤")
     calls = _safe(lambda: mops.fetch_earnings_calls(), [], "法說會行事曆")
@@ -560,6 +562,50 @@ def _compact_bars(bars: list[dict]) -> list[list]:
         except KeyError:
             continue
     return out
+
+
+def refresh_recent_institutional(days: int = 7) -> int:
+    """回頭重抓最近 N 個交易日的三大法人與大盤收盤，跟資料庫不一樣就覆寫。
+
+    ⚠️ 為什麼一定要回頭抓：**證交所的投信買賣超晚上會修正**。2026-09-18 盤後
+    （18:05）抓到的投信是 52.89 億，當晚 20:30 同一支 BFI82U 回 81.53 億；外資、
+    自營商沒變。資料庫只存了初版，週報讀到的投信整週都偏低（9/11 71.0 vs 82.1、
+    9/16 95.7 vs 106.5…），而且當天盤後誤推到分支的 09-08 整天不見、09-17 因為
+    日期對不上被丟掉——週報的「外資合計賣超 1,199.2 億」就是少算了 9/17 的
+    +121.9 億。早報隔天清晨跑這一段，拿到的就是修正後的定版數字。
+
+    交易日清單用 FMTQIK（證交所官方逐日大盤），不用「今天往回數」猜。
+    """
+    from datetime import date as _date
+    now = now_tpe()
+    months = {now.strftime("%Y%m01")}
+    if now.day <= 12:                                   # 月初要連上個月一起看
+        prev = (now.replace(day=1) - timedelta(days=1))
+        months.add(prev.strftime("%Y%m01"))
+    idx: dict[str, dict] = {}
+    for ym in sorted(months):
+        data = _safe(lambda ym=ym: twse._get_rwd("/afterTrading/FMTQIK", {"date": ym}),
+                     None, "FMTQIK")
+        for row in (data or {}).get("data", []):
+            y, mo, d = str(row[0]).split("/")
+            iso = f"{int(y) + 1911}-{mo}-{d}"
+            idx[iso] = {"taiex_close": twse._num(row[4]),
+                        "taiex_change": twse._parse_signed(row[5]),
+                        "turnover": twse._num(row[2])}
+    fixed = 0
+    for iso in sorted(idx)[-days:]:
+        inst = _safe(lambda iso=iso: twse.fetch_institutional_net(_date.fromisoformat(iso)),
+                     {}, f"{iso} 三大法人")
+        fields = dict(idx[iso])
+        if inst and inst.get("date") == iso:
+            fields.update({k: inst.get(k) for k in ("foreign_net", "trust_net", "dealer_net")})
+        if db.upsert_snapshot_fields(iso, fields):
+            fixed += 1
+            print(f"[inst] {iso} 修正：外資 {fields.get('foreign_net')}、"
+                  f"投信 {fields.get('trust_net')}、自營 {fields.get('dealer_net')}")
+        time.sleep(0.4)
+    print(f"[inst] 回頭檢查最近 {min(days, len(idx))} 個交易日，修正 {fixed} 天")
+    return fixed
 
 
 def snapshot_offmarket_history(codes: dict[str, str], cfg: dict) -> int:
@@ -1052,6 +1098,9 @@ def run_evening() -> None:
 
     if market:
         db.save_market_snapshot(today, {**market, **inst})
+    # 順便回頭補修前幾天（缺日、晚間修正過的投信）；今天的投信晚上還可能再改，
+    # 隔天早報會再覆寫一次
+    _safe(refresh_recent_institutional, 0, "回頭修正法人數字")
 
     # 產業熱力圖：上市公司基本資料的產業別 + 全市場今日漲跌
     # 產業別：先打 TWSE，拿不到就用站內申報基本資料補。

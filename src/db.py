@@ -1002,6 +1002,40 @@ def save_market_snapshot(today: str, data: dict[str, Any]) -> None:
         )
 
 
+def upsert_snapshot_fields(day: str, fields: dict[str, Any]) -> bool:
+    """只覆寫指定欄位（其餘欄位與 payload 其他鍵保留）；這天沒有列就新建一列。
+    回傳是否有實際變動。給「回頭修正法人數字」用，不能用 save_market_snapshot
+    （那是 INSERT OR REPLACE，會把熱力圖／漲跌家數等其他欄位整列洗掉）。"""
+    cols = ("taiex_close", "taiex_change", "turnover", "foreign_net",
+            "trust_net", "dealer_net", "advancers", "decliners")
+    with get_conn() as conn:
+        row = conn.execute("SELECT * FROM market_snapshots WHERE date=?", (day,)).fetchone()
+        cur = dict(row) if row else {"date": day}
+        try:
+            payload = json.loads(cur.get("payload") or "{}")
+        except (TypeError, json.JSONDecodeError):
+            payload = {}
+        changed = False
+        for k, v in fields.items():
+            if v is None:
+                continue
+            if k in cols and cur.get(k) != v:
+                cur[k] = v
+                changed = True
+            if payload.get(k) != v:
+                payload[k] = v
+                changed = True
+        if not changed:
+            return False
+        conn.execute(
+            """INSERT OR REPLACE INTO market_snapshots
+               (date, taiex_close, taiex_change, turnover, foreign_net,
+                trust_net, dealer_net, advancers, decliners, payload)
+               VALUES (?,?,?,?,?,?,?,?,?,?)""",
+            (day, *(cur.get(c) for c in cols), json.dumps(payload, ensure_ascii=False)))
+        return True
+
+
 def snapshots_between(start: str, end: str) -> list[dict]:
     with get_conn() as conn:
         rows = conn.execute(
