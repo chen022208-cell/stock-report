@@ -204,12 +204,15 @@ def fetch_quotes(codes: dict[str, str], use_cache: bool = True) -> dict[str, dic
                 if not code or not px or not pc:
                     continue
                 t = meta.get("regularMarketTime")
-                d = (datetime.utcfromtimestamp(t) + timedelta(hours=8)).strftime("%Y-%m-%d") if t else ""
+                d = (datetime.fromtimestamp(t, timezone.utc) + timedelta(hours=8)).strftime("%Y-%m-%d") if t else ""
                 out[code] = _QUOTE_CACHE[code] = {
                     "date": d,
                     "price": float(px), "prev_close": float(pc),
                     "change": round(float(px) - float(pc), 4),
                     "change_pct": round((float(px) - float(pc)) / float(pc) * 100, 2),
+                    "volume": meta.get("regularMarketVolume"),      # 股
+                    "high": meta.get("regularMarketDayHigh"),
+                    "low": meta.get("regularMarketDayLow"),
                     "time": meta.get("regularMarketTime"),
                 }
             time.sleep(0.05)

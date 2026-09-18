@@ -230,45 +230,58 @@ def _universe() -> list[tuple[str, str]]:
 def _esb_quotes(codes: set[str]) -> dict[str, dict]:
     """興櫃盤中報價 → 對齊 twse_mis.fetch_quotes 的欄位格式。
 
-    幾個跟上市櫃不一樣、下游必須知道的地方：
-    - **沒有開盤價**：興櫃是議價／搓合市場，行情表只有最高／最低／均價／成交。
-      所以 `open` 給 0，`above_open` 會是 None，評分時「站上開盤」那個因子直接
-      退出、其餘權重按比例補回（不是當成 False 扣分，那等於憑空懲罰興櫃）。
-    - **漲跌幅的基準是「前日均價」**（PreviousAveragePrice），不是前一日收盤——
-      這是 TPEx 自己行情表的定義，照用並在前端標明，不要偷換成收盤價。
-    - 成交量單位是股，÷1000 換成張。
-    """
-    # ⚠️ TPEx 的興櫃「當日行情表」是**盤後才發布的日表，沒有盤中值**。
-    # 2026-09-08 09:32 實測：343 檔全部 date=2026-09-07。以前不檢查日期就照收，
-    # 於是每天開盤後整份昨天的興櫃行情被當成即時報價灌進盤中排行——
-    # A 級 34 檔裡有 27 檔是興櫃，全部用昨天的漲跌幅排序（7686 掛著 +43.23%
-    # 就是 09-07 的數字），使用者一眼看出「這些都是舊資料」。
-    # 興櫃盤中沒有任何公開即時來源（MIS 也沒有這個市場），所以正確做法是
-    # **盤中就不要有興櫃**，而不是拿昨天的頂替。盤後那一輪日期會對上，自然會回來。
-    today = now_tpe().strftime("%Y-%m-%d")
-    raw = tpex.fetch_esb_pricing() or {}
-    stale = sum(1 for r in raw.values() if r.get("date") and r["date"] != today)
-    if stale:
-        print(f"[intraday] 興櫃當日行情表還是 {next(iter(raw.values())).get('date')} 的資料"
-              f"（{stale}/{len(raw)} 檔），盤中不採用——興櫃沒有盤中即時來源")
+    ⚠️ 來源是 **Yahoo**（yahoo.fetch_quotes），不是 TPEx。
+    以前的判斷是「興櫃盤中沒有任何公開即時來源」——MIS 沒有這個市場、TPEx 的
+    當日行情表是盤後日表——所以盤中直接把興櫃排除。2026-09-18 實測 Yahoo 對興櫃
+    有盤中逐分資料（7942 當天 1 分 K 271 根，09:00～13:30），於是改成盤中也有興櫃。
+    漲跌用 Yahoo 自己給的現價／昨收（櫃買沒有興櫃漲跌欄，規則見 CLAUDE.md）。
 
+    跟上市櫃不一樣、下游要知道的：
+    - **沒有開盤價**：`open` 給 0，`above_open` 會是 None，評分時那個因子直接退出、
+      其餘權重按比例補回，不是當成 False 扣分。
+    - 成交量 Yahoo 給的是股，÷1000 換成張，跟 MIS 對齊。
+    - **只收今天的報價**：開盤前或 Yahoo 還沒更新時，regularMarketTime 會是前一個
+      交易日——那種整筆丟掉，不讓昨天的數字混進盤中排行（2026-09-08 踩過：
+      A 級 34 檔有 27 檔是興櫃、全是前一天的漲跌幅）。
+    """
+    if not codes:
+        return {}
+    from .fetchers import yahoo
+    today = now_tpe().strftime("%Y-%m-%d")
+    yq = yahoo.fetch_quotes({c: "esb" for c in codes}, use_cache=False)
+    # 名稱用看盤簡稱（stock_index.json），跟 MIS 回的上市櫃名稱一致；
+    # 沒有才退回申報全名去掉「股份有限公司」。
+    names: dict[str, str] = {}
+    try:
+        idx = json.loads((DATA_DIR / "stock_index.json").read_text(encoding="utf-8"))
+        names = {s["code"]: s.get("name", "") for s in idx.get("stocks", [])
+                 if s.get("code") in codes}
+    except Exception:
+        pass
+    try:
+        for c, v in db.all_company_profiles().items():
+            if c in codes and not names.get(c):
+                full = (v.get("name") or v.get("full_name") or "")
+                names[c] = full.replace("股份有限公司", "").replace("有限公司", "")
+    except Exception:
+        pass
     out: dict[str, dict] = {}
-    for code, row in raw.items():
-        if code not in codes or not row.get("price"):
-            continue
-        # 日期對不上就整筆丟掉，不要讓昨天的數字混進盤中排行
-        if row.get("date") and row["date"] != today:
+    stale = 0
+    for code, y in yq.items():
+        if y.get("date") != today:
+            stale += 1
             continue
         out[code] = {
-            "code": code, "name": row.get("name", ""), "price": row["price"],
-            "prev_close": row.get("prev_close") or 0.0,   # Yahoo 昨收（不是前日均價）
+            "code": code, "name": names.get(code, ""), "price": y["price"],
+            "prev_close": y["prev_close"],
             "open": 0.0,                       # 興櫃沒有開盤價
-            "high": row.get("high") or 0.0, "low": row.get("low") or 0.0,
-            "change": row.get("change") or 0.0,
-            "change_pct": row.get("change_pct") if row.get("change_pct") is not None else 0.0,
-            "volume": (row.get("volume") or 0) / 1000,
-            "trade_time": "", "quote_date": row.get("date", ""), "ex": "esb",
+            "high": y.get("high") or 0.0, "low": y.get("low") or 0.0,
+            "change": y["change"], "change_pct": y["change_pct"],
+            "volume": (y.get("volume") or 0) / 1000,
+            "trade_time": "", "quote_date": y["date"], "ex": "esb",
         }
+    if stale:
+        print(f"[intraday] 興櫃 Yahoo 報價非今日 {stale} 檔，暫不採用")
     return out
 
 
@@ -378,7 +391,7 @@ def run_once(cfg: dict, ref: dict, disp_codes: set[str]) -> dict:
     if _market_status() in ("closing", "closed") and quotes:
         from .fetchers import yahoo
         mkt = dict(universe)
-        yq = yahoo.fetch_quotes({c: mkt.get(c, "twse") for c in quotes})
+        yq = yahoo.fetch_quotes({c: mkt.get(c, "twse") for c in quotes}, use_cache=False)
         fixed = 0
         for c, y in yq.items():
             q = quotes.get(c)
@@ -387,10 +400,11 @@ def run_once(cfg: dict, ref: dict, disp_codes: set[str]) -> dict:
             q["price"] = y["price"]
             # 漲跌不用 Yahoo 的：它的昨收未調整除權息／減資（6236 會算出 -16%）。
             # MIS 的 y 就是證交所／櫃買的官方參考價，對它算才等於官方漲跌。
-            ref = q.get("prev_close") or 0
-            if ref > 0:
-                q["change"] = round(y["price"] - ref, 4)
-                q["change_pct"] = round((y["price"] - ref) / ref * 100, 2)
+            # 變數名不要用 ref——那是 run_once 的參數（參考值表），蓋掉會讓後面整個崩
+            base = q.get("prev_close") or 0
+            if base > 0:
+                q["change"] = round(y["price"] - base, 4)
+                q["change_pct"] = round((y["price"] - base) / base * 100, 2)
             fixed += 1
         print(f"[intraday] 收盤後改用 Yahoo 收盤價（漲跌對官方參考價）：{fixed}/{len(quotes)} 檔")
     taiex = twse_mis.fetch_taiex()
