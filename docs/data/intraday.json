@@ -1,7 +1,7 @@
 {
-  "as_of": "2026-09-18 13:39:54",
+  "as_of": "2026-09-18 20:27:31",
   "display_delay_min": 15,
-  "market_status": "closing",
+  "market_status": "closed",
   "session_fraction": 1.0,
   "elapsed_fraction": 1.0,
   "taiex": {
@@ -11,11 +11,11 @@
     "trade_time": "13:33:00"
   },
   "counts": {
-    "A": 35,
-    "B": 58,
+    "A": 40,
+    "B": 69,
     "shown_per_tier": 40,
-    "scanned": 1934,
-    "passed_funnel": 164
+    "scanned": 2277,
+    "passed_funnel": 192
   },
   "tiers": {
     "A": [
@@ -47,7 +47,7 @@
         "change_pct": 9.92,
         "volume": 2382.0,
         "rs_market": 7.99,
-        "rs_sector": 8.46,
+        "rs_sector": 8.39,
         "volume_ratio": 2.86,
         "above_open": true,
         "above_prev_close": true,
@@ -68,7 +68,7 @@
         "change_pct": 9.22,
         "volume": 3068.0,
         "rs_market": 7.29,
-        "rs_sector": 7.78,
+        "rs_sector": 7.79,
         "volume_ratio": 4.82,
         "above_open": true,
         "above_prev_close": true,
@@ -83,13 +83,34 @@
         "low_confidence": false
       },
       {
+        "code": "3178",
+        "name": "公準",
+        "price": 69.0,
+        "change_pct": 9.87,
+        "volume": 1041.0,
+        "rs_market": 7.94,
+        "rs_sector": 7.68,
+        "volume_ratio": 17.13,
+        "above_open": true,
+        "above_prev_close": true,
+        "breakout_20d": true,
+        "breakout_60d": false,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "半導體業",
+        "score": 89.5,
+        "tier": "A",
+        "ex": "otc",
+        "low_confidence": false
+      },
+      {
         "code": "3432",
         "name": "台端",
         "price": 15.55,
         "change_pct": 9.89,
         "volume": 134.0,
         "rs_market": 7.96,
-        "rs_sector": 8.43,
+        "rs_sector": 8.37,
         "volume_ratio": 6.68,
         "above_open": true,
         "above_prev_close": true,
@@ -110,7 +131,7 @@
         "change_pct": 9.61,
         "volume": 16919.0,
         "rs_market": 7.68,
-        "rs_sector": 9.29,
+        "rs_sector": 9.03,
         "volume_ratio": 4.28,
         "above_open": true,
         "above_prev_close": true,
@@ -131,7 +152,7 @@
         "change_pct": 9.86,
         "volume": 2582.0,
         "rs_market": 7.93,
-        "rs_sector": 7.55,
+        "rs_sector": 7.67,
         "volume_ratio": 5.82,
         "above_open": true,
         "above_prev_close": true,
@@ -146,13 +167,34 @@
         "low_confidence": false
       },
       {
+        "code": "6902",
+        "name": "GOGOLOOK",
+        "price": 141.0,
+        "change_pct": 9.73,
+        "volume": 904.0,
+        "rs_market": 7.8,
+        "rs_sector": 9.11,
+        "volume_ratio": 7.67,
+        "above_open": true,
+        "above_prev_close": true,
+        "breakout_20d": true,
+        "breakout_60d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "數位雲端",
+        "score": 89.5,
+        "tier": "A",
+        "ex": "tse",
+        "low_confidence": false
+      },
+      {
         "code": "2724",
         "name": "藝舍-KY",
         "price": 11.65,
         "change_pct": 8.37,
         "volume": 41.0,
         "rs_market": 6.44,
-        "rs_sector": 8.22,
+        "rs_sector": 8.14,
         "volume_ratio": 9.36,
         "above_open": true,
         "above_prev_close": true,
@@ -173,7 +215,7 @@
         "change_pct": 10.0,
         "volume": 4907.0,
         "rs_market": 8.07,
-        "rs_sector": 9.02,
+        "rs_sector": 9.05,
         "volume_ratio": 4.72,
         "above_open": true,
         "above_prev_close": true,
@@ -194,7 +236,7 @@
         "change_pct": 9.89,
         "volume": 2549.0,
         "rs_market": 7.96,
-        "rs_sector": 8.22,
+        "rs_sector": 8.64,
         "volume_ratio": 17.98,
         "above_open": true,
         "above_prev_close": true,
@@ -215,7 +257,7 @@
         "change_pct": 9.95,
         "volume": 1855.0,
         "rs_market": 8.02,
-        "rs_sector": 7.64,
+        "rs_sector": 7.76,
         "volume_ratio": 4.76,
         "above_open": true,
         "above_prev_close": true,
@@ -232,11 +274,11 @@
       {
         "code": "5465",
         "name": "富驊",
-        "price": 26.6,
-        "change_pct": 9.47,
+        "price": 26.7,
+        "change_pct": 9.88,
         "volume": 465.0,
-        "rs_market": 7.54,
-        "rs_sector": 8.79,
+        "rs_market": 7.95,
+        "rs_sector": 9.35,
         "volume_ratio": 7.44,
         "above_open": true,
         "above_prev_close": true,
@@ -257,7 +299,7 @@
         "change_pct": 10.0,
         "volume": 1245.0,
         "rs_market": 8.07,
-        "rs_sector": 8.33,
+        "rs_sector": 8.75,
         "volume_ratio": 8.76,
         "above_open": true,
         "above_prev_close": true,
@@ -278,7 +320,7 @@
         "change_pct": 8.43,
         "volume": 1711.0,
         "rs_market": 6.5,
-        "rs_sector": 7.66,
+        "rs_sector": 7.67,
         "volume_ratio": 5.32,
         "above_open": true,
         "above_prev_close": true,
@@ -299,7 +341,7 @@
         "change_pct": 9.93,
         "volume": 1262.0,
         "rs_market": 8.0,
-        "rs_sector": 7.62,
+        "rs_sector": 7.74,
         "volume_ratio": 4.41,
         "above_open": true,
         "above_prev_close": true,
@@ -320,7 +362,7 @@
         "change_pct": 8.31,
         "volume": 1514.0,
         "rs_market": 6.38,
-        "rs_sector": 6.87,
+        "rs_sector": 6.88,
         "volume_ratio": 5.07,
         "above_open": true,
         "above_prev_close": true,
@@ -341,7 +383,7 @@
         "change_pct": 9.85,
         "volume": 1457.0,
         "rs_market": 7.92,
-        "rs_sector": 8.41,
+        "rs_sector": 8.42,
         "volume_ratio": 11.41,
         "above_open": true,
         "above_prev_close": true,
@@ -362,7 +404,7 @@
         "change_pct": 9.93,
         "volume": 8812.0,
         "rs_market": 8.0,
-        "rs_sector": 8.26,
+        "rs_sector": 8.68,
         "volume_ratio": 2.72,
         "above_open": true,
         "above_prev_close": true,
@@ -383,7 +425,7 @@
         "change_pct": 6.81,
         "volume": 1058.0,
         "rs_market": 4.88,
-        "rs_sector": 6.11,
+        "rs_sector": 6.19,
         "volume_ratio": 2.65,
         "above_open": true,
         "above_prev_close": true,
@@ -404,7 +446,7 @@
         "change_pct": 6.53,
         "volume": 1455.0,
         "rs_market": 4.6,
-        "rs_sector": 5.84,
+        "rs_sector": 6.16,
         "volume_ratio": 4.87,
         "above_open": true,
         "above_prev_close": true,
@@ -425,7 +467,7 @@
         "change_pct": 6.73,
         "volume": 5164.0,
         "rs_market": 4.8,
-        "rs_sector": 6.04,
+        "rs_sector": 6.2,
         "volume_ratio": 3.79,
         "above_open": true,
         "above_prev_close": true,
@@ -446,7 +488,7 @@
         "change_pct": 10.0,
         "volume": 57470.0,
         "rs_market": 8.07,
-        "rs_sector": 7.69,
+        "rs_sector": 7.81,
         "volume_ratio": 3.62,
         "above_open": true,
         "above_prev_close": true,
@@ -467,7 +509,7 @@
         "change_pct": 6.17,
         "volume": 6000.0,
         "rs_market": 4.24,
-        "rs_sector": 5.77,
+        "rs_sector": 5.73,
         "volume_ratio": 2.76,
         "above_open": true,
         "above_prev_close": true,
@@ -488,7 +530,7 @@
         "change_pct": 9.9,
         "volume": 425.0,
         "rs_market": 7.97,
-        "rs_sector": 8.44,
+        "rs_sector": 8.38,
         "volume_ratio": 3.4,
         "above_open": true,
         "above_prev_close": true,
@@ -509,7 +551,7 @@
         "change_pct": 6.87,
         "volume": 8870.0,
         "rs_market": 4.94,
-        "rs_sector": 5.89,
+        "rs_sector": 5.92,
         "volume_ratio": 2.64,
         "above_open": true,
         "above_prev_close": true,
@@ -530,7 +572,7 @@
         "change_pct": 9.95,
         "volume": 664.0,
         "rs_market": 8.02,
-        "rs_sector": 8.51,
+        "rs_sector": 8.52,
         "volume_ratio": 3.31,
         "above_open": true,
         "above_prev_close": true,
@@ -545,13 +587,34 @@
         "low_confidence": false
       },
       {
+        "code": "4573",
+        "name": "高明鐵",
+        "price": 679.0,
+        "change_pct": 10.59,
+        "volume": 1594.616,
+        "rs_market": 8.66,
+        "rs_sector": 9.83,
+        "volume_ratio": 2.01,
+        "above_open": null,
+        "above_prev_close": true,
+        "breakout_20d": true,
+        "breakout_60d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "電機機械",
+        "score": 82.5,
+        "tier": "A",
+        "ex": "esb",
+        "low_confidence": false
+      },
+      {
         "code": "3437",
         "name": "榮創",
         "price": 22.35,
         "change_pct": 9.83,
         "volume": 9801.0,
         "rs_market": 7.9,
-        "rs_sector": 8.16,
+        "rs_sector": 8.58,
         "volume_ratio": 3.19,
         "above_open": true,
         "above_prev_close": true,
@@ -572,7 +635,7 @@
         "change_pct": 10.0,
         "volume": 6620.0,
         "rs_market": 8.07,
-        "rs_sector": 7.69,
+        "rs_sector": 7.81,
         "volume_ratio": 3.16,
         "above_open": true,
         "above_prev_close": true,
@@ -593,7 +656,7 @@
         "change_pct": 8.85,
         "volume": 273.0,
         "rs_market": 6.92,
-        "rs_sector": 7.18,
+        "rs_sector": 7.6,
         "volume_ratio": 5.86,
         "above_open": true,
         "above_prev_close": true,
@@ -614,7 +677,7 @@
         "change_pct": 9.94,
         "volume": 2301.0,
         "rs_market": 8.01,
-        "rs_sector": 9.14,
+        "rs_sector": 9.33,
         "volume_ratio": 4.87,
         "above_open": true,
         "above_prev_close": true,
@@ -635,7 +698,7 @@
         "change_pct": 9.89,
         "volume": 9561.0,
         "rs_market": 7.96,
-        "rs_sector": 9.09,
+        "rs_sector": 9.28,
         "volume_ratio": 9.74,
         "above_open": true,
         "above_prev_close": true,
@@ -656,7 +719,7 @@
         "change_pct": 9.91,
         "volume": 123120.0,
         "rs_market": 7.98,
-        "rs_sector": 9.76,
+        "rs_sector": 9.69,
         "volume_ratio": 4.33,
         "above_open": true,
         "above_prev_close": true,
@@ -677,7 +740,7 @@
         "change_pct": 9.87,
         "volume": 146.0,
         "rs_market": 7.94,
-        "rs_sector": 7.56,
+        "rs_sector": 7.68,
         "volume_ratio": 5.1,
         "above_open": true,
         "above_prev_close": true,
@@ -692,13 +755,55 @@
         "low_confidence": false
       },
       {
+        "code": "6432",
+        "name": "今展科",
+        "price": 58.8,
+        "change_pct": 9.91,
+        "volume": 972.0,
+        "rs_market": 7.98,
+        "rs_sector": 8.38,
+        "volume_ratio": 4.39,
+        "above_open": true,
+        "above_prev_close": true,
+        "breakout_20d": false,
+        "breakout_60d": false,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "電子零組件業",
+        "score": 81.6,
+        "tier": "A",
+        "ex": "otc",
+        "low_confidence": false
+      },
+      {
+        "code": "5432",
+        "name": "新門",
+        "price": 160.0,
+        "change_pct": 9.97,
+        "volume": 238.0,
+        "rs_market": 8.04,
+        "rs_sector": 9.6,
+        "volume_ratio": 5.68,
+        "above_open": true,
+        "above_prev_close": true,
+        "breakout_20d": false,
+        "breakout_60d": false,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "綠能環保",
+        "score": 81.6,
+        "tier": "A",
+        "ex": "otc",
+        "low_confidence": false
+      },
+      {
         "code": "1560",
         "name": "中砂",
         "price": 896.0,
         "change_pct": 9.94,
         "volume": 5986.0,
         "rs_market": 8.01,
-        "rs_sector": 9.17,
+        "rs_sector": 9.18,
         "volume_ratio": 1.89,
         "above_open": true,
         "above_prev_close": true,
@@ -719,7 +824,7 @@
         "change_pct": 8.85,
         "volume": 407.0,
         "rs_market": 6.92,
-        "rs_sector": 7.18,
+        "rs_sector": 7.6,
         "volume_ratio": 3.04,
         "above_open": true,
         "above_prev_close": true,
@@ -740,7 +845,7 @@
         "change_pct": 6.51,
         "volume": 1709.0,
         "rs_market": 4.58,
-        "rs_sector": 4.2,
+        "rs_sector": 4.32,
         "volume_ratio": 3.62,
         "above_open": true,
         "above_prev_close": true,
@@ -749,7 +854,7 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "半導體業",
-        "score": 80.6,
+        "score": 81.1,
         "tier": "A",
         "ex": "otc",
         "low_confidence": false
@@ -778,13 +883,34 @@
         "low_confidence": false
       },
       {
+        "code": "7829",
+        "name": "思捷優達-KY",
+        "price": 56.8,
+        "change_pct": 10.94,
+        "volume": 365.75,
+        "rs_market": 9.01,
+        "rs_sector": 10.94,
+        "volume_ratio": 2.11,
+        "above_open": null,
+        "above_prev_close": true,
+        "breakout_20d": true,
+        "breakout_60d": true,
+        "breakout_120d": true,
+        "breakout_252d": false,
+        "industry": "生技醫療業",
+        "score": 79.2,
+        "tier": "B",
+        "ex": "esb",
+        "low_confidence": false
+      },
+      {
         "code": "6533",
         "name": "晶心科",
         "price": 270.5,
         "change_pct": 7.55,
         "volume": 4480.0,
         "rs_market": 5.62,
-        "rs_sector": 5.24,
+        "rs_sector": 5.36,
         "volume_ratio": 2.1,
         "above_open": true,
         "above_prev_close": true,
@@ -805,7 +931,7 @@
         "change_pct": 9.91,
         "volume": 13517.0,
         "rs_market": 7.98,
-        "rs_sector": 9.76,
+        "rs_sector": 9.69,
         "volume_ratio": 1.61,
         "above_open": true,
         "above_prev_close": true,
@@ -826,7 +952,7 @@
         "change_pct": 9.94,
         "volume": 23851.0,
         "rs_market": 8.01,
-        "rs_sector": 8.27,
+        "rs_sector": 8.69,
         "volume_ratio": 2.81,
         "above_open": true,
         "above_prev_close": true,
@@ -847,7 +973,7 @@
         "change_pct": 8.77,
         "volume": 582.0,
         "rs_market": 6.84,
-        "rs_sector": 8.08,
+        "rs_sector": 8.4,
         "volume_ratio": 1.61,
         "above_open": true,
         "above_prev_close": true,
@@ -868,7 +994,7 @@
         "change_pct": 8.95,
         "volume": 99.0,
         "rs_market": 7.02,
-        "rs_sector": 6.64,
+        "rs_sector": 6.76,
         "volume_ratio": 3.58,
         "above_open": true,
         "above_prev_close": true,
@@ -889,7 +1015,7 @@
         "change_pct": 9.97,
         "volume": 263.0,
         "rs_market": 8.04,
-        "rs_sector": 9.03,
+        "rs_sector": 9.04,
         "volume_ratio": 3.58,
         "above_open": true,
         "above_prev_close": true,
@@ -910,7 +1036,7 @@
         "change_pct": 8.42,
         "volume": 40723.0,
         "rs_market": 6.49,
-        "rs_sector": 6.11,
+        "rs_sector": 6.23,
         "volume_ratio": 2.67,
         "above_open": true,
         "above_prev_close": true,
@@ -931,7 +1057,7 @@
         "change_pct": 6.75,
         "volume": 9748.0,
         "rs_market": 4.82,
-        "rs_sector": 5.08,
+        "rs_sector": 5.5,
         "volume_ratio": 2.58,
         "above_open": true,
         "above_prev_close": true,
@@ -952,7 +1078,7 @@
         "change_pct": 6.73,
         "volume": 1421.0,
         "rs_market": 4.8,
-        "rs_sector": 5.06,
+        "rs_sector": 5.48,
         "volume_ratio": 2.53,
         "above_open": true,
         "above_prev_close": true,
@@ -967,34 +1093,13 @@
         "low_confidence": false
       },
       {
-        "code": "6226",
-        "name": "光鼎",
-        "price": 45.7,
-        "change_pct": 4.22,
-        "volume": 127529.0,
-        "rs_market": 2.29,
-        "rs_sector": 2.55,
-        "volume_ratio": 5.54,
-        "above_open": true,
-        "above_prev_close": true,
-        "breakout_20d": true,
-        "breakout_60d": true,
-        "breakout_120d": true,
-        "breakout_252d": true,
-        "industry": "光電業",
-        "score": 75.4,
-        "tier": "B",
-        "ex": "tse",
-        "low_confidence": false
-      },
-      {
         "code": "6148",
         "name": "驊宏資",
         "price": 39.85,
         "change_pct": 9.93,
         "volume": 9048.0,
         "rs_market": 8.0,
-        "rs_sector": 8.95,
+        "rs_sector": 8.98,
         "volume_ratio": 1.66,
         "above_open": true,
         "above_prev_close": true,
@@ -1036,7 +1141,7 @@
         "change_pct": 7.83,
         "volume": 1840.0,
         "rs_market": 5.9,
-        "rs_sector": 7.68,
+        "rs_sector": 7.61,
         "volume_ratio": 3.27,
         "above_open": true,
         "above_prev_close": true,
@@ -1057,7 +1162,7 @@
         "change_pct": 7.76,
         "volume": 6741.0,
         "rs_market": 5.83,
-        "rs_sector": 6.78,
+        "rs_sector": 6.81,
         "volume_ratio": 1.63,
         "above_open": true,
         "above_prev_close": true,
@@ -1078,7 +1183,7 @@
         "change_pct": 7.64,
         "volume": 857.0,
         "rs_market": 5.71,
-        "rs_sector": 6.2,
+        "rs_sector": 6.21,
         "volume_ratio": 2.3,
         "above_open": true,
         "above_prev_close": true,
@@ -1099,7 +1204,7 @@
         "change_pct": 6.84,
         "volume": 4019.0,
         "rs_market": 4.91,
-        "rs_sector": 5.17,
+        "rs_sector": 5.59,
         "volume_ratio": 2.3,
         "above_open": true,
         "above_prev_close": true,
@@ -1120,7 +1225,7 @@
         "change_pct": 9.97,
         "volume": 235.0,
         "rs_market": 8.04,
-        "rs_sector": 9.03,
+        "rs_sector": 9.04,
         "volume_ratio": 2.23,
         "above_open": true,
         "above_prev_close": true,
@@ -1141,7 +1246,7 @@
         "change_pct": 5.78,
         "volume": 2559.0,
         "rs_market": 3.85,
-        "rs_sector": 5.01,
+        "rs_sector": 5.02,
         "volume_ratio": 2.89,
         "above_open": true,
         "above_prev_close": true,
@@ -1156,13 +1261,76 @@
         "low_confidence": false
       },
       {
+        "code": "6428",
+        "name": "台灣淘米",
+        "price": 35.35,
+        "change_pct": 10.3,
+        "volume": 66.834,
+        "rs_market": 8.37,
+        "rs_sector": 10.3,
+        "volume_ratio": 4.6,
+        "above_open": null,
+        "above_prev_close": true,
+        "breakout_20d": false,
+        "breakout_60d": false,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "文化創意業",
+        "score": 73.7,
+        "tier": "B",
+        "ex": "esb",
+        "low_confidence": false
+      },
+      {
+        "code": "6580",
+        "name": "台睿",
+        "price": 15.6,
+        "change_pct": 9.09,
+        "volume": 410.972,
+        "rs_market": 7.16,
+        "rs_sector": 9.09,
+        "volume_ratio": 5.32,
+        "above_open": null,
+        "above_prev_close": true,
+        "breakout_20d": false,
+        "breakout_60d": false,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "生技醫療業",
+        "score": 73.7,
+        "tier": "B",
+        "ex": "esb",
+        "low_confidence": false
+      },
+      {
+        "code": "6868",
+        "name": "采威國際",
+        "price": 27.6,
+        "change_pct": 8.24,
+        "volume": 33.12,
+        "rs_market": 6.31,
+        "rs_sector": 7.29,
+        "volume_ratio": 11.04,
+        "above_open": null,
+        "above_prev_close": true,
+        "breakout_20d": false,
+        "breakout_60d": false,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "資訊服務業",
+        "score": 73.7,
+        "tier": "B",
+        "ex": "esb",
+        "low_confidence": false
+      },
+      {
         "code": "6691",
         "name": "洋基工程",
         "price": 650.0,
         "change_pct": 6.56,
         "volume": 1108.0,
         "rs_market": 4.63,
-        "rs_sector": 5.12,
+        "rs_sector": 5.13,
         "volume_ratio": 2.39,
         "above_open": true,
         "above_prev_close": true,
@@ -1177,13 +1345,34 @@
         "low_confidence": false
       },
       {
+        "code": "7707",
+        "name": "益芯科",
+        "price": 120.5,
+        "change_pct": 7.11,
+        "volume": 129.366,
+        "rs_market": 5.18,
+        "rs_sector": 4.92,
+        "volume_ratio": 5.83,
+        "above_open": null,
+        "above_prev_close": true,
+        "breakout_20d": false,
+        "breakout_60d": false,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "半導體業",
+        "score": 73.3,
+        "tier": "B",
+        "ex": "esb",
+        "low_confidence": false
+      },
+      {
         "code": "7827",
         "name": "漢康-KY創",
         "price": 162.0,
         "change_pct": 8.0,
         "volume": 460.0,
         "rs_market": 6.07,
-        "rs_sector": 7.78,
+        "rs_sector": 8.0,
         "volume_ratio": 3.01,
         "above_open": true,
         "above_prev_close": true,
@@ -1198,13 +1387,34 @@
         "low_confidence": false
       },
       {
+        "code": "7846",
+        "name": "德揚",
+        "price": 88.4,
+        "change_pct": 6.76,
+        "volume": 152.684,
+        "rs_market": 4.83,
+        "rs_sector": 6.39,
+        "volume_ratio": 69.4,
+        "above_open": null,
+        "above_prev_close": true,
+        "breakout_20d": false,
+        "breakout_60d": false,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "綠能環保",
+        "score": 72.8,
+        "tier": "B",
+        "ex": "esb",
+        "low_confidence": false
+      },
+      {
         "code": "3297",
         "name": "杭特",
         "price": 33.1,
         "change_pct": 9.97,
         "volume": 1076.0,
         "rs_market": 8.04,
-        "rs_sector": 8.3,
+        "rs_sector": 8.72,
         "volume_ratio": 2.09,
         "above_open": true,
         "above_prev_close": true,
@@ -1246,7 +1456,7 @@
         "change_pct": 9.94,
         "volume": 776.0,
         "rs_market": 8.01,
-        "rs_sector": 7.63,
+        "rs_sector": 7.75,
         "volume_ratio": 1.98,
         "above_open": true,
         "above_prev_close": true,
@@ -1267,7 +1477,7 @@
         "change_pct": 9.89,
         "volume": 2480.0,
         "rs_market": 7.96,
-        "rs_sector": 9.2,
+        "rs_sector": 9.52,
         "volume_ratio": 2.86,
         "above_open": true,
         "above_prev_close": true,
@@ -1288,7 +1498,7 @@
         "change_pct": 7.37,
         "volume": 9890.0,
         "rs_market": 5.44,
-        "rs_sector": 5.7,
+        "rs_sector": 6.12,
         "volume_ratio": 2.81,
         "above_open": true,
         "above_prev_close": true,
@@ -1309,7 +1519,7 @@
         "change_pct": 9.75,
         "volume": 23366.0,
         "rs_market": 7.82,
-        "rs_sector": 8.31,
+        "rs_sector": 8.32,
         "volume_ratio": 2.79,
         "above_open": true,
         "above_prev_close": true,
@@ -1330,7 +1540,7 @@
         "change_pct": 5.84,
         "volume": 554.0,
         "rs_market": 3.91,
-        "rs_sector": 5.07,
+        "rs_sector": 5.08,
         "volume_ratio": 2.52,
         "above_open": true,
         "above_prev_close": true,
@@ -1351,7 +1561,7 @@
         "change_pct": 9.89,
         "volume": 35606.0,
         "rs_market": 7.96,
-        "rs_sector": 7.58,
+        "rs_sector": 7.7,
         "volume_ratio": 1.87,
         "above_open": true,
         "above_prev_close": true,
@@ -1366,13 +1576,34 @@
         "low_confidence": false
       },
       {
+        "code": "8064",
+        "name": "東捷",
+        "price": 136.0,
+        "change_pct": 4.62,
+        "volume": 26158.0,
+        "rs_market": 2.69,
+        "rs_sector": 3.37,
+        "volume_ratio": 4.49,
+        "above_open": true,
+        "above_prev_close": true,
+        "breakout_20d": true,
+        "breakout_60d": false,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "光電業",
+        "score": 70.5,
+        "tier": "B",
+        "ex": "otc",
+        "low_confidence": false
+      },
+      {
         "code": "1436",
         "name": "華友聯",
         "price": 38.65,
         "change_pct": 5.31,
         "volume": 631.0,
         "rs_market": 3.38,
-        "rs_sector": 4.37,
+        "rs_sector": 4.38,
         "volume_ratio": 7.07,
         "above_open": true,
         "above_prev_close": true,
@@ -1387,13 +1618,55 @@
         "low_confidence": false
       },
       {
+        "code": "7556",
+        "name": "意德士",
+        "price": 262.0,
+        "change_pct": 5.86,
+        "volume": 97.0,
+        "rs_market": 3.93,
+        "rs_sector": 3.67,
+        "volume_ratio": 10.11,
+        "above_open": true,
+        "above_prev_close": true,
+        "breakout_20d": false,
+        "breakout_60d": false,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "半導體業",
+        "score": 70.3,
+        "tier": "B",
+        "ex": "otc",
+        "low_confidence": false
+      },
+      {
+        "code": "3035",
+        "name": "智原",
+        "price": 190.5,
+        "change_pct": 6.42,
+        "volume": 8905.0,
+        "rs_market": 4.49,
+        "rs_sector": 4.23,
+        "volume_ratio": 2.44,
+        "above_open": true,
+        "above_prev_close": true,
+        "breakout_20d": true,
+        "breakout_60d": false,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "半導體業",
+        "score": 69.9,
+        "tier": "B",
+        "ex": "tse",
+        "low_confidence": false
+      },
+      {
         "code": "8072",
         "name": "陞泰",
         "price": 27.8,
         "change_pct": 4.51,
         "volume": 885.0,
         "rs_market": 2.58,
-        "rs_sector": 3.45,
+        "rs_sector": 3.38,
         "volume_ratio": 6.96,
         "above_open": true,
         "above_prev_close": true,
@@ -1402,7 +1675,7 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "電子通路業",
-        "score": 70.2,
+        "score": 69.9,
         "tier": "B",
         "ex": "tse",
         "low_confidence": false
@@ -1414,7 +1687,7 @@
         "change_pct": 9.98,
         "volume": 15330.0,
         "rs_market": 8.05,
-        "rs_sector": 7.67,
+        "rs_sector": 7.79,
         "volume_ratio": 1.76,
         "above_open": true,
         "above_prev_close": true,
@@ -1427,193 +1700,79 @@
         "tier": "B",
         "ex": "tse",
         "low_confidence": false
-      },
-      {
-        "code": "7556",
-        "name": "意德士",
-        "price": 262.0,
-        "change_pct": 5.86,
-        "volume": 97.0,
-        "rs_market": 3.93,
-        "rs_sector": 3.55,
-        "volume_ratio": 10.11,
-        "above_open": true,
-        "above_prev_close": true,
-        "breakout_20d": false,
-        "breakout_60d": false,
-        "breakout_120d": false,
-        "breakout_252d": false,
-        "industry": "半導體業",
-        "score": 69.8,
-        "tier": "B",
-        "ex": "otc",
-        "low_confidence": false
-      },
-      {
-        "code": "3035",
-        "name": "智原",
-        "price": 190.5,
-        "change_pct": 6.42,
-        "volume": 8905.0,
-        "rs_market": 4.49,
-        "rs_sector": 4.11,
-        "volume_ratio": 2.44,
-        "above_open": true,
-        "above_prev_close": true,
-        "breakout_20d": true,
-        "breakout_60d": false,
-        "breakout_120d": false,
-        "breakout_252d": false,
-        "industry": "半導體業",
-        "score": 69.4,
-        "tier": "B",
-        "ex": "tse",
-        "low_confidence": false
-      },
-      {
-        "code": "8064",
-        "name": "東捷",
-        "price": 136.0,
-        "change_pct": 4.62,
-        "volume": 26158.0,
-        "rs_market": 2.69,
-        "rs_sector": 2.95,
-        "volume_ratio": 4.49,
-        "above_open": true,
-        "above_prev_close": true,
-        "breakout_20d": true,
-        "breakout_60d": false,
-        "breakout_120d": false,
-        "breakout_252d": false,
-        "industry": "光電業",
-        "score": 68.7,
-        "tier": "B",
-        "ex": "otc",
-        "low_confidence": false
-      },
-      {
-        "code": "7769",
-        "name": "鴻勁",
-        "price": 6540.0,
-        "change_pct": 6.6,
-        "volume": 3134.0,
-        "rs_market": 4.67,
-        "rs_sector": 4.29,
-        "volume_ratio": 3.01,
-        "above_open": true,
-        "above_prev_close": true,
-        "breakout_20d": false,
-        "breakout_60d": false,
-        "breakout_120d": false,
-        "breakout_252d": false,
-        "industry": "半導體業",
-        "score": 68.2,
-        "tier": "B",
-        "ex": "tse",
-        "low_confidence": false
-      },
-      {
-        "code": "3346",
-        "name": "麗清",
-        "price": 22.3,
-        "change_pct": 9.85,
-        "volume": 892.0,
-        "rs_market": 7.92,
-        "rs_sector": 9.53,
-        "volume_ratio": 1.56,
-        "above_open": true,
-        "above_prev_close": true,
-        "breakout_20d": true,
-        "breakout_60d": false,
-        "breakout_120d": false,
-        "breakout_252d": false,
-        "industry": "汽車工業",
-        "score": 68.1,
-        "tier": "B",
-        "ex": "tse",
-        "low_confidence": false
-      },
-      {
-        "code": "6290",
-        "name": "良維",
-        "price": 282.5,
-        "change_pct": 6.2,
-        "volume": 9008.0,
-        "rs_market": 4.27,
-        "rs_sector": 4.74,
-        "volume_ratio": 2.01,
-        "above_open": true,
-        "above_prev_close": true,
-        "breakout_20d": true,
-        "breakout_60d": false,
-        "breakout_120d": false,
-        "breakout_252d": false,
-        "industry": "電子零組件業",
-        "score": 67.1,
-        "tier": "B",
-        "ex": "otc",
-        "low_confidence": false
-      },
-      {
-        "code": "2539",
-        "name": "櫻花建",
-        "price": 36.1,
-        "change_pct": 4.94,
-        "volume": 1817.0,
-        "rs_market": 3.01,
-        "rs_sector": 4.0,
-        "volume_ratio": 4.94,
-        "above_open": true,
-        "above_prev_close": true,
-        "breakout_20d": false,
-        "breakout_60d": false,
-        "breakout_120d": false,
-        "breakout_252d": false,
-        "industry": "建材營造",
-        "score": 66.9,
-        "tier": "B",
-        "ex": "tse",
-        "low_confidence": false
-      },
-      {
-        "code": "6541",
-        "name": "泰福-KY",
-        "price": 32.5,
-        "change_pct": 5.52,
-        "volume": 960.0,
-        "rs_market": 3.59,
-        "rs_sector": 5.3,
-        "volume_ratio": 3.13,
-        "above_open": true,
-        "above_prev_close": true,
-        "breakout_20d": false,
-        "breakout_60d": false,
-        "breakout_120d": false,
-        "breakout_252d": false,
-        "industry": "生技醫療業",
-        "score": 66.5,
-        "tier": "B",
-        "ex": "tse",
-        "low_confidence": false
       }
     ]
   },
   "funnel": {
-    "scanned": 1934,
-    "low_price": 71,
-    "disposition": 3,
-    "rs_market": 1523,
-    "volume_ratio": 166,
-    "momentum": 7,
-    "passed": 164
+    "scanned": 2277,
+    "low_price": 96,
+    "disposition": 15,
+    "rs_market": 1783,
+    "volume_ratio": 183,
+    "momentum": 8,
+    "passed": 192
   },
   "markets": {
     "twse": 1081,
     "tpex": 853,
-    "esb": 0
+    "esb": 343
   },
   "rankings": {
     "gainers": [
+      {
+        "code": "7930",
+        "name": "威世波",
+        "price": 324.0,
+        "change_pct": 17.82,
+        "volume": 1148.267,
+        "ex": "esb",
+        "volume_ratio": 1.15
+      },
+      {
+        "code": "6878",
+        "name": "歐付寶",
+        "price": 21.85,
+        "change_pct": 13.51,
+        "volume": 54.309,
+        "ex": "esb",
+        "volume_ratio": 2.28
+      },
+      {
+        "code": "7829",
+        "name": "思捷優達-KY",
+        "price": 56.8,
+        "change_pct": 10.94,
+        "volume": 365.75,
+        "ex": "esb",
+        "volume_ratio": 2.11
+      },
+      {
+        "code": "4573",
+        "name": "高明鐵",
+        "price": 679.0,
+        "change_pct": 10.59,
+        "volume": 1594.616,
+        "ex": "esb",
+        "volume_ratio": 2.01
+      },
+      {
+        "code": "6428",
+        "name": "台灣淘米",
+        "price": 35.35,
+        "change_pct": 10.3,
+        "volume": 66.834,
+        "ex": "esb",
+        "volume_ratio": 4.6
+      },
+      {
+        "code": "6820",
+        "name": "連訊",
+        "price": 361.0,
+        "change_pct": 10.06,
+        "volume": 194.548,
+        "ex": "esb",
+        "volume_ratio": 1.12
+      },
       {
         "code": "3094",
         "name": "聯傑",
@@ -1768,6 +1927,15 @@
         "volume_ratio": 3.58
       },
       {
+        "code": "5432",
+        "name": "新門",
+        "price": 160.0,
+        "change_pct": 9.97,
+        "volume": 238.0,
+        "ex": "otc",
+        "volume_ratio": 5.68
+      },
+      {
         "code": "6830",
         "name": "汎銓",
         "price": 563.0,
@@ -1784,6 +1952,15 @@
         "volume": 12243.0,
         "ex": "tse",
         "volume_ratio": 1.31
+      },
+      {
+        "code": "3002",
+        "name": "歐格",
+        "price": 20.45,
+        "change_pct": 9.95,
+        "volume": 1181.0,
+        "ex": "tse",
+        "volume_ratio": 1.51
       },
       {
         "code": "3665",
@@ -1811,81 +1988,117 @@
         "volume": 4528.0,
         "ex": "otc",
         "volume_ratio": 2.98
-      },
-      {
-        "code": "4923",
-        "name": "力士",
-        "price": 60.8,
-        "change_pct": 9.95,
-        "volume": 1855.0,
-        "ex": "otc",
-        "volume_ratio": 4.76
-      },
-      {
-        "code": "6221",
-        "name": "晉泰",
-        "price": 31.5,
-        "change_pct": 9.95,
-        "volume": 1619.0,
-        "ex": "otc",
-        "volume_ratio": 0.84
-      },
-      {
-        "code": "1560",
-        "name": "中砂",
-        "price": 896.0,
-        "change_pct": 9.94,
-        "volume": 5986.0,
-        "ex": "tse",
-        "volume_ratio": 1.89
-      },
-      {
-        "code": "4956",
-        "name": "光鋐",
-        "price": 42.6,
-        "change_pct": 9.94,
-        "volume": 23851.0,
-        "ex": "tse",
-        "volume_ratio": 2.81
-      },
-      {
-        "code": "4903",
-        "name": "聯光通",
-        "price": 37.6,
-        "change_pct": 9.94,
-        "volume": 2301.0,
-        "ex": "otc",
-        "volume_ratio": 4.87
-      },
-      {
-        "code": "4951",
-        "name": "精拓科",
-        "price": 90.7,
-        "change_pct": 9.94,
-        "volume": 776.0,
-        "ex": "otc",
-        "volume_ratio": 1.98
-      },
-      {
-        "code": "6668",
-        "name": "中揚光",
-        "price": 49.25,
-        "change_pct": 9.93,
-        "volume": 8812.0,
-        "ex": "tse",
-        "volume_ratio": 2.72
-      },
-      {
-        "code": "6485",
-        "name": "點序",
-        "price": 65.3,
-        "change_pct": 9.93,
-        "volume": 1262.0,
-        "ex": "otc",
-        "volume_ratio": 4.41
       }
     ],
     "volume_ratio": [
+      {
+        "code": "4170",
+        "name": "鑫品生醫",
+        "price": 12.6,
+        "change_pct": 0.4,
+        "volume": 20.164,
+        "ex": "esb",
+        "volume_ratio": 20164.0
+      },
+      {
+        "code": "6744",
+        "name": "豐技生技",
+        "price": 14.6,
+        "change_pct": -0.68,
+        "volume": 16.044,
+        "ex": "esb",
+        "volume_ratio": 16044.0
+      },
+      {
+        "code": "1480",
+        "name": "東盟開發",
+        "price": 7.5,
+        "change_pct": -3.85,
+        "volume": 58.005,
+        "ex": "esb",
+        "volume_ratio": 11601.0
+      },
+      {
+        "code": "6882",
+        "name": "甲尚",
+        "price": 13.0,
+        "change_pct": 0.0,
+        "volume": 10.0,
+        "ex": "esb",
+        "volume_ratio": 10000.0
+      },
+      {
+        "code": "7847",
+        "name": "豊漁",
+        "price": 19.6,
+        "change_pct": -2.0,
+        "volume": 17.58,
+        "ex": "esb",
+        "volume_ratio": 1758.0
+      },
+      {
+        "code": "6798",
+        "name": "展逸",
+        "price": 64.6,
+        "change_pct": 0.16,
+        "volume": 11.001,
+        "ex": "esb",
+        "volume_ratio": 500.05
+      },
+      {
+        "code": "6879",
+        "name": "大江基因",
+        "price": 35.8,
+        "change_pct": 0.0,
+        "volume": 4.164,
+        "ex": "esb",
+        "volume_ratio": 416.4
+      },
+      {
+        "code": "3473",
+        "name": "智通聯網",
+        "price": 79.5,
+        "change_pct": 0.0,
+        "volume": 0.257,
+        "ex": "esb",
+        "volume_ratio": 257.0
+      },
+      {
+        "code": "6723",
+        "name": "傑智環境",
+        "price": 32.5,
+        "change_pct": -1.07,
+        "volume": 22.154,
+        "ex": "esb",
+        "volume_ratio": 226.06
+      },
+      {
+        "code": "7706",
+        "name": "宏碁創達",
+        "price": 29.45,
+        "change_pct": -2.16,
+        "volume": 4.0,
+        "ex": "esb",
+        "volume_ratio": 133.33
+      },
+      {
+        "code": "7764",
+        "name": "聖州",
+        "price": 11.2,
+        "change_pct": 3.23,
+        "volume": 86.069,
+        "ex": "esb",
+        "volume_ratio": 99.5
+      },
+      {
+        "code": "7846",
+        "name": "德揚",
+        "price": 88.4,
+        "change_pct": 6.76,
+        "volume": 152.684,
+        "ex": "esb",
+        "volume_ratio": 69.4
+      },
       {
         "code": "4402",
         "name": "郡都開發",
@@ -1896,6 +2109,15 @@
         "volume_ratio": 56.64
       },
       {
+        "code": "7824",
+        "name": "智寶",
+        "price": 40.0,
+        "change_pct": 1.27,
+        "volume": 27.592,
+        "ex": "esb",
+        "volume_ratio": 55.18
+      },
+      {
         "code": "1737",
         "name": "臺鹽",
         "price": 29.3,
@@ -1903,6 +2125,15 @@
         "volume": 4377.0,
         "ex": "tse",
         "volume_ratio": 51.13
+      },
+      {
+        "code": "2245",
+        "name": "詠勝昌*",
+        "price": 23.6,
+        "change_pct": -0.63,
+        "volume": 5.007,
+        "ex": "esb",
+        "volume_ratio": 45.11
       },
       {
         "code": "2538",
@@ -1921,6 +2152,15 @@
         "volume": 2884.0,
         "ex": "otc",
         "volume_ratio": 33.42
+      },
+      {
+        "code": "2942",
+        "name": "京站",
+        "price": 38.1,
+        "change_pct": 0.4,
+        "volume": 3.602,
+        "ex": "esb",
+        "volume_ratio": 33.35
       },
       {
         "code": "3259",
@@ -1986,6 +2226,15 @@
         "volume_ratio": 20.34
       },
       {
+        "code": "7551",
+        "name": "知識科技",
+        "price": 12.75,
+        "change_pct": 0.79,
+        "volume": 61.552,
+        "ex": "esb",
+        "volume_ratio": 19.79
+      },
+      {
         "code": "3171",
         "name": "炎洲流通",
         "price": 59.6,
@@ -2011,150 +2260,6 @@
         "volume": 4497.0,
         "ex": "otc",
         "volume_ratio": 17.28
-      },
-      {
-        "code": "3178",
-        "name": "公準",
-        "price": 64.0,
-        "change_pct": 1.91,
-        "volume": 1041.0,
-        "ex": "otc",
-        "volume_ratio": 17.13
-      },
-      {
-        "code": "4907",
-        "name": "富宇",
-        "price": 45.5,
-        "change_pct": 3.64,
-        "volume": 181.0,
-        "ex": "otc",
-        "volume_ratio": 15.53
-      },
-      {
-        "code": "2228",
-        "name": "劍麟",
-        "price": 73.4,
-        "change_pct": -4.55,
-        "volume": 1110.0,
-        "ex": "tse",
-        "volume_ratio": 15.23
-      },
-      {
-        "code": "7728",
-        "name": "光焱科技",
-        "price": 584.0,
-        "change_pct": -7.59,
-        "volume": 309.0,
-        "ex": "otc",
-        "volume_ratio": 14.64
-      },
-      {
-        "code": "4154",
-        "name": "樂威科-KY",
-        "price": 11.25,
-        "change_pct": 0.0,
-        "volume": 58.0,
-        "ex": "otc",
-        "volume_ratio": 14.5
-      },
-      {
-        "code": "6846",
-        "name": "綠茵",
-        "price": 58.9,
-        "change_pct": 0.17,
-        "volume": 14.0,
-        "ex": "otc",
-        "volume_ratio": 14.0
-      },
-      {
-        "code": "6667",
-        "name": "信紘科",
-        "price": 262.0,
-        "change_pct": 9.85,
-        "volume": 1457.0,
-        "ex": "otc",
-        "volume_ratio": 11.41
-      },
-      {
-        "code": "4113",
-        "name": "聯上",
-        "price": 15.45,
-        "change_pct": -2.52,
-        "volume": 660.0,
-        "ex": "otc",
-        "volume_ratio": 11.0
-      },
-      {
-        "code": "7556",
-        "name": "意德士",
-        "price": 262.0,
-        "change_pct": 5.86,
-        "volume": 97.0,
-        "ex": "otc",
-        "volume_ratio": 10.11
-      },
-      {
-        "code": "4979",
-        "name": "華星光",
-        "price": 611.0,
-        "change_pct": 9.89,
-        "volume": 9561.0,
-        "ex": "otc",
-        "volume_ratio": 9.74
-      },
-      {
-        "code": "8426",
-        "name": "紅木-KY",
-        "price": 20.6,
-        "change_pct": -0.24,
-        "volume": 40.0,
-        "ex": "otc",
-        "volume_ratio": 9.71
-      },
-      {
-        "code": "6186",
-        "name": "新潤",
-        "price": 29.95,
-        "change_pct": -0.33,
-        "volume": 3180.0,
-        "ex": "otc",
-        "volume_ratio": 9.59
-      },
-      {
-        "code": "2724",
-        "name": "藝舍-KY",
-        "price": 11.65,
-        "change_pct": 8.37,
-        "volume": 41.0,
-        "ex": "otc",
-        "volume_ratio": 9.36
-      },
-      {
-        "code": "8044",
-        "name": "網家",
-        "price": 23.5,
-        "change_pct": -2.89,
-        "volume": 4015.0,
-        "ex": "otc",
-        "volume_ratio": 9.15
-      },
-      {
-        "code": "8415",
-        "name": "大國鋼",
-        "price": 34.35,
-        "change_pct": -1.29,
-        "volume": 4783.0,
-        "ex": "otc",
-        "volume_ratio": 9.02
-      },
-      {
-        "code": "2926",
-        "name": "誠品生活",
-        "price": 30.0,
-        "change_pct": 0.0,
-        "volume": 21.0,
-        "ex": "otc",
-        "volume_ratio": 8.79
       }
     ],
     "turnover": [
@@ -2431,6 +2536,42 @@
     ],
     "new_high_5d": [
       {
+        "code": "6878",
+        "name": "歐付寶",
+        "price": 21.85,
+        "change_pct": 13.51,
+        "volume": 54.309,
+        "ex": "esb",
+        "volume_ratio": 2.28
+      },
+      {
+        "code": "7829",
+        "name": "思捷優達-KY",
+        "price": 56.8,
+        "change_pct": 10.94,
+        "volume": 365.75,
+        "ex": "esb",
+        "volume_ratio": 2.11
+      },
+      {
+        "code": "4573",
+        "name": "高明鐵",
+        "price": 679.0,
+        "change_pct": 10.59,
+        "volume": 1594.616,
+        "ex": "esb",
+        "volume_ratio": 2.01
+      },
+      {
+        "code": "6820",
+        "name": "連訊",
+        "price": 361.0,
+        "change_pct": 10.06,
+        "volume": 194.548,
+        "ex": "esb",
+        "volume_ratio": 1.12
+      },
+      {
         "code": "3094",
         "name": "聯傑",
         "price": 51.7,
@@ -2566,6 +2707,15 @@
         "volume_ratio": 3.58
       },
       {
+        "code": "5432",
+        "name": "新門",
+        "price": 160.0,
+        "change_pct": 9.97,
+        "volume": 238.0,
+        "ex": "otc",
+        "volume_ratio": 5.68
+      },
+      {
         "code": "6830",
         "name": "汎銓",
         "price": 563.0,
@@ -2582,6 +2732,15 @@
         "volume": 12243.0,
         "ex": "tse",
         "volume_ratio": 1.31
+      },
+      {
+        "code": "3002",
+        "name": "歐格",
+        "price": 20.45,
+        "change_pct": 9.95,
+        "volume": 1181.0,
+        "ex": "tse",
+        "volume_ratio": 1.51
       },
       {
         "code": "3665",
@@ -2645,63 +2804,27 @@
         "volume": 23851.0,
         "ex": "tse",
         "volume_ratio": 2.81
-      },
-      {
-        "code": "4903",
-        "name": "聯光通",
-        "price": 37.6,
-        "change_pct": 9.94,
-        "volume": 2301.0,
-        "ex": "otc",
-        "volume_ratio": 4.87
-      },
-      {
-        "code": "4951",
-        "name": "精拓科",
-        "price": 90.7,
-        "change_pct": 9.94,
-        "volume": 776.0,
-        "ex": "otc",
-        "volume_ratio": 1.98
-      },
-      {
-        "code": "6668",
-        "name": "中揚光",
-        "price": 49.25,
-        "change_pct": 9.93,
-        "volume": 8812.0,
-        "ex": "tse",
-        "volume_ratio": 2.72
-      },
-      {
-        "code": "6485",
-        "name": "點序",
-        "price": 65.3,
-        "change_pct": 9.93,
-        "volume": 1262.0,
-        "ex": "otc",
-        "volume_ratio": 4.41
-      },
-      {
-        "code": "6148",
-        "name": "驊宏資",
-        "price": 39.85,
-        "change_pct": 9.93,
-        "volume": 9048.0,
-        "ex": "otc",
-        "volume_ratio": 1.66
-      },
-      {
-        "code": "6538",
-        "name": "倉和",
-        "price": 388.0,
-        "change_pct": 9.92,
-        "volume": 2382.0,
-        "ex": "otc",
-        "volume_ratio": 2.86
       }
     ],
     "new_high_1m": [
+      {
+        "code": "7829",
+        "name": "思捷優達-KY",
+        "price": 56.8,
+        "change_pct": 10.94,
+        "volume": 365.75,
+        "ex": "esb",
+        "volume_ratio": 2.11
+      },
+      {
+        "code": "4573",
+        "name": "高明鐵",
+        "price": 679.0,
+        "change_pct": 10.59,
+        "volume": 1594.616,
+        "ex": "esb",
+        "volume_ratio": 2.01
+      },
       {
         "code": "3094",
         "name": "聯傑",
@@ -2838,6 +2961,15 @@
         "volume_ratio": 1.31
       },
       {
+        "code": "3002",
+        "name": "歐格",
+        "price": 20.45,
+        "change_pct": 9.95,
+        "volume": 1181.0,
+        "ex": "tse",
+        "volume_ratio": 1.51
+      },
+      {
         "code": "3508",
         "name": "位速",
         "price": 23.75,
@@ -2944,36 +3076,27 @@
         "volume": 32541.0,
         "ex": "tse",
         "volume_ratio": 1.09
-      },
-      {
-        "code": "3296",
-        "name": "勝德",
-        "price": 28.3,
-        "change_pct": 9.9,
-        "volume": 425.0,
-        "ex": "tse",
-        "volume_ratio": 3.4
-      },
-      {
-        "code": "6715",
-        "name": "嘉基",
-        "price": 433.0,
-        "change_pct": 9.9,
-        "volume": 4145.0,
-        "ex": "tse",
-        "volume_ratio": 0.7
-      },
-      {
-        "code": "2033",
-        "name": "佳大",
-        "price": 33.9,
-        "change_pct": 9.89,
-        "volume": 4570.0,
-        "ex": "tse",
-        "volume_ratio": 1.34
       }
     ],
     "new_high_3m": [
+      {
+        "code": "7829",
+        "name": "思捷優達-KY",
+        "price": 56.8,
+        "change_pct": 10.94,
+        "volume": 365.75,
+        "ex": "esb",
+        "volume_ratio": 2.11
+      },
+      {
+        "code": "4573",
+        "name": "高明鐵",
+        "price": 679.0,
+        "change_pct": 10.59,
+        "volume": 1594.616,
+        "ex": "esb",
+        "volume_ratio": 2.01
+      },
       {
         "code": "3094",
         "name": "聯傑",
@@ -3119,6 +3242,15 @@
         "volume_ratio": 1.34
       },
       {
+        "code": "5465",
+        "name": "富驊",
+        "price": 26.7,
+        "change_pct": 9.88,
+        "volume": 465.0,
+        "ex": "otc",
+        "volume_ratio": 7.44
+      },
+      {
         "code": "3437",
         "name": "榮創",
         "price": 22.35,
@@ -3137,13 +3269,31 @@
         "volume_ratio": 1.35
       },
       {
-        "code": "5465",
-        "name": "富驊",
-        "price": 26.6,
-        "change_pct": 9.47,
-        "volume": 465.0,
+        "code": "6140",
+        "name": "訊達",
+        "price": 21.8,
+        "change_pct": 9.82,
+        "volume": 1190.0,
         "ex": "otc",
-        "volume_ratio": 7.44
+        "volume_ratio": 1.39
+      },
+      {
+        "code": "6677",
+        "name": "瑩碩生技",
+        "price": 20.75,
+        "change_pct": 9.79,
+        "volume": 700.381,
+        "ex": "esb",
+        "volume_ratio": 1.62
+      },
+      {
+        "code": "6902",
+        "name": "GOGOLOOK",
+        "price": 141.0,
+        "change_pct": 9.73,
+        "volume": 904.0,
+        "ex": "tse",
+        "volume_ratio": 7.67
       },
       {
         "code": "6147",
@@ -3198,54 +3348,27 @@
         "volume": 13363.0,
         "ex": "tse",
         "volume_ratio": 1.91
-      },
-      {
-        "code": "3029",
-        "name": "零壹",
-        "price": 125.0,
-        "change_pct": 7.76,
-        "volume": 6741.0,
-        "ex": "tse",
-        "volume_ratio": 1.63
-      },
-      {
-        "code": "6199",
-        "name": "天品",
-        "price": 113.0,
-        "change_pct": 7.62,
-        "volume": 4218.0,
-        "ex": "otc",
-        "volume_ratio": 1.21
-      },
-      {
-        "code": "6533",
-        "name": "晶心科",
-        "price": 270.5,
-        "change_pct": 7.55,
-        "volume": 4480.0,
-        "ex": "tse",
-        "volume_ratio": 2.1
-      },
-      {
-        "code": "6885",
-        "name": "全福生技",
-        "price": 31.6,
-        "change_pct": 7.12,
-        "volume": 1891.0,
-        "ex": "tse",
-        "volume_ratio": 0.94
-      },
-      {
-        "code": "6112",
-        "name": "邁達特",
-        "price": 52.1,
-        "change_pct": 6.87,
-        "volume": 8870.0,
-        "ex": "tse",
-        "volume_ratio": 2.64
       }
     ],
     "new_high_6m": [
+      {
+        "code": "7829",
+        "name": "思捷優達-KY",
+        "price": 56.8,
+        "change_pct": 10.94,
+        "volume": 365.75,
+        "ex": "esb",
+        "volume_ratio": 2.11
+      },
+      {
+        "code": "4573",
+        "name": "高明鐵",
+        "price": 679.0,
+        "change_pct": 10.59,
+        "volume": 1594.616,
+        "ex": "esb",
+        "volume_ratio": 2.01
+      },
       {
         "code": "3094",
         "name": "聯傑",
@@ -3497,27 +3620,18 @@
         "volume": 90.0,
         "ex": "otc",
         "volume_ratio": 5.19
-      },
-      {
-        "code": "6226",
-        "name": "光鼎",
-        "price": 45.7,
-        "change_pct": 4.22,
-        "volume": 127529.0,
-        "ex": "tse",
-        "volume_ratio": 5.54
-      },
-      {
-        "code": "1734",
-        "name": "杏輝",
-        "price": 32.8,
-        "change_pct": 4.13,
-        "volume": 210.0,
-        "ex": "tse",
-        "volume_ratio": 1.51
       }
     ],
     "new_high_1y": [
+      {
+        "code": "4573",
+        "name": "高明鐵",
+        "price": 679.0,
+        "change_pct": 10.59,
+        "volume": 1594.616,
+        "ex": "esb",
+        "volume_ratio": 2.01
+      },
       {
         "code": "3094",
         "name": "聯傑",
@@ -3744,6 +3858,15 @@
         "volume_ratio": 5.84
       },
       {
+        "code": "6819",
+        "name": "眾智",
+        "price": 70.7,
+        "change_pct": 2.46,
+        "volume": 801.846,
+        "ex": "esb",
+        "volume_ratio": 1.04
+      },
+      {
         "code": "1315",
         "name": "達新",
         "price": 68.2,
@@ -3753,6 +3876,15 @@
         "volume_ratio": 1.92
       },
       {
+        "code": "7754",
+        "name": "安基生技",
+        "price": 70.2,
+        "change_pct": 1.89,
+        "volume": 1774.506,
+        "ex": "esb",
+        "volume_ratio": 1.48
+      },
+      {
         "code": "2849",
         "name": "安泰銀",
         "price": 16.25,
@@ -3760,127 +3892,112 @@
         "volume": 379.0,
         "ex": "tse",
         "volume_ratio": 1.56
-      },
-      {
-        "code": "2107",
-        "name": "厚生",
-        "price": 27.3,
-        "change_pct": 1.68,
-        "volume": 388.0,
-        "ex": "tse",
-        "volume_ratio": 2.15
-      },
-      {
-        "code": "4961",
-        "name": "天鈺",
-        "price": 183.5,
-        "change_pct": 1.38,
-        "volume": 1159.0,
-        "ex": "tse",
-        "volume_ratio": 0.68
-      },
-      {
-        "code": "6620",
-        "name": "漢達",
-        "price": 149.0,
-        "change_pct": 1.36,
-        "volume": 9844.0,
-        "ex": "otc",
-        "volume_ratio": 4.84
       }
     ],
     "_eligible": {
-      "new_high_5d": 1934,
-      "new_high_1m": 1933,
-      "new_high_3m": 1931,
-      "new_high_6m": 1929,
-      "new_high_1y": 1926
+      "new_high_5d": 2277,
+      "new_high_1m": 2272,
+      "new_high_3m": 2251,
+      "new_high_6m": 2230,
+      "new_high_1y": 2190
     }
   },
   "sectors": [
     {
       "industry": "半導體業",
-      "count": 203,
-      "median_change_pct": 2.31,
-      "strong_count": 88
-    },
-    {
-      "industry": "光電業",
-      "count": 113,
-      "median_change_pct": 1.67,
-      "strong_count": 33
-    },
-    {
-      "industry": "農業科技",
-      "count": 3,
-      "median_change_pct": 1.5,
-      "strong_count": 1
+      "count": 237,
+      "median_change_pct": 2.19,
+      "strong_count": 97
     },
     {
       "industry": "電子零組件業",
-      "count": 208,
-      "median_change_pct": 1.46,
-      "strong_count": 55
+      "count": 226,
+      "median_change_pct": 1.52,
+      "strong_count": 62
     },
     {
       "industry": "其他電子業",
-      "count": 92,
-      "median_change_pct": 1.44,
-      "strong_count": 28
+      "count": 107,
+      "median_change_pct": 1.43,
+      "strong_count": 35
+    },
+    {
+      "industry": "光電業",
+      "count": 134,
+      "median_change_pct": 1.25,
+      "strong_count": 35
     },
     {
       "industry": "電子通路業",
-      "count": 36,
-      "median_change_pct": 1.06,
+      "count": 37,
+      "median_change_pct": 1.13,
       "strong_count": 4
-    },
-    {
-      "industry": "資訊服務業",
-      "count": 45,
-      "median_change_pct": 0.98,
-      "strong_count": 11
-    },
-    {
-      "industry": "建材營造",
-      "count": 87,
-      "median_change_pct": 0.94,
-      "strong_count": 17
-    },
-    {
-      "industry": "通信網路業",
-      "count": 87,
-      "median_change_pct": 0.8,
-      "strong_count": 19
     },
     {
       "industry": "存託憑證",
       "count": 4,
-      "median_change_pct": 0.8,
+      "median_change_pct": 0.98,
       "strong_count": 0
     },
     {
+      "industry": "資訊服務業",
+      "count": 56,
+      "median_change_pct": 0.95,
+      "strong_count": 16
+    },
+    {
+      "industry": "建材營造",
+      "count": 88,
+      "median_change_pct": 0.94,
+      "strong_count": 17
+    },
+    {
       "industry": "電機機械",
-      "count": 95,
-      "median_change_pct": 0.77,
-      "strong_count": 13
+      "count": 113,
+      "median_change_pct": 0.76,
+      "strong_count": 14
+    },
+    {
+      "industry": "農業科技",
+      "count": 6,
+      "median_change_pct": 0.75,
+      "strong_count": 1
     },
     {
       "industry": "數位雲端",
-      "count": 39,
-      "median_change_pct": 0.7,
+      "count": 49,
+      "median_change_pct": 0.62,
       "strong_count": 9
     },
     {
-      "industry": "電腦及週邊設備業",
-      "count": 106,
-      "median_change_pct": 0.69,
-      "strong_count": 10
+      "industry": "通信網路業",
+      "count": 99,
+      "median_change_pct": 0.61,
+      "strong_count": 21
     },
     {
-      "industry": "綠能環保",
-      "count": 45,
-      "median_change_pct": 0.69,
-      "strong_count": 5
+      "industry": "汽車工業",
+      "count": 44,
+      "median_change_pct": 0.58,
+      "strong_count": 3
+    },
+    {
+      "industry": "電腦及週邊設備業",
+      "count": 121,
+      "median_change_pct": 0.53,
+      "strong_count": 11
+    },
+    {
+      "industry": "貿易百貨",
+      "count": 18,
+      "median_change_pct": 0.52,
+      "strong_count": 2
+    },
+    {
+      "industry": "運動休閒",
+      "count": 30,
+      "median_change_pct": 0.51,
+      "strong_count": 0
     },
     {
       "industry": "玻璃陶瓷",
@@ -3889,34 +4006,22 @@
       "strong_count": 1
     },
     {
-      "industry": "化學工業",
-      "count": 42,
-      "median_change_pct": 0.44,
-      "strong_count": 7
-    },
-    {
-      "industry": "金融業",
-      "count": 9,
-      "median_change_pct": 0.44,
-      "strong_count": 0
-    },
-    {
-      "industry": "運動休閒",
-      "count": 27,
-      "median_change_pct": 0.4,
-      "strong_count": 0
-    },
-    {
       "industry": "鋼鐵工業",
-      "count": 47,
-      "median_change_pct": 0.4,
+      "count": 50,
+      "median_change_pct": 0.44,
       "strong_count": 3
     },
     {
-      "industry": "貿易百貨",
-      "count": 18,
+      "industry": "食品工業",
+      "count": 40,
+      "median_change_pct": 0.43,
+      "strong_count": 3
+    },
+    {
+      "industry": "居家生活",
+      "count": 37,
       "median_change_pct": 0.4,
-      "strong_count": 2
+      "strong_count": 1
     }
   ]
 }
