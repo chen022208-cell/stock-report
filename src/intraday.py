@@ -717,9 +717,7 @@ def _write_alert(rows: list[dict], result: dict, cfg: dict) -> None:
             extra.append(r["industry"])
         if extra:
             out.append("、".join(extra))
-    out.append(SEP)
-    out.append(f"公開頁顯示延遲約 {delay} 分鐘，本通知為內部即時值。"
-               "這是規則計算的訊號，不是投資建議。")
+    out.append(SEP)             # 播報不附延遲／免責說明（使用者要求），結尾只留分隔線
     ALERT_PATH.write_text(json.dumps(
         {"date": result["as_of"][:10], "at": result["as_of"],
          "codes": [r["code"] for r in rows], "text": "\n".join(out)},

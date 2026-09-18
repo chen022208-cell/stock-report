@@ -1698,8 +1698,6 @@ def _topic_notify_text(r: dict) -> str:
     if stocks:
         parts += ["", "**相關個股**：" + "、".join(
             f"{x.get('code','')} {x.get('name','')}" for x in stocks[:8])]
-    if r.get("sources"):
-        parts.append(f"\n查證來源／出處 {len(r['sources'])} 個")
     return "\n".join(parts).strip()
 
 
@@ -2282,12 +2280,9 @@ def run_research_intake() -> None:
     # ⚠️ _write_topic_notify() 每次都會「重寫整個檔案」，所以成功與失敗的通知
     # 一定要先合成同一個 list、只呼叫一次。之前分開呼叫的版本，失敗那則會把
     # 前面成功的整批蓋掉（實際發生過：2 篇成功被 1 則失敗覆蓋）。
-    _verdict_label = {"verified": "已驗證", "conflicting": "與既有資料衝突",
-                      "unverified": "無法獨立驗證"}
     entries = list(topic_made) + [{
         **rep,
-        "notify_title": f"研究提交分析（{_verdict_label.get(rep.get('verified'), '')}）："
-                        f"{rep['title']}",
+        "notify_title": f"研究提交分析：{rep['title']}",
         "url": rep.get("pdf_url", ""),
     } for rep in submission_reports] + [{
         "title": f"「{t}」查不到足夠外部來源", "url": "", "sources": [],
@@ -2302,7 +2297,6 @@ def run_research_intake() -> None:
     if plain > 0:
         _safe(lambda: send_notification(
             f"📝 已處理 {plain} 筆研究提交",
-            f"驗證結果與是否回寫題材，見研究筆記頁：\n"
             f"{load_config()['site']['base_url']}/research.html"),
             None, "研究提交通知")
 
@@ -2408,9 +2402,9 @@ def run_news_monitor() -> None:
         # （verified／conflicting）就推，有沒有對到題材只影響內文怎麼寫。
         # unverified 仍然不推（那是「無法獨立查證」，推了只是雜訊）。
         if result.get("verified") in ("verified", "conflicting"):
-            names = "、".join(t["name"] for t in affected) if affected else "尚未歸入既有題材"
-            verdict = {"verified": "已驗證", "conflicting": "與既有資料衝突"}.get(
-                result.get("verified"), result.get("verified"))
+            # 播報不放「已驗證／判定」這類狀態標籤（使用者要求）；查證狀態仍記在
+            # 研究筆記頁，只是不寫進 Discord。
+            names = "、".join(t["name"] for t in affected)
             # 以前這裡直接呼叫 send_notification()，而那支寫的是
             # `_notify_payload.json`——早報／盤後共用的那一個檔。寫在迴圈裡等於
             # 一輪抓到 N 則就互相覆蓋 N-1 次，**只有最後一則會送到 Discord**，
@@ -2418,8 +2412,8 @@ def run_news_monitor() -> None:
             # 寫進獨立的 `_notify_news.json`（陣列，逐則送出）。
             news_notify.append({
                 "title": f"📰 快訊：{it['title'] or text[:30]}",
-                "body": f"{result.get('summary', '')}\n\n"
-                        f"相關題材：{names}\n判定：{verdict}",
+                "body": (result.get("summary", "")
+                         + (f"\n\n相關題材：{names}" if names else "")),
                 "url": f"{load_config()['site']['base_url']}/research.html",
             })
             notified += 1
@@ -2429,18 +2423,15 @@ def run_news_monitor() -> None:
     # 新記錄的全部列出來、各自標明查證狀態，重要的（verified／conflicting）
     # 仍然另外單獨推一則完整內容。
     if digest:
-        VERD = {"verified": "✅ 已驗證", "conflicting": "⚠️ 與既有資料衝突",
-                "unverified": "❔ 無法獨立驗證"}
         lines = [f"📝 研究筆記新增 {len(digest)} 則", ""]
         for x in digest[:12]:
-            lines.append(f"{VERD.get(x['verified'], x['verified'])}　{x['title'][:44]}")
+            lines.append(f"・{x['title'][:44]}")
             if x["summary"]:
                 lines.append(f"　　{x['summary']}")
             if x["themes"]:
                 lines.append(f"　　題材：{'、'.join(x['themes'][:3])}")
         if len(digest) > 12:
             lines.append(f"（另有 {len(digest) - 12} 則，見研究筆記頁）")
-        lines.append("\n只有標「已驗證」的才會回寫題材庫；其餘僅留存不影響報告。")
         news_notify.append({
             "title": f"研究筆記新增 {len(digest)} 則",
             "body": "\n".join(lines),
