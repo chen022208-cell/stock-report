@@ -528,8 +528,8 @@
       "<span>" + esc(label) + "</span>"
       + '<span class="ivs-live" id="ivsLive"></span>'
       + "<span>資料時間 " + esc(d.as_of || "–") + "</span>"
-      + "<span>掃描 " + ((d.counts || {}).scanned != null ? d.counts.scanned : "–") + " 檔</span>"
-      + "<span>公開頁延遲約 " + (d.display_delay_min || 15) + " 分鐘</span>";
+      + "<span>掃描 " + ((d.counts || {}).scanned != null ? d.counts.scanned : "–") + " 檔</span>";
+    // 「公開頁延遲約 15 分鐘」已拿掉：資料其實是即時的，這句只會讓人以為通知也延遲
 
     // A/B 級是「當下最有動能」的一小群，收盤後多半是 0 檔——這時改列漲幅榜，
     // 免得整區空白讓人以為壞掉。
@@ -1582,7 +1582,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-18 20:38</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-18 20:40</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>

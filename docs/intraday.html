@@ -498,7 +498,7 @@
   </div>
   <div class="lb-meta" id="ivMeta"></div>
 </div>
-<p class="iv-hint">盤中每分鐘用量價條件從全市場篩「當下最有動能」的一小群股票（相對強度 → 量能 → 突破 ＋ 加權評分，分 A／B 級）。<b>客觀訊號整理，不是推薦標的</b>。公開頁面延遲顯示約 15 分鐘。</p>
+<p class="iv-hint">盤中每分鐘用量價條件從全市場篩「當下最有動能」的一小群股票（相對強度 → 量能 → 突破 ＋ 加權評分，分 A／B 級）。<b>客觀訊號整理，不是推薦標的</b>。</p>
 
 <details class="expand" id="ivFunnelWrap">
   <summary>漏斗選股過程（<span id="ivFunnelPassed">–</span> 檔通過）</summary>
@@ -665,7 +665,9 @@
     if (d.counts) m.push('掃描 <b>' + d.counts.scanned + '</b> 檔');
     if (d.markets) m.push('上市 <b>' + d.markets.twse + '</b>／上櫃 <b>' + d.markets.tpex
                           + '</b>／興櫃 <b>' + d.markets.esb + '</b>');
-    m.push('延遲顯示約 <b>' + (d.display_delay_min || 15) + '</b> 分鐘');
+    // 以前這裡寫「延遲顯示約 15 分鐘」，但程式從來沒有延遲任何資料——頁面是即時的
+    // （後端約 60 秒推一次、這頁每 3 秒直接抓證交所），使用者因此誤以為連 Discord
+    // 通知都延遲。拿掉這句不實的說明。
     document.getElementById("ivMeta").innerHTML = m.join("");
 
     var A = (d.tiers && d.tiers.A) || [], B = (d.tiers && d.tiers.B) || [];
@@ -855,7 +857,7 @@
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-18 20:38</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-18 20:40</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
