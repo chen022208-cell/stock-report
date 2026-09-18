@@ -89,7 +89,11 @@ intraday:
   tier_a: 80
   tier_b: 60
   list_cap: 40                     # A／B 名單各最多顯示幾檔（JSON 大小與畫面長度）
-  display_delay_min: 15            # 公開頁面顯示的資料延遲（分鐘），避開即時報價轉發爭議
+  display_delay_min: 15
+  # 盤中推播門檻：通過漏斗的 A／B 級標的，當日漲幅一突破這個數字就推一次。
+  # 以前只有「新的 A 級（≥ deep_report_min_score）」才推，門檻太高，B 級整批
+  # 收不到。這條跟 deep_report_* 是兩回事——深度快報仍照分數與每日上限走。
+  alert_change_pct: 3.0            # 公開頁面顯示的資料延遲（分鐘），避開即時報價轉發爭議
   deep_report_min_score: 82        # A 級且分數 ≥ 此值才進深度快報候選
   deep_report_daily_cap: 10        # 每日深度快報上限（雲端 Routine 那邊會再擋一次）
   deep_report_cooldown_hours: 6    # 同一檔幾小時內不重複發快報

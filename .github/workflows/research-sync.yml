@@ -23,9 +23,14 @@ name: 研究提交來源同步（餵給雲端 Routine）
 # secret，就順手打一次雲端 Routine 讓它馬上處理；沒設就等 Routine 自己那班
 # `8 * * * *` 的 cron。
 
+# ⚠️ 2026-09-18：拿掉每 15 分鐘的排程。
+# 這支是 CLAUDE.md 寫明「平時不啟用」的備援——雲端環境「台股-開放網路」已經是
+# Full network，研究提交那支 Routine 直連 docs.google.com／api.github.com 就讀得到，
+# 不需要這條中繼。但它掛著 cron 每天照跑 60 幾次，而且每次都失敗（見下面那步的
+# 說明），GitHub 就一直寄失敗通知——使用者回報「訊息傳送好像最近一直報錯」。
+# 留 workflow_dispatch ＋ repository_dispatch：真的需要備援時（環境網路又被改壞）
+# 手動跑或讓 Apps Script 打 repository_dispatch 就能立刻頂上。
 on:
-  schedule:
-    - cron: '*/15 0-15 * * *'      # 每 15 分鐘（UTC 00–15 ≈ 台灣 08:00–23:xx）
   repository_dispatch:
     types: [research-submitted]
   workflow_dispatch:
@@ -54,6 +59,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
+          # ⚠️ 一定要先裝 pyyaml。actions/setup-python 給的是**乾淨的直譯器**，
+          # 不含 PyYAML；而下一段第一行就是 `python -c "import yaml"`，配上
+          # `set -e` 會讓整個步驟在這裡就結束（實際症狀：這支每次執行都在
+          # 「抓表單 CSV」這步失敗，後面全部 skipped）。
+          pip install -q pyyaml
           mkdir -p data/_intake
 
           # CSV 網址以 config.yaml 為單一事實來源

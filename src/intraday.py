@@ -611,43 +611,80 @@ def _update_signals(result: dict, cfg: dict) -> bool:
             {"date": today, "at": result["as_of"], "new_codes": new_codes,
              "stocks": {c: stocks[c] for c in new_codes}},
             ensure_ascii=False, indent=2), encoding="utf-8")
-        _write_alert(new_codes, stocks, result, cfg)
         print(f"[intraday] 新增 A 級深度快報候選：{new_codes}")
+
+    # ── 推播：漲幅突破門檻就通知，A／B 級都算 ──────────────────
+    # 以前只有「新的 A 級（≥82 分）」才推播，門檻太高：B 級整批、以及 A 級裡
+    # 分數還沒到 82 的，使用者完全收不到。改成看**漲幅**——通過漏斗的 A／B 級
+    # 標的，當日漲幅一突破 alert_change_pct（預設 3%）就推一次。
+    # ⚠️ 絕對不要把這批併進 `new_codes`：那條驅動的是深度快報、有每日 10 篇的
+    # 上限，一放寬會被 B 級瞬間燒光。兩條路必須分開。
+    # 用 `alerted` 記今天推過哪些代號，一檔一天只推一次，避免漲幅在門檻上下
+    # 震盪時重複轟炸。
+    alert_pct = iv.get("alert_change_pct", 3.0)
+    alerted = set(prev.get("alerted") or [])
+    fresh = []
+    for r in list(result["tiers"]["A"]) + list(result["tiers"]["B"]):
+        if r["code"] in alerted or r.get("low_confidence"):
+            continue
+        if (r.get("change_pct") or 0) >= alert_pct:
+            fresh.append(r)
+            alerted.add(r["code"])
+    prev["alerted"] = sorted(alerted)
+    SIGNALS_PATH.write_text(json.dumps(prev, ensure_ascii=False, indent=2),
+                            encoding="utf-8")
+    if fresh:
+        _write_alert(fresh, result, cfg)
+        print(f"[intraday] 漲幅突破 {alert_pct}%，推播 {len(fresh)} 檔："
+              + "、".join(r["code"] for r in fresh))
+
     return bool(new_codes)
 
 
-def _write_alert(new_codes: list[str], stocks: dict, result: dict, cfg: dict) -> None:
-    """把新出現的高分訊號寫成一則可以直接送出的推播內容。
+def _write_alert(rows: list[dict], result: dict, cfg: dict) -> None:
+    """把突破漲幅門檻的標的寫成一則可以直接送出的推播內容。
 
     為什麼不走 `docs/_notify_*.json`／daily-notify.yml：那條路吃的是 **main 分支**
     的 push，而盤中迴圈只推 `intraday-data` 分支（刻意不碰 main，免得每分鐘觸發
     Pages 重建）。所以盤中選股的推播由 `intraday.yml` 自己拿 repo secret 送
-    Discord，這裡只負責產內容。以前完全沒有這一段，使用者只有在雲端 Routine
-    產出深度快報時才會收到通知——而深度快報一天上限 5 篇，等於絕大多數 A 級
-    訊號從來不會通知任何人（使用者實際回報「盤中選股沒有通知分數高的股票」）。
+    Discord，這裡只負責產內容。
+
+    `rows` 直接吃 tiers 裡的列（A／B 都可以），不是舊的 {code: 訊號} 字典——
+    改成看漲幅之後 B 級也要能推，那批資料只在 tiers 裡。
+    每一檔之間用 `_____` 分隔（使用者指定），Discord 上比連續幾行好讀很多。
     """
-    delay = cfg.get("intraday", {}).get("display_delay_min", 15)
-    lines = [f"⚡ 盤中 A 級強勢訊號（{len(new_codes)} 檔）  資料時間 {result['as_of']}"]
-    for c in new_codes:
-        st = stocks[c]
-        sig = st.get("signals", {})
-        bits = [f"漲幅 {sig.get('change_pct')}%",
-                f"領先大盤 {sig.get('rs_market')}%"]
-        if sig.get("volume_ratio"):
-            bits.append(f"量比 {sig['volume_ratio']}×")
+    iv = cfg.get("intraday", {})
+    delay = iv.get("display_delay_min", 15)
+    pct = iv.get("alert_change_pct", 3.0)
+    SEP = "_____"
+    out = [f"⚡ 盤中強勢訊號　{len(rows)} 檔漲幅突破 {pct}%",
+           f"資料時間 {result['as_of']}"]
+    for r in rows:
+        out.append(SEP)
+        out.append(f"{r['code']} {r['name']}　{r.get('tier', '')} 級 {r.get('score')} 分")
+        bits = [f"漲幅 {r.get('change_pct')}%"]
+        if r.get("rs_market") is not None:
+            bits.append(f"領先大盤 {r['rs_market']}%")
+        if r.get("volume_ratio"):
+            bits.append(f"量比 {r['volume_ratio']}×")
+        out.append("、".join(bits))
+        extra = []
         hits = [lbl for key, lbl in (("breakout_20d", "20日高"),
+                                     ("breakout_60d", "60日高"),
                                      ("breakout_120d", "120日高"),
-                                     ("breakout_252d", "252日高")) if sig.get(key)]
+                                     ("breakout_252d", "252日高")) if r.get(key)]
         if hits:
-            bits.append("突破 " + "／".join(hits))
-        if sig.get("industry"):
-            bits.append(sig["industry"])
-        lines.append(f"　{c} {st['name']}（{st['peak_score']} 分）：" + "、".join(bits))
-    lines.append(f"\n公開頁顯示延遲約 {delay} 分鐘，本通知為內部即時值。"
-                 "這是規則計算的訊號，不是投資建議。")
+            extra.append("突破 " + "／".join(hits))
+        if r.get("industry"):
+            extra.append(r["industry"])
+        if extra:
+            out.append("、".join(extra))
+    out.append(SEP)
+    out.append(f"公開頁顯示延遲約 {delay} 分鐘，本通知為內部即時值。"
+               "這是規則計算的訊號，不是投資建議。")
     ALERT_PATH.write_text(json.dumps(
         {"date": result["as_of"][:10], "at": result["as_of"],
-         "codes": new_codes, "text": "\n".join(lines)},
+         "codes": [r["code"] for r in rows], "text": "\n".join(out)},
         ensure_ascii=False, indent=2), encoding="utf-8")
 
 
