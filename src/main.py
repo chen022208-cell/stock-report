@@ -434,14 +434,24 @@ def run_intraday_deep_report() -> None:
         if not external:
             print(f"[intraday-report] {s['code']} 無外部來源，略過")
             continue
+        # 六段式報告（投資決策／題材面／技術面／籌碼面／基本面／同業比較與風險）
+        # 存進既有的 `swot` JSON 欄位——那本來就是一個 JSON blob，塞什麼都行，
+        # 這樣不用改資料庫結構。舊報告的內容仍是 SWOT 四個 key，樣板兩種都認得，
+        # 所以既有頁面不會壞。欄位名稱維持 `swot` 是為了不動 schema，
+        # 實際語意已經是「報告內容」。
+        body = {k: a[k] for k in
+                ("decision", "themes", "technical", "chips", "fundamental", "peers")
+                if a.get(k)}
+        if not body:                       # LLM 仍回舊格式時照舊存 SWOT
+            body = a.get("swot", {})
         db.upsert_intraday_report(
             s["code"], today, now_s, s["name"], "A", s.get("peak_score") or 0.0,
             s.get("signals", {}), a.get("headline", ""), a["company_desc"],
-            a.get("swot", {}), srcs, discord_sent=True)
+            body, srcs, discord_sent=True)
         row = {"code": s["code"], "name": s["name"], "date": today, "reported_at": now_s,
                "tier": "A", "peak_score": s.get("peak_score") or 0.0,
                "signals": s.get("signals", {}), "headline": a.get("headline", ""),
-               "company_desc": a["company_desc"], "swot": a.get("swot", {}), "sources": srcs}
+               "company_desc": a["company_desc"], "swot": body, "sources": srcs}
         render.render_intraday_report(row)
         made.append(row)
 

@@ -12,6 +12,14 @@
   .an-src{font-size:12px; color:var(--text-muted); line-height:1.7; margin-top:14px;}
   .an-src a{color:var(--text-secondary);}
   @media(max-width:480px){ .an-swot{grid-template-columns:1fr;} }
+  .rep-block{background:var(--surface); border:1px solid var(--hairline);
+             border-radius:8px; padding:12px 14px; margin-top:8px;}
+  .rep-block p{font-size:13.5px; color:var(--text-secondary); line-height:1.7;
+               margin:0 0 8px;}
+  .rep-block p:last-child{margin-bottom:0;}
+  .rep-block b{color:var(--text-primary);}
+  .rep-block .rep-risk{color:var(--text-secondary);
+                       border-left:3px solid var(--c-warn, #c25a3a); padding-left:10px;}
 {% endblock %}
 {% block content %}
 <header><div class="masthead-label">{{ site_title }}</div>
@@ -32,7 +40,57 @@
 {% if r.headline %}<p class="commentary" style="margin-top:12px"><b>{{ r.headline }}</b></p>{% endif %}
 <p class="commentary" style="margin-top:10px">{{ r.company_desc }}</p>
 
-{% if r.swot %}
+{# 六段式「核心關鍵投資報告」。r.swot 這個欄位名稱是沿用資料庫既有的 JSON 欄，
+   實際語意已經是「報告內容」——新報告放六段，舊報告仍是 SWOT 四個 key，
+   下面兩種都認得，所以既有頁面不會壞。 #}
+{% if r.swot.decision or r.swot.themes or r.swot.technical or r.swot.chips
+      or r.swot.fundamental or r.swot.peers %}
+
+  {% if r.swot.decision %}
+  <div class="an-head">🎯 1. 投資決策</div>
+  <div class="rep-block">
+    {% if r.swot.decision.stance %}<p><b>策略立場</b>　{{ r.swot.decision.stance }}</p>{% endif %}
+    {% if r.swot.decision.thesis %}<p><b>核心邏輯</b>　{{ r.swot.decision.thesis }}</p>{% endif %}
+  </div>
+  {% endif %}
+
+  {% if r.swot.themes %}
+  <div class="an-head">⚡ 2. 題材面</div>
+  <div class="rep-block">
+    {% for t in r.swot.themes %}<p><b>{{ t.label }}</b>　{{ t.body }}</p>{% endfor %}
+  </div>
+  {% endif %}
+
+  {% if r.swot.technical %}
+  <div class="an-head">📈 3. 技術面</div>
+  <div class="rep-block"><p>{{ r.swot.technical }}</p></div>
+  {% endif %}
+
+  {% if r.swot.chips %}
+  <div class="an-head">💰 4. 籌碼面</div>
+  <div class="rep-block">
+    {% for c in r.swot.chips %}<p><b>{{ c.label }}</b>　{{ c.body }}</p>{% endfor %}
+  </div>
+  {% endif %}
+
+  {% if r.swot.fundamental %}
+  <div class="an-head">📊 5. 基本面與未來兩季</div>
+  <div class="rep-block">
+    {% if r.swot.fundamental.revenue %}<p><b>營收與獲利</b>　{{ r.swot.fundamental.revenue }}</p>{% endif %}
+    {% if r.swot.fundamental.outlook %}<p><b>未來兩季觀察</b>　{{ r.swot.fundamental.outlook }}</p>{% endif %}
+    {% if r.swot.fundamental.consensus %}<p><b>市場共識</b>　{{ r.swot.fundamental.consensus }}</p>{% endif %}
+  </div>
+  {% endif %}
+
+  {% if r.swot.peers %}
+  <div class="an-head">⚖️ 6. 同業比較與風險提示</div>
+  <div class="rep-block">
+    {% if r.swot.peers.compare %}<p><b>同業競合</b>　{{ r.swot.peers.compare }}</p>{% endif %}
+    {% if r.swot.peers.risks %}<p class="rep-risk"><b>風險控管</b>　{{ r.swot.peers.risks }}</p>{% endif %}
+  </div>
+  {% endif %}
+
+{% elif r.swot %}
 <div class="an-head">SWOT</div>
 <div class="an-swot">
   {% if r.swot.strengths %}<div class="cell"><h5>優勢 S</h5><p>{{ r.swot.strengths }}</p></div>{% endif %}
