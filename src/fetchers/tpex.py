@@ -75,6 +75,7 @@ def fetch_daily_quotes() -> list[dict]:
             "close": close,
             "change": change,
             "change_pct": round(change / prev * 100, 2) if prev > 0 else 0.0,
+            "date": _roc_to_iso(str(row.get("Date", ""))),   # 資料日，判斷是否落後用
             "volume": _num(row.get("TradingShares")),
             "turnover": _num(row.get("TransactionAmount")),
             "market": "tpex",
@@ -158,6 +159,30 @@ def fetch_esb_listing_dates() -> dict[str, str]:
     return out
 
 
+# ── 興櫃漲跌幅 ─────────────────────────────────────────
+# ⚠️ 規則：**漲跌幅一律用資料來源自己給的值，不自己推算。**
+# 上市／上櫃的官方資料本身有「漲跌」欄，而且是對「參考價」算的——除權息日開盤的
+# 參考價不是昨天收盤價，自己拿昨收去除就會錯。櫃買的興櫃當日行情表沒有漲跌欄，
+# 只有「前日均價」；以前拿前日均價當基準，跟看盤軟體整排對不上（2026-09-18：
+# 7942 頁面 +1.34% 實際 -1.76%、7947 -10.25% 實際 -0.33%）。之後又試過從 Yahoo
+# 日線的前一根 K 推昨收，還是錯（7942 日線那根 505，Yahoo 頁面的昨收是 503）。
+# 所以興櫃的漲跌一律直接用 Yahoo 的現價／昨收（yahoo.fetch_quotes），
+# 查不到的個股 change_pct 給 None，前端顯示「—」，不要用前日均價冒充。
+
+
+def _esb_yahoo(rows: list[dict]) -> dict[str, dict]:
+    from . import yahoo
+    codes = {str(r["SecuritiesCompanyCode"]).strip(): "esb" for r in rows}
+    return yahoo.fetch_quotes(codes)
+
+
+def _roc_to_iso(raw: str) -> str:
+    raw = (raw or "").strip()
+    if len(raw) == 7 and raw.isdigit():
+        return f"{int(raw[:3]) + 1911}-{raw[3:5]}-{raw[5:]}"
+    return ""
+
+
 def fetch_esb_quotes() -> dict[str, dict]:
     """興櫃個股當日成交行情，格式對齊 fetch_daily_quotes()。興櫃是議價/搓合
     市場（不是連續競價），用最新成交價對比前一日均價當漲跌幅的近似值。
@@ -168,22 +193,20 @@ def fetch_esb_quotes() -> dict[str, dict]:
     rows = _get("tpex_esb_latest_statistics")
     if not rows:
         return {}
+    good = [r for r in rows if _is_stock_code(str(r.get("SecuritiesCompanyCode", "")).strip())
+            and _num(r.get("LatestPrice")) > 0]
+    yq = _esb_yahoo(good)
     out: dict[str, dict] = {}
-    for row in rows:
+    for row in good:
         code = str(row.get("SecuritiesCompanyCode", "")).strip()
-        if not _is_stock_code(code):
-            continue
-        close = _num(row.get("LatestPrice"))
-        prev = _num(row.get("PreviousAveragePrice"))
-        if close <= 0:
-            continue
-        change = close - prev
+        y = yq.get(code) or {}
         out[code] = {
             "code": code,
             "name": str(row.get("CompanyName", "")).strip(),
-            "close": close,
-            "change": round(change, 2),
-            "change_pct": round(change / prev * 100, 2) if prev > 0 else 0.0,
+            "close": y.get("price") or _num(row.get("LatestPrice")),
+            "prev_close": y.get("prev_close"),
+            "change": y.get("change"),
+            "change_pct": y.get("change_pct"),        # Yahoo 查不到就是 None
             "volume": _num(row.get("TransactionVolume")),
             "turnover": 0.0,
             "market": "esb",
@@ -319,26 +342,21 @@ def fetch_esb_pricing() -> dict[str, dict]:
     rows = _get("tpex_esb_latest_statistics")
     if not rows:
         return {}
+    good = [r for r in rows if _is_stock_code(str(r.get("SecuritiesCompanyCode", "")).strip())
+            and _num(r.get("LatestPrice")) > 0]
+    yq = _esb_yahoo(good)                       # 漲跌一律用 Yahoo 的，見上方說明
     out: dict[str, dict] = {}
-    for row in rows:
+    for row in good:
         code = str(row.get("SecuritiesCompanyCode", "")).strip()
-        if not _is_stock_code(code):
-            continue
-        price = _num(row.get("LatestPrice"))
-        prev = _num(row.get("PreviousAveragePrice"))
-        if price <= 0:
-            continue
-        raw_date = str(row.get("Date", "")).strip()      # 民國 1150904
-        iso = ""
-        if len(raw_date) == 7 and raw_date.isdigit():
-            iso = f"{int(raw_date[:3]) + 1911}-{raw_date[3:5]}-{raw_date[5:]}"
+        y = yq.get(code) or {}
         out[code] = {
-            "date": iso,
+            "date": _roc_to_iso(str(row.get("Date", ""))),
             "name": str(row.get("CompanyName", "")).strip(),
-            "price": price,                              # 成交（最後成交價）
-            "prev_avg": prev,                            # 前日均價
-            "change": round(price - prev, 2) if prev > 0 else 0.0,
-            "change_pct": round((price - prev) / prev * 100, 2) if prev > 0 else 0.0,
+            "price": y.get("price") or _num(row.get("LatestPrice")),   # 成交
+            "prev_close": y.get("prev_close"),                        # Yahoo 昨收
+            "prev_avg": _num(row.get("PreviousAveragePrice")),        # 前日均價（彈窗顯示用）
+            "change": y.get("change"),
+            "change_pct": y.get("change_pct"),
             "high": _num(row.get("Highest")),
             "low": _num(row.get("Lowest")),
             "avg": _num(row.get("Average")),             # 日均價

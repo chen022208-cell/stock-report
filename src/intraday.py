@@ -261,11 +261,11 @@ def _esb_quotes(codes: set[str]) -> dict[str, dict]:
             continue
         out[code] = {
             "code": code, "name": row.get("name", ""), "price": row["price"],
-            "prev_close": row.get("prev_avg") or 0.0,
+            "prev_close": row.get("prev_close") or 0.0,   # Yahoo 昨收（不是前日均價）
             "open": 0.0,                       # 興櫃沒有開盤價
             "high": row.get("high") or 0.0, "low": row.get("low") or 0.0,
             "change": row.get("change") or 0.0,
-            "change_pct": row.get("change_pct") or 0.0,
+            "change_pct": row.get("change_pct") if row.get("change_pct") is not None else 0.0,
             "volume": (row.get("volume") or 0) / 1000,
             "trade_time": "", "quote_date": row.get("date", ""), "ex": "esb",
         }
@@ -369,6 +369,30 @@ def run_once(cfg: dict, ref: dict, disp_codes: set[str]) -> dict:
     quotes = twse_mis.fetch_quotes([(c, m) for c, m in universe if m != "esb"])
     # 興櫃走 TPEx 當日行情表（MIS 沒有這個市場，見 _esb_quotes）
     quotes.update(_esb_quotes({c for c, m in universe if m == "esb"}))
+
+    # 收盤後（13:30 以後）改用 Yahoo 的收盤價，漲跌對官方參考價。
+    # MIS 的上櫃股收盤後常常停在 13:29 那一筆，沒有反映 13:30 收盤集合競價——
+    # 2026-09-18 的 5465 富驊盤中條顯示 26.6（+9.47%），官方收盤是 26.7（+9.88%）；
+    # 上市股前端還有 STOCK_DAY 可以校正，上櫃沒有（櫃買對瀏覽器不開 CORS），
+    # 所以一定要在後端就換成收盤價。
+    if _market_status() in ("closing", "closed") and quotes:
+        from .fetchers import yahoo
+        mkt = dict(universe)
+        yq = yahoo.fetch_quotes({c: mkt.get(c, "twse") for c in quotes})
+        fixed = 0
+        for c, y in yq.items():
+            q = quotes.get(c)
+            if not q or not y.get("price"):
+                continue
+            q["price"] = y["price"]
+            # 漲跌不用 Yahoo 的：它的昨收未調整除權息／減資（6236 會算出 -16%）。
+            # MIS 的 y 就是證交所／櫃買的官方參考價，對它算才等於官方漲跌。
+            ref = q.get("prev_close") or 0
+            if ref > 0:
+                q["change"] = round(y["price"] - ref, 4)
+                q["change_pct"] = round((y["price"] - ref) / ref * 100, 2)
+            fixed += 1
+        print(f"[intraday] 收盤後改用 Yahoo 收盤價（漲跌對官方參考價）：{fixed}/{len(quotes)} 檔")
     taiex = twse_mis.fetch_taiex()
     market_chg = taiex.get("change_pct", 0.0)
     frac = _session_fraction()

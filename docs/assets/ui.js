@@ -434,6 +434,13 @@
                   low: g(b, 3, "low"),
                   vol: (vol != null) ? vol / 1000 : null,   // 快照存的是股，統一換成張
                   pct: (prev && prev > 0 && close != null) ? (close - prev) / prev * 100 : null };
+          // 漲跌一律用來源給的值：快照裡的 Yahoo 現價／昨收（s.quote）優先，
+          // 不從 K 線前一根自己推——除權息日的參考價不是昨天收盤價。
+          var yq = s.quote;
+          if (yq && typeof yq.change_pct === "number" && (!yq.date || yq.date >= out.date)) {
+            out.price = yq.price; out.prev = yq.prev_close; out.pct = yq.change_pct;
+            if (yq.date) out.date = yq.date;
+          }
           var q = s.latest;
           var avgOnly = s.market === "esb" && s.source !== "yahoo";
           if (q && q.price && (avgOnly || (q.date && q.date > out.date))) {

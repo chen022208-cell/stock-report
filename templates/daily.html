@@ -300,7 +300,7 @@
     <div class="darkhorse-name" data-stock-code="{{ b.code }}" data-stock-name="{{ b.name }}">{{ b.code }} {{ b.name }} 📈</div>
     <div class="darkhorse-grid">
       <div><span class="dh-label">今日漲幅</span><br>
-        <span class="dh-value {{ 'up' if b.change_pct >= 0 else 'down' }}">{{ "%+.2f"|format(b.change_pct) }}%</span></div>
+        {% if b.change_pct is not none %}<span class="dh-value {{ 'up' if b.change_pct >= 0 else 'down' }}">{{ "%+.2f"|format(b.change_pct) }}%</span>{% else %}<span class="dh-value">—</span>{% endif %}</div>
       <div><span class="dh-label">量能倍數</span><br>
         <span class="dh-value">{{ b.volume_ratio }} 倍</span></div>
       <div><span class="dh-label">突破天數</span><br>
@@ -320,7 +320,7 @@
 <section class="block">
   <h2>🆕 新掛牌觀察</h2>
   <p class="commentary" style="margin-bottom:12px">上市／上櫃／興櫃未滿半年的個股，籌碼歷史短、波動特性跟老牌股不同，
-  不管今天漲跌都先列出來留意。興櫃是議價／搓合市場，漲跌幅只是對比前一日均價的近似值，
+  不管今天漲跌都先列出來留意。興櫃是議價／搓合市場，漲跌幅採 Yahoo 的成交價對比前一日成交價，
   不是連續競價的漲跌幅。</p>
   <table class="tech-table">
     <tr><th>股票</th><th>市場</th><th>掛牌天數</th><th>今日漲跌</th></tr>
@@ -329,7 +329,9 @@
       <td data-stock-code="{{ n.code }}" data-stock-name="{{ n.name }}">{{ n.code }} {{ n.name }} 📈</td>
       <td>{{ "上市" if n.market == "twse" else "上櫃" if n.market == "tpex" else "興櫃" }}</td>
       <td class="mono">{{ n.days_listed }} 天</td>
+      {% if n.change_pct is not none %}
       <td class="mono {{ 'up' if n.change_pct >= 0 else 'down' }}">{{ "%+.2f"|format(n.change_pct) }}%</td>
+      {% else %}<td class="mono muted">—</td>{% endif %}
     </tr>
     {% endfor %}
   </table>
@@ -346,7 +348,7 @@
     <div class="darkhorse-name" data-stock-code="{{ dh.code }}" data-stock-name="{{ dh.name }}">{{ dh.code }} {{ dh.name }}</div>
     <div class="darkhorse-grid">
       <div><span class="dh-label">今日漲幅</span><br>
-        <span class="dh-value up">{{ "%+.2f"|format(dh.change_pct) }}%</span></div>
+        {% if dh.change_pct is not none %}<span class="dh-value up">{{ "%+.2f"|format(dh.change_pct) }}%</span>{% else %}<span class="dh-value">—</span>{% endif %}</div>
       <div><span class="dh-label">量能倍數</span><br>
         <span class="dh-value">{{ dh.volume_ratio }} 倍</span></div>
       <div><span class="dh-label">風險等級</span><br>

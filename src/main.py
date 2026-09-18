@@ -591,6 +591,24 @@ def snapshot_offmarket_history(codes: dict[str, str], cfg: dict) -> int:
     # 興櫃「當日行情表」是一支 bulk API，成本很低：報買／報賣／日均價這些欄位
     # 只有 TPEx 有，Yahoo 沒有，所以留著當彈窗的補充報價列（不再當主要股價來源）。
     esb_pricing = _safe(tpex.fetch_esb_pricing, {}, "興櫃當日行情")
+    # 彈窗標題的「漲跌」一律用來源給的值，不從 K 線自己推。
+    # ⚠️ 上櫃要用**櫃買官方**的漲跌，不能用 Yahoo：官方是對「參考價」算的（除權息、
+    # 減資都已調整），Yahoo 的昨收是未調整的。2026-09-18 全市場比對 1949 檔，
+    # 7 檔上櫃不一致，最離譜的 6236 官方 -9.86%（跌停）、Yahoo -16.01%——
+    # 超過 10% 漲跌幅限制，根本不可能。興櫃櫃買沒有提供漲跌欄，只能用 Yahoo
+    # （esb_pricing 已經是 Yahoo 的值）。
+    yq: dict[str, dict] = {}
+    for q in _safe(tpex.fetch_daily_quotes, [], "上櫃官方漲跌") or []:
+        if q.get("close") and q.get("change_pct") is not None:
+            yq[q["code"]] = {"date": q.get("date") or "", "price": q["close"],
+                             "prev_close": round(q["close"] - (q.get("change") or 0), 4),
+                             "change": q.get("change"), "change_pct": q["change_pct"],
+                             "source": "tpex"}
+    for c, e in esb_pricing.items():
+        if e.get("change_pct") is not None:
+            yq[c] = {"date": e.get("date") or "", "price": e["price"],
+                     "prev_close": e.get("prev_close"), "change": e.get("change"),
+                     "change_pct": e["change_pct"], "source": "yahoo"}
 
     done = fails = skipped = 0
     for code, name in list(codes.items()):
@@ -642,6 +660,8 @@ def snapshot_offmarket_history(codes: dict[str, str], cfg: dict) -> int:
         # 那條退路；latest 只當補充欄位（報買／報賣／日均價）。
         if code in esb_pricing:
             payload["latest"] = esb_pricing[code]
+        if code in yq:
+            payload["quote"] = yq[code]
         fp.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
         done += 1
 

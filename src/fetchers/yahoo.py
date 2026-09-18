@@ -20,7 +20,7 @@ TWSE STOCK_DAY（那支有 CORS，是真正的即時資料），不要改成 Yah
 from __future__ import annotations
 
 import time
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
 import requests
 
@@ -152,4 +152,71 @@ def fetch_many(codes: dict[str, str], rng: str = "2y", pause: float = 0.05,
             on_each(code, res)
         if pause:
             time.sleep(pause)
+    return out
+
+
+# ── 漲跌幅的唯一來源 ───────────────────────────────────
+# 2026-09-18：同一個「漲跌幅」原本在好幾個地方各算各的——興櫃拿「前日均價」當基準、
+# 上櫃收盤後停在 13:29 那一筆、我補的版本又拿 Yahoo 日線前一根 K 推昨收——
+# 結果有的對有的錯，使用者要求「直接用 Yahoo 的漲跌，根本不用計算」。
+# 實測 spark 端點給的就是 Yahoo 頁面上顯示的那兩個數：現價 regularMarketPrice、
+# 昨收 chartPreviousClose（range=1d 時才是真的昨收；range 拉長會變成區間起點前一天）。
+# 而且這個昨收跟日線 K 不一定一致：7942 spark 昨收 503（＝TPEx 當日行情表的成交），
+# 日線那根卻是 505；7686 spark 867、日線 872。所以**不要從 K 線推昨收**，一律用這支。
+# Yahoo 帶現成漲跌% 的 v7/quote 要登入憑證（實測 401），spark 沒有 % 欄位，
+# 漲跌幅就是 Yahoo 這兩個數字直接相除，跟 Yahoo 頁面顯示的一致。
+# 批次上限 20 檔（實測 30 檔以上回 400）。
+SPARK_URL = "https://query1.finance.yahoo.com/v7/finance/spark"
+_QUOTE_CACHE: dict[str, dict] = {}
+
+
+def fetch_quotes(codes: dict[str, str], use_cache: bool = True) -> dict[str, dict]:
+    """{代號: 市場別(twse/tpex/esb)} → {代號: {price, prev_close, change, change_pct, time}}。
+    市場別標錯（申報資料落後於實際掛牌）時會自動換另一個後綴再查一次。"""
+    if DRY_RUN or not codes:
+        return {}
+    out: dict[str, dict] = {}
+    todo = {c: m for c, m in codes.items()
+            if not (use_cache and c in _QUOTE_CACHE)}
+    for c in codes:
+        if use_cache and c in _QUOTE_CACHE:
+            out[c] = _QUOTE_CACHE[c]
+
+    def batch(pairs: list[tuple[str, str]]) -> None:
+        for i in range(0, len(pairs), 20):
+            chunk = pairs[i:i + 20]
+            sym2code = {sym: code for code, sym in chunk}
+            try:
+                r = _sess().get(SPARK_URL, params={"symbols": ",".join(sym2code),
+                                                   "range": "1d", "interval": "1d"},
+                                timeout=30)
+                results = (r.json().get("spark") or {}).get("result") or []
+            except Exception as exc:
+                print(f"[yahoo] spark 批次失敗：{exc}")
+                continue
+            for it in results:
+                code = sym2code.get(it.get("symbol"))
+                try:
+                    meta = it["response"][0]["meta"]
+                except Exception:
+                    continue
+                px, pc = meta.get("regularMarketPrice"), meta.get("chartPreviousClose")
+                if not code or not px or not pc:
+                    continue
+                t = meta.get("regularMarketTime")
+                d = (datetime.utcfromtimestamp(t) + timedelta(hours=8)).strftime("%Y-%m-%d") if t else ""
+                out[code] = _QUOTE_CACHE[code] = {
+                    "date": d,
+                    "price": float(px), "prev_close": float(pc),
+                    "change": round(float(px) - float(pc), 4),
+                    "change_pct": round((float(px) - float(pc)) / float(pc) * 100, 2),
+                    "time": meta.get("regularMarketTime"),
+                }
+            time.sleep(0.05)
+
+    batch([(c, f"{c}{_SUFFIX.get(m, '.TW')}") for c, m in todo.items()])
+    missing = [c for c in todo if c not in out]
+    if missing:                                    # 後綴猜錯的再試另一個
+        batch([(c, f"{c}{'.TW' if _SUFFIX.get(todo[c], '.TW') == '.TWO' else '.TWO'}")
+               for c in missing])
     return out
