@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>盤中強勢股 · 盤後快訊</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>LED磊晶／封裝供應鏈題材深度報告：上中下游同步表態，背光與車用照明是兩條並行敘事 · 盤後快訊</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 <meta name="theme-color" content="#060911">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -380,72 +380,60 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  /* 盤中即時：頂部大字報 */
-  .livebar{background:linear-gradient(180deg, color-mix(in srgb,var(--accent) 14%,var(--surface)), var(--surface) 70%);
-           border:1px solid var(--hairline); border-radius:var(--radius); padding:16px; margin:6px 0 4px;}
-  .livebar .lb-row1{display:flex; align-items:center; gap:10px; margin-bottom:10px;}
-  .lb-status{font-size:11.5px; font-weight:700; padding:3px 10px; border-radius:100px;
-             background:var(--surface-3); color:var(--text-secondary);}
-  .lb-status.open{background:color-mix(in srgb,var(--green) 22%,transparent); color:var(--green);}
-  .lb-asof{font-size:11.5px; color:var(--text-muted); margin-left:auto; font-family:'JetBrains Mono',monospace;}
-  .lb-live{font-size:11px; font-weight:700; padding:3px 9px; border-radius:100px;
-           color:var(--text-muted);}
-  .lb-live.on{background:color-mix(in srgb,var(--red) 20%,transparent); color:var(--red);}
-  .lb-live.on::before{content:"● "; animation:lbpulse 1.4s ease-in-out infinite;}
-  @keyframes lbpulse{0%,100%{opacity:1} 50%{opacity:.25}}
-  .lb-taiex{display:flex; align-items:baseline; gap:10px;}
-  .lb-taiex .lb-num{font-family:'JetBrains Mono',monospace; font-size:28px; font-weight:700; line-height:1;}
-  .lb-taiex .lb-chg{font-family:'JetBrains Mono',monospace; font-size:14px; font-weight:600;}
-  .lb-meta{display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:10px; font-size:12px; color:var(--text-muted);}
-  .lb-meta b{color:var(--text-secondary); font-family:'JetBrains Mono',monospace;}
-
-  .iv-hint{font-size:12px; color:var(--text-muted); margin-bottom:10px; line-height:1.6;}
-
-  /* A / B 級標的卡 */
-  .iv-card{background:var(--surface); border:1px solid var(--hairline); border-radius:var(--radius-sm);
-    padding:12px 13px; margin-bottom:9px; cursor:pointer; transition:border-color .15s, background .15s;}
-  .iv-card:hover{border-color:var(--accent);}
-  .iv-card:active{background:var(--surface-2);}
-  .iv-card .row1{display:flex; justify-content:space-between; align-items:baseline; gap:10px;}
-  .iv-name{font-weight:700; font-size:14.5px;}
-  .iv-score{font-size:11.5px; color:var(--text-muted); font-family:'JetBrains Mono',monospace;}
-  .iv-chg{font-weight:700; font-family:'JetBrains Mono',monospace;}
-  .iv-chg.up{color:var(--red);} .iv-chg.down{color:var(--green);}
-  .iv-lowconf{font-size:10.5px; color:var(--gold); margin-left:6px; font-weight:500;}
-  .iv-tags{margin-top:7px; display:flex; flex-wrap:wrap; gap:5px;}
-  .iv-tag{font-size:10.5px; padding:2px 8px; border-radius:100px; background:var(--surface-2);
-          color:var(--text-secondary); white-space:nowrap;}
-  .iv-tag.hot{background:color-mix(in srgb,var(--red) 16%,transparent); color:var(--red);}
-
-  /* 排行分頁：沿用 .seg 樣式（base.html） */
-  #ivRankTabs, #ivHighTabs{margin-bottom:10px;}
-  #ivHighTabs[hidden]{display:none;}
-  #ivHighTabs{background:transparent; border:none; padding:0; gap:7px; flex-wrap:wrap;}
-  #ivHighTabs > button{border:1px solid var(--hairline); background:var(--surface);
-     color:var(--text-secondary); font:inherit; font-size:12px; font-weight:600;
-     padding:6px 12px; border-radius:100px; cursor:pointer; white-space:nowrap;}
-  #ivHighTabs > button.on{background:var(--accent); color:#fff; border-color:var(--accent);}
-  #ivHighTabs > button.na{opacity:.4; cursor:not-allowed; text-decoration:line-through;}
-  .iv-subs-label{font-size:11px; color:var(--text-muted); align-self:center; margin-right:2px;}
-
-  /* 表格：吃 base 的 .dtable，這裡補排序表頭 */
-  .iv-table{width:100%; border-collapse:collapse; font-size:13px;}
-  .iv-table th,.iv-table td{padding:9px 8px; border-bottom:1px solid var(--hairline); text-align:left;}
-  .iv-table th{font-size:11px; color:var(--text-muted); font-weight:500;}
-  .iv-table td.num,.iv-table th.num{text-align:right; font-family:'JetBrains Mono',monospace;
-                                    font-variant-numeric:tabular-nums;}
-  .iv-table tr{cursor:pointer;}
-  .iv-table th.sortable{cursor:pointer; user-select:none; white-space:nowrap;}
-  .iv-table th.sortable:hover{color:var(--text-primary);}
-  .iv-table th .iv-arrow{opacity:.45; font-size:9px; margin-left:3px;}
-  .iv-table th.sorted{color:var(--accent);}
-  .iv-table th.sorted .iv-arrow{opacity:1;}
-  .iv-empty{font-size:13px; color:var(--text-muted); padding:14px 0;}
-  .iv-dtwrap{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+  body{font-family:'Noto Serif TC',serif;}
+  .meta-label{font-family:'Noto Sans TC',sans-serif; font-size:13px;
+              color:var(--gold); margin-bottom:14px;}
+  h1.title{font-size:30px; font-weight:700; line-height:1.4; margin-bottom:16px;}
+  .byline{font-family:'Noto Sans TC',sans-serif; font-size:13px; color:var(--text-muted);
+          padding-bottom:28px; border-bottom:1px solid var(--hairline); margin-bottom:28px;}
+  .summary-box{background:var(--surface); border-radius:8px;
+               padding:22px 24px; margin-bottom:36px;}
+  .summary-box .summary-label{font-family:'Noto Sans TC',sans-serif;
+                              font-size:12.5px; color:var(--gold); margin-bottom:12px;}
+  .summary-box ul{list-style:none;}
+  .summary-box li{font-family:'Noto Sans TC',sans-serif; font-size:14.5px;
+                  color:var(--text-secondary); padding-left:16px; position:relative;
+                  margin-bottom:10px; line-height:1.6;}
+  .summary-box li:last-child{margin-bottom:0;}
+  .summary-box li::before{content:""; position:absolute; left:0; top:8px;
+                          width:5px; height:5px; border-radius:50%; background:var(--gold);}
+  article h2{font-size:19px; font-weight:600; margin:36px 0 14px;}
+  article p{font-size:16px; line-height:1.9; color:var(--text-secondary); margin-bottom:16px;}
+  .pull-stat{display:flex; gap:28px; padding:20px 0; margin:22px 0;
+             border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline);
+             flex-wrap:wrap;}
+  .pull-stat .item{min-width:110px;}
+  .pull-stat .item-value{font-family:'JetBrains Mono',monospace; font-size:24px;}
+  .pull-stat .item-label{font-family:'Noto Sans TC',sans-serif; font-size:12.5px;
+                         color:var(--text-muted); margin-top:4px;}
+  .callout{border-left:2px solid var(--red); padding:16px 20px; background:var(--surface);
+           border-radius:0 6px 6px 0; margin:24px 0;}
+  .callout .callout-label{font-family:'Noto Sans TC',sans-serif; font-size:12.5px;
+                          color:var(--red); margin-bottom:8px;}
+  .callout p{font-size:14.5px; margin-bottom:0;}
+  .tracking-list{font-family:'Noto Sans TC',sans-serif;}
+  .track-item{padding:10px 0; border-bottom:1px solid var(--hairline);
+              font-size:14px; color:var(--text-secondary);}
+  .track-item:last-child{border-bottom:none;}
+  .chain-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr));
+             gap:12px; margin:16px 0 8px; font-family:'Noto Sans TC',sans-serif;}
+  .chain-segment{background:var(--surface); border-radius:8px; padding:14px 16px;}
+  .chain-label{font-size:12.5px; color:var(--gold); margin-bottom:10px;}
+  .chain-company{font-size:14px; color:var(--text-secondary); padding:6px 0;
+                 border-bottom:1px solid var(--hairline); display:flex;
+                 justify-content:space-between; align-items:center;}
+  .chain-company:last-child{border-bottom:none;}
+  .chain-company.core{color:var(--text-primary);}
+  .chain-role{font-size:11px; padding:2px 7px; border-radius:100px; flex-shrink:0;
+             background:rgba(217,164,65,.16); color:var(--gold);}
+  .chain-company.peripheral .chain-role{background:rgba(114,108,96,.16); color:var(--text-muted);}
+  .chain-peers{font-family:'Noto Sans TC',sans-serif; font-size:13px;
+               color:var(--text-muted); margin-top:10px;}
+  @media (max-width:480px){h1.title{font-size:24px;}}
 
 </style>
 </head>
-<body data-section="strong">
+<body data-section="">
 <div class="drawer-backdrop" id="navBackdrop"></div>
 <nav class="drawer" id="navDrawer" aria-label="全站選單">
   <div class="dr-head">
@@ -453,411 +441,151 @@
     <button class="dr-close" id="drClose" aria-label="關閉選單">✕</button>
   </div>
   <h4>市場</h4>
-  <a href="index.html" class=""><span class="dr-ic">🏠</span>最新</a>
-  <a href="heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
-  <a href="chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
-  <a href="scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
-  <a href="picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
-  <a href="intraday.html" class="current"><span class="dr-ic">⚡</span>盤中強勢</a>
-  <a href="lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
-  <a href="watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
-  <a href="disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
+  <a href="../index.html" class=""><span class="dr-ic">🏠</span>最新</a>
+  <a href="../heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
+  <a href="../chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
+  <a href="../scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
+  <a href="../picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
+  <a href="../intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
+  <a href="../lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
+  <a href="../watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
+  <a href="../disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
   <h4>研究</h4>
-  <a href="themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
-  <a href="industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
-  <a href="weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
-  <a href="monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
-  <a href="analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
-  <a href="archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
-  <a href="research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
-  <a href="submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
+  <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
+  <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
+  <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
+  <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
+  <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
+  <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
+  <a href="../research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
+  <a href="../submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
 </nav>
 
 <div class="page">
   <div class="topbar">
     <button class="menu-btn" id="menuBtn" aria-label="開啟選單">☰</button>
-    <a href="index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
-    <a href="lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
-    <a href="watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
-    <a href="intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
+    <a href="../index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
+    <a href="../lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
+    <a href="../watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
+    <a href="../intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
   </div>
 
   
-<header><div class="masthead-label">盤後快訊 · 即時</div>
-<h1 class="masthead-date">盤中強勢股</h1></header>
+<div class="meta-label">深度報告 · 題材知識庫 #151</div>
+<h1 class="title">LED磊晶／封裝供應鏈題材深度報告：上中下游同步表態，背光與車用照明是兩條並行敘事</h1>
+<div class="byline">首次建檔 2026-09-18　·　最後更新 2026-09-18　·　第 1 次更新</div>
 
-<div class="livebar" id="ivLivebar">
-  <div class="lb-row1">
-    <span class="lb-status" id="ivStatus">載入中</span>
-    <span class="lb-live" id="ivLive"></span>
-    <span class="lb-asof" id="ivAsof"></span>
-  </div>
-  <div class="lb-taiex">
-    <span class="lb-num" id="ivTaiexNum">–</span>
-    <span class="lb-chg" id="ivTaiexChg"></span>
-  </div>
-  <div class="lb-meta" id="ivMeta"></div>
+
+<div class="summary-box">
+  <div class="summary-label">摘要</div>
+  <ul><li>2026-09-18建檔，五檔個股涵蓋磊晶（榮創、光鋐）、封裝（佰鴻、宏齊）與控股（聯嘉投控），產業鏈上中下游同步大漲，判定為real、信心度high</li><li>已驗證事實為建檔當日三大法人合計買超約新台幣6,104萬元，加上五檔橫跨不同產業鏈環節同步表態，較不像單一個股炒作；但拉貨動能升溫具體是來自Mini-LED背光或車用照明，目前仍待各公司月營收與法說會進一步拆分驗證</li><li>五檔公司的終端市場曝險並不相同——光鋐、宏齊與Mini-LED背光連動較深，佰鴻、聯嘉投控與車用及一般照明連動較深，榮創則偏向紅外線／VCSEL感測應用，同步上漲不代表終端需求驅動因素一致</li></ul>
 </div>
-<p class="iv-hint">盤中每分鐘用量價條件從全市場篩「當下最有動能」的一小群股票（相對強度 → 量能 → 突破 ＋ 加權評分，分 A／B 級）。<b>客觀訊號整理，不是推薦標的</b>。</p>
 
-<details class="expand" id="ivFunnelWrap">
-  <summary>漏斗選股過程（<span id="ivFunnelPassed">–</span> 檔通過）</summary>
-  <div class="expand-body">
-    <p class="iv-hint">每一層各刷掉多少檔——「今天為什麼只有這幾檔入選」的完整交代。</p>
-    <div class="iv-dtwrap" id="ivFunnel"></div>
+
+<article>
+  <div class="pull-stat">
+    <div class="item"><div class="item-value">5</div>
+      <div class="item-label">相關供應鏈個股</div></div>
+    <div class="item"><div class="item-value">1</div>
+      <div class="item-label">累積更新次數</div></div>
+    <div class="item"><div class="item-value">高</div>
+      <div class="item-label">目前信心度</div></div>
   </div>
-</details>
 
-<div class="sheader"><span class="sh-ic">🅰️</span>
-  <span class="sh-title">A 級</span><span class="sh-badge" id="ivACount">–</span></div>
-<p class="iv-hint">分數 ≥ 80，動能最集中的一群。點任一檔看 K 線與公司資料。</p>
-<div id="ivA"><div class="iv-empty">—</div></div>
+  
+  <h2>一、事件背景：題材如何出現與演變</h2>
+  <p>這個題材於2026-09-18首次建檔，觸發點是五檔LED相關個股同日股價齊揚，追蹤紀錄特別標註這五檔涵蓋磊晶（上游晶粒製造）、封裝（中游模組與元件封裝）與控股（集團整合），屬於產業鏈上中下游同步表態，而非單一個股孤立噴出，這也是判定信心度為high、verdict為real的主要依據。從產業背景來看，LED供應鏈近年有兩條主要的成長敘事：一是Mini-LED背光技術持續滲透至電視、筆電與顯示器等應用，帶動背光用LED磊晶與封裝需求；二是車用照明隨車輛電子化與LED滲透率提升（頭燈、尾燈、氛圍燈等）持續成長。追蹤紀錄的摘要提到『反映背光或車用照明拉貨動能升溫』，用了『或』字，代表建檔當下並未明確區分究竟是哪一條敘事在主導，這點在解讀題材時需要特別留意，不宜直接假設是單一明確原因。</p>
+  
+  <h2>二、訂單與財務驗證：籌碼面初步支持，具體拉貨動能待拆分</h2>
+  <p>已驗證的事實是建檔當日三大法人合計買超約新台幣6,104萬元，且五檔個股橫跨磊晶、封裝與控股三個不同產業鏈環節同步表態，這種『產業鏈同步而非單一個股噴出』的型態，確實比只有一兩檔孤立上漲更接近真題材的特徵之一。不過，本次追蹤紀錄並未附上各公司個別的月營收年增率或具體客戶拉貨訊息，因此『背光或車用照明拉貨動能升溫』目前仍是對股價表態的合理解讀，而非已經用財務數據證實的結論。由於LED磊晶與封裝廠的終端應用組合差異頗大（詳見下段），要驗證這個題材是否真實，需要進一步觀察各公司個別的月營收表現是否確實反映在對應的終端市場（背光或車用），而非僅憑五檔同步上漲就一概認定為同一驅動因素。</p>
+  
+  <h2>三、個股比較：終端曝險不同，同步表態不代表同一驅動力</h2>
+  <p>光鋐與宏齊是這五檔中與Mini-LED背光應用連動相對較深的公司：光鋐從事LED磊晶與晶粒製造，宏齊則是LED封裝廠，長期在Mini-LED背光模組領域耕耘，若背光需求確實升溫，這兩檔理論上會是較直接的受惠者。佰鴻與聯嘉投控則與車用及一般照明應用的連結較深，佰鴻專注於車用LED照明元件、聯嘉投控則是LED照明集團控股公司，若車用照明拉貨動能才是這波表態的主因，這兩檔的受惠邏輯會更貼近。榮創的業務則偏向紅外線與VCSEL等感測應用磊晶，與背光、車用照明兩條敘事的直接關聯性相對較弱，其股價同步走強是否真的反映同一題材，或只是LED類股整體族群連動下的伴隨表現，需要額外留意，不宜自動歸類為與其他四檔同等程度的核心受惠者。整體而言，這五檔雖然都屬廣義LED供應鏈，但終端應用組合明顯不同，投資人若要進一步驗證題材，應分別檢視各公司月營收與終端市場曝險，而非將五檔視為同質。</p>
+  
+  <h2>四、風險與觀察重點：什麼情況下題材會轉弱</h2>
+  <p>首先，若後續各公司月營收未能同步反映對應終端市場（背光或車用）的成長，代表這波表態可能只是LED類股整體資金行情，而非真正由終端拉貨驅動，題材真實性需要重新評估。其次，Mini-LED背光與車用照明兩條敘事本身也有各自的風險：背光應用面臨面板廠資本支出循環與消費性電子需求波動的影響，車用照明則與整車銷售量、車廠新車款LED滲透率規劃綁定，兩者若任一端出現需求不如預期的訊號，都可能拖累對應個股表現。第三，五檔個股中若僅有部分公司（例如僅背光相關的兩檔，或僅車用相關的兩檔）持續走強、而其餘個股回落，代表這波齊漲可能正在分化為不同的次題材，屆時應重新拆分評估而非繼續視為單一題材整體處理。</p>
+  
+  <h2>五、後續追蹤指標</h2>
+  <p>後續應持續追蹤：五檔公司月營收年增率表現，並特別留意是否能拆分出背光相關（光鋐、宏齊）與車用照明相關（佰鴻、聯嘉投控）各自的成長軌跡，藉此判斷究竟是哪一條敘事主導；三大法人是否對這五檔出現連續多日買超而非單日表態；面板廠與電視／筆電品牌廠在Mini-LED背光機種的滲透率規劃與法說會評論；主要車廠與Tier 1車燈廠對LED照明滲透率提升的公開說法；以及榮創在紅外線／VCSEL感測應用的營運狀況，確認其股價表現是否真與本題材相關，或屬於類股連動的伴隨效應。</p>
+  
 
-<details class="expand" id="ivBWrap">
-  <summary>B 級（<span id="ivBCount">–</span>）</summary>
-  <div class="expand-body"><div id="ivB"></div></div>
-</details>
+  
+  <h2>供應鏈結構</h2>
+  <div class="chain-grid">
+    
+    
+    <div class="chain-segment">
+      <div class="chain-label">LED磊晶／晶粒製造</div>
+      
+      <div class="chain-company core">
+        4956 光鋐
+        <span class="chain-role">核心</span>
+      </div>
+      
+      <div class="chain-company peripheral">
+        3437 榮創
+        <span class="chain-role">邊緣</span>
+      </div>
+      
+    </div>
+    
+    
+    
+    <div class="chain-segment">
+      <div class="chain-label">LED封裝／模組</div>
+      
+      <div class="chain-company core">
+        3031 佰鴻
+        <span class="chain-role">核心</span>
+      </div>
+      
+      <div class="chain-company core">
+        6168 宏齊
+        <span class="chain-role">核心</span>
+      </div>
+      
+    </div>
+    
+    
+    
+    <div class="chain-segment">
+      <div class="chain-label">照明應用／集團整合（含控股公司）</div>
+      
+      <div class="chain-company core">
+        3717 聯嘉投控
+        <span class="chain-role">核心</span>
+      </div>
+      
+    </div>
+    
+    
+  </div>
+  
+  <p class="chain-peers">國際同類公司參考：
+    KR 046890 Seoul Semiconductor
+  </p>
+  
+  
 
-<div class="sheader"><span class="sh-ic">📊</span>
-  <span class="sh-title">盤中排行</span><span class="sh-badge">即時</span></div>
-<div class="seg scroll" id="ivRankTabs">
-  <button data-k="gainers" class="on">漲幅</button>
-  <button data-k="volume_ratio">量比</button>
-  <button data-k="turnover">成交值</button>
-  <button data-k="new_high">創新高</button>
-</div>
-<div class="chips" id="ivHighTabs" hidden>
-  <span class="iv-subs-label">創新高週期</span>
-  <button data-p="5d">5天</button>
-  <button data-p="1m">1月</button>
-  <button data-p="3m">3月</button>
-  <button data-p="6m">半年</button>
-  <button data-p="1y" class="on">1年</button>
-</div>
-<div class="iv-dtwrap"><div id="ivRank"></div></div>
-<p class="iv-hint" id="ivCorrected" style="margin-top:8px"></p>
+  
+  <h2>風險與觀察重點</h2>
+  <div class="callout">
+    <div class="callout-label">風險提示</div>
+    <p>五檔個股終端應用曝險不同（背光、車用照明、紅外線感測），同步上漲不代表單一驅動因素成立，若後續月營收無法拆分驗證對應終端市場的成長，題材真實性需要重新評估；Mini-LED背光與車用照明兩條敘事各自面臨面板資本支出循環與整車銷售波動等風險，且目前僅有單日籌碼數據，尚無連續法人買超或具體客戶拉貨訊息作為進一步佐證。</p>
+  </div>
+  
 
-<div class="sheader"><span class="sh-ic">🔄</span>
-  <span class="sh-title">類股輪動</span><span class="sh-badge">漲幅中位</span></div>
-<p class="iv-hint">各產業當下漲幅中位數與「漲逾 3%」家數，看資金流向哪個族群。</p>
-<div class="iv-dtwrap" id="ivSectors"></div>
-
-<p class="commentary" style="margin-top:26px; font-size:12px; color:var(--text-muted)">
-資料來源：證交所基本市況報導（即時報價，公開頁面延遲顯示）。技術指標於瀏覽器端計算，僅供研究參考，不構成投資建議。
-</p>
-
-<script>
-/* ⚠️ 這段在頁面內容區塊裡，瀏覽器解析到就執行；window.TWQuote 由
-   assets/ui.js 定義、掛在 body 結尾。所以必須等 DOMContentLoaded，
-   否則 TWQuote 還不存在，整頁會停在「元件未載入」。
-   （註解裡不要寫 Jinja 標籤字面，會被樣板引擎當成真的標籤解析。） */
-(function () {
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", boot);
-  } else { boot(); }
-  function boot() {
-  // 後端改成每 60 秒推一次（intraday.yml），前端就沒有理由等 45 秒；
-  // raw.githubusercontent 帶 ?_=<ts> 實測會回源，不吃 5 分鐘快取。
-  var REFRESH_MS = 20000;
-
-  var rankKey = "gainers";
-  var highPeriod = "1y";
-  var lastData = null;
-
-  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) {
-    return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
-  function pct(v) { return (v == null) ? "–" : (v > 0 ? "+" : "") + v.toFixed(2) + "%"; }
-  function fmt(v) { return (v == null) ? "–" : Number(v).toLocaleString("en-US"); }
-
-  function card(r) {
-    var tags = [];
-    if (r.breakout_252d) tags.push('<span class="iv-tag hot">創年新高</span>');
-    else if (r.breakout_120d) tags.push('<span class="iv-tag hot">創半年新高</span>');
-    else if (r.breakout_20d) tags.push('<span class="iv-tag">創20日高</span>');
-    if (r.volume_ratio != null) tags.push('<span class="iv-tag">量比 ' + r.volume_ratio.toFixed(1) + '×</span>');
-    tags.push('<span class="iv-tag">領先大盤 ' + pct(r.rs_market) + '</span>');
-    if (r.rs_sector != null) tags.push('<span class="iv-tag">領先同業 ' + pct(r.rs_sector) + '</span>');
-    if (r.industry) tags.push('<span class="iv-tag">' + esc(r.industry) + '</span>');
-    return '<div class="iv-card" data-stock-code="' + esc(r.code) + '" data-stock-name="' + esc(r.name) + '">'
-      + '<div class="row1"><span class="iv-name">' + esc(r.code) + ' ' + esc(r.name)
-      + (r.low_confidence ? '<span class="iv-lowconf">開盤初期，數據波動大</span>' : '')
-      + '</span>'
-      + '<span><span class="iv-chg ' + (r.change_pct >= 0 ? "up" : "down") + '">' + pct(r.change_pct)
-      + '</span> <span class="iv-score">分 ' + r.score + '</span></span></div>'
-      + '<div class="iv-tags">' + tags.join("") + '</div></div>';
-  }
-
-  var sortState = null;
-  var RANK_COLS = [
-    { key: "name",         label: "個股",   num: false },
-    { key: "price",        label: "價",     num: true },
-    { key: "change_pct",   label: "漲跌幅", num: true },
-    { key: "volume",       label: "量(張)", num: true },
-    { key: "volume_ratio", label: "量比",   num: true }
-  ];
-
-  function sortRows(rows) {
-    if (!sortState) return rows;
-    var k = sortState.key, dir = sortState.dir;
-    return rows.slice().sort(function (a, b) {
-      var x = a[k], y = b[k];
-      if (x == null && y == null) return 0;
-      if (x == null) return 1;
-      if (y == null) return -1;
-      if (typeof x === "string") return dir * x.localeCompare(y);
-      return dir * (x - y);
-    });
-  }
-
-  function rankTable(rows) {
-    if (!rows || !rows.length) return '<div class="iv-empty">—</div>';
-    var body = sortRows(rows).map(function (r) {
-      return '<tr data-stock-code="' + esc(r.code) + '" data-stock-name="' + esc(r.name) + '">'
-        + '<td>' + esc(r.code) + ' ' + esc(r.name) + '</td>'
-        + '<td class="num">' + (r.price == null ? "–" : r.price) + '</td>'
-        + '<td class="num">' + pct(r.change_pct) + '</td>'
-        + '<td class="num">' + fmt(r.volume) + '</td>'
-        + '<td class="num">' + (r.volume_ratio == null ? "–" : r.volume_ratio.toFixed(1) + "×") + '</td></tr>';
-    }).join("");
-    var head = RANK_COLS.map(function (c) {
-      var on = sortState && sortState.key === c.key;
-      var arrow = on ? (sortState.dir < 0 ? "▼" : "▲") : "⇅";
-      return '<th class="sortable' + (c.num ? " num" : "") + (on ? " sorted" : "")
-        + '" data-sort="' + c.key + '" title="點擊排序，再點一次反向，第三次復原">'
-        + c.label + '<span class="iv-arrow">' + arrow + '</span></th>';
-    }).join("");
-    return '<table class="iv-table"><thead><tr>' + head + '</tr></thead><tbody>'
-      + body + '</tbody></table>';
-  }
-
-  function sectorTable(rows) {
-    if (!rows || !rows.length) return '<div class="iv-empty">—</div>';
-    var body = rows.map(function (s) {
-      return '<tr><td>' + esc(s.industry) + '</td>'
-        + '<td class="num">' + pct(s.median_change_pct) + '</td>'
-        + '<td class="num">' + s.strong_count + " / " + s.count + '</td></tr>';
-    }).join("");
-    return '<table class="iv-table"><thead><tr><th>產業</th><th class="num">漲幅中位數</th>'
-      + '<th class="num">漲逾3% / 家數</th></tr></thead><tbody>' + body + '</tbody></table>';
-  }
-
-  function render(d) {
-    lastData = d;
-    var st = d.market_status;
-    var stLabel = { open: "盤中", pre_open: "開盤前", closing: "尾盤", closed: "已收盤" }[st] || st;
-    var stEl = document.getElementById("ivStatus");
-    var reallyLive = Q ? Q.isLive(d) : false;
-    stEl.textContent = Q ? Q.statusLabel(d) : stLabel;
-    stEl.className = "lb-status" + (reallyLive ? " open" : "");
-    document.getElementById("ivAsof").textContent = d.as_of || "";
-
-    var tx = d.taiex || {};
-    document.getElementById("ivTaiexNum").textContent =
-      tx.value != null ? Number(tx.value).toLocaleString() : "–";
-    var chgEl = document.getElementById("ivTaiexChg");
-    if (tx.change_pct != null) {
-      var upx = tx.change_pct >= 0;
-      chgEl.className = "lb-chg " + (upx ? "up" : "down");
-      chgEl.textContent = (upx ? "▲ " : "▼ ") + pct(tx.change_pct);
-    } else { chgEl.textContent = ""; }
-
-    var m = [];
-    if (d.counts) m.push('掃描 <b>' + d.counts.scanned + '</b> 檔');
-    if (d.markets) m.push('上市 <b>' + d.markets.twse + '</b>／上櫃 <b>' + d.markets.tpex
-                          + '</b>／興櫃 <b>' + d.markets.esb + '</b>');
-    // 以前這裡寫「延遲顯示約 15 分鐘」，但程式從來沒有延遲任何資料——頁面是即時的
-    // （後端約 60 秒推一次、這頁每 3 秒直接抓證交所），使用者因此誤以為連 Discord
-    // 通知都延遲。拿掉這句不實的說明。
-    document.getElementById("ivMeta").innerHTML = m.join("");
-
-    var A = (d.tiers && d.tiers.A) || [], B = (d.tiers && d.tiers.B) || [];
-    document.getElementById("ivACount").textContent = A.length + " 檔";
-    document.getElementById("ivBCount").textContent = B.length;
-    document.getElementById("ivA").innerHTML = A.length
-      ? A.map(card).join("") : '<div class="iv-empty">目前沒有 A 級標的。</div>';
-    document.getElementById("ivB").innerHTML = B.length
-      ? B.map(card).join("") : '<div class="iv-empty">目前沒有 B 級標的。</div>';
-
-    renderFunnel(d.funnel);
-    renderRank();
-    document.getElementById("ivSectors").innerHTML = sectorTable(d.sectors);
-
-    // 什麼時候該用官方收盤價校正？
-    // ⚠️ 不能只看 d.market_status——那是「產生這份 JSON 當下」算的，收盤後
-    // 檔案凍在 13:29:52，欄位會一直寫著 "open"，晚上十點看還是 open。
-    // 真正的判斷是「這份資料有多舊」：超過 5 分鐘就不是即時值了，
-    // 這時 STOCK_DAY 的當日官方收盤才是對的。
-    if (!Q) return;
-    // 只要台北時鐘說現在是盤中就開逐筆輪詢，不管這份快照新不新鮮。
-    // 後端迴圈（GitHub Actions）沒被觸發時 reallyLive 會一直是 false，
-    // 以前就直接停掉即時、改拿昨天的收盤價校正，市場開著畫面卻卡在昨天
-    // （2026-09-08 開盤實際發生）。逐筆走的是公開 Worker，不需要等後端。
-    if (reallyLive || Q.marketOpenNow()) {
-      Q.startLive("intraday", ivTargets, setLiveBadge);          // 每 3 秒逐筆即時
-    } else if (st !== "pre_open") {
-      Q.stopLive("intraday");
-      setLiveBadge(false, "");
-      Q.correctCloses(ivTargets(), d.as_of, function (n) {       // 收盤價校正
-        var el = document.getElementById("ivCorrected");
-        if (!el) return;
-        el.textContent = n
-          ? "已用證交所官方收盤價校正 " + n + " 檔（收盤集合競價常與盤中最後一筆不同；"
-            + "上櫃／興櫃無公開 CORS 端點，維持盤中值）。"
-          : "";
-      });
-    }
-  }
-
-  var FUNNEL_STEPS = [
-    { key: "low_price",   label: "低價股（未達門檻）" },
-    { key: "disposition", label: "處置／注意股" },
-    { key: "rs_market",   label: "相對大盤強度不足" },
-    { key: "volume_ratio",label: "量能不足（昨量比）" },
-    { key: "momentum",    label: "未站上開盤／昨收" }
-  ];
-  function renderFunnel(f) {
-    var wrap = document.getElementById("ivFunnelWrap");
-    if (!wrap) return;
-    if (!f) { wrap.hidden = true; return; }
-    wrap.hidden = false;
-    document.getElementById("ivFunnelPassed").textContent = f.passed;
-    var left = f.scanned;
-    var rows = ['<tr><td>掃描全市場</td><td class="num">' + fmt(f.scanned) + '</td><td class="num">—</td></tr>'];
-    FUNNEL_STEPS.forEach(function (st) {
-      var cut = f[st.key] || 0;
-      left -= cut;
-      rows.push('<tr><td>' + st.label + '</td><td class="num">' + fmt(left)
-        + '</td><td class="num">−' + fmt(cut) + '</td></tr>');
-    });
-    rows.push('<tr><td><b>通過漏斗</b></td><td class="num"><b>' + fmt(f.passed)
-      + '</b></td><td class="num">—</td></tr>');
-    document.getElementById("ivFunnel").innerHTML =
-      '<table class="iv-table"><thead><tr><th>階段</th><th class="num">剩下</th>'
-      + '<th class="num">刷掉</th></tr></thead><tbody>' + rows.join("") + '</tbody></table>';
-  }
-
-  function renderRank() {
-    var el = document.getElementById("ivRank");
-    if (!el) return;
-    if (!lastData) { el.innerHTML = '<div class="iv-empty">載入中…</div>'; return; }
-    var rk = lastData.rankings || {};
-    var key = rankKey === "new_high" ? "new_high_" + highPeriod : rankKey;
-    var rows = rk[key];
-    document.getElementById("ivHighTabs").hidden = (rankKey !== "new_high");
-
-    if (rankKey === "new_high") {
-      var elig = (rk._eligible || {})[key];
-      markHighTabs(rk._eligible);
-      if (elig === 0) {
-        el.innerHTML = '<div class="iv-empty">這個週期的歷史資料還不足以判斷新高'
-          + '（沒有任何個股累積到足夠的交易日），所以不列名單。'
-          + '參考值每個交易日盤前重算，補齊後會自動出現。</div>';
-        return;
-      }
-    }
-    el.innerHTML = rankTable(rows);
-  }
-
-  function markHighTabs(elig) {
-    if (!elig) return;
-    [].forEach.call(document.querySelectorAll("#ivHighTabs button"), function (b) {
-      var n = elig["new_high_" + b.dataset.p];
-      var bad = (n === 0);
-      b.disabled = bad;
-      b.title = bad ? "歷史資料不足，無法判斷這個週期的新高" : (n + " 檔的歷史足以判斷");
-      b.classList.toggle("na", bad);
-    });
-  }
-
-  /* 報價規則全部委派給 window.TWQuote（assets/ui.js）——狀態文字、收盤價校正、
-     逐筆即時三件事全站只有那一份實作。這頁只負責回答「哪些節點要更新」。
-     2026-09-08 合併：這裡原本自己有一整套，導致熱力圖／評分／籌碼上的
-     共用盤中條沒有校正，整晚顯示收盤前那筆錯的價。 */
-  var Q = window.TWQuote;
-
-  function exMap() {
-    var m = {};
-    if (!lastData) return m;
-    var add = function (arr) {
-      (arr || []).forEach(function (r) { if (r && r.code && r.ex) m[r.code] = r.ex; });
-    };
-    add((lastData.tiers || {}).A); add((lastData.tiers || {}).B);
-    Object.keys(lastData.rankings || {}).forEach(function (k) {
-      if (k.charAt(0) !== "_") add(lastData.rankings[k]);
-    });
-    return m;
-  }
-  function ivTargets() {
-    // 只查看得到的節點：B 級收合時不浪費查詢額度
-    var sel = "#ivA .iv-card[data-stock-code], #ivRank tr[data-stock-code]";
-    var bWrap = document.getElementById("ivBWrap");
-    if (bWrap && bWrap.open) sel += ", #ivB .iv-card[data-stock-code]";
-    var ex = exMap();
-    return [].slice.call(document.querySelectorAll(sel)).map(function (el) {
-      var code = el.dataset.stockCode;
-      return { el: el, code: code, ex: ex[code] };
-    });
-  }
-  function setLiveBadge(on, text) {
-    var el = document.getElementById("ivLive");
-    if (!el) return;
-    el.textContent = text || "";
-    el.className = "lb-live" + (on ? " on" : "");
-  }
-
-
-  function load() {
-    // 抓檔也走 TWQuote（intraday-data 分支優先、失敗退回站內那份），
-    // 全站只有一個地方知道資料放在哪裡。
-    Q.fetchIntraday()
-      .then(render)
-      .catch(function (e) {
-        document.getElementById("ivStatus").textContent = "載入失敗";
-        document.getElementById("ivMeta").innerHTML =
-          '盤中資料尚未產生或載入失敗（' + esc(e.message) + '）。非交易時段這是正常的。';
-      });
-  }
-
-  document.getElementById("ivRankTabs").addEventListener("click", function (e) {
-    var b = e.target.closest("button"); if (!b) return;
-    rankKey = b.dataset.k;
-    sortState = null;
-    [].forEach.call(this.querySelectorAll("button"), function (x) { x.classList.toggle("on", x === b); });
-    renderRank();
-  });
-
-  document.getElementById("ivHighTabs").addEventListener("click", function (e) {
-    var b = e.target.closest("button"); if (!b) return;
-    highPeriod = b.dataset.p;
-    [].forEach.call(this.querySelectorAll("button"), function (x) { x.classList.toggle("on", x === b); });
-    renderRank();
-  });
-
-  document.getElementById("ivRank").addEventListener("click", function (e) {
-    var th = e.target.closest("th.sortable"); if (!th) return;
-    e.stopPropagation();
-    var k = th.dataset.sort;
-    if (!sortState || sortState.key !== k) sortState = { key: k, dir: -1 };
-    else if (sortState.dir === -1) sortState.dir = 1;
-    else sortState = null;
-    renderRank();
-  });
-
-  if (!Q) {
-    document.getElementById("ivStatus").textContent = "元件未載入";
-    document.getElementById("ivMeta").innerHTML =
-      "互動元件（assets/ui.js）未載入，盤中資料無法顯示。";
-  } else {
-    load();
-    setInterval(load, REFRESH_MS);
-  }
-  }
-})();
-</script>
+  
+  <h2>後續追蹤指標</h2>
+  <div class="tracking-list">
+    <div class="track-item">五檔公司月營收年增率，並拆分背光相關與車用照明相關個股的成長軌跡</div><div class="track-item">三大法人是否出現連續多日買超而非單日表態</div><div class="track-item">面板廠與電視／筆電品牌廠Mini-LED背光滲透率規劃</div><div class="track-item">主要車廠與Tier 1車燈廠LED照明滲透率提升的公開說法</div><div class="track-item">榮創紅外線／VCSEL感測應用營運狀況，確認是否真屬本題材</div>
+  </div>
+  
+</article>
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-23 20:42</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-23 20:17</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
@@ -866,13 +594,13 @@
 
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
   }
-  window.__rel = "";
+  window.__rel = "../";
 </script>
-<script src="assets/ui.js?v=8c796938"></script>
+<script src="../assets/ui.js?v=8c796938"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=8c796938"></script>
+<script src="../assets/stock-chart.js?v=8c796938"></script>
 
 </body>
 </html>
