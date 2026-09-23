@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>盤中快報清單 · 盤後快訊</title>
+<title>半導體封測代工（OSAT）題材深度報告：價量同步表態，訂單與營收驗證仍待補齊 · 盤後快訊</title>
 <link rel="manifest" href="../manifest.json">
 <link rel="icon" href="../icons/icon-192.png">
 <link rel="apple-touch-icon" href="../icons/icon-192.png">
@@ -380,15 +380,56 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  .ar-sec-h{font-size:17px; margin:34px 0 0; padding-top:22px;
-            border-top:1px solid var(--hairline);}
-  .ar-row{display:block; background:var(--surface); border:1px solid var(--hairline);
-    border-radius:var(--radius-sm); padding:12px 14px; margin-bottom:9px; text-decoration:none; color:inherit;}
-  .ar-row:hover{border-color:var(--text-muted);}
-  .ar-top{display:flex; justify-content:space-between; gap:10px; align-items:baseline;}
-  .ar-name{font-weight:600; font-size:14px;}
-  .ar-when{font-size:11.5px; color:var(--text-muted);}
-  .ar-head{font-size:12.5px; color:var(--text-secondary); margin-top:4px; line-height:1.5;}
+  body{font-family:'Noto Serif TC',serif;}
+  .meta-label{font-family:'Noto Sans TC',sans-serif; font-size:13px;
+              color:var(--gold); margin-bottom:14px;}
+  h1.title{font-size:30px; font-weight:700; line-height:1.4; margin-bottom:16px;}
+  .byline{font-family:'Noto Sans TC',sans-serif; font-size:13px; color:var(--text-muted);
+          padding-bottom:28px; border-bottom:1px solid var(--hairline); margin-bottom:28px;}
+  .summary-box{background:var(--surface); border-radius:8px;
+               padding:22px 24px; margin-bottom:36px;}
+  .summary-box .summary-label{font-family:'Noto Sans TC',sans-serif;
+                              font-size:12.5px; color:var(--gold); margin-bottom:12px;}
+  .summary-box ul{list-style:none;}
+  .summary-box li{font-family:'Noto Sans TC',sans-serif; font-size:14.5px;
+                  color:var(--text-secondary); padding-left:16px; position:relative;
+                  margin-bottom:10px; line-height:1.6;}
+  .summary-box li:last-child{margin-bottom:0;}
+  .summary-box li::before{content:""; position:absolute; left:0; top:8px;
+                          width:5px; height:5px; border-radius:50%; background:var(--gold);}
+  article h2{font-size:19px; font-weight:600; margin:36px 0 14px;}
+  article p{font-size:16px; line-height:1.9; color:var(--text-secondary); margin-bottom:16px;}
+  .pull-stat{display:flex; gap:28px; padding:20px 0; margin:22px 0;
+             border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline);
+             flex-wrap:wrap;}
+  .pull-stat .item{min-width:110px;}
+  .pull-stat .item-value{font-family:'JetBrains Mono',monospace; font-size:24px;}
+  .pull-stat .item-label{font-family:'Noto Sans TC',sans-serif; font-size:12.5px;
+                         color:var(--text-muted); margin-top:4px;}
+  .callout{border-left:2px solid var(--red); padding:16px 20px; background:var(--surface);
+           border-radius:0 6px 6px 0; margin:24px 0;}
+  .callout .callout-label{font-family:'Noto Sans TC',sans-serif; font-size:12.5px;
+                          color:var(--red); margin-bottom:8px;}
+  .callout p{font-size:14.5px; margin-bottom:0;}
+  .tracking-list{font-family:'Noto Sans TC',sans-serif;}
+  .track-item{padding:10px 0; border-bottom:1px solid var(--hairline);
+              font-size:14px; color:var(--text-secondary);}
+  .track-item:last-child{border-bottom:none;}
+  .chain-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr));
+             gap:12px; margin:16px 0 8px; font-family:'Noto Sans TC',sans-serif;}
+  .chain-segment{background:var(--surface); border-radius:8px; padding:14px 16px;}
+  .chain-label{font-size:12.5px; color:var(--gold); margin-bottom:10px;}
+  .chain-company{font-size:14px; color:var(--text-secondary); padding:6px 0;
+                 border-bottom:1px solid var(--hairline); display:flex;
+                 justify-content:space-between; align-items:center;}
+  .chain-company:last-child{border-bottom:none;}
+  .chain-company.core{color:var(--text-primary);}
+  .chain-role{font-size:11px; padding:2px 7px; border-radius:100px; flex-shrink:0;
+             background:rgba(217,164,65,.16); color:var(--gold);}
+  .chain-company.peripheral .chain-role{background:rgba(114,108,96,.16); color:var(--text-muted);}
+  .chain-peers{font-family:'Noto Sans TC',sans-serif; font-size:13px;
+               color:var(--text-muted); margin-top:10px;}
+  @media (max-width:480px){h1.title{font-size:24px;}}
 
 </style>
 </head>
@@ -430,268 +471,116 @@
   </div>
 
   
-<header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">盤中快報</h1></header>
-<p class="commentary" style="margin-top:14px">盤中強勢股篩選抓到 A 級標的時，系統即時上網查證後產出的快報（每日上限
-10 篇）。<b>快報形式、非深度查證</b>，僅供研究參考，不構成投資建議。深度、逐檔查證過的公司分析在
-<a href="../lookup.html">個股查詢</a>。</p>
+<div class="meta-label">深度報告 · 題材知識庫 #147</div>
+<h1 class="title">半導體封測代工（OSAT）題材深度報告：價量同步表態，訂單與營收驗證仍待補齊</h1>
+<div class="byline">首次建檔 2026-09-18　·　最後更新 2026-09-18　·　第 2 次更新</div>
 
 
+<div class="summary-box">
+  <div class="summary-label">摘要</div>
+  <ul><li>2026-09-18 建檔，五檔封測相關個股同日價量齊揚，涵蓋封測服務廠（華東、矽格、京元電子、南茂）與測試設備廠（鴻勁），產業鏈上下游同步表態</li><li>目前僅有單日三大法人合計買超約新台幣5.8億元的籌碼佐證，尚無月營收年增、法人持續買超趨勢等更長期數據支撐，信心度列為 mid</li><li>五檔個股商業模式並不相同：京元電子為獨立測試代工龍頭、矽格聚焦RF與電源管理IC測試、華東與南茂以記憶體／驅動IC封測整合服務為主、鴻勁則是測試機台設備商，屬於題材上游的『賣工具的人』而非封測服務本身</li></ul>
+</div>
 
-<a class="ar-row" href="2026-09-23-3032.html">
-  <div class="ar-top">
-    <span class="ar-name">3032 偉訓 <span style="color:var(--c-chip)">+7.19%</span></span>
-    <span class="ar-when">2026-09-23 11:17:21</span>
+
+<article>
+  <div class="pull-stat">
+    <div class="item"><div class="item-value">5</div>
+      <div class="item-label">相關供應鏈個股</div></div>
+    <div class="item"><div class="item-value">2</div>
+      <div class="item-label">累積更新次數</div></div>
+    <div class="item"><div class="item-value">中高</div>
+      <div class="item-label">目前信心度</div></div>
   </div>
-  <div class="ar-head">偉訓盤中大漲逾7%、放量創20日新高，AI伺服器機櫃與液冷散熱訂單能見度看至2027年第一季成主要題材</div>
-</a>
 
-<a class="ar-row" href="2026-09-21-3047.html">
-  <div class="ar-top">
-    <span class="ar-name">3047 訊舟 <span style="color:var(--c-chip)">+5.42%</span></span>
-    <span class="ar-when">2026-09-21 11:07:37</span>
+  
+  <h2>一、事件背景：題材如何浮現</h2>
+  <p>這個題材首次於2026-09-18建檔，觸發點是封測相關個股同日出現價量齊揚、多檔逼近漲停的表態，涵蓋封測服務廠（華東、矽格、京元電子、南茂）與測試機台設備廠（鴻勁）。從產業鏈結構來看，封測代工（OSAT）處於半導體製造後段，承接晶圓廠（IDM或晶圓代工廠）委外的封裝與測試業務；近年市場關注封測產業的敘事主要有二：一是先進封裝（如CoWoS）產能滿載後，部分成熟封裝訂單外溢至傳統OSAT廠；二是記憶體與消費性IC測試需求隨終端庫存去化後回溫。這兩條敘事都合理指向封測代工廠可能受惠，但截至目前建檔資訊，僅能確認『價量同步表態』這個客觀現象，至於背後驅動是先進封裝外溢、記憶體循環回升，或單純類股輪動，仍屬待驗證的推論，不宜直接視為已確認的產業事實。</p>
+  
+  <h2>二、訂單與財務驗證：目前僅有初步籌碼數據</h2>
+  <p>就已驗證的事實而言，追蹤紀錄顯示建檔當日（2026-09-18）三大法人合計買超金額約新台幣5.8億元，這是目前唯一的量化籌碼佐證，且僅為單日數據，尚未累積成連續買超的趨勢線。至於通常用來驗證題材真實性的月營收年增率、個別公司法說會展望、晶圓代工廠產能利用率評論等，本次追蹤紀錄並未附上，代表這個題材目前仍停留在『價量表態出現、籌碼面初步佐證』的階段，距離『訂單與財務數據雙重確認』還有一段距離。尤其封測產業的營收認列與產能利用率變化通常需要一至兩個月才會反映在月營收公告，若後續幾次月營收公布未能同步出現年增轉正或加速，這個題材的『real』判定就有必要重新檢視，改列為觀察或降評。</p>
+  
+  <h2>三、個股比較：核心受惠者與周邊供應商的差異</h2>
+  <p>五檔相關個股雖然同屬廣義封測供應鏈，但商業模式與受惠邏輯並不相同，不宜一概而論。京元電子是台灣最大的獨立IC測試代工廠，客戶橫跨邏輯、記憶體與類比IC，若封測委外需求全面回溫，屬於承接面最廣的核心指標股。矽格則聚焦RF射頻與電源管理IC的封裝測試，受惠程度較取決於手機／車用電子等特定終端需求，而非封測產業全面性回溫。華東與南茂皆以記憶體與驅動IC的封裝測試整合服務為主力，兩者股價表現與記憶體現貨價格、面板驅動IC庫存去化速度的連動性可能高於『封測產業』這個廣義題材本身。鴻勁則性質完全不同——它是測試機台（Test Handler）設備商，商業模式是銷售設備給封測廠而非承接封測委外業務，若封測廠因訂單回溫而擴充產能，鴻勁的機台訂單通常會早於封測服務廠的營收認列反映，可視為這個題材若成真時的領先指標，但同時也代表它的股價驅動邏輯與另外四檔服務廠並不完全一致，硬把五檔全數視為同質受惠者是需要留意的簡化風險。</p>
+  
+  <h2>四、風險與觀察重點：什麼情況下題材會轉弱</h2>
+  <p>首要風險是目前僅有單日價量與籌碼數據，缺乏營收與法人持續買超的交叉驗證，若後續月營收未能同步走強、法人買超未能延續，這波表態很可能只是短線族群輪動而非真實產業趨勢啟動，屬於『假題材』的典型特徵之一（僅一兩檔或短暫齊漲、缺乏基本面對應）。其次，封測產業本質上是景氣循環產業，產能利用率與訂單能見度高度依賴上游晶圓廠與下游終端庫存去化狀況，若記憶體現貨價格回落、或先進封裝產能瓶頸緩解（先進封裝訂單不再外溢），委外訂單動能可能同步降溫。第三，五檔個股中京元電子與矽格屬於相對純粹的測試代工模式，客戶集中度與訂單能見度是關鍵觀察點；而華東、南茂則需留意記憶體與驅動IC庫存循環是否真的觸底回升，避免將個別產品線的短期回補訂單誤判為封測產業全面性復甦。</p>
+  
+  <h2>五、後續追蹤指標</h2>
+  <p>後續應持續追蹤：每月10日左右公布的月營收年增率是否轉正或加速成長；三大法人是否針對這五檔（尤其京元電子作為指標股）出現連續多日買超而非單日表態；封測廠法說會或公開評論中是否明確提及產能利用率回升、委外訂單能見度延長；記憶體現貨與合約價格走勢，以及晶圓代工龍頭廠在法說會中是否提及先進封裝產能滿載、訂單外溢至傳統封測廠的具體說法；此外也應留意鴻勁作為設備端領先指標，其機台訂單或出貨數據是否率先出現放量，作為判斷封測產業是否進入實質擴產週期的參考訊號。</p>
+  
+
+  
+  <h2>供應鏈結構</h2>
+  <div class="chain-grid">
+    
+    
+    <div class="chain-segment">
+      <div class="chain-label">測試設備／機台</div>
+      
+      <div class="chain-company core">
+        7769 鴻勁
+        <span class="chain-role">核心</span>
+      </div>
+      
+    </div>
+    
+    
+    
+    <div class="chain-segment">
+      <div class="chain-label">封裝測試服務（OSAT）</div>
+      
+      <div class="chain-company core">
+        2449 京元電子
+        <span class="chain-role">核心</span>
+      </div>
+      
+      <div class="chain-company core">
+        6257 矽格
+        <span class="chain-role">核心</span>
+      </div>
+      
+      <div class="chain-company core">
+        8110 華東
+        <span class="chain-role">核心</span>
+      </div>
+      
+      <div class="chain-company core">
+        8150 南茂
+        <span class="chain-role">核心</span>
+      </div>
+      
+    </div>
+    
+    
+    
+    
   </div>
-  <div class="ar-head">盤面帶動，暫無明確個股消息，量比放大創20日新高</div>
-</a>
+  
+  <p class="chain-peers">國際同類公司參考：
+    US AMKR Amkor Technology、US TER Teradyne、JP 6857 Advantest
+  </p>
+  
+  
 
-<a class="ar-row" href="2026-09-18-3162.html">
-  <div class="ar-top">
-    <span class="ar-name">3162 精確 <span style="color:var(--c-chip)">+6.19%</span></span>
-    <span class="ar-when">2026-09-18 11:06:51</span>
+  
+  <h2>風險與觀察重點</h2>
+  <div class="callout">
+    <div class="callout-label">風險提示</div>
+    <p>目前題材判定僅基於單日價量齊揚與一次性籌碼數據，尚未經月營收、法人連續買超趨勢等更長期指標驗證，存在『價量表態先行、基本面尚未跟上』的落差風險；封測產業屬景氣循環產業，訂單能見度易受記憶體價格與晶圓代工產能利用率變化牽動，五檔個股商業模式差異亦大（測試代工、封測整合、測試設備），不宜視為同質受惠族群，須逐檔檢視訂單與營收數據後再判斷是否真為產業性回溫。</p>
   </div>
-  <div class="ar-head">AI液冷散熱、電動車電池盒、機器人三大題材延續近期動能，月營收連創新高帶動股價爆量走強、創20日新高</div>
-</a>
+  
 
-<a class="ar-row" href="2026-09-17-6785.html">
-  <div class="ar-top">
-    <span class="ar-name">6785 昱展新藥 <span style="color:var(--c-chip)">+9.94%</span></span>
-    <span class="ar-when">2026-09-17 11:07:12</span>
+  
+  <h2>後續追蹤指標</h2>
+  <div class="tracking-list">
+    <div class="track-item">五檔個股（尤其京元電子、矽格、華東、南茂）月營收年增率是否轉正或連續加速</div><div class="track-item">三大法人是否出現連續多日、而非單日的買超趨勢</div><div class="track-item">封測廠法說會對產能利用率、委外訂單能見度的具體評論</div><div class="track-item">記憶體現貨／合約價格走勢與驅動IC庫存去化進度</div><div class="track-item">鴻勁等測試設備廠訂單／出貨數據是否領先放量，作為封測產能擴張的先行指標</div>
   </div>
-  <div class="ar-head">盤面帶動，暫無明確個股消息</div>
-</a>
-
-<a class="ar-row" href="2026-09-16-8227.html">
-  <div class="ar-top">
-    <span class="ar-name">8227 巨有科技 <span style="color:var(--c-chip)">+9.82%</span></span>
-    <span class="ar-when">2026-09-16 11:07:09</span>
-  </div>
-  <div class="ar-head">北美Tier 1客戶4奈米設計案＋NRE訂單爆發帶動的AI ASIC題材延續，股價連日走強後今天續攻新高</div>
-</a>
-
-<a class="ar-row" href="2026-09-15-2221.html">
-  <div class="ar-top">
-    <span class="ar-name">2221 大甲 <span style="color:var(--c-chip)">+9.90%</span></span>
-    <span class="ar-when">2026-09-15 11:07:39</span>
-  </div>
-  <div class="ar-head">先進封裝鍍膜氣化供應系統題材延燒，股價急拉創一年新高</div>
-</a>
-
-<a class="ar-row" href="2026-09-14-4995.html">
-  <div class="ar-top">
-    <span class="ar-name">4995 晶達 <span style="color:var(--c-chip)">+4.16%</span></span>
-    <span class="ar-when">2026-09-14 11:07:18</span>
-  </div>
-  <div class="ar-head">本季獲利成長動能延續，股價盤中創一年新高，暫無單一明確消息面催化</div>
-</a>
-
-<a class="ar-row" href="2026-09-11-6834.html">
-  <div class="ar-top">
-    <span class="ar-name">6834 天二科技 <span style="color:var(--c-chip)">+6.16%</span></span>
-    <span class="ar-when">2026-09-11 11:07:18</span>
-  </div>
-  <div class="ar-head">9月8日公告8月營收年增114.3%效應延續，盤中量增走高創20日新高</div>
-</a>
-
-<a class="ar-row" href="2026-09-10-6937.html">
-  <div class="ar-top">
-    <span class="ar-name">6937 天虹 <span style="color:var(--c-chip)">+5.15%</span></span>
-    <span class="ar-when">2026-09-10 11:06:49</span>
-  </div>
-  <div class="ar-head">盤面帶動，暫無明確個股消息</div>
-</a>
-
-<a class="ar-row" href="2026-09-09-4994.html">
-  <div class="ar-top">
-    <span class="ar-name">4994 傳奇 <span style="color:var(--c-chip)">+7.45%</span></span>
-    <span class="ar-when">2026-09-09 11:08:16</span>
-  </div>
-  <div class="ar-head">盤面帶動，暫無明確個股消息</div>
-</a>
-
-<a class="ar-row" href="2026-09-08-7610.html">
-  <div class="ar-top">
-    <span class="ar-name">7610 聯友金屬-創 <span style="color:var(--c-chip)">+6.75%</span></span>
-    <span class="ar-when">2026-09-08 11:07:10</span>
-  </div>
-  <div class="ar-head">鎢供應緊張、國際鎢價維持高檔的既有題材延續發酵，帶動盤中續強、創20日新高，非單一新個股利多</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-3026.html">
-  <div class="ar-top">
-    <span class="ar-name">3026 禾伸堂 <span style="color:var(--c-chip)">+9.99%</span></span>
-    <span class="ar-when">2026-09-07 09:05:13</span>
-  </div>
-  <div class="ar-head">AI伺服器800V HVDC電源架構升級帶動高壓MLCC需求爆發，禾伸堂訂單滿載、交期拉長至20多週，股價急拉創一年新高</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-5243.html">
-  <div class="ar-top">
-    <span class="ar-name">5243 乙盛-KY <span style="color:var(--c-chip)">+6.78%</span></span>
-    <span class="ar-when">2026-09-07 09:05:13</span>
-  </div>
-  <div class="ar-head">AI伺服器散熱結構件、SpaceX低軌衛星零組件與人形機器人結構件多元題材發酵，乙盛-KY股價急拉創一年新高</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-6674.html">
-  <div class="ar-top">
-    <span class="ar-name">6674 鋐寶科技 <span style="color:var(--c-chip)">+6.71%</span></span>
-    <span class="ar-when">2026-09-07 09:05:13</span>
-  </div>
-  <div class="ar-head">盤面帶動，暫無明確個股消息</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-7610.html">
-  <div class="ar-top">
-    <span class="ar-name">7610 聯友金屬-創 <span style="color:var(--c-chip)">+9.89%</span></span>
-    <span class="ar-when">2026-09-07 09:05:13</span>
-  </div>
-  <div class="ar-head">中國祭出鎢、鈷等稀有金屬出口管制、美國對中系鎢製品課25%關稅，加上2027年起美國防部全面禁採中系鎢金屬，聯友金屬身為稀缺非中系冶煉廠受惠題材延燒，股價急拉創新高</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-8374.html">
-  <div class="ar-top">
-    <span class="ar-name">8374 羅昇 <span style="color:var(--c-chip)">+7.59%</span></span>
-    <span class="ar-when">2026-09-07 09:05:13</span>
-  </div>
-  <div class="ar-head">工業自動化與AI智動化需求強勁，羅昇近月營收年增逾6成動能延續，股價急拉創一年新高</div>
-</a>
-
-
-
-
-<h2 class="ar-sec-h">🎯 點播主題報告</h2>
-<p class="commentary" style="margin-top:6px">
-  由使用者在 <a href="../submit.html">提交研究</a> 頁點播主題，系統實際上網查證後產出。
-  <b>沒有外部查證來源就不產出</b>，不會放未經查證的內容。</p>
-
-
-<a class="ar-row" href="2026-09-12-3006.html">
-  <div class="ar-top">
-    <span class="ar-name">晶豪科技（3006）：記憶體超級週期下的利基型 DRAM 供應商</span>
-    <span class="ar-when">2026-09-12 · 來源 5 個 · 📄 PDF</span>
-  </div>
-  <div class="ar-head">晶豪科技是台灣專注利基型 DRAM／Flash 的 IC 設計公司，2026 年隨記憶體報價全面走揚，8 月營收年增逾 600%。公司主力在成熟製程的 DDR3/DDR4 與 LPDRAM/PSRAM，切入消費性、工控、…</div>
-</a>
-
-<a class="ar-row" href="2026-09-09-2408.html">
-  <div class="ar-top">
-    <span class="ar-name">南亞科（2408）：DDR4供給排擠效應下的記憶體超級循環受惠股</span>
-    <span class="ar-when">2026-09-09 · 來源 5 個 · 📄 PDF</span>
-  </div>
-  <div class="ar-head">南亞科技申報主業為電子零組件製造，實際上是台灣主要DRAM廠，本次查證聚焦其2026年營收獲利大幅成長的原因。核心邏輯是國際大廠（美光、三星、SK海力士）將產能轉向HBM與DDR5，使成熟製程DDR4供給緊縮，讓專攻DD…</div>
-</a>
-
-<a class="ar-row" href="2026-09-09-5484.html">
-  <div class="ar-top">
-    <span class="ar-name">慧友電子（5484）：從監視器代工轉型機器人視覺，NVIDIA／Qualcomm雙平台布局</span>
-    <span class="ar-when">2026-09-09 · 來源 5 個 · 📄 PDF</span>
-  </div>
-  <div class="ar-head">慧友電子（5484）申報主要業務為CCD電子攝影機與影像處理器，過去以安控監視器為主力，近期查證顯示公司已切入機器人視覺與邊緣AI相機領域，成為NVIDIA Jetson/Thor與Qualcomm平台的合作夥伴之一。2…</div>
-</a>
-
-<a class="ar-row" href="2026-09-08-7942.html">
-  <div class="ar-top">
-    <span class="ar-name">7942 東佑達自動化科技：興櫃新兵的精密傳動與半導體/機器人雙引擎</span>
-    <span class="ar-when">2026-09-08 · 來源 5 個 · 📄 PDF</span>
-  </div>
-  <div class="ar-head">東佑達是精密直線傳動模組廠，2026年8月6日剛登錄興櫃，掛牌首日股價暴衝、遠高於承銷價；營收結構以半導體及封測應用占比最大，同時切入CPO光通訊對位與人形機器人關節致動器等新應用。與本站題材知識庫中的「滾珠螺桿 / 線…</div>
-</a>
-
-<a class="ar-row" href="2026-09-08-6916.html">
-  <div class="ar-top">
-    <span class="ar-name">6916 華凌光電：利基顯示面板廠的 PMOLED 布局觀察</span>
-    <span class="ar-when">2026-09-08 · 來源 5 個 · 📄 PDF</span>
-  </div>
-  <div class="ar-head">華凌光電是2023年底才掛牌的利基顯示面板廠，主力為STN／TFT／PMOLED面板與模組，透過全資子公司曜凌光電切入PMOLED製造。近期毛利率隨產線良率提升而改善，但2026年1月營收轉為年減，且公開資訊對其產品線營…</div>
-</a>
-
-<a class="ar-row" href="2026-09-08-6657.html">
-  <div class="ar-top">
-    <span class="ar-name">華安醫學（6657）：以AMPK能量代謝平台切入多項罕見與慢性疾病新藥的臨床階段生技股</span>
-    <span class="ar-when">2026-09-08 · 來源 4 個 · 📄 PDF</span>
-  </div>
-  <div class="ar-head">華安醫學（Energenesis Biomedical）是一家專注新藥研發的生技公司，核心技術是透過活化細胞能量調節酵素AMPK的小分子化合物平台「ENERGI」，同時推進落髮、糖尿病足潰瘍、下肢靜脈潰瘍、遺傳性表皮分解…</div>
-</a>
-
-<a class="ar-row" href="2026-09-08-4573高明鐵.html">
-  <div class="ar-top">
-    <span class="ar-name">高明鐵（4573）：從彰化模具廠到矽光子耦光設備商的轉型軌跡</span>
-    <span class="ar-when">2026-09-08 · 來源 4 個 · 📄 PDF</span>
-  </div>
-  <div class="ar-head">高明鐵原是彰化的沖壓模具與自動化傳動零組件廠，2019年主要客戶華為遭斷單後轉向光通訊設備，目前核心產品是應用在800G／1.6T光模組與CPO（共同封裝光學）製程的矽光子耦光設備。2026年以來營收與訂單能見度明顯轉強…</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-仁新.html">
-  <div class="ar-top">
-    <span class="ar-name">仁新（6696）查證報告：透過美國子公司Belite Bio推進斯特格病變新藥，NDA已獲FDA優先審查</span>
-    <span class="ar-when">2026-09-07 · 來源 5 個 · 📄 PDF</span>
-  </div>
-  <div class="ar-head">仁新醫藥（6696）是台灣新藥開發公司，核心價值來自持股41.97%的美國子公司Belite Bio, Inc.，其開發的LBS-008（Tinlarebant）鎖定遺傳性罕見眼疾斯特格病變（Stargardt dise…</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-金居.html">
-  <div class="ar-top">
-    <span class="ar-name">金居（8358）查證報告：台灣HVLP4電解銅箔龍頭，卡位AI伺服器材料供應鏈</span>
-    <span class="ar-when">2026-09-07 · 來源 5 個 · 📄 PDF</span>
-  </div>
-  <div class="ar-head">金居開發（8358，上櫃）是台灣主要的電子級電解銅箔廠，主力產品從標準銅箔升級到超低粗糙度的HVLP4系列，已通過Intel、AMD、NVIDIA三大平台認證，供應NVIDIA H100、GB200等AI伺服器用高速CC…</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-捷立康.html">
-  <div class="ar-top">
-    <span class="ar-name">捷立康（7686）查證報告：軟組織填補與支撐平台，剛登錄興櫃的醫美／醫材新兵</span>
-    <span class="ar-when">2026-09-07 · 來源 3 個 · 📄 PDF</span>
-  </div>
-  <div class="ar-head">捷立康生物科技（7686）是2021年成立、2026年8月31日剛登錄興櫃的醫療器材公司，核心是LipoShell軟組織填補平台與HeliBarb軟組織支撐平台，首波應用鎖定乳房術後重建、體積填補與醫學美容。由於剛掛牌，…</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-玻纖布.html">
-  <div class="ar-top">
-    <span class="ar-name">玻纖布：AI 伺服器高速材料升級戰下的低介電稀缺資源</span>
-    <span class="ar-when">2026-09-07 · 來源 4 個</span>
-  </div>
-  <div class="ar-head">玻纖布（玻璃纖維布）是銅箔基板（CCL）與 PCB 的核心結構材料，隨 AI 伺服器、800G/1.6T 交換器對低訊號損耗的要求提高，產業正從一般 E-glass 往低介電常數（Low Dk）、低介電損耗（Low Df…</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-CPO.html">
-  <div class="ar-top">
-    <span class="ar-name">CPO（共同封裝光學）與矽光子：2026 商轉元年台股供應鏈解析</span>
-    <span class="ar-when">2026-09-07 · 來源 4 個</span>
-  </div>
-  <div class="ar-head">CPO（Co-Packaged Optics）將光引擎與交換器晶片共同封裝，目的是縮短電訊號路徑、大幅降低功耗，被視為 AI 資料中心高速互連下一階段的關鍵技術。2026 年隨 NVIDIA、Broadcom 的 CPO…</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-散熱.html">
-  <div class="ar-top">
-    <span class="ar-name">AI 伺服器散熱：液冷從選配變標配，台廠營收已明顯分流</span>
-    <span class="ar-when">2026-09-07 · 來源 5 個</span>
-  </div>
-  <div class="ar-head">隨著單機櫃功耗一路拉高，液冷對高階 AI 機櫃已從選配變成強制需求，市場預估液冷滲透率由 2024 年不到 10%、2025 年 15~20%，2026 年升至 40~50%。這個轉折在台廠最新月營收上看得很清楚：業務綁…</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-cpo.html">
-  <div class="ar-top">
-    <span class="ar-name">CPO 共同封裝光學：2026 商轉元年，台廠光通訊供應鏈營收已同步加速</span>
-    <span class="ar-when">2026-09-07 · 來源 6 個</span>
-  </div>
-  <div class="ar-head">CPO（Co-Packaged Optics，共同封裝光學）把光引擎與交換晶片封裝在一起，取代傳統可插拔光模組，用來解決 AI 資料中心在高速率下的功耗與延遲瓶頸。2026 年被市場稱為商轉元年：輝達已宣告 CPO 進入…</div>
-</a>
-
-
+  
+</article>
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-23 20:39</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-23 20:12</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
