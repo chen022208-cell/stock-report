@@ -453,6 +453,29 @@ commit 全部從 main 的祖先鏈裡消失（還留在孤兒分支上，沒被�
 本檔到目前為止只列了其他 7 支，這支當時被漏掉，是這次孤兒分支囤積到 70 幾條
 的根本原因。
 
+⚠️ **2026-09-23 又踩到一次，這次是「即時快訊監控」自己的 prompt 一直沒補上**
+（上一段講的是別支 Routine 修正時波及 main、這段是這支自己的問題，兩件事）。
+執行到的 session 一開機發現本地分支 `claude/compassionate-hawking-qfx44b` 上
+堆了 26 個從 09-21 09:41 到 09-23 17:35 UTC 的「即時快訊更新」commit，`git fetch`
+後 `origin` 上完全沒有這個分支（`fatal: couldn't find remote ref`）——過去每小時
+的執行都只在容器本地 commit 成功，`git push`（裸指令）默默推去這個從未存在於
+remote 的分支，於是既不報錯也推不上 main，網站上兩天多完全看不到即時快訊更新
+（跟評分/熱力圖等規則計算資料無關，只影響這支自己的資料）。所幸這 26 個 commit
+相對 `origin/main` 是乾淨的 fast-forward（沒有分岔），用
+`git push origin HEAD:main` 一次全部救回、無需處理衝突。
+**已確認 `trig_018yBcbP6ZfoidQ3SWr4hXwh` 的 prompt 目前仍是裸 `git push`／
+`git pull --rebase origin main`，且它是 `created_via: http_api`（使用者自己建的），
+Claude session 用 `update_trigger` 改不動**（API 回錯：agent 只能改自己
+`create_trigger` 建立的 Routine）。**要修只能使用者自己去
+`https://claude.ai/code/routines/trig_018yBcbP6ZfoidQ3SWr4hXwh` 編輯畫面手動改
+prompt**：步驟 1 的 `git pull --rebase origin main` 改成
+`git fetch origin && git checkout main && git pull --rebase origin main`，
+步驟 5 的 `並 git push；被拒就 git pull --rebase origin main 後重推` 改成
+`並 git push origin HEAD:main；被拒就 git pull --rebase origin main 後重推`
+（照抄「台股產業深度分析」「台股週報」兩支已經修過的版本就好）。**在使用者手動
+修好之前，這支 Routine 每小時的執行都要靠當次 session 自己意識到分支沒推上
+main、手動 `git push origin HEAD:main`，不能只信任 prompt 裡寫的裸指令。**
+
 ## 盤中推播與個股快報格式（2026-09-18 改）
 
 - **推播門檻看漲幅，不看分數**：`config.yaml` 的 `intraday.alert_change_pct`
