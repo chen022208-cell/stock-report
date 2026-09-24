@@ -7517,7 +7517,7 @@
       "name": "歐都納",
       "industry": "運動休閒",
       "market": "esb",
-      "change_pct": null,
+      "change_pct": 0.0,
       "has_score": false
     },
     {
@@ -11237,7 +11237,7 @@
       "name": "寶元數控",
       "industry": "電機機械",
       "market": "esb",
-      "change_pct": null,
+      "change_pct": 1.88,
       "has_score": false
     },
     {
@@ -16445,7 +16445,7 @@
       "name": "學習王",
       "industry": "文化創意業",
       "market": "esb",
-      "change_pct": null,
+      "change_pct": 2.38,
       "has_score": false
     },
     {
@@ -18285,7 +18285,7 @@
       "name": "鑫囍創業",
       "industry": "其他",
       "market": "esb",
-      "change_pct": null,
+      "change_pct": 0.0,
       "has_score": false
     },
     {
@@ -18941,7 +18941,7 @@
       "name": "聚泰",
       "industry": "紡織纖維",
       "market": "esb",
-      "change_pct": null,
+      "change_pct": 0.0,
       "has_score": false
     },
     {
@@ -19125,7 +19125,7 @@
       "name": "騰勢",
       "industry": "食品工業",
       "market": "esb",
-      "change_pct": null,
+      "change_pct": 0.54,
       "has_score": false
     },
     {
