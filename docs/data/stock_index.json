@@ -77,7 +77,7 @@
       "name": "凌嘉科",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": 4.73,
+      "change_pct": 6.86,
       "has_score": true
     },
     {
@@ -149,7 +149,7 @@
       "name": "科科科技-KY",
       "industry": "數位雲端",
       "market": "esb",
-      "change_pct": 2.22,
+      "change_pct": 1.59,
       "has_score": true
     },
     {
@@ -181,7 +181,7 @@
       "name": "萬勝發科技",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": -4.98,
+      "change_pct": -0.48,
       "has_score": true
     },
     {
@@ -189,7 +189,7 @@
       "name": "元澄半導體",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": 3.49,
+      "change_pct": 6.86,
       "has_score": true
     },
     {
@@ -213,7 +213,7 @@
       "name": "捷立康",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 1.2,
+      "change_pct": 0.53,
       "has_score": true
     },
     {
@@ -221,7 +221,7 @@
       "name": "台智雲",
       "industry": "資訊服務業",
       "market": "esb",
-      "change_pct": -1.93,
+      "change_pct": 0.0,
       "has_score": true
     },
     {
@@ -229,7 +229,7 @@
       "name": "綠基",
       "industry": "光電業",
       "market": "esb",
-      "change_pct": -3.6,
+      "change_pct": 0.4,
       "has_score": true
     },
     {
@@ -245,7 +245,7 @@
       "name": "安邦生技*",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 1.9,
+      "change_pct": 3.32,
       "has_score": true
     },
     {
@@ -333,7 +333,7 @@
       "name": "瑞峰",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": -0.33,
+      "change_pct": -0.65,
       "has_score": true
     },
     {
@@ -341,7 +341,7 @@
       "name": "瀚軒",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": 2.6,
+      "change_pct": 3.9,
       "has_score": true
     },
     {
@@ -365,7 +365,7 @@
       "name": "鈺祥",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": 5.76,
+      "change_pct": 6.07,
       "has_score": true
     },
     {
@@ -373,7 +373,7 @@
       "name": "阿波羅電力",
       "industry": "綠能環保",
       "market": "esb",
-      "change_pct": -7.5,
+      "change_pct": -6.25,
       "has_score": true
     },
     {
@@ -381,7 +381,7 @@
       "name": "新聿科",
       "industry": "電子零組件業",
       "market": "esb",
-      "change_pct": -2.23,
+      "change_pct": -2.09,
       "has_score": true
     },
     {
@@ -405,7 +405,7 @@
       "name": "廌家",
       "industry": "通信網路業",
       "market": "esb",
-      "change_pct": 0.0,
+      "change_pct": 0.74,
       "has_score": true
     },
     {
@@ -437,7 +437,7 @@
       "name": "瀚陽*",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 0.5,
+      "change_pct": 1.01,
       "has_score": true
     },
     {
@@ -453,7 +453,7 @@
       "name": "源點*",
       "industry": "綠能環保",
       "market": "esb",
-      "change_pct": -2.5,
+      "change_pct": 0.5,
       "has_score": true
     },
     {
@@ -461,7 +461,7 @@
       "name": "TLC-KY",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -9.03,
+      "change_pct": -8.93,
       "has_score": true
     },
     {
@@ -485,7 +485,7 @@
       "name": "連距電機",
       "industry": "電機機械",
       "market": "esb",
-      "change_pct": 0.52,
+      "change_pct": -0.52,
       "has_score": true
     },
     {
@@ -493,7 +493,7 @@
       "name": "合聖科技*",
       "industry": "通信網路業",
       "market": "esb",
-      "change_pct": -1.23,
+      "change_pct": -1.08,
       "has_score": true
     },
     {
@@ -501,7 +501,7 @@
       "name": "碩通",
       "industry": "電腦及週邊設備業",
       "market": "esb",
-      "change_pct": 9.27,
+      "change_pct": 12.41,
       "has_score": true
     },
     {
@@ -509,7 +509,7 @@
       "name": "威世波",
       "industry": "通信網路業",
       "market": "esb",
-      "change_pct": -2.09,
+      "change_pct": -1.05,
       "has_score": true
     },
     {
@@ -525,7 +525,7 @@
       "name": "昱鐳應材",
       "industry": "電子零組件業",
       "market": "esb",
-      "change_pct": 0.24,
+      "change_pct": -3.53,
       "has_score": true
     },
     {
@@ -533,7 +533,7 @@
       "name": "威旭",
       "industry": "其他",
       "market": "esb",
-      "change_pct": -4.27,
+      "change_pct": -0.36,
       "has_score": true
     },
     {
@@ -565,7 +565,7 @@
       "name": "東佑達",
       "industry": "電機機械",
       "market": "esb",
-      "change_pct": 17.3,
+      "change_pct": 17.49,
       "has_score": true
     },
     {
@@ -589,7 +589,7 @@
       "name": "廣盛科技",
       "industry": "電腦及週邊設備業",
       "market": "esb",
-      "change_pct": 1.1,
+      "change_pct": -0.44,
       "has_score": true
     },
     {
@@ -2917,7 +2917,7 @@
       "name": "晨暉生技",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -1.53,
+      "change_pct": -0.85,
       "has_score": false
     },
     {
@@ -3157,7 +3157,7 @@
       "name": "旭東環保",
       "industry": "綠能環保",
       "market": "esb",
-      "change_pct": -3.89,
+      "change_pct": -4.49,
       "has_score": false
     },
     {
@@ -5141,7 +5141,7 @@
       "name": "為昇科",
       "industry": "其他電子業",
       "market": "esb",
-      "change_pct": -1.21,
+      "change_pct": -1.38,
       "has_score": false
     },
     {
@@ -5157,7 +5157,7 @@
       "name": "凱銳光電",
       "industry": "其他電子業",
       "market": "esb",
-      "change_pct": 1.39,
+      "change_pct": 8.61,
       "has_score": false
     },
     {
@@ -5165,7 +5165,7 @@
       "name": "歐特明",
       "industry": "其他電子業",
       "market": "esb",
-      "change_pct": -1.07,
+      "change_pct": -1.21,
       "has_score": false
     },
     {
@@ -6701,7 +6701,7 @@
       "name": "中信造船",
       "industry": "航運業",
       "market": "esb",
-      "change_pct": 0.65,
+      "change_pct": 0.13,
       "has_score": false
     },
     {
@@ -6861,7 +6861,7 @@
       "name": "維格餅家",
       "industry": "觀光餐旅",
       "market": "esb",
-      "change_pct": 0.0,
+      "change_pct": -0.88,
       "has_score": false
     },
     {
@@ -8165,7 +8165,7 @@
       "name": "年程",
       "industry": "電子零組件業",
       "market": "esb",
-      "change_pct": 0.0,
+      "change_pct": 3.7,
       "has_score": false
     },
     {
@@ -8341,7 +8341,7 @@
       "name": "微邦",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -3.69,
+      "change_pct": 0.85,
       "has_score": false
     },
     {
@@ -9557,7 +9557,7 @@
       "name": "聯致",
       "industry": "電子零組件業",
       "market": "esb",
-      "change_pct": 2.99,
+      "change_pct": 3.1,
       "has_score": false
     },
     {
@@ -9613,7 +9613,7 @@
       "name": "山太士",
       "industry": "光電業",
       "market": "esb",
-      "change_pct": -6.77,
+      "change_pct": -7.38,
       "has_score": false
     },
     {
@@ -9765,7 +9765,7 @@
       "name": "云光",
       "industry": "光電業",
       "market": "esb",
-      "change_pct": -0.69,
+      "change_pct": -0.35,
       "has_score": false
     },
     {
@@ -10549,7 +10549,7 @@
       "name": "禾生技",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -0.28,
+      "change_pct": -0.55,
       "has_score": false
     },
     {
@@ -10909,7 +10909,7 @@
       "name": "旭東",
       "industry": "光電業",
       "market": "esb",
-      "change_pct": 0.0,
+      "change_pct": 0.61,
       "has_score": false
     },
     {
@@ -11053,7 +11053,7 @@
       "name": "久裕興",
       "industry": "運動休閒",
       "market": "esb",
-      "change_pct": 2.63,
+      "change_pct": 0.79,
       "has_score": false
     },
     {
@@ -11157,7 +11157,7 @@
       "name": "高明鐵",
       "industry": "電機機械",
       "market": "esb",
-      "change_pct": 4.7,
+      "change_pct": 5.58,
       "has_score": false
     },
     {
@@ -11253,7 +11253,7 @@
       "name": "碩陽電機",
       "industry": "電機機械",
       "market": "esb",
-      "change_pct": -2.87,
+      "change_pct": -3.18,
       "has_score": false
     },
     {
@@ -11413,7 +11413,7 @@
       "name": "大同精化",
       "industry": "化學工業",
       "market": "esb",
-      "change_pct": 1.14,
+      "change_pct": 4.89,
       "has_score": false
     },
     {
@@ -11709,7 +11709,7 @@
       "name": "智微",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": 12.92,
+      "change_pct": 13.33,
       "has_score": false
     },
     {
@@ -12245,7 +12245,7 @@
       "name": "勵威",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": -1.61,
+      "change_pct": -2.26,
       "has_score": false
     },
     {
@@ -12253,7 +12253,7 @@
       "name": "景傳",
       "industry": "光電業",
       "market": "esb",
-      "change_pct": -3.66,
+      "change_pct": -5.25,
       "has_score": false
     },
     {
@@ -12285,7 +12285,7 @@
       "name": "立達",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": 0.12,
+      "change_pct": 0.84,
       "has_score": false
     },
     {
@@ -12301,7 +12301,7 @@
       "name": "龍翩",
       "industry": "光電業",
       "market": "esb",
-      "change_pct": -1.05,
+      "change_pct": -3.47,
       "has_score": false
     },
     {
@@ -12317,7 +12317,7 @@
       "name": "紘通",
       "industry": "電子零組件業",
       "market": "esb",
-      "change_pct": -5.73,
+      "change_pct": -5.38,
       "has_score": false
     },
     {
@@ -12421,7 +12421,7 @@
       "name": "廣化",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": -1.12,
+      "change_pct": -0.56,
       "has_score": false
     },
     {
@@ -13173,7 +13173,7 @@
       "name": "瑞興銀",
       "industry": "金融業",
       "market": "esb",
-      "change_pct": -1.3,
+      "change_pct": -0.43,
       "has_score": false
     },
     {
@@ -13341,7 +13341,7 @@
       "name": "德信",
       "industry": "金融業",
       "market": "esb",
-      "change_pct": 0.0,
+      "change_pct": 0.36,
       "has_score": false
     },
     {
@@ -14677,7 +14677,7 @@
       "name": "達輝光電",
       "industry": "光電業",
       "market": "esb",
-      "change_pct": 1.43,
+      "change_pct": 3.57,
       "has_score": false
     },
     {
@@ -14789,7 +14789,7 @@
       "name": "泰合",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 2.19,
+      "change_pct": 3.07,
       "has_score": false
     },
     {
@@ -14821,7 +14821,7 @@
       "name": "美賣*",
       "industry": "數位雲端",
       "market": "esb",
-      "change_pct": -4.66,
+      "change_pct": -3.76,
       "has_score": false
     },
     {
@@ -15181,7 +15181,7 @@
       "name": "景凱",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 4.82,
+      "change_pct": 1.09,
       "has_score": false
     },
     {
@@ -15205,7 +15205,7 @@
       "name": "榮炭",
       "industry": "電子零組件業",
       "market": "esb",
-      "change_pct": 1.23,
+      "change_pct": -1.64,
       "has_score": false
     },
     {
@@ -15261,7 +15261,7 @@
       "name": "安特羅",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 4.66,
+      "change_pct": 3.11,
       "has_score": false
     },
     {
@@ -15405,7 +15405,7 @@
       "name": "醣基",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 2.49,
+      "change_pct": 3.98,
       "has_score": false
     },
     {
@@ -15509,7 +15509,7 @@
       "name": "普達系統",
       "industry": "電腦及週邊設備業",
       "market": "esb",
-      "change_pct": -0.77,
+      "change_pct": -0.51,
       "has_score": false
     },
     {
@@ -15557,7 +15557,7 @@
       "name": "安成生技",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -0.39,
+      "change_pct": 0.39,
       "has_score": false
     },
     {
@@ -15613,7 +15613,7 @@
       "name": "永虹先進",
       "industry": "化學工業",
       "market": "esb",
-      "change_pct": -2.46,
+      "change_pct": -2.81,
       "has_score": false
     },
     {
@@ -15685,7 +15685,7 @@
       "name": "沅聖",
       "industry": "電腦及週邊設備業",
       "market": "esb",
-      "change_pct": 0.0,
+      "change_pct": -4.76,
       "has_score": false
     },
     {
@@ -15693,7 +15693,7 @@
       "name": "源大環能",
       "industry": "油電燃氣業",
       "market": "esb",
-      "change_pct": 2.74,
+      "change_pct": -2.74,
       "has_score": false
     },
     {
@@ -15805,7 +15805,7 @@
       "name": "天明製藥",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -0.99,
+      "change_pct": 0.74,
       "has_score": false
     },
     {
@@ -15837,7 +15837,7 @@
       "name": "康聯生醫",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 1.19,
+      "change_pct": 2.98,
       "has_score": false
     },
     {
@@ -15901,7 +15901,7 @@
       "name": "和詮",
       "industry": "光電業",
       "market": "esb",
-      "change_pct": -0.64,
+      "change_pct": 2.55,
       "has_score": false
     },
     {
@@ -16021,7 +16021,7 @@
       "name": "仁新*",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 2.32,
+      "change_pct": 2.06,
       "has_score": false
     },
     {
@@ -16053,7 +16053,7 @@
       "name": "國璽幹細胞",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 2.86,
+      "change_pct": 4.52,
       "has_score": false
     },
     {
@@ -16061,7 +16061,7 @@
       "name": "振躍精密",
       "industry": "電機機械",
       "market": "esb",
-      "change_pct": -2.39,
+      "change_pct": 1.49,
       "has_score": false
     },
     {
@@ -16189,7 +16189,7 @@
       "name": "機光科技",
       "industry": "光電業",
       "market": "esb",
-      "change_pct": -3.57,
+      "change_pct": -0.68,
       "has_score": false
     },
     {
@@ -16293,7 +16293,7 @@
       "name": "亞果生醫",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -6.85,
+      "change_pct": -5.39,
       "has_score": false
     },
     {
@@ -16341,7 +16341,7 @@
       "name": "連鋐科技",
       "industry": "電子零組件業",
       "market": "esb",
-      "change_pct": -2.16,
+      "change_pct": -1.73,
       "has_score": false
     },
     {
@@ -16429,7 +16429,7 @@
       "name": "穎台科技",
       "industry": "光電業",
       "market": "esb",
-      "change_pct": -1.13,
+      "change_pct": -1.25,
       "has_score": false
     },
     {
@@ -16485,7 +16485,7 @@
       "name": "芯測",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": -0.2,
+      "change_pct": 1.6,
       "has_score": false
     },
     {
@@ -16493,7 +16493,7 @@
       "name": "晶瑞光",
       "industry": "光電業",
       "market": "esb",
-      "change_pct": 0.74,
+      "change_pct": 2.6,
       "has_score": false
     },
     {
@@ -16565,7 +16565,7 @@
       "name": "圓點奈米",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -1.35,
+      "change_pct": -5.41,
       "has_score": false
     },
     {
@@ -16629,7 +16629,7 @@
       "name": "新穎生醫",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -0.25,
+      "change_pct": 1.47,
       "has_score": false
     },
     {
@@ -16645,7 +16645,7 @@
       "name": "梭特",
       "industry": "光電業",
       "market": "esb",
-      "change_pct": 1.96,
+      "change_pct": 0.71,
       "has_score": false
     },
     {
@@ -16661,7 +16661,7 @@
       "name": "晶鑽生醫",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 1.27,
+      "change_pct": 1.06,
       "has_score": false
     },
     {
@@ -16685,7 +16685,7 @@
       "name": "連騰",
       "industry": "通信網路業",
       "market": "esb",
-      "change_pct": 0.7,
+      "change_pct": 2.32,
       "has_score": false
     },
     {
@@ -16701,7 +16701,7 @@
       "name": "連訊",
       "industry": "通信網路業",
       "market": "esb",
-      "change_pct": -2.7,
+      "change_pct": -2.3,
       "has_score": false
     },
     {
@@ -16725,7 +16725,7 @@
       "name": "和暢科技",
       "industry": "電腦及週邊設備業",
       "market": "esb",
-      "change_pct": -1.53,
+      "change_pct": 0.0,
       "has_score": false
     },
     {
@@ -16733,7 +16733,7 @@
       "name": "和淞",
       "industry": "其他電子業",
       "market": "esb",
-      "change_pct": -0.8,
+      "change_pct": 2.39,
       "has_score": false
     },
     {
@@ -16741,7 +16741,7 @@
       "name": "巨生醫",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -0.76,
+      "change_pct": 2.29,
       "has_score": false
     },
     {
@@ -16781,7 +16781,7 @@
       "name": "太康精密",
       "industry": "電子零組件業",
       "market": "esb",
-      "change_pct": -0.68,
+      "change_pct": -1.14,
       "has_score": false
     },
     {
@@ -16837,7 +16837,7 @@
       "name": "瑞宇",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": 2.34,
+      "change_pct": 0.28,
       "has_score": false
     },
     {
@@ -16869,7 +16869,7 @@
       "name": "普瑞博",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 6.99,
+      "change_pct": 3.14,
       "has_score": false
     },
     {
@@ -16877,7 +16877,7 @@
       "name": "拉法醫",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 0.0,
+      "change_pct": -0.24,
       "has_score": false
     },
     {
@@ -16885,7 +16885,7 @@
       "name": "奇鼎科技",
       "industry": "其他電子業",
       "market": "esb",
-      "change_pct": 2.22,
+      "change_pct": 3.33,
       "has_score": false
     },
     {
@@ -17053,7 +17053,7 @@
       "name": "朗齊生醫*",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 0.29,
+      "change_pct": -1.73,
       "has_score": false
     },
     {
@@ -17141,7 +17141,7 @@
       "name": "樂迦再生",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -0.39,
+      "change_pct": -0.13,
       "has_score": false
     },
     {
@@ -17173,7 +17173,7 @@
       "name": "程曦資訊",
       "industry": "資訊服務業",
       "market": "esb",
-      "change_pct": 0.0,
+      "change_pct": 2.02,
       "has_score": false
     },
     {
@@ -17269,7 +17269,7 @@
       "name": "益鈞環科*",
       "industry": "綠能環保",
       "market": "esb",
-      "change_pct": 0.92,
+      "change_pct": 0.0,
       "has_score": false
     },
     {
@@ -17309,7 +17309,7 @@
       "name": "竟天",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 0.0,
+      "change_pct": 0.28,
       "has_score": false
     },
     {
@@ -17333,7 +17333,7 @@
       "name": "恆勁科技",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": -1.92,
+      "change_pct": -0.96,
       "has_score": false
     },
     {
@@ -17381,7 +17381,7 @@
       "name": "聖安生醫",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -2.67,
+      "change_pct": 0.47,
       "has_score": false
     },
     {
@@ -17421,7 +17421,7 @@
       "name": "水星生醫*",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -0.33,
+      "change_pct": 0.0,
       "has_score": false
     },
     {
@@ -17477,7 +17477,7 @@
       "name": "格斯科技*",
       "industry": "電子零組件業",
       "market": "esb",
-      "change_pct": 11.07,
+      "change_pct": 13.65,
       "has_score": false
     },
     {
@@ -17645,7 +17645,7 @@
       "name": "永立榮",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 2.02,
+      "change_pct": 2.19,
       "has_score": false
     },
     {
@@ -17653,7 +17653,7 @@
       "name": "育世博-KY",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -1.92,
+      "change_pct": -0.77,
       "has_score": false
     },
     {
@@ -17669,7 +17669,7 @@
       "name": "勝釩",
       "industry": "光電業",
       "market": "esb",
-      "change_pct": -3.33,
+      "change_pct": -2.78,
       "has_score": false
     },
     {
@@ -17677,7 +17677,7 @@
       "name": "鐳洋科技",
       "industry": "通信網路業",
       "market": "esb",
-      "change_pct": 3.29,
+      "change_pct": 2.47,
       "has_score": false
     },
     {
@@ -17701,7 +17701,7 @@
       "name": "寶晶能源*",
       "industry": "綠能環保",
       "market": "esb",
-      "change_pct": 1.18,
+      "change_pct": 1.42,
       "has_score": false
     },
     {
@@ -17717,7 +17717,7 @@
       "name": "華鉬",
       "industry": "綠能環保",
       "market": "esb",
-      "change_pct": -1.83,
+      "change_pct": -1.52,
       "has_score": false
     },
     {
@@ -17773,7 +17773,7 @@
       "name": "達勝",
       "industry": "電子零組件業",
       "market": "esb",
-      "change_pct": 1.72,
+      "change_pct": 1.92,
       "has_score": false
     },
     {
@@ -17781,7 +17781,7 @@
       "name": "華上生醫",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -1.26,
+      "change_pct": -0.98,
       "has_score": false
     },
     {
@@ -17821,7 +17821,7 @@
       "name": "鋒魁科技",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": 0.85,
+      "change_pct": 1.14,
       "has_score": false
     },
     {
@@ -17909,7 +17909,7 @@
       "name": "怡和國際",
       "industry": "其他",
       "market": "esb",
-      "change_pct": 0.0,
+      "change_pct": -0.67,
       "has_score": false
     },
     {
@@ -17917,7 +17917,7 @@
       "name": "世基生醫",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -0.71,
+      "change_pct": 0.0,
       "has_score": false
     },
     {
@@ -18013,7 +18013,7 @@
       "name": "益芯科",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": -3.09,
+      "change_pct": -1.93,
       "has_score": false
     },
     {
@@ -18037,7 +18037,7 @@
       "name": "東擎科技",
       "industry": "電腦及週邊設備業",
       "market": "esb",
-      "change_pct": 0.47,
+      "change_pct": 2.13,
       "has_score": false
     },
     {
@@ -18109,7 +18109,7 @@
       "name": "碳基",
       "industry": "其他",
       "market": "esb",
-      "change_pct": 1.27,
+      "change_pct": 1.16,
       "has_score": false
     },
     {
@@ -18173,7 +18173,7 @@
       "name": "仲恩生醫",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 2.58,
+      "change_pct": 1.55,
       "has_score": false
     },
     {
@@ -18189,7 +18189,7 @@
       "name": "火星生技*",
       "industry": "食品工業",
       "market": "esb",
-      "change_pct": 0.24,
+      "change_pct": 0.0,
       "has_score": false
     },
     {
@@ -18333,7 +18333,7 @@
       "name": "安基生技",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -2.46,
+      "change_pct": -1.36,
       "has_score": false
     },
     {
@@ -18341,7 +18341,7 @@
       "name": "多那之",
       "industry": "觀光餐旅",
       "market": "esb",
-      "change_pct": -4.96,
+      "change_pct": -4.12,
       "has_score": false
     },
     {
@@ -18365,7 +18365,7 @@
       "name": "視航生醫",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 4.93,
+      "change_pct": 3.08,
       "has_score": false
     },
     {
@@ -18381,7 +18381,7 @@
       "name": "三大未來",
       "industry": "綠能環保",
       "market": "esb",
-      "change_pct": 2.47,
+      "change_pct": 2.08,
       "has_score": false
     },
     {
@@ -18397,7 +18397,7 @@
       "name": "崇舜",
       "industry": "化學工業",
       "market": "esb",
-      "change_pct": 11.49,
+      "change_pct": 12.11,
       "has_score": false
     },
     {
@@ -18453,7 +18453,7 @@
       "name": "富禾生醫",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -3.38,
+      "change_pct": -2.65,
       "has_score": false
     },
     {
@@ -18461,7 +18461,7 @@
       "name": "奧孟亞",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -0.91,
+      "change_pct": 0.15,
       "has_score": false
     },
     {
@@ -18493,7 +18493,7 @@
       "name": "昕力資*",
       "industry": "數位雲端",
       "market": "esb",
-      "change_pct": 0.0,
+      "change_pct": -0.21,
       "has_score": false
     },
     {
@@ -18581,7 +18581,7 @@
       "name": "擷發科",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": 5.19,
+      "change_pct": 6.67,
       "has_score": false
     },
     {
@@ -18589,7 +18589,7 @@
       "name": "Q Burger",
       "industry": "觀光餐旅",
       "market": "esb",
-      "change_pct": 0.0,
+      "change_pct": -3.5,
       "has_score": false
     },
     {
@@ -18637,7 +18637,7 @@
       "name": "訊聯智藥",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 0.91,
+      "change_pct": 0.52,
       "has_score": false
     },
     {
@@ -18669,7 +18669,7 @@
       "name": "新特",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": -4.57,
+      "change_pct": -4.45,
       "has_score": false
     },
     {
@@ -18741,7 +18741,7 @@
       "name": "思捷優達-KY",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 2.38,
+      "change_pct": 2.72,
       "has_score": false
     },
     {
@@ -18757,7 +18757,7 @@
       "name": "智新生技*",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -3.26,
+      "change_pct": -2.9,
       "has_score": false
     },
     {
@@ -18821,7 +18821,7 @@
       "name": "英柏得",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": 3.2,
+      "change_pct": 3.65,
       "has_score": false
     },
     {
@@ -18829,7 +18829,7 @@
       "name": "德揚",
       "industry": "綠能環保",
       "market": "esb",
-      "change_pct": 1.04,
+      "change_pct": 4.29,
       "has_score": false
     },
     {
@@ -18861,7 +18861,7 @@
       "name": "寶泰生醫",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 8.28,
+      "change_pct": 5.03,
       "has_score": false
     },
     {
@@ -18877,7 +18877,7 @@
       "name": "政美應用",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": 5.61,
+      "change_pct": 6.87,
       "has_score": false
     },
     {
@@ -18917,7 +18917,7 @@
       "name": "芝普",
       "industry": "化學工業",
       "market": "esb",
-      "change_pct": 7.72,
+      "change_pct": 9.4,
       "has_score": false
     },
     {
@@ -18933,7 +18933,7 @@
       "name": "貝爾威勒",
       "industry": "電子零組件業",
       "market": "esb",
-      "change_pct": 2.14,
+      "change_pct": 1.71,
       "has_score": false
     },
     {
@@ -18965,7 +18965,7 @@
       "name": "丹立",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": 0.0,
+      "change_pct": -0.32,
       "has_score": false
     },
     {
@@ -18973,7 +18973,7 @@
       "name": "特力屋",
       "industry": "居家生活",
       "market": "esb",
-      "change_pct": -0.72,
+      "change_pct": 0.0,
       "has_score": false
     },
     {
@@ -18997,7 +18997,7 @@
       "name": "聯剛科技",
       "industry": "其他電子業",
       "market": "esb",
-      "change_pct": -0.78,
+      "change_pct": -1.16,
       "has_score": false
     },
     {
@@ -19005,7 +19005,7 @@
       "name": "安立璽榮-KY",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -1.82,
+      "change_pct": -1.52,
       "has_score": false
     },
     {
@@ -19013,7 +19013,7 @@
       "name": "登豐",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": 0.19,
+      "change_pct": -2.07,
       "has_score": false
     },
     {
@@ -19029,7 +19029,7 @@
       "name": "鼎晉生技",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 0.2,
+      "change_pct": -0.4,
       "has_score": false
     },
     {
@@ -19045,7 +19045,7 @@
       "name": "藥祇",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": 6.63,
+      "change_pct": 5.19,
       "has_score": false
     },
     {
@@ -19053,7 +19053,7 @@
       "name": "益材科技",
       "industry": "電機機械",
       "market": "esb",
-      "change_pct": -2.28,
+      "change_pct": 0.0,
       "has_score": false
     },
     {
@@ -19069,7 +19069,7 @@
       "name": "科明",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -0.12,
+      "change_pct": -2.44,
       "has_score": false
     },
     {
@@ -19093,7 +19093,7 @@
       "name": "宏羚",
       "industry": "其他電子業",
       "market": "esb",
-      "change_pct": -1.7,
+      "change_pct": -2.13,
       "has_score": false
     },
     {
@@ -19101,7 +19101,7 @@
       "name": "科建",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": 11.29,
+      "change_pct": 11.17,
       "has_score": false
     },
     {
@@ -19109,7 +19109,7 @@
       "name": "宇川精材",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": -2.63,
+      "change_pct": -1.75,
       "has_score": false
     },
     {
@@ -19117,7 +19117,7 @@
       "name": "麗寶新藥",
       "industry": "生技醫療業",
       "market": "esb",
-      "change_pct": -9.39,
+      "change_pct": -10.76,
       "has_score": false
     },
     {
@@ -19149,7 +19149,7 @@
       "name": "元鈦科",
       "industry": "電腦及週邊設備業",
       "market": "esb",
-      "change_pct": 0.59,
+      "change_pct": 0.78,
       "has_score": false
     },
     {
@@ -19173,7 +19173,7 @@
       "name": "喬越",
       "industry": "電子零組件業",
       "market": "esb",
-      "change_pct": 0.0,
+      "change_pct": 1.75,
       "has_score": false
     },
     {
@@ -19189,7 +19189,7 @@
       "name": "景美",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": -0.48,
+      "change_pct": 0.36,
       "has_score": false
     },
     {
@@ -19197,7 +19197,7 @@
       "name": "大大寬頻",
       "industry": "通信網路業",
       "market": "esb",
-      "change_pct": -4.16,
+      "change_pct": -3.05,
       "has_score": false
     },
     {
@@ -19397,7 +19397,7 @@
       "name": "耐特",
       "industry": "其他電子業",
       "market": "esb",
-      "change_pct": -0.21,
+      "change_pct": 0.11,
       "has_score": false
     },
     {
@@ -19613,7 +19613,7 @@
       "name": "慶康科技",
       "industry": "半導體業",
       "market": "esb",
-      "change_pct": 4.93,
+      "change_pct": 5.78,
       "has_score": false
     },
     {
@@ -19725,7 +19725,7 @@
       "name": "公信",
       "industry": "電腦及週邊設備業",
       "market": "esb",
-      "change_pct": 0.51,
+      "change_pct": -3.06,
       "has_score": false
     },
     {
@@ -20005,7 +20005,7 @@
       "name": "超秦",
       "industry": "農業科技",
       "market": "esb",
-      "change_pct": -0.5,
+      "change_pct": 0.0,
       "has_score": false
     },
     {
@@ -20309,7 +20309,7 @@
       "name": "影一",
       "industry": "文化創意業",
       "market": "esb",
-      "change_pct": 0.0,
+      "change_pct": 4.3,
       "has_score": false
     },
     {
