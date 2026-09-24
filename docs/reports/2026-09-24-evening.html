@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>選股雷達 · 盤後快訊</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>盤後快訊 · 2026年9月24日．週四</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 <meta name="theme-color" content="#060911">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -380,18 +380,76 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
+  .hero-eyebrow{font-size:13px; color:var(--text-muted); margin-bottom:6px;
+               display:flex; align-items:center; gap:6px;}
+  .hero-number{font-family:'JetBrains Mono',monospace; font-size:38px;
+               font-weight:500; letter-spacing:-.01em;}
+  .hero-change{font-family:'JetBrains Mono',monospace; font-size:15px; margin-left:10px;}
+
+  .watch-hits{background:rgba(227,172,78,.09); border-left:3px solid var(--gold);
+              border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:13px 16px; margin-bottom:18px;}
+  .watch-hits .wh-label{font-size:12px; color:var(--gold); margin-bottom:7px; font-weight:600;}
+  .watch-hits .wh-item{font-size:14px; color:var(--text-secondary); margin-bottom:4px;}
+  .watch-hits .wh-item strong{color:var(--text-primary); font-weight:500;}
+
+  .inst-row{display:flex; align-items:center; gap:10px; margin-bottom:9px; font-size:13.5px;}
+  .inst-row:last-child{margin-bottom:0;}
+  .inst-row .inst-name{width:52px; color:var(--text-secondary); flex-shrink:0;}
+  .inst-row .bar-track{flex:1; height:6px; background:var(--surface-2);
+                       border-radius:3px; position:relative; overflow:hidden;}
+  .inst-row .bar-fill{position:absolute; top:0; bottom:0; border-radius:3px;}
+  .inst-row .bar-fill.up{background:var(--red); left:50%;}
+  .inst-row .bar-fill.down{background:var(--green); right:50%;}
+  .inst-row .inst-value{width:80px; text-align:right;
+                        font-family:'JetBrains Mono',monospace; flex-shrink:0;}
+
+  .theme-entry{background:var(--surface); border:1px solid var(--hairline);
+              border-left:3px solid var(--c-theme); border-radius:var(--radius-sm);
+              padding:14px 16px; margin-bottom:12px;}
+  .theme-entry:last-child{margin-bottom:0;}
+  .theme-header{display:flex; justify-content:space-between; align-items:baseline;
+                gap:12px; margin-bottom:7px; flex-wrap:wrap;}
+  .theme-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px;}
+  .theme-desc{font-size:14px; color:var(--text-secondary); margin-bottom:7px;}
+  .theme-meta{display:flex; justify-content:space-between; align-items:center;
+              font-size:12.5px; color:var(--text-muted); flex-wrap:wrap; gap:8px;}
+  .theme-link{font-size:12.5px; color:var(--gold); text-decoration:none;
+              display:inline-block; margin-top:7px;}
+  .theme-link:hover{text-decoration:underline;}
+
   .darkhorse-entry{background:var(--surface); border:1px solid var(--hairline);
-    border-radius:var(--radius-sm); padding:14px 16px; margin-bottom:12px;}
-  .darkhorse-name{font-weight:600; font-size:14.5px; margin-bottom:10px;}
-  .darkhorse-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin-bottom:8px;}
-  .dh-label{font-size:11px; color:var(--text-muted);}
-  .dh-value{font-size:13.5px; font-weight:600;}
-  .darkhorse-note{font-size:12.5px; color:var(--text-secondary); line-height:1.6;}
-  .tech-table{width:100%; border-collapse:collapse; font-size:13px;}
-  .tech-table th,.tech-table td{text-align:left; padding:8px 10px; border-bottom:1px solid var(--hairline);}
-  .tech-table th{font-size:11.5px; color:var(--text-muted); font-weight:500;}
-  .picks-empty{font-size:13px; color:var(--text-muted); padding:14px 0;}
-  @media (max-width:480px){ .darkhorse-grid{grid-template-columns:repeat(2,1fr);} }
+                   border-left:3px solid var(--c-warn); border-radius:var(--radius-sm);
+                   padding:14px 16px; margin-bottom:10px;}
+  .darkhorse-entry:last-child{margin-bottom:0;}
+  .darkhorse-name{font-family:'Noto Serif TC',serif; font-weight:600;
+                  font-size:16px; margin-bottom:9px;}
+  .darkhorse-grid{display:grid; grid-template-columns:1fr 1fr;
+                  gap:7px 20px; font-size:13px; margin-bottom:10px;}
+  .darkhorse-grid .dh-label{color:var(--text-muted);}
+  .darkhorse-grid .dh-value{font-family:'JetBrains Mono',monospace;}
+  .darkhorse-note{font-size:13px; color:var(--text-secondary);
+                  border-top:1px solid var(--hairline); padding-top:9px;}
+
+  .tech-table{width:100%; border-collapse:collapse;}
+  .tech-table th{text-align:left; font-size:11.5px; font-weight:400;
+                 color:var(--text-muted); padding-bottom:9px;
+                 border-bottom:1px solid var(--hairline);}
+  .tech-table td{padding:10px 0; border-bottom:1px solid var(--hairline);
+                 font-size:13.5px; vertical-align:top;}
+  .tech-table tr:last-child td{border-bottom:none;}
+  .signal-bull{color:var(--red);} .signal-warn{color:var(--gold);}
+  .signal-neutral{color:var(--text-secondary);} .signal-bear{color:var(--green);}
+  .t-note{color:var(--text-muted); font-size:12.5px;}
+
+  .call-item{display:flex; justify-content:space-between; gap:12px;
+             padding:9px 0; border-bottom:1px solid var(--hairline); font-size:13.5px;}
+  .call-item:last-child{border-bottom:none;}
+  .call-note{color:var(--text-muted); font-size:12.5px;}
+
+  @media (max-width:480px){
+    .hero-number{font-size:32px;}
+    .darkhorse-grid{grid-template-columns:1fr;}
+  }
 
 </style>
 </head>
@@ -403,56 +461,216 @@
     <button class="dr-close" id="drClose" aria-label="關閉選單">✕</button>
   </div>
   <h4>市場</h4>
-  <a href="index.html" class=""><span class="dr-ic">🏠</span>最新</a>
-  <a href="heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
-  <a href="chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
-  <a href="scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
-  <a href="picks.html" class="current"><span class="dr-ic">🎯</span>選股雷達</a>
-  <a href="intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
-  <a href="lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
-  <a href="watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
-  <a href="disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
+  <a href="../index.html" class=""><span class="dr-ic">🏠</span>最新</a>
+  <a href="../heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
+  <a href="../chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
+  <a href="../scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
+  <a href="../picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
+  <a href="../intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
+  <a href="../lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
+  <a href="../watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
+  <a href="../disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
   <h4>研究</h4>
-  <a href="themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
-  <a href="industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
-  <a href="weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
-  <a href="monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
-  <a href="analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
-  <a href="archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
-  <a href="research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
-  <a href="submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
+  <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
+  <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
+  <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
+  <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
+  <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
+  <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
+  <a href="../research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
+  <a href="../submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
 </nav>
 
 <div class="page">
   <div class="topbar">
     <button class="menu-btn" id="menuBtn" aria-label="開啟選單">☰</button>
-    <a href="index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
-    <a href="lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
-    <a href="watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
-    <a href="intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
+    <a href="../index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
+    <a href="../lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
+    <a href="../watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
+    <a href="../intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
   </div>
 
   
-<header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">選股雷達</h1></header>
-<p class="commentary" style="margin-top:14px">起漲點、新掛牌（含興櫃）、黑馬三個選股訊號集中在這裡，
-資料來自最近一次盤後掃描（2026年9月24日．週四）。這些都是客觀訊號整理，不是推薦標的。</p>
+<header style="margin-bottom:14px">
+  <div class="masthead-label">盤後快訊 · 盤後 · 每日市場摘要</div>
+  <h1 class="masthead-date">2026年9月24日．週四</h1>
+</header>
 
-<section class="block" style="margin-top:24px">
-  <h2>🐎 起漲點雷達</h2>
-  <p class="commentary" style="margin-bottom:12px">剛站上月線或季線、且量能明顯放大的個股——重點是「剛開始」，
-  近期已經漲多的會被排除，不是看到上漲就抓。</p>
+
+<div class="card" style="margin-bottom:16px">
+  <div class="hero-eyebrow"><span class="dot c-market"></span>加權指數</div>
+  <span class="hero-number mono">48,024.60</span><span
+    class="hero-change mono down">▼ 132.69（-0.28%）</span>
+  <div class="card-grid cols-3" style="margin-top:14px">
+    
+    <div class="stat-tile c-market"><div class="stat-tile-label">成交值</div>
+      <div class="stat-tile-value" style="font-size:15px">7,756億</div></div>
+    
+    
+    <div class="stat-tile c-chip"><div class="stat-tile-label">三大法人</div>
+      <div class="stat-tile-value down" style="font-size:15px">賣超438.7億</div></div>
+    
+    
+    <div class="stat-tile c-market"><div class="stat-tile-label">漲跌家數</div>
+      <div class="stat-tile-value" style="font-size:15px">464/728</div></div>
+    
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="block">
+  <h2>三大法人動向</h2>
   
-  <p class="picks-empty">本日沒有符合「剛突破＋爆量」條件的個股。門檻故意設得嚴，多數交易日會是空的。</p>
   
+  <div class="inst-row">
+    <span class="inst-name">外資</span>
+    <div class="bar-track">
+      <div class="bar-fill down"
+           style="width:50%"></div>
+    </div>
+    <span class="inst-value mono down">-338.0億</span>
+  </div>
+  
+  <div class="inst-row">
+    <span class="inst-name">投信</span>
+    <div class="bar-track">
+      <div class="bar-fill down"
+           style="width:28.5%"></div>
+    </div>
+    <span class="inst-value mono down">-114.1億</span>
+  </div>
+  
+  <div class="inst-row">
+    <span class="inst-name">自營商</span>
+    <div class="bar-track">
+      <div class="bar-fill up"
+           style="width:3.3%"></div>
+    </div>
+    <span class="inst-value mono up">+13.4億</span>
+  </div>
+  
+  <p class="commentary" style="margin-top:14px">台股今日收48024.6點，下跌132.69點（-0.28%），跌幅不算深，但下跌家數728檔明顯多於上漲464檔，顯示盤面內部弱於指數表現；三大法人同步淨賣超438.73億元（外資賣超338億、投信賣超114億、自營商小幅買超13.38億），內外資態度一致保守。今日觀察名單前段由半導體周邊族群撐起：景碩（法人買超7455張，綜合分數65.8居首）、騰輝電子-KY、晶心科等IC載板／CCL／矽智財相關股表現突出，但驅動力主要來自籌碼面買盤而非技術面轉強，對應的「PCB／載板材料」與「半導體封測」兩個題材信心度僅mid、判定為watch尚待驗證，不宜視為已確認真實題材。值得留意的是這與國際盤面出現局部背離——海外半導體（SMH）近日因Fed鷹派升息與公債殖利率飆升相對大盤轉弱，資金明顯轉向軟體股（IGV），但台股今日反而是IC載板、矽智財等半導體周邊供應鏈領漲，內外資金流向暫未同步。另需留意流動性風險：中砂、聯鈞、光鋐、達發等5檔個股近日已連續多個交易日逼近處置門檻，雖尚未進入處置，但換手空間可能開始受限。</p>
+  <p class="t-note" style="margin-top:10px">完整籌碼儀表板（法人／資券／大戶）→ <a href="../chips.html" style="color:var(--gold)">chips.html</a></p>
 </section>
 <hr class="divider">
+
+
+
+<section class="block">
+  <h2>今日值得關注</h2>
+  <table class="tech-table">
+    <tr><th>股票</th><th>綜合分</th><th>強項</th></tr>
+    
+    <tr>
+      <td data-stock-code="3189" data-stock-name="景碩">3189 景碩</td>
+      <td class="mono">65.8</td>
+      <td class="t-note">籌碼 70.0、題材 60.0</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="4566" data-stock-name="時碩工業">4566 時碩工業</td>
+      <td class="mono">63.7</td>
+      <td class="t-note">籌碼 70.0、技術 55.0</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="6533" data-stock-name="晶心科">6533 晶心科</td>
+      <td class="mono">63.3</td>
+      <td class="t-note">籌碼 70.0、技術 55.0</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="6672" data-stock-name="騰輝電子-KY">6672 騰輝電子-KY</td>
+      <td class="mono">63.2</td>
+      <td class="t-note">籌碼 70.0、題材 60.0</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="2030" data-stock-name="彰源">2030 彰源</td>
+      <td class="mono">63.0</td>
+      <td class="t-note">籌碼 70.0、技術 55.0</td>
+    </tr>
+    
+  </table>
+  <p class="t-note" style="margin-top:10px">完整五面向評分 → <a href="../scores.html" style="color:var(--gold)">scores.html</a></p>
+</section>
+<hr class="divider">
+
+
+
+<div class="watch-hits" style="border-left-color:var(--red)">
+  <div class="wh-label" style="color:var(--red)">處置／注意提醒</div>
+  <div class="wh-item">今日共 5 檔處置中或接近門檻，完整名單 →
+    <a href="../disposition.html" style="color:var(--gold)">disposition.html</a></div>
+</div>
+
+
+
+<section class="block">
+  <h2>今日題材淘金區</h2>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">半導體封裝測試（OSAT）</span>
+      <span class="tag confidence-mid">信心度：中高</span>
+    </div>
+    <p class="theme-desc">南茂與昇陽半導體同為IC封裝測試服務商，今日同步放量上漲，反映封測產能利用率回升的產業趨勢。</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="8150" data-stock-name="南茂">南茂</span>、<span data-stock-code="8028" data-stock-name="昇陽半導體">昇陽半導體</span></span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    
+    <div class="theme-meta" style="margin-top:6px">
+      <span>已追蹤 1 次更新 · 首見 2026-09-24</span>
+    </div>
+    
+    
+  </div>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">PCB／載板材料類股</span>
+      <span class="tag confidence-mid">信心度：中高</span>
+    </div>
+    <p class="theme-desc">騰輝電子-KY（CCL）、景碩（ABF載板）、鈞寶（PCB）三檔同步放量走高，反映PCB上中下游材料類股齊揚。</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="6672" data-stock-name="騰輝電子-KY">騰輝電子-KY</span>、<span data-stock-code="3189" data-stock-name="景碩">景碩</span>、<span data-stock-code="6155" data-stock-name="鈞寶">鈞寶</span></span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    
+    <div class="theme-meta" style="margin-top:6px">
+      <span>已追蹤 1 次更新 · 首見 2026-09-24</span>
+    </div>
+    
+    
+  </div>
+  
+  <p class="t-note" style="margin-top:10px">完整題材知識庫（追蹤中／休眠／117 個目錄題材）→ <a href="../themes.html" style="color:var(--gold)">themes.html</a></p>
+</section>
+<hr class="divider">
+
+
+
+
 
 <section class="block">
   <h2>🆕 新掛牌觀察</h2>
   <p class="commentary" style="margin-bottom:12px">上市／上櫃／興櫃未滿半年的個股，籌碼歷史短、波動特性跟老牌股不同，
-  不管今天漲跌都先列出來留意。興櫃是議價／搓合市場，漲跌幅採 Yahoo 的成交價對比前一日成交價。</p>
-  
+  不管今天漲跌都先列出來留意。興櫃是議價／搓合市場，漲跌幅採 Yahoo 的成交價對比前一日成交價，
+  不是連續競價的漲跌幅。</p>
   <table class="tech-table">
     <tr><th>股票</th><th>市場</th><th>掛牌天數</th><th>今日漲跌</th></tr>
     
@@ -844,24 +1062,26 @@
     </tr>
     
   </table>
-  
+  <p class="t-note" style="margin-top:10px">起漲點／新掛牌／黑馬完整名單 → <a href="../picks.html" style="color:var(--gold)">選股雷達</a></p>
 </section>
 <hr class="divider">
 
+
+
 <section class="block">
   <h2>黑馬觀察</h2>
-  <p class="commentary" style="margin-bottom:12px">被系統標記為「孤立訊號」的個股——量能異常、但找不到同族群呼應，
-  題材脈絡不明、籌碼未經法人驗證。列為觀察而非追蹤標的。</p>
-  
   
   <div class="darkhorse-entry">
     <div class="darkhorse-name" data-stock-code="4566" data-stock-name="時碩工業">4566 時碩工業</div>
     <div class="darkhorse-grid">
       <div><span class="dh-label">今日漲幅</span><br>
         <span class="dh-value up">+9.91%</span></div>
-      <div><span class="dh-label">量能倍數</span><br><span class="dh-value">8.74 倍</span></div>
-      <div><span class="dh-label">風險等級</span><br><span class="dh-value">高</span></div>
-      <div><span class="dh-label">法人動向</span><br><span class="dh-value">未經驗證</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">8.74 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">高</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
     </div>
     <div class="darkhorse-note">打火機代工廠，業務與題材目錄各主題均無關聯，今日清單中無同族群個股呼應，判定為孤立訊號。　建議列為觀察而非追蹤標的。</div>
   </div>
@@ -871,9 +1091,12 @@
     <div class="darkhorse-grid">
       <div><span class="dh-label">今日漲幅</span><br>
         <span class="dh-value up">+10.00%</span></div>
-      <div><span class="dh-label">量能倍數</span><br><span class="dh-value">4.69 倍</span></div>
-      <div><span class="dh-label">風險等級</span><br><span class="dh-value">高</span></div>
-      <div><span class="dh-label">法人動向</span><br><span class="dh-value">未經驗證</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">4.69 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">高</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
     </div>
     <div class="darkhorse-note">電源供應器／變壓器廠商，今日清單中無同業個股同步表態，成因不明確，暫不強行歸類。　建議列為觀察而非追蹤標的。</div>
   </div>
@@ -883,9 +1106,12 @@
     <div class="darkhorse-grid">
       <div><span class="dh-label">今日漲幅</span><br>
         <span class="dh-value up">+9.94%</span></div>
-      <div><span class="dh-label">量能倍數</span><br><span class="dh-value">4.53 倍</span></div>
-      <div><span class="dh-label">風險等級</span><br><span class="dh-value">高</span></div>
-      <div><span class="dh-label">法人動向</span><br><span class="dh-value">未經驗證</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">4.53 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">高</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
     </div>
     <div class="darkhorse-note">建材／陶瓷釉料廠商，與題材目錄各主題均無關聯，判定為孤立訊號。　建議列為觀察而非追蹤標的。</div>
   </div>
@@ -895,9 +1121,12 @@
     <div class="darkhorse-grid">
       <div><span class="dh-label">今日漲幅</span><br>
         <span class="dh-value up">+9.95%</span></div>
-      <div><span class="dh-label">量能倍數</span><br><span class="dh-value">4.23 倍</span></div>
-      <div><span class="dh-label">風險等級</span><br><span class="dh-value">高</span></div>
-      <div><span class="dh-label">法人動向</span><br><span class="dh-value">未經驗證</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">4.23 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">高</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
     </div>
     <div class="darkhorse-note">鋼捲加工廠商，雖可對應鋼鐵供應鏈，但今日清單中鋼鐵族群僅此一檔表態，缺乏同業佐證，暫列孤立。　建議列為觀察而非追蹤標的。</div>
   </div>
@@ -907,9 +1136,12 @@
     <div class="darkhorse-grid">
       <div><span class="dh-label">今日漲幅</span><br>
         <span class="dh-value up">+9.97%</span></div>
-      <div><span class="dh-label">量能倍數</span><br><span class="dh-value">3.75 倍</span></div>
-      <div><span class="dh-label">風險等級</span><br><span class="dh-value">高</span></div>
-      <div><span class="dh-label">法人動向</span><br><span class="dh-value">未經驗證</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">3.75 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">高</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
     </div>
     <div class="darkhorse-note">化合物半導體磊晶片廠商，理論對應「化合物半導體磊晶」題材，但今日清單中無其他磊晶或化合物半導體個股同步表態，暫列孤立觀察。　建議列為觀察而非追蹤標的。</div>
   </div>
@@ -919,9 +1151,12 @@
     <div class="darkhorse-grid">
       <div><span class="dh-label">今日漲幅</span><br>
         <span class="dh-value up">+9.96%</span></div>
-      <div><span class="dh-label">量能倍數</span><br><span class="dh-value">3.62 倍</span></div>
-      <div><span class="dh-label">風險等級</span><br><span class="dh-value">高</span></div>
-      <div><span class="dh-label">法人動向</span><br><span class="dh-value">未經驗證</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">3.62 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">高</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
     </div>
     <div class="darkhorse-note">矽智財（IP Core）廠商，今日清單中無其他IC設計／IP同業呼應，暫列孤立。　建議列為觀察而非追蹤標的。</div>
   </div>
@@ -931,9 +1166,12 @@
     <div class="darkhorse-grid">
       <div><span class="dh-label">今日漲幅</span><br>
         <span class="dh-value up">+4.78%</span></div>
-      <div><span class="dh-label">量能倍數</span><br><span class="dh-value">6.82 倍</span></div>
-      <div><span class="dh-label">風險等級</span><br><span class="dh-value">高</span></div>
-      <div><span class="dh-label">法人動向</span><br><span class="dh-value">未經驗證</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">6.82 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">高</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
     </div>
     <div class="darkhorse-note">光耦合器等被動元件廠商，找不到題材目錄中明確對應主題，亦無同業呼應。　建議列為觀察而非追蹤標的。</div>
   </div>
@@ -943,9 +1181,12 @@
     <div class="darkhorse-grid">
       <div><span class="dh-label">今日漲幅</span><br>
         <span class="dh-value up">+7.60%</span></div>
-      <div><span class="dh-label">量能倍數</span><br><span class="dh-value">4.08 倍</span></div>
-      <div><span class="dh-label">風險等級</span><br><span class="dh-value">高</span></div>
-      <div><span class="dh-label">法人動向</span><br><span class="dh-value">未經驗證</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">4.08 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">高</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
     </div>
     <div class="darkhorse-note">LED封裝廠商，題材目錄無對應LED相關主題，且今日清單中無同業呼應。　建議列為觀察而非追蹤標的。</div>
   </div>
@@ -955,9 +1196,12 @@
     <div class="darkhorse-grid">
       <div><span class="dh-label">今日漲幅</span><br>
         <span class="dh-value up">+7.96%</span></div>
-      <div><span class="dh-label">量能倍數</span><br><span class="dh-value">2.34 倍</span></div>
-      <div><span class="dh-label">風險等級</span><br><span class="dh-value">中</span></div>
-      <div><span class="dh-label">法人動向</span><br><span class="dh-value">未經驗證</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">2.34 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">中</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
     </div>
     <div class="darkhorse-note">均熱片／散熱模組廠商，理論對應「氣冷散熱｜3D VC / 均熱片」題材，但今日清單中無其他散熱族群個股同步表態，暫列孤立。　建議列為觀察而非追蹤標的。</div>
   </div>
@@ -967,9 +1211,12 @@
     <div class="darkhorse-grid">
       <div><span class="dh-label">今日漲幅</span><br>
         <span class="dh-value up">+4.39%</span></div>
-      <div><span class="dh-label">量能倍數</span><br><span class="dh-value">3.38 倍</span></div>
-      <div><span class="dh-label">風險等級</span><br><span class="dh-value">高</span></div>
-      <div><span class="dh-label">法人動向</span><br><span class="dh-value">未經驗證</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">3.38 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">高</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
     </div>
     <div class="darkhorse-note">化學原料廠商，與題材目錄各主題均無關聯。　建議列為觀察而非追蹤標的。</div>
   </div>
@@ -979,9 +1226,12 @@
     <div class="darkhorse-grid">
       <div><span class="dh-label">今日漲幅</span><br>
         <span class="dh-value up">+9.09%</span></div>
-      <div><span class="dh-label">量能倍數</span><br><span class="dh-value">20.82 倍</span></div>
-      <div><span class="dh-label">風險等級</span><br><span class="dh-value">高</span></div>
-      <div><span class="dh-label">法人動向</span><br><span class="dh-value">未經驗證</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">20.82 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">高</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
     </div>
     <div class="darkhorse-note">網路攝影機／影像周邊廠商，與CMOS影像感測等題材關聯薄弱，且今日清單中無同業呼應。　建議列為觀察而非追蹤標的。</div>
   </div>
@@ -991,9 +1241,12 @@
     <div class="darkhorse-grid">
       <div><span class="dh-label">今日漲幅</span><br>
         <span class="dh-value up">+6.59%</span></div>
-      <div><span class="dh-label">量能倍數</span><br><span class="dh-value">2.13 倍</span></div>
-      <div><span class="dh-label">風險等級</span><br><span class="dh-value">中</span></div>
-      <div><span class="dh-label">法人動向</span><br><span class="dh-value">未經驗證</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">2.13 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">中</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
     </div>
     <div class="darkhorse-note">觸控／指紋辨識IC設計廠商，今日清單中無其他IC設計同業呼應，暫列孤立。　建議列為觀察而非追蹤標的。</div>
   </div>
@@ -1003,20 +1256,368 @@
     <div class="darkhorse-grid">
       <div><span class="dh-label">今日漲幅</span><br>
         <span class="dh-value up">+4.75%</span></div>
-      <div><span class="dh-label">量能倍數</span><br><span class="dh-value">11.31 倍</span></div>
-      <div><span class="dh-label">風險等級</span><br><span class="dh-value">高</span></div>
-      <div><span class="dh-label">法人動向</span><br><span class="dh-value">未經驗證</span></div>
+      <div><span class="dh-label">量能倍數</span><br>
+        <span class="dh-value">11.31 倍</span></div>
+      <div><span class="dh-label">風險等級</span><br>
+        <span class="dh-value">高</span></div>
+      <div><span class="dh-label">法人動向</span><br>
+        <span class="dh-value">未經驗證</span></div>
     </div>
     <div class="darkhorse-note">防詐騙服務（Whoscall）業者，與資安題材有一定關聯，但今日清單中無其他資安類股呼應，暫列孤立。　建議列為觀察而非追蹤標的。</div>
   </div>
   
-  
+  <p class="t-note" style="margin-top:10px">起漲點／新掛牌／黑馬完整名單 → <a href="../picks.html" style="color:var(--gold)">選股雷達</a></p>
 </section>
-<p class="commentary" style="margin-top:24px; font-size:13px">五面向評分 → <a href="scores.html" style="color:var(--gold)">scores.html</a>　·　題材知識庫 → <a href="themes.html" style="color:var(--gold)">themes.html</a>　·　查任一個股 → <a href="lookup.html" style="color:var(--gold)">個股查詢</a></p>
+<hr class="divider">
+
+
+
+<section class="block">
+  <h2>技術面觀察名單</h2>
+  <table class="tech-table">
+    <tr><th>股票</th><th>訊號</th><th>備註</th></tr>
+    
+    <tr>
+      <td data-stock-code="7947" data-stock-name="補丁科">7947 補丁科</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7934" data-stock-name="鋒霈環境科技">7934 鋒霈環境科技</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="6950" data-stock-name="科科科技-KY">6950 科科科技-KY</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7686" data-stock-name="捷立康">7686 捷立康</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7932" data-stock-name="昱鐳應材">7932 昱鐳應材</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7914" data-stock-name="碩明綠能">7914 碩明綠能</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7945" data-stock-name="廣盛科技">7945 廣盛科技</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7944" data-stock-name="睿禾金碳">7944 睿禾金碳</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7943" data-stock-name="鴻璟科技">7943 鴻璟科技</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7942" data-stock-name="東佑達">7942 東佑達</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7925" data-stock-name="健生">7925 健生</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="3194" data-stock-name="圓方科技">3194 圓方科技</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7917" data-stock-name="源傑科技">7917 源傑科技</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7939" data-stock-name="技宸">7939 技宸</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7422" data-stock-name="鴻林堂">7422 鴻林堂</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7933" data-stock-name="威旭">7933 威旭</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="6992" data-stock-name="萬勝發科技">6992 萬勝發科技</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7935" data-stock-name="安富">7935 安富</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7936" data-stock-name="寰聖">7936 寰聖</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7930" data-stock-name="威世波">7930 威世波</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7418" data-stock-name="香繼光">7418 香繼光</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7894" data-stock-name="瀚軒">7894 瀚軒</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7924" data-stock-name="TLC-KY">7924 TLC-KY</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7928" data-stock-name="合聖科技*">7928 合聖科技*</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7929" data-stock-name="碩通">7929 碩通</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7415" data-stock-name="元澄半導體">7415 元澄半導體</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7926" data-stock-name="中華立鼎">7926 中華立鼎</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7927" data-stock-name="連距電機">7927 連距電機</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="3644" data-stock-name="凌嘉科">3644 凌嘉科</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7735" data-stock-name="台智雲">7735 台智雲</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7873" data-stock-name="瑞峰">7873 瑞峰</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7898" data-stock-name="乾瞻">7898 乾瞻</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7921" data-stock-name="台普威">7921 台普威</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7922" data-stock-name="源點*">7922 源點*</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7920" data-stock-name="瀚陽*">7920 瀚陽*</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7913" data-stock-name="通寶半導體">7913 通寶半導體</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7919" data-stock-name="禾蒼">7919 禾蒼</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7918" data-stock-name="創鉅材料">7918 創鉅材料</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7784" data-stock-name="安邦生技*">7784 安邦生技*</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7911" data-stock-name="阿波羅電力">7911 阿波羅電力</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7915" data-stock-name="廌家">7915 廌家</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7907" data-stock-name="錸恩帕斯">7907 錸恩帕斯</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="7912" data-stock-name="新聿科">7912 新聿科</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="4566" data-stock-name="時碩工業">4566 時碩工業</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="6933" data-stock-name="AMAX-KY">6933 AMAX-KY</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="1809" data-stock-name="中釉">1809 中釉</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="2030" data-stock-name="彰源">2030 彰源</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="3016" data-stock-name="嘉晶">3016 嘉晶</td>
+      <td class="signal-warn">過熱警訊</td>
+      <td class="t-note">均線多頭排列，站上季線，RSI 92.8 進入超買區，KD 高檔鈍化風險，量增價漲（量能 3.19 倍）</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="6533" data-stock-name="晶心科">6533 晶心科</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="6672" data-stock-name="騰輝電子-KY">6672 騰輝電子-KY</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="3518" data-stock-name="柏騰">3518 柏騰</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="3031" data-stock-name="佰鴻">3031 佰鴻</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="3653" data-stock-name="健策">3653 健策</td>
+      <td class="signal-bull">多頭健康</td>
+      <td class="t-note">均線多頭排列，站上季線，量增價漲（量能 2.26 倍），MACD 金叉</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="1708" data-stock-name="東鹼">1708 東鹼</td>
+      <td class="signal-neutral">資料不足</td>
+      <td class="t-note">歷史資料不足以計算指標</td>
+    </tr>
+    
+    <tr>
+      <td data-stock-code="3189" data-stock-name="景碩">3189 景碩</td>
+      <td class="signal-neutral">區間整理</td>
+      <td class="t-note">均線多頭排列，站上季線，RSI 74.6 進入超買區，量增價漲（量能 2.17 倍）</td>
+    </tr>
+    
+  </table>
+  <p class="t-note" style="margin-top:10px">五面向評分排行 → <a href="../scores.html" style="color:var(--gold)">scores.html</a>　·　查任一個股 → <a href="../lookup.html" style="color:var(--gold)">個股查詢</a></p>
+</section>
+<hr class="divider">
+
+
+
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-24 20:16</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-24 19:50</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
@@ -1025,13 +1626,13 @@
 
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
   }
-  window.__rel = "";
+  window.__rel = "../";
 </script>
-<script src="assets/ui.js?v=8c796938"></script>
+<script src="../assets/ui.js?v=8c796938"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=8c796938"></script>
+<script src="../assets/stock-chart.js?v=8c796938"></script>
 
 </body>
 </html>
