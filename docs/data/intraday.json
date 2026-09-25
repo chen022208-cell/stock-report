@@ -1,9 +1,9 @@
 {
-  "as_of": "2026-09-25 13:13:23",
+  "as_of": "2026-09-25 13:15:04",
   "display_delay_min": 15,
   "market_status": "open",
-  "session_fraction": 0.938,
-  "elapsed_fraction": 0.938,
+  "session_fraction": 0.945,
+  "elapsed_fraction": 0.945,
   "taiex": {
     "value": 48024.6,
     "prev_close": 48157.29,
@@ -44,7 +44,7 @@
         "change_pct": 10.0,
         "volume": 1656.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "6933",
@@ -53,7 +53,7 @@
         "change_pct": 10.0,
         "volume": 5990.0,
         "ex": "tse",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "6228",
@@ -71,7 +71,7 @@
         "change_pct": 10.0,
         "volume": 1439.0,
         "ex": "otc",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "6213",
@@ -89,7 +89,7 @@
         "change_pct": 9.97,
         "volume": 48689.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "6533",
@@ -107,7 +107,7 @@
         "change_pct": 9.95,
         "volume": 17891.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "3114",
@@ -125,7 +125,7 @@
         "change_pct": 9.95,
         "volume": 57.0,
         "ex": "otc",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "1809",
@@ -134,7 +134,7 @@
         "change_pct": 9.94,
         "volume": 6989.0,
         "ex": "tse",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "6672",
@@ -143,7 +143,7 @@
         "change_pct": 9.93,
         "volume": 14942.0,
         "ex": "tse",
-        "volume_ratio": 1.04
+        "volume_ratio": 1.03
       },
       {
         "code": "8201",
@@ -152,7 +152,7 @@
         "change_pct": 9.92,
         "volume": 418.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "4566",
@@ -170,7 +170,7 @@
         "change_pct": 9.88,
         "volume": 343.0,
         "ex": "otc",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "8121",
@@ -197,7 +197,7 @@
         "change_pct": 9.65,
         "volume": 11895.0,
         "ex": "otc",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "6225",
@@ -206,7 +206,7 @@
         "change_pct": 9.09,
         "volume": 2801.0,
         "ex": "tse",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "3593",
@@ -242,7 +242,7 @@
         "change_pct": 7.96,
         "volume": 2661.0,
         "ex": "tse",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "8437",
@@ -251,7 +251,7 @@
         "change_pct": 7.9,
         "volume": 280.0,
         "ex": "otc",
-        "volume_ratio": 1.01
+        "volume_ratio": 1.0
       },
       {
         "code": "3031",
@@ -260,7 +260,7 @@
         "change_pct": 7.6,
         "volume": 7121.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "3498",
@@ -269,7 +269,7 @@
         "change_pct": 7.54,
         "volume": 3139.0,
         "ex": "otc",
-        "volume_ratio": 1.04
+        "volume_ratio": 1.03
       },
       {
         "code": "8047",
@@ -278,7 +278,7 @@
         "change_pct": 7.54,
         "volume": 97.0,
         "ex": "otc",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "2724",
@@ -287,7 +287,7 @@
         "change_pct": 7.32,
         "volume": 2.0,
         "ex": "otc",
-        "volume_ratio": 0.93
+        "volume_ratio": 0.92
       },
       {
         "code": "3324",
@@ -296,7 +296,7 @@
         "change_pct": 7.21,
         "volume": 6213.0,
         "ex": "otc",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "6155",
@@ -305,7 +305,7 @@
         "change_pct": 7.12,
         "volume": 3728.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       }
     ],
     "volume_ratio": [
@@ -316,7 +316,7 @@
         "change_pct": -0.15,
         "volume": 56.0,
         "ex": "tse",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "1439",
@@ -325,7 +325,7 @@
         "change_pct": 0.18,
         "volume": 3.0,
         "ex": "tse",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "1468",
@@ -334,7 +334,7 @@
         "change_pct": 1.54,
         "volume": 54.0,
         "ex": "tse",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "1470",
@@ -343,7 +343,7 @@
         "change_pct": -1.25,
         "volume": 1.0,
         "ex": "tse",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "1539",
@@ -352,7 +352,7 @@
         "change_pct": 0.0,
         "volume": 22.0,
         "ex": "tse",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "2066",
@@ -361,7 +361,7 @@
         "change_pct": 0.19,
         "volume": 15.0,
         "ex": "otc",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "2067",
@@ -370,7 +370,7 @@
         "change_pct": 2.54,
         "volume": 35.0,
         "ex": "otc",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "2115",
@@ -379,7 +379,7 @@
         "change_pct": -0.21,
         "volume": 16.0,
         "ex": "tse",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "2235",
@@ -388,7 +388,7 @@
         "change_pct": 1.62,
         "volume": 1.0,
         "ex": "otc",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "2424",
@@ -397,7 +397,7 @@
         "change_pct": 1.23,
         "volume": 22.0,
         "ex": "tse",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "2718",
@@ -406,7 +406,7 @@
         "change_pct": -0.25,
         "volume": 12.0,
         "ex": "otc",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "2719",
@@ -415,7 +415,7 @@
         "change_pct": 0.0,
         "volume": 3.0,
         "ex": "otc",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "2726",
@@ -424,7 +424,7 @@
         "change_pct": 0.87,
         "volume": 16.0,
         "ex": "otc",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "2941",
@@ -433,7 +433,7 @@
         "change_pct": 2.7,
         "volume": 1.0,
         "ex": "otc",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "2948",
@@ -442,7 +442,7 @@
         "change_pct": -2.02,
         "volume": 3.0,
         "ex": "otc",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "4440",
@@ -451,7 +451,7 @@
         "change_pct": -0.29,
         "volume": 20.0,
         "ex": "tse",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "4581",
@@ -460,7 +460,7 @@
         "change_pct": -1.44,
         "volume": 1.0,
         "ex": "tse",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "5215",
@@ -469,7 +469,7 @@
         "change_pct": 0.0,
         "volume": 20.0,
         "ex": "tse",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "6504",
@@ -478,7 +478,7 @@
         "change_pct": 0.82,
         "volume": 16.0,
         "ex": "tse",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "6641",
@@ -487,7 +487,7 @@
         "change_pct": 1.19,
         "volume": 9.0,
         "ex": "tse",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "6771",
@@ -496,7 +496,7 @@
         "change_pct": 0.0,
         "volume": 9.0,
         "ex": "tse",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "6792",
@@ -505,7 +505,7 @@
         "change_pct": 0.85,
         "volume": 13.0,
         "ex": "tse",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "6794",
@@ -514,7 +514,7 @@
         "change_pct": -2.8,
         "volume": 38.0,
         "ex": "tse",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "6887",
@@ -523,7 +523,7 @@
         "change_pct": 1.7,
         "volume": 10.0,
         "ex": "tse",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "8367",
@@ -532,7 +532,7 @@
         "change_pct": 0.87,
         "volume": 9.0,
         "ex": "tse",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "6952",
@@ -541,7 +541,7 @@
         "change_pct": 0.13,
         "volume": 2.0,
         "ex": "tse",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "6988",
@@ -550,7 +550,7 @@
         "change_pct": 0.0,
         "volume": 49.0,
         "ex": "tse",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "9110",
@@ -559,7 +559,7 @@
         "change_pct": -4.11,
         "volume": 22.0,
         "ex": "tse",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "3465",
@@ -568,7 +568,7 @@
         "change_pct": 0.17,
         "volume": 42.0,
         "ex": "otc",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       },
       {
         "code": "4166",
@@ -577,7 +577,7 @@
         "change_pct": 0.0,
         "volume": 66.0,
         "ex": "otc",
-        "volume_ratio": 1.07
+        "volume_ratio": 1.06
       }
     ],
     "turnover": [
@@ -588,7 +588,7 @@
         "change_pct": 6.18,
         "volume": 41273.0,
         "ex": "tse",
-        "volume_ratio": 1.0
+        "volume_ratio": 0.99
       },
       {
         "code": "2454",
@@ -606,7 +606,7 @@
         "change_pct": -1.0,
         "volume": 12990.0,
         "ex": "tse",
-        "volume_ratio": 0.95
+        "volume_ratio": 0.94
       },
       {
         "code": "2303",
@@ -615,7 +615,7 @@
         "change_pct": -3.75,
         "volume": 153511.0,
         "ex": "tse",
-        "volume_ratio": 1.04
+        "volume_ratio": 1.03
       },
       {
         "code": "2327",
@@ -624,7 +624,7 @@
         "change_pct": 1.22,
         "volume": 34916.0,
         "ex": "tse",
-        "volume_ratio": 1.04
+        "volume_ratio": 1.03
       },
       {
         "code": "2408",
@@ -633,7 +633,7 @@
         "change_pct": -2.33,
         "volume": 38002.0,
         "ex": "tse",
-        "volume_ratio": 1.01
+        "volume_ratio": 1.0
       },
       {
         "code": "3037",
@@ -642,7 +642,7 @@
         "change_pct": 2.16,
         "volume": 15871.0,
         "ex": "tse",
-        "volume_ratio": 1.02
+        "volume_ratio": 1.01
       },
       {
         "code": "2409",
@@ -651,7 +651,7 @@
         "change_pct": -1.44,
         "volume": 540363.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "3653",
@@ -660,7 +660,7 @@
         "change_pct": 7.96,
         "volume": 2661.0,
         "ex": "tse",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "2368",
@@ -678,7 +678,7 @@
         "change_pct": 2.48,
         "volume": 13440.0,
         "ex": "tse",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "1303",
@@ -687,7 +687,7 @@
         "change_pct": 4.62,
         "volume": 65983.0,
         "ex": "tse",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "2308",
@@ -696,7 +696,7 @@
         "change_pct": 0.53,
         "volume": 8161.0,
         "ex": "tse",
-        "volume_ratio": 0.97
+        "volume_ratio": 0.96
       },
       {
         "code": "6274",
@@ -705,7 +705,7 @@
         "change_pct": 2.4,
         "volume": 10047.0,
         "ex": "otc",
-        "volume_ratio": 1.02
+        "volume_ratio": 1.01
       },
       {
         "code": "3443",
@@ -750,7 +750,7 @@
         "change_pct": 7.21,
         "volume": 6213.0,
         "ex": "otc",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "3026",
@@ -768,7 +768,7 @@
         "change_pct": 0.0,
         "volume": 4331.0,
         "ex": "tse",
-        "volume_ratio": 1.02
+        "volume_ratio": 1.01
       },
       {
         "code": "6213",
@@ -786,7 +786,7 @@
         "change_pct": 0.53,
         "volume": 19910.0,
         "ex": "tse",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "8150",
@@ -840,7 +840,7 @@
         "change_pct": -2.15,
         "volume": 32929.0,
         "ex": "tse",
-        "volume_ratio": 1.02
+        "volume_ratio": 1.01
       },
       {
         "code": "2449",
@@ -860,7 +860,7 @@
         "change_pct": 10.0,
         "volume": 1656.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "6933",
@@ -869,7 +869,7 @@
         "change_pct": 10.0,
         "volume": 5990.0,
         "ex": "tse",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "6228",
@@ -887,7 +887,7 @@
         "change_pct": 10.0,
         "volume": 1439.0,
         "ex": "otc",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "6213",
@@ -905,7 +905,7 @@
         "change_pct": 9.97,
         "volume": 48689.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "6533",
@@ -923,7 +923,7 @@
         "change_pct": 9.95,
         "volume": 17891.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "3114",
@@ -941,7 +941,7 @@
         "change_pct": 9.95,
         "volume": 57.0,
         "ex": "otc",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "1809",
@@ -950,7 +950,7 @@
         "change_pct": 9.94,
         "volume": 6989.0,
         "ex": "tse",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "6672",
@@ -959,7 +959,7 @@
         "change_pct": 9.93,
         "volume": 14942.0,
         "ex": "tse",
-        "volume_ratio": 1.04
+        "volume_ratio": 1.03
       },
       {
         "code": "8201",
@@ -968,7 +968,7 @@
         "change_pct": 9.92,
         "volume": 418.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "4566",
@@ -986,7 +986,7 @@
         "change_pct": 9.88,
         "volume": 343.0,
         "ex": "otc",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "8121",
@@ -1013,7 +1013,7 @@
         "change_pct": 9.65,
         "volume": 11895.0,
         "ex": "otc",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "3593",
@@ -1049,7 +1049,7 @@
         "change_pct": 7.96,
         "volume": 2661.0,
         "ex": "tse",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "8437",
@@ -1058,7 +1058,7 @@
         "change_pct": 7.9,
         "volume": 280.0,
         "ex": "otc",
-        "volume_ratio": 1.01
+        "volume_ratio": 1.0
       },
       {
         "code": "3031",
@@ -1067,7 +1067,7 @@
         "change_pct": 7.6,
         "volume": 7121.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "3498",
@@ -1076,7 +1076,7 @@
         "change_pct": 7.54,
         "volume": 3139.0,
         "ex": "otc",
-        "volume_ratio": 1.04
+        "volume_ratio": 1.03
       },
       {
         "code": "8047",
@@ -1085,7 +1085,7 @@
         "change_pct": 7.54,
         "volume": 97.0,
         "ex": "otc",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "2724",
@@ -1094,7 +1094,7 @@
         "change_pct": 7.32,
         "volume": 2.0,
         "ex": "otc",
-        "volume_ratio": 0.93
+        "volume_ratio": 0.92
       },
       {
         "code": "3324",
@@ -1103,7 +1103,7 @@
         "change_pct": 7.21,
         "volume": 6213.0,
         "ex": "otc",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "6155",
@@ -1112,7 +1112,7 @@
         "change_pct": 7.12,
         "volume": 3728.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "6168",
@@ -1121,7 +1121,7 @@
         "change_pct": 6.8,
         "volume": 7494.0,
         "ex": "tse",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       }
     ],
     "new_high_1m": [
@@ -1132,7 +1132,7 @@
         "change_pct": 10.0,
         "volume": 5990.0,
         "ex": "tse",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "6228",
@@ -1150,7 +1150,7 @@
         "change_pct": 10.0,
         "volume": 1439.0,
         "ex": "otc",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "6213",
@@ -1168,7 +1168,7 @@
         "change_pct": 9.97,
         "volume": 48689.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "6533",
@@ -1186,7 +1186,7 @@
         "change_pct": 9.95,
         "volume": 17891.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "3114",
@@ -1204,7 +1204,7 @@
         "change_pct": 9.94,
         "volume": 6989.0,
         "ex": "tse",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "6672",
@@ -1213,7 +1213,7 @@
         "change_pct": 9.93,
         "volume": 14942.0,
         "ex": "tse",
-        "volume_ratio": 1.04
+        "volume_ratio": 1.03
       },
       {
         "code": "8201",
@@ -1222,7 +1222,7 @@
         "change_pct": 9.92,
         "volume": 418.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "4566",
@@ -1240,7 +1240,7 @@
         "change_pct": 9.88,
         "volume": 343.0,
         "ex": "otc",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "8121",
@@ -1267,7 +1267,7 @@
         "change_pct": 9.65,
         "volume": 11895.0,
         "ex": "otc",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "6643",
@@ -1285,7 +1285,7 @@
         "change_pct": 7.96,
         "volume": 2661.0,
         "ex": "tse",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "8437",
@@ -1294,7 +1294,7 @@
         "change_pct": 7.9,
         "volume": 280.0,
         "ex": "otc",
-        "volume_ratio": 1.01
+        "volume_ratio": 1.0
       },
       {
         "code": "3031",
@@ -1303,7 +1303,7 @@
         "change_pct": 7.6,
         "volume": 7121.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "3498",
@@ -1312,7 +1312,7 @@
         "change_pct": 7.54,
         "volume": 3139.0,
         "ex": "otc",
-        "volume_ratio": 1.04
+        "volume_ratio": 1.03
       },
       {
         "code": "8047",
@@ -1321,7 +1321,7 @@
         "change_pct": 7.54,
         "volume": 97.0,
         "ex": "otc",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "2724",
@@ -1330,7 +1330,7 @@
         "change_pct": 7.32,
         "volume": 2.0,
         "ex": "otc",
-        "volume_ratio": 0.93
+        "volume_ratio": 0.92
       },
       {
         "code": "3324",
@@ -1339,7 +1339,7 @@
         "change_pct": 7.21,
         "volume": 6213.0,
         "ex": "otc",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "6155",
@@ -1348,7 +1348,7 @@
         "change_pct": 7.12,
         "volume": 3728.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "6168",
@@ -1357,7 +1357,7 @@
         "change_pct": 6.8,
         "volume": 7494.0,
         "ex": "tse",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "5465",
@@ -1366,7 +1366,7 @@
         "change_pct": 6.71,
         "volume": 2076.0,
         "ex": "otc",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "3167",
@@ -1375,7 +1375,7 @@
         "change_pct": 6.63,
         "volume": 8064.0,
         "ex": "tse",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "6649",
@@ -1384,7 +1384,7 @@
         "change_pct": 6.63,
         "volume": 92.0,
         "ex": "otc",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "5230",
@@ -1393,7 +1393,7 @@
         "change_pct": 6.39,
         "volume": 2238.0,
         "ex": "otc",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       }
     ],
     "new_high_3m": [
@@ -1404,7 +1404,7 @@
         "change_pct": 10.0,
         "volume": 5990.0,
         "ex": "tse",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "6925",
@@ -1413,7 +1413,7 @@
         "change_pct": 10.0,
         "volume": 1439.0,
         "ex": "otc",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "6213",
@@ -1431,7 +1431,7 @@
         "change_pct": 9.97,
         "volume": 48689.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "6533",
@@ -1449,7 +1449,7 @@
         "change_pct": 9.95,
         "volume": 17891.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "6672",
@@ -1458,7 +1458,7 @@
         "change_pct": 9.93,
         "volume": 14942.0,
         "ex": "tse",
-        "volume_ratio": 1.04
+        "volume_ratio": 1.03
       },
       {
         "code": "8201",
@@ -1467,7 +1467,7 @@
         "change_pct": 9.92,
         "volume": 418.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "6708",
@@ -1476,7 +1476,7 @@
         "change_pct": 9.88,
         "volume": 343.0,
         "ex": "otc",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "5310",
@@ -1503,7 +1503,7 @@
         "change_pct": 7.96,
         "volume": 2661.0,
         "ex": "tse",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "8437",
@@ -1512,7 +1512,7 @@
         "change_pct": 7.9,
         "volume": 280.0,
         "ex": "otc",
-        "volume_ratio": 1.01
+        "volume_ratio": 1.0
       },
       {
         "code": "3498",
@@ -1521,7 +1521,7 @@
         "change_pct": 7.54,
         "volume": 3139.0,
         "ex": "otc",
-        "volume_ratio": 1.04
+        "volume_ratio": 1.03
       },
       {
         "code": "8047",
@@ -1530,7 +1530,7 @@
         "change_pct": 7.54,
         "volume": 97.0,
         "ex": "otc",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "2724",
@@ -1539,7 +1539,7 @@
         "change_pct": 7.32,
         "volume": 2.0,
         "ex": "otc",
-        "volume_ratio": 0.93
+        "volume_ratio": 0.92
       },
       {
         "code": "3324",
@@ -1548,7 +1548,7 @@
         "change_pct": 7.21,
         "volume": 6213.0,
         "ex": "otc",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "6168",
@@ -1557,7 +1557,7 @@
         "change_pct": 6.8,
         "volume": 7494.0,
         "ex": "tse",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "5465",
@@ -1566,7 +1566,7 @@
         "change_pct": 6.71,
         "volume": 2076.0,
         "ex": "otc",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "3167",
@@ -1575,7 +1575,7 @@
         "change_pct": 6.63,
         "volume": 8064.0,
         "ex": "tse",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "5230",
@@ -1584,7 +1584,7 @@
         "change_pct": 6.39,
         "volume": 2238.0,
         "ex": "otc",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "3189",
@@ -1593,7 +1593,7 @@
         "change_pct": 6.18,
         "volume": 41273.0,
         "ex": "tse",
-        "volume_ratio": 1.0
+        "volume_ratio": 0.99
       },
       {
         "code": "2032",
@@ -1602,7 +1602,7 @@
         "change_pct": 5.7,
         "volume": 3552.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "6122",
@@ -1611,7 +1611,7 @@
         "change_pct": 5.43,
         "volume": 2682.0,
         "ex": "otc",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "1456",
@@ -1620,7 +1620,7 @@
         "change_pct": 5.38,
         "volume": 258.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "7792",
@@ -1638,7 +1638,7 @@
         "change_pct": 4.75,
         "volume": 1126.0,
         "ex": "tse",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "9960",
@@ -1647,7 +1647,7 @@
         "change_pct": 4.65,
         "volume": 189.0,
         "ex": "otc",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "8064",
@@ -1656,7 +1656,7 @@
         "change_pct": 4.51,
         "volume": 14012.0,
         "ex": "otc",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "2516",
@@ -1676,7 +1676,7 @@
         "change_pct": 10.0,
         "volume": 5990.0,
         "ex": "tse",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "6213",
@@ -1694,7 +1694,7 @@
         "change_pct": 9.97,
         "volume": 48689.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "6533",
@@ -1712,7 +1712,7 @@
         "change_pct": 9.95,
         "volume": 17891.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "6672",
@@ -1721,7 +1721,7 @@
         "change_pct": 9.93,
         "volume": 14942.0,
         "ex": "tse",
-        "volume_ratio": 1.04
+        "volume_ratio": 1.03
       },
       {
         "code": "5310",
@@ -1739,7 +1739,7 @@
         "change_pct": 7.96,
         "volume": 2661.0,
         "ex": "tse",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "3498",
@@ -1748,7 +1748,7 @@
         "change_pct": 7.54,
         "volume": 3139.0,
         "ex": "otc",
-        "volume_ratio": 1.04
+        "volume_ratio": 1.03
       },
       {
         "code": "3324",
@@ -1757,7 +1757,7 @@
         "change_pct": 7.21,
         "volume": 6213.0,
         "ex": "otc",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "6168",
@@ -1766,7 +1766,7 @@
         "change_pct": 6.8,
         "volume": 7494.0,
         "ex": "tse",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "5465",
@@ -1775,7 +1775,7 @@
         "change_pct": 6.71,
         "volume": 2076.0,
         "ex": "otc",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "3189",
@@ -1784,7 +1784,7 @@
         "change_pct": 6.18,
         "volume": 41273.0,
         "ex": "tse",
-        "volume_ratio": 1.0
+        "volume_ratio": 0.99
       },
       {
         "code": "6122",
@@ -1793,7 +1793,7 @@
         "change_pct": 5.43,
         "volume": 2682.0,
         "ex": "otc",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "7792",
@@ -1811,7 +1811,7 @@
         "change_pct": 4.75,
         "volume": 1126.0,
         "ex": "tse",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "9960",
@@ -1820,7 +1820,7 @@
         "change_pct": 4.65,
         "volume": 189.0,
         "ex": "otc",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "2516",
@@ -1838,7 +1838,7 @@
         "change_pct": 3.89,
         "volume": 455.0,
         "ex": "tse",
-        "volume_ratio": 1.04
+        "volume_ratio": 1.03
       },
       {
         "code": "2034",
@@ -1847,7 +1847,7 @@
         "change_pct": 3.64,
         "volume": 8584.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "2221",
@@ -1856,7 +1856,7 @@
         "change_pct": 3.47,
         "volume": 1597.0,
         "ex": "otc",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "4198",
@@ -1865,7 +1865,7 @@
         "change_pct": 3.44,
         "volume": 8.0,
         "ex": "otc",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "2069",
@@ -1883,7 +1883,7 @@
         "change_pct": 3.0,
         "volume": 2642.0,
         "ex": "tse",
-        "volume_ratio": 1.02
+        "volume_ratio": 1.01
       },
       {
         "code": "2254",
@@ -1901,7 +1901,7 @@
         "change_pct": 2.45,
         "volume": 368.0,
         "ex": "otc",
-        "volume_ratio": 1.04
+        "volume_ratio": 1.03
       },
       {
         "code": "6870",
@@ -1928,7 +1928,7 @@
         "change_pct": 2.21,
         "volume": 7507.0,
         "ex": "otc",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "3037",
@@ -1937,7 +1937,7 @@
         "change_pct": 2.16,
         "volume": 15871.0,
         "ex": "tse",
-        "volume_ratio": 1.02
+        "volume_ratio": 1.01
       }
     ],
     "new_high_1y": [
@@ -1948,7 +1948,7 @@
         "change_pct": 10.0,
         "volume": 5990.0,
         "ex": "tse",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "6213",
@@ -1966,7 +1966,7 @@
         "change_pct": 9.97,
         "volume": 48689.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "2030",
@@ -1975,7 +1975,7 @@
         "change_pct": 9.95,
         "volume": 17891.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "6672",
@@ -1984,7 +1984,7 @@
         "change_pct": 9.93,
         "volume": 14942.0,
         "ex": "tse",
-        "volume_ratio": 1.04
+        "volume_ratio": 1.03
       },
       {
         "code": "3653",
@@ -1993,7 +1993,7 @@
         "change_pct": 7.96,
         "volume": 2661.0,
         "ex": "tse",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "3498",
@@ -2002,7 +2002,7 @@
         "change_pct": 7.54,
         "volume": 3139.0,
         "ex": "otc",
-        "volume_ratio": 1.04
+        "volume_ratio": 1.03
       },
       {
         "code": "3324",
@@ -2011,7 +2011,7 @@
         "change_pct": 7.21,
         "volume": 6213.0,
         "ex": "otc",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "6168",
@@ -2020,7 +2020,7 @@
         "change_pct": 6.8,
         "volume": 7494.0,
         "ex": "tse",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "3189",
@@ -2029,7 +2029,7 @@
         "change_pct": 6.18,
         "volume": 41273.0,
         "ex": "tse",
-        "volume_ratio": 1.0
+        "volume_ratio": 0.99
       },
       {
         "code": "7792",
@@ -2047,7 +2047,7 @@
         "change_pct": 4.75,
         "volume": 1126.0,
         "ex": "tse",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "9960",
@@ -2056,7 +2056,7 @@
         "change_pct": 4.65,
         "volume": 189.0,
         "ex": "otc",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "6957",
@@ -2065,7 +2065,7 @@
         "change_pct": 3.89,
         "volume": 455.0,
         "ex": "tse",
-        "volume_ratio": 1.04
+        "volume_ratio": 1.03
       },
       {
         "code": "2034",
@@ -2074,7 +2074,7 @@
         "change_pct": 3.64,
         "volume": 8584.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "2221",
@@ -2083,7 +2083,7 @@
         "change_pct": 3.47,
         "volume": 1597.0,
         "ex": "otc",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "4198",
@@ -2092,7 +2092,7 @@
         "change_pct": 3.44,
         "volume": 8.0,
         "ex": "otc",
-        "volume_ratio": 1.03
+        "volume_ratio": 1.02
       },
       {
         "code": "2069",
@@ -2110,7 +2110,7 @@
         "change_pct": 3.0,
         "volume": 2642.0,
         "ex": "tse",
-        "volume_ratio": 1.02
+        "volume_ratio": 1.01
       },
       {
         "code": "2254",
@@ -2137,7 +2137,7 @@
         "change_pct": 2.16,
         "volume": 15871.0,
         "ex": "tse",
-        "volume_ratio": 1.02
+        "volume_ratio": 1.01
       },
       {
         "code": "3605",
@@ -2146,7 +2146,7 @@
         "change_pct": 1.94,
         "volume": 14716.0,
         "ex": "tse",
-        "volume_ratio": 1.06
+        "volume_ratio": 1.05
       },
       {
         "code": "2454",
@@ -2164,7 +2164,7 @@
         "change_pct": 1.68,
         "volume": 2119.0,
         "ex": "tse",
-        "volume_ratio": 1.04
+        "volume_ratio": 1.03
       },
       {
         "code": "4413",
@@ -2173,7 +2173,7 @@
         "change_pct": 1.68,
         "volume": 48.0,
         "ex": "otc",
-        "volume_ratio": 1.04
+        "volume_ratio": 1.03
       },
       {
         "code": "3443",
@@ -2200,7 +2200,7 @@
         "change_pct": 0.0,
         "volume": 41.0,
         "ex": "tse",
-        "volume_ratio": 1.04
+        "volume_ratio": 1.03
       },
       {
         "code": "6526",
