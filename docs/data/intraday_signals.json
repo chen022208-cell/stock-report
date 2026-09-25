@@ -7,7 +7,7 @@
       "tier": "A",
       "peak_score": 100.0,
       "first_seen": "2026-09-25 09:17:36",
-      "last_seen": "2026-09-25 11:11:16",
+      "last_seen": "2026-09-25 11:13:19",
       "signals": {
         "change_pct": 7.21,
         "rs_market": 7.49,
@@ -25,7 +25,7 @@
       "tier": "A",
       "peak_score": 100.0,
       "first_seen": "2026-09-25 09:17:36",
-      "last_seen": "2026-09-25 11:11:16",
+      "last_seen": "2026-09-25 11:13:19",
       "signals": {
         "change_pct": 9.95,
         "rs_market": 10.23,
@@ -43,7 +43,7 @@
       "tier": "A",
       "peak_score": 100.0,
       "first_seen": "2026-09-25 09:17:36",
-      "last_seen": "2026-09-25 11:11:16",
+      "last_seen": "2026-09-25 11:13:19",
       "signals": {
         "change_pct": 9.97,
         "rs_market": 10.25,
@@ -79,7 +79,7 @@
       "tier": "A",
       "peak_score": 100.0,
       "first_seen": "2026-09-25 09:17:36",
-      "last_seen": "2026-09-25 11:11:16",
+      "last_seen": "2026-09-25 11:13:19",
       "signals": {
         "change_pct": 7.96,
         "rs_market": 8.24,
@@ -97,7 +97,7 @@
       "tier": "A",
       "peak_score": 100.0,
       "first_seen": "2026-09-25 09:17:36",
-      "last_seen": "2026-09-25 11:11:16",
+      "last_seen": "2026-09-25 11:13:19",
       "signals": {
         "change_pct": 9.98,
         "rs_market": 10.26,
@@ -115,7 +115,7 @@
       "tier": "A",
       "peak_score": 100.0,
       "first_seen": "2026-09-25 09:17:36",
-      "last_seen": "2026-09-25 11:11:16",
+      "last_seen": "2026-09-25 11:13:19",
       "signals": {
         "change_pct": 9.93,
         "rs_market": 10.21,
@@ -133,7 +133,7 @@
       "tier": "A",
       "peak_score": 100.0,
       "first_seen": "2026-09-25 09:17:36",
-      "last_seen": "2026-09-25 11:11:16",
+      "last_seen": "2026-09-25 11:13:19",
       "signals": {
         "change_pct": 10.0,
         "rs_market": 10.28,
@@ -151,7 +151,7 @@
       "tier": "A",
       "peak_score": 100.0,
       "first_seen": "2026-09-25 09:17:36",
-      "last_seen": "2026-09-25 11:11:16",
+      "last_seen": "2026-09-25 11:13:19",
       "signals": {
         "change_pct": 7.54,
         "rs_market": 7.82,
@@ -758,7 +758,7 @@
       }
     }
   },
-  "updated": "2026-09-25 11:11:16",
+  "updated": "2026-09-25 11:13:19",
   "alerted": [
     "1295",
     "1303",
