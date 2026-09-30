@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>歷史報告 · 盤後快訊</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>盤後快訊 · 2026年10月1日．週四</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 <meta name="theme-color" content="#060911">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -380,15 +380,76 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  .entry{display:flex; justify-content:space-between; gap:14px; padding:12px 0;
-         border-bottom:1px solid var(--hairline); font-size:14.5px;}
-  .entry:last-child{border-bottom:none;}
-  .entry a{text-decoration:none;}
-  .entry a:hover{color:var(--gold);}
-  .entry .date{font-family:'JetBrains Mono',monospace; color:var(--text-muted);
-               font-size:13px; flex-shrink:0;}
-  .month-head{font-family:'Noto Serif TC',serif; font-size:16px;
-              color:var(--text-secondary); margin:28px 0 8px;}
+  .hero-eyebrow{font-size:13px; color:var(--text-muted); margin-bottom:6px;
+               display:flex; align-items:center; gap:6px;}
+  .hero-number{font-family:'JetBrains Mono',monospace; font-size:38px;
+               font-weight:500; letter-spacing:-.01em;}
+  .hero-change{font-family:'JetBrains Mono',monospace; font-size:15px; margin-left:10px;}
+
+  .watch-hits{background:rgba(227,172,78,.09); border-left:3px solid var(--gold);
+              border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:13px 16px; margin-bottom:18px;}
+  .watch-hits .wh-label{font-size:12px; color:var(--gold); margin-bottom:7px; font-weight:600;}
+  .watch-hits .wh-item{font-size:14px; color:var(--text-secondary); margin-bottom:4px;}
+  .watch-hits .wh-item strong{color:var(--text-primary); font-weight:500;}
+
+  .inst-row{display:flex; align-items:center; gap:10px; margin-bottom:9px; font-size:13.5px;}
+  .inst-row:last-child{margin-bottom:0;}
+  .inst-row .inst-name{width:52px; color:var(--text-secondary); flex-shrink:0;}
+  .inst-row .bar-track{flex:1; height:6px; background:var(--surface-2);
+                       border-radius:3px; position:relative; overflow:hidden;}
+  .inst-row .bar-fill{position:absolute; top:0; bottom:0; border-radius:3px;}
+  .inst-row .bar-fill.up{background:var(--red); left:50%;}
+  .inst-row .bar-fill.down{background:var(--green); right:50%;}
+  .inst-row .inst-value{width:80px; text-align:right;
+                        font-family:'JetBrains Mono',monospace; flex-shrink:0;}
+
+  .theme-entry{background:var(--surface); border:1px solid var(--hairline);
+              border-left:3px solid var(--c-theme); border-radius:var(--radius-sm);
+              padding:14px 16px; margin-bottom:12px;}
+  .theme-entry:last-child{margin-bottom:0;}
+  .theme-header{display:flex; justify-content:space-between; align-items:baseline;
+                gap:12px; margin-bottom:7px; flex-wrap:wrap;}
+  .theme-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px;}
+  .theme-desc{font-size:14px; color:var(--text-secondary); margin-bottom:7px;}
+  .theme-meta{display:flex; justify-content:space-between; align-items:center;
+              font-size:12.5px; color:var(--text-muted); flex-wrap:wrap; gap:8px;}
+  .theme-link{font-size:12.5px; color:var(--gold); text-decoration:none;
+              display:inline-block; margin-top:7px;}
+  .theme-link:hover{text-decoration:underline;}
+
+  .darkhorse-entry{background:var(--surface); border:1px solid var(--hairline);
+                   border-left:3px solid var(--c-warn); border-radius:var(--radius-sm);
+                   padding:14px 16px; margin-bottom:10px;}
+  .darkhorse-entry:last-child{margin-bottom:0;}
+  .darkhorse-name{font-family:'Noto Serif TC',serif; font-weight:600;
+                  font-size:16px; margin-bottom:9px;}
+  .darkhorse-grid{display:grid; grid-template-columns:1fr 1fr;
+                  gap:7px 20px; font-size:13px; margin-bottom:10px;}
+  .darkhorse-grid .dh-label{color:var(--text-muted);}
+  .darkhorse-grid .dh-value{font-family:'JetBrains Mono',monospace;}
+  .darkhorse-note{font-size:13px; color:var(--text-secondary);
+                  border-top:1px solid var(--hairline); padding-top:9px;}
+
+  .tech-table{width:100%; border-collapse:collapse;}
+  .tech-table th{text-align:left; font-size:11.5px; font-weight:400;
+                 color:var(--text-muted); padding-bottom:9px;
+                 border-bottom:1px solid var(--hairline);}
+  .tech-table td{padding:10px 0; border-bottom:1px solid var(--hairline);
+                 font-size:13.5px; vertical-align:top;}
+  .tech-table tr:last-child td{border-bottom:none;}
+  .signal-bull{color:var(--red);} .signal-warn{color:var(--gold);}
+  .signal-neutral{color:var(--text-secondary);} .signal-bear{color:var(--green);}
+  .t-note{color:var(--text-muted); font-size:12.5px;}
+
+  .call-item{display:flex; justify-content:space-between; gap:12px;
+             padding:9px 0; border-bottom:1px solid var(--hairline); font-size:13.5px;}
+  .call-item:last-child{border-bottom:none;}
+  .call-note{color:var(--text-muted); font-size:12.5px;}
+
+  @media (max-width:480px){
+    .hero-number{font-size:32px;}
+    .darkhorse-grid{grid-template-columns:1fr;}
+  }
 
 </style>
 </head>
@@ -400,111 +461,145 @@
     <button class="dr-close" id="drClose" aria-label="關閉選單">✕</button>
   </div>
   <h4>市場</h4>
-  <a href="index.html" class=""><span class="dr-ic">🏠</span>最新</a>
-  <a href="heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
-  <a href="chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
-  <a href="scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
-  <a href="picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
-  <a href="intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
-  <a href="lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
-  <a href="watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
-  <a href="disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
+  <a href="../index.html" class=""><span class="dr-ic">🏠</span>最新</a>
+  <a href="../heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
+  <a href="../chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
+  <a href="../scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
+  <a href="../picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
+  <a href="../intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
+  <a href="../lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
+  <a href="../watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
+  <a href="../disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
   <h4>研究</h4>
-  <a href="themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
-  <a href="industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
-  <a href="weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
-  <a href="monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
-  <a href="analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
-  <a href="archive.html" class="current"><span class="dr-ic">🗂️</span>歷史報告</a>
-  <a href="research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
-  <a href="submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
+  <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
+  <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
+  <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
+  <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
+  <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
+  <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
+  <a href="../research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
+  <a href="../submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
 </nav>
 
 <div class="page">
   <div class="topbar">
     <button class="menu-btn" id="menuBtn" aria-label="開啟選單">☰</button>
-    <a href="index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
-    <a href="lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
-    <a href="watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
-    <a href="intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
+    <a href="../index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
+    <a href="../lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
+    <a href="../watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
+    <a href="../intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
   </div>
 
   
-<header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">歷史報告</h1></header>
-
-<div class="month-head">2026-10</div>
-
-<div class="entry"><a href="reports/2026-10-01-morning.html">2026年10月1日．週四　早報</a><span class="date">2026-10-01</span></div>
+<header style="margin-bottom:14px">
+  <div class="masthead-label">盤後快訊 · 早報 · 國際盤摘要</div>
+  <h1 class="masthead-date">2026年10月1日．週四</h1>
+</header>
 
 
-<div class="month-head">2026-09</div>
 
-<div class="entry"><a href="reports/2026-09-30-morning.html">2026年9月30日．週三　早報</a><span class="date">2026-09-30</span></div>
 
-<div class="entry"><a href="reports/2026-09-30-evening.html">2026年9月30日．週三　盤後</a><span class="date">2026-09-30</span></div>
 
-<div class="entry"><a href="reports/2026-09-29-morning.html">2026年9月29日．週二　早報</a><span class="date">2026-09-29</span></div>
 
-<div class="entry"><a href="reports/2026-09-28-holiday.html">2026年9月28日．週一　假日功課</a><span class="date">2026-09-28</span></div>
 
-<div class="entry"><a href="reports/2026-09-25-morning.html">2026年9月25日．週五　早報</a><span class="date">2026-09-25</span></div>
 
-<div class="entry"><a href="reports/2026-09-24-morning.html">2026年9月24日．週四　早報</a><span class="date">2026-09-24</span></div>
+<section class="block">
+  <h2>國際盤摘要</h2>
+  <div class="stat-grid">
+    
+    <div class="stat"><span class="stat-label">道瓊</span>
+      <span class="stat-value down">50,906 -0.86%</span></div>
+    
+    <div class="stat"><span class="stat-label">那斯達克</span>
+      <span class="stat-value up">26,861 +0.24%</span></div>
+    
+    <div class="stat"><span class="stat-label">S&amp;P 500</span>
+      <span class="stat-value down">7,652 -0.25%</span></div>
+    
+    <div class="stat"><span class="stat-label">費半 SOX</span>
+      <span class="stat-value up">12,629 -0.00%</span></div>
+    
+    
+    <div class="stat"><span class="stat-label">美元指數</span>
+      <span class="stat-value mono">101.46（+0.09%）</span></div>
+    
+    <div class="stat"><span class="stat-label">西德州原油</span>
+      <span class="stat-value mono">90.08（+0.78%）</span></div>
+    
+    <div class="stat"><span class="stat-label">黃金</span>
+      <span class="stat-value mono">4,183.6（+0.09%）</span></div>
+    
+    <div class="stat"><span class="stat-label">10年美債殖利率</span>
+      <span class="stat-value mono">5.29%（+0.72%）</span></div>
+    
+    <div class="stat"><span class="stat-label">VIX 波動率</span>
+      <span class="stat-value mono">16.34（+1.87%）</span></div>
+    
+    <div class="stat"><span class="stat-label">台積電 ADR</span>
+      <span class="stat-value mono">456.19（-0.16%）</span></div>
+    
+  </div>
+  <p class="commentary">隔夜盤面無單一事件主導，但債市訊號偏緊：10年美債殖利率升至 5.29%（+0.72%），美元指數 101.46 小幅走高，道瓊 -0.86%、S&amp;P 500 -0.25%，那斯達克 +0.24% 相對抗跌，費半 SOX 持平。科技相對金融、傳產的強弱分歧，與 SMH 近5日相對 S&amp;P 領先 2.0 個百分點一致，但本次缺少新聞頭條佐證驅動原因，僅屬價格面觀察。台積電 ADR 收 456.19（-0.16%），對台股權值股的隔夜指引偏中性。西德州原油 90.08（+0.78%）維持高檔，VIX 16.34 仍在平穩區間。高殖利率環境下，台股電子權值與中小型股的資金輪動需留意外資態度；以上為資訊整理，非投資建議。</p>
+</section>
+<hr class="divider">
 
-<div class="entry"><a href="reports/2026-09-24-evening.html">2026年9月24日．週四　盤後</a><span class="date">2026-09-24</span></div>
 
-<div class="entry"><a href="reports/2026-09-23-morning.html">2026年9月23日．週三　早報</a><span class="date">2026-09-23</span></div>
 
-<div class="entry"><a href="reports/2026-09-23-evening.html">2026年9月23日．週三　盤後</a><span class="date">2026-09-23</span></div>
 
-<div class="entry"><a href="reports/2026-09-21-holiday.html">2026年9月21日．週一　假日功課</a><span class="date">2026-09-21</span></div>
 
-<div class="entry"><a href="reports/2026-09-18-morning.html">2026年9月18日．週五　早報</a><span class="date">2026-09-18</span></div>
 
-<div class="entry"><a href="reports/2026-09-17-morning.html">2026年9月17日．週四　早報</a><span class="date">2026-09-17</span></div>
 
-<div class="entry"><a href="reports/2026-09-17-evening.html">2026年9月17日．週四　盤後</a><span class="date">2026-09-17</span></div>
+<section class="block">
+  <h2>國際題材追蹤</h2>
+  <p class="commentary" style="margin-bottom:16px">本週頭條來源暫時抓取失敗，僅能從類股 ETF 價格面觀察：半導體與生技相對強勢，金融、軟體、能源相對弱勢，尚無新聞面佐證。</p>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">半導體相對強勢（價格面訊號）</span>
+      <span class="tag confidence-low">一致性：低</span>
+    </div>
+    <p class="theme-desc">SMH 近5日 +1.3%、相對 S&amp;P +2.0pt，為本週主要相對強勢類股之一</p>
+    <div class="theme-meta"><span>推動因素：本次無頭條資料可佐證，僅有 ETF 價格表現；驅動事件待查證</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：SMH</span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：若強勢延續，台股半導體供應鏈可能受情緒帶動；需待新聞面確認</span></div>
+  </div>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">金融與軟體類股相對弱勢</span>
+      <span class="tag confidence-low">一致性：低</span>
+    </div>
+    <p class="theme-desc">XLF 近5日 -2.1%、IGV -1.5%，相對大盤落後</p>
+    <div class="theme-meta"><span>推動因素：本次無頭條資料可佐證，僅有 ETF 價格表現；原因待查證</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：XLF、IGV</span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：對台股直接傳導不明確，僅作為資金偏好的參考</span></div>
+  </div>
+  
+</section>
+<hr class="divider">
 
-<div class="entry"><a href="reports/2026-09-16-morning.html">2026年9月16日．週三　早報</a><span class="date">2026-09-16</span></div>
 
-<div class="entry"><a href="reports/2026-09-16-evening.html">2026年9月16日．週三　盤後</a><span class="date">2026-09-16</span></div>
 
-<div class="entry"><a href="reports/2026-09-15-morning.html">2026年9月15日．週二　早報</a><span class="date">2026-09-15</span></div>
 
-<div class="entry"><a href="reports/2026-09-15-evening.html">2026年9月15日．週二　盤後</a><span class="date">2026-09-15</span></div>
 
-<div class="entry"><a href="reports/2026-09-14-holiday.html">2026年9月14日．週一　假日功課</a><span class="date">2026-09-14</span></div>
 
-<div class="entry"><a href="reports/2026-09-14-evening.html">2026年9月14日．週一　盤後</a><span class="date">2026-09-14</span></div>
 
-<div class="entry"><a href="reports/2026-09-11-morning.html">2026年9月11日．週五　早報</a><span class="date">2026-09-11</span></div>
 
-<div class="entry"><a href="reports/2026-09-11-evening.html">2026年9月11日．週五　盤後</a><span class="date">2026-09-11</span></div>
 
-<div class="entry"><a href="reports/2026-09-10-morning.html">2026年9月10日．週四　早報</a><span class="date">2026-09-10</span></div>
 
-<div class="entry"><a href="reports/2026-09-10-evening.html">2026年9月10日．週四　盤後</a><span class="date">2026-09-10</span></div>
 
-<div class="entry"><a href="reports/2026-09-09-morning.html">2026年9月9日．週三　早報</a><span class="date">2026-09-09</span></div>
 
-<div class="entry"><a href="reports/2026-09-09-evening.html">2026年9月9日．週三　盤後</a><span class="date">2026-09-09</span></div>
 
-<div class="entry"><a href="reports/2026-09-08-morning.html">2026年9月8日．週二　早報</a><span class="date">2026-09-08</span></div>
 
-<div class="entry"><a href="reports/2026-09-08-evening.html">2026年9月8日．週二　盤後</a><span class="date">2026-09-08</span></div>
 
-<div class="entry"><a href="reports/2026-09-07-holiday.html">2026年9月7日．週一　假日功課</a><span class="date">2026-09-07</span></div>
 
-<div class="entry"><a href="reports/2026-09-07-evening.html">2026年9月7日．週一　盤後</a><span class="date">2026-09-07</span></div>
 
-<div class="entry"><a href="reports/2026-09-05-morning.html">2026年9月5日．週六　早報</a><span class="date">2026-09-05</span></div>
-
-<div class="entry"><a href="reports/2026-09-05-evening.html">2026年9月5日．週六　盤後</a><span class="date">2026-09-05</span></div>
-
-<div class="entry"><a href="reports/2026-09-04-morning.html">2026年9月4日．週五　早報</a><span class="date">2026-09-04</span></div>
-
-<div class="entry"><a href="reports/2026-09-04-evening.html">2026年9月4日．週五　盤後</a><span class="date">2026-09-04</span></div>
 
 
 
@@ -519,13 +614,13 @@
 
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
   }
-  window.__rel = "";
+  window.__rel = "../";
 </script>
-<script src="assets/ui.js?v=8c796938"></script>
+<script src="../assets/ui.js?v=8c796938"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=8c796938"></script>
+<script src="../assets/stock-chart.js?v=8c796938"></script>
 
 </body>
 </html>
