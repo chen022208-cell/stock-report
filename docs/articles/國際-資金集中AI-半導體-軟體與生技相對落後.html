@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>深度月報：全球總經＋台股結構＋焦點個股 · 盤後快訊</title>
+<title>資金集中 AI／半導體：軟體與生技在緊縮環境下相對落後 · 盤後快訊</title>
 <link rel="manifest" href="../manifest.json">
 <link rel="icon" href="../icons/icon-192.png">
 <link rel="apple-touch-icon" href="../icons/icon-192.png">
@@ -380,6 +380,57 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
+  body{font-family:'Noto Serif TC',serif;}
+  .meta-label{font-family:'Noto Sans TC',sans-serif; font-size:13px;
+              color:var(--gold); margin-bottom:14px;}
+  h1.title{font-size:30px; font-weight:700; line-height:1.4; margin-bottom:16px;}
+  .byline{font-family:'Noto Sans TC',sans-serif; font-size:13px; color:var(--text-muted);
+          padding-bottom:28px; border-bottom:1px solid var(--hairline); margin-bottom:28px;}
+  .summary-box{background:var(--surface); border-radius:8px;
+               padding:22px 24px; margin-bottom:36px;}
+  .summary-box .summary-label{font-family:'Noto Sans TC',sans-serif;
+                              font-size:12.5px; color:var(--gold); margin-bottom:12px;}
+  .summary-box ul{list-style:none;}
+  .summary-box li{font-family:'Noto Sans TC',sans-serif; font-size:14.5px;
+                  color:var(--text-secondary); padding-left:16px; position:relative;
+                  margin-bottom:10px; line-height:1.6;}
+  .summary-box li:last-child{margin-bottom:0;}
+  .summary-box li::before{content:""; position:absolute; left:0; top:8px;
+                          width:5px; height:5px; border-radius:50%; background:var(--gold);}
+  article h2{font-size:19px; font-weight:600; margin:36px 0 14px;}
+  article p{font-size:16px; line-height:1.9; color:var(--text-secondary); margin-bottom:16px;}
+  .pull-stat{display:flex; gap:28px; padding:20px 0; margin:22px 0;
+             border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline);
+             flex-wrap:wrap;}
+  .pull-stat .item{min-width:110px;}
+  .pull-stat .item-value{font-family:'JetBrains Mono',monospace; font-size:24px;}
+  .pull-stat .item-label{font-family:'Noto Sans TC',sans-serif; font-size:12.5px;
+                         color:var(--text-muted); margin-top:4px;}
+  .callout{border-left:2px solid var(--red); padding:16px 20px; background:var(--surface);
+           border-radius:0 6px 6px 0; margin:24px 0;}
+  .callout .callout-label{font-family:'Noto Sans TC',sans-serif; font-size:12.5px;
+                          color:var(--red); margin-bottom:8px;}
+  .callout p{font-size:14.5px; margin-bottom:0;}
+  .tracking-list{font-family:'Noto Sans TC',sans-serif;}
+  .track-item{padding:10px 0; border-bottom:1px solid var(--hairline);
+              font-size:14px; color:var(--text-secondary);}
+  .track-item:last-child{border-bottom:none;}
+  .chain-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr));
+             gap:12px; margin:16px 0 8px; font-family:'Noto Sans TC',sans-serif;}
+  .chain-segment{background:var(--surface); border-radius:8px; padding:14px 16px;}
+  .chain-label{font-size:12.5px; color:var(--gold); margin-bottom:10px;}
+  .chain-company{font-size:14px; color:var(--text-secondary); padding:6px 0;
+                 border-bottom:1px solid var(--hairline); display:flex;
+                 justify-content:space-between; align-items:center;}
+  .chain-company:last-child{border-bottom:none;}
+  .chain-company.core{color:var(--text-primary);}
+  .chain-role{font-size:11px; padding:2px 7px; border-radius:100px; flex-shrink:0;
+             background:rgba(217,164,65,.16); color:var(--gold);}
+  .chain-company.peripheral .chain-role{background:rgba(114,108,96,.16); color:var(--text-muted);}
+  .chain-peers{font-family:'Noto Sans TC',sans-serif; font-size:13px;
+               color:var(--text-muted); margin-top:10px;}
+  @media (max-width:480px){h1.title{font-size:24px;}}
+
 </style>
 </head>
 <body data-section="">
@@ -403,7 +454,7 @@
   <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
   <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
   <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
-  <a href="../monthly-deep/index.html" class="current"><span class="dr-ic">🌍</span>每月深度月報</a>
+  <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
   <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
   <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
   <a href="../research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
@@ -420,18 +471,81 @@
   </div>
 
   
-<header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">深度月報：全球總經＋台股結構＋焦點個股</h1></header>
-<p class="commentary" style="margin-top:14px">每月 1 號產出，聚焦全球總經趨勢、台股結構性變化，以及當月表現最突出的個股深度分析。跟每月 12 號的事後績效回顧是不同的兩份報告。</p>
+<div class="meta-label">深度報告 · 題材知識庫 #165</div>
+<h1 class="title">資金集中 AI／半導體：軟體與生技在緊縮環境下相對落後</h1>
+<div class="byline">首次建檔 2026-09-25　·　最後更新 2026-09-25　·　第 1 次更新</div>
 
-<div class="section-head">本月報告</div>
 
-<p class="commentary" style="margin-top:24px">尚無深度月報，下個月 1 號會開始更新這裡。</p>
+<div class="summary-box">
+  <div class="summary-label">摘要</div>
+  <ul><li>IGV 近 5 日僅 +1.3%、XBI 僅 +1.2%，分別落後 S&amp;P 0.7 與 0.8 個百分點</li><li>升息環境下，資金偏好集中在 AI／半導體敘事最強的族群</li><li>判定為觀察；對台股的意涵屬推論</li></ul>
+</div>
 
+
+<article>
+  <div class="pull-stat">
+    <div class="item"><div class="item-value">2</div>
+      <div class="item-label">相關供應鏈個股</div></div>
+    <div class="item"><div class="item-value">1</div>
+      <div class="item-label">累積更新次數</div></div>
+    <div class="item"><div class="item-value">中高</div>
+      <div class="item-label">目前信心度</div></div>
+  </div>
+
+  
+  <h2>事件背景</h2>
+  <p>本題材於 2026-09-25 首次建檔並更新一次，信心度 mid、判定 watch。核心觀察是：在升息與殖利率走高的緊縮環境下，資金並非全面買進成長股，而是聚焦在 AI／半導體，軟體（MSFT、CRM 為追蹤標的）與生技類股相對落後。</p>
+  
+  <h2>市場數據驗證</h2>
+  <p>已驗證的價格面事實：軟體類股 ETF IGV 近 5 日僅上漲 1.3%、生技類股 ETF XBI 僅上漲 1.2%，兩者相對 S&amp;P 500 分別落後 0.7 與 0.8 個百分點。落後幅度不大，屬「相對偏弱」而非明顯下跌。需注意，同一時期其他追蹤記錄也曾出現軟體股逆勢抗跌、資金由硬體轉向軟體的相反紀錄，代表這條輪動敘事並不穩定。法人淨買賣欄位為 0，沒有資金面的直接證據。</p>
+  
+  <h2>對台股與科技供應鏈的傳導路徑</h2>
+  <p>以下為推論。若資金持續集中在半導體與 AI 硬體，對台股的意涵是市場偏好可能延續在半導體與 AI 供應鏈，而非廣泛的成長股；台灣以硬體與代工為主的產業結構，理論上較接近被青睞的一側，但這需要台廠營收與外資買賣超來驗證。軟體與生技對台股的直接連動有限，本文不指名個股。</p>
+  
+  <h2>風險與觀察重點</h2>
+  <p>題材轉弱的情境：軟體或生技相對表現轉強使落後消失，或半導體出現修正使集中效應反轉。由於相對落後幅度只有 1 個百分點內，容易被短期波動抹平，不宜過度解讀。</p>
+  
+  <h2>後續追蹤指標</h2>
+  <p>後續應追蹤 IGV、XBI 與 SMH 相對 S&amp;P 的表現差距是否擴大或收斂、美債殖利率走勢，以及台股半導體與 AI 供應鏈的外資買賣超。</p>
+  
+
+  
+  <h2>供應鏈結構</h2>
+  <div class="chain-grid">
+    
+    
+    
+    
+    
+    
+    
+  </div>
+  
+  <p class="chain-peers">國際同類公司參考：
+    US MSFT Microsoft、US CRM Salesforce
+  </p>
+  
+  
+
+  
+  <h2>風險與觀察重點</h2>
+  <div class="callout">
+    <div class="callout-label">風險提示</div>
+    <p>落後幅度小、樣本期短，且與其他記錄的軟體強勢說法互相矛盾，結論的穩定度低。</p>
+  </div>
+  
+
+  
+  <h2>後續追蹤指標</h2>
+  <div class="tracking-list">
+    <div class="track-item">IGV／XBI 相對 S&amp;P 的表現</div><div class="track-item">SMH 相對強弱</div><div class="track-item">美債殖利率走勢</div><div class="track-item">台股半導體與 AI 供應鏈外資買賣超</div>
+  </div>
+  
+</article>
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-30 20:08</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-09-30 20:07</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>

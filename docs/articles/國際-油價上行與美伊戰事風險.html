@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>深度月報：全球總經＋台股結構＋焦點個股 · 盤後快訊</title>
+<title>油價上行與美伊戰事風險：油價與殖利率並非同步變動 · 盤後快訊</title>
 <link rel="manifest" href="../manifest.json">
 <link rel="icon" href="../icons/icon-192.png">
 <link rel="apple-touch-icon" href="../icons/icon-192.png">
@@ -380,6 +380,57 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
+  body{font-family:'Noto Serif TC',serif;}
+  .meta-label{font-family:'Noto Sans TC',sans-serif; font-size:13px;
+              color:var(--gold); margin-bottom:14px;}
+  h1.title{font-size:30px; font-weight:700; line-height:1.4; margin-bottom:16px;}
+  .byline{font-family:'Noto Sans TC',sans-serif; font-size:13px; color:var(--text-muted);
+          padding-bottom:28px; border-bottom:1px solid var(--hairline); margin-bottom:28px;}
+  .summary-box{background:var(--surface); border-radius:8px;
+               padding:22px 24px; margin-bottom:36px;}
+  .summary-box .summary-label{font-family:'Noto Sans TC',sans-serif;
+                              font-size:12.5px; color:var(--gold); margin-bottom:12px;}
+  .summary-box ul{list-style:none;}
+  .summary-box li{font-family:'Noto Sans TC',sans-serif; font-size:14.5px;
+                  color:var(--text-secondary); padding-left:16px; position:relative;
+                  margin-bottom:10px; line-height:1.6;}
+  .summary-box li:last-child{margin-bottom:0;}
+  .summary-box li::before{content:""; position:absolute; left:0; top:8px;
+                          width:5px; height:5px; border-radius:50%; background:var(--gold);}
+  article h2{font-size:19px; font-weight:600; margin:36px 0 14px;}
+  article p{font-size:16px; line-height:1.9; color:var(--text-secondary); margin-bottom:16px;}
+  .pull-stat{display:flex; gap:28px; padding:20px 0; margin:22px 0;
+             border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline);
+             flex-wrap:wrap;}
+  .pull-stat .item{min-width:110px;}
+  .pull-stat .item-value{font-family:'JetBrains Mono',monospace; font-size:24px;}
+  .pull-stat .item-label{font-family:'Noto Sans TC',sans-serif; font-size:12.5px;
+                         color:var(--text-muted); margin-top:4px;}
+  .callout{border-left:2px solid var(--red); padding:16px 20px; background:var(--surface);
+           border-radius:0 6px 6px 0; margin:24px 0;}
+  .callout .callout-label{font-family:'Noto Sans TC',sans-serif; font-size:12.5px;
+                          color:var(--red); margin-bottom:8px;}
+  .callout p{font-size:14.5px; margin-bottom:0;}
+  .tracking-list{font-family:'Noto Sans TC',sans-serif;}
+  .track-item{padding:10px 0; border-bottom:1px solid var(--hairline);
+              font-size:14px; color:var(--text-secondary);}
+  .track-item:last-child{border-bottom:none;}
+  .chain-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr));
+             gap:12px; margin:16px 0 8px; font-family:'Noto Sans TC',sans-serif;}
+  .chain-segment{background:var(--surface); border-radius:8px; padding:14px 16px;}
+  .chain-label{font-size:12.5px; color:var(--gold); margin-bottom:10px;}
+  .chain-company{font-size:14px; color:var(--text-secondary); padding:6px 0;
+                 border-bottom:1px solid var(--hairline); display:flex;
+                 justify-content:space-between; align-items:center;}
+  .chain-company:last-child{border-bottom:none;}
+  .chain-company.core{color:var(--text-primary);}
+  .chain-role{font-size:11px; padding:2px 7px; border-radius:100px; flex-shrink:0;
+             background:rgba(217,164,65,.16); color:var(--gold);}
+  .chain-company.peripheral .chain-role{background:rgba(114,108,96,.16); color:var(--text-muted);}
+  .chain-peers{font-family:'Noto Sans TC',sans-serif; font-size:13px;
+               color:var(--text-muted); margin-top:10px;}
+  @media (max-width:480px){h1.title{font-size:24px;}}
+
 </style>
 </head>
 <body data-section="">
@@ -403,7 +454,7 @@
   <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
   <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
   <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
-  <a href="../monthly-deep/index.html" class="current"><span class="dr-ic">🌍</span>每月深度月報</a>
+  <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
   <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
   <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
   <a href="../research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
@@ -420,14 +471,77 @@
   </div>
 
   
-<header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">深度月報：全球總經＋台股結構＋焦點個股</h1></header>
-<p class="commentary" style="margin-top:14px">每月 1 號產出，聚焦全球總經趨勢、台股結構性變化，以及當月表現最突出的個股深度分析。跟每月 12 號的事後績效回顧是不同的兩份報告。</p>
+<div class="meta-label">深度報告 · 題材知識庫 #169</div>
+<h1 class="title">油價上行與美伊戰事風險：油價與殖利率並非同步變動</h1>
+<div class="byline">首次建檔 2026-09-30　·　最後更新 2026-09-30　·　第 1 次更新</div>
 
-<div class="section-head">本月報告</div>
 
-<p class="commentary" style="margin-top:24px">尚無深度月報，下個月 1 號會開始更新這裡。</p>
+<div class="summary-box">
+  <div class="summary-label">摘要</div>
+  <ul><li>美伊戰事與油價走高使美債波動加大</li><li>但有些日子油價回落、殖利率仍上升，兩者並非單一因果</li><li>缺少具體油價與能源股數字；對台股傳導屬推論，判定為觀察</li></ul>
+</div>
 
+
+<article>
+  <div class="pull-stat">
+    <div class="item"><div class="item-value">2</div>
+      <div class="item-label">相關供應鏈個股</div></div>
+    <div class="item"><div class="item-value">1</div>
+      <div class="item-label">累積更新次數</div></div>
+    <div class="item"><div class="item-value">中高</div>
+      <div class="item-label">目前信心度</div></div>
+  </div>
+
+  
+  <h2>事件背景</h2>
+  <p>本題材於 2026-09-30 首次建檔並更新一次，信心度 mid、判定 watch。追蹤記錄指出美伊戰事與油價走高使美國公債的波動加大，加劇通膨與殖利率壓力；追蹤標的為能源類 ETF XLE 與 XOM。與此題材相近的另一條記錄（2026-09-29 建檔）內容大致重疊，屬同一議題的不同切面。</p>
+  
+  <h2>市場數據驗證</h2>
+  <p>追蹤記錄提供的關鍵事實是：「部分日子油價回落，但殖利率仍上升」。這代表殖利率上行並不能單靠油價解釋，還有其他因素（例如 Fed 升息路徑與強勁經濟數據，這在其他追蹤題材中被提及）。輸入資料沒有油價的具體數字與 XLE、XOM 的區間報酬，也沒有法人資金面數據（淨買賣欄位為 0），因此本文無法量化油價對殖利率的貢獻。待補數據：原油價格、通膨預期、能源類股相對大盤表現。</p>
+  
+  <h2>對台股與科技供應鏈的傳導路徑</h2>
+  <p>以下為推論。台灣屬能源進口經濟體，油價上行會拉高進口成本與部分製造業、航運與石化業者的成本面；殖利率上行則對高評價科技股形成估值壓力；地緣衝突升溫可能降低外資風險偏好。由於缺乏台廠層級的數據，本文不指名個股。</p>
+  
+  <h2>風險與觀察重點</h2>
+  <p>題材轉弱的情境：美伊局勢降溫、油價回落。但因為殖利率上行並不完全依賴油價，即使油價回落，利率壓力也未必同步消退，這是判斷此題材時容易被忽略的點。</p>
+  
+  <h2>後續追蹤指標</h2>
+  <p>後續應追蹤原油價格、美伊局勢進展、10 年期殖利率與 Fed 表態，以及台股外資買賣超與新台幣匯率。</p>
+  
+
+  
+  <h2>供應鏈結構</h2>
+  <div class="chain-grid">
+    
+    
+    
+    
+    
+    
+    
+  </div>
+  
+  <p class="chain-peers">國際同類公司參考：
+    US XOM Exxon Mobil
+  </p>
+  
+  
+
+  
+  <h2>風險與觀察重點</h2>
+  <div class="callout">
+    <div class="callout-label">風險提示</div>
+    <p>油價與殖利率的因果關係在記錄中已出現不一致，且缺少具體數字，結論不宜過度解讀。</p>
+  </div>
+  
+
+  
+  <h2>後續追蹤指標</h2>
+  <div class="tracking-list">
+    <div class="track-item">原油價格走勢</div><div class="track-item">美伊局勢進展</div><div class="track-item">10 年期殖利率與 Fed 表態</div><div class="track-item">台股外資買賣超與新台幣匯率</div>
+  </div>
+  
+</article>
 
 
   <footer class="site-footer">
