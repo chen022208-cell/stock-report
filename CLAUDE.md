@@ -129,7 +129,21 @@ Claude 帳號」下、吃該帳號訂閱額度，跟你在哪台電腦開發無�
   `send_notification()`——那支寫的是早報／盤後共用的 `_notify_payload.json`，
   以前放在迴圈裡等於一輪抓到 N 則就互相覆蓋 N-1 次，只有最後一則會送到
   Discord，其餘靜靜消失。
-- **盤中強勢股篩選（波段用）**：GitHub Actions 迴圈式（方案①），
+  ⚠️ **2026-09-30 `api.wallstreetcn.com` 開始回 403（IP 層級擋，不是我們的網路政策）**。
+  當天 02:47 UTC 之後連續多輪（03:37／04:37／05:34／12:34 UTC，橫跨至少兩個不同
+  session）`fetch_live_feed()` 全部拿到 403 Forbidden（偶爾是 connection reset），
+  但同一時間 `twse.com.tw`／`discord.com`／`api.github.com`／`google.com` 都正常
+  200——**排除是雲端環境網路政策問題**，UA／Referer 也都照原本設定送了，判斷是
+  wallstreetcn 自己的 WAF 開始擋這個雲端 IP 網段（datacenter IP 常見的反爬蟲擋法）。
+  `fetch_live_feed()` 本來就把例外接住、印一行訊息後回傳空陣列，`run_news_monitor()`
+  看到空陣列直接 return、不寫 DB 不 commit，所以這**不會**觸發 PushNotification
+  也**不會**在 git log 留下失敗紀錄——每輪都看起來像「安靜結束」，但其實是抓不到
+  資料，不是「這小時沒有重要快訊」。**如果之後又發現即時快訊監控好幾個小時／幾天
+  完全沒有推播、`docs/_notify_news.json` 也沒更新，先手動 `curl -A "Mozilla/5.0..."
+  https://api.wallstreetcn.com/apiv1/content/lives?channel=global-channel&client=pc&limit=30`
+  排查是不是又回 403，不要假設是「剛好沒新聞」。** 目前沒有已知繞過方法
+  （不是走這裡的 egress proxy、也不是缺 header），可能要等 IP 網段輪替或改用
+  別的即時快訊來源；尚未實作 fallback。
   `.github/workflows/intraday.yml`。平日 08:45（Asia/Taipei）由外部 cron-job.org
   POST `repository_dispatch`（`event_type: intraday-loop`）觸發，一支長 job 內部
   每 ~55 秒跑一輪 `python -m src.main intraday`，用證交所 MIS 端點
