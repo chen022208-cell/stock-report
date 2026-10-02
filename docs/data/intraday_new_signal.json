@@ -1,0 +1,350 @@
+{
+  "date": "2026-10-02",
+  "at": "2026-10-02 14:05:19",
+  "new_codes": [
+    "8111",
+    "5310",
+    "6292",
+    "3564",
+    "4716",
+    "5205",
+    "5011",
+    "5015",
+    "5498",
+    "6144",
+    "6266",
+    "6821",
+    "8074",
+    "8091",
+    "3441",
+    "4991",
+    "4772",
+    "5228"
+  ],
+  "stocks": {
+    "8111": {
+      "code": "8111",
+      "name": "立碁",
+      "tier": "A",
+      "peak_score": 99.6,
+      "first_seen": "2026-10-02 14:05:19",
+      "last_seen": "2026-10-02 14:05:19",
+      "signals": {
+        "change_pct": 10.0,
+        "rs_market": 9.75,
+        "rs_sector": 9.55,
+        "volume_ratio": 3.96,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "光電業"
+      }
+    },
+    "5310": {
+      "code": "5310",
+      "name": "天剛",
+      "tier": "A",
+      "peak_score": 95.8,
+      "first_seen": "2026-10-02 14:05:19",
+      "last_seen": "2026-10-02 14:05:19",
+      "signals": {
+        "change_pct": 8.82,
+        "rs_market": 8.57,
+        "rs_sector": 8.82,
+        "volume_ratio": 16.25,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": false,
+        "industry": "資訊服務業"
+      }
+    },
+    "6292": {
+      "code": "6292",
+      "name": "迅德",
+      "tier": "A",
+      "peak_score": 90.0,
+      "first_seen": "2026-10-02 14:05:19",
+      "last_seen": "2026-10-02 14:05:19",
+      "signals": {
+        "change_pct": 5.51,
+        "rs_market": 5.26,
+        "rs_sector": 4.68,
+        "volume_ratio": 3.01,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "電子零組件業"
+      }
+    },
+    "3564": {
+      "code": "3564",
+      "name": "其陽",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-02 14:05:19",
+      "last_seen": "2026-10-02 14:05:19",
+      "signals": {
+        "change_pct": 10.0,
+        "rs_market": 9.75,
+        "rs_sector": 9.3,
+        "volume_ratio": 9.29,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "通信網路業"
+      }
+    },
+    "4716": {
+      "code": "4716",
+      "name": "大立",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-02 14:05:19",
+      "last_seen": "2026-10-02 14:05:19",
+      "signals": {
+        "change_pct": 9.86,
+        "rs_market": 9.61,
+        "rs_sector": 7.82,
+        "volume_ratio": 4.27,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "化學工業"
+      }
+    },
+    "5205": {
+      "code": "5205",
+      "name": "中茂",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-02 14:05:19",
+      "last_seen": "2026-10-02 14:05:19",
+      "signals": {
+        "change_pct": 9.88,
+        "rs_market": 9.63,
+        "rs_sector": 9.88,
+        "volume_ratio": 5.94,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "綠能環保"
+      }
+    },
+    "5011": {
+      "code": "5011",
+      "name": "久陽",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-02 14:05:19",
+      "last_seen": "2026-10-02 14:05:19",
+      "signals": {
+        "change_pct": 9.95,
+        "rs_market": 9.7,
+        "rs_sector": 9.95,
+        "volume_ratio": 9.54,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "鋼鐵工業"
+      }
+    },
+    "5015": {
+      "code": "5015",
+      "name": "華祺",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-02 14:05:19",
+      "last_seen": "2026-10-02 14:05:19",
+      "signals": {
+        "change_pct": 9.86,
+        "rs_market": 9.61,
+        "rs_sector": 9.86,
+        "volume_ratio": 8.17,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "鋼鐵工業"
+      }
+    },
+    "5498": {
+      "code": "5498",
+      "name": "凱崴",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-02 14:05:19",
+      "last_seen": "2026-10-02 14:05:19",
+      "signals": {
+        "change_pct": 9.88,
+        "rs_market": 9.63,
+        "rs_sector": 9.06,
+        "volume_ratio": 4.43,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "電子零組件業"
+      }
+    },
+    "6144": {
+      "code": "6144",
+      "name": "得利影",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-02 14:05:19",
+      "last_seen": "2026-10-02 14:05:19",
+      "signals": {
+        "change_pct": 9.77,
+        "rs_market": 9.52,
+        "rs_sector": 9.88,
+        "volume_ratio": 9.74,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "文化創意業"
+      }
+    },
+    "6266": {
+      "code": "6266",
+      "name": "泰詠",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-02 14:05:19",
+      "last_seen": "2026-10-02 14:05:19",
+      "signals": {
+        "change_pct": 7.82,
+        "rs_market": 7.57,
+        "rs_sector": 7.0,
+        "volume_ratio": 39.07,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "電子零組件業"
+      }
+    },
+    "6821": {
+      "code": "6821",
+      "name": "聯寶",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-02 14:05:19",
+      "last_seen": "2026-10-02 14:05:19",
+      "signals": {
+        "change_pct": 9.94,
+        "rs_market": 9.69,
+        "rs_sector": 9.12,
+        "volume_ratio": 8.29,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "電子零組件業"
+      }
+    },
+    "8074": {
+      "code": "8074",
+      "name": "鉅橡",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-02 14:05:19",
+      "last_seen": "2026-10-02 14:05:19",
+      "signals": {
+        "change_pct": 9.85,
+        "rs_market": 9.6,
+        "rs_sector": 9.03,
+        "volume_ratio": 7.45,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "電子零組件業"
+      }
+    },
+    "8091": {
+      "code": "8091",
+      "name": "翔名",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-02 14:05:19",
+      "last_seen": "2026-10-02 14:05:19",
+      "signals": {
+        "change_pct": 9.98,
+        "rs_market": 9.73,
+        "rs_sector": 9.16,
+        "volume_ratio": 4.82,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "半導體業"
+      }
+    },
+    "3441": {
+      "code": "3441",
+      "name": "聯一光",
+      "tier": "A",
+      "peak_score": 89.3,
+      "first_seen": "2026-10-02 14:05:19",
+      "last_seen": "2026-10-02 14:05:19",
+      "signals": {
+        "change_pct": 4.2,
+        "rs_market": 3.95,
+        "rs_sector": 3.76,
+        "volume_ratio": 4.43,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "光電業"
+      }
+    },
+    "4991": {
+      "code": "4991",
+      "name": "環宇-KY",
+      "tier": "A",
+      "peak_score": 87.6,
+      "first_seen": "2026-10-02 14:05:19",
+      "last_seen": "2026-10-02 14:05:19",
+      "signals": {
+        "change_pct": 9.99,
+        "rs_market": 9.74,
+        "rs_sector": 9.17,
+        "volume_ratio": 3.79,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "半導體業"
+      }
+    },
+    "4772": {
+      "code": "4772",
+      "name": "台特化",
+      "tier": "A",
+      "peak_score": 86.9,
+      "first_seen": "2026-10-02 14:05:19",
+      "last_seen": "2026-10-02 14:05:19",
+      "signals": {
+        "change_pct": 6.43,
+        "rs_market": 6.18,
+        "rs_sector": 4.39,
+        "volume_ratio": 5.88,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "化學工業"
+      }
+    },
+    "5228": {
+      "code": "5228",
+      "name": "鈺鎧",
+      "tier": "A",
+      "peak_score": 82.6,
+      "first_seen": "2026-10-02 14:05:19",
+      "last_seen": "2026-10-02 14:05:19",
+      "signals": {
+        "change_pct": 9.95,
+        "rs_market": 9.7,
+        "rs_sector": 9.12,
+        "volume_ratio": 3.22,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "電子零組件業"
+      }
+    }
+  }
+}
