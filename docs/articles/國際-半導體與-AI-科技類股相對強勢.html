@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>處置股預警 · 盤後快訊</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>半導體與 AI 科技類股相對強勢：美股資金面對台股供應鏈的傳導 · 盤後快訊</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 <meta name="theme-color" content="#060911">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -380,16 +380,56 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  .meta{font-size:13px; color:var(--text-muted); margin:10px 0 20px;}
-  .card{background:var(--surface); border-radius:8px; padding:16px 18px; margin-bottom:12px;
-       border-left:2px solid var(--red);}
-  .card.watch{border-left-color:var(--gold);}
-  .card.today{border-left-color:var(--text-secondary);}
-  .card-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px; margin-bottom:6px;}
-  .card-detail{font-size:13.5px; color:var(--text-secondary); line-height:1.7;}
-  .card-tag{display:inline-block; font-size:11.5px; color:var(--text-muted); margin-bottom:6px;}
-  .section-head{font-family:'Noto Serif TC',serif; font-size:16px;
-                color:var(--text-secondary); margin:28px 0 12px;}
+  body{font-family:'Noto Serif TC',serif;}
+  .meta-label{font-family:'Noto Sans TC',sans-serif; font-size:13px;
+              color:var(--gold); margin-bottom:14px;}
+  h1.title{font-size:30px; font-weight:700; line-height:1.4; margin-bottom:16px;}
+  .byline{font-family:'Noto Sans TC',sans-serif; font-size:13px; color:var(--text-muted);
+          padding-bottom:28px; border-bottom:1px solid var(--hairline); margin-bottom:28px;}
+  .summary-box{background:var(--surface); border-radius:8px;
+               padding:22px 24px; margin-bottom:36px;}
+  .summary-box .summary-label{font-family:'Noto Sans TC',sans-serif;
+                              font-size:12.5px; color:var(--gold); margin-bottom:12px;}
+  .summary-box ul{list-style:none;}
+  .summary-box li{font-family:'Noto Sans TC',sans-serif; font-size:14.5px;
+                  color:var(--text-secondary); padding-left:16px; position:relative;
+                  margin-bottom:10px; line-height:1.6;}
+  .summary-box li:last-child{margin-bottom:0;}
+  .summary-box li::before{content:""; position:absolute; left:0; top:8px;
+                          width:5px; height:5px; border-radius:50%; background:var(--gold);}
+  article h2{font-size:19px; font-weight:600; margin:36px 0 14px;}
+  article p{font-size:16px; line-height:1.9; color:var(--text-secondary); margin-bottom:16px;}
+  .pull-stat{display:flex; gap:28px; padding:20px 0; margin:22px 0;
+             border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline);
+             flex-wrap:wrap;}
+  .pull-stat .item{min-width:110px;}
+  .pull-stat .item-value{font-family:'JetBrains Mono',monospace; font-size:24px;}
+  .pull-stat .item-label{font-family:'Noto Sans TC',sans-serif; font-size:12.5px;
+                         color:var(--text-muted); margin-top:4px;}
+  .callout{border-left:2px solid var(--red); padding:16px 20px; background:var(--surface);
+           border-radius:0 6px 6px 0; margin:24px 0;}
+  .callout .callout-label{font-family:'Noto Sans TC',sans-serif; font-size:12.5px;
+                          color:var(--red); margin-bottom:8px;}
+  .callout p{font-size:14.5px; margin-bottom:0;}
+  .tracking-list{font-family:'Noto Sans TC',sans-serif;}
+  .track-item{padding:10px 0; border-bottom:1px solid var(--hairline);
+              font-size:14px; color:var(--text-secondary);}
+  .track-item:last-child{border-bottom:none;}
+  .chain-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr));
+             gap:12px; margin:16px 0 8px; font-family:'Noto Sans TC',sans-serif;}
+  .chain-segment{background:var(--surface); border-radius:8px; padding:14px 16px;}
+  .chain-label{font-size:12.5px; color:var(--gold); margin-bottom:10px;}
+  .chain-company{font-size:14px; color:var(--text-secondary); padding:6px 0;
+                 border-bottom:1px solid var(--hairline); display:flex;
+                 justify-content:space-between; align-items:center;}
+  .chain-company:last-child{border-bottom:none;}
+  .chain-company.core{color:var(--text-primary);}
+  .chain-role{font-size:11px; padding:2px 7px; border-radius:100px; flex-shrink:0;
+             background:rgba(217,164,65,.16); color:var(--gold);}
+  .chain-company.peripheral .chain-role{background:rgba(114,108,96,.16); color:var(--text-muted);}
+  .chain-peers{font-family:'Noto Sans TC',sans-serif; font-size:13px;
+               color:var(--text-muted); margin-top:10px;}
+  @media (max-width:480px){h1.title{font-size:24px;}}
 
 </style>
 </head>
@@ -401,200 +441,104 @@
     <button class="dr-close" id="drClose" aria-label="關閉選單">✕</button>
   </div>
   <h4>市場</h4>
-  <a href="index.html" class=""><span class="dr-ic">🏠</span>最新</a>
-  <a href="heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
-  <a href="chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
-  <a href="scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
-  <a href="picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
-  <a href="intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
-  <a href="lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
-  <a href="watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
-  <a href="disposition.html" class="current"><span class="dr-ic">⚠️</span>處置股預警</a>
+  <a href="../index.html" class=""><span class="dr-ic">🏠</span>最新</a>
+  <a href="../heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
+  <a href="../chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
+  <a href="../scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
+  <a href="../picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
+  <a href="../intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
+  <a href="../lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
+  <a href="../watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
+  <a href="../disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
   <h4>研究</h4>
-  <a href="themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
-  <a href="industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
-  <a href="weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
-  <a href="monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
-  <a href="analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
-  <a href="archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
-  <a href="research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
-  <a href="submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
+  <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
+  <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
+  <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
+  <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
+  <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
+  <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
+  <a href="../research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
+  <a href="../submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
 </nav>
 
 <div class="page">
   <div class="topbar">
     <button class="menu-btn" id="menuBtn" aria-label="開啟選單">☰</button>
-    <a href="index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
-    <a href="lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
-    <a href="watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
-    <a href="intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
+    <a href="../index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
+    <a href="../lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
+    <a href="../watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
+    <a href="../intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
   </div>
 
   
-<header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">處置股預警</h1></header>
-<p class="meta">2026年10月2日．週五 · 資料源：TWSE 公布注意／處置交易資訊，官方原文照登</p>
-
-<div class="section-head">處置中（0）</div>
-
-<p class="commentary">目前沒有處置中的股票。</p>
+<div class="meta-label">深度報告 · 題材知識庫 #174</div>
+<h1 class="title">半導體與 AI 科技類股相對強勢：美股資金面對台股供應鏈的傳導</h1>
+<div class="byline">首次建檔 2026-10-02　·　最後更新 2026-10-02　·　第 1 次更新</div>
 
 
-<div class="section-head">注意累計次數接近處置門檻（6）</div>
-
-
-<div class="card watch">
-  <div class="card-name">2033 佳大</div>
-  <div class="card-detail">115年10月1日至115年10月2日連續二次</div>
-</div>
-
-<div class="card watch">
-  <div class="card-name">2305 全友</div>
-  <div class="card-detail">115年9月18日至115年10月2日等九個營業日已有五次</div>
-</div>
-
-<div class="card watch">
-  <div class="card-name">3016 嘉晶</div>
-  <div class="card-detail">115年10月1日至115年10月2日連續二次</div>
-</div>
-
-<div class="card watch">
-  <div class="card-name">6533 晶心科</div>
-  <div class="card-detail">115年10月1日至115年10月2日連續二次</div>
-</div>
-
-<div class="card watch">
-  <div class="card-name">6672 騰輝電子-KY</div>
-  <div class="card-detail">115年10月1日至115年10月2日連續二次</div>
-</div>
-
-<div class="card watch">
-  <div class="card-name">8201 無敵</div>
-  <div class="card-detail">115年10月1日至115年10月2日連續二次</div>
+<div class="summary-box">
+  <div class="summary-label">摘要</div>
+  <ul><li>SMH 近 5 日 +2.9%、XLK +1.6%，類股相對 S&amp;P 領先。</li><li>紀錄指出軟通膨降低升息壓力，成長股評價回升，信心度 mid、判定 real，但僅單日一筆紀錄。</li><li>對台股的傳導屬推論；今日台股盤後半導體與 AI 相關個股同步偏強，與此題材相符。</li></ul>
 </div>
 
 
+<article>
+  <div class="pull-stat">
+    <div class="item"><div class="item-value">4</div>
+      <div class="item-label">相關供應鏈個股</div></div>
+    <div class="item"><div class="item-value">1</div>
+      <div class="item-label">累積更新次數</div></div>
+    <div class="item"><div class="item-value">中高</div>
+      <div class="item-label">目前信心度</div></div>
+  </div>
 
-<div class="section-head">今日新公布注意股票（23）</div>
+  
+  <h2>事件背景</h2>
+  <p>本題材於 2026-10-02 首次建檔，至今更新 1 次。觸發點是美股半導體與科技類股相對大盤的強勢表現：追蹤的 SMH 近 5 日上漲 2.9%、XLK 上漲 1.6%，均領先大盤。追蹤紀錄補充的背景是軟通膨降低了升息壓力，使成長股評價回升。這個敘事與同日另一個國際題材（Fed 升息路徑與殖利率高檔）互有牽動：利率壓力一旦緩和，高成長的半導體類股通常最先反映，但目前只有單日紀錄，演變過程尚短。</p>
+  
+  <h2>市場數據驗證</h2>
+  <p>已驗證的事實：SMH 近 5 日 +2.9%、XLK +1.6%，兩者都領先大盤，且紀錄稱類股相對 S&amp;P 領先。尚未取得的資料：輸入中沒有 S&amp;P 500 的具體漲幅、NVDA、AVGO 的價格或財報數字，也沒有利率與匯率的最新數值，因此無法進一步驗證領先幅度或個股貢獻。紀錄中的法人淨買賣欄位為 0，是因為這是國際題材，不代表台股法人無動作。</p>
+  
+  <h2>對台股與科技供應鏈的傳導路徑</h2>
+  <p>以下為推論。美股半導體與 AI 類股走強，通常會透過兩條路徑影響台股：一是情緒與資金面，外資對 AI 供應鏈的風險偏好上升，使台股半導體與 AI 相關個股同步獲得評價支撐；二是產業面，若美系 AI 龍頭的資本支出敘事延續，與其有供應關係的台廠訂單預期可能受惠。實際對照今日台股，加權指數收 48,475.74 點，三大法人合計買超 95.58 億元，其中外資買超 26.22 億元，PCB 與光通訊等 AI 供應鏈相關個股同步走強，與美股強勢方向一致，但這屬同日現象，不能證明因果。本報告不就個別台廠斷言受惠程度，因為輸入資料沒有供應關係的證據。</p>
+  
+  <h2>風險與觀察重點</h2>
+  <p>此題材轉弱的情況包括：軟通膨的判讀被後續數據推翻、升息預期重新升高使成長股評價再度承壓，或 AI 資本支出出現降溫跡象。另一個風險是類股相對強勢集中於少數權值股，廣度不足時容易回檔。由於目前僅有 5 日表現與單日紀錄，判定 real 的證據基礎偏薄，宜持續觀察是否延續。</p>
+  
 
+  
+  <h2>供應鏈結構</h2>
+  <div class="chain-grid">
+    
+    
+    
+    
+    
+    
+    
+  </div>
+  
+  <p class="chain-peers">國際同類公司參考：
+    US NVDA NVIDIA、US AVGO Broadcom、US SMH VanEck Semiconductor ETF、US XLK Technology Select Sector SPDR Fund
+  </p>
+  
+  
 
-<div class="card today">
-  <div class="card-name">033569 神基統一64購01</div>
-  <div class="card-detail">最近六個營業日累積收盤價跌幅達36.84%﹝第一款﹞。且10月02日統一自營證券商賣出之比率為100.00% ﹝第五款﹞。</div>
-</div>
+  
+  <h2>風險與觀察重點</h2>
+  <div class="callout">
+    <div class="callout-label">風險提示</div>
+    <p>證據僅限 5 日類股表現與單日紀錄，缺乏財報與資本支出數據；利率預期若反轉，評價回升的邏輯會被削弱；對台股的傳導關係為推論，同日走勢一致不代表因果。</p>
+  </div>
+  
 
-<div class="card today">
-  <div class="card-name">072069 普安國票5C購01</div>
-  <div class="card-detail">最近六個營業日累積收盤價漲幅達47.51%﹝第一款﹞。</div>
-</div>
-
-<div class="card today">
-  <div class="card-name">072377 友達群益5C購05</div>
-  <div class="card-detail">最近六個營業日累積收盤價漲幅達47.15%﹝第一款﹞。</div>
-</div>
-
-<div class="card today">
-  <div class="card-name">1709 和益</div>
-  <div class="card-detail">最近六十個營業日起迄兩個營業日之收盤價漲幅達148.43% 。最近九十個營業日起迄兩個營業日之收盤價漲幅達209.09% ﹝第二款﹞。</div>
-</div>
-
-<div class="card today">
-  <div class="card-name">2030 彰源</div>
-  <div class="card-detail">最近六個營業日累積收盤價漲幅達35.71%﹝第一款﹞。</div>
-</div>
-
-<div class="card today">
-  <div class="card-name">2033 佳大</div>
-  <div class="card-detail">最近六個營業日累積收盤價漲幅達33.16%﹝第一款﹞。最近三十個營業日起迄兩個營業日之收盤價漲幅達125.05% 。最近六十個營業日起迄兩個營業日之收盤價漲幅達222.01% 。最近九十個營業日起迄兩個營業日之收盤價漲幅達232.46% ﹝第二款﹞。</div>
-</div>
-
-<div class="card today">
-  <div class="card-name">2340 台亞</div>
-  <div class="card-detail">最近六個營業日累積收盤價漲幅達30.45%。且10月02日之成交量為最近六十個營業日日平均成交量之7.44倍﹝第三款﹞。且10月02日之週轉率為11.03%﹝第四款﹞。</div>
-</div>
-
-<div class="card today">
-  <div class="card-name">2466 冠西電</div>
-  <div class="card-detail">最近九十個營業日起迄兩個營業日之收盤價漲幅達189.82% ﹝第二款﹞。</div>
-</div>
-
-<div class="card today">
-  <div class="card-name">2484 希華</div>
-  <div class="card-detail">10月01日之最近六個營業日之當日沖銷成交量占最近六個營業日總成交量比率63.25%，且10月01日當日沖銷成交量占該日總成交量比率60.08%&lt;font color=&#39;#FF0000&#39;&gt;﹝第十三款﹞&lt;/font&gt;。</div>
-</div>
-
-<div class="card today">
-  <div class="card-name">3016 嘉晶</div>
-  <div class="card-detail">最近六個營業日累積收盤價漲幅達32.41%﹝第一款﹞。</div>
-</div>
-
-<div class="card today">
-  <div class="card-name">3094 聯傑</div>
-  <div class="card-detail">最近六個營業日累積收盤價漲幅達30.09%。且10月02日之週轉率為42.37%﹝第四款﹞。</div>
-</div>
-
-<div class="card today">
-  <div class="card-name">3167 大量</div>
-  <div class="card-detail">10月02日之本益比為68.79，且股價淨值比為20.45 。另當日週轉率為 7.46%，且其股價淨值比較該類股股價淨值比四倍以上﹝第六款﹞。</div>
-</div>
-
-<div class="card today">
-  <div class="card-name">3518 柏騰</div>
-  <div class="card-detail">最近六個營業日累積收盤價漲幅達33.37%﹝第一款﹞。且10月02日之成交量為最近六十個營業日日平均成交量之6.80倍﹝第三款﹞。且10月02日之週轉率為10.85%﹝第四款﹞。</div>
-</div>
-
-<div class="card today">
-  <div class="card-name">3701 大眾控</div>
-  <div class="card-detail">最近六個營業日累積收盤價漲幅達30.03%。且10月02日之成交量為最近六十個營業日日平均成交量之7.54倍﹝第三款﹞。</div>
-</div>
-
-<div class="card today">
-  <div class="card-name">6155 鈞寶</div>
-  <div class="card-detail">最近六個營業日累積收盤價漲幅達26.79%。且10月02日之成交量為最近六十個營業日日平均成交量之6.48倍﹝第三款﹞。且10月02日之週轉率為18.90%﹝第四款﹞。</div>
-</div>
-
-<div class="card today">
-  <div class="card-name">6225 天瀚</div>
-  <div class="card-detail">最近六個營業日累積收盤價漲幅達30.93%。且10月02日之成交量為最近六十個營業日日平均成交量之5.03倍﹝第三款﹞。最近六十個營業日起迄兩個營業日之收盤價漲幅達452.00% 。最近九十個營業日起迄兩個營業日之收盤價漲幅達388.30% ﹝第二款﹞。</div>
-</div>
-
-<div class="card today">
-  <div class="card-name">6426 統新</div>
-  <div class="card-detail">最近六個營業日之累積週轉率為54.56%。且10月02日之週轉率為12.81%&lt;font color=&#39;#FF0000&#39;&gt;﹝第十款﹞&lt;/font&gt;。</div>
-</div>
-
-<div class="card today">
-  <div class="card-name">6533 晶心科</div>
-  <div class="card-detail">最近六個營業日累積收盤價漲幅達34.37%。且六個營業日起迄兩個營業日收盤價價差達101.00元﹝第一款﹞。且10月02日之週轉率為14.95%﹝第四款﹞。</div>
-</div>
-
-<div class="card today">
-  <div class="card-name">6672 騰輝電子-KY</div>
-  <div class="card-detail">最近六個營業日累積收盤價漲幅達39.12%。且六個營業日起迄兩個營業日收盤價價差達132.00元﹝第一款﹞。且10月02日之週轉率為20.19%﹝第四款﹞。</div>
-</div>
-
-<div class="card today">
-  <div class="card-name">8021 尖點</div>
-  <div class="card-detail">10月02日之本益比為 111.49，且股價淨值比為12.90 。另當日週轉率為 6.25%，暨台灣摩根證券商成交買進金額達新臺幣壹億元以上，且占當日該有價證券總成交金額比率為12.88%。單一投資人當日買進該有價證券之成交金額占當日該有價證券總成交金額比率10%以上，且達新台幣壹億元以上。且其股價淨值比較該類股股價淨值比四倍以上﹝第六款﹞。</div>
-</div>
-
-<div class="card today">
-  <div class="card-name">8201 無敵</div>
-  <div class="card-detail">最近六個營業日累積收盤價漲幅達34.84%﹝第一款﹞。且10月02日之成交量為最近六十個營業日日平均成交量之9.86倍﹝第三款﹞。</div>
-</div>
-
-<div class="card today">
-  <div class="card-name">8996 高力</div>
-  <div class="card-detail">10月02日之本益比為 101.68，且股價淨值比為27.42 。另當日週轉率為 6.26%，且其股價淨值比較該類股股價淨值比四倍以上﹝第六款﹞。</div>
-</div>
-
-<div class="card today">
-  <div class="card-name">911868 同方友友-DR</div>
-  <div class="card-detail">公開資訊觀測站公告當日之前一個營業日臺灣存託憑證兩地收盤價溢價248.48% ﹝第八款﹞。</div>
-</div>
-
-
-<p class="commentary" style="margin-top:20px; font-size:13px">選股訊號（起漲點／新掛牌／黑馬）→ <a href="picks.html" style="color:var(--gold)">選股雷達</a>　·　查任一個股 → <a href="lookup.html" style="color:var(--gold)">個股查詢</a></p>
+  
+  <h2>後續追蹤指標</h2>
+  <div class="tracking-list">
+    <div class="track-item">SMH、XLK 相對 S&amp;P 500 的 5 日與 20 日表現是否持續領先</div><div class="track-item">10 年期美債殖利率與升息機率的變化</div><div class="track-item">NVDA、AVGO 等龍頭的財報與資本支出訊息（補足驗證資料）</div><div class="track-item">台股外資買賣超與半導體、AI 供應鏈個股是否持續同步強勢</div>
+  </div>
+  
+</article>
 
 
   <footer class="site-footer">
@@ -607,13 +551,13 @@
 
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
   }
-  window.__rel = "";
+  window.__rel = "../";
 </script>
-<script src="assets/ui.js?v=8c796938"></script>
+<script src="../assets/ui.js?v=8c796938"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=8c796938"></script>
+<script src="../assets/stock-chart.js?v=8c796938"></script>
 
 </body>
 </html>
