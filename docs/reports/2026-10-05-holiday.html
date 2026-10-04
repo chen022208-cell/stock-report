@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>盤中快報清單 · 盤後快訊</title>
+<title>盤後快訊 · 2026年10月5日．週一</title>
 <link rel="manifest" href="../manifest.json">
 <link rel="icon" href="../icons/icon-192.png">
 <link rel="apple-touch-icon" href="../icons/icon-192.png">
@@ -380,15 +380,76 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  .ar-sec-h{font-size:17px; margin:34px 0 0; padding-top:22px;
-            border-top:1px solid var(--hairline);}
-  .ar-row{display:block; background:var(--surface); border:1px solid var(--hairline);
-    border-radius:var(--radius-sm); padding:12px 14px; margin-bottom:9px; text-decoration:none; color:inherit;}
-  .ar-row:hover{border-color:var(--text-muted);}
-  .ar-top{display:flex; justify-content:space-between; gap:10px; align-items:baseline;}
-  .ar-name{font-weight:600; font-size:14px;}
-  .ar-when{font-size:11.5px; color:var(--text-muted);}
-  .ar-head{font-size:12.5px; color:var(--text-secondary); margin-top:4px; line-height:1.5;}
+  .hero-eyebrow{font-size:13px; color:var(--text-muted); margin-bottom:6px;
+               display:flex; align-items:center; gap:6px;}
+  .hero-number{font-family:'JetBrains Mono',monospace; font-size:38px;
+               font-weight:500; letter-spacing:-.01em;}
+  .hero-change{font-family:'JetBrains Mono',monospace; font-size:15px; margin-left:10px;}
+
+  .watch-hits{background:rgba(227,172,78,.09); border-left:3px solid var(--gold);
+              border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:13px 16px; margin-bottom:18px;}
+  .watch-hits .wh-label{font-size:12px; color:var(--gold); margin-bottom:7px; font-weight:600;}
+  .watch-hits .wh-item{font-size:14px; color:var(--text-secondary); margin-bottom:4px;}
+  .watch-hits .wh-item strong{color:var(--text-primary); font-weight:500;}
+
+  .inst-row{display:flex; align-items:center; gap:10px; margin-bottom:9px; font-size:13.5px;}
+  .inst-row:last-child{margin-bottom:0;}
+  .inst-row .inst-name{width:52px; color:var(--text-secondary); flex-shrink:0;}
+  .inst-row .bar-track{flex:1; height:6px; background:var(--surface-2);
+                       border-radius:3px; position:relative; overflow:hidden;}
+  .inst-row .bar-fill{position:absolute; top:0; bottom:0; border-radius:3px;}
+  .inst-row .bar-fill.up{background:var(--red); left:50%;}
+  .inst-row .bar-fill.down{background:var(--green); right:50%;}
+  .inst-row .inst-value{width:80px; text-align:right;
+                        font-family:'JetBrains Mono',monospace; flex-shrink:0;}
+
+  .theme-entry{background:var(--surface); border:1px solid var(--hairline);
+              border-left:3px solid var(--c-theme); border-radius:var(--radius-sm);
+              padding:14px 16px; margin-bottom:12px;}
+  .theme-entry:last-child{margin-bottom:0;}
+  .theme-header{display:flex; justify-content:space-between; align-items:baseline;
+                gap:12px; margin-bottom:7px; flex-wrap:wrap;}
+  .theme-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px;}
+  .theme-desc{font-size:14px; color:var(--text-secondary); margin-bottom:7px;}
+  .theme-meta{display:flex; justify-content:space-between; align-items:center;
+              font-size:12.5px; color:var(--text-muted); flex-wrap:wrap; gap:8px;}
+  .theme-link{font-size:12.5px; color:var(--gold); text-decoration:none;
+              display:inline-block; margin-top:7px;}
+  .theme-link:hover{text-decoration:underline;}
+
+  .darkhorse-entry{background:var(--surface); border:1px solid var(--hairline);
+                   border-left:3px solid var(--c-warn); border-radius:var(--radius-sm);
+                   padding:14px 16px; margin-bottom:10px;}
+  .darkhorse-entry:last-child{margin-bottom:0;}
+  .darkhorse-name{font-family:'Noto Serif TC',serif; font-weight:600;
+                  font-size:16px; margin-bottom:9px;}
+  .darkhorse-grid{display:grid; grid-template-columns:1fr 1fr;
+                  gap:7px 20px; font-size:13px; margin-bottom:10px;}
+  .darkhorse-grid .dh-label{color:var(--text-muted);}
+  .darkhorse-grid .dh-value{font-family:'JetBrains Mono',monospace;}
+  .darkhorse-note{font-size:13px; color:var(--text-secondary);
+                  border-top:1px solid var(--hairline); padding-top:9px;}
+
+  .tech-table{width:100%; border-collapse:collapse;}
+  .tech-table th{text-align:left; font-size:11.5px; font-weight:400;
+                 color:var(--text-muted); padding-bottom:9px;
+                 border-bottom:1px solid var(--hairline);}
+  .tech-table td{padding:10px 0; border-bottom:1px solid var(--hairline);
+                 font-size:13.5px; vertical-align:top;}
+  .tech-table tr:last-child td{border-bottom:none;}
+  .signal-bull{color:var(--red);} .signal-warn{color:var(--gold);}
+  .signal-neutral{color:var(--text-secondary);} .signal-bear{color:var(--green);}
+  .t-note{color:var(--text-muted); font-size:12.5px;}
+
+  .call-item{display:flex; justify-content:space-between; gap:12px;
+             padding:9px 0; border-bottom:1px solid var(--hairline); font-size:13.5px;}
+  .call-item:last-child{border-bottom:none;}
+  .call-note{color:var(--text-muted); font-size:12.5px;}
+
+  @media (max-width:480px){
+    .hero-number{font-size:32px;}
+    .darkhorse-grid{grid-template-columns:1fr;}
+  }
 
 </style>
 </head>
@@ -430,318 +491,373 @@
   </div>
 
   
-<header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">盤中快報</h1></header>
-<p class="commentary" style="margin-top:14px">盤中強勢股篩選抓到 A 級標的時，系統即時上網查證後產出的快報（每日上限
-10 篇）。<b>快報形式、非深度查證</b>，僅供研究參考，不構成投資建議。深度、逐檔查證過的公司分析在
-<a href="../lookup.html">個股查詢</a>。</p>
+<header style="margin-bottom:14px">
+  <div class="masthead-label">盤後快訊 · 假日功課</div>
+  <h1 class="masthead-date">2026年10月5日．週一</h1>
+</header>
 
 
 
-<a class="ar-row" href="2026-10-02-7815.html">
-  <div class="ar-top">
-    <span class="ar-name">7815 新特 <span style="color:var(--c-chip)">+5.15%</span></span>
-    <span class="ar-when">2026-10-02 11:14:43</span>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="block">
+  <h2>今日題材淘金區</h2>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">光通訊零組件</span>
+      <span class="tag confidence-low">信心度：低</span>
+    </div>
+    <p class="theme-desc">光通訊相關個股同步上攻</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="6442" data-stock-name="光聖">光聖</span>、<span data-stock-code="3450" data-stock-name="聯鈞">聯鈞</span>、<span data-stock-code="4991" data-stock-name="環宇-KY">環宇-KY</span></span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    
+    
+    <a class="theme-link" href="../articles/光通訊零組件.html">閱讀深度報告 →</a>
+    
   </div>
-  <div class="ar-head">AI測試介面題材帶動，新特盤中大漲逾5%並創20日新高，量能放大至4倍</div>
-</a>
-
-<a class="ar-row" href="2026-10-01-6113.html">
-  <div class="ar-top">
-    <span class="ar-name">6113 亞矽 <span style="color:var(--c-chip)">+9.93%</span></span>
-    <span class="ar-when">2026-10-01 11:13:59</span>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">PCB｜HDI 與軟板</span>
+      <span class="tag confidence-mid">信心度：中高</span>
+    </div>
+    <p class="theme-desc">軟板／PCB 相關個股同步走強，臻鼎漲停</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="4958" data-stock-name="臻鼎-KY">臻鼎-KY</span>、<span data-stock-code="6672" data-stock-name="騰輝電子-KY">騰輝電子-KY</span>、<span data-stock-code="2355" data-stock-name="敬鵬">敬鵬</span></span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    
+    
+    <a class="theme-link" href="../articles/PCB-HDI-與軟板.html">閱讀深度報告 →</a>
+    
   </div>
-  <div class="ar-head">亞矽盤中漲停至24.9元，近兩月營收年增逾130%，電子通路族群同步走強</div>
-</a>
-
-<a class="ar-row" href="2026-09-30-1595.html">
-  <div class="ar-top">
-    <span class="ar-name">1595 川寶 <span style="color:var(--c-chip)">+5.54%</span></span>
-    <span class="ar-when">2026-09-30 11:14:43</span>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">〔國際〕Fed 升息路徑與殖利率高檔</span>
+      <span class="tag confidence-mid">信心度：中高</span>
+    </div>
+    <p class="theme-desc">Warsh 領導的 Fed 升息疑慮反覆，PCE 低於預期使 10 月升息機率降至約 37%。</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="SPY" data-stock-name="SPY">SPY</span>、<span data-stock-code="QQQ" data-stock-name="QQQ">QQQ</span>、<span data-stock-code="TLT" data-stock-name="TLT">TLT</span></span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    
+    
+    <a class="theme-link" href="../articles/國際-Fed-升息路徑與殖利率高檔.html">閱讀深度報告 →</a>
+    
   </div>
-  <div class="ar-head">玻璃基板／TGV先進封裝題材帶動，川寶9月數度亮燈漲停，量能同步放大</div>
-</a>
-
-<a class="ar-row" href="2026-09-29-2020.html">
-  <div class="ar-top">
-    <span class="ar-name">2020 美亞 <span style="color:var(--c-chip)">+4.98%</span></span>
-    <span class="ar-when">2026-09-29 11:14:59</span>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">〔國際〕半導體與 AI 科技類股相對強勢</span>
+      <span class="tag confidence-mid">信心度：中高</span>
+    </div>
+    <p class="theme-desc">SMH 近5日 +2.9%、XLK +1.6%，領先大盤。</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="SMH" data-stock-name="SMH">SMH</span>、<span data-stock-code="NVDA" data-stock-name="NVDA">NVDA</span>、<span data-stock-code="AVGO" data-stock-name="AVGO">AVGO</span>、<span data-stock-code="XLK" data-stock-name="XLK">XLK</span></span>
+      <span class="tag verdict-real">偏真實</span>
+    </div>
+    
+    
+    <a class="theme-link" href="../articles/國際-半導體與-AI-科技類股相對強勢.html">閱讀深度報告 →</a>
+    
   </div>
-  <div class="ar-head">中鋼十月盤價全面調漲＋量比7.3倍創20日新高，美亞盤中領漲鋼管股</div>
-</a>
-
-<a class="ar-row" href="2026-09-28-3518.html">
-  <div class="ar-top">
-    <span class="ar-name">3518 柏騰 <span style="color:var(--c-chip)">+4.78%</span></span>
-    <span class="ar-when">2026-09-28 11:15:04</span>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">〔國際〕美伊局勢與油價推升通膨疑慮</span>
+      <span class="tag confidence-low">信心度：低</span>
+    </div>
+    <p class="theme-desc">美伊衝突與油價走高使股市承壓，亦推升通膨與利率擔憂。</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="XLE" data-stock-name="XLE">XLE</span>、<span data-stock-code="XOM" data-stock-name="XOM">XOM</span></span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    
+    
   </div>
-  <div class="ar-head">柏騰今日盤中大漲逾4%、量能放大至平日4倍並創20日新高，延續市場對其第三代半導體SiC轉型題材的關注，非單一當日個股新聞驅動</div>
-</a>
-
-<a class="ar-row" href="2026-09-25-3518.html">
-  <div class="ar-top">
-    <span class="ar-name">3518 柏騰 <span style="color:var(--c-chip)">+4.78%</span></span>
-    <span class="ar-when">2026-09-25 11:14:19</span>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">化工族群輪動</span>
+      <span class="tag confidence-low">信心度：低</span>
+    </div>
+    <p class="theme-desc">傳統化工股同日齊漲</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="1727" data-stock-name="中華化">中華化</span>、<span data-stock-code="1711" data-stock-name="永光">永光</span>、<span data-stock-code="1708" data-stock-name="東鹼">東鹼</span>、<span data-stock-code="4722" data-stock-name="國精化">國精化</span>、<span data-stock-code="4764" data-stock-name="雙鍵">雙鍵</span></span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    
+    
   </div>
-  <div class="ar-head">柏騰(3518)盤中續強動能，SiC轉型題材延續近期關注度，帶量創20日新高</div>
-</a>
-
-<a class="ar-row" href="2026-09-24-4573.html">
-  <div class="ar-top">
-    <span class="ar-name">4573 高明鐵 <span style="color:var(--c-chip)">+4.55%</span></span>
-    <span class="ar-when">2026-09-24 11:17:52</span>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">IC 設計｜類比與功率管理</span>
+      <span class="tag confidence-low">信心度：低</span>
+    </div>
+    <p class="theme-desc">IC 設計與矽智財相關個股同步走強</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="4919" data-stock-name="新唐">新唐</span>、<span data-stock-code="4968" data-stock-name="立積">立積</span>、<span data-stock-code="3094" data-stock-name="聯傑">聯傑</span>、<span data-stock-code="6533" data-stock-name="晶心科">晶心科</span></span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    
+    
+    <a class="theme-link" href="../articles/IC-設計-類比與功率管理.html">閱讀深度報告 →</a>
+    
   </div>
-  <div class="ar-head">受惠AI伺服器光模組升級至800G/1.6T趨勢，高明鐵CPO耦光對位設備訂單能見度高，帶動股價創一年新高，暫無單日明確個股消息，屬題材與營收動能延續。</div>
-</a>
-
-<a class="ar-row" href="2026-09-23-3032.html">
-  <div class="ar-top">
-    <span class="ar-name">3032 偉訓 <span style="color:var(--c-chip)">+7.19%</span></span>
-    <span class="ar-when">2026-09-23 11:17:21</span>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">被動元件｜MLCC</span>
+      <span class="tag confidence-mid">信心度：中高</span>
+    </div>
+    <p class="theme-desc">被動元件族群（MLCC、晶振、電容、電阻）多檔同步漲停或大漲，量能放大</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="2327" data-stock-name="國巨*">國巨*</span>、<span data-stock-code="2375" data-stock-name="凱美">凱美</span>、<span data-stock-code="2484" data-stock-name="希華">希華</span>、<span data-stock-code="3042" data-stock-name="晶技">晶技</span>、<span data-stock-code="6449" data-stock-name="鈺邦">鈺邦</span>、<span data-stock-code="3624" data-stock-name="光頡">光頡</span>、<span data-stock-code="3236" data-stock-name="千如">千如</span></span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    
+    
+    <a class="theme-link" href="../articles/被動元件-MLCC.html">閱讀深度報告 →</a>
+    
   </div>
-  <div class="ar-head">偉訓盤中大漲逾7%、放量創20日新高，AI伺服器機櫃與液冷散熱訂單能見度看至2027年第一季成主要題材</div>
-</a>
-
-<a class="ar-row" href="2026-09-21-3047.html">
-  <div class="ar-top">
-    <span class="ar-name">3047 訊舟 <span style="color:var(--c-chip)">+5.42%</span></span>
-    <span class="ar-when">2026-09-21 11:07:37</span>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">〔國際〕半導體相對強勢（價格面訊號）</span>
+      <span class="tag confidence-low">信心度：低</span>
+    </div>
+    <p class="theme-desc">SMH 近5日 +1.3%、相對 S&amp;P +2.0pt，為本週主要相對強勢類股之一</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="SMH" data-stock-name="SMH">SMH</span></span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    
+    
   </div>
-  <div class="ar-head">盤面帶動，暫無明確個股消息，量比放大創20日新高</div>
-</a>
-
-<a class="ar-row" href="2026-09-18-3162.html">
-  <div class="ar-top">
-    <span class="ar-name">3162 精確 <span style="color:var(--c-chip)">+6.19%</span></span>
-    <span class="ar-when">2026-09-18 11:06:51</span>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">〔國際〕金融與軟體類股相對弱勢</span>
+      <span class="tag confidence-low">信心度：低</span>
+    </div>
+    <p class="theme-desc">XLF 近5日 -2.1%、IGV -1.5%，相對大盤落後</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="XLF" data-stock-name="XLF">XLF</span>、<span data-stock-code="IGV" data-stock-name="IGV">IGV</span></span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    
+    
   </div>
-  <div class="ar-head">AI液冷散熱、電動車電池盒、機器人三大題材延續近期動能，月營收連創新高帶動股價爆量走強、創20日新高</div>
-</a>
-
-<a class="ar-row" href="2026-09-17-6785.html">
-  <div class="ar-top">
-    <span class="ar-name">6785 昱展新藥 <span style="color:var(--c-chip)">+9.94%</span></span>
-    <span class="ar-when">2026-09-17 11:07:12</span>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">半導體後段設備｜測試介面</span>
+      <span class="tag confidence-low">信心度：低</span>
+    </div>
+    <p class="theme-desc">半導體測試與設備相關個股（雍智科技、光焱科技、鈦昇）同步走強</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="6683" data-stock-name="雍智科技">雍智科技</span>、<span data-stock-code="7728" data-stock-name="光焱科技">光焱科技</span>、<span data-stock-code="8027" data-stock-name="鈦昇">鈦昇</span></span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    
+    
+    <a class="theme-link" href="../articles/半導體後段設備-測試介面.html">閱讀深度報告 →</a>
+    
   </div>
-  <div class="ar-head">盤面帶動，暫無明確個股消息</div>
-</a>
-
-<a class="ar-row" href="2026-09-16-8227.html">
-  <div class="ar-top">
-    <span class="ar-name">8227 巨有科技 <span style="color:var(--c-chip)">+9.82%</span></span>
-    <span class="ar-when">2026-09-16 11:07:09</span>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">矽晶圓</span>
+      <span class="tag confidence-mid">信心度：中高</span>
+    </div>
+    <p class="theme-desc">矽晶圓族群（合晶、中美晶、環球晶）同步漲停附近表態</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="6182" data-stock-name="合晶">合晶</span>、<span data-stock-code="5483" data-stock-name="中美晶">中美晶</span>、<span data-stock-code="6488" data-stock-name="環球晶">環球晶</span></span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    
+    
+    <a class="theme-link" href="../articles/矽晶圓.html">閱讀深度報告 →</a>
+    
   </div>
-  <div class="ar-head">北美Tier 1客戶4奈米設計案＋NRE訂單爆發帶動的AI ASIC題材延續，股價連日走強後今天續攻新高</div>
-</a>
-
-<a class="ar-row" href="2026-09-15-2221.html">
-  <div class="ar-top">
-    <span class="ar-name">2221 大甲 <span style="color:var(--c-chip)">+9.90%</span></span>
-    <span class="ar-when">2026-09-15 11:07:39</span>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">〔國際〕Fed升息預期與殖利率飆升</span>
+      <span class="tag confidence-high">信心度：高</span>
+    </div>
+    <p class="theme-desc">10年期美債殖利率創2007年以來新高、10月升息機率被炒高，壓抑股市估值。</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="TLT" data-stock-name="TLT">TLT</span>、<span data-stock-code="XLF" data-stock-name="XLF">XLF</span>、<span data-stock-code="SPY" data-stock-name="SPY">SPY</span></span>
+      <span class="tag verdict-real">偏真實</span>
+    </div>
+    
+    
+    <a class="theme-link" href="../articles/國際-Fed升息預期與殖利率飆升.html">閱讀深度報告 →</a>
+    
   </div>
-  <div class="ar-head">先進封裝鍍膜氣化供應系統題材延燒，股價急拉創一年新高</div>
-</a>
-
-<a class="ar-row" href="2026-09-14-4995.html">
-  <div class="ar-top">
-    <span class="ar-name">4995 晶達 <span style="color:var(--c-chip)">+4.16%</span></span>
-    <span class="ar-when">2026-09-14 11:07:18</span>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">〔國際〕油價上行與美伊戰事風險</span>
+      <span class="tag confidence-mid">信心度：中高</span>
+    </div>
+    <p class="theme-desc">美伊衝突推升油價，加劇通膨與殖利率壓力。</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="XLE" data-stock-name="XLE">XLE</span>、<span data-stock-code="XOM" data-stock-name="XOM">XOM</span></span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    
+    
+    <a class="theme-link" href="../articles/國際-油價上行與美伊戰事風險.html">閱讀深度報告 →</a>
+    
   </div>
-  <div class="ar-head">本季獲利成長動能延續，股價盤中創一年新高，暫無單一明確消息面催化</div>
-</a>
-
-<a class="ar-row" href="2026-09-11-6834.html">
-  <div class="ar-top">
-    <span class="ar-name">6834 天二科技 <span style="color:var(--c-chip)">+6.16%</span></span>
-    <span class="ar-when">2026-09-11 11:07:18</span>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">〔國際〕AI／半導體相對抗跌</span>
+      <span class="tag confidence-mid">信心度：中高</span>
+    </div>
+    <p class="theme-desc">半導體近5日跌幅小於大盤，AI敘事在高利率下仍具相對強度，10月NVIDIA GTC為觀察點。</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="NVDA" data-stock-name="NVDA">NVDA</span>、<span data-stock-code="AVGO" data-stock-name="AVGO">AVGO</span>、<span data-stock-code="SMH" data-stock-name="SMH">SMH</span></span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    
+    
+    <a class="theme-link" href="../articles/國際-AI-半導體相對抗跌.html">閱讀深度報告 →</a>
+    
   </div>
-  <div class="ar-head">9月8日公告8月營收年增114.3%效應延續，盤中量增走高創20日新高</div>
-</a>
-
-<a class="ar-row" href="2026-09-10-6937.html">
-  <div class="ar-top">
-    <span class="ar-name">6937 天虹 <span style="color:var(--c-chip)">+5.15%</span></span>
-    <span class="ar-when">2026-09-10 11:06:49</span>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">〔國際〕油價上漲與通膨疑慮</span>
+      <span class="tag confidence-mid">信心度：中高</span>
+    </div>
+    <p class="theme-desc">原油走高加劇通膨與債市波動，並與美伊衝突相關。</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="XLE" data-stock-name="XLE">XLE</span>、<span data-stock-code="USO" data-stock-name="USO">USO</span></span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    
+    
+    <a class="theme-link" href="../articles/國際-油價上漲與通膨疑慮.html">閱讀深度報告 →</a>
+    
   </div>
-  <div class="ar-head">盤面帶動，暫無明確個股消息</div>
-</a>
-
-<a class="ar-row" href="2026-09-09-4994.html">
-  <div class="ar-top">
-    <span class="ar-name">4994 傳奇 <span style="color:var(--c-chip)">+7.45%</span></span>
-    <span class="ar-when">2026-09-09 11:08:16</span>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">〔國際〕AI半導體逆勢相對強勢</span>
+      <span class="tag confidence-mid">信心度：中高</span>
+    </div>
+    <p class="theme-desc">半導體類股在大盤走弱下仍相對抗跌，AI敘事與利率壓力分歧。</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="SMH" data-stock-name="SMH">SMH</span>、<span data-stock-code="NVDA" data-stock-name="NVDA">NVDA</span>、<span data-stock-code="AVGO" data-stock-name="AVGO">AVGO</span></span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    
+    
+    <a class="theme-link" href="../articles/國際-AI半導體逆勢相對強勢.html">閱讀深度報告 →</a>
+    
   </div>
-  <div class="ar-head">盤面帶動，暫無明確個股消息</div>
-</a>
-
-<a class="ar-row" href="2026-09-08-7610.html">
-  <div class="ar-top">
-    <span class="ar-name">7610 聯友金屬-創 <span style="color:var(--c-chip)">+6.75%</span></span>
-    <span class="ar-when">2026-09-08 11:07:10</span>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">〔國際〕AI資本支出／半導體強勢</span>
+      <span class="tag confidence-high">信心度：高</span>
+    </div>
+    <p class="theme-desc">AI樂觀情緒重新點燃，半導體與科技類股大幅跑贏大盤，那斯達克創收盤新高</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="NVDA" data-stock-name="NVDA">NVDA</span>、<span data-stock-code="AVGO" data-stock-name="AVGO">AVGO</span>、<span data-stock-code="AMD" data-stock-name="AMD">AMD</span></span>
+      <span class="tag verdict-real">偏真實</span>
+    </div>
+    
+    
+    <a class="theme-link" href="../articles/國際-AI資本支出-半導體強勢.html">閱讀深度報告 →</a>
+    
   </div>
-  <div class="ar-head">鎢供應緊張、國際鎢價維持高檔的既有題材延續發酵，帶動盤中續強、創20日新高，非單一新個股利多</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-3026.html">
-  <div class="ar-top">
-    <span class="ar-name">3026 禾伸堂 <span style="color:var(--c-chip)">+9.99%</span></span>
-    <span class="ar-when">2026-09-07 09:05:13</span>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">〔國際〕Fed升息路徑重新定價／10年期殖利率飆升</span>
+      <span class="tag confidence-mid">信心度：中高</span>
+    </div>
+    <p class="theme-desc">新任Fed主席Kevin Warsh帶領FOMC升息並暗示後續可能再升，10年期公債殖利率衝上多年新高，但銀行股未同步走強</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="XLF" data-stock-name="XLF">XLF</span>、<span data-stock-code="KRE" data-stock-name="KRE">KRE</span>、<span data-stock-code="JPM" data-stock-name="JPM">JPM</span></span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    
+    
+    <a class="theme-link" href="../articles/國際-Fed升息路徑重新定價-10年期殖利率飆升.html">閱讀深度報告 →</a>
+    
   </div>
-  <div class="ar-head">AI伺服器800V HVDC電源架構升級帶動高壓MLCC需求爆發，禾伸堂訂單滿載、交期拉長至20多週，股價急拉創一年新高</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-5243.html">
-  <div class="ar-top">
-    <span class="ar-name">5243 乙盛-KY <span style="color:var(--c-chip)">+6.78%</span></span>
-    <span class="ar-when">2026-09-07 09:05:13</span>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">〔國際〕地緣風險（伊朗局勢）推升油價與通膨疑慮</span>
+      <span class="tag confidence-low">信心度：低</span>
+    </div>
+    <p class="theme-desc">頭條指伊朗情勢是推升利率與油價波動的主因，但能源類股實際上並未走強</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="XLE" data-stock-name="XLE">XLE</span>、<span data-stock-code="CVX" data-stock-name="CVX">CVX</span>、<span data-stock-code="XOM" data-stock-name="XOM">XOM</span></span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    
+    
   </div>
-  <div class="ar-head">AI伺服器散熱結構件、SpaceX低軌衛星零組件與人形機器人結構件多元題材發酵，乙盛-KY股價急拉創一年新高</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-6674.html">
-  <div class="ar-top">
-    <span class="ar-name">6674 鋐寶科技 <span style="color:var(--c-chip)">+6.71%</span></span>
-    <span class="ar-when">2026-09-07 09:05:13</span>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">〔國際〕資金集中AI／半導體，軟體與生技相對落後</span>
+      <span class="tag confidence-mid">信心度：中高</span>
+    </div>
+    <p class="theme-desc">在整體緊縮環境下，非AI核心的成長股（軟體、生技）表現明顯落後半導體</p>
+    <div class="theme-meta">
+      <span>相關個股：<span data-stock-code="MSFT" data-stock-name="MSFT">MSFT</span>、<span data-stock-code="CRM" data-stock-name="CRM">CRM</span></span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    
+    
+    <a class="theme-link" href="../articles/國際-資金集中AI-半導體-軟體與生技相對落後.html">閱讀深度報告 →</a>
+    
   </div>
-  <div class="ar-head">盤面帶動，暫無明確個股消息</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-7610.html">
-  <div class="ar-top">
-    <span class="ar-name">7610 聯友金屬-創 <span style="color:var(--c-chip)">+9.89%</span></span>
-    <span class="ar-when">2026-09-07 09:05:13</span>
-  </div>
-  <div class="ar-head">中國祭出鎢、鈷等稀有金屬出口管制、美國對中系鎢製品課25%關稅，加上2027年起美國防部全面禁採中系鎢金屬，聯友金屬身為稀缺非中系冶煉廠受惠題材延燒，股價急拉創新高</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-8374.html">
-  <div class="ar-top">
-    <span class="ar-name">8374 羅昇 <span style="color:var(--c-chip)">+7.59%</span></span>
-    <span class="ar-when">2026-09-07 09:05:13</span>
-  </div>
-  <div class="ar-head">工業自動化與AI智動化需求強勁，羅昇近月營收年增逾6成動能延續，股價急拉創一年新高</div>
-</a>
+  
+  <p class="t-note" style="margin-top:10px">完整題材知識庫（追蹤中／休眠／117 個目錄題材）→ <a href="../themes.html" style="color:var(--gold)">themes.html</a></p>
+</section>
+<hr class="divider">
 
 
 
 
-<h2 class="ar-sec-h">🎯 點播主題報告</h2>
-<p class="commentary" style="margin-top:6px">
-  由使用者在 <a href="../submit.html">提交研究</a> 頁點播主題，系統實際上網查證後產出。
-  <b>沒有外部查證來源就不產出</b>，不會放未經查證的內容。</p>
 
 
-<a class="ar-row" href="2026-09-12-3006.html">
-  <div class="ar-top">
-    <span class="ar-name">晶豪科技（3006）：記憶體超級週期下的利基型 DRAM 供應商</span>
-    <span class="ar-when">2026-09-12 · 來源 5 個 · 📄 PDF</span>
-  </div>
-  <div class="ar-head">晶豪科技是台灣專注利基型 DRAM／Flash 的 IC 設計公司，2026 年隨記憶體報價全面走揚，8 月營收年增逾 600%。公司主力在成熟製程的 DDR3/DDR4 與 LPDRAM/PSRAM，切入消費性、工控、…</div>
-</a>
 
-<a class="ar-row" href="2026-09-09-2408.html">
-  <div class="ar-top">
-    <span class="ar-name">南亞科（2408）：DDR4供給排擠效應下的記憶體超級循環受惠股</span>
-    <span class="ar-when">2026-09-09 · 來源 5 個 · 📄 PDF</span>
-  </div>
-  <div class="ar-head">南亞科技申報主業為電子零組件製造，實際上是台灣主要DRAM廠，本次查證聚焦其2026年營收獲利大幅成長的原因。核心邏輯是國際大廠（美光、三星、SK海力士）將產能轉向HBM與DDR5，使成熟製程DDR4供給緊縮，讓專攻DD…</div>
-</a>
 
-<a class="ar-row" href="2026-09-09-5484.html">
-  <div class="ar-top">
-    <span class="ar-name">慧友電子（5484）：從監視器代工轉型機器人視覺，NVIDIA／Qualcomm雙平台布局</span>
-    <span class="ar-when">2026-09-09 · 來源 5 個 · 📄 PDF</span>
-  </div>
-  <div class="ar-head">慧友電子（5484）申報主要業務為CCD電子攝影機與影像處理器，過去以安控監視器為主力，近期查證顯示公司已切入機器人視覺與邊緣AI相機領域，成為NVIDIA Jetson/Thor與Qualcomm平台的合作夥伴之一。2…</div>
-</a>
 
-<a class="ar-row" href="2026-09-08-7942.html">
-  <div class="ar-top">
-    <span class="ar-name">7942 東佑達自動化科技：興櫃新兵的精密傳動與半導體/機器人雙引擎</span>
-    <span class="ar-when">2026-09-08 · 來源 5 個 · 📄 PDF</span>
-  </div>
-  <div class="ar-head">東佑達是精密直線傳動模組廠，2026年8月6日剛登錄興櫃，掛牌首日股價暴衝、遠高於承銷價；營收結構以半導體及封測應用占比最大，同時切入CPO光通訊對位與人形機器人關節致動器等新應用。與本站題材知識庫中的「滾珠螺桿 / 線…</div>
-</a>
-
-<a class="ar-row" href="2026-09-08-6916.html">
-  <div class="ar-top">
-    <span class="ar-name">6916 華凌光電：利基顯示面板廠的 PMOLED 布局觀察</span>
-    <span class="ar-when">2026-09-08 · 來源 5 個 · 📄 PDF</span>
-  </div>
-  <div class="ar-head">華凌光電是2023年底才掛牌的利基顯示面板廠，主力為STN／TFT／PMOLED面板與模組，透過全資子公司曜凌光電切入PMOLED製造。近期毛利率隨產線良率提升而改善，但2026年1月營收轉為年減，且公開資訊對其產品線營…</div>
-</a>
-
-<a class="ar-row" href="2026-09-08-6657.html">
-  <div class="ar-top">
-    <span class="ar-name">華安醫學（6657）：以AMPK能量代謝平台切入多項罕見與慢性疾病新藥的臨床階段生技股</span>
-    <span class="ar-when">2026-09-08 · 來源 4 個 · 📄 PDF</span>
-  </div>
-  <div class="ar-head">華安醫學（Energenesis Biomedical）是一家專注新藥研發的生技公司，核心技術是透過活化細胞能量調節酵素AMPK的小分子化合物平台「ENERGI」，同時推進落髮、糖尿病足潰瘍、下肢靜脈潰瘍、遺傳性表皮分解…</div>
-</a>
-
-<a class="ar-row" href="2026-09-08-4573高明鐵.html">
-  <div class="ar-top">
-    <span class="ar-name">高明鐵（4573）：從彰化模具廠到矽光子耦光設備商的轉型軌跡</span>
-    <span class="ar-when">2026-09-08 · 來源 4 個 · 📄 PDF</span>
-  </div>
-  <div class="ar-head">高明鐵原是彰化的沖壓模具與自動化傳動零組件廠，2019年主要客戶華為遭斷單後轉向光通訊設備，目前核心產品是應用在800G／1.6T光模組與CPO（共同封裝光學）製程的矽光子耦光設備。2026年以來營收與訂單能見度明顯轉強…</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-仁新.html">
-  <div class="ar-top">
-    <span class="ar-name">仁新（6696）查證報告：透過美國子公司Belite Bio推進斯特格病變新藥，NDA已獲FDA優先審查</span>
-    <span class="ar-when">2026-09-07 · 來源 5 個 · 📄 PDF</span>
-  </div>
-  <div class="ar-head">仁新醫藥（6696）是台灣新藥開發公司，核心價值來自持股41.97%的美國子公司Belite Bio, Inc.，其開發的LBS-008（Tinlarebant）鎖定遺傳性罕見眼疾斯特格病變（Stargardt dise…</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-金居.html">
-  <div class="ar-top">
-    <span class="ar-name">金居（8358）查證報告：台灣HVLP4電解銅箔龍頭，卡位AI伺服器材料供應鏈</span>
-    <span class="ar-when">2026-09-07 · 來源 5 個 · 📄 PDF</span>
-  </div>
-  <div class="ar-head">金居開發（8358，上櫃）是台灣主要的電子級電解銅箔廠，主力產品從標準銅箔升級到超低粗糙度的HVLP4系列，已通過Intel、AMD、NVIDIA三大平台認證，供應NVIDIA H100、GB200等AI伺服器用高速CC…</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-捷立康.html">
-  <div class="ar-top">
-    <span class="ar-name">捷立康（7686）查證報告：軟組織填補與支撐平台，剛登錄興櫃的醫美／醫材新兵</span>
-    <span class="ar-when">2026-09-07 · 來源 3 個 · 📄 PDF</span>
-  </div>
-  <div class="ar-head">捷立康生物科技（7686）是2021年成立、2026年8月31日剛登錄興櫃的醫療器材公司，核心是LipoShell軟組織填補平台與HeliBarb軟組織支撐平台，首波應用鎖定乳房術後重建、體積填補與醫學美容。由於剛掛牌，…</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-玻纖布.html">
-  <div class="ar-top">
-    <span class="ar-name">玻纖布：AI 伺服器高速材料升級戰下的低介電稀缺資源</span>
-    <span class="ar-when">2026-09-07 · 來源 4 個</span>
-  </div>
-  <div class="ar-head">玻纖布（玻璃纖維布）是銅箔基板（CCL）與 PCB 的核心結構材料，隨 AI 伺服器、800G/1.6T 交換器對低訊號損耗的要求提高，產業正從一般 E-glass 往低介電常數（Low Dk）、低介電損耗（Low Df…</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-CPO.html">
-  <div class="ar-top">
-    <span class="ar-name">CPO（共同封裝光學）與矽光子：2026 商轉元年台股供應鏈解析</span>
-    <span class="ar-when">2026-09-07 · 來源 4 個</span>
-  </div>
-  <div class="ar-head">CPO（Co-Packaged Optics）將光引擎與交換器晶片共同封裝，目的是縮短電訊號路徑、大幅降低功耗，被視為 AI 資料中心高速互連下一階段的關鍵技術。2026 年隨 NVIDIA、Broadcom 的 CPO…</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-散熱.html">
-  <div class="ar-top">
-    <span class="ar-name">AI 伺服器散熱：液冷從選配變標配，台廠營收已明顯分流</span>
-    <span class="ar-when">2026-09-07 · 來源 5 個</span>
-  </div>
-  <div class="ar-head">隨著單機櫃功耗一路拉高，液冷對高階 AI 機櫃已從選配變成強制需求，市場預估液冷滲透率由 2024 年不到 10%、2025 年 15~20%，2026 年升至 40~50%。這個轉折在台廠最新月營收上看得很清楚：業務綁…</div>
-</a>
-
-<a class="ar-row" href="2026-09-07-cpo.html">
-  <div class="ar-top">
-    <span class="ar-name">CPO 共同封裝光學：2026 商轉元年，台廠光通訊供應鏈營收已同步加速</span>
-    <span class="ar-when">2026-09-07 · 來源 6 個</span>
-  </div>
-  <div class="ar-head">CPO（Co-Packaged Optics，共同封裝光學）把光引擎與交換晶片封裝在一起，取代傳統可插拔光模組，用來解決 AI 資料中心在高速率下的功耗與延遲瓶頸。2026 年被市場稱為商轉元年：輝達已宣告 CPO 進入…</div>
-</a>
 
 
 
