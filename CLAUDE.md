@@ -144,6 +144,21 @@ Claude 帳號」下、吃該帳號訂閱額度，跟你在哪台電腦開發無�
   排查是不是又回 403，不要假設是「剛好沒新聞」。** 目前沒有已知繞過方法
   （不是走這裡的 egress proxy、也不是缺 header），可能要等 IP 網段輪替或改用
   別的即時快訊來源；尚未實作 fallback。
+  ⚠️ **2026-10-06 確認：403 仍在持續中，已連續至少 6 天完全沒有任何一輪成功**
+  （git log 最後一筆「即時快訊更新」commit 停在 09-30 04:37 UTC，這之後每輪都是
+  上面講的「看起來安靜結束、其實是 403」）。當天手動 `curl` 重新驗證仍是 403。
+  依然沒有已知繞過法，純粹是現狀還沒解除，記錄下來避免每次都要重新排查一遍。
+  ⚠️ **2026-10-06 另外踩到一個會讓整支程式連 `import requests` 都失敗的環境問題**：
+  這個雲端容器同時裝了 python3.11（`python`／`python3` 指向它）和 python3.13，
+  但系統 `pip` 指令預設綁定 3.13（`/usr/lib/python3/dist-packages/pip`，標示
+  `(python 3.13)`），所以裸 `pip install -r requirements.txt` 把套件裝進 3.13
+  的 site-packages，`python -m src.main news` 用 3.11 執行時完全看不到、
+  直接 `ModuleNotFoundError: No module named 'requests'`，整輪在跑任何網路
+  請求之前就先掛了（連 403 都還沒機會發生）。**改用 `python -m pip install
+  -r requirements.txt`（讓 pip 跟 python 保證是同一個直譯器）才裝對地方。**
+  這台容器是每次 Routine 執行都重新起的，這個版本錯位大概率每輪都會重演，
+  如果之後又看到「程式一啟動就 ModuleNotFoundError」，先檢查是不是又用裸
+  `pip install` 而不是 `python -m pip install`。
   `.github/workflows/intraday.yml`。平日 08:45（Asia/Taipei）由外部 cron-job.org
   POST `repository_dispatch`（`event_type: intraday-loop`）觸發，一支長 job 內部
   每 ~55 秒跑一輪 `python -m src.main intraday`，用證交所 MIS 端點
