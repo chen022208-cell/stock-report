@@ -505,6 +505,16 @@ prompt**：步驟 1 的 `git pull --rebase origin main` 改成
 修好之前，這支 Routine 每小時的執行都要靠當次 session 自己意識到分支沒推上
 main、手動 `git push origin HEAD:main`，不能只信任 prompt 裡寫的裸指令。**
 
+⚠️ **2026-10-07 第三次踩到同一個問題，分支名又換了一個（`claude/compassionate-hawking-66dls3`）**。
+開機時這個分支本地已經有 8 個 commit（2026-10-05～10-07 的報告、逐檔查證、盤中快報），
+`git fetch` 後 `origin` 上同樣找不到這個分支，而 `origin/main` 落後 8 個 commit——
+跟上面兩段完全同一個模式，確認 `trig_018yBcbP6ZfoidQ3SWr4hXwh` 的 prompt 到現在
+還是沒被使用者手動改掉。一樣確認是乾淨 fast-forward（`git merge-base --is-ancestor
+origin/main HEAD` 為真）後直接 `git push origin HEAD:main` 救回，無衝突。
+**這代表只要這支 Routine 的 prompt 不修，這個坑會每次換個分支名字重複出現**，
+每次執行開頭都要照上面的步驟先檢查 `git log --oneline origin/main..HEAD`
+有沒有東西、確認乾淨 fast-forward 後再推，不能假設「這次應該沒事」。
+
 ## 盤中推播與個股快報格式（2026-09-18 改）
 
 - **推播門檻看漲幅，不看分數**：`config.yaml` 的 `intraday.alert_change_pct`
