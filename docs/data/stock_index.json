@@ -577,35 +577,11 @@
       "has_score": true
     },
     {
-      "code": "7947",
-      "name": "補丁科",
-      "industry": "",
-      "market": "esb",
-      "change_pct": 0.92,
-      "has_score": true
-    },
-    {
-      "code": "7949",
-      "name": "耀寬",
-      "industry": "",
-      "market": "esb",
-      "change_pct": 19.15,
-      "has_score": true
-    },
-    {
       "code": "7950",
       "name": "盛大資訊",
       "industry": "資訊服務業",
       "market": "esb",
       "change_pct": -5.43,
-      "has_score": true
-    },
-    {
-      "code": "7951",
-      "name": "大易橙",
-      "industry": "",
-      "market": "esb",
-      "change_pct": -1.13,
       "has_score": true
     },
     {
