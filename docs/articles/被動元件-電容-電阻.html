@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>處置股預警 · 盤後快訊</title>
-<link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon-192.png">
-<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>被動元件（電容／電阻）同步走強：族群呼應已現，基本面驗證仍不足 · 盤後快訊</title>
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../icons/icon-192.png">
+<link rel="apple-touch-icon" href="../icons/icon-192.png">
 <meta name="theme-color" content="#060911">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -380,16 +380,56 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
-  .meta{font-size:13px; color:var(--text-muted); margin:10px 0 20px;}
-  .card{background:var(--surface); border-radius:8px; padding:16px 18px; margin-bottom:12px;
-       border-left:2px solid var(--red);}
-  .card.watch{border-left-color:var(--gold);}
-  .card.today{border-left-color:var(--text-secondary);}
-  .card-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px; margin-bottom:6px;}
-  .card-detail{font-size:13.5px; color:var(--text-secondary); line-height:1.7;}
-  .card-tag{display:inline-block; font-size:11.5px; color:var(--text-muted); margin-bottom:6px;}
-  .section-head{font-family:'Noto Serif TC',serif; font-size:16px;
-                color:var(--text-secondary); margin:28px 0 12px;}
+  body{font-family:'Noto Serif TC',serif;}
+  .meta-label{font-family:'Noto Sans TC',sans-serif; font-size:13px;
+              color:var(--gold); margin-bottom:14px;}
+  h1.title{font-size:30px; font-weight:700; line-height:1.4; margin-bottom:16px;}
+  .byline{font-family:'Noto Sans TC',sans-serif; font-size:13px; color:var(--text-muted);
+          padding-bottom:28px; border-bottom:1px solid var(--hairline); margin-bottom:28px;}
+  .summary-box{background:var(--surface); border-radius:8px;
+               padding:22px 24px; margin-bottom:36px;}
+  .summary-box .summary-label{font-family:'Noto Sans TC',sans-serif;
+                              font-size:12.5px; color:var(--gold); margin-bottom:12px;}
+  .summary-box ul{list-style:none;}
+  .summary-box li{font-family:'Noto Sans TC',sans-serif; font-size:14.5px;
+                  color:var(--text-secondary); padding-left:16px; position:relative;
+                  margin-bottom:10px; line-height:1.6;}
+  .summary-box li:last-child{margin-bottom:0;}
+  .summary-box li::before{content:""; position:absolute; left:0; top:8px;
+                          width:5px; height:5px; border-radius:50%; background:var(--gold);}
+  article h2{font-size:19px; font-weight:600; margin:36px 0 14px;}
+  article p{font-size:16px; line-height:1.9; color:var(--text-secondary); margin-bottom:16px;}
+  .pull-stat{display:flex; gap:28px; padding:20px 0; margin:22px 0;
+             border-top:1px solid var(--hairline); border-bottom:1px solid var(--hairline);
+             flex-wrap:wrap;}
+  .pull-stat .item{min-width:110px;}
+  .pull-stat .item-value{font-family:'JetBrains Mono',monospace; font-size:24px;}
+  .pull-stat .item-label{font-family:'Noto Sans TC',sans-serif; font-size:12.5px;
+                         color:var(--text-muted); margin-top:4px;}
+  .callout{border-left:2px solid var(--red); padding:16px 20px; background:var(--surface);
+           border-radius:0 6px 6px 0; margin:24px 0;}
+  .callout .callout-label{font-family:'Noto Sans TC',sans-serif; font-size:12.5px;
+                          color:var(--red); margin-bottom:8px;}
+  .callout p{font-size:14.5px; margin-bottom:0;}
+  .tracking-list{font-family:'Noto Sans TC',sans-serif;}
+  .track-item{padding:10px 0; border-bottom:1px solid var(--hairline);
+              font-size:14px; color:var(--text-secondary);}
+  .track-item:last-child{border-bottom:none;}
+  .chain-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(160px,1fr));
+             gap:12px; margin:16px 0 8px; font-family:'Noto Sans TC',sans-serif;}
+  .chain-segment{background:var(--surface); border-radius:8px; padding:14px 16px;}
+  .chain-label{font-size:12.5px; color:var(--gold); margin-bottom:10px;}
+  .chain-company{font-size:14px; color:var(--text-secondary); padding:6px 0;
+                 border-bottom:1px solid var(--hairline); display:flex;
+                 justify-content:space-between; align-items:center;}
+  .chain-company:last-child{border-bottom:none;}
+  .chain-company.core{color:var(--text-primary);}
+  .chain-role{font-size:11px; padding:2px 7px; border-radius:100px; flex-shrink:0;
+             background:rgba(217,164,65,.16); color:var(--gold);}
+  .chain-company.peripheral .chain-role{background:rgba(114,108,96,.16); color:var(--text-muted);}
+  .chain-peers{font-family:'Noto Sans TC',sans-serif; font-size:13px;
+               color:var(--text-muted); margin-top:10px;}
+  @media (max-width:480px){h1.title{font-size:24px;}}
 
 </style>
 </head>
@@ -401,172 +441,129 @@
     <button class="dr-close" id="drClose" aria-label="關閉選單">✕</button>
   </div>
   <h4>市場</h4>
-  <a href="index.html" class=""><span class="dr-ic">🏠</span>最新</a>
-  <a href="heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
-  <a href="chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
-  <a href="scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
-  <a href="picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
-  <a href="intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
-  <a href="lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
-  <a href="watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
-  <a href="disposition.html" class="current"><span class="dr-ic">⚠️</span>處置股預警</a>
+  <a href="../index.html" class=""><span class="dr-ic">🏠</span>最新</a>
+  <a href="../heatmap.html" class=""><span class="dr-ic">🔥</span>產業熱力圖</a>
+  <a href="../chips.html" class=""><span class="dr-ic">💰</span>籌碼儀表板</a>
+  <a href="../scores.html" class=""><span class="dr-ic">⭐</span>五面向評分</a>
+  <a href="../picks.html" class=""><span class="dr-ic">🎯</span>選股雷達</a>
+  <a href="../intraday.html" class=""><span class="dr-ic">⚡</span>盤中強勢</a>
+  <a href="../lookup.html" class=""><span class="dr-ic">🔍</span>個股查詢</a>
+  <a href="../watchlist.html" class=""><span class="dr-ic">⭐</span>自選股</a>
+  <a href="../disposition.html" class=""><span class="dr-ic">⚠️</span>處置股預警</a>
   <h4>研究</h4>
-  <a href="themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
-  <a href="industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
-  <a href="weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
-  <a href="monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
-  <a href="analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
-  <a href="archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
-  <a href="research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
-  <a href="submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
+  <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
+  <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
+  <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
+  <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
+  <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
+  <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
+  <a href="../research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
+  <a href="../submit.html" class=""><span class="dr-ic">📤</span>提交研究</a>
 </nav>
 
 <div class="page">
   <div class="topbar">
     <button class="menu-btn" id="menuBtn" aria-label="開啟選單">☰</button>
-    <a href="index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
-    <a href="lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
-    <a href="watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
-    <a href="intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
+    <a href="../index.html" class="brand">盤後快訊<span class="live-dot"></span><small>台股資訊整理 · 非投資建議</small></a>
+    <a href="../lookup.html" class="iconbtn" aria-label="個股查詢">🔍</a>
+    <a href="../watchlist.html" class="iconbtn" aria-label="自選股">⭐</a>
+    <a href="../intraday.html" class="iconbtn" aria-label="盤中強勢">⚡</a>
   </div>
 
   
-<header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">處置股預警</h1></header>
-<p class="meta">2026年10月7日．週三 · 資料源：TWSE 公布注意／處置交易資訊，官方原文照登</p>
-
-<div class="section-head">處置中（17）</div>
+<div class="meta-label">深度報告 · 題材知識庫 #188</div>
+<h1 class="title">被動元件（電容／電阻）同步走強：族群呼應已現，基本面驗證仍不足</h1>
+<div class="byline">首次建檔 2026-10-07　·　最後更新 2026-10-07　·　第 1 次更新</div>
 
 
-<div class="card">
-  <div class="card-tag">處置期間 115/10/01～115/10/07 · 第一次處置</div>
-  <div class="card-name">086845 全友台新64購01</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/10/08～115/10/15 · 第一次處置</div>
-  <div class="card-name">1709 和益</div>
-  <div class="card-detail">最近十個營業日已有六次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/10/02～115/10/08 · 第一次處置</div>
-  <div class="card-name">2030 彰源</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/10/06～115/10/13 · 第一次處置</div>
-  <div class="card-name">2033 佳大</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/10/08～115/10/15 · 第一次處置</div>
-  <div class="card-name">2466 冠西電</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/10/01～115/10/12 · 第一次處置</div>
-  <div class="card-name">3016 嘉晶</div>
-  <div class="card-detail">連續三次及當日沖銷標準</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/10/01～115/10/12 · 第二次處置</div>
-  <div class="card-name">3055 蔚華科</div>
-  <div class="card-detail">連續五次及當日沖銷標準</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/10/07～115/10/14 · 第一次處置</div>
-  <div class="card-name">3094 聯傑</div>
-  <div class="card-detail">最近十個營業日已有六次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/10/05～115/10/12 · 第一次處置</div>
-  <div class="card-name">3167 大量</div>
-  <div class="card-detail">最近十個營業日已有六次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/10/07～115/10/14 · 第一次處置</div>
-  <div class="card-name">3518 柏騰</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/10/08～115/10/15 · 第一次處置</div>
-  <div class="card-name">3701 大眾控</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/10/08～115/10/19 · 第一次處置</div>
-  <div class="card-name">6213 聯茂</div>
-  <div class="card-detail">連續三次及當日沖銷標準</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/10/06～115/10/13 · 第一次處置</div>
-  <div class="card-name">6533 晶心科</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/10/06～115/10/13 · 第一次處置</div>
-  <div class="card-name">6672 騰輝電子-KY</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/10/08～115/10/15 · 第一次處置</div>
-  <div class="card-name">6957 裕慶-KY</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/10/06～115/10/13 · 第一次處置</div>
-  <div class="card-name">8201 無敵</div>
-  <div class="card-detail">連續三次</div>
-</div>
-
-<div class="card">
-  <div class="card-tag">處置期間 115/10/05～115/10/12 · 第二次處置</div>
-  <div class="card-name">8996 高力</div>
-  <div class="card-detail">最近十個營業日已有六次</div>
+<div class="summary-box">
+  <div class="summary-label">摘要</div>
+  <ul><li>2026-10-07鈺邦、立隆電（電容）與光頡、大毅（電阻）4檔同步上漲4.7%~10%，鈺邦量能5.25倍、大毅5.33倍（已建檔事實）。</li><li>追蹤紀錄的法人淨買超合計約5,179.5張，但個股間不一致：鈺邦當日三大法人合計賣超360張，買盤並非全面由法人主導。</li><li>營收與訂單資料目前缺席，題材判定維持watch，尚待後續月營收與法人資料驗證。</li></ul>
 </div>
 
 
+<article>
+  <div class="pull-stat">
+    <div class="item"><div class="item-value">4</div>
+      <div class="item-label">相關供應鏈個股</div></div>
+    <div class="item"><div class="item-value">1</div>
+      <div class="item-label">累積更新次數</div></div>
+    <div class="item"><div class="item-value">中高</div>
+      <div class="item-label">目前信心度</div></div>
+  </div>
 
-<div class="section-head">注意累計次數接近處置門檻（3）</div>
+  
+  <h2>事件背景</h2>
+  <p>本題材於2026-10-07首次建檔，起因是被動元件族群同日同步走強：電容端的鈺邦、立隆電，電阻端的光頡、大毅，4檔漲幅介於4.7%至10%，光頡當日報漲停（10.0%）。當日盤中新聞多以「被動元件族群買氣延燒」描述立隆電與大毅，鈺邦則被新聞連結到AI伺服器高規固態電容。題材僅更新1次，尚無演變歷程；以下所述多為當日單日表現。</p>
+  
+  <h2>訂單與財務驗證</h2>
+  <p>已驗證的事實有三項：其一，量能放大，鈺邦約5.25倍、大毅約5.33倍；其二，追蹤紀錄顯示4檔法人淨買超合計約5,179.5張；其三，鈺邦當日三大法人合計賣超360張，說明上述買超並非每檔一致，可能集中在其他個股。至於訂單與財務：輸入資料沒有月營收、毛利率或訂單數字，唯一的基本面線索是新聞標題稱鈺邦AI伺服器占比約四成、SMLC明年驗證擴大，此屬媒體轉述、未經財報核實。因此「營收是否支持題材」目前無法回答，月營收公告週（10月上旬）是重要的驗證時點。</p>
+  
+  <h2>個股比較</h2>
+  <p>4檔個股依產品可分兩類：電容（鈺邦、立隆電）與電阻（光頡、大毅）。從現有資料看，鈺邦有最具體的題材連結，即AI伺服器高規固態電容，但法人當日為賣超，買盤來源不明；立隆電與大毅的新聞僅描述族群買氣，未見獨立的訂單或客戶資訊；光頡漲停但輸入沒有量能或籌碼資料。因此無法嚴格區分核心受惠者與邊緣廠商——這是資料不足，而非判斷結果。若要區分，需看各家AI伺服器、車用等應用占比與月營收增速。</p>
+  
+  <h2>風險與觀察重點</h2>
+  <p>最大的疑慮是單日族群拉抬可能是短線輪動而非需求轉折：被動元件過去有明顯的景氣與庫存循環（此為產業常見現象，非本次資料所證實），單日同步上漲並不等於訂單回升。其次，法人在鈺邦賣超，若後續法人仍不跟進，行情可能由短線資金推動而缺乏持續性。再者，量能放大5倍以上的標的，漲後回檔的波動也會放大。上述均為推論，待資料驗證。</p>
+  
 
+  
+  <h2>供應鏈結構</h2>
+  <div class="chain-grid">
+    
+    
+    
+    
+    <div class="chain-segment">
+      <div class="chain-label">被動元件製造（電容／電阻）</div>
+      
+      <div class="chain-company core">
+        6449 鈺邦
+        <span class="chain-role">核心</span>
+      </div>
+      
+      <div class="chain-company core">
+        2472 立隆電
+        <span class="chain-role">核心</span>
+      </div>
+      
+      <div class="chain-company core">
+        3624 光頡
+        <span class="chain-role">核心</span>
+      </div>
+      
+      <div class="chain-company core">
+        2478 大毅
+        <span class="chain-role">核心</span>
+      </div>
+      
+    </div>
+    
+    
+    
+    
+  </div>
+  
+  <p class="chain-peers">國際同類公司參考：
+    JP 6981 村田製作所、JP 6762 TDK、US VSH Vishay
+  </p>
+  
+  
 
-<div class="card watch">
-  <div class="card-name">2033 佳大</div>
-  <div class="card-detail">115年10月6日至115年10月7日連續二次</div>
-</div>
+  
+  <h2>風險與觀察重點</h2>
+  <div class="callout">
+    <div class="callout-label">風險提示</div>
+    <p>樣本僅單日；缺營收與訂單驗證；法人買賣在個股間不一致（鈺邦賣超360張）；被動元件景氣循環與短線輪動風險；新聞稱AI伺服器占比等數字未經財報核實。</p>
+  </div>
+  
 
-<div class="card watch">
-  <div class="card-name">6672 騰輝電子-KY</div>
-  <div class="card-detail">115年10月6日至115年10月7日連續二次</div>
-</div>
-
-<div class="card watch">
-  <div class="card-name">8021 尖點</div>
-  <div class="card-detail">115年10月2日至115年10月7日連續四次</div>
-</div>
-
-
-
-<div class="section-head">今日新公布注意股票（0）</div>
-
-<p class="commentary">今天沒有新公布的注意股票。</p>
-
-<p class="commentary" style="margin-top:20px; font-size:13px">選股訊號（起漲點／新掛牌／黑馬）→ <a href="picks.html" style="color:var(--gold)">選股雷達</a>　·　查任一個股 → <a href="lookup.html" style="color:var(--gold)">個股查詢</a></p>
+  
+  <h2>後續追蹤指標</h2>
+  <div class="tracking-list">
+    <div class="track-item">4檔個股9月與後續月營收（10月上旬公告）的年增率與月增率</div><div class="track-item">三大法人在4檔個股的連續買賣超方向</div><div class="track-item">鈺邦AI伺服器相關營收占比是否在財報揭露</div><div class="track-item">族群量能是否維持，或回到平均水準</div><div class="track-item">國際被動元件同業的報價與訂單訊息</div>
+  </div>
+  
+</article>
 
 
   <footer class="site-footer">
@@ -579,13 +576,13 @@
 
 <script>
   if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js").catch(function () {});
+    navigator.serviceWorker.register("../sw.js").catch(function () {});
   }
-  window.__rel = "";
+  window.__rel = "../";
 </script>
-<script src="assets/ui.js?v=8c796938"></script>
+<script src="../assets/ui.js?v=8c796938"></script>
 <script src="https://cdn.jsdelivr.net/npm/lightweight-charts@5.2.1/dist/lightweight-charts.standalone.production.js"></script>
-<script src="assets/stock-chart.js?v=8c796938"></script>
+<script src="../assets/stock-chart.js?v=8c796938"></script>
 
 </body>
 </html>
