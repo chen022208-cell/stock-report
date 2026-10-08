@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>深度月報：全球總經＋台股結構＋焦點個股 · 盤後快訊</title>
+<title>盤後快訊 · 2026年10月9日．週五</title>
 <link rel="manifest" href="../manifest.json">
 <link rel="icon" href="../icons/icon-192.png">
 <link rel="apple-touch-icon" href="../icons/icon-192.png">
@@ -380,6 +380,77 @@
     border-left:3px solid var(--accent); border-radius:var(--radius-sm); padding:7px 10px; margin:2px 0 10px; line-height:1.55;}
   @media (max-width:560px){ .sc-swot-grid{grid-template-columns:1fr;} }
 
+  .hero-eyebrow{font-size:13px; color:var(--text-muted); margin-bottom:6px;
+               display:flex; align-items:center; gap:6px;}
+  .hero-number{font-family:'JetBrains Mono',monospace; font-size:38px;
+               font-weight:500; letter-spacing:-.01em;}
+  .hero-change{font-family:'JetBrains Mono',monospace; font-size:15px; margin-left:10px;}
+
+  .watch-hits{background:rgba(227,172,78,.09); border-left:3px solid var(--gold);
+              border-radius:0 var(--radius-sm) var(--radius-sm) 0; padding:13px 16px; margin-bottom:18px;}
+  .watch-hits .wh-label{font-size:12px; color:var(--gold); margin-bottom:7px; font-weight:600;}
+  .watch-hits .wh-item{font-size:14px; color:var(--text-secondary); margin-bottom:4px;}
+  .watch-hits .wh-item strong{color:var(--text-primary); font-weight:500;}
+
+  .inst-row{display:flex; align-items:center; gap:10px; margin-bottom:9px; font-size:13.5px;}
+  .inst-row:last-child{margin-bottom:0;}
+  .inst-row .inst-name{width:52px; color:var(--text-secondary); flex-shrink:0;}
+  .inst-row .bar-track{flex:1; height:6px; background:var(--surface-2);
+                       border-radius:3px; position:relative; overflow:hidden;}
+  .inst-row .bar-fill{position:absolute; top:0; bottom:0; border-radius:3px;}
+  .inst-row .bar-fill.up{background:var(--red); left:50%;}
+  .inst-row .bar-fill.down{background:var(--green); right:50%;}
+  .inst-row .inst-value{width:80px; text-align:right;
+                        font-family:'JetBrains Mono',monospace; flex-shrink:0;}
+
+  .theme-entry{background:var(--surface); border:1px solid var(--hairline);
+              border-left:3px solid var(--c-theme); border-radius:var(--radius-sm);
+              padding:14px 16px; margin-bottom:12px;}
+  .theme-entry:last-child{margin-bottom:0;}
+  .theme-header{display:flex; justify-content:space-between; align-items:baseline;
+                gap:12px; margin-bottom:7px; flex-wrap:wrap;}
+  .theme-name{font-family:'Noto Serif TC',serif; font-weight:600; font-size:16px;}
+  .theme-desc{font-size:14px; color:var(--text-secondary); margin-bottom:7px;}
+  .theme-meta{display:flex; justify-content:space-between; align-items:center;
+              font-size:12.5px; color:var(--text-muted); flex-wrap:wrap; gap:8px;}
+  .theme-link{font-size:12.5px; color:var(--gold); text-decoration:none;
+              display:inline-block; margin-top:7px;}
+  .theme-link:hover{text-decoration:underline;}
+
+  .darkhorse-entry{background:var(--surface); border:1px solid var(--hairline);
+                   border-left:3px solid var(--c-warn); border-radius:var(--radius-sm);
+                   padding:14px 16px; margin-bottom:10px;}
+  .darkhorse-entry:last-child{margin-bottom:0;}
+  .darkhorse-name{font-family:'Noto Serif TC',serif; font-weight:600;
+                  font-size:16px; margin-bottom:9px;}
+  .darkhorse-grid{display:grid; grid-template-columns:1fr 1fr;
+                  gap:7px 20px; font-size:13px; margin-bottom:10px;}
+  .darkhorse-grid .dh-label{color:var(--text-muted);}
+  .darkhorse-grid .dh-value{font-family:'JetBrains Mono',monospace;}
+  .darkhorse-note{font-size:13px; color:var(--text-secondary);
+                  border-top:1px solid var(--hairline); padding-top:9px;}
+
+  .tech-table{width:100%; border-collapse:collapse;}
+  .tech-table th{text-align:left; font-size:11.5px; font-weight:400;
+                 color:var(--text-muted); padding-bottom:9px;
+                 border-bottom:1px solid var(--hairline);}
+  .tech-table td{padding:10px 0; border-bottom:1px solid var(--hairline);
+                 font-size:13.5px; vertical-align:top;}
+  .tech-table tr:last-child td{border-bottom:none;}
+  .signal-bull{color:var(--red);} .signal-warn{color:var(--gold);}
+  .signal-neutral{color:var(--text-secondary);} .signal-bear{color:var(--green);}
+  .t-note{color:var(--text-muted); font-size:12.5px;}
+
+  .call-item{display:flex; justify-content:space-between; gap:12px;
+             padding:9px 0; border-bottom:1px solid var(--hairline); font-size:13.5px;}
+  .call-item:last-child{border-bottom:none;}
+  .call-note{color:var(--text-muted); font-size:12.5px;}
+
+  @media (max-width:480px){
+    .hero-number{font-size:32px;}
+    .darkhorse-grid{grid-template-columns:1fr;}
+  }
+
 </style>
 </head>
 <body data-section="">
@@ -403,7 +474,7 @@
   <a href="../themes.html" class=""><span class="dr-ic">📚</span>題材知識庫</a>
   <a href="../industry/index.html" class=""><span class="dr-ic">🏭</span>產業深度分析</a>
   <a href="../weekly/index.html" class=""><span class="dr-ic">📅</span>每週深度週報</a>
-  <a href="../monthly-deep/index.html" class="current"><span class="dr-ic">🌍</span>每月深度月報</a>
+  <a href="../monthly-deep/index.html" class=""><span class="dr-ic">🌍</span>每月深度月報</a>
   <a href="../analysis/index.html"><span class="dr-ic">📝</span>點播分析報告</a>
   <a href="../archive.html" class=""><span class="dr-ic">🗂️</span>歷史報告</a>
   <a href="../research.html" class=""><span class="dr-ic">📥</span>研究筆記</a>
@@ -420,27 +491,135 @@
   </div>
 
   
-<header><div class="masthead-label">盤後快訊</div>
-<h1 class="masthead-date">深度月報：全球總經＋台股結構＋焦點個股</h1></header>
-<p class="commentary" style="margin-top:14px">每月 1 號產出，聚焦全球總經趨勢、台股結構性變化，以及當月表現最突出的個股深度分析。跟每月 12 號的事後績效回顧是不同的兩份報告。</p>
+<header style="margin-bottom:14px">
+  <div class="masthead-label">盤後快訊 · 早報 · 國際盤摘要</div>
+  <h1 class="masthead-date">2026年10月9日．週五</h1>
+</header>
 
-<div class="section-head">本月報告</div>
 
 
-<a href="2026-09.pdf" class="card" style="display:block; text-decoration:none; margin-bottom:14px;">
-  <div style="display:flex; justify-content:space-between; align-items:baseline; gap:10px; flex-wrap:wrap; margin-bottom:8px;">
-    <span class="theme-name">2026年9月 深度月報</span>
-    <span class="tag confidence-mid">PDF</span>
+
+
+
+
+
+<section class="block">
+  <h2>國際盤摘要</h2>
+  <div class="stat-grid">
+    
+    <div class="stat"><span class="stat-label">道瓊</span>
+      <span class="stat-value up">51,232 +0.10%</span></div>
+    
+    <div class="stat"><span class="stat-label">那斯達克</span>
+      <span class="stat-value down">27,193 -1.25%</span></div>
+    
+    <div class="stat"><span class="stat-label">S&amp;P 500</span>
+      <span class="stat-value down">7,765 -0.47%</span></div>
+    
+    <div class="stat"><span class="stat-label">費半 SOX</span>
+      <span class="stat-value down">12,624 -3.39%</span></div>
+    
+    
+    <div class="stat"><span class="stat-label">美元指數</span>
+      <span class="stat-value mono">102.11（-0.12%）</span></div>
+    
+    <div class="stat"><span class="stat-label">西德州原油</span>
+      <span class="stat-value mono">91.11（+3.21%）</span></div>
+    
+    <div class="stat"><span class="stat-label">黃金</span>
+      <span class="stat-value mono">4,165.2（+0.59%）</span></div>
+    
+    <div class="stat"><span class="stat-label">10年美債殖利率</span>
+      <span class="stat-value mono">5.23%（-0.87%）</span></div>
+    
+    <div class="stat"><span class="stat-label">VIX 波動率</span>
+      <span class="stat-value mono">15.41（+2.19%）</span></div>
+    
+    <div class="stat"><span class="stat-label">台積電 ADR</span>
+      <span class="stat-value mono">457.99（-3.01%）</span></div>
+    
   </div>
-  <p class="theme-sum">聯準會9月16日升息一碼至3.75%～4.00%、為2023年來首度升息，10年期美債殖利率月底飆至5.29%創19年新高；美伊衝突再升溫，布蘭特原油一度衝破120美元。台股9月淨漲約1,811點、23日盤中觸及48,157.29點月高後拉回，收47,940.13點，投信全月穩定買超481.6億元、外資買賣交錯僅淨入96.5億元。記憶體三雄月中強漲後因外資調節單月收黑，資金轉向AI客製化ASIC設計（聯發科、創意電子）、先進封裝（日月光投控）與高階ABF載板（欣興）四檔焦點股，單月漲幅17.6%至31.8%。</p>
-  <div class="theme-meta">2026年9月1日～9月30日．全球總經＋台股結構＋焦點個股</div>
-</a>
+  <p class="commentary">隔夜對台股影響最大的是費半 SOX 重挫 3.39%、台積電 ADR 同步下跌 3.01%，那斯達克回落 1.25%，而道瓊仍小漲 0.1%，顯示賣壓集中在半導體與成長股，而非全面風險趨避。背景是 10 年美債殖利率仍在 5.23% 高檔、西德州原油漲 3.21% 至 91.11，升息預期雖因疲弱就業數據降溫，FOMC 紀要仍顯示多數官員預期年底前再升息，長天期利率壓抑高評價科技股。對台股而言，AI 伺服器、先進製程與封測等權值族群今日開盤恐承受跟跌壓力；金融股對殖利率較敏感，油價走高則牽動石化、航運的報價連動。需注意的是，國際 AI 題材的敘事仍在、僅屬短線休息，若台股相關個股今日跌幅明顯小於費半，則屬內外盤背離，值得觀察外資態度。VIX 僅 15.41、美元指數 102.11 小幅走弱，整體情緒並未恐慌，以上為資訊整理，非投資建議。</p>
+</section>
+<hr class="divider">
+
+
+
+
+
+
+
+<section class="block">
+  <h2>國際題材追蹤</h2>
+  <p class="commentary" style="margin-bottom:16px">升息預期因疲弱就業數據降溫、美股逼近歷史高點，但10年期殖利率創2002年以來新高、油價與財政疑慮使資金氛圍偏謹慎樂觀</p>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">聯準會升息預期降溫與殖利率攀升</span>
+      <span class="tag confidence-mid">一致性：中</span>
+    </div>
+    <p class="theme-desc">疲弱9月就業報告壓低10月升息機率，但FOMC會議紀要顯示多數官員仍預期年底前再升息</p>
+    <div class="theme-meta"><span>推動因素：9月非農疲弱、FOMC會議紀要、10年期殖利率創2002年新高、Nasdaq與S&amp;P 500創高後回檔</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：XLF、IGV</span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：利率預期與美元走勢影響外資匯出入與台股評價；金融股（壽險、銀行）對殖利率較敏感，成長股承壓於長天期殖利率</span></div>
+  </div>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">AI榮景持續但半導體短線休息</span>
+      <span class="tag confidence-mid">一致性：中</span>
+    </div>
+    <p class="theme-desc">高利率未壓抑AI投資熱度，但半導體ETF近5日落後大盤，軟體相對抗跌</p>
+    <div class="theme-meta"><span>推動因素：紐時指出高利率下AI熱潮不減；SMH近5日-1.7%、IGV +1.3%；財報季前市場對獲利有疑慮</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：NVDA、AVGO、SMH、IGV</span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：AI伺服器、先進製程與封測供應鏈為台股主軸，美半導體短線拉回可能使相關權值股震盪，需觀察財報季資本支出指引</span></div>
+  </div>
+  
+  <div class="theme-entry">
+    <div class="theme-header">
+      <span class="theme-name">油價與能源類股走強</span>
+      <span class="tag confidence-mid">一致性：中</span>
+    </div>
+    <p class="theme-desc">能源類股近5日明顯領先大盤，油價走勢與中東緊張牽動通膨與升息預期</p>
+    <div class="theme-meta"><span>推動因素：XLE近5日+4.1%，相對S&amp;P +2.8pt；高油價與財政疑慮使全球股市一度下滑；中東情勢</span></div>
+    <div class="theme-meta" style="margin-top:6px">
+      <span>美股標的：XLE</span>
+      <span class="tag verdict-watch">待觀察</span>
+    </div>
+    <div class="theme-meta" style="margin-top:6px"><span>台股傳導：油價影響台灣進口成本與通膨預期，石化、航運族群與原物料報價連動，需觀察油價持續性</span></div>
+  </div>
+  
+</section>
+<hr class="divider">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
   <footer class="site-footer">
-    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-10-09 07:19</p>
+    <p>資料來源：TWSE、公開資訊觀測站、國際財經資料源　·　產出時間 2026-10-09 07:18</p>
     <p>本頁面為系統自動生成之市場資訊整理，僅供個人研究參考，不構成投資建議。</p>
   </footer>
 </div>
