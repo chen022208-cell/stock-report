@@ -1,26 +1,26 @@
 {
   "date": "2026-10-09",
-  "at": "2026-10-09 10:14:59",
+  "at": "2026-10-09 10:26:43",
   "new_codes": [
-    "8289"
+    "3684"
   ],
   "stocks": {
-    "8289": {
-      "code": "8289",
-      "name": "泰藝",
+    "3684": {
+      "code": "3684",
+      "name": "榮昌",
       "tier": "A",
-      "peak_score": 89.5,
-      "first_seen": "2026-10-09 10:14:59",
-      "last_seen": "2026-10-09 10:14:59",
+      "peak_score": 87.9,
+      "first_seen": "2026-10-09 10:26:43",
+      "last_seen": "2026-10-09 10:26:43",
       "signals": {
-        "change_pct": 9.93,
-        "rs_market": 10.92,
-        "rs_sector": 10.3,
-        "volume_ratio": 7.39,
+        "change_pct": 3.31,
+        "rs_market": 4.3,
+        "rs_sector": 4.0,
+        "volume_ratio": 34.89,
         "breakout_20d": true,
-        "breakout_120d": false,
+        "breakout_120d": true,
         "breakout_252d": false,
-        "industry": "電子零組件業"
+        "industry": "通信網路業"
       }
     }
   }
