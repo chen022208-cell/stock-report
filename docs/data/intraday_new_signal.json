@@ -1,26 +1,26 @@
 {
   "date": "2026-10-09",
-  "at": "2026-10-09 10:26:43",
+  "at": "2026-10-09 10:28:32",
   "new_codes": [
-    "3684"
+    "3147"
   ],
   "stocks": {
-    "3684": {
-      "code": "3684",
-      "name": "榮昌",
+    "3147": {
+      "code": "3147",
+      "name": "大綜",
       "tier": "A",
-      "peak_score": 87.9,
-      "first_seen": "2026-10-09 10:26:43",
-      "last_seen": "2026-10-09 10:26:43",
+      "peak_score": 87.5,
+      "first_seen": "2026-10-09 10:28:32",
+      "last_seen": "2026-10-09 10:28:32",
       "signals": {
-        "change_pct": 3.31,
-        "rs_market": 4.3,
-        "rs_sector": 4.0,
-        "volume_ratio": 34.89,
+        "change_pct": 4.41,
+        "rs_market": 5.4,
+        "rs_sector": 4.52,
+        "volume_ratio": 4.6,
         "breakout_20d": true,
-        "breakout_120d": true,
+        "breakout_120d": false,
         "breakout_252d": false,
-        "industry": "通信網路業"
+        "industry": "資訊服務業"
       }
     }
   }
