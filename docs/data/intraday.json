@@ -1,9 +1,9 @@
 {
-  "as_of": "2026-10-09 12:04:36",
+  "as_of": "2026-10-09 12:06:48",
   "display_delay_min": 15,
   "market_status": "open",
-  "session_fraction": 0.684,
-  "elapsed_fraction": 0.684,
+  "session_fraction": 0.692,
+  "elapsed_fraction": 0.692,
   "taiex": {
     "value": 49313.44,
     "prev_close": 49806.37,
@@ -15,7 +15,7 @@
     "B": 31,
     "shown_per_tier": 40,
     "scanned": 1932,
-    "passed_funnel": 148
+    "passed_funnel": 146
   },
   "tiers": {
     "A": [
@@ -27,7 +27,7 @@
         "volume": 857.0,
         "rs_market": 10.99,
         "rs_sector": 10.42,
-        "volume_ratio": 7.6,
+        "volume_ratio": 7.51,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -48,7 +48,7 @@
         "volume": 4397.0,
         "rs_market": 10.88,
         "rs_sector": 10.66,
-        "volume_ratio": 21.36,
+        "volume_ratio": 21.1,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -69,7 +69,7 @@
         "volume": 470.0,
         "rs_market": 10.82,
         "rs_sector": 9.83,
-        "volume_ratio": 20.21,
+        "volume_ratio": 19.97,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -90,7 +90,7 @@
         "volume": 141.0,
         "rs_market": 10.89,
         "rs_sector": 9.9,
-        "volume_ratio": 9.23,
+        "volume_ratio": 9.12,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -111,7 +111,7 @@
         "volume": 393.0,
         "rs_market": 5.61,
         "rs_sector": 4.62,
-        "volume_ratio": 7.32,
+        "volume_ratio": 7.24,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -132,7 +132,7 @@
         "volume": 9624.0,
         "rs_market": 8.57,
         "rs_sector": 7.19,
-        "volume_ratio": 3.06,
+        "volume_ratio": 3.02,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -140,7 +140,7 @@
         "breakout_120d": true,
         "breakout_252d": true,
         "industry": "生技醫療業",
-        "score": 91.8,
+        "score": 91.4,
         "tier": "A",
         "ex": "otc",
         "low_confidence": false
@@ -153,7 +153,7 @@
         "volume": 639.0,
         "rs_market": 10.76,
         "rs_sector": 9.38,
-        "volume_ratio": 87.19,
+        "volume_ratio": 86.17,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -174,7 +174,7 @@
         "volume": 212.0,
         "rs_market": 5.71,
         "rs_sector": 5.49,
-        "volume_ratio": 4.58,
+        "volume_ratio": 4.52,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -195,7 +195,7 @@
         "volume": 2485.0,
         "rs_market": 8.36,
         "rs_sector": 7.68,
-        "volume_ratio": 5.66,
+        "volume_ratio": 5.59,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -209,27 +209,6 @@
         "low_confidence": false
       },
       {
-        "code": "3265",
-        "name": "台星科",
-        "price": 238.5,
-        "change_pct": 9.91,
-        "volume": 4525.0,
-        "rs_market": 10.9,
-        "rs_sector": 10.74,
-        "volume_ratio": 2.8,
-        "above_open": true,
-        "above_prev_close": true,
-        "breakout_20d": true,
-        "breakout_60d": true,
-        "breakout_120d": true,
-        "breakout_252d": true,
-        "industry": "半導體業",
-        "score": 89.5,
-        "tier": "A",
-        "ex": "otc",
-        "low_confidence": false
-      },
-      {
         "code": "3290",
         "name": "東浦",
         "price": 55.8,
@@ -237,7 +216,7 @@
         "volume": 3876.0,
         "rs_market": 10.83,
         "rs_sector": 10.21,
-        "volume_ratio": 9.5,
+        "volume_ratio": 9.39,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -258,7 +237,7 @@
         "volume": 470.0,
         "rs_market": 10.99,
         "rs_sector": 10.0,
-        "volume_ratio": 10.17,
+        "volume_ratio": 10.05,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -279,7 +258,7 @@
         "volume": 4765.0,
         "rs_market": 10.85,
         "rs_sector": 10.23,
-        "volume_ratio": 9.01,
+        "volume_ratio": 8.91,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -300,7 +279,7 @@
         "volume": 1381.0,
         "rs_market": 6.5,
         "rs_sector": 6.04,
-        "volume_ratio": 12.57,
+        "volume_ratio": 12.43,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -321,7 +300,7 @@
         "volume": 26.0,
         "rs_market": 6.22,
         "rs_sector": 5.65,
-        "volume_ratio": 4.36,
+        "volume_ratio": 4.31,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -342,7 +321,7 @@
         "volume": 706.0,
         "rs_market": 7.15,
         "rs_sector": 6.53,
-        "volume_ratio": 6.55,
+        "volume_ratio": 6.47,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -363,7 +342,7 @@
         "volume": 938.0,
         "rs_market": 10.96,
         "rs_sector": 9.97,
-        "volume_ratio": 11.11,
+        "volume_ratio": 10.98,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -377,22 +356,22 @@
         "low_confidence": false
       },
       {
-        "code": "3631",
-        "name": "晟楠",
-        "price": 47.05,
-        "change_pct": 9.29,
-        "volume": 1132.0,
-        "rs_market": 10.28,
-        "rs_sector": 9.66,
-        "volume_ratio": 2.62,
+        "code": "3265",
+        "name": "台星科",
+        "price": 238.5,
+        "change_pct": 9.91,
+        "volume": 4525.0,
+        "rs_market": 10.9,
+        "rs_sector": 10.74,
+        "volume_ratio": 2.76,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
         "breakout_60d": true,
         "breakout_120d": true,
         "breakout_252d": true,
-        "industry": "電子零組件業",
-        "score": 87.9,
+        "industry": "半導體業",
+        "score": 89.1,
         "tier": "A",
         "ex": "otc",
         "low_confidence": false
@@ -405,7 +384,7 @@
         "volume": 1255.0,
         "rs_market": 4.3,
         "rs_sector": 4.0,
-        "volume_ratio": 16.39,
+        "volume_ratio": 16.2,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -419,14 +398,14 @@
         "low_confidence": false
       },
       {
-        "code": "6174",
-        "name": "安碁",
-        "price": 64.0,
-        "change_pct": 9.97,
-        "volume": 10210.0,
-        "rs_market": 10.96,
-        "rs_sector": 10.34,
-        "volume_ratio": 2.54,
+        "code": "3631",
+        "name": "晟楠",
+        "price": 47.05,
+        "change_pct": 9.29,
+        "volume": 1132.0,
+        "rs_market": 10.28,
+        "rs_sector": 9.66,
+        "volume_ratio": 2.59,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -434,7 +413,28 @@
         "breakout_120d": true,
         "breakout_252d": true,
         "industry": "電子零組件業",
-        "score": 87.2,
+        "score": 87.6,
+        "tier": "A",
+        "ex": "otc",
+        "low_confidence": false
+      },
+      {
+        "code": "6174",
+        "name": "安碁",
+        "price": 64.0,
+        "change_pct": 9.97,
+        "volume": 10210.0,
+        "rs_market": 10.96,
+        "rs_sector": 10.34,
+        "volume_ratio": 2.51,
+        "above_open": true,
+        "above_prev_close": true,
+        "breakout_20d": true,
+        "breakout_60d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "電子零組件業",
+        "score": 86.9,
         "tier": "A",
         "ex": "otc",
         "low_confidence": false
@@ -447,7 +447,7 @@
         "volume": 44.0,
         "rs_market": 10.77,
         "rs_sector": 9.78,
-        "volume_ratio": 3.72,
+        "volume_ratio": 3.68,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -455,7 +455,7 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "綠能環保",
-        "score": 87.0,
+        "score": 86.7,
         "tier": "A",
         "ex": "otc",
         "low_confidence": false
@@ -468,7 +468,7 @@
         "volume": 2558.0,
         "rs_market": 8.87,
         "rs_sector": 6.21,
-        "volume_ratio": 3.61,
+        "volume_ratio": 3.57,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -476,7 +476,7 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "農業科技",
-        "score": 86.1,
+        "score": 85.7,
         "tier": "A",
         "ex": "otc",
         "low_confidence": false
@@ -489,7 +489,7 @@
         "volume": 3674.0,
         "rs_market": 8.78,
         "rs_sector": 8.16,
-        "volume_ratio": 2.37,
+        "volume_ratio": 2.34,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -497,7 +497,7 @@
         "breakout_120d": true,
         "breakout_252d": true,
         "industry": "電子零組件業",
-        "score": 85.7,
+        "score": 85.4,
         "tier": "A",
         "ex": "otc",
         "low_confidence": false
@@ -510,7 +510,7 @@
         "volume": 3807.0,
         "rs_market": 5.17,
         "rs_sector": 3.8,
-        "volume_ratio": 6.72,
+        "volume_ratio": 6.64,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -531,7 +531,7 @@
         "volume": 1408.0,
         "rs_market": 10.95,
         "rs_sector": 10.79,
-        "volume_ratio": 3.33,
+        "volume_ratio": 3.29,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -539,7 +539,7 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "半導體業",
-        "score": 83.6,
+        "score": 83.2,
         "tier": "A",
         "ex": "otc",
         "low_confidence": false
@@ -552,7 +552,7 @@
         "volume": 757.0,
         "rs_market": 10.92,
         "rs_sector": 10.3,
-        "volume_ratio": 1.93,
+        "volume_ratio": 1.9,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -560,7 +560,7 @@
         "breakout_120d": true,
         "breakout_252d": true,
         "industry": "電子零組件業",
-        "score": 81.8,
+        "score": 81.6,
         "tier": "A",
         "ex": "otc",
         "low_confidence": false
@@ -573,7 +573,7 @@
         "volume": 1116.0,
         "rs_market": 10.23,
         "rs_sector": 9.24,
-        "volume_ratio": 9.15,
+        "volume_ratio": 9.04,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": false,
@@ -594,7 +594,7 @@
         "volume": 863.0,
         "rs_market": 6.13,
         "rs_sector": 5.24,
-        "volume_ratio": 6.86,
+        "volume_ratio": 6.78,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": false,
@@ -615,7 +615,7 @@
         "volume": 1334.0,
         "rs_market": 10.92,
         "rs_sector": 10.76,
-        "volume_ratio": 4.79,
+        "volume_ratio": 4.73,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": false,
@@ -636,7 +636,7 @@
         "volume": 1725.0,
         "rs_market": 9.18,
         "rs_sector": 8.72,
-        "volume_ratio": 2.31,
+        "volume_ratio": 2.28,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -644,7 +644,7 @@
         "breakout_120d": true,
         "breakout_252d": false,
         "industry": "其他電子業",
-        "score": 81.0,
+        "score": 80.7,
         "tier": "A",
         "ex": "otc",
         "low_confidence": false
@@ -657,7 +657,7 @@
         "volume": 25256.0,
         "rs_market": 10.94,
         "rs_sector": 10.32,
-        "volume_ratio": 3.01,
+        "volume_ratio": 2.98,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -665,28 +665,7 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "電子零組件業",
-        "score": 80.8,
-        "tier": "A",
-        "ex": "otc",
-        "low_confidence": false
-      },
-      {
-        "code": "8289",
-        "name": "泰藝",
-        "price": 60.9,
-        "change_pct": 9.93,
-        "volume": 4770.0,
-        "rs_market": 10.92,
-        "rs_sector": 10.3,
-        "volume_ratio": 3.0,
-        "above_open": true,
-        "above_prev_close": true,
-        "breakout_20d": true,
-        "breakout_60d": true,
-        "breakout_120d": false,
-        "breakout_252d": false,
-        "industry": "電子零組件業",
-        "score": 80.7,
+        "score": 80.5,
         "tier": "A",
         "ex": "otc",
         "low_confidence": false
@@ -699,11 +678,32 @@
         "volume": 2946.0,
         "rs_market": 5.33,
         "rs_sector": 4.71,
-        "volume_ratio": 4.44,
+        "volume_ratio": 4.38,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": false,
         "breakout_60d": false,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "電子零組件業",
+        "score": 80.4,
+        "tier": "A",
+        "ex": "otc",
+        "low_confidence": false
+      },
+      {
+        "code": "8289",
+        "name": "泰藝",
+        "price": 60.9,
+        "change_pct": 9.93,
+        "volume": 4770.0,
+        "rs_market": 10.92,
+        "rs_sector": 10.3,
+        "volume_ratio": 2.97,
+        "above_open": true,
+        "above_prev_close": true,
+        "breakout_20d": true,
+        "breakout_60d": true,
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "電子零組件業",
@@ -722,7 +722,7 @@
         "volume": 2852.0,
         "rs_market": 10.84,
         "rs_sector": 10.54,
-        "volume_ratio": 1.63,
+        "volume_ratio": 1.61,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -730,7 +730,7 @@
         "breakout_120d": true,
         "breakout_252d": true,
         "industry": "通信網路業",
-        "score": 79.2,
+        "score": 79.0,
         "tier": "B",
         "ex": "otc",
         "low_confidence": false
@@ -743,7 +743,7 @@
         "volume": 402.0,
         "rs_market": 4.51,
         "rs_sector": 3.13,
-        "volume_ratio": 13.38,
+        "volume_ratio": 13.23,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -764,7 +764,7 @@
         "volume": 2862.0,
         "rs_market": 4.24,
         "rs_sector": 2.86,
-        "volume_ratio": 9.3,
+        "volume_ratio": 9.19,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -785,7 +785,7 @@
         "volume": 8169.0,
         "rs_market": 5.07,
         "rs_sector": 4.91,
-        "volume_ratio": 3.43,
+        "volume_ratio": 3.38,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": false,
@@ -793,7 +793,7 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "半導體業",
-        "score": 76.2,
+        "score": 75.8,
         "tier": "B",
         "ex": "otc",
         "low_confidence": false
@@ -806,7 +806,7 @@
         "volume": 87.0,
         "rs_market": 4.82,
         "rs_sector": 3.83,
-        "volume_ratio": 9.78,
+        "volume_ratio": 9.67,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": false,
@@ -820,27 +820,6 @@
         "low_confidence": false
       },
       {
-        "code": "3624",
-        "name": "光頡",
-        "price": 175.0,
-        "change_pct": 9.72,
-        "volume": 47728.0,
-        "rs_market": 10.71,
-        "rs_sector": 10.09,
-        "volume_ratio": 2.34,
-        "above_open": true,
-        "above_prev_close": true,
-        "breakout_20d": true,
-        "breakout_60d": true,
-        "breakout_120d": false,
-        "breakout_252d": false,
-        "industry": "電子零組件業",
-        "score": 74.9,
-        "tier": "B",
-        "ex": "otc",
-        "low_confidence": false
-      },
-      {
         "code": "5009",
         "name": "榮剛",
         "price": 33.65,
@@ -848,7 +827,7 @@
         "volume": 4062.0,
         "rs_market": 3.9,
         "rs_sector": 2.91,
-        "volume_ratio": 6.22,
+        "volume_ratio": 6.15,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -862,6 +841,27 @@
         "low_confidence": false
       },
       {
+        "code": "3624",
+        "name": "光頡",
+        "price": 175.0,
+        "change_pct": 9.72,
+        "volume": 47728.0,
+        "rs_market": 10.71,
+        "rs_sector": 10.09,
+        "volume_ratio": 2.31,
+        "above_open": true,
+        "above_prev_close": true,
+        "breakout_20d": true,
+        "breakout_60d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "電子零組件業",
+        "score": 74.6,
+        "tier": "B",
+        "ex": "otc",
+        "low_confidence": false
+      },
+      {
         "code": "8092",
         "name": "建暐",
         "price": 12.75,
@@ -869,7 +869,7 @@
         "volume": 231.0,
         "rs_market": 7.24,
         "rs_sector": 6.78,
-        "volume_ratio": 3.2,
+        "volume_ratio": 3.16,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": false,
@@ -877,7 +877,7 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "其他電子業",
-        "score": 74.6,
+        "score": 74.2,
         "tier": "B",
         "ex": "otc",
         "low_confidence": false
@@ -890,7 +890,7 @@
         "volume": 30289.0,
         "rs_market": 10.99,
         "rs_sector": 10.83,
-        "volume_ratio": 2.26,
+        "volume_ratio": 2.23,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -898,7 +898,7 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "半導體業",
-        "score": 74.2,
+        "score": 73.9,
         "tier": "B",
         "ex": "otc",
         "low_confidence": false
@@ -911,7 +911,7 @@
         "volume": 145.0,
         "rs_market": 5.84,
         "rs_sector": 4.46,
-        "volume_ratio": 3.4,
+        "volume_ratio": 3.36,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": false,
@@ -919,7 +919,7 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "生技醫療業",
-        "score": 74.0,
+        "score": 73.7,
         "tier": "B",
         "ex": "otc",
         "low_confidence": false
@@ -932,7 +932,7 @@
         "volume": 16848.0,
         "rs_market": 6.17,
         "rs_sector": 5.55,
-        "volume_ratio": 2.17,
+        "volume_ratio": 2.15,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -940,7 +940,7 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "電子零組件業",
-        "score": 73.4,
+        "score": 73.2,
         "tier": "B",
         "ex": "otc",
         "low_confidence": false
@@ -953,7 +953,7 @@
         "volume": 14331.0,
         "rs_market": 5.88,
         "rs_sector": 5.26,
-        "volume_ratio": 2.09,
+        "volume_ratio": 2.06,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -961,7 +961,7 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "電子零組件業",
-        "score": 72.7,
+        "score": 72.5,
         "tier": "B",
         "ex": "otc",
         "low_confidence": false
@@ -974,7 +974,7 @@
         "volume": 2047.0,
         "rs_market": 3.92,
         "rs_sector": 2.93,
-        "volume_ratio": 2.45,
+        "volume_ratio": 2.42,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -982,7 +982,7 @@
         "breakout_120d": true,
         "breakout_252d": true,
         "industry": "數位雲端",
-        "score": 72.0,
+        "score": 71.7,
         "tier": "B",
         "ex": "otc",
         "low_confidence": false
@@ -995,7 +995,7 @@
         "volume": 24.0,
         "rs_market": 6.33,
         "rs_sector": 5.34,
-        "volume_ratio": 1.98,
+        "volume_ratio": 1.95,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -1003,7 +1003,7 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "觀光餐旅",
-        "score": 71.8,
+        "score": 71.5,
         "tier": "B",
         "ex": "otc",
         "low_confidence": false
@@ -1016,7 +1016,7 @@
         "volume": 2545.0,
         "rs_market": 5.4,
         "rs_sector": 4.52,
-        "volume_ratio": 2.21,
+        "volume_ratio": 2.18,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -1024,7 +1024,7 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "資訊服務業",
-        "score": 71.8,
+        "score": 71.5,
         "tier": "B",
         "ex": "otc",
         "low_confidence": false
@@ -1037,7 +1037,7 @@
         "volume": 11.0,
         "rs_market": 10.67,
         "rs_sector": 9.78,
-        "volume_ratio": 2.68,
+        "volume_ratio": 2.65,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": false,
@@ -1045,7 +1045,7 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "文化創意業",
-        "score": 70.0,
+        "score": 69.7,
         "tier": "B",
         "ex": "otc",
         "low_confidence": false
@@ -1058,7 +1058,7 @@
         "volume": 95.0,
         "rs_market": 4.29,
         "rs_sector": 4.13,
-        "volume_ratio": 3.47,
+        "volume_ratio": 3.43,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": false,
@@ -1066,7 +1066,7 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "半導體業",
-        "score": 69.5,
+        "score": 69.2,
         "tier": "B",
         "ex": "otc",
         "low_confidence": false
@@ -1079,7 +1079,7 @@
         "volume": 641.0,
         "rs_market": 4.99,
         "rs_sector": 4.69,
-        "volume_ratio": 1.77,
+        "volume_ratio": 1.75,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -1087,7 +1087,7 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "通信網路業",
-        "score": 68.6,
+        "score": 68.4,
         "tier": "B",
         "ex": "otc",
         "low_confidence": false
@@ -1100,7 +1100,7 @@
         "volume": 19578.0,
         "rs_market": 10.91,
         "rs_sector": 10.29,
-        "volume_ratio": 1.55,
+        "volume_ratio": 1.53,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -1108,7 +1108,7 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "電子零組件業",
-        "score": 68.0,
+        "score": 67.8,
         "tier": "B",
         "ex": "otc",
         "low_confidence": false
@@ -1121,7 +1121,7 @@
         "volume": 63.0,
         "rs_market": 3.55,
         "rs_sector": 3.09,
-        "volume_ratio": 3.25,
+        "volume_ratio": 3.21,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -1129,7 +1129,7 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "其他電子業",
-        "score": 67.2,
+        "score": 66.9,
         "tier": "B",
         "ex": "otc",
         "low_confidence": false
@@ -1142,7 +1142,7 @@
         "volume": 1866.0,
         "rs_market": 3.88,
         "rs_sector": 2.89,
-        "volume_ratio": 5.66,
+        "volume_ratio": 5.6,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": false,
@@ -1163,7 +1163,7 @@
         "volume": 2396.0,
         "rs_market": 5.91,
         "rs_sector": 5.29,
-        "volume_ratio": 2.1,
+        "volume_ratio": 2.07,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": false,
@@ -1171,7 +1171,7 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "電子零組件業",
-        "score": 64.9,
+        "score": 64.6,
         "tier": "B",
         "ex": "otc",
         "low_confidence": false
@@ -1184,7 +1184,7 @@
         "volume": 5.0,
         "rs_market": 4.41,
         "rs_sector": 3.03,
-        "volume_ratio": 1.75,
+        "volume_ratio": 1.73,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -1192,7 +1192,7 @@
         "breakout_120d": true,
         "breakout_252d": false,
         "industry": "生技醫療業",
-        "score": 64.7,
+        "score": 64.5,
         "tier": "B",
         "ex": "otc",
         "low_confidence": false
@@ -1205,7 +1205,7 @@
         "volume": 59.0,
         "rs_market": 3.53,
         "rs_sector": 2.54,
-        "volume_ratio": 4.7,
+        "volume_ratio": 4.64,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": false,
@@ -1226,7 +1226,7 @@
         "volume": 177.0,
         "rs_market": 3.44,
         "rs_sector": 2.45,
-        "volume_ratio": 6.14,
+        "volume_ratio": 6.06,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": false,
@@ -1240,27 +1240,6 @@
         "low_confidence": false
       },
       {
-        "code": "6637",
-        "name": "醫影",
-        "price": 55.5,
-        "change_pct": 2.02,
-        "volume": 83.0,
-        "rs_market": 3.01,
-        "rs_sector": 1.63,
-        "volume_ratio": 3.69,
-        "above_open": true,
-        "above_prev_close": true,
-        "breakout_20d": true,
-        "breakout_60d": false,
-        "breakout_120d": false,
-        "breakout_252d": false,
-        "industry": "生技醫療業",
-        "score": 62.1,
-        "tier": "B",
-        "ex": "otc",
-        "low_confidence": false
-      },
-      {
         "code": "3527",
         "name": "聚積",
         "price": 51.6,
@@ -1268,7 +1247,7 @@
         "volume": 258.0,
         "rs_market": 2.97,
         "rs_sector": 2.81,
-        "volume_ratio": 8.1,
+        "volume_ratio": 8.0,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": false,
@@ -1282,6 +1261,27 @@
         "low_confidence": false
       },
       {
+        "code": "6637",
+        "name": "醫影",
+        "price": 55.5,
+        "change_pct": 2.02,
+        "volume": 83.0,
+        "rs_market": 3.01,
+        "rs_sector": 1.63,
+        "volume_ratio": 3.64,
+        "above_open": true,
+        "above_prev_close": true,
+        "breakout_20d": true,
+        "breakout_60d": false,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "生技醫療業",
+        "score": 61.7,
+        "tier": "B",
+        "ex": "otc",
+        "low_confidence": false
+      },
+      {
         "code": "5511",
         "name": "德昌",
         "price": 70.0,
@@ -1289,7 +1289,7 @@
         "volume": 186.0,
         "rs_market": 3.33,
         "rs_sector": 2.34,
-        "volume_ratio": 4.07,
+        "volume_ratio": 4.02,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": false,
@@ -1310,7 +1310,7 @@
         "volume": 45.0,
         "rs_market": 3.49,
         "rs_sector": 2.11,
-        "volume_ratio": 3.08,
+        "volume_ratio": 3.04,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": true,
@@ -1318,28 +1318,7 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "生技醫療業",
-        "score": 61.3,
-        "tier": "B",
-        "ex": "otc",
-        "low_confidence": false
-      },
-      {
-        "code": "6125",
-        "name": "廣運",
-        "price": 51.2,
-        "change_pct": 2.2,
-        "volume": 967.0,
-        "rs_market": 3.19,
-        "rs_sector": 2.51,
-        "volume_ratio": 3.01,
-        "above_open": true,
-        "above_prev_close": true,
-        "breakout_20d": true,
-        "breakout_60d": false,
-        "breakout_120d": false,
-        "breakout_252d": false,
-        "industry": "電機機械",
-        "score": 60.8,
+        "score": 60.9,
         "tier": "B",
         "ex": "otc",
         "low_confidence": false
@@ -1352,7 +1331,7 @@
         "volume": 1484.0,
         "rs_market": 6.17,
         "rs_sector": 5.49,
-        "volume_ratio": 1.62,
+        "volume_ratio": 1.6,
         "above_open": true,
         "above_prev_close": true,
         "breakout_20d": false,
@@ -1360,7 +1339,28 @@
         "breakout_120d": false,
         "breakout_252d": false,
         "industry": "電機機械",
-        "score": 60.7,
+        "score": 60.5,
+        "tier": "B",
+        "ex": "otc",
+        "low_confidence": false
+      },
+      {
+        "code": "6125",
+        "name": "廣運",
+        "price": 51.2,
+        "change_pct": 2.2,
+        "volume": 967.0,
+        "rs_market": 3.19,
+        "rs_sector": 2.51,
+        "volume_ratio": 2.98,
+        "above_open": true,
+        "above_prev_close": true,
+        "breakout_20d": true,
+        "breakout_60d": false,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "電機機械",
+        "score": 60.5,
         "tier": "B",
         "ex": "otc",
         "low_confidence": false
@@ -1372,9 +1372,9 @@
     "low_price": 67,
     "disposition": 16,
     "rs_market": 1132,
-    "volume_ratio": 551,
+    "volume_ratio": 553,
     "momentum": 18,
-    "passed": 148
+    "passed": 146
   },
   "markets": {
     "twse": 1082,
@@ -1390,7 +1390,7 @@
         "change_pct": 10.0,
         "volume": 90.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "3447",
@@ -1399,7 +1399,7 @@
         "change_pct": 10.0,
         "volume": 668.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.43
       },
       {
         "code": "3287",
@@ -1408,7 +1408,7 @@
         "change_pct": 10.0,
         "volume": 857.0,
         "ex": "otc",
-        "volume_ratio": 7.6
+        "volume_ratio": 7.51
       },
       {
         "code": "3713",
@@ -1417,7 +1417,7 @@
         "change_pct": 10.0,
         "volume": 470.0,
         "ex": "otc",
-        "volume_ratio": 10.17
+        "volume_ratio": 10.05
       },
       {
         "code": "8086",
@@ -1426,7 +1426,7 @@
         "change_pct": 10.0,
         "volume": 30289.0,
         "ex": "otc",
-        "volume_ratio": 2.26
+        "volume_ratio": 2.23
       },
       {
         "code": "2466",
@@ -1435,7 +1435,7 @@
         "change_pct": 9.97,
         "volume": 1573.0,
         "ex": "tse",
-        "volume_ratio": 1.42
+        "volume_ratio": 1.4
       },
       {
         "code": "4934",
@@ -1444,7 +1444,7 @@
         "change_pct": 9.97,
         "volume": 4651.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "6174",
@@ -1453,7 +1453,7 @@
         "change_pct": 9.97,
         "volume": 10210.0,
         "ex": "otc",
-        "volume_ratio": 2.54
+        "volume_ratio": 2.51
       },
       {
         "code": "8068",
@@ -1462,7 +1462,7 @@
         "change_pct": 9.97,
         "volume": 938.0,
         "ex": "otc",
-        "volume_ratio": 11.11
+        "volume_ratio": 10.98
       },
       {
         "code": "4973",
@@ -1471,7 +1471,7 @@
         "change_pct": 9.96,
         "volume": 1408.0,
         "ex": "otc",
-        "volume_ratio": 3.33
+        "volume_ratio": 3.29
       },
       {
         "code": "6127",
@@ -1480,7 +1480,7 @@
         "change_pct": 9.95,
         "volume": 25256.0,
         "ex": "otc",
-        "volume_ratio": 3.01
+        "volume_ratio": 2.98
       },
       {
         "code": "3597",
@@ -1489,7 +1489,7 @@
         "change_pct": 9.93,
         "volume": 757.0,
         "ex": "otc",
-        "volume_ratio": 1.93
+        "volume_ratio": 1.9
       },
       {
         "code": "6510",
@@ -1498,7 +1498,7 @@
         "change_pct": 9.93,
         "volume": 1334.0,
         "ex": "otc",
-        "volume_ratio": 4.79
+        "volume_ratio": 4.73
       },
       {
         "code": "8289",
@@ -1507,7 +1507,7 @@
         "change_pct": 9.93,
         "volume": 4770.0,
         "ex": "otc",
-        "volume_ratio": 3.0
+        "volume_ratio": 2.97
       },
       {
         "code": "8042",
@@ -1516,7 +1516,7 @@
         "change_pct": 9.92,
         "volume": 19578.0,
         "ex": "otc",
-        "volume_ratio": 1.55
+        "volume_ratio": 1.53
       },
       {
         "code": "9103",
@@ -1525,7 +1525,7 @@
         "change_pct": 9.91,
         "volume": 7790.0,
         "ex": "tse",
-        "volume_ratio": 1.46
+        "volume_ratio": 1.44
       },
       {
         "code": "3265",
@@ -1534,7 +1534,7 @@
         "change_pct": 9.91,
         "volume": 4525.0,
         "ex": "otc",
-        "volume_ratio": 2.8
+        "volume_ratio": 2.76
       },
       {
         "code": "1615",
@@ -1543,7 +1543,7 @@
         "change_pct": 9.9,
         "volume": 1441.0,
         "ex": "tse",
-        "volume_ratio": 1.43
+        "volume_ratio": 1.41
       },
       {
         "code": "6672",
@@ -1552,7 +1552,7 @@
         "change_pct": 9.9,
         "volume": 3664.0,
         "ex": "tse",
-        "volume_ratio": 1.4
+        "volume_ratio": 1.38
       },
       {
         "code": "9919",
@@ -1561,7 +1561,7 @@
         "change_pct": 9.9,
         "volume": 5175.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.43
       },
       {
         "code": "5205",
@@ -1570,7 +1570,7 @@
         "change_pct": 9.9,
         "volume": 141.0,
         "ex": "otc",
-        "volume_ratio": 9.23
+        "volume_ratio": 9.12
       },
       {
         "code": "1325",
@@ -1579,7 +1579,7 @@
         "change_pct": 9.89,
         "volume": 3927.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "4720",
@@ -1588,7 +1588,7 @@
         "change_pct": 9.89,
         "volume": 10506.0,
         "ex": "tse",
-        "volume_ratio": 1.46
+        "volume_ratio": 1.44
       },
       {
         "code": "5230",
@@ -1597,7 +1597,7 @@
         "change_pct": 9.89,
         "volume": 4397.0,
         "ex": "otc",
-        "volume_ratio": 21.36
+        "volume_ratio": 21.1
       },
       {
         "code": "4760",
@@ -1606,7 +1606,7 @@
         "change_pct": 9.88,
         "volume": 1223.0,
         "ex": "otc",
-        "volume_ratio": 0.85
+        "volume_ratio": 0.84
       },
       {
         "code": "2340",
@@ -1615,7 +1615,7 @@
         "change_pct": 9.87,
         "volume": 64735.0,
         "ex": "tse",
-        "volume_ratio": 1.46
+        "volume_ratio": 1.44
       },
       {
         "code": "5228",
@@ -1624,7 +1624,7 @@
         "change_pct": 9.86,
         "volume": 4765.0,
         "ex": "otc",
-        "volume_ratio": 9.01
+        "volume_ratio": 8.91
       },
       {
         "code": "2305",
@@ -1633,7 +1633,7 @@
         "change_pct": 9.85,
         "volume": 10478.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.43
       },
       {
         "code": "3564",
@@ -1642,7 +1642,7 @@
         "change_pct": 9.85,
         "volume": 2852.0,
         "ex": "otc",
-        "volume_ratio": 1.63
+        "volume_ratio": 1.61
       },
       {
         "code": "3290",
@@ -1651,7 +1651,7 @@
         "change_pct": 9.84,
         "volume": 3876.0,
         "ex": "otc",
-        "volume_ratio": 9.5
+        "volume_ratio": 9.39
       }
     ],
     "volume_ratio": [
@@ -1662,7 +1662,7 @@
         "change_pct": 9.77,
         "volume": 639.0,
         "ex": "otc",
-        "volume_ratio": 87.19
+        "volume_ratio": 86.17
       },
       {
         "code": "7747",
@@ -1671,7 +1671,7 @@
         "change_pct": 0.0,
         "volume": 91.0,
         "ex": "otc",
-        "volume_ratio": 64.11
+        "volume_ratio": 63.36
       },
       {
         "code": "6597",
@@ -1680,7 +1680,7 @@
         "change_pct": -0.31,
         "volume": 17.0,
         "ex": "otc",
-        "volume_ratio": 24.55
+        "volume_ratio": 24.26
       },
       {
         "code": "5230",
@@ -1689,7 +1689,7 @@
         "change_pct": 9.89,
         "volume": 4397.0,
         "ex": "otc",
-        "volume_ratio": 21.36
+        "volume_ratio": 21.1
       },
       {
         "code": "4430",
@@ -1698,7 +1698,7 @@
         "change_pct": 9.83,
         "volume": 470.0,
         "ex": "otc",
-        "volume_ratio": 20.21
+        "volume_ratio": 19.97
       },
       {
         "code": "1599",
@@ -1707,7 +1707,7 @@
         "change_pct": -0.66,
         "volume": 28.0,
         "ex": "otc",
-        "volume_ratio": 20.01
+        "volume_ratio": 19.77
       },
       {
         "code": "4402",
@@ -1716,7 +1716,7 @@
         "change_pct": -0.74,
         "volume": 25.0,
         "ex": "otc",
-        "volume_ratio": 17.22
+        "volume_ratio": 17.01
       },
       {
         "code": "1259",
@@ -1725,7 +1725,7 @@
         "change_pct": 0.0,
         "volume": 12.0,
         "ex": "otc",
-        "volume_ratio": 16.45
+        "volume_ratio": 16.26
       },
       {
         "code": "3684",
@@ -1734,7 +1734,7 @@
         "change_pct": 3.31,
         "volume": 1255.0,
         "ex": "otc",
-        "volume_ratio": 16.39
+        "volume_ratio": 16.2
       },
       {
         "code": "6113",
@@ -1743,7 +1743,7 @@
         "change_pct": 0.21,
         "volume": 502.0,
         "ex": "otc",
-        "volume_ratio": 13.75
+        "volume_ratio": 13.59
       },
       {
         "code": "4157",
@@ -1752,7 +1752,7 @@
         "change_pct": 9.12,
         "volume": 7638.0,
         "ex": "otc",
-        "volume_ratio": 13.48
+        "volume_ratio": 13.33
       },
       {
         "code": "4121",
@@ -1761,7 +1761,7 @@
         "change_pct": 3.52,
         "volume": 402.0,
         "ex": "otc",
-        "volume_ratio": 13.38
+        "volume_ratio": 13.23
       },
       {
         "code": "6146",
@@ -1770,7 +1770,7 @@
         "change_pct": 5.51,
         "volume": 1381.0,
         "ex": "otc",
-        "volume_ratio": 12.57
+        "volume_ratio": 12.43
       },
       {
         "code": "8905",
@@ -1779,7 +1779,7 @@
         "change_pct": -1.31,
         "volume": 25.0,
         "ex": "otc",
-        "volume_ratio": 12.2
+        "volume_ratio": 12.06
       },
       {
         "code": "3322",
@@ -1788,7 +1788,7 @@
         "change_pct": -4.95,
         "volume": 1171.0,
         "ex": "otc",
-        "volume_ratio": 12.11
+        "volume_ratio": 11.97
       },
       {
         "code": "6720",
@@ -1797,7 +1797,7 @@
         "change_pct": -6.02,
         "volume": 66.0,
         "ex": "otc",
-        "volume_ratio": 11.82
+        "volume_ratio": 11.68
       },
       {
         "code": "8068",
@@ -1806,7 +1806,7 @@
         "change_pct": 9.97,
         "volume": 938.0,
         "ex": "otc",
-        "volume_ratio": 11.11
+        "volume_ratio": 10.98
       },
       {
         "code": "4401",
@@ -1815,7 +1815,7 @@
         "change_pct": 1.45,
         "volume": 85.0,
         "ex": "otc",
-        "volume_ratio": 11.02
+        "volume_ratio": 10.89
       },
       {
         "code": "3067",
@@ -1824,7 +1824,7 @@
         "change_pct": -2.37,
         "volume": 7.0,
         "ex": "otc",
-        "volume_ratio": 10.24
+        "volume_ratio": 10.12
       },
       {
         "code": "3713",
@@ -1833,7 +1833,7 @@
         "change_pct": 10.0,
         "volume": 470.0,
         "ex": "otc",
-        "volume_ratio": 10.17
+        "volume_ratio": 10.05
       },
       {
         "code": "6971",
@@ -1842,7 +1842,7 @@
         "change_pct": 3.83,
         "volume": 87.0,
         "ex": "otc",
-        "volume_ratio": 9.78
+        "volume_ratio": 9.67
       },
       {
         "code": "3290",
@@ -1851,7 +1851,7 @@
         "change_pct": 9.84,
         "volume": 3876.0,
         "ex": "otc",
-        "volume_ratio": 9.5
+        "volume_ratio": 9.39
       },
       {
         "code": "4139",
@@ -1860,7 +1860,7 @@
         "change_pct": 0.0,
         "volume": 132.0,
         "ex": "otc",
-        "volume_ratio": 9.32
+        "volume_ratio": 9.21
       },
       {
         "code": "4114",
@@ -1869,7 +1869,7 @@
         "change_pct": 3.25,
         "volume": 2862.0,
         "ex": "otc",
-        "volume_ratio": 9.3
+        "volume_ratio": 9.19
       },
       {
         "code": "5205",
@@ -1878,7 +1878,7 @@
         "change_pct": 9.9,
         "volume": 141.0,
         "ex": "otc",
-        "volume_ratio": 9.23
+        "volume_ratio": 9.12
       },
       {
         "code": "4924",
@@ -1887,7 +1887,7 @@
         "change_pct": 9.24,
         "volume": 1116.0,
         "ex": "otc",
-        "volume_ratio": 9.15
+        "volume_ratio": 9.04
       },
       {
         "code": "5228",
@@ -1896,7 +1896,7 @@
         "change_pct": 9.86,
         "volume": 4765.0,
         "ex": "otc",
-        "volume_ratio": 9.01
+        "volume_ratio": 8.91
       },
       {
         "code": "8928",
@@ -1905,7 +1905,7 @@
         "change_pct": -1.54,
         "volume": 52.0,
         "ex": "otc",
-        "volume_ratio": 8.25
+        "volume_ratio": 8.16
       },
       {
         "code": "8087",
@@ -1914,7 +1914,7 @@
         "change_pct": -2.77,
         "volume": 15.0,
         "ex": "otc",
-        "volume_ratio": 8.16
+        "volume_ratio": 8.06
       },
       {
         "code": "3527",
@@ -1923,7 +1923,7 @@
         "change_pct": 1.98,
         "volume": 258.0,
         "ex": "otc",
-        "volume_ratio": 8.1
+        "volume_ratio": 8.0
       }
     ],
     "turnover": [
@@ -1934,7 +1934,7 @@
         "change_pct": -1.35,
         "volume": 20154.0,
         "ex": "tse",
-        "volume_ratio": 1.27
+        "volume_ratio": 1.26
       },
       {
         "code": "2408",
@@ -1943,7 +1943,7 @@
         "change_pct": 3.5,
         "volume": 62584.0,
         "ex": "tse",
-        "volume_ratio": 1.42
+        "volume_ratio": 1.4
       },
       {
         "code": "2454",
@@ -1952,7 +1952,7 @@
         "change_pct": -3.0,
         "volume": 6377.0,
         "ex": "tse",
-        "volume_ratio": 1.05
+        "volume_ratio": 1.04
       },
       {
         "code": "2327",
@@ -1961,7 +1961,7 @@
         "change_pct": -1.85,
         "volume": 45281.0,
         "ex": "tse",
-        "volume_ratio": 1.4
+        "volume_ratio": 1.38
       },
       {
         "code": "2492",
@@ -1970,7 +1970,7 @@
         "change_pct": -1.87,
         "volume": 63306.0,
         "ex": "tse",
-        "volume_ratio": 1.43
+        "volume_ratio": 1.41
       },
       {
         "code": "1303",
@@ -1979,7 +1979,7 @@
         "change_pct": -1.27,
         "volume": 71802.0,
         "ex": "tse",
-        "volume_ratio": 1.43
+        "volume_ratio": 1.41
       },
       {
         "code": "6488",
@@ -1988,7 +1988,7 @@
         "change_pct": -7.0,
         "volume": 19326.0,
         "ex": "otc",
-        "volume_ratio": 1.97
+        "volume_ratio": 1.95
       },
       {
         "code": "1301",
@@ -1997,7 +1997,7 @@
         "change_pct": 7.82,
         "volume": 243846.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "4958",
@@ -2006,7 +2006,7 @@
         "change_pct": -0.5,
         "volume": 32614.0,
         "ex": "tse",
-        "volume_ratio": 1.42
+        "volume_ratio": 1.4
       },
       {
         "code": "3661",
@@ -2015,7 +2015,7 @@
         "change_pct": 3.7,
         "volume": 4357.0,
         "ex": "tse",
-        "volume_ratio": 1.29
+        "volume_ratio": 1.28
       },
       {
         "code": "5274",
@@ -2024,7 +2024,7 @@
         "change_pct": -1.49,
         "volume": 1079.0,
         "ex": "otc",
-        "volume_ratio": 3.21
+        "volume_ratio": 3.17
       },
       {
         "code": "2059",
@@ -2033,7 +2033,7 @@
         "change_pct": -9.97,
         "volume": 1741.0,
         "ex": "tse",
-        "volume_ratio": 1.27
+        "volume_ratio": 1.26
       },
       {
         "code": "8039",
@@ -2042,7 +2042,7 @@
         "change_pct": 0.33,
         "volume": 59338.0,
         "ex": "tse",
-        "volume_ratio": 1.44
+        "volume_ratio": 1.42
       },
       {
         "code": "2449",
@@ -2051,7 +2051,7 @@
         "change_pct": 1.67,
         "volume": 50535.0,
         "ex": "tse",
-        "volume_ratio": 1.42
+        "volume_ratio": 1.4
       },
       {
         "code": "3026",
@@ -2060,7 +2060,7 @@
         "change_pct": 4.53,
         "volume": 15284.0,
         "ex": "tse",
-        "volume_ratio": 1.42
+        "volume_ratio": 1.4
       },
       {
         "code": "6274",
@@ -2069,7 +2069,7 @@
         "change_pct": 1.16,
         "volume": 7543.0,
         "ex": "otc",
-        "volume_ratio": 0.9
+        "volume_ratio": 0.89
       },
       {
         "code": "1815",
@@ -2078,7 +2078,7 @@
         "change_pct": 1.89,
         "volume": 95737.0,
         "ex": "otc",
-        "volume_ratio": 1.33
+        "volume_ratio": 1.32
       },
       {
         "code": "2344",
@@ -2087,7 +2087,7 @@
         "change_pct": -1.39,
         "volume": 69249.0,
         "ex": "tse",
-        "volume_ratio": 1.44
+        "volume_ratio": 1.42
       },
       {
         "code": "2368",
@@ -2096,7 +2096,7 @@
         "change_pct": 3.21,
         "volume": 9330.0,
         "ex": "tse",
-        "volume_ratio": 1.4
+        "volume_ratio": 1.39
       },
       {
         "code": "2303",
@@ -2105,7 +2105,7 @@
         "change_pct": -0.67,
         "volume": 80840.0,
         "ex": "tse",
-        "volume_ratio": 1.42
+        "volume_ratio": 1.41
       },
       {
         "code": "3008",
@@ -2114,7 +2114,7 @@
         "change_pct": -2.7,
         "volume": 1702.0,
         "ex": "tse",
-        "volume_ratio": 1.3
+        "volume_ratio": 1.28
       },
       {
         "code": "3711",
@@ -2123,7 +2123,7 @@
         "change_pct": 1.64,
         "volume": 15094.0,
         "ex": "tse",
-        "volume_ratio": 1.38
+        "volume_ratio": 1.36
       },
       {
         "code": "3653",
@@ -2132,7 +2132,7 @@
         "change_pct": 5.29,
         "volume": 1552.0,
         "ex": "tse",
-        "volume_ratio": 1.39
+        "volume_ratio": 1.38
       },
       {
         "code": "6147",
@@ -2141,7 +2141,7 @@
         "change_pct": -2.38,
         "volume": 47794.0,
         "ex": "otc",
-        "volume_ratio": 0.87
+        "volume_ratio": 0.86
       },
       {
         "code": "3037",
@@ -2150,7 +2150,7 @@
         "change_pct": -2.68,
         "volume": 8168.0,
         "ex": "tse",
-        "volume_ratio": 1.36
+        "volume_ratio": 1.34
       },
       {
         "code": "3017",
@@ -2159,7 +2159,7 @@
         "change_pct": -2.96,
         "volume": 2968.0,
         "ex": "tse",
-        "volume_ratio": 1.37
+        "volume_ratio": 1.36
       },
       {
         "code": "1802",
@@ -2168,7 +2168,7 @@
         "change_pct": -2.74,
         "volume": 159232.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "2383",
@@ -2177,7 +2177,7 @@
         "change_pct": 0.84,
         "volume": 1661.0,
         "ex": "tse",
-        "volume_ratio": 1.31
+        "volume_ratio": 1.29
       },
       {
         "code": "2409",
@@ -2186,7 +2186,7 @@
         "change_pct": -3.56,
         "volume": 271765.0,
         "ex": "tse",
-        "volume_ratio": 1.44
+        "volume_ratio": 1.43
       },
       {
         "code": "3443",
@@ -2195,7 +2195,7 @@
         "change_pct": -1.18,
         "volume": 1155.0,
         "ex": "tse",
-        "volume_ratio": 1.38
+        "volume_ratio": 1.37
       }
     ],
     "new_high_5d": [
@@ -2206,7 +2206,7 @@
         "change_pct": 10.0,
         "volume": 90.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "3447",
@@ -2215,7 +2215,7 @@
         "change_pct": 10.0,
         "volume": 668.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.43
       },
       {
         "code": "3287",
@@ -2224,7 +2224,7 @@
         "change_pct": 10.0,
         "volume": 857.0,
         "ex": "otc",
-        "volume_ratio": 7.6
+        "volume_ratio": 7.51
       },
       {
         "code": "3713",
@@ -2233,7 +2233,7 @@
         "change_pct": 10.0,
         "volume": 470.0,
         "ex": "otc",
-        "volume_ratio": 10.17
+        "volume_ratio": 10.05
       },
       {
         "code": "8086",
@@ -2242,7 +2242,7 @@
         "change_pct": 10.0,
         "volume": 30289.0,
         "ex": "otc",
-        "volume_ratio": 2.26
+        "volume_ratio": 2.23
       },
       {
         "code": "2466",
@@ -2251,7 +2251,7 @@
         "change_pct": 9.97,
         "volume": 1573.0,
         "ex": "tse",
-        "volume_ratio": 1.42
+        "volume_ratio": 1.4
       },
       {
         "code": "4934",
@@ -2260,7 +2260,7 @@
         "change_pct": 9.97,
         "volume": 4651.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "6174",
@@ -2269,7 +2269,7 @@
         "change_pct": 9.97,
         "volume": 10210.0,
         "ex": "otc",
-        "volume_ratio": 2.54
+        "volume_ratio": 2.51
       },
       {
         "code": "8068",
@@ -2278,7 +2278,7 @@
         "change_pct": 9.97,
         "volume": 938.0,
         "ex": "otc",
-        "volume_ratio": 11.11
+        "volume_ratio": 10.98
       },
       {
         "code": "4973",
@@ -2287,7 +2287,7 @@
         "change_pct": 9.96,
         "volume": 1408.0,
         "ex": "otc",
-        "volume_ratio": 3.33
+        "volume_ratio": 3.29
       },
       {
         "code": "6127",
@@ -2296,7 +2296,7 @@
         "change_pct": 9.95,
         "volume": 25256.0,
         "ex": "otc",
-        "volume_ratio": 3.01
+        "volume_ratio": 2.98
       },
       {
         "code": "3597",
@@ -2305,7 +2305,7 @@
         "change_pct": 9.93,
         "volume": 757.0,
         "ex": "otc",
-        "volume_ratio": 1.93
+        "volume_ratio": 1.9
       },
       {
         "code": "6510",
@@ -2314,7 +2314,7 @@
         "change_pct": 9.93,
         "volume": 1334.0,
         "ex": "otc",
-        "volume_ratio": 4.79
+        "volume_ratio": 4.73
       },
       {
         "code": "8289",
@@ -2323,7 +2323,7 @@
         "change_pct": 9.93,
         "volume": 4770.0,
         "ex": "otc",
-        "volume_ratio": 3.0
+        "volume_ratio": 2.97
       },
       {
         "code": "8042",
@@ -2332,7 +2332,7 @@
         "change_pct": 9.92,
         "volume": 19578.0,
         "ex": "otc",
-        "volume_ratio": 1.55
+        "volume_ratio": 1.53
       },
       {
         "code": "9103",
@@ -2341,7 +2341,7 @@
         "change_pct": 9.91,
         "volume": 7790.0,
         "ex": "tse",
-        "volume_ratio": 1.46
+        "volume_ratio": 1.44
       },
       {
         "code": "3265",
@@ -2350,7 +2350,7 @@
         "change_pct": 9.91,
         "volume": 4525.0,
         "ex": "otc",
-        "volume_ratio": 2.8
+        "volume_ratio": 2.76
       },
       {
         "code": "1615",
@@ -2359,7 +2359,7 @@
         "change_pct": 9.9,
         "volume": 1441.0,
         "ex": "tse",
-        "volume_ratio": 1.43
+        "volume_ratio": 1.41
       },
       {
         "code": "6672",
@@ -2368,7 +2368,7 @@
         "change_pct": 9.9,
         "volume": 3664.0,
         "ex": "tse",
-        "volume_ratio": 1.4
+        "volume_ratio": 1.38
       },
       {
         "code": "9919",
@@ -2377,7 +2377,7 @@
         "change_pct": 9.9,
         "volume": 5175.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.43
       },
       {
         "code": "5205",
@@ -2386,7 +2386,7 @@
         "change_pct": 9.9,
         "volume": 141.0,
         "ex": "otc",
-        "volume_ratio": 9.23
+        "volume_ratio": 9.12
       },
       {
         "code": "1325",
@@ -2395,7 +2395,7 @@
         "change_pct": 9.89,
         "volume": 3927.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "4720",
@@ -2404,7 +2404,7 @@
         "change_pct": 9.89,
         "volume": 10506.0,
         "ex": "tse",
-        "volume_ratio": 1.46
+        "volume_ratio": 1.44
       },
       {
         "code": "5230",
@@ -2413,7 +2413,7 @@
         "change_pct": 9.89,
         "volume": 4397.0,
         "ex": "otc",
-        "volume_ratio": 21.36
+        "volume_ratio": 21.1
       },
       {
         "code": "4760",
@@ -2422,7 +2422,7 @@
         "change_pct": 9.88,
         "volume": 1223.0,
         "ex": "otc",
-        "volume_ratio": 0.85
+        "volume_ratio": 0.84
       },
       {
         "code": "2340",
@@ -2431,7 +2431,7 @@
         "change_pct": 9.87,
         "volume": 64735.0,
         "ex": "tse",
-        "volume_ratio": 1.46
+        "volume_ratio": 1.44
       },
       {
         "code": "5228",
@@ -2440,7 +2440,7 @@
         "change_pct": 9.86,
         "volume": 4765.0,
         "ex": "otc",
-        "volume_ratio": 9.01
+        "volume_ratio": 8.91
       },
       {
         "code": "2305",
@@ -2449,7 +2449,7 @@
         "change_pct": 9.85,
         "volume": 10478.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.43
       },
       {
         "code": "3564",
@@ -2458,7 +2458,7 @@
         "change_pct": 9.85,
         "volume": 2852.0,
         "ex": "otc",
-        "volume_ratio": 1.63
+        "volume_ratio": 1.61
       },
       {
         "code": "3290",
@@ -2467,7 +2467,7 @@
         "change_pct": 9.84,
         "volume": 3876.0,
         "ex": "otc",
-        "volume_ratio": 9.5
+        "volume_ratio": 9.39
       }
     ],
     "new_high_1m": [
@@ -2478,7 +2478,7 @@
         "change_pct": 10.0,
         "volume": 90.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "3447",
@@ -2487,7 +2487,7 @@
         "change_pct": 10.0,
         "volume": 668.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.43
       },
       {
         "code": "3287",
@@ -2496,7 +2496,7 @@
         "change_pct": 10.0,
         "volume": 857.0,
         "ex": "otc",
-        "volume_ratio": 7.6
+        "volume_ratio": 7.51
       },
       {
         "code": "3713",
@@ -2505,7 +2505,7 @@
         "change_pct": 10.0,
         "volume": 470.0,
         "ex": "otc",
-        "volume_ratio": 10.17
+        "volume_ratio": 10.05
       },
       {
         "code": "8086",
@@ -2514,7 +2514,7 @@
         "change_pct": 10.0,
         "volume": 30289.0,
         "ex": "otc",
-        "volume_ratio": 2.26
+        "volume_ratio": 2.23
       },
       {
         "code": "2466",
@@ -2523,7 +2523,7 @@
         "change_pct": 9.97,
         "volume": 1573.0,
         "ex": "tse",
-        "volume_ratio": 1.42
+        "volume_ratio": 1.4
       },
       {
         "code": "4934",
@@ -2532,7 +2532,7 @@
         "change_pct": 9.97,
         "volume": 4651.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "6174",
@@ -2541,7 +2541,7 @@
         "change_pct": 9.97,
         "volume": 10210.0,
         "ex": "otc",
-        "volume_ratio": 2.54
+        "volume_ratio": 2.51
       },
       {
         "code": "8068",
@@ -2550,7 +2550,7 @@
         "change_pct": 9.97,
         "volume": 938.0,
         "ex": "otc",
-        "volume_ratio": 11.11
+        "volume_ratio": 10.98
       },
       {
         "code": "4973",
@@ -2559,7 +2559,7 @@
         "change_pct": 9.96,
         "volume": 1408.0,
         "ex": "otc",
-        "volume_ratio": 3.33
+        "volume_ratio": 3.29
       },
       {
         "code": "6127",
@@ -2568,7 +2568,7 @@
         "change_pct": 9.95,
         "volume": 25256.0,
         "ex": "otc",
-        "volume_ratio": 3.01
+        "volume_ratio": 2.98
       },
       {
         "code": "3597",
@@ -2577,7 +2577,7 @@
         "change_pct": 9.93,
         "volume": 757.0,
         "ex": "otc",
-        "volume_ratio": 1.93
+        "volume_ratio": 1.9
       },
       {
         "code": "8289",
@@ -2586,7 +2586,7 @@
         "change_pct": 9.93,
         "volume": 4770.0,
         "ex": "otc",
-        "volume_ratio": 3.0
+        "volume_ratio": 2.97
       },
       {
         "code": "8042",
@@ -2595,7 +2595,7 @@
         "change_pct": 9.92,
         "volume": 19578.0,
         "ex": "otc",
-        "volume_ratio": 1.55
+        "volume_ratio": 1.53
       },
       {
         "code": "9103",
@@ -2604,7 +2604,7 @@
         "change_pct": 9.91,
         "volume": 7790.0,
         "ex": "tse",
-        "volume_ratio": 1.46
+        "volume_ratio": 1.44
       },
       {
         "code": "3265",
@@ -2613,7 +2613,7 @@
         "change_pct": 9.91,
         "volume": 4525.0,
         "ex": "otc",
-        "volume_ratio": 2.8
+        "volume_ratio": 2.76
       },
       {
         "code": "1615",
@@ -2622,7 +2622,7 @@
         "change_pct": 9.9,
         "volume": 1441.0,
         "ex": "tse",
-        "volume_ratio": 1.43
+        "volume_ratio": 1.41
       },
       {
         "code": "6672",
@@ -2631,7 +2631,7 @@
         "change_pct": 9.9,
         "volume": 3664.0,
         "ex": "tse",
-        "volume_ratio": 1.4
+        "volume_ratio": 1.38
       },
       {
         "code": "9919",
@@ -2640,7 +2640,7 @@
         "change_pct": 9.9,
         "volume": 5175.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.43
       },
       {
         "code": "5205",
@@ -2649,7 +2649,7 @@
         "change_pct": 9.9,
         "volume": 141.0,
         "ex": "otc",
-        "volume_ratio": 9.23
+        "volume_ratio": 9.12
       },
       {
         "code": "1325",
@@ -2658,7 +2658,7 @@
         "change_pct": 9.89,
         "volume": 3927.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "4720",
@@ -2667,7 +2667,7 @@
         "change_pct": 9.89,
         "volume": 10506.0,
         "ex": "tse",
-        "volume_ratio": 1.46
+        "volume_ratio": 1.44
       },
       {
         "code": "5230",
@@ -2676,7 +2676,7 @@
         "change_pct": 9.89,
         "volume": 4397.0,
         "ex": "otc",
-        "volume_ratio": 21.36
+        "volume_ratio": 21.1
       },
       {
         "code": "4760",
@@ -2685,7 +2685,7 @@
         "change_pct": 9.88,
         "volume": 1223.0,
         "ex": "otc",
-        "volume_ratio": 0.85
+        "volume_ratio": 0.84
       },
       {
         "code": "2340",
@@ -2694,7 +2694,7 @@
         "change_pct": 9.87,
         "volume": 64735.0,
         "ex": "tse",
-        "volume_ratio": 1.46
+        "volume_ratio": 1.44
       },
       {
         "code": "5228",
@@ -2703,7 +2703,7 @@
         "change_pct": 9.86,
         "volume": 4765.0,
         "ex": "otc",
-        "volume_ratio": 9.01
+        "volume_ratio": 8.91
       },
       {
         "code": "3564",
@@ -2712,7 +2712,7 @@
         "change_pct": 9.85,
         "volume": 2852.0,
         "ex": "otc",
-        "volume_ratio": 1.63
+        "volume_ratio": 1.61
       },
       {
         "code": "3290",
@@ -2721,7 +2721,7 @@
         "change_pct": 9.84,
         "volume": 3876.0,
         "ex": "otc",
-        "volume_ratio": 9.5
+        "volume_ratio": 9.39
       },
       {
         "code": "4430",
@@ -2730,7 +2730,7 @@
         "change_pct": 9.83,
         "volume": 470.0,
         "ex": "otc",
-        "volume_ratio": 20.21
+        "volume_ratio": 19.97
       },
       {
         "code": "3073",
@@ -2739,7 +2739,7 @@
         "change_pct": 9.78,
         "volume": 44.0,
         "ex": "otc",
-        "volume_ratio": 3.72
+        "volume_ratio": 3.68
       }
     ],
     "new_high_3m": [
@@ -2750,7 +2750,7 @@
         "change_pct": 10.0,
         "volume": 90.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "3447",
@@ -2759,7 +2759,7 @@
         "change_pct": 10.0,
         "volume": 668.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.43
       },
       {
         "code": "3287",
@@ -2768,7 +2768,7 @@
         "change_pct": 10.0,
         "volume": 857.0,
         "ex": "otc",
-        "volume_ratio": 7.6
+        "volume_ratio": 7.51
       },
       {
         "code": "8086",
@@ -2777,7 +2777,7 @@
         "change_pct": 10.0,
         "volume": 30289.0,
         "ex": "otc",
-        "volume_ratio": 2.26
+        "volume_ratio": 2.23
       },
       {
         "code": "2466",
@@ -2786,7 +2786,7 @@
         "change_pct": 9.97,
         "volume": 1573.0,
         "ex": "tse",
-        "volume_ratio": 1.42
+        "volume_ratio": 1.4
       },
       {
         "code": "4934",
@@ -2795,7 +2795,7 @@
         "change_pct": 9.97,
         "volume": 4651.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "6174",
@@ -2804,7 +2804,7 @@
         "change_pct": 9.97,
         "volume": 10210.0,
         "ex": "otc",
-        "volume_ratio": 2.54
+        "volume_ratio": 2.51
       },
       {
         "code": "3597",
@@ -2813,7 +2813,7 @@
         "change_pct": 9.93,
         "volume": 757.0,
         "ex": "otc",
-        "volume_ratio": 1.93
+        "volume_ratio": 1.9
       },
       {
         "code": "8289",
@@ -2822,7 +2822,7 @@
         "change_pct": 9.93,
         "volume": 4770.0,
         "ex": "otc",
-        "volume_ratio": 3.0
+        "volume_ratio": 2.97
       },
       {
         "code": "9103",
@@ -2831,7 +2831,7 @@
         "change_pct": 9.91,
         "volume": 7790.0,
         "ex": "tse",
-        "volume_ratio": 1.46
+        "volume_ratio": 1.44
       },
       {
         "code": "3265",
@@ -2840,7 +2840,7 @@
         "change_pct": 9.91,
         "volume": 4525.0,
         "ex": "otc",
-        "volume_ratio": 2.8
+        "volume_ratio": 2.76
       },
       {
         "code": "1615",
@@ -2849,7 +2849,7 @@
         "change_pct": 9.9,
         "volume": 1441.0,
         "ex": "tse",
-        "volume_ratio": 1.43
+        "volume_ratio": 1.41
       },
       {
         "code": "6672",
@@ -2858,7 +2858,7 @@
         "change_pct": 9.9,
         "volume": 3664.0,
         "ex": "tse",
-        "volume_ratio": 1.4
+        "volume_ratio": 1.38
       },
       {
         "code": "9919",
@@ -2867,7 +2867,7 @@
         "change_pct": 9.9,
         "volume": 5175.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.43
       },
       {
         "code": "5205",
@@ -2876,7 +2876,7 @@
         "change_pct": 9.9,
         "volume": 141.0,
         "ex": "otc",
-        "volume_ratio": 9.23
+        "volume_ratio": 9.12
       },
       {
         "code": "1325",
@@ -2885,7 +2885,7 @@
         "change_pct": 9.89,
         "volume": 3927.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "4720",
@@ -2894,7 +2894,7 @@
         "change_pct": 9.89,
         "volume": 10506.0,
         "ex": "tse",
-        "volume_ratio": 1.46
+        "volume_ratio": 1.44
       },
       {
         "code": "5230",
@@ -2903,7 +2903,7 @@
         "change_pct": 9.89,
         "volume": 4397.0,
         "ex": "otc",
-        "volume_ratio": 21.36
+        "volume_ratio": 21.1
       },
       {
         "code": "4760",
@@ -2912,7 +2912,7 @@
         "change_pct": 9.88,
         "volume": 1223.0,
         "ex": "otc",
-        "volume_ratio": 0.85
+        "volume_ratio": 0.84
       },
       {
         "code": "2340",
@@ -2921,7 +2921,7 @@
         "change_pct": 9.87,
         "volume": 64735.0,
         "ex": "tse",
-        "volume_ratio": 1.46
+        "volume_ratio": 1.44
       },
       {
         "code": "5228",
@@ -2930,7 +2930,7 @@
         "change_pct": 9.86,
         "volume": 4765.0,
         "ex": "otc",
-        "volume_ratio": 9.01
+        "volume_ratio": 8.91
       },
       {
         "code": "3564",
@@ -2939,7 +2939,7 @@
         "change_pct": 9.85,
         "volume": 2852.0,
         "ex": "otc",
-        "volume_ratio": 1.63
+        "volume_ratio": 1.61
       },
       {
         "code": "4430",
@@ -2948,7 +2948,7 @@
         "change_pct": 9.83,
         "volume": 470.0,
         "ex": "otc",
-        "volume_ratio": 20.21
+        "volume_ratio": 19.97
       },
       {
         "code": "3624",
@@ -2957,7 +2957,7 @@
         "change_pct": 9.72,
         "volume": 47728.0,
         "ex": "otc",
-        "volume_ratio": 2.34
+        "volume_ratio": 2.31
       },
       {
         "code": "3631",
@@ -2966,7 +2966,7 @@
         "change_pct": 9.29,
         "volume": 1132.0,
         "ex": "otc",
-        "volume_ratio": 2.62
+        "volume_ratio": 2.59
       },
       {
         "code": "4157",
@@ -2975,7 +2975,7 @@
         "change_pct": 9.12,
         "volume": 7638.0,
         "ex": "otc",
-        "volume_ratio": 13.48
+        "volume_ratio": 13.33
       },
       {
         "code": "4178",
@@ -2984,7 +2984,7 @@
         "change_pct": 8.59,
         "volume": 1427.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "3591",
@@ -2993,7 +2993,7 @@
         "change_pct": 8.58,
         "volume": 2530.0,
         "ex": "tse",
-        "volume_ratio": 1.39
+        "volume_ratio": 1.38
       },
       {
         "code": "5243",
@@ -3002,7 +3002,7 @@
         "change_pct": 8.47,
         "volume": 7940.0,
         "ex": "tse",
-        "volume_ratio": 1.43
+        "volume_ratio": 1.41
       },
       {
         "code": "3373",
@@ -3011,7 +3011,7 @@
         "change_pct": 8.19,
         "volume": 1725.0,
         "ex": "otc",
-        "volume_ratio": 2.31
+        "volume_ratio": 2.28
       }
     ],
     "new_high_6m": [
@@ -3022,7 +3022,7 @@
         "change_pct": 10.0,
         "volume": 857.0,
         "ex": "otc",
-        "volume_ratio": 7.6
+        "volume_ratio": 7.51
       },
       {
         "code": "2466",
@@ -3031,7 +3031,7 @@
         "change_pct": 9.97,
         "volume": 1573.0,
         "ex": "tse",
-        "volume_ratio": 1.42
+        "volume_ratio": 1.4
       },
       {
         "code": "6174",
@@ -3040,7 +3040,7 @@
         "change_pct": 9.97,
         "volume": 10210.0,
         "ex": "otc",
-        "volume_ratio": 2.54
+        "volume_ratio": 2.51
       },
       {
         "code": "3597",
@@ -3049,7 +3049,7 @@
         "change_pct": 9.93,
         "volume": 757.0,
         "ex": "otc",
-        "volume_ratio": 1.93
+        "volume_ratio": 1.9
       },
       {
         "code": "3265",
@@ -3058,7 +3058,7 @@
         "change_pct": 9.91,
         "volume": 4525.0,
         "ex": "otc",
-        "volume_ratio": 2.8
+        "volume_ratio": 2.76
       },
       {
         "code": "6672",
@@ -3067,7 +3067,7 @@
         "change_pct": 9.9,
         "volume": 3664.0,
         "ex": "tse",
-        "volume_ratio": 1.4
+        "volume_ratio": 1.38
       },
       {
         "code": "9919",
@@ -3076,7 +3076,7 @@
         "change_pct": 9.9,
         "volume": 5175.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.43
       },
       {
         "code": "5205",
@@ -3085,7 +3085,7 @@
         "change_pct": 9.9,
         "volume": 141.0,
         "ex": "otc",
-        "volume_ratio": 9.23
+        "volume_ratio": 9.12
       },
       {
         "code": "1325",
@@ -3094,7 +3094,7 @@
         "change_pct": 9.89,
         "volume": 3927.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "5230",
@@ -3103,7 +3103,7 @@
         "change_pct": 9.89,
         "volume": 4397.0,
         "ex": "otc",
-        "volume_ratio": 21.36
+        "volume_ratio": 21.1
       },
       {
         "code": "2340",
@@ -3112,7 +3112,7 @@
         "change_pct": 9.87,
         "volume": 64735.0,
         "ex": "tse",
-        "volume_ratio": 1.46
+        "volume_ratio": 1.44
       },
       {
         "code": "3564",
@@ -3121,7 +3121,7 @@
         "change_pct": 9.85,
         "volume": 2852.0,
         "ex": "otc",
-        "volume_ratio": 1.63
+        "volume_ratio": 1.61
       },
       {
         "code": "4430",
@@ -3130,7 +3130,7 @@
         "change_pct": 9.83,
         "volume": 470.0,
         "ex": "otc",
-        "volume_ratio": 20.21
+        "volume_ratio": 19.97
       },
       {
         "code": "3631",
@@ -3139,7 +3139,7 @@
         "change_pct": 9.29,
         "volume": 1132.0,
         "ex": "otc",
-        "volume_ratio": 2.62
+        "volume_ratio": 2.59
       },
       {
         "code": "3591",
@@ -3148,7 +3148,7 @@
         "change_pct": 8.58,
         "volume": 2530.0,
         "ex": "tse",
-        "volume_ratio": 1.39
+        "volume_ratio": 1.38
       },
       {
         "code": "3373",
@@ -3157,7 +3157,7 @@
         "change_pct": 8.19,
         "volume": 1725.0,
         "ex": "otc",
-        "volume_ratio": 2.31
+        "volume_ratio": 2.28
       },
       {
         "code": "1301",
@@ -3166,7 +3166,7 @@
         "change_pct": 7.82,
         "volume": 243846.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "5460",
@@ -3175,7 +3175,7 @@
         "change_pct": 7.79,
         "volume": 3674.0,
         "ex": "otc",
-        "volume_ratio": 2.37
+        "volume_ratio": 2.34
       },
       {
         "code": "4167",
@@ -3184,7 +3184,7 @@
         "change_pct": 7.58,
         "volume": 9624.0,
         "ex": "otc",
-        "volume_ratio": 3.06
+        "volume_ratio": 3.02
       },
       {
         "code": "6152",
@@ -3193,7 +3193,7 @@
         "change_pct": 6.06,
         "volume": 14558.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.43
       },
       {
         "code": "6834",
@@ -3202,7 +3202,7 @@
         "change_pct": 5.6,
         "volume": 18434.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.43
       },
       {
         "code": "1732",
@@ -3211,7 +3211,7 @@
         "change_pct": 4.67,
         "volume": 3275.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "5209",
@@ -3220,7 +3220,7 @@
         "change_pct": 4.62,
         "volume": 393.0,
         "ex": "otc",
-        "volume_ratio": 7.32
+        "volume_ratio": 7.24
       },
       {
         "code": "4706",
@@ -3229,7 +3229,7 @@
         "change_pct": 4.29,
         "volume": 498.0,
         "ex": "otc",
-        "volume_ratio": 1.41
+        "volume_ratio": 1.39
       },
       {
         "code": "8996",
@@ -3238,7 +3238,7 @@
         "change_pct": 3.95,
         "volume": 991.0,
         "ex": "tse",
-        "volume_ratio": 1.33
+        "volume_ratio": 1.32
       },
       {
         "code": "4142",
@@ -3247,7 +3247,7 @@
         "change_pct": 3.5,
         "volume": 5462.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.43
       },
       {
         "code": "4728",
@@ -3256,7 +3256,7 @@
         "change_pct": 3.42,
         "volume": 5.0,
         "ex": "otc",
-        "volume_ratio": 1.75
+        "volume_ratio": 1.73
       },
       {
         "code": "3684",
@@ -3265,7 +3265,7 @@
         "change_pct": 3.31,
         "volume": 1255.0,
         "ex": "otc",
-        "volume_ratio": 16.39
+        "volume_ratio": 16.2
       },
       {
         "code": "6505",
@@ -3274,7 +3274,7 @@
         "change_pct": 3.27,
         "volume": 41040.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "4174",
@@ -3283,7 +3283,7 @@
         "change_pct": 3.07,
         "volume": 1058.0,
         "ex": "otc",
-        "volume_ratio": 0.67
+        "volume_ratio": 0.66
       }
     ],
     "new_high_1y": [
@@ -3294,7 +3294,7 @@
         "change_pct": 10.0,
         "volume": 857.0,
         "ex": "otc",
-        "volume_ratio": 7.6
+        "volume_ratio": 7.51
       },
       {
         "code": "2466",
@@ -3303,7 +3303,7 @@
         "change_pct": 9.97,
         "volume": 1573.0,
         "ex": "tse",
-        "volume_ratio": 1.42
+        "volume_ratio": 1.4
       },
       {
         "code": "6174",
@@ -3312,7 +3312,7 @@
         "change_pct": 9.97,
         "volume": 10210.0,
         "ex": "otc",
-        "volume_ratio": 2.54
+        "volume_ratio": 2.51
       },
       {
         "code": "3597",
@@ -3321,7 +3321,7 @@
         "change_pct": 9.93,
         "volume": 757.0,
         "ex": "otc",
-        "volume_ratio": 1.93
+        "volume_ratio": 1.9
       },
       {
         "code": "3265",
@@ -3330,7 +3330,7 @@
         "change_pct": 9.91,
         "volume": 4525.0,
         "ex": "otc",
-        "volume_ratio": 2.8
+        "volume_ratio": 2.76
       },
       {
         "code": "6672",
@@ -3339,7 +3339,7 @@
         "change_pct": 9.9,
         "volume": 3664.0,
         "ex": "tse",
-        "volume_ratio": 1.4
+        "volume_ratio": 1.38
       },
       {
         "code": "5230",
@@ -3348,7 +3348,7 @@
         "change_pct": 9.89,
         "volume": 4397.0,
         "ex": "otc",
-        "volume_ratio": 21.36
+        "volume_ratio": 21.1
       },
       {
         "code": "2340",
@@ -3357,7 +3357,7 @@
         "change_pct": 9.87,
         "volume": 64735.0,
         "ex": "tse",
-        "volume_ratio": 1.46
+        "volume_ratio": 1.44
       },
       {
         "code": "3564",
@@ -3366,7 +3366,7 @@
         "change_pct": 9.85,
         "volume": 2852.0,
         "ex": "otc",
-        "volume_ratio": 1.63
+        "volume_ratio": 1.61
       },
       {
         "code": "4430",
@@ -3375,7 +3375,7 @@
         "change_pct": 9.83,
         "volume": 470.0,
         "ex": "otc",
-        "volume_ratio": 20.21
+        "volume_ratio": 19.97
       },
       {
         "code": "3631",
@@ -3384,7 +3384,7 @@
         "change_pct": 9.29,
         "volume": 1132.0,
         "ex": "otc",
-        "volume_ratio": 2.62
+        "volume_ratio": 2.59
       },
       {
         "code": "3591",
@@ -3393,7 +3393,7 @@
         "change_pct": 8.58,
         "volume": 2530.0,
         "ex": "tse",
-        "volume_ratio": 1.39
+        "volume_ratio": 1.38
       },
       {
         "code": "1301",
@@ -3402,7 +3402,7 @@
         "change_pct": 7.82,
         "volume": 243846.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "5460",
@@ -3411,7 +3411,7 @@
         "change_pct": 7.79,
         "volume": 3674.0,
         "ex": "otc",
-        "volume_ratio": 2.37
+        "volume_ratio": 2.34
       },
       {
         "code": "4167",
@@ -3420,7 +3420,7 @@
         "change_pct": 7.58,
         "volume": 9624.0,
         "ex": "otc",
-        "volume_ratio": 3.06
+        "volume_ratio": 3.02
       },
       {
         "code": "6834",
@@ -3429,7 +3429,7 @@
         "change_pct": 5.6,
         "volume": 18434.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.43
       },
       {
         "code": "4706",
@@ -3438,7 +3438,7 @@
         "change_pct": 4.29,
         "volume": 498.0,
         "ex": "otc",
-        "volume_ratio": 1.41
+        "volume_ratio": 1.39
       },
       {
         "code": "8996",
@@ -3447,7 +3447,7 @@
         "change_pct": 3.95,
         "volume": 991.0,
         "ex": "tse",
-        "volume_ratio": 1.33
+        "volume_ratio": 1.32
       },
       {
         "code": "6505",
@@ -3456,7 +3456,7 @@
         "change_pct": 3.27,
         "volume": 41040.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "3167",
@@ -3465,7 +3465,7 @@
         "change_pct": 2.93,
         "volume": 1016.0,
         "ex": "tse",
-        "volume_ratio": 1.35
+        "volume_ratio": 1.33
       },
       {
         "code": "6811",
@@ -3474,7 +3474,7 @@
         "change_pct": 2.93,
         "volume": 2047.0,
         "ex": "otc",
-        "volume_ratio": 2.45
+        "volume_ratio": 2.42
       },
       {
         "code": "6197",
@@ -3483,7 +3483,7 @@
         "change_pct": 2.83,
         "volume": 4649.0,
         "ex": "tse",
-        "volume_ratio": 1.41
+        "volume_ratio": 1.39
       },
       {
         "code": "3693",
@@ -3492,7 +3492,7 @@
         "change_pct": 2.51,
         "volume": 7314.0,
         "ex": "otc",
-        "volume_ratio": 6.67
+        "volume_ratio": 6.59
       },
       {
         "code": "1326",
@@ -3501,7 +3501,7 @@
         "change_pct": 2.37,
         "volume": 81787.0,
         "ex": "tse",
-        "volume_ratio": 1.45
+        "volume_ratio": 1.44
       },
       {
         "code": "4736",
@@ -3510,7 +3510,7 @@
         "change_pct": 2.28,
         "volume": 457.0,
         "ex": "tse",
-        "volume_ratio": 1.42
+        "volume_ratio": 1.4
       },
       {
         "code": "1815",
@@ -3519,7 +3519,7 @@
         "change_pct": 1.89,
         "volume": 95737.0,
         "ex": "otc",
-        "volume_ratio": 1.33
+        "volume_ratio": 1.32
       },
       {
         "code": "6199",
@@ -3528,7 +3528,7 @@
         "change_pct": 1.79,
         "volume": 7921.0,
         "ex": "otc",
-        "volume_ratio": 1.77
+        "volume_ratio": 1.75
       },
       {
         "code": "3711",
@@ -3537,7 +3537,7 @@
         "change_pct": 1.64,
         "volume": 15094.0,
         "ex": "tse",
-        "volume_ratio": 1.38
+        "volume_ratio": 1.36
       },
       {
         "code": "6213",
@@ -3546,7 +3546,7 @@
         "change_pct": 1.26,
         "volume": 4965.0,
         "ex": "tse",
-        "volume_ratio": 1.39
+        "volume_ratio": 1.37
       },
       {
         "code": "2107",
@@ -3555,7 +3555,7 @@
         "change_pct": 1.24,
         "volume": 435.0,
         "ex": "tse",
-        "volume_ratio": 1.4
+        "volume_ratio": 1.38
       }
     ],
     "_eligible": {
