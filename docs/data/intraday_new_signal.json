@@ -1,26 +1,26 @@
 {
   "date": "2026-10-09",
-  "at": "2026-10-09 10:12:57",
+  "at": "2026-10-09 10:14:59",
   "new_codes": [
-    "8086"
+    "8289"
   ],
   "stocks": {
-    "8086": {
-      "code": "8086",
-      "name": "宏捷科",
+    "8289": {
+      "code": "8289",
+      "name": "泰藝",
       "tier": "A",
       "peak_score": 89.5,
-      "first_seen": "2026-10-09 10:12:57",
-      "last_seen": "2026-10-09 10:12:57",
+      "first_seen": "2026-10-09 10:14:59",
+      "last_seen": "2026-10-09 10:14:59",
       "signals": {
-        "change_pct": 10.0,
-        "rs_market": 10.99,
-        "rs_sector": 10.83,
-        "volume_ratio": 5.72,
+        "change_pct": 9.93,
+        "rs_market": 10.92,
+        "rs_sector": 10.3,
+        "volume_ratio": 7.39,
         "breakout_20d": true,
         "breakout_120d": false,
         "breakout_252d": false,
-        "industry": "半導體業"
+        "industry": "電子零組件業"
       }
     }
   }
