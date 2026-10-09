@@ -1,60 +1,79 @@
 {
   "date": "2026-10-09",
-  "at": "2026-10-09 09:30:28",
+  "at": "2026-10-09 10:06:29",
   "new_codes": [
-    "6807",
-    "3236",
-    "3624"
+    "3666",
+    "3685",
+    "8442",
+    "3290"
   ],
   "stocks": {
-    "6807": {
-      "code": "6807",
-      "name": "峰源-KY",
+    "3666": {
+      "code": "3666",
+      "name": "光耀",
       "tier": "A",
       "peak_score": 89.5,
-      "first_seen": "2026-10-09 09:30:28",
-      "last_seen": "2026-10-09 09:30:28",
+      "first_seen": "2026-10-09 10:06:29",
+      "last_seen": "2026-10-09 10:06:29",
       "signals": {
-        "change_pct": 8.7,
-        "rs_market": 9.69,
-        "rs_sector": 8.7,
-        "volume_ratio": 8.8,
+        "change_pct": 4.72,
+        "rs_market": 5.71,
+        "rs_sector": 5.49,
+        "volume_ratio": 12.71,
         "breakout_20d": true,
         "breakout_120d": false,
         "breakout_252d": false,
-        "industry": "居家生活"
+        "industry": "光電業"
       }
     },
-    "3236": {
-      "code": "3236",
-      "name": "千如",
+    "3685": {
+      "code": "3685",
+      "name": "元創精密",
       "tier": "A",
       "peak_score": 89.5,
-      "first_seen": "2026-10-09 09:30:28",
-      "last_seen": "2026-10-09 09:30:28",
+      "first_seen": "2026-10-09 10:06:29",
+      "last_seen": "2026-10-09 10:06:29",
       "signals": {
-        "change_pct": 4.8,
-        "rs_market": 5.79,
-        "rs_sector": 5.22,
-        "volume_ratio": 7.32,
+        "change_pct": 7.37,
+        "rs_market": 8.36,
+        "rs_sector": 7.68,
+        "volume_ratio": 15.7,
         "breakout_20d": true,
         "breakout_120d": false,
         "breakout_252d": false,
-        "industry": "電子零組件業"
+        "industry": "電機機械"
       }
     },
-    "3624": {
-      "code": "3624",
-      "name": "光頡",
+    "8442": {
+      "code": "8442",
+      "name": "威宏-KY",
       "tier": "A",
       "peak_score": 89.5,
-      "first_seen": "2026-10-09 09:30:28",
-      "last_seen": "2026-10-09 09:30:28",
+      "first_seen": "2026-10-09 10:06:29",
+      "last_seen": "2026-10-09 10:06:29",
       "signals": {
-        "change_pct": 9.72,
-        "rs_market": 10.71,
-        "rs_sector": 10.14,
-        "volume_ratio": 14.2,
+        "change_pct": 5.42,
+        "rs_market": 6.41,
+        "rs_sector": 5.42,
+        "volume_ratio": 4.02,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "其他"
+      }
+    },
+    "3290": {
+      "code": "3290",
+      "name": "東浦",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-09 10:06:29",
+      "last_seen": "2026-10-09 10:06:29",
+      "signals": {
+        "change_pct": 9.84,
+        "rs_market": 10.83,
+        "rs_sector": 10.21,
+        "volume_ratio": 26.39,
         "breakout_20d": true,
         "breakout_120d": false,
         "breakout_252d": false,
