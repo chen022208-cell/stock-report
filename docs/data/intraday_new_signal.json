@@ -1,26 +1,26 @@
 {
   "date": "2026-10-09",
-  "at": "2026-10-09 10:28:32",
+  "at": "2026-10-09 10:36:14",
   "new_codes": [
-    "3147"
+    "6811"
   ],
   "stocks": {
-    "3147": {
-      "code": "3147",
-      "name": "大綜",
+    "6811": {
+      "code": "6811",
+      "name": "宏碁資訊",
       "tier": "A",
-      "peak_score": 87.5,
-      "first_seen": "2026-10-09 10:28:32",
-      "last_seen": "2026-10-09 10:28:32",
+      "peak_score": 85.6,
+      "first_seen": "2026-10-09 10:36:14",
+      "last_seen": "2026-10-09 10:36:14",
       "signals": {
-        "change_pct": 4.41,
-        "rs_market": 5.4,
-        "rs_sector": 4.52,
-        "volume_ratio": 4.6,
+        "change_pct": 2.93,
+        "rs_market": 3.92,
+        "rs_sector": 2.93,
+        "volume_ratio": 4.7,
         "breakout_20d": true,
-        "breakout_120d": false,
-        "breakout_252d": false,
-        "industry": "資訊服務業"
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "數位雲端"
       }
     }
   }
