@@ -1,5 +1,5 @@
 {
-  "date": "2026年10月15日．週四",
+  "date": "2026年10月16日．週五",
   "rows": [
     {
       "technical": 85.0,
@@ -11,14 +11,14 @@
       "code": "6756",
       "name": "6756 威鋒電子",
       "analysis": {
-        "company_desc": "",
+        "company_desc": "本輪未逐檔查證公司業務，營業內容請以個股資料頁的申報營業項目為準。",
         "swot": {
-          "strengths": "未經逐檔查證，暫不判斷",
-          "weaknesses": "未經逐檔查證，暫不判斷",
-          "opportunities": "未經逐檔查證，暫不判斷",
-          "threats": "未經逐檔查證，暫不判斷"
+          "strengths": "可驗證訊號：均線多頭排列、站上季線、MACD金叉、量能5.81倍，三大法人僅買超75張。",
+          "weaknesses": "輸入資料未涵蓋，本輪未查證。",
+          "opportunities": "依輸入新聞所述題材，是否轉為營收仍待後續月營收驗證。",
+          "threats": "推論：短線漲幅與量能放大後，股價易受獲利了結及族群輪動影響。"
         },
-        "price_reason": "技術面：量能2.84倍、MACD金叉、站上季線，法人小幅買超142張；以量增價漲的技術面為主，無新聞可佐證，主導因素暫無法確認。"
+        "price_reason": "技術面突破與量能放大主導；法人買超量小、無新聞，無法確認基本面催化。"
       }
     },
     {
@@ -26,19 +26,79 @@
       "chip": 70.0,
       "fundamental": null,
       "theme": null,
-      "news": 62.0,
-      "composite": 72.3,
-      "code": "6782",
-      "name": "6782 視陽",
+      "news": 60.0,
+      "composite": 71.7,
+      "code": "1802",
+      "name": "1802 台玻",
       "analysis": {
-        "company_desc": "",
+        "company_desc": "本輪未逐檔查證公司業務，營業內容請以個股資料頁的申報營業項目為準。",
         "swot": {
-          "strengths": "未經逐檔查證，暫不判斷",
-          "weaknesses": "未經逐檔查證，暫不判斷",
-          "opportunities": "未經逐檔查證，暫不判斷",
-          "threats": "未經逐檔查證，暫不判斷"
+          "strengths": "可驗證訊號：均線多頭排列、站上季線、量能2.67倍，三大法人買超18155張；新聞標題提及高階玻纖布題材（來源為CMoney即時新聞）。",
+          "weaknesses": "輸入資料未涵蓋，本輪未查證。",
+          "opportunities": "依輸入新聞所述題材，是否轉為營收仍待後續月營收驗證。",
+          "threats": "推論：短線漲幅與量能放大後，股價易受獲利了結及族群輪動影響。"
         },
-        "price_reason": "技術面量增價漲（量能3.64倍）、均線多頭排列，法人買超150張；新聞標題提到Q4展望，但僅為社群/焦點股標題，未經查證，主導因素以技術面與題材預期為主。"
+        "price_reason": "法人買超與題材帶動並存，技術面同步轉強。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 70.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 78.0,
+      "composite": 67.7,
+      "code": "6209",
+      "name": "6209 今國光",
+      "analysis": {
+        "company_desc": "本輪未逐檔查證公司業務，營業內容請以個股資料頁的申報營業項目為準。",
+        "swot": {
+          "strengths": "可驗證訊號：均線多頭排列、量能3.45倍、法人買超6368張，RSI 87.6已在超買區；新聞提及紅外線鏡頭與光學族群。",
+          "weaknesses": "輸入資料未涵蓋，本輪未查證。",
+          "opportunities": "依輸入新聞所述題材，是否轉為營收仍待後續月營收驗證。",
+          "threats": "推論：短線漲幅與量能放大後，股價易受獲利了結及族群輪動影響。"
+        },
+        "price_reason": "題材（光學）加法人買超主導；RSI過熱，短線波動風險屬技術面推論。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 70.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 72.0,
+      "composite": 65.7,
+      "code": "4566",
+      "name": "4566 時碩工業",
+      "analysis": {
+        "company_desc": "本輪未逐檔查證公司業務，營業內容請以個股資料頁的申報營業項目為準。",
+        "swot": {
+          "strengths": "可驗證訊號：均線多頭排列、RSI 76.9超買、量能1.82倍，法人買超589張；新聞提及AI液冷散熱題材與營收。",
+          "weaknesses": "輸入資料未涵蓋，本輪未查證。",
+          "opportunities": "依輸入新聞所述題材，是否轉為營收仍待後續月營收驗證。",
+          "threats": "推論：短線漲幅與量能放大後，股價易受獲利了結及族群輪動影響。"
+        },
+        "price_reason": "題材帶動為主，法人買超量不大；營收數字輸入未提供。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 70.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 70.0,
+      "composite": 65.0,
+      "code": "3305",
+      "name": "3305 昇貿",
+      "analysis": {
+        "company_desc": "本輪未逐檔查證公司業務，營業內容請以個股資料頁的申報營業項目為準。",
+        "swot": {
+          "strengths": "可驗證訊號：站上季線、量能3.11倍、法人買超586張，新聞提及AI封裝材料題材。",
+          "weaknesses": "輸入資料未涵蓋，本輪未查證。",
+          "opportunities": "依輸入新聞所述題材，是否轉為營收仍待後續月營收驗證。",
+          "threats": "推論：短線漲幅與量能放大後，股價易受獲利了結及族群輪動影響。"
+        },
+        "price_reason": "題材帶動與量增主導，均線仍糾結、趨勢尚待確認。"
       }
     },
     {
@@ -48,117 +108,37 @@
       "theme": null,
       "news": 68.0,
       "composite": 64.3,
-      "code": "4904",
-      "name": "4904 遠傳",
+      "code": "2312",
+      "name": "2312 金寶",
       "analysis": {
-        "company_desc": "",
+        "company_desc": "本輪未逐檔查證公司業務，營業內容請以個股資料頁的申報營業項目為準。",
         "swot": {
-          "strengths": "未經逐檔查證，暫不判斷",
-          "weaknesses": "未經逐檔查證，暫不判斷",
-          "opportunities": "未經逐檔查證，暫不判斷",
-          "threats": "未經逐檔查證，暫不判斷"
+          "strengths": "可驗證訊號：量增價漲（量能3.37倍）、三大法人買超3580張，新聞提及9月營收221.83億元及AI電源題材；技術面站上季線但均線仍糾結。",
+          "weaknesses": "輸入資料未涵蓋，本輪未查證。",
+          "opportunities": "依輸入新聞所述題材，是否轉為營收仍待後續月營收驗證。",
+          "threats": "推論：短線漲幅與量能放大後，股價易受獲利了結及族群輪動影響。"
         },
-        "price_reason": "法人合計買超8,327張且量增價漲（量能2.81倍）；新聞標題聚焦9月營收109.62億元，籌碼與營收題材同向，惟RSI 74.2進入超買區。"
+        "price_reason": "主導因素偏向營收消息加法人買超，題材為新聞所述、未獨立驗證。"
       }
     },
     {
       "technical": 55.0,
       "chip": 70.0,
-      "fundamental": null,
-      "theme": null,
-      "news": 65.0,
-      "composite": 63.3,
-      "code": "2912",
-      "name": "2912 統一超",
-      "analysis": {
-        "company_desc": "",
-        "swot": {
-          "strengths": "未經逐檔查證，暫不判斷",
-          "weaknesses": "未經逐檔查證，暫不判斷",
-          "opportunities": "未經逐檔查證，暫不判斷",
-          "threats": "未經逐檔查證，暫不判斷"
-        },
-        "price_reason": "法人買超5,271張、量能3.14倍、站上季線，新聞標題提到統一集團9月營收寫同期新高；以籌碼面與集團營收消息為主，RSI 75.0偏超買。"
-      }
-    },
-    {
-      "technical": 55.0,
-      "chip": 70.0,
-      "fundamental": null,
-      "theme": null,
-      "news": 65.0,
-      "composite": 63.3,
-      "code": "1216",
-      "name": "1216 統一",
-      "analysis": {
-        "company_desc": "",
-        "swot": {
-          "strengths": "未經逐檔查證，暫不判斷",
-          "weaknesses": "未經逐檔查證，暫不判斷",
-          "opportunities": "未經逐檔查證，暫不判斷",
-          "threats": "未經逐檔查證，暫不判斷"
-        },
-        "price_reason": "法人買超32,361張為主導因素，量能3.28倍，新聞標題提到統一集團營收亮眼；RSI 72.5進入超買區。"
-      }
-    },
-    {
-      "technical": 55.0,
-      "chip": 70.0,
-      "fundamental": null,
-      "theme": null,
-      "news": 62.0,
-      "composite": 62.3,
-      "code": "6269",
-      "name": "6269 台郡",
-      "analysis": {
-        "company_desc": "",
-        "swot": {
-          "strengths": "未經逐檔查證，暫不判斷",
-          "weaknesses": "未經逐檔查證，暫不判斷",
-          "opportunities": "未經逐檔查證，暫不判斷",
-          "threats": "未經逐檔查證，暫不判斷"
-        },
-        "price_reason": "盤中亮燈漲停，新聞標題指向AI高速傳輸材料題材，法人買超2,108張；技術面均線糾結但站上季線，屬題材與籌碼帶動。"
-      }
-    },
-    {
-      "technical": 55.0,
-      "chip": 70.4,
-      "fundamental": null,
-      "theme": null,
-      "news": 58.0,
-      "composite": 61.1,
-      "code": "3354",
-      "name": "3354 律勝",
-      "analysis": {
-        "company_desc": "",
-        "swot": {
-          "strengths": "未經逐檔查證，暫不判斷",
-          "weaknesses": "未經逐檔查證，暫不判斷",
-          "opportunities": "未經逐檔查證，暫不判斷",
-          "threats": "未經逐檔查證，暫不判斷"
-        },
-        "price_reason": "漲停，法人買超963張；新聞標題指向CCL族群買盤，屬族群題材帶動，歷史資料不足無法評估技術面。"
-      }
-    },
-    {
-      "technical": 85.0,
-      "chip": 30.0,
       "fundamental": null,
       "theme": null,
       "news": 68.0,
-      "composite": 61.0,
-      "code": "3406",
-      "name": "3406 玉晶光",
+      "composite": 64.3,
+      "code": "6909",
+      "name": "6909 創控",
       "analysis": {
-        "company_desc": "",
+        "company_desc": "本輪未逐檔查證公司業務，營業內容請以個股資料頁的申報營業項目為準。",
         "swot": {
-          "strengths": "未經逐檔查證，暫不判斷",
-          "weaknesses": "未經逐檔查證，暫不判斷",
-          "opportunities": "未經逐檔查證，暫不判斷",
-          "threats": "未經逐檔查證，暫不判斷"
+          "strengths": "可驗證訊號：均線多頭排列、RSI 71.1、量能4.51倍、法人買超268張，新聞提及漲停與半導體監測題材、旺季營收。",
+          "weaknesses": "輸入資料未涵蓋，本輪未查證。",
+          "opportunities": "依輸入新聞所述題材，是否轉為營收仍待後續月營收驗證。",
+          "threats": "推論：短線漲幅與量能放大後，股價易受獲利了結及族群輪動影響。"
         },
-        "price_reason": "均線多頭排列、量增價漲；新聞標題指出3M入股（私募）與AI光通訊題材，惟三大法人合計賣超98張，主導因素偏事件與題材而非法人買盤。"
+        "price_reason": "量能放大與題材消息主導，營收數字輸入未提供。"
       }
     },
     {
@@ -166,19 +146,19 @@
       "chip": 70.0,
       "fundamental": null,
       "theme": null,
-      "news": 58.0,
-      "composite": 61.0,
-      "code": "2033",
-      "name": "2033 佳大",
+      "news": 68.0,
+      "composite": 64.3,
+      "code": "6112",
+      "name": "6112 邁達特",
       "analysis": {
-        "company_desc": "",
+        "company_desc": "本輪未逐檔查證公司業務，營業內容請以個股資料頁的申報營業項目為準。",
         "swot": {
-          "strengths": "未經逐檔查證，暫不判斷",
-          "weaknesses": "未經逐檔查證，暫不判斷",
-          "opportunities": "未經逐檔查證，暫不判斷",
-          "threats": "未經逐檔查證，暫不判斷"
+          "strengths": "可驗證訊號：站上季線、量能3.51倍、法人買超1382張，新聞提及資安族群買盤。",
+          "weaknesses": "輸入資料未涵蓋，本輪未查證。",
+          "opportunities": "依輸入新聞所述題材，是否轉為營收仍待後續月營收驗證。",
+          "threats": "推論：短線漲幅與量能放大後，股價易受獲利了結及族群輪動影響。"
         },
-        "price_reason": "法人買超300張、均線多頭排列，漲停；新聞標題指向鋼鐵族群走強與線纜題材，RSI 74.5偏超買。"
+        "price_reason": "資安族群買盤與法人買超主導，均線仍糾結。"
       }
     },
     {
@@ -186,10 +166,40 @@
       "chip": null,
       "fundamental": null,
       "theme": null,
-      "news": 65.0,
-      "composite": 60.0,
+      "news": 68.0,
+      "composite": 61.5,
       "code": "7911",
       "name": "7911 阿波羅電力"
+    },
+    {
+      "technical": 55.0,
+      "chip": 70.0,
+      "fundamental": null,
+      "theme": 60.0,
+      "news": 58.0,
+      "composite": 60.8,
+      "code": "3062",
+      "name": "3062 建漢",
+      "analysis": {
+        "company_desc": "本輪未逐檔查證公司業務，營業內容請以個股資料頁的申報營業項目為準。",
+        "swot": {
+          "strengths": "可驗證訊號：所屬題材5G / WiFi 7，站上季線、量能3.05倍、法人買超1520張；新聞提及資料中心網通題材及出售廠房公告。",
+          "weaknesses": "輸入資料未涵蓋，本輪未查證。",
+          "opportunities": "依輸入新聞所述題材，是否轉為營收仍待後續月營收驗證。",
+          "threats": "推論：短線漲幅與量能放大後，股價易受獲利了結及族群輪動影響。"
+        },
+        "price_reason": "題材與法人買超並存，出售廠房公告的損益影響輸入未提供。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 70.0,
+      "fundamental": null,
+      "theme": 35.0,
+      "news": 82.0,
+      "composite": 60.5,
+      "code": "6269",
+      "name": "6269 台郡"
     },
     {
       "technical": 55.0,
@@ -198,18 +208,28 @@
       "theme": null,
       "news": 55.0,
       "composite": 60.0,
-      "code": "4924",
-      "name": "4924 欣厚-KY",
+      "code": "2610",
+      "name": "2610 華航",
       "analysis": {
-        "company_desc": "",
+        "company_desc": "本輪未逐檔查證公司業務，營業內容請以個股資料頁的申報營業項目為準。",
         "swot": {
-          "strengths": "未經逐檔查證，暫不判斷",
-          "weaknesses": "未經逐檔查證，暫不判斷",
-          "opportunities": "未經逐檔查證，暫不判斷",
-          "threats": "未經逐檔查證，暫不判斷"
+          "strengths": "可驗證訊號：量增價漲（量能2.75倍）、三大法人合計買超28676張，站上季線但均線糾結。",
+          "weaknesses": "輸入資料未涵蓋，本輪未查證。",
+          "opportunities": "依輸入新聞所述題材，是否轉為營收仍待後續月營收驗證。",
+          "threats": "推論：短線漲幅與量能放大後，股價易受獲利了結及族群輪動影響。"
         },
-        "price_reason": "漲停，法人買超273張，新聞稱籌碼集中；歷史資料不足，其他驅動因素訊號不足，暫無法判斷。"
+        "price_reason": "法人大量買超為輸入中最明確的因素；新聞標題多為法人買賣超彙整，無個別營運消息。"
       }
+    },
+    {
+      "technical": 55.0,
+      "chip": 70.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 55.0,
+      "composite": 60.0,
+      "code": "6277",
+      "name": "6277 宏正"
     },
     {
       "technical": 55.0,
@@ -253,73 +273,23 @@
     },
     {
       "technical": 55.0,
-      "chip": 70.0,
+      "chip": 69.0,
       "fundamental": null,
       "theme": null,
       "news": 50.0,
-      "composite": 58.3,
-      "code": "3485",
-      "name": "3485 敘豐"
+      "composite": 58.0,
+      "code": "3718",
+      "name": "3718 中光電投控"
     },
     {
       "technical": 55.0,
-      "chip": 70.0,
+      "chip": 61.0,
       "fundamental": null,
       "theme": null,
       "news": 50.0,
-      "composite": 58.3,
-      "code": "7820",
-      "name": "7820 立盈"
-    },
-    {
-      "technical": 30.0,
-      "chip": 70.0,
-      "fundamental": null,
-      "theme": null,
-      "news": 75.0,
-      "composite": 58.3,
-      "code": "6278",
-      "name": "6278 台表科",
-      "analysis": {
-        "company_desc": "",
-        "swot": {
-          "strengths": "未經逐檔查證，暫不判斷",
-          "weaknesses": "未經逐檔查證，暫不判斷",
-          "opportunities": "未經逐檔查證，暫不判斷",
-          "threats": "未經逐檔查證，暫不判斷"
-        },
-        "price_reason": "法人買超11,297張、量能3.96倍、漲停；新聞提到外資連買與AI/光通訊題材。RSI 86.2、KD高檔鈍化，技術面過熱風險高。"
-      }
-    },
-    {
-      "technical": 55.0,
-      "chip": 70.0,
-      "fundamental": null,
-      "theme": null,
-      "news": 50.0,
-      "composite": 58.3,
-      "code": "6925",
-      "name": "6925 意藍"
-    },
-    {
-      "technical": 85.0,
-      "chip": 30.0,
-      "fundamental": null,
-      "theme": null,
-      "news": 58.0,
-      "composite": 57.7,
-      "code": "6885",
-      "name": "6885 全福生技",
-      "analysis": {
-        "company_desc": "",
-        "swot": {
-          "strengths": "未經逐檔查證，暫不判斷",
-          "weaknesses": "未經逐檔查證，暫不判斷",
-          "opportunities": "未經逐檔查證，暫不判斷",
-          "threats": "未經逐檔查證，暫不判斷"
-        },
-        "price_reason": "量增價漲（量能2.78倍）、均線多頭排列；新聞標題聚焦眼科新藥授權/臨床進度，但法人合計賣超19張，漲勢並非法人主導，訊號偏題材預期。"
-      }
+      "composite": 55.3,
+      "code": "6604",
+      "name": "6604 儒億"
     },
     {
       "technical": 55.0,
@@ -360,16 +330,6 @@
       "composite": 55.0,
       "code": "7951",
       "name": "7951 大易橙"
-    },
-    {
-      "technical": 55.0,
-      "chip": 70.0,
-      "fundamental": null,
-      "theme": null,
-      "news": 40.0,
-      "composite": 55.0,
-      "code": "7856",
-      "name": "7856 漢測"
     },
     {
       "technical": 55.0,
@@ -418,16 +378,6 @@
       "theme": null,
       "news": null,
       "composite": 55.0,
-      "code": "7932",
-      "name": "7932 昱鐳應材"
-    },
-    {
-      "technical": 55.0,
-      "chip": null,
-      "fundamental": null,
-      "theme": null,
-      "news": null,
-      "composite": 55.0,
       "code": "7914",
       "name": "7914 碩明綠能"
     },
@@ -448,18 +398,8 @@
       "theme": null,
       "news": null,
       "composite": 55.0,
-      "code": "7944",
-      "name": "7944 睿禾金碳"
-    },
-    {
-      "technical": 55.0,
-      "chip": null,
-      "fundamental": null,
-      "theme": null,
-      "news": 55.0,
-      "composite": 55.0,
-      "code": "7942",
-      "name": "7942 東佑達"
+      "code": "7943",
+      "name": "7943 鴻璟科技"
     },
     {
       "technical": 55.0,
@@ -498,8 +438,8 @@
       "theme": null,
       "news": null,
       "composite": 55.0,
-      "code": "7422",
-      "name": "7422 鴻林堂"
+      "code": "7933",
+      "name": "7933 威旭"
     },
     {
       "technical": 55.0,
@@ -538,16 +478,6 @@
       "theme": null,
       "news": null,
       "composite": 55.0,
-      "code": "7931",
-      "name": "7931 續升綠能"
-    },
-    {
-      "technical": 55.0,
-      "chip": null,
-      "fundamental": null,
-      "theme": null,
-      "news": null,
-      "composite": 55.0,
       "code": "7894",
       "name": "7894 瀚軒"
     },
@@ -570,6 +500,16 @@
       "composite": 55.0,
       "code": "7929",
       "name": "7929 碩通"
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "1780",
+      "name": "1780 立弘"
     },
     {
       "technical": 55.0,
@@ -658,16 +598,6 @@
       "theme": null,
       "news": null,
       "composite": 55.0,
-      "code": "7922",
-      "name": "7922 源點*"
-    },
-    {
-      "technical": 55.0,
-      "chip": null,
-      "fundamental": null,
-      "theme": null,
-      "news": null,
-      "composite": 55.0,
       "code": "7913",
       "name": "7913 通寶半導體"
     },
@@ -698,6 +628,16 @@
       "theme": null,
       "news": null,
       "composite": 55.0,
+      "code": "7784",
+      "name": "7784 安邦生技*"
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
       "code": "7915",
       "name": "7915 廌家"
     },
@@ -720,36 +660,6 @@
       "composite": 55.0,
       "code": "7912",
       "name": "7912 新聿科"
-    },
-    {
-      "technical": 55.0,
-      "chip": null,
-      "fundamental": null,
-      "theme": null,
-      "news": null,
-      "composite": 55.0,
-      "code": "7794",
-      "name": "7794 宏碁智新"
-    },
-    {
-      "technical": 55.0,
-      "chip": 50.0,
-      "fundamental": null,
-      "theme": null,
-      "news": 58.0,
-      "composite": 54.3,
-      "code": "7772",
-      "name": "7772 耀穎"
-    },
-    {
-      "technical": 55.0,
-      "chip": null,
-      "fundamental": null,
-      "theme": null,
-      "news": 50.0,
-      "composite": 52.5,
-      "code": "7806",
-      "name": "7806 精華生醫"
     },
     {
       "technical": 55.0,
@@ -798,8 +708,18 @@
       "theme": null,
       "news": 50.0,
       "composite": 52.5,
-      "code": "7943",
-      "name": "7943 鴻璟科技"
+      "code": "7932",
+      "name": "7932 昱鐳應材"
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": 50.0,
+      "composite": 52.5,
+      "code": "7942",
+      "name": "7942 東佑達"
     },
     {
       "technical": 55.0,
@@ -810,16 +730,6 @@
       "composite": 52.5,
       "code": "7925",
       "name": "7925 健生"
-    },
-    {
-      "technical": 55.0,
-      "chip": null,
-      "fundamental": null,
-      "theme": null,
-      "news": 50.0,
-      "composite": 52.5,
-      "code": "7933",
-      "name": "7933 威旭"
     },
     {
       "technical": 55.0,
@@ -848,6 +758,16 @@
       "theme": null,
       "news": 50.0,
       "composite": 52.5,
+      "code": "7819",
+      "name": "7819 精誠金融"
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": 50.0,
+      "composite": 52.5,
       "code": "7920",
       "name": "7920 瀚陽*"
     },
@@ -858,28 +778,28 @@
       "theme": null,
       "news": 50.0,
       "composite": 52.5,
-      "code": "7784",
-      "name": "7784 安邦生技*"
+      "code": "7820",
+      "name": "7820 立盈"
     },
     {
       "technical": 55.0,
       "chip": 50.0,
       "fundamental": null,
       "theme": null,
-      "news": 50.0,
-      "composite": 51.7,
-      "code": "7842",
-      "name": "7842 天能綠電"
+      "news": null,
+      "composite": 52.5,
+      "code": "7794",
+      "name": "7794 宏碁智新"
     },
     {
-      "technical": 30.0,
-      "chip": 70.0,
+      "technical": 55.0,
+      "chip": 30.0,
       "fundamental": null,
-      "theme": null,
-      "news": 50.0,
-      "composite": 50.0,
-      "code": "00688L",
-      "name": "00688L 國泰20年美債正2"
+      "theme": 35.0,
+      "news": 78.0,
+      "composite": 49.5,
+      "code": "3535",
+      "name": "3535 晶彩科"
     },
     {
       "technical": 55.0,
@@ -888,8 +808,28 @@
       "theme": null,
       "news": 62.0,
       "composite": 49.0,
-      "code": "2429",
-      "name": "2429 銘旺科"
+      "code": "6945",
+      "name": "6945 圓祥生技"
+    },
+    {
+      "technical": 55.0,
+      "chip": 30.0,
+      "fundamental": null,
+      "theme": 35.0,
+      "news": 75.0,
+      "composite": 48.8,
+      "code": "6153",
+      "name": "6153 嘉聯益"
+    },
+    {
+      "technical": 55.0,
+      "chip": 40.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 50.0,
+      "composite": 48.3,
+      "code": "2938",
+      "name": "2938 床的世界"
     },
     {
       "technical": 55.0,
@@ -903,61 +843,41 @@
     },
     {
       "technical": 55.0,
-      "chip": 30.0,
-      "fundamental": null,
-      "theme": null,
-      "news": 55.0,
-      "composite": 46.7,
-      "code": "6945",
-      "name": "6945 圓祥生技"
-    },
-    {
-      "technical": 55.0,
-      "chip": 30.7,
+      "chip": 40.0,
       "fundamental": null,
       "theme": null,
       "news": 50.0,
-      "composite": 45.2,
-      "code": "3718",
-      "name": "3718 中光電投控"
+      "composite": 48.3,
+      "code": "7842",
+      "name": "7842 天能綠電"
     },
     {
       "technical": 55.0,
       "chip": 30.0,
       "fundamental": null,
       "theme": null,
-      "news": 50.0,
-      "composite": 45.0,
-      "code": "6604",
-      "name": "6604 儒億"
+      "news": 58.0,
+      "composite": 47.7,
+      "code": "7856",
+      "name": "7856 漢測"
     },
     {
       "technical": 55.0,
       "chip": 30.0,
       "fundamental": null,
       "theme": null,
-      "news": 50.0,
-      "composite": 45.0,
-      "code": "2938",
-      "name": "2938 床的世界"
+      "news": 58.0,
+      "composite": 47.7,
+      "code": "7772",
+      "name": "7772 耀穎"
     },
     {
       "technical": 55.0,
-      "chip": 30.0,
+      "chip": 36.7,
       "fundamental": null,
       "theme": null,
       "news": 50.0,
-      "composite": 45.0,
-      "code": "7819",
-      "name": "7819 精誠金融"
-    },
-    {
-      "technical": 55.0,
-      "chip": 30.0,
-      "fundamental": null,
-      "theme": null,
-      "news": 50.0,
-      "composite": 45.0,
+      "composite": 47.2,
       "code": "6983",
       "name": "6983 華洋精機"
     },
@@ -968,58 +888,28 @@
       "theme": null,
       "news": 50.0,
       "composite": 45.0,
-      "code": "7828",
-      "name": "7828 創新服務"
+      "code": "7806",
+      "name": "7806 精華生醫"
     },
     {
       "technical": 55.0,
-      "chip": 30.1,
+      "chip": 30.0,
       "fundamental": null,
       "theme": null,
       "news": 50.0,
       "composite": 45.0,
-      "code": "8437",
-      "name": "8437 大地-KY"
+      "code": "3485",
+      "name": "3485 敘豐"
     },
     {
       "technical": 55.0,
       "chip": 30.0,
       "fundamental": null,
       "theme": null,
-      "news": null,
-      "composite": 42.5,
-      "code": "4571",
-      "name": "4571 鈞興-KY",
-      "analysis": {
-        "company_desc": "",
-        "swot": {
-          "strengths": "未經逐檔查證，暫不判斷",
-          "weaknesses": "未經逐檔查證，暫不判斷",
-          "opportunities": "未經逐檔查證，暫不判斷",
-          "threats": "未經逐檔查證，暫不判斷"
-        },
-        "price_reason": "量增價漲（量能3.67倍），RSI 77.5進入超買區，法人小幅賣超15張；無新聞，訊號不足，暫無法判斷主要驅動因素。"
-      }
-    },
-    {
-      "technical": 55.0,
-      "chip": 30.0,
-      "fundamental": null,
-      "theme": null,
-      "news": null,
-      "composite": 42.5,
-      "code": "1780",
-      "name": "1780 立弘"
-    },
-    {
-      "technical": 30.0,
-      "chip": 30.0,
-      "fundamental": null,
-      "theme": null,
-      "news": null,
-      "composite": 30.0,
-      "code": "2424",
-      "name": "2424 隴華"
+      "news": 50.0,
+      "composite": 45.0,
+      "code": "7828",
+      "name": "7828 創新服務"
     }
   ]
 }
