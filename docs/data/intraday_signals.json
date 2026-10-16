@@ -1,0 +1,344 @@
+{
+  "date": "2026-10-16",
+  "stocks": {
+    "6027": {
+      "code": "6027",
+      "name": "德信",
+      "tier": "A",
+      "peak_score": 100.0,
+      "first_seen": "2026-10-16 13:39:55",
+      "last_seen": "2026-10-16 13:39:55",
+      "signals": {
+        "change_pct": 5.57,
+        "rs_market": 5.27,
+        "rs_sector": 5.35,
+        "volume_ratio": 9.94,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "金融業"
+      }
+    },
+    "6934": {
+      "code": "6934",
+      "name": "心誠鎂",
+      "tier": "A",
+      "peak_score": 95.8,
+      "first_seen": "2026-10-16 13:39:55",
+      "last_seen": "2026-10-16 13:39:55",
+      "signals": {
+        "change_pct": 9.98,
+        "rs_market": 9.68,
+        "rs_sector": 9.81,
+        "volume_ratio": 5.91,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": false,
+        "industry": "生技醫療業"
+      }
+    },
+    "6751": {
+      "code": "6751",
+      "name": "智聯服務",
+      "tier": "A",
+      "peak_score": 95.8,
+      "first_seen": "2026-10-16 13:39:55",
+      "last_seen": "2026-10-16 13:39:55",
+      "signals": {
+        "change_pct": 9.88,
+        "rs_market": 9.58,
+        "rs_sector": 9.55,
+        "volume_ratio": 6.57,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": false,
+        "industry": "資訊服務業"
+      }
+    },
+    "1343": {
+      "code": "1343",
+      "name": "旭東環保",
+      "tier": "A",
+      "peak_score": 95.8,
+      "first_seen": "2026-10-16 13:39:55",
+      "last_seen": "2026-10-16 13:39:55",
+      "signals": {
+        "change_pct": 22.85,
+        "rs_market": 22.55,
+        "rs_sector": 22.85,
+        "volume_ratio": 5.47,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": false,
+        "industry": "綠能環保"
+      }
+    },
+    "4566": {
+      "code": "4566",
+      "name": "時碩工業",
+      "tier": "A",
+      "peak_score": 95.7,
+      "first_seen": "2026-10-16 13:39:55",
+      "last_seen": "2026-10-16 13:39:55",
+      "signals": {
+        "change_pct": 9.95,
+        "rs_market": 9.65,
+        "rs_sector": 9.79,
+        "volume_ratio": 3.51,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "電機機械"
+      }
+    },
+    "6689": {
+      "code": "6689",
+      "name": "伊雲谷",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-16 13:39:55",
+      "last_seen": "2026-10-16 13:39:55",
+      "signals": {
+        "change_pct": 9.98,
+        "rs_market": 9.68,
+        "rs_sector": 9.27,
+        "volume_ratio": 5.76,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "數位雲端"
+      }
+    },
+    "6909": {
+      "code": "6909",
+      "name": "創控",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-16 13:39:55",
+      "last_seen": "2026-10-16 13:39:55",
+      "signals": {
+        "change_pct": 5.91,
+        "rs_market": 5.61,
+        "rs_sector": 5.12,
+        "volume_ratio": 4.29,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "半導體業"
+      }
+    },
+    "5498": {
+      "code": "5498",
+      "name": "凱崴",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-16 13:39:55",
+      "last_seen": "2026-10-16 13:39:55",
+      "signals": {
+        "change_pct": 9.93,
+        "rs_market": 9.63,
+        "rs_sector": 9.58,
+        "volume_ratio": 5.76,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "電子零組件業"
+      }
+    },
+    "6418": {
+      "code": "6418",
+      "name": "詠昇",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-16 13:39:55",
+      "last_seen": "2026-10-16 13:39:55",
+      "signals": {
+        "change_pct": 9.97,
+        "rs_market": 9.67,
+        "rs_sector": 9.62,
+        "volume_ratio": 10.06,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "電子零組件業"
+      }
+    },
+    "6499": {
+      "code": "6499",
+      "name": "益安",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-16 13:39:55",
+      "last_seen": "2026-10-16 13:39:55",
+      "signals": {
+        "change_pct": 5.53,
+        "rs_market": 5.23,
+        "rs_sector": 5.36,
+        "volume_ratio": 7.68,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "生技醫療業"
+      }
+    },
+    "8089": {
+      "code": "8089",
+      "name": "康全電訊",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-16 13:39:55",
+      "last_seen": "2026-10-16 13:39:55",
+      "signals": {
+        "change_pct": 7.75,
+        "rs_market": 7.45,
+        "rs_sector": 7.24,
+        "volume_ratio": 4.21,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "通信網路業"
+      }
+    },
+    "2332": {
+      "code": "2332",
+      "name": "友訊",
+      "tier": "A",
+      "peak_score": 89.1,
+      "first_seen": "2026-10-16 13:39:55",
+      "last_seen": "2026-10-16 13:39:55",
+      "signals": {
+        "change_pct": 5.43,
+        "rs_market": 5.13,
+        "rs_sector": 4.92,
+        "volume_ratio": 4.53,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "通信網路業"
+      }
+    },
+    "1815": {
+      "code": "1815",
+      "name": "富喬",
+      "tier": "A",
+      "peak_score": 86.4,
+      "first_seen": "2026-10-16 13:39:55",
+      "last_seen": "2026-10-16 13:39:55",
+      "signals": {
+        "change_pct": 9.8,
+        "rs_market": 9.5,
+        "rs_sector": 9.45,
+        "volume_ratio": 2.45,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "電子零組件業"
+      }
+    },
+    "4960": {
+      "code": "4960",
+      "name": "誠美材",
+      "tier": "A",
+      "peak_score": 85.7,
+      "first_seen": "2026-10-16 13:39:55",
+      "last_seen": "2026-10-16 13:39:55",
+      "signals": {
+        "change_pct": 6.96,
+        "rs_market": 6.66,
+        "rs_sector": 5.95,
+        "volume_ratio": 3.57,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "光電業"
+      }
+    },
+    "5398": {
+      "code": "5398",
+      "name": "慕康生醫",
+      "tier": "A",
+      "peak_score": 83.9,
+      "first_seen": "2026-10-16 13:39:55",
+      "last_seen": "2026-10-16 13:39:55",
+      "signals": {
+        "change_pct": 9.84,
+        "rs_market": 9.54,
+        "rs_sector": 9.67,
+        "volume_ratio": 3.36,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "其他"
+      }
+    },
+    "9902": {
+      "code": "9902",
+      "name": "台火",
+      "tier": "A",
+      "peak_score": 83.1,
+      "first_seen": "2026-10-16 13:39:55",
+      "last_seen": "2026-10-16 13:39:55",
+      "signals": {
+        "change_pct": 4.96,
+        "rs_market": 4.66,
+        "rs_sector": 4.79,
+        "volume_ratio": 3.58,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "其他"
+      }
+    }
+  },
+  "updated": "2026-10-16 13:39:55",
+  "alerted": [
+    "1343",
+    "1802",
+    "1815",
+    "2313",
+    "2332",
+    "2380",
+    "2413",
+    "3062",
+    "3305",
+    "3390",
+    "3491",
+    "3630",
+    "3701",
+    "4188",
+    "4557",
+    "4566",
+    "4706",
+    "4906",
+    "4960",
+    "5309",
+    "5398",
+    "5498",
+    "6020",
+    "6027",
+    "6112",
+    "6140",
+    "6148",
+    "6153",
+    "6277",
+    "6285",
+    "6418",
+    "6465",
+    "6485",
+    "6499",
+    "6658",
+    "6689",
+    "6751",
+    "6756",
+    "6805",
+    "6875",
+    "6909",
+    "6934",
+    "6957",
+    "7759",
+    "8069",
+    "8089",
+    "8935",
+    "9902"
+  ]
+}
