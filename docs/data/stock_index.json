@@ -593,14 +593,6 @@
       "has_score": true
     },
     {
-      "code": "7947",
-      "name": "補丁科",
-      "industry": "",
-      "market": "esb",
-      "change_pct": -1.54,
-      "has_score": true
-    },
-    {
       "code": "7949",
       "name": "耀寬",
       "industry": "建材營造",
@@ -617,14 +609,6 @@
       "has_score": true
     },
     {
-      "code": "7951",
-      "name": "大易橙",
-      "industry": "",
-      "market": "esb",
-      "change_pct": 1.38,
-      "has_score": true
-    },
-    {
       "code": "7955",
       "name": "車麗屋",
       "industry": "居家生活",
@@ -638,14 +622,6 @@
       "industry": "半導體業",
       "market": "esb",
       "change_pct": -6.44,
-      "has_score": true
-    },
-    {
-      "code": "8244",
-      "name": "DIGITIMES",
-      "industry": "",
-      "market": "esb",
-      "change_pct": -8.29,
       "has_score": true
     },
     {
