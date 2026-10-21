@@ -1,114 +1,144 @@
 {
-  "date": "2026年10月20日．週二",
+  "date": "2026年10月21日．週三",
   "rows": [
     {
-      "technical": 55.0,
-      "chip": 71.3,
-      "fundamental": 100,
-      "theme": null,
-      "news": 85.0,
-      "composite": 77.8,
-      "code": "4566",
-      "name": "4566 時碩工業",
-      "analysis": {
-        "company_desc": "新聞稱其與 AI 液冷散熱相關，並提到泰國春武里園區啟用新產能；產品細節未於輸入提供。",
-        "swot": {
-          "strengths": "營收年增率 44.6%、新聞稱營收創高；均線多頭排列、三大法人買超 1892 張。",
-          "weaknesses": "RSI 74.4 進入超買區，短線過熱（輸入數據）。",
-          "opportunities": "新聞指泰國新產能接棒、AI 液冷年單約 20 億（社群引述，未經查證）。",
-          "threats": "超買後獲利了結壓力，以及液冷題材競爭者眾（推論）。"
-        },
-        "price_reason": "題材＋營收＋籌碼同向：AI 液冷題材、營收年增 44.6%、法人買超 1892 張、量能 3.02 倍，盤中亮燈漲停；技術面已超買。"
-      }
-    },
-    {
-      "technical": 55.0,
-      "chip": 75.2,
+      "technical": 85.0,
+      "chip": 70.3,
       "fundamental": 100,
       "theme": null,
       "news": 72.0,
-      "composite": 75.5,
-      "code": "3231",
-      "name": "3231 緯創",
+      "composite": 81.8,
+      "code": "4770",
+      "name": "4770 上品",
       "analysis": {
-        "company_desc": "電腦與伺服器代工廠（既有題材：AI 伺服器代工）。",
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
         "swot": {
-          "strengths": "營收年增率 87.2%，三大法人買超 42,703 張，規模大且籌碼集中。",
-          "weaknesses": "代工業務毛利率通常偏低（產業常見推論）。",
-          "opportunities": "AI 伺服器需求（輸入題材與營收數據支持）。",
-          "threats": "客戶集中及 AI 資本支出循環風險（推論）。"
+          "strengths": "營收年增 69.0%（申報數據）。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
         },
-        "price_reason": "法人買超與 AI 族群主導：外資、法人大幅買超 42,703 張，新聞稱 AI 股出頭天；量能 2.09 倍、站上季線，營收年增 87.2% 提供基本面支撐。"
+        "price_reason": "技術面：均線多頭排列、站上季線、量增價漲（量能 3.64 倍）、MACD 金叉；籌碼：三大法人合計買超1159張；融資增加0張；營收年增 69.0%。 新聞提及：【11:03 即時新聞】上品(4770) 盤中走強站上309元，買盤聚焦營收連兩月高成長 - CMoney（媒體敘述，未獨立查證）。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
+    },
+    {
+      "technical": 85.0,
+      "chip": 70.1,
+      "fundamental": 81.0,
+      "theme": null,
+      "news": null,
+      "composite": 78.7,
+      "code": "6491",
+      "name": "6491 晶碩",
+      "analysis": {
+        "company_desc": "以隱形眼鏡製造與銷售為主的醫療器材業者（屬本站題材目錄「隱形眼鏡」）。",
+        "swot": {
+          "strengths": "營收年增 20.6%（申報數據）。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "技術面：均線多頭排列、站上季線、量增價漲（量能 3.22 倍）；籌碼：三大法人合計買超504張；融資增加0張；營收年增 20.6%。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
+    },
+    {
+      "technical": 85.0,
+      "chip": 69.6,
+      "fundamental": 100,
+      "theme": 60.0,
+      "news": 78.0,
+      "composite": 78.5,
+      "code": "4526",
+      "name": "4526 東台",
+      "analysis": {
+        "company_desc": "工具機／PCB 鑽孔設備廠，新聞提及展示無人化鑽孔方案，鎖定 AI 伺服器板與載板設備需求。",
+        "swot": {
+          "strengths": "營收年增 81.0%（申報數據）。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "所屬題材「工具機」，需求變化可能帶動訂單（推論）。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "技術面：均線多頭排列、站上季線、量增價漲（量能 2.94 倍）；籌碼：三大法人合計買超1858張；融資減少0張；營收年增 81.0%。 新聞提及：【09:14 即時新聞】東台(4526)亮燈漲停，AI高階PCB設備題材成盤中焦點 - CMoney（媒體敘述，未獨立查證）。 單憑上述訊號僅能描述現況，主導因素無法確定。"
       }
     },
     {
       "technical": 55.0,
-      "chip": 69.6,
+      "chip": 70.0,
       "fundamental": 100,
       "theme": null,
       "news": null,
-      "composite": 74.9,
-      "code": "8213",
-      "name": "8213 志超",
+      "composite": 75.0,
+      "code": "7812",
+      "name": "7812 稜研科技*-創",
       "analysis": {
-        "company_desc": "輸入資料未提供主要業務，且未經查證，暫不描述。",
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
         "swot": {
-          "strengths": "營收年增率 50.6%、法人買超 740 張。",
-          "weaknesses": "資料不足，無法評估。",
-          "opportunities": "營收高成長若延續可望受關注（推論）。",
-          "threats": "資料不足。"
+          "strengths": "營收年增 214.1%（申報數據）。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
         },
-        "price_reason": "營收與籌碼主導：量增價漲（2.83 倍）、營收年增 50.6%、法人買超 740 張；無新聞佐證題材。"
+        "price_reason": "籌碼：三大法人合計買超87張；營收年增 214.1%。 單憑上述訊號僅能描述現況，主導因素無法確定。"
       }
     },
     {
       "technical": 55.0,
-      "chip": 69.6,
+      "chip": 72.6,
       "fundamental": 99.5,
       "theme": null,
-      "news": 75.0,
+      "news": 72.0,
       "composite": 74.8,
       "code": "4720",
       "name": "4720 德淵",
       "analysis": {
-        "company_desc": "輸入資料未提供主要業務，且未經查證，暫不描述。",
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
         "swot": {
-          "strengths": "營收年增率 33.0%、均線多頭排列、法人買超 2664 張。",
-          "weaknesses": "RSI 71.1 進入超買區。",
-          "opportunities": "新聞稱營收創高、低貝他防禦特性受關注。",
-          "threats": "超買後回檔風險（推論）。"
+          "strengths": "營收年增 33.0%（申報數據）。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
         },
-        "price_reason": "營收與法人買盤主導：新聞稱營收創高，法人買超 2664 張、量能 2.08 倍；技術面進入超買。"
+        "price_reason": "技術面：均線多頭排列、站上季線、RSI 74.7 進入超買區、量增價漲（量能 4.9 倍）；籌碼：三大法人合計買超4094張；融資增加1張；營收年增 33.0%。 新聞提及：【10:46 即時新聞】德淵(4720) 強攻漲停，低貝他防禦題材受關注 - CMoney（媒體敘述，未獨立查證）。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 74.9,
+      "fundamental": 100,
+      "theme": null,
+      "news": 65.0,
+      "composite": 73.7,
+      "code": "2328",
+      "name": "2328 廣宇",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "營收年增 34.3%（申報數據）。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "技術面：均線多頭排列、站上季線、RSI 80.0 進入超買區、量增價漲（量能 6.57 倍）；籌碼：三大法人合計買超5778張；融資增加1張；營收年增 34.3%。 新聞提及：【12:11 即時新聞】廣宇(2328)股價勁揚逾6% 聚焦營收回溫與AI伺服器題材 - CMoney（媒體敘述，未獨立查證）。 單憑上述訊號僅能描述現況，主導因素無法確定。"
       }
     },
     {
       "technical": 85.0,
-      "chip": 30.0,
+      "chip": 70.0,
       "fundamental": 100,
-      "theme": null,
-      "news": null,
-      "composite": 71.7,
-      "code": "4195",
-      "name": "4195 基米-創"
-    },
-    {
-      "technical": 85.0,
-      "chip": 70.6,
-      "fundamental": 53.6,
-      "theme": null,
-      "news": 75.0,
-      "composite": 71.0,
-      "code": "6695",
-      "name": "6695 芯鼎",
+      "theme": 60.0,
+      "news": 50.0,
+      "composite": 73.0,
+      "code": "4949",
+      "name": "4949 有成精密",
       "analysis": {
-        "company_desc": "IC 設計公司（依既有題材歸類屬記憶體控制／影像處理相關 SoC）；新聞提及祥碩取得其私募普通股 500 萬股、約 2.4 億元。",
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
         "swot": {
-          "strengths": "祥碩入股私募，顯示有策略投資人認同（推論，未見公司說明）。",
-          "weaknesses": "營收年增率僅約 2.4%，成長動能尚未反映在營收（輸入數據）。",
-          "opportunities": "新聞指『實體 AI 概念』，若題材落地需有新品或客戶出貨佐證（推論）。",
-          "threats": "IC 設計產業競爭激烈，題材退燒時股價波動大（產業常見推論）。"
+          "strengths": "營收年增 93.3%（申報數據）。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "所屬題材「工具機」，需求變化可能帶動訂單（推論）。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
         },
-        "price_reason": "題材與籌碼共同主導：盤中以實體 AI 概念攻上漲停，量能 4.08 倍、MACD 金叉、三大法人買超 293 張；營收年增僅 2.4%，基本面並非主因。"
+        "price_reason": "技術面：均線多頭排列、站上季線、量增價漲（量能 3.65 倍）、MACD 金叉；籌碼：三大法人合計買超1190張；融資減少0張；營收年增 93.3%。 單憑上述訊號僅能描述現況，主導因素無法確定。"
       }
     },
     {
@@ -118,67 +148,37 @@
       "theme": null,
       "news": null,
       "composite": 68.3,
-      "code": "7768",
-      "name": "7768 頌勝科技"
-    },
-    {
-      "technical": 55.0,
-      "chip": 70.0,
-      "fundamental": 85.3,
-      "theme": null,
-      "news": 60.0,
-      "composite": 67.6,
-      "code": "6947",
-      "name": "6947 台鎔科技",
+      "code": "4195",
+      "name": "4195 基米-創",
       "analysis": {
-        "company_desc": "新聞顯示處理半導體廢溶劑與醫療廢棄物。",
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
         "swot": {
-          "strengths": "營收年增率 23.5%；半導體廢溶劑量增。",
-          "weaknesses": "歷史資料不足，技術面無法評估。",
-          "opportunities": "新聞稱醫廢處理持續補強。",
-          "threats": "環保法規與處理價格波動（推論）。"
+          "strengths": "營收年增 69.1%（申報數據）。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
         },
-        "price_reason": "訊號不足，暫無法判斷主要驅動因素；僅見營收年增 23.5% 與小量法人買超 10 張。"
+        "price_reason": "技術面：均線糾結，方向未明、季線之下；籌碼：三大法人合計買超11張；營收年增 69.1%。 單憑上述訊號僅能描述現況，主導因素無法確定。"
       }
     },
     {
       "technical": 55.0,
-      "chip": 70.3,
-      "fundamental": 58.8,
+      "chip": 69.9,
+      "fundamental": 76.8,
       "theme": null,
-      "news": 80.0,
-      "composite": 66.0,
-      "code": "1809",
-      "name": "1809 中釉",
+      "news": 62.0,
+      "composite": 65.9,
+      "code": "6902",
+      "name": "6902 GOGOLOOK",
       "analysis": {
-        "company_desc": "陶瓷／玻璃相關材料公司，新聞以『玻陶族群』稱之，詳細產品未於輸入提供。",
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
         "swot": {
-          "strengths": "三大法人買超 2366 張，籌碼面有法人承接。",
-          "weaknesses": "營收年增率約 5.9%，成長溫和（輸入數據）。",
-          "opportunities": "新聞指玻陶族群輪動，若族群買氣延續有機會續受關注（推論）。",
-          "threats": "族群輪動題材持續性不確定，量能退潮易回檔（推論）。"
+          "strengths": "營收年增 17.9%（申報數據）。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
         },
-        "price_reason": "族群題材主導：新聞稱玻陶族群買氣延燒、陶瓷材料廠連 2 天上漲，亮燈漲停，量能 2.58 倍並有法人買超 2366 張；營收年增僅 5.9%，基本面支撐有限。"
-      }
-    },
-    {
-      "technical": 55.0,
-      "chip": 70.1,
-      "fundamental": null,
-      "theme": null,
-      "news": 72.0,
-      "composite": 65.7,
-      "code": "3483",
-      "name": "3483 力致",
-      "analysis": {
-        "company_desc": "新聞將其歸類於散熱題材；產品細節未於輸入提供。",
-        "swot": {
-          "strengths": "外資買超（新聞稱上櫃第三名），法人買超 911 張。",
-          "weaknesses": "歷史資料不足，技術面無法評估；營收資料缺。",
-          "opportunities": "散熱題材受市場關注。",
-          "threats": "題材性買盤退潮風險（推論）。"
-        },
-        "price_reason": "散熱題材與外資買盤主導：新聞稱亮燈漲停、外資買超上櫃第三名；技術與營收資料不足。"
+        "price_reason": "技術面：均線糾結，方向未明、站上季線、量增價漲（量能 2.32 倍）；籌碼：三大法人合計買超273張；融資減少0張；營收年增 17.9%。 新聞提及：【10:52 即時新聞】GOGOLOOK(6902) 盤中大漲近一成，市場聚焦防詐業務成長動能 - CMoney（媒體敘述，未獨立查證）。 單憑上述訊號僅能描述現況，主導因素無法確定。"
       }
     },
     {
@@ -189,36 +189,56 @@
       "news": 50.0,
       "composite": 65.6,
       "code": "8908",
-      "name": "8908 欣雄"
+      "name": "8908 欣雄",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "營收年增 24.9%（申報數據）。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "籌碼：三大法人合計買超4張；營收年增 24.9%。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
     },
     {
       "technical": 55.0,
       "chip": 70.0,
-      "fundamental": null,
+      "fundamental": 66.7,
       "theme": null,
-      "news": 62.0,
-      "composite": 62.3,
-      "code": "7856",
-      "name": "7856 漢測"
+      "news": null,
+      "composite": 63.9,
+      "code": "7855",
+      "name": "7855 和運租車",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "營收年增 11.2%（申報數據）。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "籌碼：三大法人合計買超22張；營收年增 11.2%。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
     },
     {
-      "technical": 30.0,
-      "chip": 70.5,
-      "fundamental": 77.7,
+      "technical": 55.0,
+      "chip": 70.1,
+      "fundamental": 64.2,
       "theme": null,
-      "news": 70.0,
-      "composite": 62.0,
-      "code": "6277",
-      "name": "6277 宏正",
+      "news": 60.0,
+      "composite": 62.3,
+      "code": "3543",
+      "name": "3543 州巧",
       "analysis": {
-        "company_desc": "以 KVM 切換／延長器產品為主（新聞：發表首款工業級 KVM 延長器，鎖定關鍵基礎設施）。",
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
         "swot": {
-          "strengths": "營收年增 18.4%、法人買超 1201 張、均線多頭排列。",
-          "weaknesses": "RSI 96.2、KD 高檔鈍化，短線極度過熱。",
-          "opportunities": "工業級 KVM 新品打入關鍵任務應用。",
-          "threats": "極度超買，量能 8.18 倍後的獲利了結風險（推論）。"
+          "strengths": "營收年增 9.5%（申報數據）。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
         },
-        "price_reason": "新品題材與量能主導：發表工業級 KVM 延長器，量能 8.18 倍、法人買超 1201 張；技術面極度超買，需留意波動。"
+        "price_reason": "技術面：均線糾結，方向未明、站上季線、量增價漲（量能 2.12 倍）；籌碼：三大法人合計買超764張；融資增加0張；營收年增 9.5%。 新聞提及：【09:07 即時新聞】州巧(3543) 亮燈漲停，光電族群點火成盤中焦點 - CMoney（媒體敘述，未獨立查證）。 單憑上述訊號僅能描述現況，主導因素無法確定。"
       }
     },
     {
@@ -228,27 +248,17 @@
       "theme": null,
       "news": null,
       "composite": 61.7,
-      "code": "7812",
-      "name": "7812 稜研科技*-創"
-    },
-    {
-      "technical": 55.0,
-      "chip": 70.1,
-      "fundamental": null,
-      "theme": null,
-      "news": 58.0,
-      "composite": 61.0,
-      "code": "3354",
-      "name": "3354 律勝",
+      "code": "7768",
+      "name": "7768 頌勝科技",
       "analysis": {
-        "company_desc": "輸入資料未提供主要業務，且未經查證，暫不描述。",
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
         "swot": {
-          "strengths": "法人買超 1747 張。",
-          "weaknesses": "歷史資料不足，無法評估。",
-          "opportunities": "新聞顯示列入周轉率前 25 與主本比排行，市場關注度高。",
-          "threats": "周轉率高代表短線交易擁擠（推論）。"
+          "strengths": "營收年增 34.4%（申報數據）。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
         },
-        "price_reason": "籌碼與交易熱度主導：法人買超 1747 張、周轉率前 25；基本面與技術資料不足。"
+        "price_reason": "技術面：均線糾結，方向未明、站上季線；籌碼：三大法人合計賣超12張；營收年增 34.4%。 單憑上述訊號僅能描述現況，主導因素無法確定。"
       }
     },
     {
@@ -256,60 +266,170 @@
       "chip": 70.0,
       "fundamental": null,
       "theme": null,
-      "news": 50.0,
-      "composite": 58.3,
-      "code": "2938",
-      "name": "2938 床的世界"
+      "news": 60.0,
+      "composite": 61.7,
+      "code": "4577",
+      "name": "4577 達航科技"
     },
     {
       "technical": 55.0,
-      "chip": 70.0,
-      "fundamental": null,
+      "chip": 29.9,
+      "fundamental": 100,
       "theme": null,
-      "news": 50.0,
-      "composite": 58.3,
-      "code": "7839",
-      "name": "7839 達人網"
-    },
-    {
-      "technical": 55.0,
-      "chip": 69.6,
-      "fundamental": null,
-      "theme": null,
-      "news": 50.0,
-      "composite": 58.2,
-      "code": "3718",
-      "name": "3718 中光電投控"
-    },
-    {
-      "technical": 55.0,
-      "chip": 69.9,
-      "fundamental": 62.6,
-      "theme": 35.0,
       "news": null,
-      "composite": 55.6,
-      "code": "8215",
-      "name": "8215 明基材",
+      "composite": 61.6,
+      "code": "8213",
+      "name": "8213 志超"
+    },
+    {
+      "technical": 85.0,
+      "chip": 70.0,
+      "fundamental": 28.7,
+      "theme": null,
+      "news": null,
+      "composite": 61.2,
+      "code": "3545",
+      "name": "3545 敦泰"
+    },
+    {
+      "technical": 55.0,
+      "chip": 70.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 50.0,
+      "composite": 58.3,
+      "code": "7825",
+      "name": "7825 和亞智慧",
       "analysis": {
-        "company_desc": "面板光學相關材料公司（既有題材：偏光片與光學膜材料）。",
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
         "swot": {
-          "strengths": "法人買超 1072 張、站上季線。",
-          "weaknesses": "營收年增僅 8.4%。",
-          "opportunities": "偏光片與光學膜族群同步走強（誠美材亦上漲）。",
-          "threats": "面板景氣與報價波動（推論）。"
+          "strengths": "輸入資料未提供可驗證的優勢資訊。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
         },
-        "price_reason": "族群連動主導：與誠美材同步上漲，量能 2.12 倍、法人買超 1072 張；營收年增 8.4%，基本面貢獻有限。"
+        "price_reason": "籌碼：三大法人合計買超23張。 單憑上述訊號僅能描述現況，主導因素無法確定。"
       }
     },
     {
       "technical": 55.0,
-      "chip": null,
+      "chip": 70.0,
       "fundamental": null,
       "theme": null,
-      "news": 55.0,
-      "composite": 55.0,
-      "code": "6930",
-      "name": "6930 盛新"
+      "news": 50.0,
+      "composite": 58.3,
+      "code": "3718",
+      "name": "3718 中光電投控",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "輸入資料未提供可驗證的優勢資訊。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "籌碼：三大法人合計買超137張。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 70.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 50.0,
+      "composite": 58.3,
+      "code": "3485",
+      "name": "3485 敘豐",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "輸入資料未提供可驗證的優勢資訊。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "籌碼：三大法人合計買超65張。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 31.2,
+      "fundamental": 70.1,
+      "theme": null,
+      "news": 70.0,
+      "composite": 56.6,
+      "code": "2312",
+      "name": "2312 金寶",
+      "analysis": {
+        "company_desc": "以電腦周邊與電子代工為主的電子製造業者（依公司名稱與一般產業認知，細節未逐項查證）。",
+        "swot": {
+          "strengths": "營收年增 13.4%（申報數據）。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "技術面：均線糾結，方向未明、站上季線；籌碼：三大法人合計賣超3302張；融資增加0張；營收年增 13.4%。 新聞提及：2312 金寶 - 【09:11 即時新聞】金寶(2312)亮燈漲停，量子運算題材成盤中焦點- 股市爆料同學會 - CM（媒體敘述，未獨立查證）。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
+    },
+    {
+      "technical": 30.0,
+      "chip": 70.0,
+      "fundamental": 69.8,
+      "theme": null,
+      "news": null,
+      "composite": 56.6,
+      "code": "7760",
+      "name": "7760 享溫馨",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "營收年增 13.2%（申報數據）。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "技術面：均線空頭排列、季線之下；籌碼：三大法人合計買超2張；營收年增 13.2%。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
+    },
+    {
+      "technical": 35.0,
+      "chip": 40.0,
+      "fundamental": 92.3,
+      "theme": null,
+      "news": null,
+      "composite": 55.8,
+      "code": "4178",
+      "name": "4178 永笙-KY",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "營收年增 28.2%（申報數據）。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "技術面：均線糾結，方向未明、季線之下；籌碼：三大法人合計賣超1張；營收年增 28.2%。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 61.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 50.0,
+      "composite": 55.3,
+      "code": "6945",
+      "name": "6945 圓祥生技",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "輸入資料未提供可驗證的優勢資訊。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "籌碼：三大法人合計買超1張。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
     },
     {
       "technical": 55.0,
@@ -320,6 +440,16 @@
       "composite": 55.0,
       "code": "7955",
       "name": "7955 車麗屋"
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7956",
+      "name": "7956 啟賦"
     },
     {
       "technical": 55.0,
@@ -546,26 +676,6 @@
       "chip": null,
       "fundamental": null,
       "theme": null,
-      "news": 55.0,
-      "composite": 55.0,
-      "code": "7930",
-      "name": "7930 威世波"
-    },
-    {
-      "technical": 55.0,
-      "chip": null,
-      "fundamental": null,
-      "theme": null,
-      "news": null,
-      "composite": 55.0,
-      "code": "7931",
-      "name": "7931 續升綠能"
-    },
-    {
-      "technical": 55.0,
-      "chip": null,
-      "fundamental": null,
-      "theme": null,
       "news": null,
       "composite": 55.0,
       "code": "7418",
@@ -580,6 +690,16 @@
       "composite": 55.0,
       "code": "7894",
       "name": "7894 瀚軒"
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": 55.0,
+      "composite": 55.0,
+      "code": "7924",
+      "name": "7924 TLC-KY"
     },
     {
       "technical": 55.0,
@@ -618,16 +738,6 @@
       "theme": null,
       "news": null,
       "composite": 55.0,
-      "code": "7926",
-      "name": "7926 中華立鼎"
-    },
-    {
-      "technical": 55.0,
-      "chip": null,
-      "fundamental": null,
-      "theme": null,
-      "news": null,
-      "composite": 55.0,
       "code": "7927",
       "name": "7927 連距電機"
     },
@@ -658,8 +768,28 @@
       "theme": null,
       "news": null,
       "composite": 55.0,
+      "code": "7819",
+      "name": "7819 精誠金融"
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
       "code": "7898",
       "name": "7898 乾瞻"
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": null,
+      "composite": 55.0,
+      "code": "7921",
+      "name": "7921 台普威"
     },
     {
       "technical": 55.0,
@@ -713,16 +843,6 @@
     },
     {
       "technical": 55.0,
-      "chip": 60.0,
-      "fundamental": null,
-      "theme": null,
-      "news": 50.0,
-      "composite": 55.0,
-      "code": "7772",
-      "name": "7772 耀穎"
-    },
-    {
-      "technical": 55.0,
       "chip": null,
       "fundamental": null,
       "theme": null,
@@ -753,23 +873,33 @@
     },
     {
       "technical": 55.0,
-      "chip": 70.6,
-      "fundamental": 59.2,
-      "theme": 35.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
       "news": null,
       "composite": 55.0,
-      "code": "6689",
-      "name": "6689 伊雲谷"
+      "code": "7820",
+      "name": "7820 立盈"
     },
     {
       "technical": 55.0,
-      "chip": 40.0,
-      "fundamental": 46.0,
+      "chip": null,
+      "fundamental": null,
       "theme": null,
-      "news": 75.0,
-      "composite": 54.0,
-      "code": "6269",
-      "name": "6269 台郡"
+      "news": 50.0,
+      "composite": 52.5,
+      "code": "7946",
+      "name": "7946 廣騰"
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": 50.0,
+      "composite": 52.5,
+      "code": "7957",
+      "name": "7957 第一傳動"
     },
     {
       "technical": 55.0,
@@ -798,8 +928,8 @@
       "theme": null,
       "news": 50.0,
       "composite": 52.5,
-      "code": "7956",
-      "name": "7956 啟賦"
+      "code": "6930",
+      "name": "6930 盛新"
     },
     {
       "technical": 55.0,
@@ -828,8 +958,18 @@
       "theme": null,
       "news": 50.0,
       "composite": 52.5,
-      "code": "7924",
-      "name": "7924 TLC-KY"
+      "code": "7930",
+      "name": "7930 威世波"
+    },
+    {
+      "technical": 55.0,
+      "chip": null,
+      "fundamental": null,
+      "theme": null,
+      "news": 50.0,
+      "composite": 52.5,
+      "code": "7926",
+      "name": "7926 中華立鼎"
     },
     {
       "technical": 55.0,
@@ -843,53 +983,13 @@
     },
     {
       "technical": 55.0,
-      "chip": null,
+      "chip": 50.0,
       "fundamental": null,
       "theme": null,
       "news": 50.0,
-      "composite": 52.5,
-      "code": "7819",
-      "name": "7819 精誠金融"
-    },
-    {
-      "technical": 55.0,
-      "chip": null,
-      "fundamental": null,
-      "theme": null,
-      "news": 50.0,
-      "composite": 52.5,
-      "code": "7921",
-      "name": "7921 台普威"
-    },
-    {
-      "technical": 55.0,
-      "chip": null,
-      "fundamental": null,
-      "theme": null,
-      "news": 50.0,
-      "composite": 52.5,
-      "code": "7842",
-      "name": "7842 天能綠電"
-    },
-    {
-      "technical": 55.0,
-      "chip": 70.0,
-      "fundamental": null,
-      "theme": 35.0,
-      "news": 50.0,
-      "composite": 52.5,
-      "code": "6870",
-      "name": "6870 騰雲"
-    },
-    {
-      "technical": 35.0,
-      "chip": 30.0,
-      "fundamental": 92.3,
-      "theme": null,
-      "news": null,
-      "composite": 52.4,
-      "code": "4178",
-      "name": "4178 永笙-KY"
+      "composite": 51.7,
+      "code": "7814",
+      "name": "7814 海昌生技"
     },
     {
       "technical": 55.0,
@@ -899,27 +999,57 @@
       "news": null,
       "composite": 51.4,
       "code": "7689",
-      "name": "7689 大鵬科CLMX"
+      "name": "7689 大鵬科CLMX",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "輸入資料未提供可驗證的優勢資訊。",
+          "weaknesses": "營收年增 -13.8%，營運動能轉弱（申報數據）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "籌碼：三大法人合計買超7張；營收年增 -13.8%。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
     },
     {
-      "technical": 55.0,
+      "technical": 30.0,
       "chip": 30.0,
-      "fundamental": 66.7,
+      "fundamental": 85.3,
       "theme": null,
       "news": null,
-      "composite": 50.6,
-      "code": "7855",
-      "name": "7855 和運租車"
+      "composite": 48.4,
+      "code": "6947",
+      "name": "6947 台鎔科技",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "營收年增 23.5%（申報數據）。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "技術面：均線空頭排列、季線之下；籌碼：三大法人合計賣超15張；營收年增 23.5%。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
     },
     {
       "technical": 55.0,
-      "chip": 67.0,
-      "fundamental": 27.6,
-      "theme": 35.0,
-      "news": 62.0,
-      "composite": 49.3,
-      "code": "4960",
-      "name": "4960 誠美材"
+      "chip": 40.0,
+      "fundamental": null,
+      "theme": null,
+      "news": 50.0,
+      "composite": 48.3,
+      "code": "2938",
+      "name": "2938 床的世界",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "輸入資料未提供可驗證的優勢資訊。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "籌碼：三大法人合計賣超1張。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
     },
     {
       "technical": 55.0,
@@ -929,27 +1059,57 @@
       "news": 50.0,
       "composite": 48.3,
       "code": "6986",
-      "name": "6986 和迅"
+      "name": "6986 和迅",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "輸入資料未提供可驗證的優勢資訊。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "籌碼：三大法人合計賣超1張。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
     },
     {
       "technical": 55.0,
-      "chip": 37.0,
+      "chip": 39.1,
       "fundamental": null,
       "theme": null,
       "news": 50.0,
-      "composite": 47.3,
+      "composite": 48.0,
       "code": "6983",
-      "name": "6983 華洋精機"
+      "name": "6983 華洋精機",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "輸入資料未提供可驗證的優勢資訊。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "籌碼：三大法人合計賣超1張。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
     },
     {
       "technical": 55.0,
-      "chip": 34.6,
+      "chip": 30.0,
       "fundamental": null,
       "theme": null,
       "news": 50.0,
-      "composite": 46.5,
-      "code": "3485",
-      "name": "3485 敘豐"
+      "composite": 45.0,
+      "code": "6467",
+      "name": "6467 泰合",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "輸入資料未提供可驗證的優勢資訊。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "籌碼：三大法人合計賣超244張。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
     },
     {
       "technical": 55.0,
@@ -959,7 +1119,17 @@
       "news": 50.0,
       "composite": 45.0,
       "code": "6604",
-      "name": "6604 儒億"
+      "name": "6604 儒億",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "輸入資料未提供可驗證的優勢資訊。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "籌碼：三大法人合計賣超4張。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
     },
     {
       "technical": 55.0,
@@ -968,8 +1138,18 @@
       "theme": null,
       "news": 50.0,
       "composite": 45.0,
-      "code": "7825",
-      "name": "7825 和亞智慧"
+      "code": "7856",
+      "name": "7856 漢測",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "輸入資料未提供可驗證的優勢資訊。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "籌碼：三大法人合計賣超24張。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
     },
     {
       "technical": 55.0,
@@ -978,28 +1158,18 @@
       "theme": null,
       "news": 50.0,
       "composite": 45.0,
-      "code": "7814",
-      "name": "7814 海昌生技"
-    },
-    {
-      "technical": 55.0,
-      "chip": 30.0,
-      "fundamental": null,
-      "theme": null,
-      "news": 50.0,
-      "composite": 45.0,
-      "code": "6945",
-      "name": "6945 圓祥生技"
-    },
-    {
-      "technical": 35.0,
-      "chip": 70.0,
-      "fundamental": 28.7,
-      "theme": null,
-      "news": null,
-      "composite": 44.6,
-      "code": "7835",
-      "name": "7835 永悅健康-創"
+      "code": "7772",
+      "name": "7772 耀穎",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "輸入資料未提供可驗證的優勢資訊。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "籌碼：三大法人合計賣超63張。 新聞提及：7772 耀穎- 【10/20 產業即時新聞】電子中游-光學鏡片族群強勢走高，中小型股點火、大立光穩步向上- 股市爆料同（媒體敘述，未獨立查證）。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
     },
     {
       "technical": 30.0,
@@ -1009,17 +1179,17 @@
       "news": null,
       "composite": 44.0,
       "code": "7818",
-      "name": "7818 溢泰實業"
-    },
-    {
-      "technical": 30.0,
-      "chip": 30.0,
-      "fundamental": 69.8,
-      "theme": null,
-      "news": null,
-      "composite": 43.3,
-      "code": "7760",
-      "name": "7760 享溫馨"
+      "name": "7818 溢泰實業",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "營收年增 14.7%（申報數據）。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "技術面：均線空頭排列、季線之下、RSI 28.6 進入超賣區；籌碼：三大法人合計賣超13張；營收年增 14.7%。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
     },
     {
       "technical": 55.0,
@@ -1029,47 +1199,127 @@
       "news": null,
       "composite": 42.5,
       "code": "1780",
-      "name": "1780 立弘"
+      "name": "1780 立弘",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "輸入資料未提供可驗證的優勢資訊。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "籌碼：三大法人合計賣超28張。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
     },
     {
       "technical": 55.0,
-      "chip": 70.0,
-      "fundamental": 0,
+      "chip": 30.0,
+      "fundamental": null,
       "theme": null,
       "news": null,
-      "composite": 41.7,
-      "code": "2237",
-      "name": "2237 華德動能-創"
+      "composite": 42.5,
+      "code": "7839",
+      "name": "7839 達人網",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "輸入資料未提供可驗證的優勢資訊。",
+          "weaknesses": "輸入資料未提供可驗證的弱點資訊（推論：規模與客戶集中度需另行查證）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "籌碼：三大法人合計賣超3張。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
     },
     {
       "technical": 55.0,
-      "chip": 70.0,
+      "chip": 29.9,
       "fundamental": 0,
       "theme": null,
-      "news": null,
-      "composite": 41.7,
-      "code": "7827",
-      "name": "7827 漢康-KY創"
+      "news": 55.0,
+      "composite": 35.0,
+      "code": "6443",
+      "name": "6443 元晶"
     },
     {
       "technical": 30.0,
-      "chip": 40.0,
+      "chip": 30.0,
+      "fundamental": 28.7,
+      "theme": null,
+      "news": null,
+      "composite": 29.6,
+      "code": "7835",
+      "name": "7835 永悅健康-創",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "輸入資料未提供可驗證的優勢資訊。",
+          "weaknesses": "營收年增 -14.2%，營運動能轉弱（申報數據）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "技術面：均線空頭排列、季線之下；籌碼：三大法人合計賣超2張；營收年增 -14.2%。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
+    },
+    {
+      "technical": 55.0,
+      "chip": 30.0,
+      "fundamental": 0,
+      "theme": null,
+      "news": null,
+      "composite": 28.3,
+      "code": "2237",
+      "name": "2237 華德動能-創",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "輸入資料未提供可驗證的優勢資訊。",
+          "weaknesses": "營收年增 -37.8%，營運動能轉弱（申報數據）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "籌碼：三大法人合計賣超5張；營收年增 -37.8%。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
+    },
+    {
+      "technical": 30.0,
+      "chip": 30.0,
       "fundamental": 0,
       "theme": null,
       "news": 50.0,
-      "composite": 30.0,
+      "composite": 27.5,
       "code": "4582",
-      "name": "4582 聚恆-創"
+      "name": "4582 聚恆-創",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "輸入資料未提供可驗證的優勢資訊。",
+          "weaknesses": "營收年增 -71.0%，營運動能轉弱（申報數據）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "技術面：均線空頭排列、季線之下、RSI 12.3 進入超賣區；籌碼：三大法人合計賣超9張；營收年增 -71.0%。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
     },
     {
-      "technical": 30.0,
-      "chip": 60.0,
+      "technical": 35.0,
+      "chip": 30.0,
       "fundamental": 0,
       "theme": null,
       "news": null,
-      "composite": 30.0,
-      "code": "7803",
-      "name": "7803 雲象科技-創"
+      "composite": 21.7,
+      "code": "7827",
+      "name": "7827 漢康-KY創",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "輸入資料未提供可驗證的優勢資訊。",
+          "weaknesses": "營收年增 -100.0%，營運動能轉弱（申報數據）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "技術面：均線糾結，方向未明、季線之下；籌碼：三大法人合計賣超29張；營收年增 -100.0%。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
     },
     {
       "technical": 30.0,
@@ -1079,7 +1329,37 @@
       "news": null,
       "composite": 21.3,
       "code": "5236",
-      "name": "5236 凌陽創新"
+      "name": "5236 凌陽創新",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "輸入資料未提供可驗證的優勢資訊。",
+          "weaknesses": "營收年增 -30.8%，營運動能轉弱（申報數據）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "技術面：均線空頭排列、季線之下、RSI 21.3 進入超賣區；籌碼：三大法人合計賣超8張；營收年增 -30.8%。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
+    },
+    {
+      "technical": 30.0,
+      "chip": 30.0,
+      "fundamental": 0,
+      "theme": null,
+      "news": null,
+      "composite": 20.0,
+      "code": "7803",
+      "name": "7803 雲象科技-創",
+      "analysis": {
+        "company_desc": "主要業務尚未逐檔查證，請以公開資訊觀測站申報營業項目為準。",
+        "swot": {
+          "strengths": "輸入資料未提供可驗證的優勢資訊。",
+          "weaknesses": "營收年增 -63.6%，營運動能轉弱（申報數據）。",
+          "opportunities": "輸入資料未提供題材／新產品資訊，無法判斷。",
+          "threats": "產業景氣、競爭與匯率變動為一般性風險（推論，未逐項查證）。"
+        },
+        "price_reason": "技術面：均線空頭排列、季線之下；籌碼：三大法人合計賣超4張；營收年增 -63.6%。 單憑上述訊號僅能描述現況，主導因素無法確定。"
+      }
     }
   ]
 }
