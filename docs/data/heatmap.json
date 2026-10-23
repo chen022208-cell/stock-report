@@ -268,7 +268,7 @@
       ]
     },
     {
-      "name": "金融保險業",
+      "name": "金融保險",
       "avg_change_pct": 0.35,
       "count": 31,
       "stocks": [
@@ -1523,7 +1523,7 @@
       ]
     },
     {
-      "name": "觀光餐旅",
+      "name": "觀光事業",
       "avg_change_pct": -0.41,
       "count": 19,
       "stocks": [
@@ -1625,7 +1625,269 @@
       ]
     },
     {
-      "name": "居家生活",
+      "name": "其他業",
+      "avg_change_pct": -0.46,
+      "count": 51,
+      "stocks": [
+        {
+          "code": "9933",
+          "name": "中鼎",
+          "change_pct": 2.17
+        },
+        {
+          "code": "6957",
+          "name": "裕慶-KY",
+          "change_pct": 1.34
+        },
+        {
+          "code": "1443",
+          "name": "立益物流",
+          "change_pct": 1.13
+        },
+        {
+          "code": "8404",
+          "name": "百和興業-KY",
+          "change_pct": 1.13
+        },
+        {
+          "code": "9945",
+          "name": "潤泰新",
+          "change_pct": 1.02
+        },
+        {
+          "code": "1435",
+          "name": "中福",
+          "change_pct": 1.0
+        },
+        {
+          "code": "6958",
+          "name": "日盛台駿",
+          "change_pct": 0.9
+        },
+        {
+          "code": "9939",
+          "name": "宏全",
+          "change_pct": 0.79
+        },
+        {
+          "code": "8466",
+          "name": "美吉吉-KY",
+          "change_pct": 0.68
+        },
+        {
+          "code": "6592",
+          "name": "和潤企業",
+          "change_pct": 0.53
+        },
+        {
+          "code": "9917",
+          "name": "中保科",
+          "change_pct": 0.47
+        },
+        {
+          "code": "8411",
+          "name": "福貞-KY",
+          "change_pct": 0.45
+        },
+        {
+          "code": "1416",
+          "name": "廣豐",
+          "change_pct": 0.38
+        },
+        {
+          "code": "6184",
+          "name": "大豐電",
+          "change_pct": 0.38
+        },
+        {
+          "code": "9907",
+          "name": "統一實",
+          "change_pct": 0.34
+        },
+        {
+          "code": "9925",
+          "name": "新保",
+          "change_pct": 0.13
+        },
+        {
+          "code": "8481",
+          "name": "政伸",
+          "change_pct": 0.12
+        },
+        {
+          "code": "2514",
+          "name": "龍邦",
+          "change_pct": 0.0
+        },
+        {
+          "code": "2904",
+          "name": "匯僑",
+          "change_pct": 0.0
+        },
+        {
+          "code": "6655",
+          "name": "科定",
+          "change_pct": 0.0
+        },
+        {
+          "code": "7855",
+          "name": "和運租車",
+          "change_pct": 0.0
+        },
+        {
+          "code": "9927",
+          "name": "泰銘",
+          "change_pct": 0.0
+        },
+        {
+          "code": "9929",
+          "name": "秋雨",
+          "change_pct": 0.0
+        },
+        {
+          "code": "9941",
+          "name": "裕融",
+          "change_pct": -0.13
+        },
+        {
+          "code": "9940",
+          "name": "信義",
+          "change_pct": -0.25
+        },
+        {
+          "code": "9928",
+          "name": "中視",
+          "change_pct": -0.29
+        },
+        {
+          "code": "9902",
+          "name": "台火",
+          "change_pct": -0.38
+        },
+        {
+          "code": "6625",
+          "name": "必應",
+          "change_pct": -0.41
+        },
+        {
+          "code": "6914",
+          "name": "阜爾運通",
+          "change_pct": -0.43
+        },
+        {
+          "code": "9942",
+          "name": "茂順",
+          "change_pct": -0.44
+        },
+        {
+          "code": "2496",
+          "name": "卓越",
+          "change_pct": -0.55
+        },
+        {
+          "code": "1342",
+          "name": "八貫",
+          "change_pct": -0.62
+        },
+        {
+          "code": "8463",
+          "name": "潤泰材",
+          "change_pct": -0.7
+        },
+        {
+          "code": "6952",
+          "name": "大武山",
+          "change_pct": -0.76
+        },
+        {
+          "code": "6464",
+          "name": "台數科",
+          "change_pct": -0.91
+        },
+        {
+          "code": "9905",
+          "name": "大華",
+          "change_pct": -0.94
+        },
+        {
+          "code": "9919",
+          "name": "康那香",
+          "change_pct": -1.05
+        },
+        {
+          "code": "9938",
+          "name": "百和",
+          "change_pct": -1.05
+        },
+        {
+          "code": "2348",
+          "name": "海悅",
+          "change_pct": -1.14
+        },
+        {
+          "code": "8488",
+          "name": "吉源-KY",
+          "change_pct": -1.28
+        },
+        {
+          "code": "8442",
+          "name": "威宏-KY",
+          "change_pct": -1.33
+        },
+        {
+          "code": "5871",
+          "name": "中租-KY",
+          "change_pct": -1.4
+        },
+        {
+          "code": "9944",
+          "name": "新麗",
+          "change_pct": -1.43
+        },
+        {
+          "code": "1437",
+          "name": "勤益控",
+          "change_pct": -1.89
+        },
+        {
+          "code": "3040",
+          "name": "遠見",
+          "change_pct": -1.98
+        },
+        {
+          "code": "6585",
+          "name": "鼎基",
+          "change_pct": -2.3
+        },
+        {
+          "code": "2614",
+          "name": "東森",
+          "change_pct": -2.33
+        },
+        {
+          "code": "6504",
+          "name": "南六",
+          "change_pct": -2.83
+        },
+        {
+          "code": "8033",
+          "name": "雷虎",
+          "change_pct": -3.07
+        },
+        {
+          "code": "6901",
+          "name": "鑽石投資",
+          "change_pct": -3.18
+        },
+        {
+          "code": "5284",
+          "name": "jpp-KY",
+          "change_pct": -3.56
+        }
+      ]
+    },
+    {
+      "name": "38",
       "avg_change_pct": -0.47,
       "count": 11,
       "stocks": [
@@ -2345,7 +2607,7 @@
       ]
     },
     {
-      "name": "運動休閒",
+      "name": "37",
       "avg_change_pct": -0.92,
       "count": 18,
       "stocks": [
@@ -3993,6 +4255,63 @@
       ]
     },
     {
+      "name": "存託憑證",
+      "avg_change_pct": -2.23,
+      "count": 10,
+      "stocks": [
+        {
+          "code": "910322",
+          "name": "康師傅-DR",
+          "change_pct": -0.4
+        },
+        {
+          "code": "910861",
+          "name": "神州-DR",
+          "change_pct": -0.74
+        },
+        {
+          "code": "911868",
+          "name": "同方友友-DR",
+          "change_pct": -0.88
+        },
+        {
+          "code": "9103",
+          "name": "美德醫療-DR",
+          "change_pct": -1.4
+        },
+        {
+          "code": "912000",
+          "name": "晨訊科-DR",
+          "change_pct": -1.59
+        },
+        {
+          "code": "9110",
+          "name": "越南控-DR",
+          "change_pct": -1.69
+        },
+        {
+          "code": "911622",
+          "name": "泰聚亨-DR",
+          "change_pct": -2.06
+        },
+        {
+          "code": "9105",
+          "name": "泰金寶-DR",
+          "change_pct": -2.26
+        },
+        {
+          "code": "911608",
+          "name": "明輝-DR",
+          "change_pct": -2.92
+        },
+        {
+          "code": "9136",
+          "name": "巨騰-DR",
+          "change_pct": -8.35
+        }
+      ]
+    },
+    {
       "name": "光電業",
       "avg_change_pct": -2.52,
       "count": 68,
@@ -5349,36 +5668,9 @@
       ]
     },
     {
-      "name": "存託憑證",
-      "avg_change_pct": -3.42,
-      "count": 4,
-      "stocks": [
-        {
-          "code": "9103",
-          "name": "美德醫療-DR",
-          "change_pct": -1.4
-        },
-        {
-          "code": "9110",
-          "name": "越南控-DR",
-          "change_pct": -1.69
-        },
-        {
-          "code": "9105",
-          "name": "泰金寶-DR",
-          "change_pct": -2.26
-        },
-        {
-          "code": "9136",
-          "name": "巨騰-DR",
-          "change_pct": -8.35
-        }
-      ]
-    },
-    {
       "name": "其他",
-      "avg_change_pct": -0.95,
-      "count": 338,
+      "avg_change_pct": -1.02,
+      "count": 281,
       "stocks": [
         {
           "code": "00666R",
@@ -5398,11 +5690,6 @@
         {
           "code": "00638R",
           "name": "元大滬深300反1",
-          "change_pct": 2.17
-        },
-        {
-          "code": "9933",
-          "name": "中鼎",
           "change_pct": 2.17
         },
         {
@@ -5456,11 +5743,6 @@
           "change_pct": 1.41
         },
         {
-          "code": "6957",
-          "name": "裕慶-KY",
-          "change_pct": 1.34
-        },
-        {
           "code": "00885",
           "name": "富邦越南",
           "change_pct": 1.28
@@ -5469,16 +5751,6 @@
           "code": "00715L",
           "name": "期街口布蘭特正2",
           "change_pct": 1.21
-        },
-        {
-          "code": "1443",
-          "name": "立益物流",
-          "change_pct": 1.13
-        },
-        {
-          "code": "8404",
-          "name": "百和興業-KY",
-          "change_pct": 1.13
         },
         {
           "code": "00899",
@@ -5496,16 +5768,6 @@
           "change_pct": 1.04
         },
         {
-          "code": "9945",
-          "name": "潤泰新",
-          "change_pct": 1.02
-        },
-        {
-          "code": "1435",
-          "name": "中福",
-          "change_pct": 1.0
-        },
-        {
           "code": "020029",
           "name": "元大ESG高股息N",
           "change_pct": 0.94
@@ -5514,11 +5776,6 @@
           "code": "00713",
           "name": "元大台灣高息低波",
           "change_pct": 0.92
-        },
-        {
-          "code": "6958",
-          "name": "日盛台駿",
-          "change_pct": 0.9
         },
         {
           "code": "0055",
@@ -5541,11 +5798,6 @@
           "change_pct": 0.81
         },
         {
-          "code": "9939",
-          "name": "宏全",
-          "change_pct": 0.79
-        },
-        {
           "code": "00648R",
           "name": "元大S&P500反1",
           "change_pct": 0.77
@@ -5558,11 +5810,6 @@
         {
           "code": "00668K",
           "name": "國泰美國道瓊+U",
-          "change_pct": 0.68
-        },
-        {
-          "code": "8466",
-          "name": "美吉吉-KY",
           "change_pct": 0.68
         },
         {
@@ -5591,21 +5838,6 @@
           "change_pct": 0.54
         },
         {
-          "code": "6592",
-          "name": "和潤企業",
-          "change_pct": 0.53
-        },
-        {
-          "code": "9917",
-          "name": "中保科",
-          "change_pct": 0.47
-        },
-        {
-          "code": "8411",
-          "name": "福貞-KY",
-          "change_pct": 0.45
-        },
-        {
           "code": "00917",
           "name": "中信特選金融",
           "change_pct": 0.44
@@ -5621,16 +5853,6 @@
           "change_pct": 0.41
         },
         {
-          "code": "1416",
-          "name": "廣豐",
-          "change_pct": 0.38
-        },
-        {
-          "code": "6184",
-          "name": "大豐電",
-          "change_pct": 0.38
-        },
-        {
           "code": "00660",
           "name": "元大歐洲50",
           "change_pct": 0.36
@@ -5639,11 +5861,6 @@
           "code": "00865B",
           "name": "國泰US短期公債",
           "change_pct": 0.36
-        },
-        {
-          "code": "9907",
-          "name": "統一實",
-          "change_pct": 0.34
         },
         {
           "code": "00939",
@@ -5701,11 +5918,6 @@
           "change_pct": 0.13
         },
         {
-          "code": "9925",
-          "name": "新保",
-          "change_pct": 0.13
-        },
-        {
           "code": "1101B",
           "name": "台泥乙特",
           "change_pct": 0.12
@@ -5713,11 +5925,6 @@
         {
           "code": "2887H",
           "name": "台新新光庚特二",
-          "change_pct": 0.12
-        },
-        {
-          "code": "8481",
-          "name": "政伸",
           "change_pct": 0.12
         },
         {
@@ -5821,11 +6028,6 @@
           "change_pct": 0.0
         },
         {
-          "code": "2514",
-          "name": "龍邦",
-          "change_pct": 0.0
-        },
-        {
           "code": "2838A",
           "name": "聯邦銀甲特",
           "change_pct": 0.0
@@ -5891,11 +6093,6 @@
           "change_pct": 0.0
         },
         {
-          "code": "2904",
-          "name": "匯僑",
-          "change_pct": 0.0
-        },
-        {
           "code": "5871A",
           "name": "中租-KY甲特",
           "change_pct": 0.0
@@ -5906,28 +6103,8 @@
           "change_pct": 0.0
         },
         {
-          "code": "6655",
-          "name": "科定",
-          "change_pct": 0.0
-        },
-        {
           "code": "6958A",
           "name": "日盛台駿甲特",
-          "change_pct": 0.0
-        },
-        {
-          "code": "7855",
-          "name": "和運租車",
-          "change_pct": 0.0
-        },
-        {
-          "code": "9927",
-          "name": "泰銘",
-          "change_pct": 0.0
-        },
-        {
-          "code": "9929",
-          "name": "秋雨",
           "change_pct": 0.0
         },
         {
@@ -5948,11 +6125,6 @@
         {
           "code": "00709",
           "name": "富邦歐洲",
-          "change_pct": -0.13
-        },
-        {
-          "code": "9941",
-          "name": "裕融",
           "change_pct": -0.13
         },
         {
@@ -6001,11 +6173,6 @@
           "change_pct": -0.22
         },
         {
-          "code": "9940",
-          "name": "信義",
-          "change_pct": -0.25
-        },
-        {
           "code": "00918",
           "name": "大華優利高填息30",
           "change_pct": -0.26
@@ -6023,11 +6190,6 @@
         {
           "code": "009811",
           "name": "統一美國50",
-          "change_pct": -0.29
-        },
-        {
-          "code": "9928",
-          "name": "中視",
           "change_pct": -0.29
         },
         {
@@ -6101,18 +6263,8 @@
           "change_pct": -0.37
         },
         {
-          "code": "9902",
-          "name": "台火",
-          "change_pct": -0.38
-        },
-        {
           "code": "00932",
           "name": "兆豐永續高息等權",
-          "change_pct": -0.4
-        },
-        {
-          "code": "910322",
-          "name": "康師傅-DR",
           "change_pct": -0.4
         },
         {
@@ -6126,23 +6278,8 @@
           "change_pct": -0.41
         },
         {
-          "code": "6625",
-          "name": "必應",
-          "change_pct": -0.41
-        },
-        {
-          "code": "6914",
-          "name": "阜爾運通",
-          "change_pct": -0.43
-        },
-        {
           "code": "00961",
           "name": "FT臺灣永續高息",
-          "change_pct": -0.44
-        },
-        {
-          "code": "9942",
-          "name": "茂順",
           "change_pct": -0.44
         },
         {
@@ -6191,11 +6328,6 @@
           "change_pct": -0.53
         },
         {
-          "code": "2496",
-          "name": "卓越",
-          "change_pct": -0.55
-        },
-        {
           "code": "00851",
           "name": "台新全球AI",
           "change_pct": -0.59
@@ -6213,11 +6345,6 @@
         {
           "code": "00897",
           "name": "富邦基因免疫生技",
-          "change_pct": -0.62
-        },
-        {
-          "code": "1342",
-          "name": "八貫",
           "change_pct": -0.62
         },
         {
@@ -6251,11 +6378,6 @@
           "change_pct": -0.68
         },
         {
-          "code": "8463",
-          "name": "潤泰材",
-          "change_pct": -0.7
-        },
-        {
           "code": "00681R",
           "name": "元大美債20反1",
           "change_pct": -0.71
@@ -6276,18 +6398,8 @@
           "change_pct": -0.73
         },
         {
-          "code": "910861",
-          "name": "神州-DR",
-          "change_pct": -0.74
-        },
-        {
           "code": "00689R",
           "name": "國泰20年美債反1",
-          "change_pct": -0.76
-        },
-        {
-          "code": "6952",
-          "name": "大武山",
           "change_pct": -0.76
         },
         {
@@ -6316,11 +6428,6 @@
           "change_pct": -0.87
         },
         {
-          "code": "911868",
-          "name": "同方友友-DR",
-          "change_pct": -0.88
-        },
-        {
           "code": "00652",
           "name": "富邦印度",
           "change_pct": -0.9
@@ -6328,11 +6435,6 @@
         {
           "code": "00910",
           "name": "第一金太空衛星",
-          "change_pct": -0.91
-        },
-        {
-          "code": "6464",
-          "name": "台數科",
           "change_pct": -0.91
         },
         {
@@ -6349,11 +6451,6 @@
           "code": "009819",
           "name": "中信數據及電力",
           "change_pct": -0.93
-        },
-        {
-          "code": "9905",
-          "name": "大華",
-          "change_pct": -0.94
         },
         {
           "code": "00692",
@@ -6378,16 +6475,6 @@
         {
           "code": "009809",
           "name": "富邦淨零ESG50",
-          "change_pct": -1.05
-        },
-        {
-          "code": "9919",
-          "name": "康那香",
-          "change_pct": -1.05
-        },
-        {
-          "code": "9938",
-          "name": "百和",
           "change_pct": -1.05
         },
         {
@@ -6416,11 +6503,6 @@
           "change_pct": -1.13
         },
         {
-          "code": "2348",
-          "name": "海悅",
-          "change_pct": -1.14
-        },
-        {
           "code": "0050",
           "name": "元大台灣50",
           "change_pct": -1.16
@@ -6441,19 +6523,9 @@
           "change_pct": -1.23
         },
         {
-          "code": "8488",
-          "name": "吉源-KY",
-          "change_pct": -1.28
-        },
-        {
           "code": "00923",
           "name": "群益台ESG低碳50",
           "change_pct": -1.31
-        },
-        {
-          "code": "8442",
-          "name": "威宏-KY",
-          "change_pct": -1.33
         },
         {
           "code": "0053",
@@ -6474,16 +6546,6 @@
           "code": "009804",
           "name": "聯邦台精彩50",
           "change_pct": -1.39
-        },
-        {
-          "code": "5871",
-          "name": "中租-KY",
-          "change_pct": -1.4
-        },
-        {
-          "code": "9944",
-          "name": "新麗",
-          "change_pct": -1.43
         },
         {
           "code": "00762",
@@ -6533,11 +6595,6 @@
         {
           "code": "006205",
           "name": "富邦上証",
-          "change_pct": -1.59
-        },
-        {
-          "code": "912000",
-          "name": "晨訊科-DR",
           "change_pct": -1.59
         },
         {
@@ -6656,11 +6713,6 @@
           "change_pct": -1.83
         },
         {
-          "code": "1437",
-          "name": "勤益控",
-          "change_pct": -1.89
-        },
-        {
           "code": "00999A",
           "name": "主動野村臺灣高息",
           "change_pct": -1.95
@@ -6674,11 +6726,6 @@
           "code": "00896",
           "name": "中信綠能及電動車",
           "change_pct": -1.97
-        },
-        {
-          "code": "3040",
-          "name": "遠見",
-          "change_pct": -1.98
         },
         {
           "code": "00653L",
@@ -6698,11 +6745,6 @@
         {
           "code": "00952",
           "name": "凱基台灣AI50",
-          "change_pct": -2.06
-        },
-        {
-          "code": "911622",
-          "name": "泰聚亨-DR",
           "change_pct": -2.06
         },
         {
@@ -6741,19 +6783,9 @@
           "change_pct": -2.3
         },
         {
-          "code": "6585",
-          "name": "鼎基",
-          "change_pct": -2.3
-        },
-        {
           "code": "00412A",
           "name": "主動安聯亞半導體",
           "change_pct": -2.31
-        },
-        {
-          "code": "2614",
-          "name": "東森",
-          "change_pct": -2.33
         },
         {
           "code": "00640L",
@@ -6886,11 +6918,6 @@
           "change_pct": -2.83
         },
         {
-          "code": "6504",
-          "name": "南六",
-          "change_pct": -2.83
-        },
-        {
           "code": "00982A",
           "name": "主動群益台灣強棒",
           "change_pct": -2.85
@@ -6916,19 +6943,9 @@
           "change_pct": -2.91
         },
         {
-          "code": "911608",
-          "name": "明輝-DR",
-          "change_pct": -2.92
-        },
-        {
           "code": "020000",
           "name": "富邦特選蘋果N",
           "change_pct": -2.93
-        },
-        {
-          "code": "8033",
-          "name": "雷虎",
-          "change_pct": -3.07
         },
         {
           "code": "00410A",
@@ -6939,11 +6956,6 @@
           "code": "00947",
           "name": "台新臺灣IC設計",
           "change_pct": -3.13
-        },
-        {
-          "code": "6901",
-          "name": "鑽石投資",
-          "change_pct": -3.18
         },
         {
           "code": "00992A",
@@ -6983,11 +6995,6 @@
         {
           "code": "00700",
           "name": "富邦恒生國企",
-          "change_pct": -3.56
-        },
-        {
-          "code": "5284",
-          "name": "jpp-KY",
           "change_pct": -3.56
         },
         {

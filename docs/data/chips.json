@@ -1,101 +1,101 @@
 {
   "date": "2026年10月22日．週四",
   "institutional": {
-    "foreign_net": -816.57,
-    "trust_net": 88.75,
-    "dealer_net": -273.78,
-    "total_net": -1001.6,
+    "foreign_net": -815.82,
+    "trust_net": 94.92,
+    "dealer_net": -273.77,
+    "total_net": -994.67,
     "date": "2026-10-22"
   },
   "margin_top": [
     {
-      "margin_balance": 219360.0,
-      "margin_change": 9650.0,
-      "short_balance": 1611.0,
-      "short_change": 52.0,
-      "code": "00981A",
-      "name": "主動統一台股增長",
+      "margin_balance": 21148.0,
+      "margin_change": 7695.0,
+      "short_balance": 89.0,
+      "short_change": -16.0,
+      "code": "00686R",
+      "name": "群益臺灣加權反1",
       "market": "twse"
     },
     {
-      "margin_balance": 117325.0,
-      "margin_change": -7981.0,
-      "short_balance": 0.0,
-      "short_change": 0.0,
-      "code": "00953B",
-      "name": "群益優選非投等債",
-      "market": "twse"
-    },
-    {
-      "margin_balance": 169181.0,
-      "margin_change": 7213.0,
-      "short_balance": 8989.0,
-      "short_change": -1058.0,
-      "code": "00406A",
-      "name": "主動中信台灣收益",
-      "market": "twse"
-    },
-    {
-      "margin_balance": 54801.0,
-      "margin_change": 7106.0,
-      "short_balance": 222.0,
-      "short_change": 22.0,
-      "code": "2312",
-      "name": "金寶",
-      "market": "twse"
-    },
-    {
-      "margin_balance": 232244.0,
-      "margin_change": 6946.0,
-      "short_balance": 7746.0,
-      "short_change": 754.0,
+      "margin_balance": 239527.0,
+      "margin_change": 7283.0,
+      "short_balance": 8960.0,
+      "short_change": 1214.0,
       "code": "00685L",
       "name": "群益臺灣加權正2",
       "market": "twse"
     },
     {
-      "margin_balance": 161651.0,
-      "margin_change": 4151.0,
-      "short_balance": 1397.0,
-      "short_change": -2.0,
-      "code": "00673R",
-      "name": "期元大S&P原油反1",
+      "margin_balance": 176093.0,
+      "margin_change": 6912.0,
+      "short_balance": 11490.0,
+      "short_change": 2501.0,
+      "code": "00406A",
+      "name": "主動中信台灣收益",
       "market": "twse"
     },
     {
-      "margin_balance": 63978.0,
-      "margin_change": -4033.0,
-      "short_balance": 817.0,
-      "short_change": 63.0,
-      "code": "00664R",
-      "name": "國泰臺灣加權反1",
+      "margin_balance": 44832.0,
+      "margin_change": -6180.0,
+      "short_balance": 1873.0,
+      "short_change": 195.0,
+      "code": "1802",
+      "name": "台玻",
       "market": "twse"
     },
     {
-      "margin_balance": 289879.0,
-      "margin_change": -3993.0,
-      "short_balance": 12394.0,
-      "short_change": -12704.0,
+      "margin_balance": 282295.0,
+      "margin_change": 5994.0,
+      "short_balance": 7936.0,
+      "short_change": 604.0,
+      "code": "00632R",
+      "name": "元大台灣50反1",
+      "market": "twse"
+    },
+    {
+      "margin_balance": 266441.0,
+      "margin_change": 4811.0,
+      "short_balance": 15613.0,
+      "short_change": 815.0,
+      "code": "00631L",
+      "name": "元大台灣50正2",
+      "market": "twse"
+    },
+    {
+      "margin_balance": 12894.0,
+      "margin_change": -4515.0,
+      "short_balance": 376.0,
+      "short_change": -9.0,
+      "code": "2464",
+      "name": "盟立",
+      "market": "twse"
+    },
+    {
+      "margin_balance": 85155.0,
+      "margin_change": 4338.0,
+      "short_balance": 12033.0,
+      "short_change": 11986.0,
+      "code": "00753L",
+      "name": "中信中國50正2",
+      "market": "twse"
+    },
+    {
+      "margin_balance": 11721.0,
+      "margin_change": -4058.0,
+      "short_balance": 356.0,
+      "short_change": -28.0,
+      "code": "3189",
+      "name": "景碩",
+      "market": "twse"
+    },
+    {
+      "margin_balance": 286003.0,
+      "margin_change": -3876.0,
+      "short_balance": 14122.0,
+      "short_change": 1728.0,
       "code": "2409",
       "name": "友達",
-      "market": "twse"
-    },
-    {
-      "margin_balance": 38838.0,
-      "margin_change": 3579.0,
-      "short_balance": 475.0,
-      "short_change": -83.0,
-      "code": "2313",
-      "name": "華通",
-      "market": "twse"
-    },
-    {
-      "margin_balance": 315844.0,
-      "margin_change": -3382.0,
-      "short_balance": 2273.0,
-      "short_change": -1124.0,
-      "code": "3481",
-      "name": "群創",
       "market": "twse"
     }
   ],
@@ -128,7 +128,17 @@
       "change_pct": 5.85,
       "volume": 11061718.0,
       "turnover": 324542216.0,
-      "volume_ratio": 7.67
+      "volume_ratio": 11.39
+    },
+    {
+      "code": "6902",
+      "name": "GOGOLOOK",
+      "close": 166.0,
+      "change": 12.0,
+      "change_pct": 7.79,
+      "volume": 1909881.0,
+      "turnover": 312441913.0,
+      "volume_ratio": 5.5
     },
     {
       "code": "7730",
@@ -151,16 +161,6 @@
       "volume_ratio": 2.84
     },
     {
-      "code": "6902",
-      "name": "GOGOLOOK",
-      "close": 166.0,
-      "change": 12.0,
-      "change_pct": 7.79,
-      "volume": 1909881.0,
-      "turnover": 312441913.0,
-      "volume_ratio": 2.8
-    },
-    {
       "code": "4720",
       "name": "德淵",
       "close": 30.95,
@@ -178,7 +178,7 @@
       "change_pct": 5.03,
       "volume": 7239928.0,
       "turnover": 1871604138.0,
-      "volume_ratio": 2.68
+      "volume_ratio": 2.59
     },
     {
       "code": "1101",
@@ -195,42 +195,42 @@
     {
       "code": "2330",
       "name": "台積電",
-      "pct": 84.78
+      "pct": 84.42
     },
     {
       "code": "2466",
       "name": "冠西電",
-      "pct": 81.39
+      "pct": 81.03
     },
     {
       "code": "2317",
       "name": "鴻海",
-      "pct": 66.54
+      "pct": 66.3
     },
     {
       "code": "2454",
       "name": "聯發科",
-      "pct": 63.42
+      "pct": 62.49
     },
     {
       "code": "7730",
       "name": "暉盛-創",
-      "pct": 60.63
+      "pct": 60.42
     },
     {
       "code": "2069",
       "name": "運錩",
-      "pct": 56.11
+      "pct": 57.15
     },
     {
       "code": "6902",
       "name": "GOGOLOOK",
-      "pct": 54.96
+      "pct": 53.64
     },
     {
       "code": "1101",
       "name": "台泥",
-      "pct": 50.55
+      "pct": 50.81
     },
     {
       "code": "2468",
@@ -240,339 +240,20 @@
     {
       "code": "4526",
       "name": "東台",
-      "pct": 40.62
+      "pct": 41.59
     },
     {
       "code": "4720",
       "name": "德淵",
-      "pct": 33.35
+      "pct": 37.49
     },
     {
       "code": "2465",
       "name": "麗臺",
-      "pct": 32.09
+      "pct": 30.53
     }
   ],
-  "inst_rank": {
-    "foreign": {
-      "buy": [
-        {
-          "code": "1101",
-          "name": "台泥",
-          "lots": 25549.325
-        },
-        {
-          "code": "1802",
-          "name": "台玻",
-          "lots": 25235.718
-        },
-        {
-          "code": "2002",
-          "name": "中鋼",
-          "lots": 24664.994
-        },
-        {
-          "code": "2887",
-          "name": "台新新光金",
-          "lots": 12843.07
-        },
-        {
-          "code": "6505",
-          "name": "台塑化",
-          "lots": 12635.429
-        },
-        {
-          "code": "2801",
-          "name": "彰銀",
-          "lots": 10912.116
-        },
-        {
-          "code": "4526",
-          "name": "東台",
-          "lots": 9977.609
-        },
-        {
-          "code": "2892",
-          "name": "第一金",
-          "lots": 9936.099
-        },
-        {
-          "code": "2884",
-          "name": "玉山金",
-          "lots": 9327.473
-        },
-        {
-          "code": "2353",
-          "name": "宏碁",
-          "lots": 9220.766
-        }
-      ],
-      "sell": [
-        {
-          "code": "00406A",
-          "name": "主動中信台灣收益",
-          "lots": -122361.68
-        },
-        {
-          "code": "00981A",
-          "name": "主動統一台股增長",
-          "lots": -56719.808
-        },
-        {
-          "code": "0050",
-          "name": "元大台灣50",
-          "lots": -45989.683
-        },
-        {
-          "code": "2409",
-          "name": "友達",
-          "lots": -41971.178
-        },
-        {
-          "code": "00403A",
-          "name": "主動統一升級50",
-          "lots": -34918.247
-        },
-        {
-          "code": "1303",
-          "name": "南亞",
-          "lots": -20416.205
-        },
-        {
-          "code": "009828",
-          "name": "中信台日韓PCB",
-          "lots": -18768.468
-        },
-        {
-          "code": "1301",
-          "name": "台塑",
-          "lots": -16065.504
-        },
-        {
-          "code": "2327",
-          "name": "國巨*",
-          "lots": -15755.761
-        },
-        {
-          "code": "00400A",
-          "name": "主動國泰動能高息",
-          "lots": -14615.649
-        }
-      ]
-    },
-    "trust": {
-      "buy": [
-        {
-          "code": "2409",
-          "name": "友達",
-          "lots": 4839.0
-        },
-        {
-          "code": "1101",
-          "name": "台泥",
-          "lots": 4726.0
-        },
-        {
-          "code": "1802",
-          "name": "台玻",
-          "lots": 2968.0
-        },
-        {
-          "code": "3711",
-          "name": "日月光投控",
-          "lots": 2251.0
-        },
-        {
-          "code": "0050",
-          "name": "元大台灣50",
-          "lots": 2106.0
-        },
-        {
-          "code": "00929",
-          "name": "復華台灣科技優息",
-          "lots": 2000.0
-        },
-        {
-          "code": "2492",
-          "name": "華新科",
-          "lots": 1976.0
-        },
-        {
-          "code": "1402",
-          "name": "遠東新",
-          "lots": 1763.0
-        },
-        {
-          "code": "6770",
-          "name": "力積電",
-          "lots": 1618.0
-        },
-        {
-          "code": "2412",
-          "name": "中華電",
-          "lots": 1453.0
-        }
-      ],
-      "sell": [
-        {
-          "code": "2303",
-          "name": "聯電",
-          "lots": -8806.0
-        },
-        {
-          "code": "6505",
-          "name": "台塑化",
-          "lots": -8119.0
-        },
-        {
-          "code": "3231",
-          "name": "緯創",
-          "lots": -4775.0
-        },
-        {
-          "code": "2618",
-          "name": "長榮航",
-          "lots": -4176.0
-        },
-        {
-          "code": "2891",
-          "name": "中信金",
-          "lots": -3268.0
-        },
-        {
-          "code": "2884",
-          "name": "玉山金",
-          "lots": -2537.0
-        },
-        {
-          "code": "2408",
-          "name": "南亞科",
-          "lots": -2186.0
-        },
-        {
-          "code": "3042",
-          "name": "晶技",
-          "lots": -1877.0
-        },
-        {
-          "code": "1216",
-          "name": "統一",
-          "lots": -1775.653
-        },
-        {
-          "code": "2887",
-          "name": "台新新光金",
-          "lots": -1773.0
-        }
-      ]
-    },
-    "dealer": {
-      "buy": [
-        {
-          "code": "00918",
-          "name": "大華優利高填息30",
-          "lots": 13361.0
-        },
-        {
-          "code": "00680L",
-          "name": "元大美債20正2",
-          "lots": 9005.152
-        },
-        {
-          "code": "00961",
-          "name": "FT臺灣永續高息",
-          "lots": 8615.202
-        },
-        {
-          "code": "00953B",
-          "name": "群益優選非投等債",
-          "lots": 6736.702
-        },
-        {
-          "code": "00919",
-          "name": "群益台灣精選高息",
-          "lots": 6441.563
-        },
-        {
-          "code": "00688L",
-          "name": "國泰20年美債正2",
-          "lots": 4909.188
-        },
-        {
-          "code": "00984D",
-          "name": "主動聯博全球非投",
-          "lots": 4725.0
-        },
-        {
-          "code": "00940",
-          "name": "元大台灣價值高息",
-          "lots": 4580.808
-        },
-        {
-          "code": "2880",
-          "name": "華南金",
-          "lots": 4535.444
-        },
-        {
-          "code": "2886",
-          "name": "兆豐金",
-          "lots": 4030.384
-        }
-      ],
-      "sell": [
-        {
-          "code": "00406A",
-          "name": "主動中信台灣收益",
-          "lots": -619682.568
-        },
-        {
-          "code": "00685L",
-          "name": "群益臺灣加權正2",
-          "lots": -186856.132
-        },
-        {
-          "code": "00631L",
-          "name": "元大台灣50正2",
-          "lots": -102520.348
-        },
-        {
-          "code": "0056",
-          "name": "元大高股息",
-          "lots": -93165.423
-        },
-        {
-          "code": "009816",
-          "name": "凱基台灣TOP50",
-          "lots": -68400.795
-        },
-        {
-          "code": "00403A",
-          "name": "主動統一升級50",
-          "lots": -65922.629
-        },
-        {
-          "code": "00415A",
-          "name": "主動群益核心50",
-          "lots": -45697.737
-        },
-        {
-          "code": "00929",
-          "name": "復華台灣科技優息",
-          "lots": -44519.097
-        },
-        {
-          "code": "00981A",
-          "name": "主動統一台股增長",
-          "lots": -42885.249
-        },
-        {
-          "code": "0050",
-          "name": "元大台灣50",
-          "lots": -38779.689
-        }
-      ]
-    }
-  },
+  "inst_rank": {},
   "gainers": [
     {
       "code": "2468",
@@ -632,7 +313,7 @@
       "change_pct": 7.79,
       "volume": 1909881.0,
       "turnover": 312441913.0,
-      "volume_ratio": 2.8
+      "volume_ratio": 5.5
     },
     {
       "code": "2236",
@@ -652,7 +333,7 @@
       "change_pct": 5.85,
       "volume": 11061718.0,
       "turnover": 324542216.0,
-      "volume_ratio": 7.67
+      "volume_ratio": 11.39
     },
     {
       "code": "4720",
@@ -690,7 +371,7 @@
       "change_pct": 5.03,
       "volume": 7239928.0,
       "turnover": 1871604138.0,
-      "volume_ratio": 2.68
+      "volume_ratio": 2.59
     },
     {
       "code": "1101",
