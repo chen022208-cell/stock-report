@@ -1,0 +1,255 @@
+{
+  "date": "2026-10-23",
+  "at": "2026-10-23 13:39:35",
+  "new_codes": [
+    "5209",
+    "6148",
+    "3325",
+    "3672",
+    "4154",
+    "5202",
+    "5426",
+    "6697",
+    "6874",
+    "8272",
+    "7704",
+    "6690",
+    "6246"
+  ],
+  "stocks": {
+    "5209": {
+      "code": "5209",
+      "name": "新鼎",
+      "tier": "A",
+      "peak_score": 100.0,
+      "first_seen": "2026-10-23 13:39:35",
+      "last_seen": "2026-10-23 13:39:35",
+      "signals": {
+        "change_pct": 6.6,
+        "rs_market": 8.41,
+        "rs_sector": 7.02,
+        "volume_ratio": 4.61,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "其他"
+      }
+    },
+    "6148": {
+      "code": "6148",
+      "name": "驊宏資",
+      "tier": "A",
+      "peak_score": 100.0,
+      "first_seen": "2026-10-23 13:39:35",
+      "last_seen": "2026-10-23 13:39:35",
+      "signals": {
+        "change_pct": 9.95,
+        "rs_market": 11.76,
+        "rs_sector": 9.66,
+        "volume_ratio": 4.17,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "資訊服務業"
+      }
+    },
+    "3325": {
+      "code": "3325",
+      "name": "旭品",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-23 13:39:35",
+      "last_seen": "2026-10-23 13:39:35",
+      "signals": {
+        "change_pct": 9.87,
+        "rs_market": 11.68,
+        "rs_sector": 11.55,
+        "volume_ratio": 12.51,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "電腦及週邊設備業"
+      }
+    },
+    "3672": {
+      "code": "3672",
+      "name": "康聯訊",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-23 13:39:35",
+      "last_seen": "2026-10-23 13:39:35",
+      "signals": {
+        "change_pct": 9.56,
+        "rs_market": 11.37,
+        "rs_sector": 11.35,
+        "volume_ratio": 5.07,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "通信網路業"
+      }
+    },
+    "4154": {
+      "code": "4154",
+      "name": "樂威科-KY",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-23 13:39:35",
+      "last_seen": "2026-10-23 13:39:35",
+      "signals": {
+        "change_pct": 5.88,
+        "rs_market": 7.69,
+        "rs_sector": 6.3,
+        "volume_ratio": 22.66,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "其他"
+      }
+    },
+    "5202": {
+      "code": "5202",
+      "name": "力新",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-23 13:39:35",
+      "last_seen": "2026-10-23 13:39:35",
+      "signals": {
+        "change_pct": 7.99,
+        "rs_market": 9.8,
+        "rs_sector": 7.7,
+        "volume_ratio": 10.61,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "資訊服務業"
+      }
+    },
+    "5426": {
+      "code": "5426",
+      "name": "振發",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-23 13:39:35",
+      "last_seen": "2026-10-23 13:39:35",
+      "signals": {
+        "change_pct": 7.26,
+        "rs_market": 9.07,
+        "rs_sector": 8.94,
+        "volume_ratio": 10.62,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "電腦及週邊設備業"
+      }
+    },
+    "6697": {
+      "code": "6697",
+      "name": "東捷資訊",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-23 13:39:35",
+      "last_seen": "2026-10-23 13:39:35",
+      "signals": {
+        "change_pct": 9.94,
+        "rs_market": 11.75,
+        "rs_sector": 9.65,
+        "volume_ratio": 44.86,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "資訊服務業"
+      }
+    },
+    "6874": {
+      "code": "6874",
+      "name": "倍力",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-23 13:39:35",
+      "last_seen": "2026-10-23 13:39:35",
+      "signals": {
+        "change_pct": 9.94,
+        "rs_market": 11.75,
+        "rs_sector": 9.65,
+        "volume_ratio": 7.78,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "資訊服務業"
+      }
+    },
+    "8272": {
+      "code": "8272",
+      "name": "全景軟體",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-23 13:39:35",
+      "last_seen": "2026-10-23 13:39:35",
+      "signals": {
+        "change_pct": 7.64,
+        "rs_market": 9.45,
+        "rs_sector": 7.35,
+        "volume_ratio": 5.51,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "資訊服務業"
+      }
+    },
+    "7704": {
+      "code": "7704",
+      "name": "明遠精密",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-23 13:39:35",
+      "last_seen": "2026-10-23 13:39:35",
+      "signals": {
+        "change_pct": 9.87,
+        "rs_market": 11.68,
+        "rs_sector": 13.06,
+        "volume_ratio": 4.11,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "半導體業"
+      }
+    },
+    "6690": {
+      "code": "6690",
+      "name": "安碁資訊",
+      "tier": "A",
+      "peak_score": 86.4,
+      "first_seen": "2026-10-23 13:39:35",
+      "last_seen": "2026-10-23 13:39:35",
+      "signals": {
+        "change_pct": 3.28,
+        "rs_market": 5.09,
+        "rs_sector": 3.74,
+        "volume_ratio": 3.05,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "數位雲端"
+      }
+    },
+    "6246": {
+      "code": "6246",
+      "name": "臺龍",
+      "tier": "A",
+      "peak_score": 82.3,
+      "first_seen": "2026-10-23 13:39:35",
+      "last_seen": "2026-10-23 13:39:35",
+      "signals": {
+        "change_pct": 7.63,
+        "rs_market": 9.44,
+        "rs_sector": 9.67,
+        "volume_ratio": 3.18,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "光電業"
+      }
+    }
+  }
+}
