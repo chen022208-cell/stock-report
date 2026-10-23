@@ -153,6 +153,9 @@ Claude 帳號」下、吃該帳號訂閱額度，跟你在哪台電腦開發無�
   今天這段時間沒有任何一輪真的抓到過快訊；當輪 `fetch_live_feed()` 仍是
   403 Forbidden，程式照設計安靜結束、沒有 git 變更）。依然沒有已知繞過法，
   不是「剛好沒新聞」，純粹是上游還沒解除封鎖。
+  ⚠️ **2026-10-23 再次確認：403 依然持續中，已超過 3 週**（當輪
+  `fetch_live_feed()` 仍是 403 Forbidden，安靜結束、無 git 變更）。狀態沒變，
+  純粹記錄避免重新排查。
   ⚠️ **2026-10-06 另外踩到一個會讓整支程式連 `import requests` 都失敗的環境問題**：
   這個雲端容器同時裝了 python3.11（`python`／`python3` 指向它）和 python3.13，
   但系統 `pip` 指令預設綁定 3.13（`/usr/lib/python3/dist-packages/pip`，標示
@@ -519,6 +522,14 @@ origin/main HEAD` 為真）後直接 `git push origin HEAD:main` 救回，無衝
 **這代表只要這支 Routine 的 prompt 不修，這個坑會每次換個分支名字重複出現**，
 每次執行開頭都要照上面的步驟先檢查 `git log --oneline origin/main..HEAD`
 有沒有東西、確認乾淨 fast-forward 後再推，不能假設「這次應該沒事」。
+
+⚠️ **2026-10-23 第四次踩到，分支又換了一個（`claude/compassionate-hawking-81rfoj`）**。
+這次本地累積了 11 個 commit，回溯到 2026-10-20 23:22 UTC（含 10-20～10-23 的報告、
+個股逐檔查證、盤中焦點股快報），`origin` 上同樣找不到這個分支名。確認乾淨
+fast-forward 後 `git push origin HEAD:main` 救回、無衝突。`trig_018yBcbP6ZfoidQ3SWr4hXwh`
+的 prompt 顯然仍未被手動修正——這個坑已經連續第四次出現，使用者如果還沒去
+`https://claude.ai/code/routines/trig_018yBcbP6ZfoidQ3SWr4hXwh` 手動改掉裸
+`git push`，之後每次執行都還要繼續靠這個開頭檢查步驟救。
 
 ## 盤中推播與個股快報格式（2026-09-18 改）
 
