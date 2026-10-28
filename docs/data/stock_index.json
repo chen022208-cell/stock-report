@@ -465,14 +465,6 @@
       "has_score": true
     },
     {
-      "code": "7859",
-      "name": "翰可能源",
-      "industry": "",
-      "market": "esb",
-      "change_pct": -11.28,
-      "has_score": true
-    },
-    {
       "code": "7873",
       "name": "瑞峰",
       "industry": "半導體業",
@@ -782,14 +774,6 @@
       "industry": "半導體業",
       "market": "esb",
       "change_pct": -10.72,
-      "has_score": true
-    },
-    {
-      "code": "7962",
-      "name": "宇田控制",
-      "industry": "",
-      "market": "esb",
-      "change_pct": -10.81,
       "has_score": true
     },
     {
