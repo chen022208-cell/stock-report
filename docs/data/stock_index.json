@@ -121,14 +121,6 @@
       "has_score": true
     },
     {
-      "code": "5235",
-      "name": "金運",
-      "industry": "",
-      "market": "esb",
-      "change_pct": -26.53,
-      "has_score": true
-    },
-    {
       "code": "5236",
       "name": "凌陽創新",
       "industry": "半導體業",
@@ -326,14 +318,6 @@
       "industry": "其他業",
       "market": "twse",
       "change_pct": 0.0,
-      "has_score": true
-    },
-    {
-      "code": "7859",
-      "name": "翰可能源",
-      "industry": "",
-      "market": "esb",
-      "change_pct": -1.86,
       "has_score": true
     },
     {
@@ -646,30 +630,6 @@
       "industry": "半導體業",
       "market": "esb",
       "change_pct": -9.42,
-      "has_score": true
-    },
-    {
-      "code": "7962",
-      "name": "宇田控制",
-      "industry": "",
-      "market": "esb",
-      "change_pct": -8.73,
-      "has_score": true
-    },
-    {
-      "code": "7963",
-      "name": "安達康",
-      "industry": "",
-      "market": "esb",
-      "change_pct": 27.98,
-      "has_score": true
-    },
-    {
-      "code": "7965",
-      "name": "昆桐",
-      "industry": "",
-      "market": "esb",
-      "change_pct": 30.22,
       "has_score": true
     },
     {
