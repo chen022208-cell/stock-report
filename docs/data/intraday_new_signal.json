@@ -1,0 +1,274 @@
+{
+  "date": "2026-10-30",
+  "at": "2026-10-30 14:19:36",
+  "new_codes": [
+    "3332",
+    "4568",
+    "5013",
+    "6233",
+    "8099",
+    "6590",
+    "8272",
+    "3325",
+    "3609",
+    "6865",
+    "8291",
+    "8455",
+    "9950",
+    "4162"
+  ],
+  "stocks": {
+    "3332": {
+      "code": "3332",
+      "name": "幸康",
+      "tier": "A",
+      "peak_score": 100.0,
+      "first_seen": "2026-10-30 14:19:36",
+      "last_seen": "2026-10-30 14:19:36",
+      "signals": {
+        "change_pct": 9.99,
+        "rs_market": 12.48,
+        "rs_sector": 13.5,
+        "volume_ratio": 35.98,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "電子零組件業"
+      }
+    },
+    "4568": {
+      "code": "4568",
+      "name": "科際精密",
+      "tier": "A",
+      "peak_score": 100.0,
+      "first_seen": "2026-10-30 14:19:36",
+      "last_seen": "2026-10-30 14:19:36",
+      "signals": {
+        "change_pct": 9.86,
+        "rs_market": 12.35,
+        "rs_sector": 12.1,
+        "volume_ratio": 9.5,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "電機機械"
+      }
+    },
+    "5013": {
+      "code": "5013",
+      "name": "強新",
+      "tier": "A",
+      "peak_score": 100.0,
+      "first_seen": "2026-10-30 14:19:36",
+      "last_seen": "2026-10-30 14:19:36",
+      "signals": {
+        "change_pct": 9.98,
+        "rs_market": 12.47,
+        "rs_sector": 11.5,
+        "volume_ratio": 5.48,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "鋼鐵工業"
+      }
+    },
+    "6233": {
+      "code": "6233",
+      "name": "旺玖",
+      "tier": "A",
+      "peak_score": 100.0,
+      "first_seen": "2026-10-30 14:19:36",
+      "last_seen": "2026-10-30 14:19:36",
+      "signals": {
+        "change_pct": 3.56,
+        "rs_market": 6.05,
+        "rs_sector": 7.27,
+        "volume_ratio": 24.99,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "半導體業"
+      }
+    },
+    "8099": {
+      "code": "8099",
+      "name": "大世科",
+      "tier": "A",
+      "peak_score": 100.0,
+      "first_seen": "2026-10-30 14:19:36",
+      "last_seen": "2026-10-30 14:19:36",
+      "signals": {
+        "change_pct": 8.78,
+        "rs_market": 11.27,
+        "rs_sector": 9.28,
+        "volume_ratio": 16.54,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "資訊服務業"
+      }
+    },
+    "6590": {
+      "code": "6590",
+      "name": "普鴻",
+      "tier": "A",
+      "peak_score": 100.0,
+      "first_seen": "2026-10-30 14:19:36",
+      "last_seen": "2026-10-30 14:19:36",
+      "signals": {
+        "change_pct": 7.42,
+        "rs_market": 9.91,
+        "rs_sector": 7.92,
+        "volume_ratio": 5.37,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "資訊服務業"
+      }
+    },
+    "8272": {
+      "code": "8272",
+      "name": "全景軟體",
+      "tier": "A",
+      "peak_score": 95.8,
+      "first_seen": "2026-10-30 14:19:36",
+      "last_seen": "2026-10-30 14:19:36",
+      "signals": {
+        "change_pct": 10.0,
+        "rs_market": 12.49,
+        "rs_sector": 10.5,
+        "volume_ratio": 5.99,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": false,
+        "industry": "資訊服務業"
+      }
+    },
+    "3325": {
+      "code": "3325",
+      "name": "旭品",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-30 14:19:36",
+      "last_seen": "2026-10-30 14:19:36",
+      "signals": {
+        "change_pct": 9.68,
+        "rs_market": 12.17,
+        "rs_sector": 12.24,
+        "volume_ratio": 5.2,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "電腦及週邊設備業"
+      }
+    },
+    "3609": {
+      "code": "3609",
+      "name": "三一東林",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-30 14:19:36",
+      "last_seen": "2026-10-30 14:19:36",
+      "signals": {
+        "change_pct": 8.84,
+        "rs_market": 11.33,
+        "rs_sector": 12.34,
+        "volume_ratio": 4.28,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "電子零組件業"
+      }
+    },
+    "6865": {
+      "code": "6865",
+      "name": "偉康科技",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-30 14:19:36",
+      "last_seen": "2026-10-30 14:19:36",
+      "signals": {
+        "change_pct": 9.98,
+        "rs_market": 12.47,
+        "rs_sector": 11.26,
+        "volume_ratio": 173.11,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "數位雲端"
+      }
+    },
+    "8291": {
+      "code": "8291",
+      "name": "尚茂",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-30 14:19:36",
+      "last_seen": "2026-10-30 14:19:36",
+      "signals": {
+        "change_pct": 9.89,
+        "rs_market": 12.38,
+        "rs_sector": 13.39,
+        "volume_ratio": 6.67,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "電子零組件業"
+      }
+    },
+    "8455": {
+      "code": "8455",
+      "name": "大拓-KY",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-30 14:19:36",
+      "last_seen": "2026-10-30 14:19:36",
+      "signals": {
+        "change_pct": 9.83,
+        "rs_market": 12.32,
+        "rs_sector": 12.82,
+        "volume_ratio": 11.09,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "其他電子業"
+      }
+    },
+    "9950": {
+      "code": "9950",
+      "name": "萬國通",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-10-30 14:19:36",
+      "last_seen": "2026-10-30 14:19:36",
+      "signals": {
+        "change_pct": 9.86,
+        "rs_market": 12.35,
+        "rs_sector": 11.84,
+        "volume_ratio": 24.02,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "塑膠工業"
+      }
+    },
+    "4162": {
+      "code": "4162",
+      "name": "智擎",
+      "tier": "A",
+      "peak_score": 84.5,
+      "first_seen": "2026-10-30 14:19:36",
+      "last_seen": "2026-10-30 14:19:36",
+      "signals": {
+        "change_pct": 2.65,
+        "rs_market": 5.14,
+        "rs_sector": 3.82,
+        "volume_ratio": 6.75,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "生技醫療業"
+      }
+    }
+  }
+}
