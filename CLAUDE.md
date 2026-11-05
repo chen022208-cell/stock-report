@@ -538,6 +538,15 @@ fast-forward 後 `git push origin HEAD:main` 救回、無衝突。`trig_018yBcbP
 `https://claude.ai/code/routines/trig_018yBcbP6ZfoidQ3SWr4hXwh` 手動改掉裸
 `git push`，之後每次執行都還要繼續靠這個開頭檢查步驟救。
 
+⚠️ **2026-11-05 第五次踩到，分支又換了一個（`claude/compassionate-hawking-xusxbm`）**。
+這次本地累積了 19 個 commit，回溯到 2026-10-31（含週報、月報、10-31～11-05 的報告、
+個股逐檔查證、盤中焦點股快報），`origin` 上同樣找不到這個分支名，main 落後 19 個
+commit（約 5 天）。確認乾淨 fast-forward 後 `git push origin HEAD:main` 救回、無衝突。
+`trig_018yBcbP6ZfoidQ3SWr4hXwh` 的 prompt 依然沒被手動修正——這個坑已經連續第五次
+出現，且落差天數比前幾次都長，使用者如果還沒去
+`https://claude.ai/code/routines/trig_018yBcbP6ZfoidQ3SWr4hXwh` 手動改掉裸 `git push`，
+之後每次執行都還要繼續靠這個開頭檢查步驟救。
+
 ## 盤中推播與個股快報格式（2026-09-18 改）
 
 - **推播門檻看漲幅，不看分數**：`config.yaml` 的 `intraday.alert_change_pct`
