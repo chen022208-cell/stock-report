@@ -1,0 +1,79 @@
+{
+  "date": "2026-11-06",
+  "stocks": {
+    "5490": {
+      "code": "5490",
+      "name": "同亨",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-11-06 15:16:18",
+      "last_seen": "2026-11-06 15:16:18",
+      "signals": {
+        "change_pct": 9.87,
+        "rs_market": 14.4,
+        "rs_sector": 13.87,
+        "volume_ratio": 12.91,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "電腦及週邊設備業"
+      }
+    },
+    "5438": {
+      "code": "5438",
+      "name": "東友",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-11-06 15:16:18",
+      "last_seen": "2026-11-06 15:16:18",
+      "signals": {
+        "change_pct": 9.91,
+        "rs_market": 14.44,
+        "rs_sector": 13.91,
+        "volume_ratio": 14.41,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "電腦及週邊設備業"
+      }
+    },
+    "6561": {
+      "code": "6561",
+      "name": "是方",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-11-06 15:16:18",
+      "last_seen": "2026-11-06 15:16:18",
+      "signals": {
+        "change_pct": 3.21,
+        "rs_market": 7.74,
+        "rs_sector": 7.11,
+        "volume_ratio": 5.52,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "通信網路業"
+      }
+    }
+  },
+  "updated": "2026-11-06 15:16:18",
+  "alerted": [
+    "1742",
+    "3191",
+    "3310",
+    "4924",
+    "5205",
+    "5321",
+    "5438",
+    "5490",
+    "6103",
+    "6111",
+    "6561",
+    "6620",
+    "7584",
+    "7770",
+    "8067",
+    "8455",
+    "8937"
+  ]
+}
