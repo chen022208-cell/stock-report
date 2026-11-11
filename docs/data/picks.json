@@ -1,95 +1,113 @@
 {
-  "date_label": "2026年11月10日．週二",
+  "date_label": "2026年11月11日．週三",
   "breakout": [
     {
       "is_breakout": true,
-      "reason": "3 天前站上季線，量能達 20 日均量 3.35 倍",
-      "volume_ratio": 3.35,
+      "reason": "2 天前站上月線，量能達 20 日均量 5.35 倍",
+      "volume_ratio": 5.35,
       "crossed": [
         {
-          "period": 60,
-          "label": "季線",
-          "days_ago": 3
+          "period": 20,
+          "label": "月線",
+          "days_ago": 2
         }
       ],
-      "days_ago": 3,
+      "days_ago": 2,
       "already_extended": false,
-      "code": "2610",
-      "name": "華航",
-      "close": 22.8,
-      "change_pct": 4.83
+      "code": "9933",
+      "name": "中鼎",
+      "close": 51.5,
+      "change_pct": 7.52
     }
   ],
   "new_listings": [
     {
       "code": "7953",
       "name": "峻佳裝修",
-      "close": 142.0,
-      "change_pct": 31.48,
-      "days_listed": 0,
+      "close": 116.0,
+      "change_pct": -18.31,
+      "days_listed": 1,
       "listed_date": "2026-11-10",
       "market": "esb"
     },
     {
       "code": "7971",
       "name": "視博網訊",
-      "close": 30.85,
-      "change_pct": -18.6,
-      "days_listed": 0,
+      "close": 29.25,
+      "change_pct": -5.19,
+      "days_listed": 1,
       "listed_date": "2026-11-10",
       "market": "esb"
     },
     {
+      "code": "7867",
+      "name": "特力屋",
+      "close": 43.0,
+      "change_pct": 0.94,
+      "days_listed": 12,
+      "listed_date": "2026-10-30",
+      "market": "twse"
+    },
+    {
       "code": "6825",
       "name": "和暢科技",
-      "close": 22.0,
-      "change_pct": -2.44,
-      "days_listed": 11,
+      "close": 21.35,
+      "change_pct": -2.95,
+      "days_listed": 12,
       "listed_date": "2026-10-30",
       "market": "tpex"
     },
     {
       "code": "5235",
       "name": "金運",
-      "close": 49.25,
-      "change_pct": 7.07,
-      "days_listed": 12,
+      "close": 49.0,
+      "change_pct": -0.51,
+      "days_listed": 13,
       "listed_date": "2026-10-29",
       "market": "esb"
     },
     {
       "code": "7963",
       "name": "安達康",
-      "close": 175.0,
-      "change_pct": 1.16,
-      "days_listed": 12,
+      "close": 173.0,
+      "change_pct": -1.14,
+      "days_listed": 13,
       "listed_date": "2026-10-29",
       "market": "esb"
     },
     {
       "code": "7965",
       "name": "昆桐",
-      "close": 630.0,
-      "change_pct": 0.64,
-      "days_listed": 12,
+      "close": 617.0,
+      "change_pct": -2.06,
+      "days_listed": 13,
       "listed_date": "2026-10-29",
       "market": "esb"
     },
     {
+      "code": "7710",
+      "name": "東擎科技",
+      "close": 122.0,
+      "change_pct": -2.79,
+      "days_listed": 15,
+      "listed_date": "2026-10-27",
+      "market": "twse"
+    },
+    {
       "code": "6898",
       "name": "程曦資訊",
-      "close": 63.5,
-      "change_pct": 2.75,
-      "days_listed": 18,
+      "close": 62.5,
+      "change_pct": -1.57,
+      "days_listed": 19,
       "listed_date": "2026-10-23",
       "market": "tpex"
     },
     {
       "code": "6938",
       "name": "藍新資訊",
-      "close": 76.8,
-      "change_pct": 1.32,
-      "days_listed": 18,
+      "close": 80.6,
+      "change_pct": 4.95,
+      "days_listed": 19,
       "listed_date": "2026-10-23",
       "market": "tpex"
     },
@@ -98,7 +116,7 @@
       "name": "翰可能源",
       "close": 32.5,
       "change_pct": 0.0,
-      "days_listed": 18,
+      "days_listed": 19,
       "listed_date": "2026-10-23",
       "market": "esb"
     },
@@ -106,35 +124,35 @@
       "code": "7960",
       "name": "亞昕科技",
       "close": 126.0,
-      "change_pct": 2.02,
-      "days_listed": 18,
+      "change_pct": 0.0,
+      "days_listed": 19,
       "listed_date": "2026-10-23",
       "market": "esb"
     },
     {
       "code": "7962",
       "name": "宇田控制",
-      "close": 52.0,
-      "change_pct": 6.45,
-      "days_listed": 18,
+      "close": 50.0,
+      "change_pct": -3.85,
+      "days_listed": 19,
       "listed_date": "2026-10-23",
       "market": "esb"
     },
     {
       "code": "2249",
       "name": "湧盛",
-      "close": 62.5,
-      "change_pct": 1.79,
-      "days_listed": 19,
+      "close": 56.4,
+      "change_pct": -9.76,
+      "days_listed": 20,
       "listed_date": "2026-10-22",
       "market": "tpex"
     },
     {
       "code": "7958",
       "name": "六俊",
-      "close": 58.1,
-      "change_pct": 3.94,
-      "days_listed": 19,
+      "close": 56.1,
+      "change_pct": -3.44,
+      "days_listed": 20,
       "listed_date": "2026-10-22",
       "market": "esb"
     },
@@ -142,44 +160,62 @@
       "code": "7946",
       "name": "廣騰",
       "close": 35.0,
-      "change_pct": 4.17,
-      "days_listed": 20,
+      "change_pct": 0.0,
+      "days_listed": 21,
       "listed_date": "2026-10-21",
       "market": "esb"
     },
     {
       "code": "7957",
       "name": "第一傳動",
-      "close": 167.0,
-      "change_pct": 0.0,
-      "days_listed": 20,
+      "close": 171.0,
+      "change_pct": 2.4,
+      "days_listed": 21,
       "listed_date": "2026-10-21",
       "market": "esb"
     },
     {
+      "code": "6467",
+      "name": "泰合",
+      "close": 230.0,
+      "change_pct": -6.5,
+      "days_listed": 22,
+      "listed_date": "2026-10-20",
+      "market": "twse"
+    },
+    {
       "code": "7954",
       "name": "鑫詮科技",
-      "close": 114.0,
-      "change_pct": -4.6,
-      "days_listed": 22,
+      "close": 131.0,
+      "change_pct": 14.91,
+      "days_listed": 23,
       "listed_date": "2026-10-19",
       "market": "esb"
+    },
+    {
+      "code": "8908",
+      "name": "欣雄",
+      "close": 39.3,
+      "change_pct": -1.01,
+      "days_listed": 26,
+      "listed_date": "2026-10-16",
+      "market": "twse"
     },
     {
       "code": "7806",
       "name": "精華生醫",
       "close": 49.4,
-      "change_pct": -6.26,
-      "days_listed": 26,
+      "change_pct": 0.0,
+      "days_listed": 27,
       "listed_date": "2026-10-15",
       "market": "tpex"
     },
     {
       "code": "6930",
       "name": "盛新",
-      "close": 35.0,
-      "change_pct": 3.4,
-      "days_listed": 26,
+      "close": 34.0,
+      "change_pct": -2.86,
+      "days_listed": 27,
       "listed_date": "2026-10-15",
       "market": "esb"
     },
@@ -187,197 +223,215 @@
       "code": "7955",
       "name": "車麗屋",
       "close": 169.5,
-      "change_pct": 0.89,
-      "days_listed": 28,
+      "change_pct": 0.0,
+      "days_listed": 29,
       "listed_date": "2026-10-13",
       "market": "esb"
     },
     {
       "code": "7956",
       "name": "啟賦",
-      "close": 151.5,
-      "change_pct": -1.62,
-      "days_listed": 28,
+      "close": 149.5,
+      "change_pct": -1.32,
+      "days_listed": 29,
       "listed_date": "2026-10-13",
       "market": "esb"
     },
     {
       "code": "8244",
       "name": "DIGITIMES",
-      "close": 49.5,
-      "change_pct": -3.88,
-      "days_listed": 28,
+      "close": 51.0,
+      "change_pct": 3.03,
+      "days_listed": 29,
       "listed_date": "2026-10-13",
       "market": "esb"
     },
     {
       "code": "6604",
       "name": "儒億",
-      "close": 24.2,
-      "change_pct": 0.41,
-      "days_listed": 35,
+      "close": 25.55,
+      "change_pct": 5.58,
+      "days_listed": 36,
       "listed_date": "2026-10-06",
       "market": "tpex"
     },
     {
       "code": "6660",
       "name": "厚美德",
-      "close": 11.0,
-      "change_pct": 11.22,
-      "days_listed": 35,
+      "close": 12.7,
+      "change_pct": 15.45,
+      "days_listed": 36,
       "listed_date": "2026-10-06",
       "market": "esb"
     },
     {
       "code": "7951",
       "name": "大易橙",
-      "close": 533.0,
-      "change_pct": 2.9,
-      "days_listed": 35,
+      "close": 509.0,
+      "change_pct": -4.5,
+      "days_listed": 36,
       "listed_date": "2026-10-06",
       "market": "esb"
     },
     {
       "code": "7950",
       "name": "盛大資訊",
-      "close": 48.0,
-      "change_pct": 0.0,
-      "days_listed": 41,
+      "close": 47.95,
+      "change_pct": -0.1,
+      "days_listed": 42,
       "listed_date": "2026-09-30",
       "market": "esb"
     },
     {
+      "code": "7812",
+      "name": "稜研科技*-創",
+      "close": 56.0,
+      "change_pct": -3.45,
+      "days_listed": 50,
+      "listed_date": "2026-09-22",
+      "market": "twse"
+    },
+    {
       "code": "7856",
       "name": "漢測",
-      "close": 2505.0,
-      "change_pct": 3.3,
-      "days_listed": 49,
+      "close": 2755.0,
+      "change_pct": 9.98,
+      "days_listed": 50,
       "listed_date": "2026-09-22",
       "market": "tpex"
     },
     {
       "code": "7949",
       "name": "耀寬",
-      "close": 54.3,
-      "change_pct": -3.38,
-      "days_listed": 50,
+      "close": 56.2,
+      "change_pct": 3.5,
+      "days_listed": 51,
       "listed_date": "2026-09-21",
       "market": "esb"
     },
     {
       "code": "2938",
       "name": "床的世界",
-      "close": 17.4,
-      "change_pct": 1.16,
-      "days_listed": 55,
+      "close": 17.5,
+      "change_pct": 0.57,
+      "days_listed": 56,
       "listed_date": "2026-09-16",
       "market": "tpex"
     },
     {
       "code": "7947",
       "name": "補丁科",
-      "close": 594.0,
-      "change_pct": 5.13,
-      "days_listed": 55,
+      "close": 580.0,
+      "change_pct": -2.36,
+      "days_listed": 56,
       "listed_date": "2026-09-16",
       "market": "esb"
     },
     {
       "code": "7825",
       "name": "和亞智慧",
-      "close": 47.2,
-      "change_pct": -2.48,
-      "days_listed": 61,
+      "close": 49.45,
+      "change_pct": 4.77,
+      "days_listed": 62,
       "listed_date": "2026-09-10",
       "market": "tpex"
     },
     {
       "code": "7934",
       "name": "鋒霈環境科技",
-      "close": 497.5,
-      "change_pct": -0.5,
-      "days_listed": 61,
+      "close": 554.0,
+      "change_pct": 11.36,
+      "days_listed": 62,
       "listed_date": "2026-09-10",
       "market": "esb"
     },
     {
       "code": "3718",
       "name": "中光電投控",
-      "close": 47.4,
-      "change_pct": 0.21,
-      "days_listed": 68,
+      "close": 47.55,
+      "change_pct": 0.32,
+      "days_listed": 69,
       "listed_date": "2026-09-03",
       "market": "tpex"
     },
     {
       "code": "6950",
       "name": "科科科技-KY",
-      "close": 22.1,
-      "change_pct": 0.91,
-      "days_listed": 71,
+      "close": 21.3,
+      "change_pct": -3.62,
+      "days_listed": 72,
       "listed_date": "2026-08-31",
       "market": "esb"
     },
     {
       "code": "7686",
       "name": "捷立康",
-      "close": 555.0,
-      "change_pct": 2.59,
-      "days_listed": 71,
+      "close": 729.0,
+      "change_pct": 31.35,
+      "days_listed": 72,
       "listed_date": "2026-08-31",
       "market": "esb"
     },
     {
       "code": "7932",
       "name": "昱鐳應材",
-      "close": 213.5,
-      "change_pct": 9.49,
-      "days_listed": 74,
+      "close": 201.5,
+      "change_pct": -5.62,
+      "days_listed": 75,
       "listed_date": "2026-08-28",
-      "market": "esb"
-    },
-    {
-      "code": "7914",
-      "name": "碩明綠能",
-      "close": 30.9,
-      "change_pct": 4.92,
-      "days_listed": 76,
-      "listed_date": "2026-08-26",
       "market": "esb"
     },
     {
       "code": "7945",
       "name": "廣盛科技",
-      "close": 192.5,
-      "change_pct": 2.67,
-      "days_listed": 82,
+      "close": 191.0,
+      "change_pct": -0.78,
+      "days_listed": 83,
       "listed_date": "2026-08-20",
       "market": "esb"
     },
     {
+      "code": "7855",
+      "name": "和運租車",
+      "close": 39.0,
+      "change_pct": 0.65,
+      "days_listed": 92,
+      "listed_date": "2026-08-11",
+      "market": "twse"
+    },
+    {
+      "code": "2237",
+      "name": "華德動能-創",
+      "close": 20.45,
+      "change_pct": -1.21,
+      "days_listed": 93,
+      "listed_date": "2026-08-10",
+      "market": "twse"
+    },
+    {
       "code": "7943",
       "name": "鴻璟科技",
-      "close": 41.5,
-      "change_pct": 1.22,
-      "days_listed": 92,
+      "close": 42.5,
+      "change_pct": 2.41,
+      "days_listed": 93,
       "listed_date": "2026-08-10",
       "market": "esb"
     },
     {
       "code": "7942",
       "name": "東佑達",
-      "close": 534.0,
-      "change_pct": 4.71,
-      "days_listed": 96,
+      "close": 519.0,
+      "change_pct": -2.81,
+      "days_listed": 97,
       "listed_date": "2026-08-06",
       "market": "esb"
     },
     {
       "code": "7925",
       "name": "健生",
-      "close": 74.5,
+      "close": 74.3,
       "change_pct": -0.27,
-      "days_listed": 99,
+      "days_listed": 100,
       "listed_date": "2026-08-03",
       "market": "esb"
     },
@@ -385,80 +439,107 @@
       "code": "3194",
       "name": "圓方科技",
       "close": 29.9,
-      "change_pct": 2.75,
-      "days_listed": 103,
+      "change_pct": 0.0,
+      "days_listed": 104,
       "listed_date": "2026-07-30",
       "market": "esb"
     },
     {
       "code": "7917",
       "name": "源傑科技",
-      "close": 331.5,
-      "change_pct": 7.63,
-      "days_listed": 104,
+      "close": 311.0,
+      "change_pct": -6.18,
+      "days_listed": 105,
       "listed_date": "2026-07-29",
       "market": "esb"
     },
     {
+      "code": "7689",
+      "name": "大鵬科CLMX",
+      "close": 100.0,
+      "change_pct": 4.71,
+      "days_listed": 106,
+      "listed_date": "2026-07-28",
+      "market": "twse"
+    },
+    {
       "code": "7939",
       "name": "技宸",
-      "close": 154.5,
-      "change_pct": -0.64,
-      "days_listed": 106,
+      "close": 154.0,
+      "change_pct": -0.32,
+      "days_listed": 107,
       "listed_date": "2026-07-27",
       "market": "esb"
     },
     {
+      "code": "7835",
+      "name": "永悅健康-創",
+      "close": 14.55,
+      "change_pct": -0.34,
+      "days_listed": 110,
+      "listed_date": "2026-07-24",
+      "market": "twse"
+    },
+    {
       "code": "7422",
       "name": "鴻林堂",
-      "close": 28.9,
-      "change_pct": 2.3,
-      "days_listed": 109,
+      "close": 28.8,
+      "change_pct": -0.35,
+      "days_listed": 110,
       "listed_date": "2026-07-24",
       "market": "esb"
+    },
+    {
+      "code": "6947",
+      "name": "台鎔科技",
+      "close": 62.8,
+      "change_pct": -0.95,
+      "days_listed": 111,
+      "listed_date": "2026-07-23",
+      "market": "twse"
     },
     {
       "code": "7933",
       "name": "威旭",
       "close": 26.2,
       "change_pct": 0.0,
-      "days_listed": 110,
+      "days_listed": 111,
       "listed_date": "2026-07-23",
       "market": "esb"
     },
     {
       "code": "6992",
       "name": "萬勝發科技",
-      "close": 50.2,
-      "change_pct": 0.0,
-      "days_listed": 111,
-      "listed_date": "2026-07-22",
-      "market": "esb"
-    },
-    {
-      "code": "7935",
-      "name": "安富",
-      "close": 36.3,
-      "change_pct": -0.41,
-      "days_listed": 111,
+      "close": 49.0,
+      "change_pct": -2.39,
+      "days_listed": 112,
       "listed_date": "2026-07-22",
       "market": "esb"
     },
     {
       "code": "7936",
       "name": "寰聖",
-      "close": 15.0,
-      "change_pct": 0.0,
-      "days_listed": 112,
+      "close": 14.85,
+      "change_pct": -1.0,
+      "days_listed": 113,
       "listed_date": "2026-07-21",
       "market": "esb"
+    },
+    {
+      "code": "5236",
+      "name": "凌陽創新",
+      "close": 109.5,
+      "change_pct": -0.9,
+      "days_listed": 118,
+      "listed_date": "2026-07-16",
+      "market": "twse"
     },
     {
       "code": "7814",
       "name": "海昌生技",
       "close": 27.3,
-      "change_pct": -1.8,
-      "days_listed": 117,
+      "change_pct": 0.0,
+      "days_listed": 118,
       "listed_date": "2026-07-16",
       "market": "tpex"
     },
@@ -466,8 +547,8 @@
       "code": "7930",
       "name": "威世波",
       "close": 182.0,
-      "change_pct": 16.67,
-      "days_listed": 117,
+      "change_pct": 0.0,
+      "days_listed": 118,
       "listed_date": "2026-07-16",
       "market": "esb"
     },
@@ -476,16 +557,16 @@
       "name": "續升綠能",
       "close": 115.5,
       "change_pct": 0.0,
-      "days_listed": 134,
+      "days_listed": 135,
       "listed_date": "2026-06-29",
       "market": "esb"
     },
     {
       "code": "6986",
       "name": "和迅",
-      "close": 37.3,
-      "change_pct": -4.36,
-      "days_listed": 137,
+      "close": 37.5,
+      "change_pct": 0.54,
+      "days_listed": 138,
       "listed_date": "2026-06-26",
       "market": "tpex"
     },
@@ -493,44 +574,44 @@
       "code": "7418",
       "name": "香繼光",
       "close": 66.9,
-      "change_pct": -0.15,
-      "days_listed": 137,
+      "change_pct": 0.0,
+      "days_listed": 138,
       "listed_date": "2026-06-26",
       "market": "esb"
     },
     {
       "code": "7894",
       "name": "瀚軒",
-      "close": 134.0,
-      "change_pct": 0.37,
-      "days_listed": 137,
+      "close": 130.5,
+      "change_pct": -2.61,
+      "days_listed": 138,
       "listed_date": "2026-06-26",
       "market": "esb"
     },
     {
       "code": "7924",
       "name": "TLC-KY",
-      "close": 381.0,
-      "change_pct": -0.91,
-      "days_listed": 137,
+      "close": 402.5,
+      "change_pct": 5.64,
+      "days_listed": 138,
       "listed_date": "2026-06-26",
       "market": "esb"
     },
     {
       "code": "7928",
       "name": "合聖科技*",
-      "close": 273.0,
-      "change_pct": -2.85,
-      "days_listed": 137,
+      "close": 305.0,
+      "change_pct": 11.72,
+      "days_listed": 138,
       "listed_date": "2026-06-26",
       "market": "esb"
     },
     {
       "code": "7929",
       "name": "碩通",
-      "close": 324.5,
-      "change_pct": 3.67,
-      "days_listed": 137,
+      "close": 315.0,
+      "change_pct": -2.93,
+      "days_listed": 138,
       "listed_date": "2026-06-26",
       "market": "esb"
     },
@@ -538,166 +619,193 @@
       "code": "1780",
       "name": "立弘",
       "close": 23.7,
-      "change_pct": -0.42,
-      "days_listed": 146,
+      "change_pct": 0.0,
+      "days_listed": 147,
       "listed_date": "2026-06-17",
       "market": "tpex"
     },
     {
       "code": "7415",
       "name": "元澄半導體",
-      "close": 346.5,
-      "change_pct": 0.29,
-      "days_listed": 146,
+      "close": 372.0,
+      "change_pct": 7.36,
+      "days_listed": 147,
       "listed_date": "2026-06-17",
       "market": "esb"
     },
     {
       "code": "7926",
       "name": "中華立鼎",
-      "close": 431.0,
-      "change_pct": 2.62,
-      "days_listed": 146,
+      "close": 427.0,
+      "change_pct": -0.93,
+      "days_listed": 147,
       "listed_date": "2026-06-17",
       "market": "esb"
     },
     {
       "code": "7927",
       "name": "連距電機",
-      "close": 199.5,
-      "change_pct": -1.72,
-      "days_listed": 146,
+      "close": 202.0,
+      "change_pct": 1.25,
+      "days_listed": 147,
       "listed_date": "2026-06-17",
       "market": "esb"
     },
     {
       "code": "7839",
       "name": "達人網",
-      "close": 40.1,
-      "change_pct": -4.75,
-      "days_listed": 148,
+      "close": 41.6,
+      "change_pct": 3.74,
+      "days_listed": 149,
       "listed_date": "2026-06-15",
       "market": "tpex"
     },
     {
       "code": "3644",
       "name": "凌嘉科",
-      "close": 397.0,
-      "change_pct": -2.7,
-      "days_listed": 148,
+      "close": 431.0,
+      "change_pct": 8.56,
+      "days_listed": 149,
       "listed_date": "2026-06-15",
       "market": "esb"
     },
     {
       "code": "6945",
       "name": "圓祥生技",
-      "close": 115.0,
-      "change_pct": 2.68,
-      "days_listed": 158,
+      "close": 117.5,
+      "change_pct": 2.17,
+      "days_listed": 159,
       "listed_date": "2026-06-05",
       "market": "tpex"
     },
     {
+      "code": "7827",
+      "name": "漢康-KY創",
+      "close": 119.0,
+      "change_pct": -0.83,
+      "days_listed": 166,
+      "listed_date": "2026-05-29",
+      "market": "twse"
+    },
+    {
       "code": "7735",
       "name": "台智雲",
-      "close": 180.5,
-      "change_pct": 0.0,
-      "days_listed": 165,
+      "close": 179.0,
+      "change_pct": -0.83,
+      "days_listed": 166,
       "listed_date": "2026-05-29",
       "market": "esb"
     },
     {
       "code": "7873",
       "name": "瑞峰",
-      "close": 109.5,
-      "change_pct": -3.52,
-      "days_listed": 165,
+      "close": 110.5,
+      "change_pct": 0.91,
+      "days_listed": 166,
       "listed_date": "2026-05-29",
       "market": "esb"
     },
     {
       "code": "7819",
       "name": "精誠金融",
-      "close": 32.35,
-      "change_pct": -7.7,
-      "days_listed": 167,
+      "close": 35.55,
+      "change_pct": 9.89,
+      "days_listed": 168,
       "listed_date": "2026-05-27",
       "market": "tpex"
     },
     {
       "code": "7898",
       "name": "乾瞻",
-      "close": 333.5,
-      "change_pct": 3.73,
-      "days_listed": 167,
+      "close": 355.0,
+      "change_pct": 6.45,
+      "days_listed": 168,
       "listed_date": "2026-05-27",
       "market": "esb"
     },
     {
       "code": "7921",
       "name": "台普威",
-      "close": 76.2,
-      "change_pct": 0.26,
-      "days_listed": 167,
+      "close": 73.1,
+      "change_pct": -4.07,
+      "days_listed": 168,
       "listed_date": "2026-05-27",
       "market": "esb"
     },
     {
       "code": "6983",
       "name": "華洋精機",
-      "close": 252.5,
-      "change_pct": 1.0,
-      "days_listed": 169,
+      "close": 241.0,
+      "change_pct": -4.55,
+      "days_listed": 170,
       "listed_date": "2026-05-25",
       "market": "tpex"
+    },
+    {
+      "code": "4582",
+      "name": "聚恆-創",
+      "close": 19.85,
+      "change_pct": 0.76,
+      "days_listed": 173,
+      "listed_date": "2026-05-22",
+      "market": "twse"
     },
     {
       "code": "7922",
       "name": "源點*",
       "close": 100.0,
       "change_pct": 0.0,
-      "days_listed": 172,
+      "days_listed": 173,
       "listed_date": "2026-05-22",
       "market": "esb"
     },
     {
+      "code": "7803",
+      "name": "雲象科技-創",
+      "close": 12.5,
+      "change_pct": 2.46,
+      "days_listed": 175,
+      "listed_date": "2026-05-20",
+      "market": "twse"
+    },
+    {
       "code": "7920",
       "name": "瀚陽*",
-      "close": 6.95,
-      "change_pct": -1.14,
-      "days_listed": 174,
+      "close": 6.85,
+      "change_pct": -1.44,
+      "days_listed": 175,
       "listed_date": "2026-05-20",
       "market": "esb"
     },
     {
-      "code": "7913",
-      "name": "通寶半導體",
-      "close": 237.5,
-      "change_pct": -2.66,
-      "days_listed": 179,
-      "listed_date": "2026-05-15",
-      "market": "esb"
+      "code": "7818",
+      "name": "溢泰實業",
+      "close": 52.2,
+      "change_pct": -2.61,
+      "days_listed": 177,
+      "listed_date": "2026-05-18",
+      "market": "twse"
     },
     {
-      "code": "7919",
-      "name": "禾蒼",
-      "close": 36.1,
-      "change_pct": -0.14,
+      "code": "7913",
+      "name": "通寶半導體",
+      "close": 230.5,
+      "change_pct": -2.95,
       "days_listed": 180,
-      "listed_date": "2026-05-14",
+      "listed_date": "2026-05-15",
       "market": "esb"
     }
   ],
   "dark_horses": [
     {
-      "code": "6757",
-      "name": "台灣虎航",
-      "reason": "量能6.1倍但同為航空的強勢股只有一檔，無族群呼應，可能是個別消息。",
-      "volume_ratio": 6.1,
-      "change_pct": 8.21,
-      "close": 59.3,
+      "code": "9933",
+      "name": "中鼎",
+      "reason": "工程統包（EPC）股，量能 7.07 倍為全清單最高，但今日清單中無其他工程／營建股呼應，屬個股事件，不硬套題材",
+      "volume_ratio": 7.07,
+      "change_pct": 7.52,
+      "close": 51.5,
       "risk_flags": [
-        "量能達 20 日均量 6.1 倍",
+        "量能達 20 日均量 7.1 倍",
         "無同族群呼應，題材脈絡不明",
         "籌碼未經法人驗證"
       ],
@@ -705,54 +813,27 @@
       "advice": "建議列為觀察而非追蹤標的"
     },
     {
-      "code": "3617",
-      "name": "碩天",
-      "reason": "UPS／不斷電個股，清單中無其他資料中心機電相關股呼應。",
-      "volume_ratio": 2.05,
-      "change_pct": 9.83,
-      "close": 257.0,
+      "code": "1416",
+      "name": "廣豐",
+      "reason": "傳產紡織／資產股，清單中無同族群個股同步表態",
+      "volume_ratio": 4.85,
+      "change_pct": 9.81,
+      "close": 20.15,
       "risk_flags": [
+        "量能達 20 日均量 4.8 倍",
         "無同族群呼應，題材脈絡不明",
         "籌碼未經法人驗證"
       ],
-      "risk_level": "中",
+      "risk_level": "高",
       "advice": "建議列為觀察而非追蹤標的"
     },
     {
-      "code": "3693",
-      "name": "營邦",
-      "reason": "伺服器機殼／機構件，清單中無同族群個股呼應。",
-      "volume_ratio": 0,
-      "change_pct": 9.93,
-      "close": 620.0,
-      "risk_flags": [
-        "無同族群呼應，題材脈絡不明",
-        "籌碼未經法人驗證"
-      ],
-      "risk_level": "中",
-      "advice": "建議列為觀察而非追蹤標的"
-    },
-    {
-      "code": "6782",
-      "name": "視陽",
-      "reason": "眼視光／隱形眼鏡相關，清單中無其他同族群個股。",
-      "volume_ratio": 2.01,
-      "change_pct": 8.47,
-      "close": 288.0,
-      "risk_flags": [
-        "無同族群呼應，題材脈絡不明",
-        "籌碼未經法人驗證"
-      ],
-      "risk_level": "中",
-      "advice": "建議列為觀察而非追蹤標的"
-    },
-    {
-      "code": "8358",
-      "name": "金居",
-      "reason": "銅箔廠，僅此一檔材料股，無上下游呼應。",
-      "volume_ratio": 0,
+      "code": "3701",
+      "name": "大眾控",
+      "reason": "投資控股公司，股價多受轉投資事件影響，無同族群呼應",
+      "volume_ratio": 2.43,
       "change_pct": 9.91,
-      "close": 366.0,
+      "close": 63.2,
       "risk_flags": [
         "無同族群呼應，題材脈絡不明",
         "籌碼未經法人驗證"
@@ -761,12 +842,12 @@
       "advice": "建議列為觀察而非追蹤標的"
     },
     {
-      "code": "5230",
-      "name": "雷笛克光學",
-      "reason": "光學元件，與其他強勢股無明確關聯。",
-      "volume_ratio": 0,
-      "change_pct": 9.98,
-      "close": 30.85,
+      "code": "8112",
+      "name": "至上",
+      "reason": "電子零組件通路商，清單中無其他通路股同步上漲，無法歸類",
+      "volume_ratio": 2.17,
+      "change_pct": 8.17,
+      "close": 83.4,
       "risk_flags": [
         "無同族群呼應，題材脈絡不明",
         "籌碼未經法人驗證"
@@ -775,12 +856,40 @@
       "advice": "建議列為觀察而非追蹤標的"
     },
     {
-      "code": "7717",
-      "name": "萊德光電-KY",
-      "reason": "無法對應清單內同族群個股。",
+      "code": "5388",
+      "name": "中磊",
+      "reason": "網通設備廠，清單中無其他網通／交換器個股呼應，少於 2 檔",
+      "volume_ratio": 2.1,
+      "change_pct": 6.99,
+      "close": 71.9,
+      "risk_flags": [
+        "無同族群呼應，題材脈絡不明",
+        "籌碼未經法人驗證"
+      ],
+      "risk_level": "中",
+      "advice": "建議列為觀察而非追蹤標的"
+    },
+    {
+      "code": "4174",
+      "name": "浩鼎",
+      "reason": "新藥研發股，股價通常由個別臨床或授權消息驅動，清單中無其他生技股呼應",
       "volume_ratio": 0,
-      "change_pct": 9.99,
-      "close": 391.0,
+      "change_pct": 10.0,
+      "close": 60.5,
+      "risk_flags": [
+        "無同族群呼應，題材脈絡不明",
+        "籌碼未經法人驗證"
+      ],
+      "risk_level": "中",
+      "advice": "建議列為觀察而非追蹤標的"
+    },
+    {
+      "code": "3491",
+      "name": "昇達科",
+      "reason": "微波通訊元件廠，清單中無其他衛星／微波通訊股同步表態",
+      "volume_ratio": 0,
+      "change_pct": 9.96,
+      "close": 1435.0,
       "risk_flags": [
         "無同族群呼應，題材脈絡不明",
         "籌碼未經法人驗證"
@@ -791,10 +900,10 @@
     {
       "code": "1569",
       "name": "濱川",
-      "reason": "無法對應清單內同族群個股。",
+      "reason": "清單中找不到明確同族群呼應個股，不硬套題材",
       "volume_ratio": 0,
-      "change_pct": 9.95,
-      "close": 95.0,
+      "change_pct": 10.0,
+      "close": 104.5,
       "risk_flags": [
         "無同族群呼應，題材脈絡不明",
         "籌碼未經法人驗證"
@@ -803,12 +912,12 @@
       "advice": "建議列為觀察而非追蹤標的"
     },
     {
-      "code": "6234",
-      "name": "高僑",
-      "reason": "無法對應清單內同族群個股。",
+      "code": "7856",
+      "name": "漢測",
+      "reason": "新上市櫃個股、業務屬性與清單其他個股無明確對應，資料不足以歸類",
       "volume_ratio": 0,
-      "change_pct": 9.93,
-      "close": 49.25,
+      "change_pct": 9.98,
+      "close": 2755.0,
       "risk_flags": [
         "無同族群呼應，題材脈絡不明",
         "籌碼未經法人驗證"
@@ -817,12 +926,12 @@
       "advice": "建議列為觀察而非追蹤標的"
     },
     {
-      "code": "6870",
-      "name": "騰雲",
-      "reason": "無法對應清單內同族群個股。",
+      "code": "7717",
+      "name": "萊德光電-KY",
+      "reason": "光電相關個股，清單中無同族群呼應",
       "volume_ratio": 0,
-      "change_pct": 9.91,
-      "close": 449.0,
+      "change_pct": 9.97,
+      "close": 430.0,
       "risk_flags": [
         "無同族群呼應，題材脈絡不明",
         "籌碼未經法人驗證"
@@ -831,110 +940,12 @@
       "advice": "建議列為觀察而非追蹤標的"
     },
     {
-      "code": "6148",
-      "name": "驊宏資",
-      "reason": "無法對應清單內同族群個股。",
+      "code": "5202",
+      "name": "力新",
+      "reason": "清單中找不到同族群呼應個股，不硬套題材",
       "volume_ratio": 0,
       "change_pct": 9.9,
-      "close": 48.3,
-      "risk_flags": [
-        "無同族群呼應，題材脈絡不明",
-        "籌碼未經法人驗證"
-      ],
-      "risk_level": "中",
-      "advice": "建議列為觀察而非追蹤標的"
-    },
-    {
-      "code": "6150",
-      "name": "撼訊",
-      "reason": "無法對應清單內同族群個股。",
-      "volume_ratio": 0,
-      "change_pct": 9.89,
-      "close": 70.0,
-      "risk_flags": [
-        "無同族群呼應，題材脈絡不明",
-        "籌碼未經法人驗證"
-      ],
-      "risk_level": "中",
-      "advice": "建議列為觀察而非追蹤標的"
-    },
-    {
-      "code": "6697",
-      "name": "東捷資訊",
-      "reason": "無法對應清單內同族群個股。",
-      "volume_ratio": 0,
-      "change_pct": 9.88,
-      "close": 62.3,
-      "risk_flags": [
-        "無同族群呼應，題材脈絡不明",
-        "籌碼未經法人驗證"
-      ],
-      "risk_level": "中",
-      "advice": "建議列為觀察而非追蹤標的"
-    },
-    {
-      "code": "3147",
-      "name": "大綜",
-      "reason": "無法對應清單內同族群個股。",
-      "volume_ratio": 0,
-      "change_pct": 9.86,
-      "close": 351.0,
-      "risk_flags": [
-        "無同族群呼應，題材脈絡不明",
-        "籌碼未經法人驗證"
-      ],
-      "risk_level": "中",
-      "advice": "建議列為觀察而非追蹤標的"
-    },
-    {
-      "code": "2221",
-      "name": "大甲",
-      "reason": "無法對應清單內同族群個股。",
-      "volume_ratio": 0,
-      "change_pct": 9.75,
-      "close": 152.0,
-      "risk_flags": [
-        "無同族群呼應，題材脈絡不明",
-        "籌碼未經法人驗證"
-      ],
-      "risk_level": "中",
-      "advice": "建議列為觀察而非追蹤標的"
-    },
-    {
-      "code": "3441",
-      "name": "聯一光",
-      "reason": "光學元件，與清單內其他個股無明確關聯。",
-      "volume_ratio": 0,
-      "change_pct": 9.72,
-      "close": 175.0,
-      "risk_flags": [
-        "無同族群呼應，題材脈絡不明",
-        "籌碼未經法人驗證"
-      ],
-      "risk_level": "中",
-      "advice": "建議列為觀察而非追蹤標的"
-    },
-    {
-      "code": "4577",
-      "name": "達航科技",
-      "reason": "業務性質未能確認，不硬歸入衛星通訊題材。",
-      "volume_ratio": 0,
-      "change_pct": 9.65,
-      "close": 125.0,
-      "risk_flags": [
-        "無同族群呼應，題材脈絡不明",
-        "籌碼未經法人驗證"
-      ],
-      "risk_level": "中",
-      "advice": "建議列為觀察而非追蹤標的"
-    },
-    {
-      "code": "6620",
-      "name": "漢達",
-      "reason": "無法對應清單內同族群個股。",
-      "volume_ratio": 0,
-      "change_pct": 9.61,
-      "close": 125.5,
+      "close": 21.1,
       "risk_flags": [
         "無同族群呼應，題材脈絡不明",
         "籌碼未經法人驗證"
