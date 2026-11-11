@@ -36933,5 +36933,38 @@
       "https://www.nstock.tw/7946"
     ],
     "updated_at": "2026-11-09"
+  },
+  "7859": {
+    "name": "翰可能源股份有限公司",
+    "company_desc": "翰可能源以「太陽能、儲能、地熱、綠電轉供、AI智慧能源管理」五大業務為核心，從事綠電工程、設備銷售及售電業務；自2020年起與台塑新智能展開策略合作，共同在台灣開發並營運電網級儲能案場，累計建置與營運實績達約400MWh。公司同時積極拓展美國、英國、澳洲等海外市場，並於美國與當地大廠簽署合作備忘錄（MOU），瞄準逾2.5GWh的儲能商機。",
+    "swot": {
+      "strengths": "與台塑新智能等大型集團自2020年起長期合作，已在台灣累積約400MWh電網級儲能案場的開發、系統整合與維運實績，顯示具備完整的案場執行能力。",
+      "weaknesses": "營收波動大，2026年9月單月營收僅0.14億元，較前月大減約85%，顯示認列高度集中在特定月份（工程/EPC類業務常見里程碑驗收特性，推論）。",
+      "opportunities": "美國、英國、澳洲等海外儲能市場需求持續成長，且已與美國大廠簽署MOU瞄準逾2.5GWh商機，若後續轉化為實際訂單有助營收成長（MOU尚非確定訂單，推論）。",
+      "threats": "太陽能與儲能工程案件執行受各國電價與補貼政策影響大，海外布局另須面對當地法規核准進度與匯率波動風險（推論）。"
+    },
+    "sources": [
+      "https://www.digitimes.com.tw/tech/dt/n/shwnws.asp?CnlID=13&id=772028",
+      "https://info.technews.tw/company/90355903-翰可能源股份有限公司",
+      "https://goodinfo.tw/tw/StockDetail.asp?STOCK_ID=7859"
+    ],
+    "updated_at": "2026-11-11"
+  },
+  "7971": {
+    "name": "視博網訊股份有限公司",
+    "company_desc": "視博網訊（SpotCam）成立於2013年，由林子正創立，主力產品為雲端IP攝影機，涵蓋居家安控攝影機、AI嬰兒監視器、防水攝影機與智慧門鈴等，搭配自有的MySpotCam.com雲端訂閱平台銷售軟硬體整合服務，並具備承接企業客戶B2B專案與OEM／ODM Turnkey代工生產的能力。公司強調產品系統研發與生產全數由台灣團隊自行完成。",
+    "swot": {
+      "strengths": "採硬體加雲端訂閱平台的垂直整合模式，可望創造經常性收入（推論），且強調台灣自主研發設計，相對單純代理轉售中國製品牌具備更高的技術掌控度。",
+      "weaknesses": "公司於2026年11月2日剛登錄興櫃，目前尚無公開可查的交易量與完整財務數字，市場對其實際營運規模與獲利能力的資訊仍有限（推論）。",
+      "opportunities": "居家安控與智慧家庭監控市場持續成長，B2B OEM／ODM Turnkey代工模式可協助企業與品牌客戶降低自行開發成本，有助擴大海外訂單（推論）。",
+      "threats": "居家監控攝影機市場競爭激烈，須面對小米、EZVIZ（螢石）、TP-Link Tapo、Arlo等國際品牌及中國大陸廠商的價格與規模競爭壓力（推論）。"
+    },
+    "sources": [
+      "https://www.bnext.com.tw/article/33951/BN-ARTICLE-33951",
+      "https://www.cbinsights.com/company/spotcam",
+      "https://www.myspotcam.com/uk/blog/post/17992",
+      "https://goodinfo.tw/tw/BasicInfo.asp?STOCK_ID=7971"
+    ],
+    "updated_at": "2026-11-11"
   }
 }
