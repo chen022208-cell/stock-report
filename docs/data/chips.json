@@ -1,204 +1,204 @@
 {
-  "date": "2026年11月11日．週三",
+  "date": "2026年11月12日．週四",
   "institutional": {
-    "foreign_net": -7.66,
-    "trust_net": 147.66,
-    "dealer_net": 62.57,
-    "total_net": 202.57,
-    "date": "2026-11-11"
+    "foreign_net": -6.85,
+    "trust_net": 123.85,
+    "dealer_net": -65.41,
+    "total_net": 51.59,
+    "date": "2026-11-12"
   },
   "margin_top": [
     {
-      "margin_balance": 8452.0,
-      "margin_change": -1310.0,
-      "short_balance": 26.0,
-      "short_change": 6.0,
-      "code": "6620",
-      "name": "漢達",
-      "market": "tpex"
-    },
-    {
-      "margin_balance": 54233.0,
-      "margin_change": -1129.0,
-      "short_balance": 938.0,
-      "short_change": -84.0,
-      "code": "1815",
-      "name": "富喬",
-      "market": "tpex"
-    },
-    {
-      "margin_balance": 27348.0,
-      "margin_change": -708.0,
-      "short_balance": 179.0,
-      "short_change": 63.0,
+      "margin_balance": 29410.0,
+      "margin_change": 2063.0,
+      "short_balance": 182.0,
+      "short_change": 3.0,
       "code": "6147",
       "name": "頎邦",
       "market": "tpex"
     },
     {
-      "margin_balance": 13291.0,
-      "margin_change": 623.0,
-      "short_balance": 24.0,
-      "short_change": 16.0,
-      "code": "6290",
-      "name": "良維",
-      "market": "tpex"
-    },
-    {
-      "margin_balance": 8929.0,
-      "margin_change": 572.0,
-      "short_balance": 99.0,
-      "short_change": -78.0,
-      "code": "5347",
-      "name": "世界",
-      "market": "tpex"
-    },
-    {
-      "margin_balance": 2435.0,
-      "margin_change": 560.0,
-      "short_balance": 444.0,
-      "short_change": -150.0,
-      "code": "5202",
-      "name": "力新",
-      "market": "tpex"
-    },
-    {
-      "margin_balance": 18847.0,
-      "margin_change": -553.0,
-      "short_balance": 1716.0,
-      "short_change": -7.0,
-      "code": "8358",
-      "name": "金居",
-      "market": "tpex"
-    },
-    {
-      "margin_balance": 3858.0,
-      "margin_change": -544.0,
-      "short_balance": 10.0,
-      "short_change": -11.0,
-      "code": "6532",
-      "name": "瑞耘",
-      "market": "tpex"
-    },
-    {
-      "margin_balance": 42045.0,
-      "margin_change": 521.0,
-      "short_balance": 653.0,
-      "short_change": 165.0,
+      "margin_balance": 43789.0,
+      "margin_change": 1749.0,
+      "short_balance": 749.0,
+      "short_change": 96.0,
       "code": "3105",
       "name": "穩懋",
       "market": "tpex"
     },
     {
-      "margin_balance": 9612.0,
-      "margin_change": -470.0,
-      "short_balance": 202.0,
-      "short_change": -27.0,
-      "code": "6488",
-      "name": "環球晶",
+      "margin_balance": 26731.0,
+      "margin_change": 1520.0,
+      "short_balance": 346.0,
+      "short_change": 215.0,
+      "code": "3374",
+      "name": "精材",
+      "market": "tpex"
+    },
+    {
+      "margin_balance": 6730.0,
+      "margin_change": 1041.0,
+      "short_balance": 297.0,
+      "short_change": 130.0,
+      "code": "5340",
+      "name": "建榮",
+      "market": "tpex"
+    },
+    {
+      "margin_balance": 12652.0,
+      "margin_change": 976.0,
+      "short_balance": 254.0,
+      "short_change": 55.0,
+      "code": "5351",
+      "name": "鈺創",
+      "market": "tpex"
+    },
+    {
+      "margin_balance": 19648.0,
+      "margin_change": 809.0,
+      "short_balance": 1692.0,
+      "short_change": -22.0,
+      "code": "8358",
+      "name": "金居",
+      "market": "tpex"
+    },
+    {
+      "margin_balance": 1600.0,
+      "margin_change": 691.0,
+      "short_balance": 1.0,
+      "short_change": 1.0,
+      "code": "8415",
+      "name": "大國鋼",
+      "market": "tpex"
+    },
+    {
+      "margin_balance": 7356.0,
+      "margin_change": 666.0,
+      "short_balance": 154.0,
+      "short_change": 71.0,
+      "code": "3624",
+      "name": "光頡",
+      "market": "tpex"
+    },
+    {
+      "margin_balance": 40245.0,
+      "margin_change": -581.0,
+      "short_balance": 1140.0,
+      "short_change": -247.0,
+      "code": "6182",
+      "name": "合晶",
+      "market": "tpex"
+    },
+    {
+      "margin_balance": 3649.0,
+      "margin_change": 515.0,
+      "short_balance": 543.0,
+      "short_change": -4.0,
+      "code": "3441",
+      "name": "聯一光",
       "market": "tpex"
     }
   ],
   "strong": [
     {
-      "code": "9933",
-      "name": "中鼎",
-      "close": 51.5,
-      "change": 3.6,
-      "change_pct": 7.52,
-      "volume": 42749710.0,
-      "turnover": 2232178685.0,
-      "volume_ratio": 7.07
-    },
-    {
-      "code": "1416",
-      "name": "廣豐",
-      "close": 20.15,
-      "change": 1.8,
-      "change_pct": 9.81,
-      "volume": 26374534.0,
-      "turnover": 524467359.0,
-      "volume_ratio": 4.85
-    },
-    {
       "code": "2471",
       "name": "資通",
-      "close": 59.8,
-      "change": 5.4,
-      "change_pct": 9.93,
-      "volume": 4392763.0,
-      "turnover": 254848589.0,
-      "volume_ratio": 3.22
+      "close": 64.7,
+      "change": 4.9,
+      "change_pct": 8.19,
+      "volume": 15258300.0,
+      "turnover": 961487506.0,
+      "volume_ratio": 9.67
     },
     {
-      "code": "3029",
-      "name": "零壹",
-      "close": 135.0,
-      "change": 10.0,
-      "change_pct": 8.0,
-      "volume": 10562110.0,
-      "turnover": 1378122482.0,
-      "volume_ratio": 3.79
+      "code": "3715",
+      "name": "定穎投控",
+      "close": 143.5,
+      "change": 13.0,
+      "change_pct": 9.96,
+      "volume": 23428904.0,
+      "turnover": 3335206440.0,
+      "volume_ratio": 3.92
     },
     {
-      "code": "1528",
-      "name": "恩德",
-      "close": 28.2,
-      "change": 2.55,
-      "change_pct": 9.94,
-      "volume": 37719309.0,
-      "turnover": 1042173329.0,
-      "volume_ratio": 2.92
-    },
-    {
-      "code": "4927",
-      "name": "泰鼎-KY",
-      "close": 59.5,
-      "change": 5.4,
-      "change_pct": 9.98,
-      "volume": 31590591.0,
-      "turnover": 1868776380.0,
-      "volume_ratio": 2.54
+      "code": "6152",
+      "name": "百一",
+      "close": 20.35,
+      "change": 1.85,
+      "change_pct": 10.0,
+      "volume": 18679982.0,
+      "turnover": 374484563.0,
+      "volume_ratio": 3.81
     },
     {
       "code": "3701",
       "name": "大眾控",
-      "close": 63.2,
-      "change": 5.7,
-      "change_pct": 9.91,
-      "volume": 14789331.0,
-      "turnover": 910585282.0,
-      "volume_ratio": 2.43
-    },
-    {
-      "code": "8112",
-      "name": "至上",
-      "close": 83.4,
+      "close": 69.5,
       "change": 6.3,
-      "change_pct": 8.17,
-      "volume": 10552801.0,
-      "turnover": 875593406.0,
-      "volume_ratio": 2.17
+      "change_pct": 9.97,
+      "volume": 21308641.0,
+      "turnover": 1445347261.0,
+      "volume_ratio": 3.16
     },
     {
-      "code": "2049",
-      "name": "上銀",
-      "close": 314.0,
-      "change": 22.5,
-      "change_pct": 7.72,
-      "volume": 6473053.0,
-      "turnover": 1985614121.0,
-      "volume_ratio": 2.25
+      "code": "4755",
+      "name": "三福化",
+      "close": 128.5,
+      "change": 7.0,
+      "change_pct": 5.76,
+      "volume": 2733007.0,
+      "turnover": 356975195.0,
+      "volume_ratio": 4.65
     },
     {
-      "code": "3653",
-      "name": "健策",
-      "close": 6225.0,
-      "change": 435.0,
-      "change_pct": 7.51,
-      "volume": 3793940.0,
-      "turnover": 23168032205.0,
-      "volume_ratio": 2.03
+      "code": "2355",
+      "name": "敬鵬",
+      "close": 60.7,
+      "change": 5.5,
+      "change_pct": 9.96,
+      "volume": 39293685.0,
+      "turnover": 2382959074.0,
+      "volume_ratio": 2.68
+    },
+    {
+      "code": "4576",
+      "name": "大銀微系統",
+      "close": 213.5,
+      "change": 19.0,
+      "change_pct": 9.77,
+      "volume": 3350638.0,
+      "turnover": 700873853.0,
+      "volume_ratio": 2.55
+    },
+    {
+      "code": "6589",
+      "name": "台康生技",
+      "close": 54.0,
+      "change": 2.3,
+      "change_pct": 4.45,
+      "volume": 2735709.0,
+      "turnover": 147099252.0,
+      "volume_ratio": 4.83
+    },
+    {
+      "code": "1802",
+      "name": "台玻",
+      "close": 81.7,
+      "change": 5.0,
+      "change_pct": 6.52,
+      "volume": 486399100.0,
+      "turnover": 40093337178.0,
+      "volume_ratio": 3.18
+    },
+    {
+      "code": "7799",
+      "name": "禾榮科",
+      "close": 461.0,
+      "change": 29.0,
+      "change_pct": 6.71,
+      "volume": 977842.0,
+      "turnover": 446773171.0,
+      "volume_ratio": 2.36
     }
   ],
   "holders": [
@@ -208,14 +208,24 @@
       "pct": 84.24
     },
     {
+      "code": "8099",
+      "name": "大世科",
+      "pct": 77.4
+    },
+    {
+      "code": "1802",
+      "name": "台玻",
+      "pct": 76.14
+    },
+    {
       "code": "3701",
       "name": "大眾控",
       "pct": 72.82
     },
     {
-      "code": "3354",
-      "name": "律勝",
-      "pct": 72.6
+      "code": "7799",
+      "name": "禾榮科",
+      "pct": 69.05
     },
     {
       "code": "2317",
@@ -223,9 +233,9 @@
       "pct": 66.59
     },
     {
-      "code": "3374",
-      "name": "精材",
-      "pct": 63.64
+      "code": "4755",
+      "name": "三福化",
+      "pct": 65.91
     },
     {
       "code": "2454",
@@ -233,74 +243,44 @@
       "pct": 61.67
     },
     {
-      "code": "3653",
-      "name": "健策",
-      "pct": 61.3
-    },
-    {
       "code": "6697",
       "name": "東捷資訊",
       "pct": 61.11
     },
     {
-      "code": "2049",
-      "name": "上銀",
-      "pct": 59.96
+      "code": "4576",
+      "name": "大銀微系統",
+      "pct": 60.03
     },
     {
-      "code": "9933",
-      "name": "中鼎",
-      "pct": 58.37
+      "code": "3691",
+      "name": "碩禾",
+      "pct": 58.05
     },
     {
-      "code": "4577",
-      "name": "達航科技",
-      "pct": 54.52
+      "code": "5426",
+      "name": "振發",
+      "pct": 52.77
     },
     {
-      "code": "1416",
-      "name": "廣豐",
-      "pct": 52.88
+      "code": "6589",
+      "name": "台康生技",
+      "pct": 50.74
     },
     {
-      "code": "6870",
-      "name": "騰雲",
-      "pct": 52.14
+      "code": "6510",
+      "name": "精測",
+      "pct": 47.7
     },
     {
-      "code": "7856",
-      "name": "漢測",
-      "pct": 50.3
+      "code": "8089",
+      "name": "康全電訊",
+      "pct": 38.03
     },
     {
-      "code": "5202",
-      "name": "力新",
-      "pct": 48.27
-    },
-    {
-      "code": "1569",
-      "name": "濱川",
-      "pct": 48.23
-    },
-    {
-      "code": "3498",
-      "name": "陽程",
-      "pct": 42.56
-    },
-    {
-      "code": "3444",
-      "name": "利機",
-      "pct": 38.5
-    },
-    {
-      "code": "3029",
-      "name": "零壹",
-      "pct": 37.98
-    },
-    {
-      "code": "6223",
-      "name": "旺矽",
-      "pct": 37.55
+      "code": "6265",
+      "name": "方土昶",
+      "pct": 36.67
     },
     {
       "code": "4174",
@@ -308,59 +288,64 @@
       "pct": 36.58
     },
     {
-      "code": "3693",
-      "name": "營邦",
-      "pct": 36.32
+      "code": "6425",
+      "name": "易發",
+      "pct": 34.27
     },
     {
-      "code": "7717",
-      "name": "萊德光電-KY",
-      "pct": 35.38
+      "code": "2355",
+      "name": "敬鵬",
+      "pct": 34.24
     },
     {
-      "code": "6148",
-      "name": "驊宏資",
-      "pct": 33.68
+      "code": "5314",
+      "name": "世紀*",
+      "pct": 33.31
     },
     {
-      "code": "5388",
-      "name": "中磊",
-      "pct": 32.66
+      "code": "6509",
+      "name": "聚和",
+      "pct": 28.89
     },
     {
-      "code": "8112",
-      "name": "至上",
-      "pct": 30.06
+      "code": "4541",
+      "name": "晟田",
+      "pct": 28.66
     },
     {
-      "code": "5498",
-      "name": "凱崴",
-      "pct": 29.39
+      "code": "6538",
+      "name": "倉和",
+      "pct": 25.73
     },
     {
-      "code": "1528",
-      "name": "恩德",
-      "pct": 29.29
+      "code": "6190",
+      "name": "萬泰科",
+      "pct": 25.7
     },
     {
-      "code": "4927",
-      "name": "泰鼎-KY",
-      "pct": 26.84
+      "code": "3379",
+      "name": "彬台",
+      "pct": 24.78
     },
     {
-      "code": "3491",
-      "name": "昇達科",
-      "pct": 23.65
+      "code": "4716",
+      "name": "大立",
+      "pct": 24.16
     },
     {
-      "code": "5475",
-      "name": "德宏",
-      "pct": 20.84
+      "code": "3715",
+      "name": "定穎投控",
+      "pct": 20.81
     },
     {
-      "code": "6150",
-      "name": "撼訊",
-      "pct": 12.01
+      "code": "6152",
+      "name": "百一",
+      "pct": 15.88
+    },
+    {
+      "code": "3441",
+      "name": "聯一光",
+      "pct": 11.45
     },
     {
       "code": "2471",
@@ -372,106 +357,106 @@
     "foreign": {
       "buy": [
         {
+          "code": "1802",
+          "name": "台玻",
+          "lots": 140326.307
+        },
+        {
           "code": "00981A",
           "name": "主動統一台股增長",
-          "lots": 73454.435
+          "lots": 24607.367
         },
         {
-          "code": "00406A",
-          "name": "主動中信台灣收益",
-          "lots": 62015.04
+          "code": "6456",
+          "name": "GIS-KY",
+          "lots": 18690.484
         },
         {
-          "code": "00403A",
-          "name": "主動統一升級50",
-          "lots": 52573.125
-        },
-        {
-          "code": "2618",
-          "name": "長榮航",
-          "lots": 27889.83
-        },
-        {
-          "code": "2887",
-          "name": "台新新光金",
-          "lots": 25273.573
-        },
-        {
-          "code": "2409",
-          "name": "友達",
-          "lots": 24148.716
-        },
-        {
-          "code": "00991A",
-          "name": "主動復華未來50",
-          "lots": 23999.04
-        },
-        {
-          "code": "0050",
-          "name": "元大台灣50",
-          "lots": 22452.348
+          "code": "2885",
+          "name": "元大金",
+          "lots": 18428.965
         },
         {
           "code": "2610",
           "name": "華航",
-          "lots": 21874.445
+          "lots": 18308.072
         },
         {
-          "code": "00631L",
-          "name": "元大台灣50正2",
-          "lots": 21655.053
+          "code": "4927",
+          "name": "泰鼎-KY",
+          "lots": 16356.759
+        },
+        {
+          "code": "2409",
+          "name": "友達",
+          "lots": 10343.043
+        },
+        {
+          "code": "2884",
+          "name": "玉山金",
+          "lots": 10315.474
+        },
+        {
+          "code": "2886",
+          "name": "兆豐金",
+          "lots": 9590.514
+        },
+        {
+          "code": "2883",
+          "name": "凱基金",
+          "lots": 8687.154
         }
       ],
       "sell": [
         {
-          "code": "6770",
-          "name": "力積電",
-          "lots": -31066.675
+          "code": "3481",
+          "name": "群創",
+          "lots": -34542.136
+        },
+        {
+          "code": "00406A",
+          "name": "主動中信台灣收益",
+          "lots": -22499.193
         },
         {
           "code": "2324",
           "name": "仁寶",
-          "lots": -24003.095
+          "lots": -17363.014
         },
         {
-          "code": "1303",
-          "name": "南亞",
-          "lots": -12876.968
+          "code": "00632R",
+          "name": "元大台灣50反1",
+          "lots": -14250.0
+        },
+        {
+          "code": "2382",
+          "name": "廣達",
+          "lots": -13462.969
         },
         {
           "code": "2356",
           "name": "英業達",
-          "lots": -11481.703
+          "lots": -12654.406
         },
         {
-          "code": "2891",
-          "name": "中信金",
-          "lots": -8181.439
+          "code": "6770",
+          "name": "力積電",
+          "lots": -7729.693
         },
         {
-          "code": "00418A",
-          "name": "主動復華台灣新星",
-          "lots": -8058.0
+          "code": "6213",
+          "name": "聯茂",
+          "lots": -6729.841
         },
         {
-          "code": "00712",
-          "name": "復華富時不動產",
-          "lots": -7612.0
+          "code": "3702",
+          "name": "大聯大",
+          "lots": -5699.388
         },
         {
-          "code": "2353",
-          "name": "宏碁",
-          "lots": -7567.263
-        },
-        {
-          "code": "4526",
-          "name": "東台",
-          "lots": -6202.304
-        },
-        {
-          "code": "2002",
-          "name": "中鋼",
-          "lots": -6161.511
+          "code": "0056",
+          "name": "元大高股息",
+          "lots": -5671.078
         }
       ]
     },
@@ -480,424 +465,428 @@
         {
           "code": "2891",
           "name": "中信金",
-          "lots": 14693.0
-        },
-        {
-          "code": "00981A",
-          "name": "主動統一台股增長",
-          "lots": 10700.0
-        },
-        {
-          "code": "1303",
-          "name": "南亞",
-          "lots": 9510.1
+          "lots": 12225.7
         },
         {
           "code": "2882",
           "name": "國泰金",
-          "lots": 7799.0
+          "lots": 6021.0
         },
         {
           "code": "2881",
           "name": "富邦金",
-          "lots": 6927.0
-        },
-        {
-          "code": "0050",
-          "name": "元大台灣50",
-          "lots": 4440.0
-        },
-        {
-          "code": "00631L",
-          "name": "元大台灣50正2",
-          "lots": 3762.0
-        },
-        {
-          "code": "1802",
-          "name": "台玻",
-          "lots": 3734.0
+          "lots": 6017.0
         },
         {
           "code": "1216",
           "name": "統一",
-          "lots": 2507.0
+          "lots": 6004.0
+        },
+        {
+          "code": "0050",
+          "name": "元大台灣50",
+          "lots": 3900.0
+        },
+        {
+          "code": "1802",
+          "name": "台玻",
+          "lots": 3511.0
+        },
+        {
+          "code": "00985B",
+          "name": "群益ESG投等債0-5",
+          "lots": 2984.0
+        },
+        {
+          "code": "2027",
+          "name": "大成鋼",
+          "lots": 2759.0
         },
         {
           "code": "00900",
           "name": "富邦特選高股息30",
           "lots": 2500.0
+        },
+        {
+          "code": "1303",
+          "name": "南亞",
+          "lots": 2347.0
         }
       ],
       "sell": [
         {
           "code": "2887",
           "name": "台新新光金",
-          "lots": -14755.0
-        },
-        {
-          "code": "2884",
-          "name": "玉山金",
-          "lots": -8936.0
-        },
-        {
-          "code": "2885",
-          "name": "元大金",
-          "lots": -7288.0
+          "lots": -16090.0
         },
         {
           "code": "2883",
           "name": "凱基金",
-          "lots": -5991.0
+          "lots": -10025.0
         },
         {
-          "code": "6770",
-          "name": "力積電",
-          "lots": -4986.476
-        },
-        {
-          "code": "2408",
-          "name": "南亞科",
-          "lots": -4942.748
-        },
-        {
-          "code": "2327",
-          "name": "國巨*",
-          "lots": -4083.857
-        },
-        {
-          "code": "3189",
-          "name": "景碩",
-          "lots": -3752.0
+          "code": "2884",
+          "name": "玉山金",
+          "lots": -9952.0
         },
         {
           "code": "2886",
           "name": "兆豐金",
-          "lots": -2508.0
+          "lots": -8066.0
+        },
+        {
+          "code": "2303",
+          "name": "聯電",
+          "lots": -7464.506
+        },
+        {
+          "code": "2356",
+          "name": "英業達",
+          "lots": -7167.0
+        },
+        {
+          "code": "2885",
+          "name": "元大金",
+          "lots": -5496.0
+        },
+        {
+          "code": "2609",
+          "name": "陽明",
+          "lots": -2534.0
+        },
+        {
+          "code": "3036",
+          "name": "文曄",
+          "lots": -1967.0
         },
         {
           "code": "2637",
           "name": "慧洋-KY",
-          "lots": -2030.0
+          "lots": -1307.0
         }
       ]
     },
     "dealer": {
       "buy": [
         {
-          "code": "00418A",
-          "name": "主動復華台灣新星",
-          "lots": 187261.715
-        },
-        {
           "code": "00685L",
           "name": "群益臺灣加權正2",
-          "lots": 116659.079
+          "lots": 95629.869
         },
         {
           "code": "00631L",
           "name": "元大台灣50正2",
-          "lots": 75947.7
-        },
-        {
-          "code": "00413A",
-          "name": "主動玉山關鍵科技",
-          "lots": 24833.237
+          "lots": 74407.951
         },
         {
           "code": "0050",
           "name": "元大台灣50",
-          "lots": 11197.808
+          "lots": 18623.17
         },
         {
           "code": "00673R",
           "name": "期元大S&P原油反1",
-          "lots": 9881.821
-        },
-        {
-          "code": "00680L",
-          "name": "元大美債20正2",
-          "lots": 8668.063
-        },
-        {
-          "code": "2409",
-          "name": "友達",
-          "lots": 5525.212
-        },
-        {
-          "code": "00405A",
-          "name": "主動富邦台灣龍耀",
-          "lots": 4673.302
+          "lots": 13870.415
         },
         {
           "code": "00990A",
           "name": "主動元大AI新經濟",
-          "lots": 3841.991
+          "lots": 10520.529
+        },
+        {
+          "code": "0052",
+          "name": "富邦科技",
+          "lots": 8796.874
+        },
+        {
+          "code": "2409",
+          "name": "友達",
+          "lots": 7273.149
+        },
+        {
+          "code": "00991A",
+          "name": "主動復華未來50",
+          "lots": 6978.649
+        },
+        {
+          "code": "00416A",
+          "name": "主動台新臺灣中小",
+          "lots": 4840.246
+        },
+        {
+          "code": "009829",
+          "name": "大華韓國KOSPI50",
+          "lots": 4818.1
         }
       ],
       "sell": [
         {
-          "code": "00632R",
-          "name": "元大台灣50反1",
-          "lots": -90269.842
-        },
-        {
           "code": "00406A",
           "name": "主動中信台灣收益",
-          "lots": -40610.402
+          "lots": -247739.088
         },
         {
-          "code": "00981A",
-          "name": "主動統一台股增長",
-          "lots": -39061.157
+          "code": "00632R",
+          "name": "元大台灣50反1",
+          "lots": -110830.124
         },
         {
           "code": "00878",
           "name": "國泰永續高股息",
-          "lots": -33868.679
-        },
-        {
-          "code": "00664R",
-          "name": "國泰臺灣加權反1",
-          "lots": -17619.416
+          "lots": -61732.817
         },
         {
           "code": "00929",
           "name": "復華台灣科技優息",
-          "lots": -15620.759
+          "lots": -26314.345
         },
         {
-          "code": "009828",
-          "name": "中信台日韓PCB",
-          "lots": -12631.798
+          "code": "00664R",
+          "name": "國泰臺灣加權反1",
+          "lots": -21424.798
         },
         {
-          "code": "009816",
-          "name": "凱基台灣TOP50",
-          "lots": -12479.534
+          "code": "00712",
+          "name": "復華富時不動產",
+          "lots": -15469.801
         },
         {
           "code": "00919",
           "name": "群益台灣精選高息",
-          "lots": -11972.572
+          "lots": -13796.811
         },
         {
-          "code": "00400A",
-          "name": "主動國泰動能高息",
-          "lots": -8160.158
+          "code": "3481",
+          "name": "群創",
+          "lots": -10259.008
+        },
+        {
+          "code": "00982A",
+          "name": "主動群益台灣強棒",
+          "lots": -9505.536
+        },
+        {
+          "code": "00891",
+          "name": "中信關鍵半導體",
+          "lots": -8841.162
         }
       ]
     }
   },
   "gainers": [
     {
-      "code": "2316",
-      "name": "楠梓電",
-      "close": 126.5,
-      "change": 11.5,
+      "code": "6152",
+      "name": "百一",
+      "close": 20.35,
+      "change": 1.85,
       "change_pct": 10.0,
-      "volume": 2364389.0,
-      "turnover": 297304174.0,
-      "volume_ratio": 0.96
+      "volume": 18679982.0,
+      "turnover": 374484563.0,
+      "volume_ratio": 3.81
     },
     {
-      "code": "3026",
-      "name": "禾伸堂",
-      "close": 561.0,
-      "change": 51.0,
-      "change_pct": 10.0,
-      "volume": 20244200.0,
-      "turnover": 11090774823.0,
-      "volume_ratio": 1.81
-    },
-    {
-      "code": "3149",
-      "name": "正達",
-      "close": 68.2,
-      "change": 6.2,
-      "change_pct": 10.0,
-      "volume": 6632858.0,
-      "turnover": 438697995.0,
-      "volume_ratio": 1.16
-    },
-    {
-      "code": "3311",
-      "name": "閎暉",
-      "close": 40.7,
-      "change": 3.7,
-      "change_pct": 10.0,
-      "volume": 1035633.0,
-      "turnover": 42009785.0
-    },
-    {
-      "code": "6108",
-      "name": "競國",
-      "close": 35.75,
-      "change": 3.25,
-      "change_pct": 10.0,
-      "volume": 2226836.0,
-      "turnover": 79609255.0
-    },
-    {
-      "code": "1569",
-      "name": "濱川",
-      "close": 104.5,
-      "change": 9.5,
-      "change_pct": 10.0,
-      "date": "2026-11-11",
-      "volume": 16762866.0,
-      "turnover": 1707780707.0,
-      "market": "tpex",
-      "volume_ratio": null
-    },
-    {
-      "code": "3379",
-      "name": "彬台",
-      "close": 33.0,
-      "change": 3.0,
-      "change_pct": 10.0,
-      "date": "2026-11-11",
-      "volume": 2066540.0,
-      "turnover": 67031608.0,
-      "market": "tpex"
-    },
-    {
-      "code": "3693",
-      "name": "營邦",
-      "close": 682.0,
-      "change": 62.0,
-      "change_pct": 10.0,
-      "date": "2026-11-11",
-      "volume": 3062305.0,
-      "turnover": 2018520019.0,
-      "market": "tpex",
-      "volume_ratio": null
-    },
-    {
-      "code": "4174",
-      "name": "浩鼎",
-      "close": 60.5,
-      "change": 5.5,
-      "change_pct": 10.0,
-      "date": "2026-11-11",
-      "volume": 3280524.0,
-      "turnover": 196323404.0,
-      "market": "tpex",
-      "volume_ratio": null
-    },
-    {
-      "code": "4577",
-      "name": "達航科技",
-      "close": 137.5,
-      "change": 12.5,
-      "change_pct": 10.0,
-      "date": "2026-11-11",
-      "volume": 4732695.0,
-      "turnover": 630641126.0,
-      "market": "tpex",
-      "volume_ratio": null
-    },
-    {
-      "code": "4716",
-      "name": "大立",
-      "close": 18.7,
-      "change": 1.7,
-      "change_pct": 10.0,
-      "date": "2026-11-11",
-      "volume": 1651683.0,
-      "turnover": 30080416.0,
-      "market": "tpex"
-    },
-    {
-      "code": "6150",
-      "name": "撼訊",
-      "close": 77.0,
-      "change": 7.0,
-      "change_pct": 10.0,
-      "date": "2026-11-11",
-      "volume": 2735785.0,
-      "turnover": 208551164.0,
-      "market": "tpex",
-      "volume_ratio": null
-    },
-    {
-      "code": "3167",
-      "name": "大量",
-      "close": 881.0,
-      "change": 80.0,
-      "change_pct": 9.99,
-      "volume": 7577751.0,
-      "turnover": 6459208257.0,
-      "volume_ratio": 1.72
-    },
-    {
-      "code": "3060",
-      "name": "銘異",
-      "close": 26.45,
-      "change": 2.4,
-      "change_pct": 9.98,
-      "volume": 2645143.0,
-      "turnover": 68299243.0
-    },
-    {
-      "code": "4562",
-      "name": "穎漢",
-      "close": 33.05,
-      "change": 3.0,
-      "change_pct": 9.98,
-      "volume": 1637457.0,
-      "turnover": 53495511.0
-    },
-    {
-      "code": "4927",
-      "name": "泰鼎-KY",
-      "close": 59.5,
+      "code": "6609",
+      "name": "瀧澤科",
+      "close": 59.4,
       "change": 5.4,
-      "change_pct": 9.98,
-      "volume": 31590591.0,
-      "turnover": 1868776380.0,
-      "volume_ratio": 2.54
+      "change_pct": 10.0,
+      "date": "2026-11-12",
+      "volume": 915816.0,
+      "turnover": 54399429.0,
+      "market": "tpex"
     },
     {
-      "code": "6456",
-      "name": "GIS-KY",
-      "close": 92.6,
-      "change": 8.4,
+      "code": "6229",
+      "name": "研通",
+      "close": 24.25,
+      "change": 2.2,
       "change_pct": 9.98,
-      "volume": 8430144.0,
-      "turnover": 774317613.0,
-      "volume_ratio": 0.24
+      "date": "2026-11-12",
+      "volume": 1051469.0,
+      "turnover": 25172792.0,
+      "market": "tpex"
     },
     {
-      "code": "8150",
-      "name": "南茂",
-      "close": 88.2,
-      "change": 8.0,
-      "change_pct": 9.98,
-      "volume": 28436351.0,
-      "turnover": 2424531202.0,
-      "volume_ratio": 1.49
+      "code": "3701",
+      "name": "大眾控",
+      "close": 69.5,
+      "change": 6.3,
+      "change_pct": 9.97,
+      "volume": 21308641.0,
+      "turnover": 1445347261.0,
+      "volume_ratio": 3.16
     },
     {
-      "code": "7856",
-      "name": "漢測",
-      "close": 2755.0,
-      "change": 250.0,
-      "change_pct": 9.98,
-      "date": "2026-11-11",
-      "volume": 567372.0,
-      "turnover": 1517019000.0,
+      "code": "6928",
+      "name": "攸泰科技",
+      "close": 49.65,
+      "change": 4.5,
+      "change_pct": 9.97,
+      "volume": 224644.0,
+      "turnover": 11153563.0
+    },
+    {
+      "code": "7772",
+      "name": "耀穎",
+      "close": 97.1,
+      "change": 8.8,
+      "change_pct": 9.97,
+      "date": "2026-11-12",
+      "volume": 182516.0,
+      "turnover": 17548190.0,
+      "market": "tpex"
+    },
+    {
+      "code": "8099",
+      "name": "大世科",
+      "close": 165.5,
+      "change": 15.0,
+      "change_pct": 9.97,
+      "date": "2026-11-12",
+      "volume": 2943142.0,
+      "turnover": 480159473.0,
       "market": "tpex",
       "volume_ratio": null
+    },
+    {
+      "code": "2355",
+      "name": "敬鵬",
+      "close": 60.7,
+      "change": 5.5,
+      "change_pct": 9.96,
+      "volume": 39293685.0,
+      "turnover": 2382959074.0,
+      "volume_ratio": 2.68
+    },
+    {
+      "code": "3715",
+      "name": "定穎投控",
+      "close": 143.5,
+      "change": 13.0,
+      "change_pct": 9.96,
+      "volume": 23428904.0,
+      "turnover": 3335206440.0,
+      "volume_ratio": 3.92
+    },
+    {
+      "code": "4706",
+      "name": "大恭",
+      "close": 49.15,
+      "change": 4.45,
+      "change_pct": 9.96,
+      "date": "2026-11-12",
+      "volume": 249767.0,
+      "turnover": 11605144.0,
+      "market": "tpex"
     },
     {
       "code": "2466",
       "name": "冠西電",
-      "close": 397.0,
-      "change": 36.0,
-      "change_pct": 9.97,
-      "volume": 3710046.0,
-      "turnover": 1444986112.0,
-      "volume_ratio": 1.95
+      "close": 436.5,
+      "change": 39.5,
+      "change_pct": 9.95,
+      "volume": 2736353.0,
+      "turnover": 1176308183.0,
+      "volume_ratio": 1.35
+    },
+    {
+      "code": "6865",
+      "name": "偉康科技",
+      "close": 34.3,
+      "change": 3.1,
+      "change_pct": 9.94,
+      "date": "2026-11-12",
+      "volume": 413587.0,
+      "turnover": 13462786.0,
+      "market": "tpex"
+    },
+    {
+      "code": "6108",
+      "name": "競國",
+      "close": 39.3,
+      "change": 3.55,
+      "change_pct": 9.93,
+      "volume": 7717509.0,
+      "turnover": 303292322.0,
+      "volume_ratio": 1.25
+    },
+    {
+      "code": "6425",
+      "name": "易發",
+      "close": 85.4,
+      "change": 7.7,
+      "change_pct": 9.91,
+      "date": "2026-11-12",
+      "volume": 4547466.0,
+      "turnover": 388181041.0,
+      "market": "tpex",
+      "volume_ratio": null
+    },
+    {
+      "code": "6140",
+      "name": "訊達",
+      "close": 28.85,
+      "change": 2.6,
+      "change_pct": 9.9,
+      "date": "2026-11-12",
+      "volume": 1459268.0,
+      "turnover": 42099838.0,
+      "market": "tpex"
+    },
+    {
+      "code": "5230",
+      "name": "雷笛克光學",
+      "close": 37.25,
+      "change": 3.35,
+      "change_pct": 9.88,
+      "date": "2026-11-12",
+      "volume": 2617418.0,
+      "turnover": 97436824.0,
+      "market": "tpex"
+    },
+    {
+      "code": "6418",
+      "name": "詠昇",
+      "close": 38.95,
+      "change": 3.5,
+      "change_pct": 9.87,
+      "date": "2026-11-12",
+      "volume": 297602.0,
+      "turnover": 11586485.0,
+      "market": "tpex"
+    },
+    {
+      "code": "5457",
+      "name": "宣德",
+      "close": 21.3,
+      "change": 1.9,
+      "change_pct": 9.79,
+      "date": "2026-11-12",
+      "volume": 792729.0,
+      "turnover": 16610640.0,
+      "market": "tpex"
+    },
+    {
+      "code": "3441",
+      "name": "聯一光",
+      "close": 196.5,
+      "change": 17.5,
+      "change_pct": 9.78,
+      "date": "2026-11-12",
+      "volume": 9865955.0,
+      "turnover": 1859297487.0,
+      "market": "tpex",
+      "volume_ratio": null
+    },
+    {
+      "code": "4576",
+      "name": "大銀微系統",
+      "close": 213.5,
+      "change": 19.0,
+      "change_pct": 9.77,
+      "volume": 3350638.0,
+      "turnover": 700873853.0,
+      "volume_ratio": 2.55
     }
   ]
 }
