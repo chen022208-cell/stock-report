@@ -1,0 +1,162 @@
+{
+  "date": "2026-11-12",
+  "stocks": {
+    "1259": {
+      "code": "1259",
+      "name": "安心",
+      "tier": "A",
+      "peak_score": 100.0,
+      "first_seen": "2026-11-12 15:39:06",
+      "last_seen": "2026-11-12 15:39:06",
+      "signals": {
+        "change_pct": 8.04,
+        "rs_market": 10.67,
+        "rs_sector": 8.04,
+        "volume_ratio": 4.98,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "觀光餐旅"
+      }
+    },
+    "6425": {
+      "code": "6425",
+      "name": "易發",
+      "tier": "A",
+      "peak_score": 89.5,
+      "first_seen": "2026-11-12 15:39:06",
+      "last_seen": "2026-11-12 15:39:06",
+      "signals": {
+        "change_pct": 9.91,
+        "rs_market": 12.54,
+        "rs_sector": 10.42,
+        "volume_ratio": 8.06,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "電機機械"
+      }
+    },
+    "6229": {
+      "code": "6229",
+      "name": "研通",
+      "tier": "A",
+      "peak_score": 89.2,
+      "first_seen": "2026-11-12 15:39:06",
+      "last_seen": "2026-11-12 15:39:06",
+      "signals": {
+        "change_pct": 9.98,
+        "rs_market": 12.61,
+        "rs_sector": 12.69,
+        "volume_ratio": 3.97,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "半導體業"
+      }
+    },
+    "8099": {
+      "code": "8099",
+      "name": "大世科",
+      "tier": "A",
+      "peak_score": 88.6,
+      "first_seen": "2026-11-12 15:39:06",
+      "last_seen": "2026-11-12 15:39:06",
+      "signals": {
+        "change_pct": 9.97,
+        "rs_market": 12.6,
+        "rs_sector": 9.97,
+        "volume_ratio": 2.7,
+        "breakout_20d": true,
+        "breakout_120d": true,
+        "breakout_252d": true,
+        "industry": "資訊服務業"
+      }
+    },
+    "3713": {
+      "code": "3713",
+      "name": "新晶投控",
+      "tier": "A",
+      "peak_score": 86.0,
+      "first_seen": "2026-11-12 15:39:06",
+      "last_seen": "2026-11-12 15:39:06",
+      "signals": {
+        "change_pct": 9.73,
+        "rs_market": 12.36,
+        "rs_sector": 10.42,
+        "volume_ratio": 3.6,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "綠能環保"
+      }
+    },
+    "6470": {
+      "code": "6470",
+      "name": "宇智",
+      "tier": "A",
+      "peak_score": 86.0,
+      "first_seen": "2026-11-12 15:39:06",
+      "last_seen": "2026-11-12 15:39:06",
+      "signals": {
+        "change_pct": 3.08,
+        "rs_market": 5.71,
+        "rs_sector": 4.18,
+        "volume_ratio": 4.28,
+        "breakout_20d": true,
+        "breakout_120d": false,
+        "breakout_252d": false,
+        "industry": "通信網路業"
+      }
+    }
+  },
+  "updated": "2026-11-12 15:39:06",
+  "alerted": [
+    "1259",
+    "3207",
+    "3276",
+    "3379",
+    "3485",
+    "3570",
+    "3691",
+    "3713",
+    "4174",
+    "4541",
+    "4543",
+    "4563",
+    "4707",
+    "4716",
+    "4744",
+    "4909",
+    "5227",
+    "5263",
+    "5314",
+    "5426",
+    "5457",
+    "5488",
+    "5511",
+    "6129",
+    "6134",
+    "6169",
+    "6190",
+    "6223",
+    "6229",
+    "6423",
+    "6425",
+    "6470",
+    "6509",
+    "6523",
+    "6538",
+    "6697",
+    "6751",
+    "6843",
+    "6865",
+    "7717",
+    "8044",
+    "8087",
+    "8099",
+    "8171",
+    "8383",
+    "8472"
+  ]
+}
