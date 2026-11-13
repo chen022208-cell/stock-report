@@ -557,6 +557,17 @@ commit（約 5 天）。確認乾淨 fast-forward 後 `git push origin HEAD:main
 `https://claude.ai/code/routines/trig_018yBcbP6ZfoidQ3SWr4hXwh` 手動改掉裸 `git push`，
 之後每次執行都還要繼續靠這個開頭檢查步驟救。
 
+⚠️ **2026-11-13 第六次踩到，分支又換了一個（`claude/compassionate-hawking-kh9xkc`）**。
+本地累積了 21 個 commit，回溯到 2026-11-07（含 11-07～11-12 的報告、月度績效回顧、
+個股逐檔查證、盤中焦點股快報），`origin` 上同樣找不到這個分支名，main 落後 21 個
+commit（約 6 天）。確認乾淨 fast-forward 後 `git push origin HEAD:main` 救回、無衝突。
+`trig_018yBcbP6ZfoidQ3SWr4hXwh` 的 prompt 顯然仍未被手動修正——這個坑已經連續第六次
+出現，使用者如果還沒去
+`https://claude.ai/code/routines/trig_018yBcbP6ZfoidQ3SWr4hXwh` 手動改掉裸 `git push`，
+之後每次執行都還要繼續靠這個開頭檢查步驟救。同一輪確認 wallstreetcn 403 仍持續中
+（`fetch_live_feed()` 仍是 403 Forbidden，安靜結束、exit code 0、無 git 變更），
+狀態沒變，不重複展開。
+
 ## 盤中推播與個股快報格式（2026-09-18 改）
 
 - **推播門檻看漲幅，不看分數**：`config.yaml` 的 `intraday.alert_change_pct`
