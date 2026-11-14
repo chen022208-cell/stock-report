@@ -173,6 +173,11 @@ Claude 帳號」下、吃該帳號訂閱額度，跟你在哪台電腦開發無�
   `fetch_live_feed()` 仍是 403 Forbidden，`run_news_monitor()` 印「目前抓不到
   即時快訊」後安靜結束、exit code 0、無 git 變更）。狀態沒變，依然沒有已知
   繞過法，純粹記錄避免重新排查。
+  ⚠️ **2026-11-14 再次確認：403 依然持續中，已超過 6 週（45 天）**（當輪
+  `fetch_live_feed()` 仍是 403 Forbidden，`run_news_monitor()` 印「目前抓不到
+  即時快訊」後安靜結束、exit code 0、無 git 變更，也沒有 `.request.json`
+  待處理——因為連 score 粗篩之前就先在抓資料那一步失敗了）。狀態沒變，依然
+  沒有已知繞過法，純粹記錄避免重新排查。
   ⚠️ **2026-10-06 另外踩到一個會讓整支程式連 `import requests` 都失敗的環境問題**：
   這個雲端容器同時裝了 python3.11（`python`／`python3` 指向它）和 python3.13，
   但系統 `pip` 指令預設綁定 3.13（`/usr/lib/python3/dist-packages/pip`，標示
